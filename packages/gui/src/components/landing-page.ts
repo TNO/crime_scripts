@@ -1,12 +1,10 @@
 import m from 'mithril';
-import lz from 'lz-string';
-import { Button, Icon, padLeft } from 'mithril-materialized';
+import { Icon } from 'mithril-materialized';
 import background from '../assets/background.jpg';
-import { MeiosisComponent, routingSvc } from '../services';
-import { DataModel, Pages } from '../models';
-import { formatDate } from '../utils';
+import { MeiosisComponent, t } from '../services';
+import { Pages } from '../models';
 
-const readerAvailable = window.File && window.FileReader && window.FileList && window.Blob;
+// const readerAvailable = window.File && window.FileReader && window.FileList && window.Blob;
 
 export const LandingPage: MeiosisComponent = () => {
   return {
@@ -36,25 +34,25 @@ export const LandingPage: MeiosisComponent = () => {
               m(
                 '.col.s12.m4',
                 m('.intro-block', [
+                  m('.center', m(Icon, { iconName: 'cases' })),
+                  m('h5.center', t('LANDING_CASES', 'TITLE')),
+                  m('p.light', t('LANDING_CASES', 'DESC')),
+                ])
+              ),
+              m(
+                '.col.s12.m4',
+                m('.intro-block', [
                   m('.center', m(Icon, { iconName: 'handshake' })),
-                  m('h5.center', 'TODO'),
-                  m('p.light', 'TODO'),
+                  m('h5.center', t('LANDING_HAND', 'TITLE')),
+                  m('p.light', t('LANDING_HAND', 'DESC')),
                 ])
               ),
               m(
                 '.col.s12.m4',
                 m('.intro-block', [
-                  m('.center', m(Icon, { iconName: 'front_hand' })),
-                  m('h5.center', 'TODO'),
-                  m('p.light', `TODO`),
-                ])
-              ),
-              m(
-                '.col.s12.m4',
-                m('.intro-block', [
-                  m('.center', m(Icon, { iconName: 'map' })),
-                  m('h5.center', 'TODO'),
-                  m('p.light', 'TODO'),
+                  m('.center', m(Icon, { iconName: 'security' })),
+                  m('h5.center', t('LANDING_SECURITY', 'TITLE')),
+                  m('p.light', t('LANDING_SECURITY', 'DESC')),
                 ])
               ),
             ]),

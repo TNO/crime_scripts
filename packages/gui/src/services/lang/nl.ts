@@ -2,6 +2,12 @@ import { situationCrimePreventionClassificationTableNL } from '../abstract';
 import { messages } from './en';
 
 export const messagesNL: typeof messages = {
+  LANDING_CASES: { TITLE: 'Case management', DESC: 'Voer uw zaak in en vind de meest relevante misdaadscripts.' },
+  LANDING_HAND: { TITLE: 'Samenwerken', DESC: 'Werk samen om misdaden op te lossen en te voorkomen.' },
+  LANDING_SECURITY: {
+    TITLE: 'Veiligheid voorop',
+    DESC: 'Alle misdaadscripts worden opgeslagen in een lokaal bestand en gecached in uw browser. Ho wachtwoorden vereist.',
+  },
   HOME: { TITLE: 'Home', ROUTE: '/home' },
   ABOUT: { TITLE: 'Over de app', ROUTE: '/over', TEXT: situationCrimePreventionClassificationTableNL },
   CRIME_SCRIPT: { TITLE: 'Crime script', ROUTE: '/crime_script' },

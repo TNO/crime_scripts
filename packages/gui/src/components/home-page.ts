@@ -6,6 +6,7 @@ import { I18N, t } from '../services/translations';
 import { toCommaSeparatedList } from '../utils';
 import { FormAttributes, LayoutForm, UIForm } from 'mithril-ui-form';
 import { crimeScriptFilterFormFactory } from '../models/forms';
+// import lz from 'lz-string';
 
 export const HomePage: MeiosisComponent = () => {
   const actLocations = (cs: CrimeScript, acts: Act[]) => {

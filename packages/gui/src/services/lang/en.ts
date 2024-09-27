@@ -1,6 +1,12 @@
 import { situationCrimePreventionClassificationTable } from '../abstract';
 
 export const messages = {
+  LANDING_CASES: { TITLE: 'Case management', DESC: 'Enter your case and find the most relevant crime scripts.' },
+  LANDING_HAND: { TITLE: 'Work together', DESC: 'Work together to solve crimes and prevent them.' },
+  LANDING_SECURITY: {
+    TITLE: 'Security first',
+    DESC: 'All crime scripts are stored in a local file, and cached in your browser. Ho passwords required.',
+  },
   HOME: { TITLE: 'Home', ROUTE: '/home' },
   ABOUT: { TITLE: 'About the app', ROUTE: '/about', TEXT: situationCrimePreventionClassificationTable },
   CRIME_SCRIPT: { TITLE: 'Crime script', ROUTE: '/crime_script' },
