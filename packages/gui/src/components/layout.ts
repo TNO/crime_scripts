@@ -180,7 +180,7 @@ export const Layout: MeiosisComponent = () => {
               href: 'https://www.tno.nl',
               target: '_blank',
               style: {
-                position: 'absolute',
+                position: 'fixed',
                 bottom: '0',
                 right: '10px',
               },
