@@ -40,9 +40,18 @@ export const flexSearchLookupUpdater: Service<State> = {
     const state = cell.getState();
     if (!state.locale) return;
     const { model = {} as DataModel } = state;
-    const { crimeScripts = [], cast = [], attributes = [], acts = [], locations = [], transports = [] } = model;
+    const {
+      crimeScripts = [],
+      cast = [],
+      attributes = [],
+      acts = [],
+      locations = [],
+      transports = [],
+      products = [],
+      geoLocations = [],
+    } = model;
 
-    const itemLookup = [...cast, ...attributes, ...transports, ...locations].reduce(
+    const itemLookup = [...cast, ...attributes, ...transports, ...locations, ...products, ...geoLocations].reduce(
       (acc, cur) => acc.set(cur.id, cur),
       new Map<ID, Labeled & Hierarchical>()
     );
