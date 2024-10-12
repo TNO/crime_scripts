@@ -1,5 +1,5 @@
 import { padLeft } from 'mithril-materialized';
-import { CrimeScriptFilter, FlexSearchResult, Hierarchical, ID, Labeled, SearchResult } from '../models';
+import { CrimeScriptFilter, FlexSearchResult, Hierarchical, ID, Labeled, Page, Pages, SearchResult } from '../models';
 import { t } from '../services';
 
 export const LANGUAGE = 'CSS_LANGUAGE';
@@ -309,4 +309,14 @@ export const aggregateFlexSearchResults = (results: FlexSearchResult[]): SearchR
   });
 
   return sortedResults;
+};
+
+export const isActivePage = (page: Pages) => (d: Page) => page === d.id ? 'active' : undefined;
+
+export const isSmallPage = (): boolean => {
+  const width = window.innerWidth;
+
+  // Materialize medium size range: 601px - 992px
+  return width < 601;
+  // && width <= 992;
 };

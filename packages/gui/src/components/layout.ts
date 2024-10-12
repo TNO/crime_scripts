@@ -4,9 +4,10 @@ import logo from '../assets/logo.svg';
 import tno from '../assets/tno.svg';
 import { Pages, Page } from '../models';
 import { routingSvc } from '../services/routing-service';
-import { APP_TITLE, MeiosisComponent, t } from '../services';
+import { APP_TITLE, APP_TITLE_SHORT, MeiosisComponent, t } from '../services';
 import { SideNav, SideNavTrigger } from './ui/sidenav';
 import { TextInputWithClear } from './ui/text-input-with-clear';
+import { isActivePage, isSmallPage } from '../utils';
 
 export const Layout: MeiosisComponent = () => {
   const style = 'font-size: 2.2rem; width: 4rem;';
@@ -34,7 +35,7 @@ export const Layout: MeiosisComponent = () => {
         .getList()
         .filter((p) => p.id === page)
         .shift();
-      const isActive = (d: Page) => (page === d.id ? 'active' : undefined);
+      const isActive = isActivePage(page);
 
       return [
         m('.main', { style: 'overflow-x: hidden' }, [
@@ -48,7 +49,7 @@ export const Layout: MeiosisComponent = () => {
                   'a.brand-logo.hide-on-med-and-down',
                   {
                     title: APP_TITLE,
-                    style: 'margin-left: 20px; color: black; height: 64px',
+                    style: 'margin-left: 20px; color: black; height: 50%',
                     href: routingSvc.href(Pages.LANDING),
                   },
                   [
@@ -57,6 +58,21 @@ export const Layout: MeiosisComponent = () => {
                       style: 'margin: 6px -6px;',
                     }),
                     m('span', { style: 'margin-left: 20px; vertical-align: top;' }, APP_TITLE),
+                  ]
+                ),
+                m(
+                  'a.brand-logo.show-on-small',
+                  {
+                    title: APP_TITLE_SHORT,
+                    style: 'margin-left: 20px; color: black; height: 50%',
+                    href: routingSvc.href(Pages.LANDING),
+                  },
+                  [
+                    m('img[width=50][height=50][alt=logo]', {
+                      src: logo,
+                      style: 'margin: 6px -6px;',
+                    }),
+                    m('span', { style: 'margin-left: 20px; vertical-align: top;' }, APP_TITLE_SHORT),
                   ]
                 ),
 
@@ -103,7 +119,10 @@ export const Layout: MeiosisComponent = () => {
               ])
             )
           ),
-          curPage && curPage.hasSidebar && [m(SideNavTrigger, { state, actions }), m(SideNav, { state, actions })],
+          (isSmallPage() || (curPage && curPage.hasSidebar)) && [
+            m(SideNavTrigger, { state, actions }),
+            m(SideNav, { state, actions }),
+          ],
           m(
             '#searchDialog.modal',
             {

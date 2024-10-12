@@ -1,8 +1,8 @@
 import m from 'mithril';
 import { Languages, MeiosisComponent, UserRole, i18n, routingSvc, t } from '../../services';
-import { FlatButton, ISelectOptions, ModalPanel, Select, padLeft } from 'mithril-materialized';
-import { DataModel, Pages, defaultModel } from '../../models';
-import { formatDate } from '../../utils';
+import { FlatButton, ISelectOptions, Icon, ModalPanel, Select, padLeft } from 'mithril-materialized';
+import { DataModel, Page, Pages, defaultModel } from '../../models';
+import { formatDate, isActivePage } from '../../utils';
 import { compressToEncodedURIComponent, decompressFromUint8Array } from 'lz-string';
 import { LanguageSwitcher } from './language-switcher';
 
@@ -108,11 +108,15 @@ export const SideNav: MeiosisComponent = () => {
   return {
     view: ({
       attrs: {
-        state: { model, role },
-        actions: { saveModel, setRole },
+        state,
+        actions: { saveModel, setRole, changePage },
       },
     }) => {
+      const { model, role, page } = state;
       const roleIcon = role === 'user' ? 'person' : role === 'editor' ? 'edit' : 'manage_accounts';
+
+      const isActive = isActivePage(page);
+
       return m(
         'ul#slide-out.sidenav.row',
         {
@@ -121,6 +125,26 @@ export const SideNav: MeiosisComponent = () => {
           },
         },
         [
+          routingSvc
+            .getList()
+            .filter(
+              (d) =>
+                d.id !== Pages.LANDING &&
+                ((typeof d.visible === 'boolean' ? d.visible : d.visible(state)) || isActive(d))
+            )
+            .map((d: Page) =>
+              m('li.hide-on-med-and-up', { class: isActive(d) }, [
+                m(FlatButton, {
+                  label: d.title,
+                  className: d.iconClass ? ` ${d.iconClass}` : '',
+                  // style,
+                  iconName: typeof d.icon === 'string' ? d.icon : d.icon ? d.icon() : '',
+                  // href: routingSvc.href(d.id),
+                  onclick: () => changePage(d.id),
+                }),
+                // ),
+              ])
+            ),
           m(
             'li',
             m(FlatButton, {
@@ -137,14 +161,6 @@ export const SideNav: MeiosisComponent = () => {
               iconName: 'download',
             })
           ),
-          // m(
-          //   'li',
-          //   m(FlatButton, {
-          //     label: 'Download Binary',
-          //     onclick: () => handleSelection('download_bin', model, saveModel),
-          //     iconName: 'download',
-          //   })
-          // ),
           m(
             'li',
             m(FlatButton, {
@@ -153,14 +169,6 @@ export const SideNav: MeiosisComponent = () => {
               iconName: 'upload',
             })
           ),
-          // m(
-          //   'li',
-          //   m(FlatButton, {
-          //     label: 'Upload Binary',
-          //     onclick: () => handleSelection('upload_bin', model, saveModel),
-          //     iconName: 'upload',
-          //   })
-          // ),
           m(
             'li',
             m(FlatButton, {

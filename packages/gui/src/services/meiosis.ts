@@ -10,7 +10,8 @@ import { flexSearchLookupUpdater } from './flex-search';
 // const settingsSvc = restServiceFactory<Settings>('settings');
 const MODEL_KEY = 'CSS_MODEL';
 const USER_ROLE = 'USER_ROLE';
-export const APP_TITLE = 'PAX - Crime Scripting';
+export const APP_TITLE = 'PAX Crime Scripting';
+export const APP_TITLE_SHORT = 'PAX';
 
 export interface State {
   page: Pages;
