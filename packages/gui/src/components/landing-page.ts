@@ -1,6 +1,6 @@
 import m from 'mithril';
 import { Icon } from 'mithril-materialized';
-import background from '../assets/background.jpg';
+import background from '../assets/background.webp';
 import { MeiosisComponent, t } from '../services';
 import { Pages } from '../models';
 
@@ -26,7 +26,7 @@ export const LandingPage: MeiosisComponent = () => {
         //     m('h3.indigo-text.text-darken-4.bold.hide-on-med-and-down', 'Introduction'),
         //   ]
         // ),
-        m('img.responsive-img', { src: background }),
+        m('img.responsive-img[width=1408][height=704]', { style: { 'margin-left': '15px' }, src: background }),
         m(
           '.section.white',
           m('.row.container.center', [
