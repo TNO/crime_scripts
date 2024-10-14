@@ -6,7 +6,7 @@ export const messagesNL: typeof messages = {
   LANDING_HAND: { TITLE: 'Samenwerken', DESC: 'Werk samen om misdaden op te lossen en te voorkomen.' },
   LANDING_SECURITY: {
     TITLE: 'Veiligheid voorop',
-    DESC: 'Alle misdaadscripts worden opgeslagen in een lokaal bestand en gecached in uw browser. Ho wachtwoorden vereist.',
+    DESC: 'Alle misdaadscripts worden opgeslagen in een lokaal bestand en gecached in uw browser. Geen wachtwoord vereist, geen informatiedeling met derden. Dit bestand dient u natuurlijk wel zelf veilig te beheeren.',
   },
   HOME: { TITLE: 'Home', ROUTE: '/home' },
   ABOUT: { TITLE: 'Over de app', ROUTE: '/over', TEXT: situationCrimePreventionClassificationTableNL },
