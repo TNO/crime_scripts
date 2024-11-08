@@ -17,10 +17,9 @@ import {
   ActivityType,
   Product,
 } from '../../models';
-import { FlatButton, Tabs, uniqueId, Select, ISelectOptions } from 'mithril-materialized';
+import { FlatButton, Tabs, uniqueId, Select, ISelectOptions, SearchSelect } from 'mithril-materialized';
 import { FormAttributes, LayoutForm, UIForm } from 'mithril-ui-form';
 import { labelForm, literatureForm } from '../../models/forms';
-import { MultiSelectDropdown } from '../ui/multi-select';
 import { crimeMeasureOptions } from '../../models/situational-crime-prevention';
 import { I18N, t } from '../../services/translations';
 import { InputOptions, toOptions } from '../../utils';
@@ -192,64 +191,61 @@ export const CrimeScriptEditor: FactoryComponent<{
           i18n: I18N,
         } as FormAttributes<Partial<CrimeScript>>),
 
-        curActIds &&
+        curActIds && [
           m(
             '.col.s12',
-            m('.row', [
-              m(
-                '.col.s12',
-                m(MultiSelectDropdown, {
-                  items: acts,
-                  selectedIds: curActIds.ids,
-                  label: t('SELECT_ACT_N'),
-                  max: 5,
-                  search: true,
-                  selectAll: false,
-                  listAll: true,
-                  onchange: (selectedIds) => {
-                    crimeScript.stages[curActIdx] = {
-                      id: selectedIds.length > 0 ? selectedIds[0] : '',
-                      ids: selectedIds,
-                    };
-                    m.redraw();
-                  },
-                })
-              ),
-              curActIds.ids &&
-                curActIds.ids.length > 0 && [
-                  m(Select, {
-                    key: curAct ? curAct.label : curActIds.id,
-                    label: t('SELECT_ACT'),
-                    className: 'col s6',
-                    initialValue: curActIds.id,
-                    // disabled: curActIds.ids.length === 1,
-                    options: acts.filter((a) => curActIds.ids.includes(a.id)),
-                    onchange: (id) => {
-                      crimeScript.stages[curActIdx].id = id[0];
-                    },
-                  } as ISelectOptions<ID>),
-                ],
-              m(FlatButton, {
-                label: t('ACT'),
-                className: 'col s6',
-                iconName: 'add',
-                onclick: () => {
-                  const id = uniqueId();
-                  const newAct = {
-                    id,
-                    label: t('ACT'),
-                  } as Act;
-                  acts.push(newAct);
-                  crimeScript.stages[curActIdx].id = id;
-                  if (crimeScript.stages[curActIdx].ids) {
-                    crimeScript.stages[curActIdx].ids.push(id);
-                  } else {
-                    crimeScript.stages[curActIdx].ids = [id];
-                  }
-                },
-              }),
-            ])
+            m(SearchSelect<string>, {
+              key: curAct ? curAct.id : '',
+              label: t('SELECT_ACT_N'),
+              options: acts,
+              initialValue: curActIds.ids,
+              // max: 5,
+              // search: true,
+              // selectAll: false,
+              // listAll: true,
+              onchange: (selectedIds) => {
+                crimeScript.stages[curActIdx] = {
+                  id: selectedIds.length > 0 ? selectedIds[0] : '',
+                  ids: selectedIds,
+                };
+                // m.redraw();
+              },
+            })
           ),
+          curActIds.ids &&
+            curActIds.ids.length > 0 && [
+              m(Select, {
+                key: curAct ? curAct.label : curActIds.id,
+                label: t('SELECT_ACT'),
+                className: 'col s6',
+                initialValue: curActIds.id,
+                // disabled: curActIds.ids.length === 1,
+                options: acts.filter((a) => curActIds.ids.includes(a.id)),
+                onchange: (id) => {
+                  crimeScript.stages[curActIdx].id = id[0];
+                },
+              } as ISelectOptions<ID>),
+            ],
+          m(FlatButton, {
+            label: t('ACT'),
+            className: 'col s6',
+            iconName: 'add',
+            onclick: () => {
+              const id = uniqueId();
+              const newAct = {
+                id,
+                label: t('ACT'),
+              } as Act;
+              acts.push(newAct);
+              crimeScript.stages[curActIdx].id = id;
+              if (crimeScript.stages[curActIdx].ids) {
+                crimeScript.stages[curActIdx].ids.push(id);
+              } else {
+                crimeScript.stages[curActIdx].ids = [id];
+              }
+            },
+          }),
+        ],
 
         curAct && [
           m('.cur-act', { key: curAct.id }, [

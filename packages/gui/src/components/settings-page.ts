@@ -16,8 +16,6 @@ import { Collapsible, FlatButton, Tabs } from 'mithril-materialized';
 import { attrForm, AttributeType } from '../models/forms';
 import { TextInputWithClear } from './ui/text-input-with-clear';
 
-type ItemType = 'cast' | 'attribute' | 'location' | 'geolocation' | 'transport' | 'product';
-
 export const SettingsPage: MeiosisComponent = () => {
   let edit = false;
   let storedModel: DataModel;
@@ -70,68 +68,68 @@ export const SettingsPage: MeiosisComponent = () => {
         [
           'attributes',
           t('ATTRIBUTES'),
-          'attribute',
+          'attributes',
           'build',
           attributes.filter((a) => !labelFilter || (a.label && a.label.toLowerCase().includes(labelFilter))),
         ],
         [
           'products',
           t('PRODUCTS', 2),
-          'product',
+          'products',
           'shopping_bag',
           products.filter((a) => !labelFilter || (a.label && a.label.toLowerCase().includes(labelFilter))),
         ],
         [
           'transports',
           t('TRANSPORTS'),
-          'transport',
+          'transports',
           'directions',
           transports.filter((a) => !labelFilter || (a.label && a.label.toLowerCase().includes(labelFilter))),
         ],
         [
-          'opportunities',
-          t('OPPORTUNITIES'),
-          'opportunity',
-          'lightbulb',
-          opportunities.filter((a) => !labelFilter || (a.label && a.label.toLowerCase().includes(labelFilter))),
-        ],
-        [
-          'partners',
-          t('PARTNERS'),
-          'partner',
-          'handshake', // groups
-          partners.filter((a) => !labelFilter || (a.label && a.label.toLowerCase().includes(labelFilter))),
-        ],
-        [
-          'indicators',
-          t('INDICATORS'),
-          'indicator',
-          'light_mode',
-          indicators.filter((a) => !labelFilter || (a.label && a.label.toLowerCase().includes(labelFilter))),
-        ],
-        [
-          'barriers',
-          t('BARRIERS'),
-          'barrier',
-          'block',
-          barriers.filter((a) => !labelFilter || (a.label && a.label.toLowerCase().includes(labelFilter))),
-        ],
-        [
           'locations',
           t('LOCATIONS', 2),
-          'location',
+          'locations',
           'warehouse',
           locations.filter((a) => !labelFilter || (a.label && a.label.toLowerCase().includes(labelFilter))),
         ],
         [
           'geoLocations',
           t('GEOLOCATIONS', 2),
-          'geolocation',
+          'geoLocations',
           'location_on',
           geoLocations.filter((a) => !labelFilter || (a.label && a.label.toLowerCase().includes(labelFilter))),
         ],
+        [
+          'opportunities',
+          t('OPPORTUNITIES'),
+          'opportunities',
+          'lightbulb',
+          opportunities.filter((a) => !labelFilter || (a.label && a.label.toLowerCase().includes(labelFilter))),
+        ],
+        [
+          'indicators',
+          t('INDICATORS'),
+          'indicators',
+          'light_mode',
+          indicators.filter((a) => !labelFilter || (a.label && a.label.toLowerCase().includes(labelFilter))),
+        ],
+        [
+          'partners',
+          t('PARTNERS'),
+          'partners',
+          'handshake', // groups
+          partners.filter((a) => !labelFilter || (a.label && a.label.toLowerCase().includes(labelFilter))),
+        ],
+        [
+          'barriers',
+          t('BARRIERS'),
+          'barriers',
+          'block',
+          barriers.filter((a) => !labelFilter || (a.label && a.label.toLowerCase().includes(labelFilter))),
+        ],
       ] as Array<
-        [id: AttributeType, label: string, type: ItemType, iconName: string, attrs: Array<Hierarchical & Labeled>]
+        [id: AttributeType, label: string, type: AttributeType, iconName: string, attrs: Array<Hierarchical & Labeled>]
       >;
 
       return m(
@@ -181,7 +179,7 @@ export const SettingsPage: MeiosisComponent = () => {
               title: `${attr.length ? `${attr.length} ` : ''}${label}`,
               vnode: edit
                 ? m(LayoutForm, {
-                    form: attrForm(id, label, attr),
+                    form: attrForm(id, label, type === 'barriers' ? partners : attr, type),
                     obj: model,
                   } as FormAttributes<any>)
                 : m(AttrView, {
@@ -202,7 +200,7 @@ export const SettingsPage: MeiosisComponent = () => {
 
 const AttrView: FactoryComponent<{
   attr: Array<Hierarchical & Labeled>;
-  type: ItemType;
+  type: AttributeType;
   iconName?: string;
   acts: Act[];
   crimeScripts: CrimeScript[];
@@ -223,7 +221,7 @@ const AttrView: FactoryComponent<{
                     if (actIdx < 0) return;
                     const act = acts[actIdx];
                     [{ ...act }].forEach((phase, phaseIdx) => {
-                      if (type === 'location') {
+                      if (type === 'locations') {
                         if (phase.locationIds) {
                           acc.push([crimeScriptIdx, actIdx, phaseIdx, SearchScore.EXACT_MATCH]);
                         }
@@ -234,7 +232,7 @@ const AttrView: FactoryComponent<{
                             if (cast.includes(c.id)) {
                               acc.push([crimeScriptIdx, actIdx, phaseIdx, SearchScore.EXACT_MATCH]);
                             }
-                          } else if (type === 'attribute') {
+                          } else if (type === 'attributes') {
                             const { attributes = [] } = activity;
                             if (attributes.includes(c.id)) {
                               acc.push([crimeScriptIdx, actIdx, phaseIdx, SearchScore.EXACT_MATCH]);

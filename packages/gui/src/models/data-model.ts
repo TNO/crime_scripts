@@ -162,7 +162,7 @@ export type Opportunity = Labeled & Hierarchical;
 
 export type Indicator = Labeled & Hierarchical;
 
-export type Barrier = Labeled & Hierarchical;
+export type Barrier = Labeled & Hierarchical & { parters: ID[] };
 
 export type Partner = Labeled & Hierarchical;
 

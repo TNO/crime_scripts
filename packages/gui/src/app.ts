@@ -8,8 +8,10 @@ import { LANGUAGE, SAVED } from './utils';
 import { Languages, i18n } from './services';
 import { registerPlugin } from 'mithril-ui-form';
 import { SimpleListEditorPlugin } from './components/ui/simple-list-editor';
+import { searchSelectPlugin } from './components/ui/search-select-plugin';
 
 registerPlugin('list', SimpleListEditorPlugin);
+registerPlugin('search_select', searchSelectPlugin);
 
 document.documentElement.setAttribute('lang', 'en');
 

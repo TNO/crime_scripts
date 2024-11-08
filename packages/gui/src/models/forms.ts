@@ -3,29 +3,56 @@ import { CrimeScript, Literature, Labeled, Hierarchical, CrimeScriptFilter } fro
 import { toOptions } from '../utils';
 import { t } from '../services';
 
-export type AttributeType = 'cast' | 'attributes' | 'transports' | 'locations' | 'geoLocations' | 'products';
+export type AttributeType =
+  | 'cast'
+  | 'attributes'
+  | 'transports'
+  | 'locations'
+  | 'geoLocations'
+  | 'products'
+  | 'opportunities'
+  | 'indicators'
+  | 'barriers'
+  | 'partners';
 
-export const attrForm = (id: AttributeType, label: string, attr: Labeled[]) => [
+export const attrForm = (id: AttributeType, label: string, attr: Labeled[] = [], attrType: AttributeType) => [
   {
     id,
     label,
     className: 'col s12',
     repeat: true,
     // pageSize: 100,
-    type: [
-      { id: 'id', type: 'autogenerate', autogenerate: 'id' },
-      { id: 'label', type: 'text', className: 'col s12 m4', label: t('NAME') },
-      { id: 'synonyms', type: 'tags', className: 'col s12 m8', label: t('SYNONYMS') },
-      {
-        id: 'parents',
-        type: 'select',
-        multiple: true,
-        className: 'col s12',
-        label: t('CATEGORIES'),
-        options: attr,
-      },
-      // { id: 'url', type: 'base64', className: 'col s6', label: t('IMAGE') },
-    ] as UIForm<Hierarchical & Labeled>,
+    type: ['cast', 'attributes', 'products', 'transports', 'locations', 'geoLocations', 'partners'].includes(attrType)
+      ? ([
+          { id: 'id', type: 'autogenerate', autogenerate: 'id' },
+          { id: 'label', type: 'text', className: 'col s12 m4', label: t('NAME') },
+          { id: 'synonyms', type: 'tags', className: 'col s12 m8', label: t('SYNONYMS') },
+          ['partners', 'locations'].includes(attrType)
+            ? undefined
+            : {
+                id: 'parents',
+                type: 'search_select',
+                multiple: true,
+                className: 'col s12',
+                label: t('CATEGORIES'),
+                options: attr.filter(({ label }) => label),
+              },
+        ].filter(Boolean) as UIForm<Hierarchical & Labeled>)
+      : ([
+          { id: 'id', type: 'autogenerate', autogenerate: 'id' },
+          { id: 'label', type: 'textarea', className: 'col s12', label: t('DESCRIPTION') },
+          attrType === 'barriers'
+            ? {
+                id: 'partners',
+                type: 'search_select',
+                multiple: true,
+                className: 'col s12',
+                label: t('PARTNERS'),
+                options: attr.filter(({ label }) => label),
+              }
+            : undefined,
+          // { id: 'url', type: 'base64', className: 'col s6', label: t('IMAGE') },
+        ].filter(Boolean) as UIForm<Hierarchical & Labeled>),
   },
 ];
 
