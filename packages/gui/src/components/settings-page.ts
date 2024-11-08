@@ -49,6 +49,10 @@ export const SettingsPage: MeiosisComponent = () => {
         transports = [],
         locations = [],
         geoLocations = [],
+        opportunities = [],
+        indicators = [],
+        barriers = [],
+        partners = [],
       } = model;
 
       const labelFilter = attributeFilter ? attributeFilter.toLowerCase() : undefined;
@@ -83,6 +87,34 @@ export const SettingsPage: MeiosisComponent = () => {
           'transport',
           'directions',
           transports.filter((a) => !labelFilter || (a.label && a.label.toLowerCase().includes(labelFilter))),
+        ],
+        [
+          'opportunities',
+          t('OPPORTUNITIES'),
+          'opportunity',
+          'lightbulb',
+          opportunities.filter((a) => !labelFilter || (a.label && a.label.toLowerCase().includes(labelFilter))),
+        ],
+        [
+          'partners',
+          t('PARTNERS'),
+          'partner',
+          'handshake', // groups
+          partners.filter((a) => !labelFilter || (a.label && a.label.toLowerCase().includes(labelFilter))),
+        ],
+        [
+          'indicators',
+          t('INDICATORS'),
+          'indicator',
+          'light_mode',
+          indicators.filter((a) => !labelFilter || (a.label && a.label.toLowerCase().includes(labelFilter))),
+        ],
+        [
+          'barriers',
+          t('BARRIERS'),
+          'barrier',
+          'block',
+          barriers.filter((a) => !labelFilter || (a.label && a.label.toLowerCase().includes(labelFilter))),
         ],
         [
           'locations',
@@ -142,10 +174,11 @@ export const SettingsPage: MeiosisComponent = () => {
             }),
         ],
         m(Tabs, {
+          tabWidth: 'fixed',
           tabs: tabs.map(([id, label, type, iconName, attr]) => {
             return {
-              id: label,
-              title: `${label} (${attr.length})`,
+              id: label.replace('è', 'e'),
+              title: `${attr.length ? `${attr.length} ` : ''}${label}`,
               vnode: edit
                 ? m(LayoutForm, {
                     form: attrForm(id, label, attr),
@@ -189,7 +222,7 @@ const AttrView: FactoryComponent<{
                     const actIdx = acts.findIndex((a) => a.id === actId);
                     if (actIdx < 0) return;
                     const act = acts[actIdx];
-                    [act.preparation, act.preactivity, act.activity, act.postactivity].forEach((phase, phaseIdx) => {
+                    [{ ...act }].forEach((phase, phaseIdx) => {
                       if (type === 'location') {
                         if (phase.locationIds) {
                           acc.push([crimeScriptIdx, actIdx, phaseIdx, SearchScore.EXACT_MATCH]);

@@ -10,6 +10,10 @@ export type DataModel = {
   geoLocations: GeographicLocation[];
   products: Product[];
   transports: Transport[];
+  opportunities: Opportunity[];
+  indicators: Indicator[];
+  barriers: Barrier[];
+  partners: Partner[];
   acts: Act[];
 };
 
@@ -23,6 +27,10 @@ export const defaultModel = {
   geoLocations: [],
   products: [],
   transports: [],
+  opportunities: [],
+  indicators: [],
+  barriers: [],
+  partners: [],
   acts: [],
 } as DataModel;
 
@@ -144,60 +152,19 @@ export enum ATTRIBUTE_TYPE {
   OTHER,
 }
 
-// export const attributeTypeToIconMap = new Map<ATTRIBUTE_TYPE, string>([
-//   [ATTRIBUTE_TYPE.EQUIPMENT, 'build'],
-//   [ATTRIBUTE_TYPE.TOOLS, 'construction'],
-//   [ATTRIBUTE_TYPE.GEAR, 'settings'],
-//   [ATTRIBUTE_TYPE.DEVICES, 'devices'],
-//   [ATTRIBUTE_TYPE.ACCESSORIES, 'style'],
-//   [ATTRIBUTE_TYPE.DOCUMENTATION, 'description'],
-//   [ATTRIBUTE_TYPE.CYBER, 'security'],
-//   [ATTRIBUTE_TYPE.OTHER, 'more_horiz'],
-// ]);
-
-// export const AttributeTypeOptions = [
-//   {
-//     id: ATTRIBUTE_TYPE.EQUIPMENT,
-//     label: 'Equipment',
-//     description: 'A set of tools, machinery, or apparatus used for a specific purpose.',
-//   },
-//   {
-//     id: ATTRIBUTE_TYPE.TOOLS,
-//     label: 'Tools',
-//     description: 'Handheld devices or instruments used to perform specific tasks.',
-//   },
-//   {
-//     id: ATTRIBUTE_TYPE.GEAR,
-//     label: 'Gear',
-//     description:
-//       'Wearable items or personal apparatus designed for specific functions, protection, or performance enhancement.',
-//   },
-//   {
-//     id: ATTRIBUTE_TYPE.DEVICES,
-//     label: 'Devices/electronics',
-//     description: 'Electronic items designed for communication, computing, and multimedia purposes.',
-//   },
-//   {
-//     id: ATTRIBUTE_TYPE.ACCESSORIES,
-//     label: 'Accessories',
-//     description:
-//       'Supplementary items that add functionality or compliance to a primary item or system (e.g., license plates, phone cases).',
-//   },
-//   {
-//     id: ATTRIBUTE_TYPE.DOCUMENTATION,
-//     label: 'Documentation',
-//     description:
-//       'Official documents and records used for legal, financial, and administrative purposes (e.g., accounting books, contracts, manuals)',
-//   },
-//   { id: ATTRIBUTE_TYPE.CYBER, label: 'Cyber/digital', description: 'URLs, websites, digital information' },
-//   { id: ATTRIBUTE_TYPE.OTHER, label: 'Other' },
-// ];
-
 export type Transport = Labeled & Hierarchical;
 
 export type Product = Labeled & Hierarchical;
 
 export type GeographicLocation = Labeled & Hierarchical;
+
+export type Opportunity = Labeled & Hierarchical;
+
+export type Indicator = Labeled & Hierarchical;
+
+export type Barrier = Labeled & Hierarchical;
+
+export type Partner = Labeled & Hierarchical;
 
 export type CrimeLocation = Labeled & Hierarchical;
 
@@ -217,12 +184,24 @@ export type Stage = {
 };
 
 export type Act = Labeled & {
-  preparation: ActivityPhase;
-  preactivity: ActivityPhase;
-  activity: ActivityPhase;
-  postactivity: ActivityPhase;
+  // preparation: ActivityPhase;
+  // preactivity: ActivityPhase;
+  // activity: ActivityPhase;
+  // postactivity: ActivityPhase;
   /** Measures to prevent or stop crime */
   measures: Measure[];
+  /** Opportunities related to the act */
+  opportunities: ID[];
+  /** Indicator of the act */
+  indicators: ID[];
+  /** Barriers to the act */
+  barriers: ID[];
+  /** Locations to perform the activity */
+  locationIds?: ID[];
+  /** A list of activities that takes place in this phase */
+  activities: Activity[];
+  // description: string[];
+  conditions: Condition[];
 };
 
 export type ActivityPhase = {
@@ -244,11 +223,13 @@ export enum ActivityType {
 }
 
 export type Activity = Labeled & {
+  /** Header, purely to organize content into two levels */
+  header?: boolean;
   type?: ActivityType | ActivityType[];
-  cast: ID[];
-  attributes: ID[];
+  cast?: ID[];
+  attributes?: ID[];
   // conditions: Condition[];
-  transports: ID[];
+  transports?: ID[];
 };
 
 export type Hierarchical = { synonyms?: string[]; parents?: ID[] };

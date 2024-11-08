@@ -52,6 +52,9 @@ export const I18N: I18n = {};
 
 export let t: Translate<typeof messages, Options> = setGuiLanguage(i18n.currentLocale);
 
+// export let stemmer: Stemmer;
+// export let tokenizer = new WordTokenizer();
+
 async function init(locales: Locales, selectedLocale: Languages) {
   i18n.locales = locales;
   const defaultLocale = (Object.keys(locales) as Languages[]).filter((l) => (locales[l] as Locale).default).shift();
@@ -74,6 +77,7 @@ async function loadAndSetLocale(newLocale: Languages) {
   const resolvedLocale = supported(newLocale) ? newLocale : i18n.defaultLocale;
   i18n.currentLocale = resolvedLocale;
   i18n.stopwords = newLocale === 'nl' ? stopwordsNl : stopwordsEn;
+  // stemmer = newLocale === 'nl' ? PorterStemmerNl : PorterStemmer;
   t = setGuiLanguage(newLocale);
   I18N.agree = t('I18n', 'agree');
   I18N.disagree = t('I18n', 'disagree');

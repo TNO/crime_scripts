@@ -81,7 +81,7 @@ export const crimeScriptToMarkdown = (crimeScript: Partial<CrimeScript>, model: 
       newHeading(act.label, 2);
       act.description && md.push(act.description);
 
-      [act.preparation, act.preactivity, act.activity, act.postactivity].forEach((a, i) => {
+      [{ ...act }].forEach((a, i) => {
         if (a && ((a.activities && a.activities.length > 0) || (a.conditions && a.conditions.length > 0))) {
           newHeading(phaseNames[i], 3);
           if (a.locationIds && a.locationIds.length > 0) {
@@ -100,7 +100,7 @@ export const crimeScriptToMarkdown = (crimeScript: Partial<CrimeScript>, model: 
               createListItem(list, activity, idx);
               const type = activity.type ? (Array.isArray(activity.type) ? activity.type : [activity.type]) : undefined;
               const spaces = idx < 9 ? 3 : 4;
-              if (type && type.includes(ActivityType.HAS_CAST)) {
+              if (type && type.includes(ActivityType.HAS_CAST) && activity.cast) {
                 const castNames = activity.cast
                   .map((c) => {
                     const found = itemLookup.get(c);
@@ -109,7 +109,7 @@ export const crimeScriptToMarkdown = (crimeScript: Partial<CrimeScript>, model: 
                   .filter((l) => typeof l !== undefined);
                 list.push(addLeadingSpaces(`- ${t('CAST')}: ${castNames.join(', ')}`, spaces));
               }
-              if (type && type.includes(ActivityType.HAS_ATTRIBUTES)) {
+              if (type && type.includes(ActivityType.HAS_ATTRIBUTES) && activity.attributes) {
                 const attrNames = activity.attributes
                   .map((c) => {
                     const found = itemLookup.get(c);
@@ -118,7 +118,7 @@ export const crimeScriptToMarkdown = (crimeScript: Partial<CrimeScript>, model: 
                   .filter((l) => typeof l !== undefined);
                 list.push(addLeadingSpaces(`- ${t('ATTRIBUTES')}: ${attrNames.join(', ')}`, spaces));
               }
-              if (type && type.includes(ActivityType.HAS_TRANSPORT)) {
+              if (type && type.includes(ActivityType.HAS_TRANSPORT) && activity.transports) {
                 const transNames = activity.transports
                   .map((c) => {
                     const found = itemLookup.get(c);

@@ -219,4 +219,12 @@ export const messages = {
   },
   OTHER: 'Other',
   TEXT: 'Text',
+  OPPORTUNITY: 'Opportunity',
+  OPPORTUNITIES: 'Opportunities',
+  PARTNER: 'Partner',
+  PARTNERS: 'Partners',
+  INDICATOR: 'Indicator',
+  INDICATORS: 'Indicators',
+  BARRIER: 'Barrier',
+  BARRIERS: 'Barriers',
 };

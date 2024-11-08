@@ -20,7 +20,7 @@ import { Patch } from 'meiosis-setup/types';
 import { ReferenceListComponent } from '../ui/reference';
 import { lookupCrimeMeasure } from '../../models/situational-crime-prevention';
 import { t } from '../../services/translations';
-import { toCommaSeparatedList, toMarkdownOl, toMarkdownUl } from '../../utils';
+import { generateLabeledItemsMarkup, toCommaSeparatedList, toMarkdownOl, toMarkdownUl } from '../../utils';
 
 export const CrimeScriptViewer: FactoryComponent<{
   crimeScript: CrimeScript;
@@ -37,64 +37,40 @@ export const CrimeScriptViewer: FactoryComponent<{
   const findCrimeMeasure = lookupCrimeMeasure();
 
   const visualizeAct = (
-    { label = '...', preparation, preactivity, activity, postactivity } = {} as Act,
+    { label = '...', activities = [], conditions = [], locationIds = [] } = {} as Act,
     cast: Cast[],
     attributes: CrimeScriptAttributes[],
     locations: CrimeLocation[],
     curPhaseIdx = -1
   ) => {
     {
-      preparation.label = t('PREPARATION_PHASE');
-      preactivity.label = t('PRE_ACTIVITY_PHASE');
-      activity.label = t('ACTIVITY_PHASE');
-      postactivity.label = t('POST_ACTIVITY_PHASE');
-      const contentTabs = [preparation, preactivity, activity, postactivity]
-        .filter((p) => p.activities.length > 0 || p.conditions.length > 0)
-        .map(({ label, activities = [], conditions, locationIds }) => {
-          const castIds = Array.from(
-            activities.reduce((acc, { cast: curCast }) => {
-              if (curCast) curCast.forEach((id) => acc.add(id));
-              return acc;
-            }, new Set<ID>())
-          );
-          const attrIds = Array.from(
-            activities.reduce((acc, { attributes: curAttr }) => {
-              if (curAttr) curAttr.forEach((id) => acc.add(id));
-              return acc;
-            }, new Set<ID>())
-          );
-          const md = `${
-            locationIds
-              ? `##### ${t('LOCATIONS', locationIds.length)}
-    
-${toMarkdownUl(locations, locationIds)}`
-              : ''
-          }
+      const castIds = Array.from(
+        activities.reduce((acc, { cast: curCast }) => {
+          if (curCast) curCast.forEach((id) => acc.add(id));
+          return acc;
+        }, new Set<ID>())
+      );
+      const attrIds = Array.from(
+        activities.reduce((acc, { attributes: curAttr }) => {
+          if (curAttr) curAttr.forEach((id) => acc.add(id));
+          return acc;
+        }, new Set<ID>())
+      );
+      const md = `${
+        locationIds
+          ? `##### ${t('LOCATIONS', locationIds.length)}
 
-${
-  activities.length > 0
-    ? `##### ${t('ACTIVITIES')}
-    
-<ol>${activities
-        .map(
-          (act) =>
-            `<li>${act.label}${
-              act.description
-                ? `\n<ul>${act.description
-                    .split('\n')
-                    .map((line) => `  <li>${line.replace(/^- |^\d+. /, '')}</li>`)
-                    .join('\n')}</ul>\n`
-                : ''
-            }`
-        )
-        .join('</li>\n')}`
-    : ''
-}</ol>
+${toMarkdownUl(locations, locationIds)}`
+          : ''
+      }
+
+${generateLabeledItemsMarkup(activities)}
+
 
 ${
   castIds.length > 0
     ? `##### ${t('CAST')}
-    
+
 ${toMarkdownOl(cast, castIds)}`
     : ''
 }
@@ -102,7 +78,7 @@ ${toMarkdownOl(cast, castIds)}`
 ${
   conditions.length > 0
     ? `##### ${t('CONDITIONS')}
-  
+
 ${conditions.map((cond, i) => `${i + 1}. ` + cond.label).join('\n')}`
     : ''
 }
@@ -110,15 +86,16 @@ ${conditions.map((cond, i) => `${i + 1}. ` + cond.label).join('\n')}`
 ${
   attrIds.length > 0
     ? `##### ${t('ATTRIBUTES')}
-  
+
 ${toMarkdownOl(attributes, attrIds)}`
     : ''
 }`;
-          return {
-            title: label,
-            md,
-          };
-        });
+      const contentTabs = [
+        {
+          title: label,
+          md,
+        },
+      ];
 
       const tabItem: ITabItem = {
         title: label,
@@ -162,14 +139,12 @@ ${toMarkdownOl(attributes, attrIds)}`
         (acc, stage) => {
           const act = acts.find((a) => a.id === stage.id);
           if (act) {
-            [act.preparation, act.preactivity, act.activity, act.postactivity].forEach((phase) => {
-              if (phase.locationIds) {
-                phase.locationIds.forEach((id) => acc[2].add(id));
-              }
-              phase.activities.forEach((activity) => {
-                activity.cast?.forEach((id) => acc[0].add(id));
-                activity.attributes?.forEach((id) => acc[1].add(id));
-              });
+            if (act.locationIds) {
+              act.locationIds.forEach((id) => acc[2].add(id));
+            }
+            act.activities.forEach((activity) => {
+              activity.cast?.forEach((id) => acc[0].add(id));
+              activity.attributes?.forEach((id) => acc[1].add(id));
             });
           }
           return acc;

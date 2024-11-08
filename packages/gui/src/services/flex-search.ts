@@ -1,8 +1,8 @@
 import { Service } from 'meiosis-setup/types';
 import { State } from './meiosis';
 import { DataModel, FlexSearchResult, Hierarchical, ID, Labeled, SearchScore } from '../models';
-import { i18n } from './translations';
 import { tokenize } from '../utils';
+import { i18n } from './translations';
 
 /**
  * A flexible search solution:
@@ -89,7 +89,7 @@ export const flexSearchLookupUpdater: Service<State> = {
           const actIdx = acts.findIndex((a) => a.id === actId);
           if (actIdx < 0) return;
           const act = acts[actIdx];
-          [act.preparation, act.preactivity, act.activity, act.postactivity].forEach((phase, phaseIdx) => {
+          [{ ...act }].forEach((phase, phaseIdx) => {
             if (phase.locationIds && Array.isArray(phase.locationIds)) {
               processItemIds(phase.locationIds, [
                 crimeScriptIdx,

@@ -161,10 +161,6 @@ export const CrimeScriptEditor: FactoryComponent<{
       const curActId = curActIds && curActIds.id;
       const curAct = curActId && acts.find((a) => a.id === curActId);
       if (curAct) {
-        if (!curAct.preparation) curAct.preparation = {} as ActivityPhase;
-        if (!curAct.preactivity) curAct.preactivity = {} as ActivityPhase;
-        if (!curAct.activity) curAct.activity = {} as ActivityPhase;
-        if (!curAct.postactivity) curAct.postactivity = {} as ActivityPhase;
         if (!curAct.measures) curAct.measures = [];
       }
 
@@ -242,10 +238,6 @@ export const CrimeScriptEditor: FactoryComponent<{
                   const newAct = {
                     id,
                     label: t('ACT'),
-                    activity: {},
-                    preparation: {},
-                    preactivity: {},
-                    postactivity: {},
                   } as Act;
                   acts.push(newAct);
                   crimeScript.stages[curActIdx].id = id;
@@ -275,44 +267,11 @@ export const CrimeScriptEditor: FactoryComponent<{
             m(Tabs, {
               tabs: [
                 {
-                  title: t('PREPARATION_PHASE'),
+                  title: t('ACT'),
                   vnode: m('.acts', [
                     m(LayoutForm, {
                       form: activityForm,
-                      obj: curAct.preparation,
-                      onchange: () => {},
-                      i18n: I18N,
-                    } as FormAttributes<Partial<ActivityPhase>>),
-                  ]),
-                },
-                {
-                  title: t('PRE_ACTIVITY_PHASE'),
-                  vnode: m('.acts', [
-                    m(LayoutForm, {
-                      form: activityForm,
-                      obj: curAct.preactivity,
-                      onchange: () => {},
-                      i18n: I18N,
-                    } as FormAttributes<Partial<ActivityPhase>>),
-                  ]),
-                },
-                {
-                  title: t('ACTIVITY_PHASE'),
-                  vnode: m('.acts', [
-                    m(LayoutForm, {
-                      form: activityForm,
-                      obj: curAct.activity,
-                      onchange: () => {},
-                      i18n: I18N,
-                    } as FormAttributes<Partial<ActivityPhase>>),
-                  ]),
-                },
-                {
-                  title: t('POST_ACTIVITY_PHASE'),
-                  vnode: m('.acts', [
-                    m(LayoutForm, {
-                      form: activityForm,
-                      obj: curAct.postactivity,
+                      obj: curAct,
                       onchange: () => {},
                       i18n: I18N,
                     } as FormAttributes<Partial<ActivityPhase>>),

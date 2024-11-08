@@ -234,8 +234,51 @@ export const toMarkdownOl = (arr: Array<Labeled> = [], ids: ID | ID[] = []) =>
 /** Convert to comma-separated sorted list */
 export const toCommaSeparatedList = (arr: Array<Labeled> = [], ids: ID | ID[] = []) =>
   resolveOptions(arr, ids)
-    .map((a, i) => a.label)
+    .map((a, _i) => a.label)
     .join(', ');
+
+export const generateLabeledItemsMarkup = (items: Array<Labeled & { header?: boolean }> = []): string => {
+  // Check if there are any header items
+  const hasHeaders = items.some((item) => item.header);
+
+  // Initialize result string
+  let result = '';
+
+  // Initialize ordered list items
+  let listItems: string[] = [];
+
+  // Process each item
+  items.forEach((item) => {
+    if (item.header && hasHeaders) {
+      // If we have collected list items, render them before the header
+      if (listItems.length > 0) {
+        result += `<ol>\n${listItems.join('\n')}\n</ol>\n`;
+        listItems = [];
+      }
+
+      // Add header with optional description
+      result += `<h6>${item.label}</h6>\n`;
+      if (item.description) {
+        result += `<p>${item.description}</p>\n`;
+      }
+    } else {
+      // Create list item with optional description
+      let listItem = `<li>${item.label}`;
+      if (item.description) {
+        listItem += `<br>${item.description}`;
+      }
+      listItem += '</li>';
+      listItems.push(listItem);
+    }
+  });
+
+  // If we have remaining list items, render them
+  if (listItems.length > 0) {
+    result += `<ol>\n${listItems.join('\n')}\n</ol>\n`;
+  }
+
+  return result.trim();
+};
 
 export const crimeScriptFilterToText = (arr: Array<Labeled> = [], filter = {} as CrimeScriptFilter) => {
   const {
@@ -258,6 +301,7 @@ export const crimeScriptFilterToText = (arr: Array<Labeled> = [], filter = {} as
 
 /** Tokenize a text by removing punctuation, splitting the text into words, lowercasing and removing stopwords and (almost) empty strings */
 export const tokenize = (text: string = '', stopwords: string[]): string[] => {
+  // return tokenizer.tokenize(text).map((word) => stemmer.stem(word));
   return text
     .replace(/[^\w\s]/g, '') // Remove punctuation
     .split(/\s+/) // Split into words

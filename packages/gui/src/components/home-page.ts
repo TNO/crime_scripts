@@ -14,17 +14,8 @@ export const HomePage: MeiosisComponent = () => {
       .map((stage) => acts.find((a) => a.id === stage.id))
       .filter((a) => typeof a !== 'undefined');
     return csActs.reduce((acc, act) => {
-      if (act.preparation && act.preparation.locationIds) {
-        acc.push(...act.preparation.locationIds);
-      }
-      if (act.preactivity && act.preactivity.locationIds) {
-        acc.push(...act.preactivity.locationIds);
-      }
-      if (act.activity && act.activity.locationIds) {
-        acc.push(...act.activity.locationIds);
-      }
-      if (act.postactivity && act.postactivity.locationIds) {
-        acc.push(...act.postactivity.locationIds);
+      if (act.locationIds) {
+        acc.push(...act.locationIds);
       }
       return acc;
     }, [] as ID[]);
