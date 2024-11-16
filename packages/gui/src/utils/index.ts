@@ -352,6 +352,10 @@ export const aggregateFlexSearchResults = (results: FlexSearchResult[]): SearchR
 
 export const isActivePage = (page: Pages) => (d: Page) => page === d.id ? 'active' : undefined;
 
+/**
+ * Determines whether the current page is considered small based on the width of the window.
+ * @returns A boolean indicating whether the current page is small.
+ */
 export const isSmallPage = (): boolean => {
   const width = window.innerWidth;
 

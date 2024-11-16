@@ -208,6 +208,11 @@ const AttrView: FactoryComponent<{
             .sort((a, b) => a.label?.localeCompare(b.label))
             .map((c) => {
               const searchResults = crimeScripts.reduce((acc, cs, crimeScriptIdx) => {
+                if (type === 'products') {
+                  if (cs.productIds && cs.productIds.includes(c.id)) {
+                    acc.push([crimeScriptIdx, -1, -1, SearchScore.EXACT_MATCH]);
+                  }
+                }
                 cs.stages?.forEach(({ ids = [] }) => {
                   ids.forEach((actId) => {
                     const actIdx = acts.findIndex((a) => a.id === actId);
@@ -215,7 +220,7 @@ const AttrView: FactoryComponent<{
                     const act = acts[actIdx];
                     [{ ...act }].forEach((phase, phaseIdx) => {
                       if (type === 'locations') {
-                        if (phase.locationIds) {
+                        if (phase.locationIds && phase.locationIds.includes(c.id)) {
                           acc.push([crimeScriptIdx, actIdx, phaseIdx, SearchScore.EXACT_MATCH]);
                         }
                       } else {
@@ -228,6 +233,16 @@ const AttrView: FactoryComponent<{
                           } else if (type === 'attributes') {
                             const { attributes = [] } = activity;
                             if (attributes.includes(c.id)) {
+                              acc.push([crimeScriptIdx, actIdx, phaseIdx, SearchScore.EXACT_MATCH]);
+                            }
+                          } else if (type === 'serviceProviders') {
+                            const { sp = [] } = activity;
+                            if (sp.includes(c.id)) {
+                              acc.push([crimeScriptIdx, actIdx, phaseIdx, SearchScore.EXACT_MATCH]);
+                            }
+                          } else if (type === 'transports') {
+                            const { transports = [] } = activity;
+                            if (transports.includes(c.id)) {
                               acc.push([crimeScriptIdx, actIdx, phaseIdx, SearchScore.EXACT_MATCH]);
                             }
                           }
