@@ -29,6 +29,7 @@ console.log(
 const configuration: Configuration = {
   experiments: {
     css: true,
+    asyncWebAssembly: true,
   },
   mode: isProduction ? 'production' : 'development',
   entry: {
