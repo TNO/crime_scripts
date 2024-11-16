@@ -15,6 +15,7 @@ import { deepCopy, FormAttributes, LayoutForm } from 'mithril-ui-form';
 import { Collapsible, FlatButton, Tabs } from 'mithril-materialized';
 import { attrForm, AttributeType } from '../models/forms';
 import { TextInputWithClear } from './ui/text-input-with-clear';
+import { sortByLabel } from '../utils';
 
 export const SettingsPage: MeiosisComponent = () => {
   let edit = false;
@@ -47,10 +48,8 @@ export const SettingsPage: MeiosisComponent = () => {
         transports = [],
         locations = [],
         geoLocations = [],
-        opportunities = [],
-        indicators = [],
-        barriers = [],
         partners = [],
+        serviceProviders = [],
       } = model;
 
       const labelFilter = attributeFilter ? attributeFilter.toLowerCase() : undefined;
@@ -64,6 +63,13 @@ export const SettingsPage: MeiosisComponent = () => {
           'cast',
           'person',
           cast.filter((a) => !labelFilter || (a.label && a.label.toLowerCase().includes(labelFilter))),
+        ],
+        [
+          'serviceProviders',
+          t('SERVICE_PROVIDERS'),
+          'serviceProviders',
+          'business',
+          serviceProviders.filter((a) => !labelFilter || (a.label && a.label.toLowerCase().includes(labelFilter))),
         ],
         [
           'attributes',
@@ -101,32 +107,11 @@ export const SettingsPage: MeiosisComponent = () => {
           geoLocations.filter((a) => !labelFilter || (a.label && a.label.toLowerCase().includes(labelFilter))),
         ],
         [
-          'opportunities',
-          t('OPPORTUNITIES'),
-          'opportunities',
-          'lightbulb',
-          opportunities.filter((a) => !labelFilter || (a.label && a.label.toLowerCase().includes(labelFilter))),
-        ],
-        [
-          'indicators',
-          t('INDICATORS'),
-          'indicators',
-          'light_mode',
-          indicators.filter((a) => !labelFilter || (a.label && a.label.toLowerCase().includes(labelFilter))),
-        ],
-        [
           'partners',
           t('PARTNERS'),
           'partners',
           'handshake', // groups
           partners.filter((a) => !labelFilter || (a.label && a.label.toLowerCase().includes(labelFilter))),
-        ],
-        [
-          'barriers',
-          t('BARRIERS'),
-          'barriers',
-          'block',
-          barriers.filter((a) => !labelFilter || (a.label && a.label.toLowerCase().includes(labelFilter))),
         ],
       ] as Array<
         [id: AttributeType, label: string, type: AttributeType, iconName: string, attrs: Array<Hierarchical & Labeled>]
@@ -156,6 +141,14 @@ export const SettingsPage: MeiosisComponent = () => {
               if (edit) {
                 storedModel = deepCopy(model);
               } else {
+                model.cast?.sort(sortByLabel);
+                model.serviceProviders?.sort(sortByLabel);
+                model.attributes?.sort(sortByLabel);
+                model.products?.sort(sortByLabel);
+                model.transports?.sort(sortByLabel);
+                model.locations?.sort(sortByLabel);
+                model.geoLocations?.sort(sortByLabel);
+                model.partners?.sort(sortByLabel);
                 actions.saveModel(model);
               }
             },
@@ -172,14 +165,14 @@ export const SettingsPage: MeiosisComponent = () => {
             }),
         ],
         m(Tabs, {
-          tabWidth: 'fixed',
+          tabWidth: 'auto',
           tabs: tabs.map(([id, label, type, iconName, attr]) => {
             return {
               id: label.replace('è', 'e'),
               title: `${attr.length ? `${attr.length} ` : ''}${label}`,
               vnode: edit
                 ? m(LayoutForm, {
-                    form: attrForm(id, label, type === 'barriers' ? partners : attr, type),
+                    form: attrForm(id, label, attr, type),
                     obj: model,
                   } as FormAttributes<any>)
                 : m(AttrView, {
@@ -215,7 +208,7 @@ const AttrView: FactoryComponent<{
             .sort((a, b) => a.label?.localeCompare(b.label))
             .map((c) => {
               const searchResults = crimeScripts.reduce((acc, cs, crimeScriptIdx) => {
-                cs.stages?.forEach(({ ids }) => {
+                cs.stages?.forEach(({ ids = [] }) => {
                   ids.forEach((actId) => {
                     const actIdx = acts.findIndex((a) => a.id === actId);
                     if (actIdx < 0) return;

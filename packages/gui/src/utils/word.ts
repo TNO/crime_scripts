@@ -12,20 +12,36 @@ import {
 import { saveAs } from 'file-saver';
 import { ActivityType, CrimeScript, DataModel, Hierarchical, ID, Labeled } from '../models';
 import { t } from '../services';
-import { addLeadingSpaces } from '.';
+import { addLeadingSpaces, measuresToMarkdown } from '.';
+import { lookupCrimeMeasure } from '../models/situational-crime-prevention';
 
 const blue = '2F5496';
 
 /** Convert a crime script to a markdown string. */
 export const crimeScriptToMarkdown = (crimeScript: Partial<CrimeScript>, model: DataModel) => {
   const { description, stages = [], literature, productIds, geoLocationIds } = crimeScript;
-  const { acts, cast = [], attributes = [], transports = [], products = [], geoLocations = [], locations = [] } = model;
-  const phaseNames = [t('PREPARATION_PHASE'), t('PRE_ACTIVITY_PHASE'), t('ACTIVITY_PHASE'), t('POST_ACTIVITY_PHASE')];
+  const {
+    acts,
+    cast = [],
+    serviceProviders = [],
+    attributes = [],
+    transports = [],
+    products = [],
+    partners = [],
+    geoLocations = [],
+    locations = [],
+  } = model;
 
-  const itemLookup = [...cast, ...attributes, ...transports, ...locations, ...products, ...geoLocations].reduce(
-    (acc, cur) => acc.set(cur.id, cur),
-    new Map<ID, Labeled & Hierarchical>()
-  );
+  const itemLookup = [
+    ...cast,
+    ...serviceProviders,
+    ...attributes,
+    ...transports,
+    ...locations,
+    ...products,
+    ...partners,
+    ...geoLocations,
+  ].reduce((acc, cur) => acc.set(cur.id, cur), new Map<ID, Labeled & Hierarchical>());
 
   const md: string[] = [];
 
@@ -76,14 +92,13 @@ export const crimeScriptToMarkdown = (crimeScript: Partial<CrimeScript>, model: 
   }
   stages.forEach((stage, i) => {
     const stageActs = stage.ids.map((id) => acts.find((a) => a.id === id)).filter((a) => typeof a !== 'undefined');
-    newHeading(`${t('SCENE')} ${i + 1}: ${stageActs.map((a) => a.label).join(' | ')}`, 1);
+    newHeading(`${t('ACT')} ${i + 1}: ${stageActs.map((a) => a.label).join(' | ')}`, 1);
     stageActs.forEach((act) => {
       newHeading(act.label, 2);
       act.description && md.push(act.description);
 
-      [{ ...act }].forEach((a, i) => {
+      [{ ...act }].forEach((a) => {
         if (a && ((a.activities && a.activities.length > 0) || (a.conditions && a.conditions.length > 0))) {
-          newHeading(phaseNames[i], 3);
           if (a.locationIds && a.locationIds.length > 0) {
             newHeading(t('LOCATIONS', a.locationIds.length), 3);
             md.push(
@@ -108,6 +123,15 @@ export const crimeScriptToMarkdown = (crimeScript: Partial<CrimeScript>, model: 
                   })
                   .filter((l) => typeof l !== undefined);
                 list.push(addLeadingSpaces(`- ${t('CAST')}: ${castNames.join(', ')}`, spaces));
+              }
+              if (type && type.includes(ActivityType.HAS_SERVICE_PROVIDER) && activity.sp) {
+                const spNames = activity.sp
+                  .map((c) => {
+                    const found = itemLookup.get(c);
+                    return found ? found.label : undefined;
+                  })
+                  .filter((l) => typeof l !== undefined);
+                list.push(addLeadingSpaces(`- ${t('SERVICE_PROVIDERS')}: ${spNames.join(', ')}`, spaces));
               }
               if (type && type.includes(ActivityType.HAS_ATTRIBUTES) && activity.attributes) {
                 const attrNames = activity.attributes
@@ -138,6 +162,22 @@ export const crimeScriptToMarkdown = (crimeScript: Partial<CrimeScript>, model: 
             const conditionsTxt = a.conditions.reduce(createListItem, [] as string[]);
             conditionsTxt.push('');
             md.push(...conditionsTxt);
+          }
+
+          if (a.indicators && a.indicators.length > 0) {
+            newHeading(t('INDICATORS'), 4);
+            const indicatorsTxt = a.indicators.reduce(createListItem, [] as string[]);
+            indicatorsTxt.push('');
+            md.push(...indicatorsTxt);
+          }
+
+          if (a.measures && a.measures.length > 0) {
+            newHeading(t('MEASURES'), 4);
+            const measureMd = measuresToMarkdown(a.measures, itemLookup, lookupCrimeMeasure());
+            md.push(measureMd);
+            // const measuresTxt = a.measures.reduce(createListItem, [] as string[]);
+            // measuresTxt.push('');
+            // md.push(...measuresTxt);
           }
         }
       });
@@ -507,6 +547,18 @@ const convertMarkdownToDocxParagraphs = (markdown?: string): Paragraph[] => {
       return new Paragraph({
         children: parseFormattedText(trimmedLine.substring(5)),
         heading: HeadingLevel.HEADING_4,
+      });
+    } else if (trimmedLine.startsWith('##### ')) {
+      currentListInstance = null;
+      return new Paragraph({
+        children: parseFormattedText(trimmedLine.substring(6)),
+        heading: HeadingLevel.HEADING_5,
+      });
+    } else if (trimmedLine.startsWith('###### ')) {
+      currentListInstance = null;
+      return new Paragraph({
+        children: parseFormattedText(trimmedLine.substring(7)),
+        heading: HeadingLevel.HEADING_6,
       });
     } else if (listItem) {
       if (listItem.ordered) {

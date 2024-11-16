@@ -1,6 +1,16 @@
 import { padLeft } from 'mithril-materialized';
-import { CrimeScriptFilter, FlexSearchResult, Hierarchical, ID, Labeled, Page, Pages, SearchResult } from '../models';
-import { t } from '../services';
+import {
+  CrimeScriptFilter,
+  FlexSearchResult,
+  Hierarchical,
+  ID,
+  Labeled,
+  Measure,
+  Page,
+  Pages,
+  SearchResult,
+} from '../models';
+import { i18n, t } from '../services';
 
 export const LANGUAGE = 'CSS_LANGUAGE';
 export const SAVED = 'CSS_MODEL_SAVED';
@@ -238,46 +248,36 @@ export const toCommaSeparatedList = (arr: Array<Labeled> = [], ids: ID | ID[] = 
     .join(', ');
 
 export const generateLabeledItemsMarkup = (items: Array<Labeled & { header?: boolean }> = []): string => {
-  // Check if there are any header items
-  const hasHeaders = items.some((item) => item.header);
-
-  // Initialize result string
-  let result = '';
-
-  // Initialize ordered list items
-  let listItems: string[] = [];
-
-  // Process each item
-  items.forEach((item) => {
-    if (item.header && hasHeaders) {
-      // If we have collected list items, render them before the header
-      if (listItems.length > 0) {
-        result += `<ol>\n${listItems.join('\n')}\n</ol>\n`;
-        listItems = [];
+  const [_, nested] = items.reduce(
+    (acc, cur) => {
+      const [isNested] = acc;
+      if (cur.header) {
+        (acc[0] = true), acc[1].push({ ...cur, children: [] });
+      } else {
+        if (isNested) {
+          const lastItem = acc[1][acc[1].length - 1];
+          if (lastItem) {
+            lastItem.children.push({ ...cur });
+          }
+        } else {
+          acc[1].push({ ...cur, children: [] });
+        }
       }
+      return acc;
+    },
+    [false, []] as [isNested: boolean, nested: Array<Labeled & { children: Labeled[] }>]
+  );
 
-      // Add header with optional description
-      result += `<h6>${item.label}</h6>\n`;
-      if (item.description) {
-        result += `<p>${item.description}</p>\n`;
-      }
-    } else {
-      // Create list item with optional description
-      let listItem = `<li>${item.label}`;
-      if (item.description) {
-        listItem += `<br>${item.description}`;
-      }
-      listItem += '</li>';
-      listItems.push(listItem);
-    }
-  });
-
-  // If we have remaining list items, render them
-  if (listItems.length > 0) {
-    result += `<ol>\n${listItems.join('\n')}\n</ol>\n`;
-  }
-
-  return result.trim();
+  return (
+    '<ol>' +
+    nested
+      .map((item) => {
+        const children = item.children.length > 0 ? item.children.map((c) => `<li>${c.label}</li>`).join('') : '';
+        return `<li>${item.label}${children ? `<ol type="a">${children}</ol>` : ''}</li>`;
+      })
+      .join('\n') +
+    '</ol>'
+  );
 };
 
 export const crimeScriptFilterToText = (arr: Array<Labeled> = [], filter = {} as CrimeScriptFilter) => {
@@ -299,14 +299,9 @@ export const crimeScriptFilterToText = (arr: Array<Labeled> = [], filter = {} as
   ]);
 };
 
-/** Tokenize a text by removing punctuation, splitting the text into words, lowercasing and removing stopwords and (almost) empty strings */
+/** Tokenize a text by removing punctuation, splitting the text into stems, lowercasing and removing stopwords and (almost) empty strings */
 export const tokenize = (text: string = '', stopwords: string[]): string[] => {
-  // return tokenizer.tokenize(text).map((word) => stemmer.stem(word));
-  return text
-    .replace(/[^\w\s]/g, '') // Remove punctuation
-    .split(/\s+/) // Split into words
-    .map((word) => word.toLowerCase()) // Convert to lowercase
-    .filter((word) => word.length > 2 && !stopwords.includes(word)); // Exclude stopwords and empty strings
+  return i18n.stemmer!.stemText(text).filter((word) => word.length > 2 && !stopwords.includes(word));
 };
 
 /** Aggregate all search results to determine the most relevant crimescript (and act of that crimescript) */
@@ -363,4 +358,72 @@ export const isSmallPage = (): boolean => {
   // Materialize medium size range: 601px - 992px
   return width < 601;
   // && width <= 992;
+};
+
+/** Sort labels alphabetically */
+export const sortByLabel = ({ label: labelA = '' }: Labeled, { label: labelB = '' }: Labeled) =>
+  labelA.localeCompare(labelB);
+
+/**
+ * Converts an array of measures into a markdown-formatted string grouped by partner label.
+ * @param measures - An array of Measure objects.
+ * @param lookupPartner - A Map<ID, Labeled> object used for looking up partner labels.
+ * @param findCrimeMeasure - A function that takes a string (id) and returns an object with properties id, icon?, label, and group.
+ * @returns A string containing markdown-formatted measures grouped by partner label.
+ */
+export const measuresToMarkdown = (
+  measures: Measure[],
+  lookupPartner: Map<ID, Labeled>,
+  findCrimeMeasure: (id: string) =>
+    | {
+        id: string;
+        icon?: string;
+        label: string;
+        group: string;
+      }
+    | undefined
+): string => {
+  debugger;
+  type PartnerMeasure = {
+    label: string;
+    cat?: string;
+  };
+  const addMeasure = (partnerLabel: string, measure: Measure) => {
+    if (!groupedMeasures.has(partnerLabel)) {
+      groupedMeasures.set(partnerLabel, []);
+    }
+    groupedMeasures.get(partnerLabel)?.push({
+      label: measure.label,
+      cat: findCrimeMeasure(measure.cat)?.label,
+    });
+  };
+
+  const groupedMeasures = new Map<string, PartnerMeasure[]>();
+
+  const othersLabel = t('OTHER');
+  for (const measure of measures) {
+    if (measure.partners && measure.partners.length) {
+      for (const partner of measure.partners) {
+        const partnerLabel = lookupPartner.get(partner)?.label || othersLabel;
+        addMeasure(partnerLabel, measure);
+      }
+    } else {
+      addMeasure(othersLabel, measure);
+    }
+  }
+
+  let markdown = '';
+
+  const sortedKeys = Array.from(groupedMeasures.entries())
+    .sort((a, b) => a[0].localeCompare(b[0]))
+    .map((a) => a[0]);
+  for (const partnerLabel of sortedKeys) {
+    const measures = groupedMeasures.get(partnerLabel) || [];
+    markdown += `###### ${partnerLabel}\n\n${measures
+      .map((measure, i) => `${i + 1}. **${measure.cat}**: ${measure.label}`)
+      .join('\n')}\n\n`;
+  }
+
+  console.log(markdown);
+  return markdown;
 };

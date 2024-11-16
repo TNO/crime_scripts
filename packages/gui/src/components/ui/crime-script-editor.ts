@@ -4,7 +4,6 @@ import {
   Activity,
   ActivityPhase,
   Cast,
-  Condition,
   CrimeScript,
   CrimeScriptAttributes,
   ID,
@@ -16,6 +15,10 @@ import {
   GeographicLocation,
   ActivityType,
   Product,
+  Opportunity,
+  Indicator,
+  Partner,
+  ServiceProvider,
 } from '../../models';
 import { FlatButton, Tabs, uniqueId, Select, ISelectOptions, SearchSelect } from 'mithril-materialized';
 import { FormAttributes, LayoutForm, UIForm } from 'mithril-ui-form';
@@ -33,6 +36,8 @@ export const CrimeScriptEditor: FactoryComponent<{
   locations: CrimeLocation[];
   geoLocations: GeographicLocation[];
   products: Product[];
+  partners: Partner[];
+  serviceProviders: ServiceProvider[];
 }> = () => {
   const actsForm: UIForm<any> = [
     {
@@ -48,22 +53,36 @@ export const CrimeScriptEditor: FactoryComponent<{
   let geoLocationOptions: InputOptions[] = [];
   let transportOptions: InputOptions[] = [];
   let castOptions: InputOptions[] = [];
+  let serviceProviderOptions: InputOptions[] = [];
   let attrOptions: InputOptions[] = [];
   let productOptions: InputOptions[] = [];
   let measuresForm: UIForm<any> = [];
   let activityForm: UIForm<any>;
+  let opportunitiesForm: UIForm<any>;
+  let indicatorsForm: UIForm<any>;
 
   const ActivityTypeOptions = [
     // { id: ActivityType.NONE, label: 'None' },
     { id: ActivityType.HAS_CAST, label: t('CAST') },
-    { id: ActivityType.HAS_ATTRIBUTES, label: t('ATTRIBUTES') },
-    { id: ActivityType.HAS_TRANSPORT, label: t('TRANSPORTS') },
-    // { id: ActivityType.HAS_CAST_ATTRIBUTES, label: 'Both' },
+    { id: ActivityType.HAS_ATTRIBUTES, label: t('ATTRIBUTE') },
+    { id: ActivityType.HAS_TRANSPORT, label: t('TRANSPORT') },
+    { id: ActivityType.HAS_SERVICE_PROVIDER, label: t('SERVICE_PROVIDER') },
   ];
+
+  const measOptions = crimeMeasureOptions();
 
   return {
     oninit: ({
-      attrs: { cast = [], attributes = [], locations = [], geoLocations = [], transports = [], products = [] },
+      attrs: {
+        cast = [],
+        attributes = [],
+        locations = [],
+        geoLocations = [],
+        transports = [],
+        products = [],
+        partners = [],
+        serviceProviders = [],
+      },
     }) => {
       castOptions = toOptions(cast, true);
       attrOptions = toOptions(attributes);
@@ -71,6 +90,7 @@ export const CrimeScriptEditor: FactoryComponent<{
       geoLocationOptions = toOptions(geoLocations);
       transportOptions = toOptions(transports);
       productOptions = toOptions(products);
+      serviceProviderOptions = toOptions(serviceProviders);
 
       activityForm = [
         {
@@ -86,20 +106,23 @@ export const CrimeScriptEditor: FactoryComponent<{
           repeat: true,
           type: [
             { id: 'id', type: 'autogenerate', autogenerate: 'id' },
-            { id: 'label', type: 'textarea', className: 'col s8 m9 xl10', label: t('ACTIVITY') },
+            { id: 'label', type: 'textarea', className: 'col s8 m10', label: t('ACTIVITY') },
+            { id: 'header', type: 'switch', className: 'col s4 m2', label: t('HEADER') },
             {
               id: 'type',
-              type: 'options',
-              className: 'col s4 m3 xl2',
+              type: 'select',
+              // show: ['!header'],
+              multiple: true,
+              className: 'col s6 m4 l3',
               label: t('SPECIFY'),
               options: ActivityTypeOptions,
-              checkboxClass: 'col s6',
+              checkboxClass: 'col s4',
             },
             {
               id: 'cast',
               show: ['type=1'],
-              type: 'select',
-              className: 'col s12 m4',
+              type: 'search_select',
+              className: 'col s6 m4 l3',
               multiple: true,
               options: castOptions,
               label: t('CAST'),
@@ -107,8 +130,8 @@ export const CrimeScriptEditor: FactoryComponent<{
             {
               id: 'attributes',
               show: ['type=2'],
-              type: 'select',
-              className: 'col s12 m4',
+              type: 'search_select',
+              className: 'col s6 m4 l3',
               multiple: true,
               options: attrOptions,
               label: t('ATTRIBUTES'),
@@ -116,53 +139,89 @@ export const CrimeScriptEditor: FactoryComponent<{
             {
               id: 'transports',
               show: ['type=4'],
-              type: 'select',
-              className: 'col s12 m4',
+              type: 'search_select',
+              className: 'col s6 m4 l3',
               multiple: true,
               options: transportOptions,
               label: t('TRANSPORTS'),
             },
             {
-              id: 'description',
-              label: t('DESCRIPTION'),
-              type: 'textarea',
+              id: 'sp',
+              show: ['type=8'],
+              type: 'search_select',
+              className: 'col s6 m4 l3',
+              multiple: true,
+              options: serviceProviderOptions,
+              label: t('SERVICE_PROVIDER'),
             },
+            // {
+            //   id: 'description',
+            //   label: t('DESCRIPTION'),
+            //   type: 'textarea',
+            // },
           ] as UIForm<Activity>,
           className: 'col s12',
           label: t('ACTIVITIES'),
         },
+      ];
+
+      opportunitiesForm = [
         {
           id: 'conditions',
           repeat: true,
           type: [
             { id: 'id', type: 'autogenerate', autogenerate: 'id' },
-            { id: 'label', type: 'textarea', className: 'col s12', label: t('CONDITION') },
-          ] as UIForm<Condition>,
+            { id: 'label', type: 'textarea', className: 'col s12', label: t('OPPORTUNITY') },
+          ] as UIForm<Opportunity>,
           className: 'col s12',
           label: t('CONDITIONS'),
         },
       ];
 
-      const measOptions = crimeMeasureOptions();
+      indicatorsForm = [
+        {
+          id: 'indicators',
+          repeat: true,
+          type: [
+            { id: 'id', type: 'autogenerate', autogenerate: 'id' },
+            { id: 'label', type: 'textarea', className: 'col s12', label: t('INDICATOR') },
+          ] as UIForm<Indicator>,
+          className: 'col s12',
+          label: t('INDICATORS'),
+        },
+      ];
 
       const measureForm: UIForm<Measure> = [
         { id: 'id', type: 'autogenerate', autogenerate: 'id' },
-        { id: 'cat', type: 'select', options: measOptions, className: 'col s12 m5 l4', label: t('CATEGORY') },
-        { id: 'label', type: 'text', className: 'col s12 m7 l8', label: t('NAME') },
+        { id: 'cat', type: 'select', options: measOptions, className: 'col s6 m5 l4', label: t('CATEGORY') },
+        {
+          id: 'partners',
+          type: 'select',
+          multiple: true,
+          className: 'col s6 m7 l8',
+          label: t('PARTNERS'),
+          options: partners.filter(({ label }) => label).map(({ id, label }) => ({ id, label, icon: 'handshake' })),
+        },
+        { id: 'label', type: 'textarea', className: 'col s12', label: t('NAME') },
         // { id: 'description', type: 'textarea', className: 'col s12', label: t('DESCRIPTION') },
       ];
 
-      measuresForm = [{ id: 'measures', type: measureForm, repeat: true, label: t('MEASURES') }];
+      measuresForm = [{ id: 'measures', type: measureForm, repeat: true, label: t('MEASURE') }];
     },
     view: ({ attrs: { acts, crimeScript } }) => {
       const curActIdx = +(m.route.param('stages') || 1) - 1;
-      const curActIds = crimeScript.stages && curActIdx < crimeScript.stages.length && crimeScript.stages[curActIdx];
+      const curActIds =
+        crimeScript.stages && curActIdx < crimeScript.stages.length
+          ? crimeScript.stages[curActIdx]
+          : ({ id: '', ids: [] } as Stage);
+      if (!curActIds.ids) curActIds.ids = [];
       const curActId = curActIds && curActIds.id;
-      const curAct = curActId && acts.find((a) => a.id === curActId);
+      const curAct = curActId ? acts.find((a) => a.id === curActId) : undefined;
       if (curAct) {
         if (!curAct.measures) curAct.measures = [];
       }
 
+      const key = curAct ? curAct.id : 'cur-act-id';
       return m('.col.s12', [
         m(LayoutForm, {
           form: [
@@ -191,101 +250,131 @@ export const CrimeScriptEditor: FactoryComponent<{
           i18n: I18N,
         } as FormAttributes<Partial<CrimeScript>>),
 
-        curActIds && [
-          m(
-            '.col.s12',
-            m(SearchSelect<string>, {
-              key: curAct ? curAct.id : '',
-              label: t('SELECT_ACT_N'),
-              options: acts,
-              initialValue: curActIds.ids,
-              // max: 5,
-              // search: true,
-              // selectAll: false,
-              // listAll: true,
-              onchange: (selectedIds) => {
-                crimeScript.stages[curActIdx] = {
-                  id: selectedIds.length > 0 ? selectedIds[0] : '',
-                  ids: selectedIds,
-                };
-                // m.redraw();
-              },
-            })
-          ),
-          curActIds.ids &&
-            curActIds.ids.length > 0 && [
-              m(Select, {
-                key: curAct ? curAct.label : curActIds.id,
-                label: t('SELECT_ACT'),
-                className: 'col s6',
-                initialValue: curActIds.id,
-                // disabled: curActIds.ids.length === 1,
-                options: acts.filter((a) => curActIds.ids.includes(a.id)),
-                onchange: (id) => {
-                  crimeScript.stages[curActIdx].id = id[0];
-                },
-              } as ISelectOptions<ID>),
-            ],
-          m(FlatButton, {
-            label: t('ACT'),
-            className: 'col s6',
-            iconName: 'add',
-            onclick: () => {
-              const id = uniqueId();
-              const newAct = {
-                id,
-                label: t('ACT'),
-              } as Act;
-              acts.push(newAct);
-              crimeScript.stages[curActIdx].id = id;
-              if (crimeScript.stages[curActIdx].ids) {
-                crimeScript.stages[curActIdx].ids.push(id);
-              } else {
-                crimeScript.stages[curActIdx].ids = [id];
-              }
-            },
-          }),
-        ],
+        curActIds &&
+          curActIds.ids && [
+            m(
+              '.row',
+              [
+                m(SearchSelect<string>, {
+                  key,
+                  label: t('SELECT_ACT_N'),
+                  options: acts,
+                  initialValue: curActIds.ids,
+                  className: 'col s12 m4 l5',
+                  onchange: (selectedIds) => {
+                    crimeScript.stages[curActIdx] = {
+                      id: selectedIds.length > 0 ? selectedIds[0] : '',
+                      ids: selectedIds,
+                    };
+                    // m.redraw();
+                  },
+                }),
+                curActIds.ids.length > 0
+                  ? m(Select, {
+                      key,
+                      label: t('SELECT_ACT'),
+                      className: 'col s12 m4 l5',
+                      initialValue: curActIds.id,
+                      // disabled: curActIds.ids.length === 1,
+                      options: acts.filter((a) => curActIds.ids.includes(a.id)),
+                      onchange: (id) => {
+                        crimeScript.stages[curActIdx].id = id[0];
+                      },
+                    } as ISelectOptions<ID>)
+                  : undefined,
+                m(FlatButton, {
+                  key,
+                  label: t('ACT'),
+                  className: 'col s12 m4 l2',
+                  iconName: 'add',
+                  onclick: () => {
+                    const id = uniqueId();
+                    const newAct = {
+                      id,
+                      label: t('ACT'),
+                    } as Act;
+                    acts.push(newAct);
+                    crimeScript.stages[curActIdx].id = id;
+                    if (crimeScript.stages[curActIdx].ids) {
+                      crimeScript.stages[curActIdx].ids.push(id);
+                    } else {
+                      crimeScript.stages[curActIdx].ids = [id];
+                    }
+                  },
+                }),
+              ].filter(Boolean)
+            ),
+          ],
 
-        curAct && [
-          m('.cur-act', { key: curAct.id }, [
-            m(LayoutForm, {
-              form: [
-                { id: 'label', type: 'text', className: 'col s6 m6', label: t('NAME') },
-                { id: 'icon', type: 'select', className: 'col s6 m3', label: t('IMAGE'), options: IconOpts },
-                { id: 'url', type: 'base64', className: 'col s12 m3', label: t('IMAGE'), show: ['icon=1'] },
-                { id: 'description', type: 'textarea', className: 'col s12', label: t('SUMMARY') },
-              ],
-              obj: curAct,
-              onchange: () => {},
-              i18n: I18N,
-            } as FormAttributes<Partial<Act>>),
-            m(Tabs, {
-              tabs: [
-                {
-                  title: t('ACT'),
-                  vnode: m('.acts', [
-                    m(LayoutForm, {
-                      form: activityForm,
-                      obj: curAct,
-                      onchange: () => {},
-                      i18n: I18N,
-                    } as FormAttributes<Partial<ActivityPhase>>),
-                  ]),
-                },
-              ],
-            }),
-            m('h5', t('MEASURES')),
-            m(LayoutForm, {
-              form: measuresForm,
-              obj: curAct,
-              onchange: () => {
-                // console.log(curAct);
-              },
-              i18n: I18N,
-            } as FormAttributes<Partial<ActivityPhase>>),
-          ]),
-        ],
+        curAct &&
+          m(
+            '.row',
+            m('.col.s12', [
+              m('.cur-act', { key: curAct.id }, [
+                m(LayoutForm, {
+                  form: [
+                    { id: 'label', type: 'text', className: 'col s6 m9', label: t('NAME'), show: ['!icon=1'] },
+                    { id: 'label', type: 'text', className: 'col s6 m6', label: t('NAME'), show: ['icon=1'] },
+                    { id: 'icon', type: 'select', className: 'col s6 m3', label: t('IMAGE'), options: IconOpts },
+                    { id: 'url', type: 'base64', className: 'col s12 m3', label: t('IMAGE'), show: ['icon=1'] },
+                    { id: 'description', type: 'textarea', className: 'col s12', label: t('SUMMARY') },
+                  ],
+                  obj: curAct,
+                  onchange: () => {},
+                  i18n: I18N,
+                } as FormAttributes<Partial<Act>>),
+                m(Tabs, {
+                  tabs: [
+                    {
+                      title: t('STEPS'),
+                      vnode: m('.acts', [
+                        m(LayoutForm, {
+                          form: activityForm,
+                          obj: curAct,
+                          onchange: () => {},
+                          i18n: I18N,
+                        } as FormAttributes<Partial<ActivityPhase>>),
+                      ]),
+                    },
+                    {
+                      title: t('OPPORTUNITIES'),
+                      vnode: m('.opportunities', [
+                        m(LayoutForm, {
+                          form: opportunitiesForm,
+                          obj: curAct,
+                          onchange: () => {},
+                          i18n: I18N,
+                        } as FormAttributes<Partial<ActivityPhase>>),
+                      ]),
+                    },
+                    {
+                      title: t('INDICATORS'),
+                      vnode: m('.indicators', [
+                        m(LayoutForm, {
+                          form: indicatorsForm,
+                          obj: curAct,
+                          onchange: () => {},
+                          i18n: I18N,
+                        } as FormAttributes<Partial<ActivityPhase>>),
+                      ]),
+                    },
+                    {
+                      id: 'measures',
+                      title: t('MEASURES'),
+                      vnode: m('.measures', [
+                        m(LayoutForm, {
+                          form: measuresForm,
+                          obj: curAct,
+                          onchange: () => {},
+                          i18n: I18N,
+                        } as FormAttributes<Partial<ActivityPhase>>),
+                      ]),
+                    },
+                  ],
+                }),
+              ]),
+            ])
+          ),
       ]);
     },
   };

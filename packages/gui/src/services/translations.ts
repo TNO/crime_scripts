@@ -4,6 +4,7 @@ import { messages, messagesNL } from './lang';
 import { I18n } from 'mithril-ui-form';
 import stopwordsNl from 'stopwords-nl';
 import stopwordsEn from 'stopwords-en';
+import { LanguageStemmer } from 'wasm-stemmers';
 
 export type Languages = 'nl' | 'en';
 
@@ -45,6 +46,7 @@ export const i18n = {
   init,
   addOnChangeListener,
   loadAndSetLocale,
+  stemmer: undefined as undefined | LanguageStemmer,
   stopwords: [] as string[],
 };
 
@@ -60,6 +62,7 @@ async function init(locales: Locales, selectedLocale: Languages) {
   const defaultLocale = (Object.keys(locales) as Languages[]).filter((l) => (locales[l] as Locale).default).shift();
   if (defaultLocale) {
     i18n.defaultLocale = defaultLocale || selectedLocale;
+    i18n.stemmer = new LanguageStemmer(i18n.defaultLocale);
   }
   document.documentElement.setAttribute('lang', selectedLocale);
   await loadAndSetLocale(selectedLocale);

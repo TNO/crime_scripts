@@ -84,7 +84,7 @@ export const flexSearchLookupUpdater: Service<State> = {
       const { label = '', description = '', stages: actVariants = [] } = crimeScript;
       const flexLoc: FlexSearchResult = [crimeScriptIdx, -1, -1, SearchScore.OTHER_MATCH];
       tokenize(label + ' ' + description, i18n.stopwords).forEach((word) => updateLookup(word, flexLoc));
-      actVariants.forEach(({ ids }) => {
+      actVariants.forEach(({ ids = [] }) => {
         ids.forEach((actId) => {
           const actIdx = acts.findIndex((a) => a.id === actId);
           if (actIdx < 0) return;

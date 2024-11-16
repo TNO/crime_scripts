@@ -192,20 +192,31 @@ export const Layout: MeiosisComponent = () => {
               ]),
             ]
           ),
-          m('.container', { style: 'padding-top: 5px' }, children),
           m(
-            'a',
-            {
-              href: 'https://www.tno.nl',
-              target: '_blank',
-              style: {
-                position: 'fixed',
-                bottom: '0',
-                right: '10px',
-              },
-            },
-            m('img[width=100][height=50][alt=TNO website][title=TNO website].right', { src: tno })
+            '.container',
+            { style: 'padding-top: 5px' },
+            children,
+            m(
+              '.row',
+              m(
+                '.col.s12',
+                m(
+                  'a',
+                  {
+                    href: 'https://www.tno.nl',
+                    target: '_blank',
+                    // style: {
+                    //   position: 'fixed',
+                    //   bottom: '0',
+                    //   right: '10px',
+                    // },
+                  },
+                  m('img[width=100][height=50][alt=TNO website][title=TNO website].right', { src: tno })
+                )
+              )
+            )
           ),
+          ,
         ]),
       ];
     },

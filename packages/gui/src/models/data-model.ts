@@ -12,12 +12,12 @@ export type DataModel = {
   transports: Transport[];
   opportunities: Opportunity[];
   indicators: Indicator[];
-  barriers: Barrier[];
   partners: Partner[];
+  serviceProviders: ServiceProvider[];
   acts: Act[];
 };
 
-export const defaultModel = {
+export const defaultModel: DataModel = {
   version: 1,
   lastUpdate: new Date().valueOf(),
   crimeScripts: [],
@@ -29,10 +29,10 @@ export const defaultModel = {
   transports: [],
   opportunities: [],
   indicators: [],
-  barriers: [],
   partners: [],
+  serviceProviders: [],
   acts: [],
-} as DataModel;
+};
 
 export enum STATUS {
   FIRST_DRAFT = 1,
@@ -92,6 +92,8 @@ export type Labeled = {
   id: ID;
   label: string;
   description?: string;
+  /** Abbreviation */
+  abbrev?: string;
   /** Data image, base64 encoded */
   url?: string;
   /** Icon */
@@ -121,6 +123,7 @@ export type CrimeScript = Labeled & {
 export type Measure = Labeled & {
   /** Category the measure belongs to, e.g. situational crime prevention or other */
   cat: string;
+  partners: ID[];
 };
 
 export enum ATTRIBUTE_TYPE {
@@ -162,9 +165,9 @@ export type Opportunity = Labeled & Hierarchical;
 
 export type Indicator = Labeled & Hierarchical;
 
-export type Barrier = Labeled & Hierarchical & { parters: ID[] };
-
 export type Partner = Labeled & Hierarchical;
+
+export type ServiceProvider = Labeled & Hierarchical;
 
 export type CrimeLocation = Labeled & Hierarchical;
 
@@ -184,20 +187,14 @@ export type Stage = {
 };
 
 export type Act = Labeled & {
-  // preparation: ActivityPhase;
-  // preactivity: ActivityPhase;
-  // activity: ActivityPhase;
-  // postactivity: ActivityPhase;
-  /** Measures to prevent or stop crime */
-  measures: Measure[];
-  /** Opportunities related to the act */
-  opportunities: ID[];
-  /** Indicator of the act */
-  indicators: ID[];
-  /** Barriers to the act */
-  barriers: ID[];
   /** Locations to perform the activity */
   locationIds?: ID[];
+  /** Barriers or measures to prevent or stop crime */
+  measures: Measure[];
+  /** Opportunities related to the act */
+  opportunities: Opportunity[];
+  /** Indicator of the act */
+  indicators: Indicator[];
   /** A list of activities that takes place in this phase */
   activities: Activity[];
   // description: string[];
@@ -219,6 +216,7 @@ export enum ActivityType {
   HAS_CAST = 1,
   HAS_ATTRIBUTES = 2,
   HAS_TRANSPORT = 4,
+  HAS_SERVICE_PROVIDER = 8,
   // HAS_CAST_ATTRIBUTES = 4,
 }
 
@@ -228,7 +226,8 @@ export type Activity = Labeled & {
   type?: ActivityType | ActivityType[];
   cast?: ID[];
   attributes?: ID[];
-  // conditions: Condition[];
+  /** Service providers */
+  sp: ID[];
   transports?: ID[];
 };
 

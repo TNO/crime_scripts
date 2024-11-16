@@ -188,7 +188,6 @@ export const lookupCrimeMeasure = () => {
     acc.set(cur.id, cur);
     return acc;
   }, new Map<string, { id: string; icon?: string; label: string; group: string }>());
-  console.log(cmo);
 
   return (id: string) => cmo.get(id);
 };

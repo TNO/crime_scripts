@@ -1,4 +1,4 @@
-@import url('multi-select.css');
+@import url('process-visualisation.css');
 
 @media only screen and (min-width: 601px) {
   .container {
@@ -851,4 +851,13 @@ li input[type='text'] {
 .selected-card {
   border: 2px solid #2668a6; /* Teal border to indicate selection */
   box-shadow: 0 4px 8px rgba(38, 115, 166, 0.5);
+}
+.multi-select-dropdown {
+  margin-top: 3px;
+}
+.multi-select-dropdown > label {
+  transform: translateY(-12px) scale(0.8);
+}
+.input-field.select-space {
+  margin-bottom: 6px;
 }

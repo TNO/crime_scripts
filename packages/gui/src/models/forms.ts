@@ -10,9 +10,6 @@ export type AttributeType =
   | 'locations'
   | 'geoLocations'
   | 'products'
-  | 'opportunities'
-  | 'indicators'
-  | 'barriers'
   | 'partners';
 
 export const attrForm = (id: AttributeType, label: string, attr: Labeled[] = [], attrType: AttributeType) => [
@@ -41,17 +38,6 @@ export const attrForm = (id: AttributeType, label: string, attr: Labeled[] = [],
       : ([
           { id: 'id', type: 'autogenerate', autogenerate: 'id' },
           { id: 'label', type: 'textarea', className: 'col s12', label: t('DESCRIPTION') },
-          attrType === 'barriers'
-            ? {
-                id: 'partners',
-                type: 'search_select',
-                multiple: true,
-                className: 'col s12',
-                label: t('PARTNERS'),
-                options: attr.filter(({ label }) => label),
-              }
-            : undefined,
-          // { id: 'url', type: 'base64', className: 'col s6', label: t('IMAGE') },
         ].filter(Boolean) as UIForm<Hierarchical & Labeled>),
   },
 ];
