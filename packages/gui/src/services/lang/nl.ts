@@ -25,6 +25,7 @@ export const messagesNL: typeof messages = {
   NAME: 'Naam',
   MISC: 'Overig',
   DESCRIPTION: 'Beschrijving',
+  INFO: 'Info',
   DELETE_ITEM: {
     TITLE: '{item} verwijderen',
     DESCRIPTION: 'Weet je zeker dat je dit {item} wilt verwijderen? Dit kan niet ongedaan worden gemaakt.',

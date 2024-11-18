@@ -339,23 +339,42 @@ li.collection-item:first-child {
   padding: 5px;
   border-radius: 6px;
   font-size: 1rem;
-  line-height: 2rem;
+  font-weight: normal;
+  /* line-height: 2rem; */
   /* Position the tooltip text - see examples below! */
   position: absolute;
   z-index: 1;
+  bottom: 150%;
+  left: 50%;
+  margin-left: -160px;
 }
 
+.tooltip .tooltiptext::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
+}
 /* Show the tooltip text when you mouse over the tooltip container */
 .tooltip:hover .tooltiptext {
   visibility: visible;
 }
-
-.tooltip .tooltiptext {
-  width: 150px;
-  margin-left: -75px; /* Use half of the width to center the tooltip */
-  top: 100%;
-  left: 50%;
+.tooltip.info {
+  color: #fff;
+  background: #3b82f6;
+  border-radius: 50%;
+  text-align: center;
+  vertical-align: middle;
+  width: 18px;
+  height: 18px;
+  font-weight: 700;
+  font-size: 0.8rem;
 }
+
 /** End Tooltips */
 
 .user-page {
@@ -860,4 +879,7 @@ li input[type='text'] {
 }
 .input-field.select-space {
   margin-bottom: 6px;
+}
+.switch {
+  margin-bottom: 8px;
 }

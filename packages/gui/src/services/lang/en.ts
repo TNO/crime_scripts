@@ -24,6 +24,7 @@ export const messages = {
   NAME: 'Name',
   MISC: 'Miscellaneous',
   DESCRIPTION: 'Description',
+  INFO: 'Info',
   DELETE_ITEM: {
     TITLE: 'Delete {item}',
     DESCRIPTION: 'Are you certain you want to delete this {item}. There is no turning back?',

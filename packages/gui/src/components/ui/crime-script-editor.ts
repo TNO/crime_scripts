@@ -106,8 +106,16 @@ export const CrimeScriptEditor: FactoryComponent<{
           repeat: true,
           type: [
             { id: 'id', type: 'autogenerate', autogenerate: 'id' },
-            { id: 'label', type: 'textarea', className: 'col s8 m10', label: t('ACTIVITY') },
-            { id: 'header', type: 'switch', className: 'col s4 m2', label: t('HEADER') },
+            { id: 'label', type: 'textarea', className: 'col s8 m8', label: t('ACTIVITY') },
+            { id: 'header', type: 'switch', className: 'col s4 m2 switch', label: t('HEADER') },
+            { id: 'hasDesc', type: 'switch', className: 'col s4 m2 switch', label: t('INFO') },
+            {
+              id: 'description',
+              show: ['hasDesc=true'],
+              type: 'textarea',
+              className: 'col s12',
+              label: t('DESCRIPTION'),
+            },
             {
               id: 'type',
               type: 'select',
@@ -171,7 +179,15 @@ export const CrimeScriptEditor: FactoryComponent<{
           repeat: true,
           type: [
             { id: 'id', type: 'autogenerate', autogenerate: 'id' },
-            { id: 'label', type: 'textarea', className: 'col s12', label: t('OPPORTUNITY') },
+            { id: 'label', type: 'textarea', className: 'col s8 m10', label: t('OPPORTUNITY') },
+            { id: 'hasDesc', type: 'switch', className: 'col s4 m2 switch', label: t('INFO') },
+            {
+              id: 'description',
+              show: ['hasDesc=true'],
+              type: 'textarea',
+              className: 'col s12',
+              label: t('DESCRIPTION'),
+            },
           ] as UIForm<Opportunity>,
           className: 'col s12',
           label: t('CONDITIONS'),
@@ -184,7 +200,15 @@ export const CrimeScriptEditor: FactoryComponent<{
           repeat: true,
           type: [
             { id: 'id', type: 'autogenerate', autogenerate: 'id' },
-            { id: 'label', type: 'textarea', className: 'col s12', label: t('INDICATOR') },
+            { id: 'label', type: 'textarea', className: 'col s8 m10', label: t('INDICATOR') },
+            { id: 'hasDesc', type: 'switch', className: 'col s4 m2 switch', label: t('INFO') },
+            {
+              id: 'description',
+              show: ['hasDesc=true'],
+              type: 'textarea',
+              className: 'col s12',
+              label: t('DESCRIPTION'),
+            },
           ] as UIForm<Indicator>,
           className: 'col s12',
           label: t('INDICATORS'),

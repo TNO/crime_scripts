@@ -211,6 +211,7 @@ const AttrView: FactoryComponent<{
                 if (type === 'products') {
                   if (cs.productIds && cs.productIds.includes(c.id)) {
                     acc.push([crimeScriptIdx, -1, -1, SearchScore.EXACT_MATCH]);
+                    return acc;
                   }
                 }
                 cs.stages?.forEach(({ ids = [] }) => {
@@ -218,37 +219,41 @@ const AttrView: FactoryComponent<{
                     const actIdx = acts.findIndex((a) => a.id === actId);
                     if (actIdx < 0) return;
                     const act = acts[actIdx];
-                    [{ ...act }].forEach((phase, phaseIdx) => {
-                      if (type === 'locations') {
-                        if (phase.locationIds && phase.locationIds.includes(c.id)) {
-                          acc.push([crimeScriptIdx, actIdx, phaseIdx, SearchScore.EXACT_MATCH]);
-                        }
-                      } else {
-                        phase.activities?.forEach((activity) => {
-                          if (type === 'cast') {
-                            const { cast = [] } = activity;
-                            if (cast.includes(c.id)) {
-                              acc.push([crimeScriptIdx, actIdx, phaseIdx, SearchScore.EXACT_MATCH]);
-                            }
-                          } else if (type === 'attributes') {
-                            const { attributes = [] } = activity;
-                            if (attributes.includes(c.id)) {
-                              acc.push([crimeScriptIdx, actIdx, phaseIdx, SearchScore.EXACT_MATCH]);
-                            }
-                          } else if (type === 'serviceProviders') {
-                            const { sp = [] } = activity;
-                            if (sp.includes(c.id)) {
-                              acc.push([crimeScriptIdx, actIdx, phaseIdx, SearchScore.EXACT_MATCH]);
-                            }
-                          } else if (type === 'transports') {
-                            const { transports = [] } = activity;
-                            if (transports.includes(c.id)) {
-                              acc.push([crimeScriptIdx, actIdx, phaseIdx, SearchScore.EXACT_MATCH]);
-                            }
-                          }
-                        });
+                    if (type === 'locations') {
+                      if (act.locationIds && act.locationIds.includes(c.id)) {
+                        acc.push([crimeScriptIdx, actIdx, 0, SearchScore.EXACT_MATCH, act.label]);
                       }
-                    });
+                    } else if (type === 'partners') {
+                      act.measures
+                        ?.filter((m) => m.partners?.includes(c.id))
+                        .forEach((m) => {
+                          acc.push([crimeScriptIdx, actIdx, 0, SearchScore.EXACT_MATCH, m.label]);
+                        });
+                    } else {
+                      act.activities?.forEach((activity) => {
+                        if (type === 'cast') {
+                          const { cast = [] } = activity;
+                          if (cast.includes(c.id)) {
+                            acc.push([crimeScriptIdx, actIdx, 0, SearchScore.EXACT_MATCH, activity.label]);
+                          }
+                        } else if (type === 'attributes') {
+                          const { attributes = [] } = activity;
+                          if (attributes.includes(c.id)) {
+                            acc.push([crimeScriptIdx, actIdx, 0, SearchScore.EXACT_MATCH, activity.label]);
+                          }
+                        } else if (type === 'serviceProviders') {
+                          const { sp = [] } = activity;
+                          if (sp.includes(c.id)) {
+                            acc.push([crimeScriptIdx, actIdx, 0, SearchScore.EXACT_MATCH, activity.label]);
+                          }
+                        } else if (type === 'transports') {
+                          const { transports = [] } = activity;
+                          if (transports.includes(c.id)) {
+                            acc.push([crimeScriptIdx, actIdx, 0, SearchScore.EXACT_MATCH, activity.label]);
+                          }
+                        }
+                      });
+                    }
                   });
                 });
                 return acc;
@@ -270,9 +275,24 @@ const AttrView: FactoryComponent<{
                   '.cast-content',
                   m(
                     'ol',
-                    searchResults.map(([crimeScriptIdx, actIdx, phaseIdx]) => {
-                      const crimeScript = crimeScripts[crimeScriptIdx];
-                      const act = actIdx >= 0 ? acts[actIdx] : undefined;
+                    Object.entries(
+                      searchResults.reduce((grouped, result) => {
+                        const [crimeScriptIdx, actIdx, phaseIdx, score, desc] = result;
+                        const key = `${crimeScriptIdx}-${actIdx}`;
+
+                        if (!grouped[key]) {
+                          grouped[key] = {
+                            crimeScript: crimeScripts[crimeScriptIdx],
+                            actIdx,
+                            act: actIdx >= 0 ? acts[actIdx] : undefined,
+                            phases: [],
+                          };
+                        }
+
+                        grouped[key].phases.push({ phaseIdx, score, desc });
+                        return grouped;
+                      }, {} as Record<string, { crimeScript: CrimeScript; actIdx: number; act?: Act; phases: { phaseIdx: number; score: number; desc?: string }[] }>)
+                    ).map(([_, { crimeScript, actIdx, act, phases }]) => {
                       const actLabel = act ? act.label : '...';
 
                       return m('li', [
@@ -282,14 +302,56 @@ const AttrView: FactoryComponent<{
                             style: { cursor: 'pointer' },
                             href: routingSvc.href(Pages.CRIME_SCRIPT, `id=${crimeScript.id}`),
                             onclick: () => {
-                              setLocation(crimeScript.id, actIdx, phaseIdx);
+                              const defaultPhase = phases[0];
+                              setLocation(crimeScript.id, actIdx, defaultPhase.phaseIdx);
                             },
                           },
                           `${crimeScript.label} > ${actLabel}`
                         ),
+                        phases.length >= 1 &&
+                          m(
+                            'ol[type=a]',
+                            phases.map(({ phaseIdx, desc }) =>
+                              m(
+                                'li',
+                                {
+                                  style: {
+                                    opacity: 0.7,
+                                    cursor: 'pointer',
+                                  },
+                                  onclick: () => {
+                                    setLocation(crimeScript.id, actIdx, phaseIdx);
+                                  },
+                                },
+                                `${desc ? desc : ''}`
+                              )
+                            )
+                          ),
                       ]);
                     })
                   )
+                  // m(
+                  //   'ol',
+                  //   searchResults.map(([crimeScriptIdx, actIdx, phaseIdx]) => {
+                  //     const crimeScript = crimeScripts[crimeScriptIdx];
+                  //     const act = actIdx >= 0 ? acts[actIdx] : undefined;
+                  //     const actLabel = act ? act.label : '...';
+
+                  //     return m('li', [
+                  //       m(
+                  //         'a.truncate',
+                  //         {
+                  //           style: { cursor: 'pointer' },
+                  //           href: routingSvc.href(Pages.CRIME_SCRIPT, `id=${crimeScript.id}`),
+                  //           onclick: () => {
+                  //             setLocation(crimeScript.id, actIdx, phaseIdx);
+                  //           },
+                  //         },
+                  //         `${crimeScript.label} > ${actLabel}`
+                  //       ),
+                  //     ]);
+                  //   })
+                  // )
                 ),
               };
             }),

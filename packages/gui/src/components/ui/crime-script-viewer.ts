@@ -23,6 +23,7 @@ import { ReferenceListComponent } from '../ui/reference';
 import { lookupCrimeMeasure } from '../../models/situational-crime-prevention';
 import { t } from '../../services/translations';
 import {
+  createTooltip,
   generateLabeledItemsMarkup,
   measuresToMarkdown,
   toCommaSeparatedList,
@@ -106,7 +107,7 @@ ${
   conditions.length > 0
     ? `##### ${t('CONDITIONS')}
 
-${conditions.map((cond, i) => `${i + 1}. ` + cond.label).join('\n')}`
+${conditions.map((cond, i) => `${i + 1}. ${cond.label}${createTooltip(cond)}`).join('\n')}`
     : ''
 }
 
@@ -114,7 +115,7 @@ ${
   indicators.length > 0
     ? `##### ${t('INDICATORS')}
 
-${indicators.map((ind, i) => `${i + 1}. ` + ind.label).join('\n')}`
+${indicators.map((ind, i) => `${i + 1}. ${ind.label}${createTooltip(ind)}`).join('\n')}`
     : ''
 }
 

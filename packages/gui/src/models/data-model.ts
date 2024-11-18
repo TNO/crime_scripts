@@ -75,7 +75,7 @@ export enum SearchScore {
   OTHER_MATCH = 1,
 }
 
-export type FlexSearchResult = [crimeScriptIdx: number, actIdx: number, phaseIdx: number, score: number];
+export type FlexSearchResult = [crimeScriptIdx: number, actIdx: number, phaseIdx: number, score: number, desc?: string];
 
 export type CrimeScriptFilter = {
   productIds: ID[];
@@ -92,6 +92,8 @@ export type Labeled = {
   id: ID;
   label: string;
   description?: string;
+  /** If true, has a description */
+  hasDesc?: boolean;
   /** Abbreviation */
   abbrev?: string;
   /** Data image, base64 encoded */

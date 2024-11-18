@@ -247,6 +247,9 @@ export const toCommaSeparatedList = (arr: Array<Labeled> = [], ids: ID | ID[] = 
     .map((a, _i) => a.label)
     .join(', ');
 
+export const createTooltip = (c: Labeled) =>
+  c.description ? `&nbsp;<div class="info tooltip">&#8505;<span class="tooltiptext">${c.description}</span></div>` : '';
+
 export const generateLabeledItemsMarkup = (items: Array<Labeled & { header?: boolean }> = []): string => {
   const [_, nested] = items.reduce(
     (acc, cur) => {
@@ -272,8 +275,9 @@ export const generateLabeledItemsMarkup = (items: Array<Labeled & { header?: boo
     '<ol>' +
     nested
       .map((item) => {
-        const children = item.children.length > 0 ? item.children.map((c) => `<li>${c.label}</li>`).join('') : '';
-        return `<li>${item.label}${children ? `<ol type="a">${children}</ol>` : ''}</li>`;
+        const children =
+          item.children.length > 0 ? item.children.map((c) => `<li>${c.label}${createTooltip(c)}</li>`).join('') : '';
+        return `<li>${item.label}${createTooltip(item)}${children ? `<ol type="a">${children}</ol>` : ''}</li>`;
       })
       .join('\n') +
     '</ol>'

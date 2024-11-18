@@ -5,6 +5,7 @@ import { t } from '../services';
 
 export type AttributeType =
   | 'cast'
+  | 'serviceProviders'
   | 'attributes'
   | 'transports'
   | 'locations'
