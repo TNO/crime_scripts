@@ -422,7 +422,7 @@ export const toWord = async (filename: string, cs: Partial<CrimeScript>, model: 
   const { label: title, description } = cs;
 
   const markdown = crimeScriptToMarkdown(cs, model);
-  console.log(markdown);
+  // console.log(markdown);
 
   const doc = markdownToDocx(title, description, markdown);
 

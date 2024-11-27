@@ -432,6 +432,6 @@ export const measuresToMarkdown = (
       .join('\n')}\n\n`;
   }
 
-  console.log(markdown);
+  // console.log(markdown);
   return markdown;
 };
