@@ -337,8 +337,9 @@ export const CrimeScriptEditor: FactoryComponent<{
               m('.cur-act', { key: curAct.id }, [
                 m(LayoutForm, {
                   form: [
-                    { id: 'label', type: 'text', className: 'col s6 m9', label: t('NAME'), show: ['!icon=1'] },
-                    { id: 'label', type: 'text', className: 'col s6 m6', label: t('NAME'), show: ['icon=1'] },
+                    { id: 'label', type: 'text', className: 'col s6 m6', label: t('NAME'), show: ['!icon=1'] },
+                    { id: 'label', type: 'text', className: 'col s6 m3', label: t('NAME'), show: ['icon=1'] },
+                    { id: 'isGeneric', type: 'switch', className: 'col s6 m3', label: t('IS_GENERIC') },
                     { id: 'icon', type: 'select', className: 'col s6 m3', label: t('IMAGE'), options: IconOpts },
                     { id: 'url', type: 'base64', className: 'col s12 m3', label: t('IMAGE'), show: ['icon=1'] },
                     { id: 'description', type: 'textarea', className: 'col s12', label: t('SUMMARY') },

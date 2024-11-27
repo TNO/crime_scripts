@@ -69,6 +69,7 @@ export const messagesNL: typeof messages = {
   STAGE: 'Fase',
   SCENES: 'Scenes',
   SCENE: 'Scene',
+  MAIN_ACTS: 'Hoofdproces fases',
   ACTS: 'Fases',
   ACT: 'Fase',
   SELECT_ACT_TO_EDIT: 'Selecteer handeling om te bewerken',
@@ -81,8 +82,8 @@ export const messagesNL: typeof messages = {
   DOWNLOAD: 'Sla model op als JSON',
   PERMALINK: 'Maak permanente link',
   ROLE: 'Rol',
-  SELECT_ACT: 'Selecteer scene om te bewerken',
-  SELECT_ACT_N: 'Selecteer een of meerdere scenes',
+  SELECT_ACT: 'Selecteer fase om te bewerken',
+  SELECT_ACT_N: 'Selecteer een of meerdere fases',
 
   /** Crime Prevention Techniques */
   INCREASE_EFFORT: 'Verhoog de inspanning',
@@ -231,4 +232,5 @@ export const messagesNL: typeof messages = {
   SERVICE_PROVIDERS: 'Dienstverleners',
   STEPS: 'Stappen',
   HEADER: 'Titel',
+  IS_GENERIC: 'Generieke fase',
 };

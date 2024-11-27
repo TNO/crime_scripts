@@ -68,6 +68,7 @@ export const messages = {
   STAGE: 'Stage',
   SCENES: 'Scenes',
   SCENE: 'Scene',
+  MAIN_ACTS: 'Main Acts',
   ACTS: 'Acts',
   ACT: 'Act',
   SELECT_ACT_TO_EDIT: 'Select act to edit',
@@ -229,4 +230,5 @@ export const messages = {
   SERVICE_PROVIDERS: 'Service Providers',
   STEPS: 'Steps',
   HEADER: 'Header',
+  IS_GENERIC: 'Generic act',
 };

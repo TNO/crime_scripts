@@ -14,9 +14,10 @@ import {
   Product,
   ServiceProvider,
   missingIcon,
+  scriptIcon,
 } from '../../models';
 import { State } from '../../services';
-import { ITabItem, Tabs } from 'mithril-materialized';
+import { FlatButton, ITabItem, Tabs } from 'mithril-materialized';
 import { render, SlimdownView } from 'mithril-ui-form';
 import { Patch } from 'meiosis-setup/types';
 import { ReferenceListComponent } from '../ui/reference';
@@ -175,7 +176,15 @@ ${toMarkdownOl(attributes, attrIds)}`
       if (lookupPartner.size < partners.length) {
         partners.forEach((p) => lookupPartner.set(p.id, p));
       }
-      const { label = '...', description, literature, stages = [], productIds = [], geoLocationIds = [] } = crimeScript;
+      const {
+        label = '...',
+        description,
+        literature,
+        stages = [],
+        productIds = [],
+        geoLocationIds = [],
+        url = scriptIcon,
+      } = crimeScript;
       const [allCastIds, allSpIds, allAttrIds, allLocIds] = stages.reduce(
         (acc, stage) => {
           const act = acts.find((a) => a.id === stage.id);
@@ -207,7 +216,7 @@ ${toMarkdownOl(attributes, attrIds)}`
       const selectedActContent = selectedAct
         ? visualizeAct(selectedAct, cast, serviceProviders, attributes, locations, curPhaseIdx)
         : undefined;
-      console.log(selectedAct?.measures);
+      // console.log(selectedAct?.measures);
       const measuresMd =
         selectedAct && selectedAct.measures?.length > 0
           ? `##### ${t('MEASURES')}
@@ -222,7 +231,7 @@ ${measuresToMarkdown(selectedAct.measures, lookupPartner, findCrimeMeasure)}`
         .map(({ id: actId, ids }) => {
           const act = acts.find((a) => a.id === actId);
           if (act) {
-            const { id, label = '...', icon, url, description = '' } = act;
+            const { id, label = '...', icon, url, description = '', isGeneric } = act;
             const imgSrc = (icon === ICONS.OTHER ? url : IconOpts.find((i) => i.id === icon)?.img) || missingIcon;
             const variants =
               ids.length > 1
@@ -250,20 +259,32 @@ ${measuresToMarkdown(selectedAct.measures, lookupPartner, findCrimeMeasure)}`
               icon: imgSrc,
               description: m(SlimdownView, { md: description, removeParagraphs: true }),
               variants,
-            } as ProcessStep;
+              isGeneric,
+            } as ProcessStep & { isGeneric?: boolean };
           } else {
             return undefined;
           }
         })
-        .filter(Boolean) as ProcessStep[];
+        .filter(Boolean) as Array<ProcessStep & { isGeneric?: boolean }>;
 
       return m('.col.s12', [
-        m('h4', `${label}${productIds.length > 0 ? ` (${toCommaSeparatedList(products, productIds)})` : ''}`),
-        geoLocationIds.length > 0 &&
+        m(
+          '.row',
           m(
-            'i.geo-location',
-            `${t('GEOLOCATIONS', geoLocationIds.length)}: ${toCommaSeparatedList(geoLocations, geoLocationIds)}`
+            '.col.s9',
+            m('h4', `${label}${productIds.length > 0 ? ` (${toCommaSeparatedList(products, productIds)})` : ''}`),
+            geoLocationIds.length > 0 &&
+              m(
+                'i.geo-location',
+                `${t('GEOLOCATIONS', geoLocationIds.length)}: ${toCommaSeparatedList(geoLocations, geoLocationIds)}`
+              )
           ),
+          m(
+            '.col.s3',
+            m('img.right', { src: url, alt: 'Icon', style: { border: '2px solid black', borderRadius: '10px' } })
+          )
+        ),
+
         description && m('p', description),
         m('.row', [
           m('.col.s6.m4.l3', [
@@ -309,8 +330,34 @@ ${measuresToMarkdown(selectedAct.measures, lookupPartner, findCrimeMeasure)}`
         literature &&
           literature.length > 0 && [m('h5', t('REFERENCES')), m(ReferenceListComponent, { references: literature })],
         m('h5', t('ACTS')),
+        m(FlatButton, {
+          label: t('MAIN_ACTS'),
+          style: 'font-size: 16px;',
+          onclick: () => {
+            const stage = stages.length > 0 ? stages[0] : undefined;
+            if (stage) {
+              // stage.id = variantId;
+              update({ curActIdx: acts.findIndex((a) => a.id === stage.id) });
+            }
+          },
+        }),
+        steps
+          .filter((s) => s.isGeneric)
+          .map((s) =>
+            m(FlatButton, {
+              label: s.title,
+              style: 'font-size: 16px;',
+              onclick: () => {
+                const stage = stages.find((stage) => stage.id === s.id);
+                if (stage) {
+                  // stage.id = variantId;
+                  update({ curActIdx: acts.findIndex((a) => a.id === s.id) });
+                }
+              },
+            })
+          ),
         m(ProcessVisualization, {
-          steps,
+          steps: steps.filter((s) => !s.isGeneric),
           selectedStep: selectedAct?.id,
           onStepSelect: (stepId) => update({ curActIdx: acts.findIndex((a) => a.id === stepId) }),
           onVariantSelect: (stepId, variantId) => {

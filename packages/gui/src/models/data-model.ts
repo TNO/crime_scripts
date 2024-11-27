@@ -189,6 +189,8 @@ export type Stage = {
 };
 
 export type Act = Labeled & {
+  /** Overarching act, such as for financial dealings or generic stuff */
+  isGeneric?: boolean;
   /** Locations to perform the activity */
   locationIds?: ID[];
   /** Barriers or measures to prevent or stop crime */
