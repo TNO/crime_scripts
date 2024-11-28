@@ -21,7 +21,7 @@ export const CrimeScriptPage: MeiosisComponent = () => {
       setPage(Pages.CRIME_SCRIPT);
     },
     view: ({ attrs: { state, actions } }) => {
-      const { model, role, curActIdx, curPhaseIdx, currentCrimeScriptId = '' } = state;
+      const { model, role, curActIdx, curPhaseIdx, currentCrimeScriptId = '', searchFilter } = state;
       const {
         crimeScripts = [],
         cast = [],
@@ -114,6 +114,7 @@ export const CrimeScriptPage: MeiosisComponent = () => {
                     serviceProviders,
                     curActIdx,
                     curPhaseIdx,
+                    searchFilter,
                     update: actions.update,
                   })
             ),

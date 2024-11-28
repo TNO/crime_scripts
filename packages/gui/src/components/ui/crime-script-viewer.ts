@@ -18,7 +18,7 @@ import {
 } from '../../models';
 import { State } from '../../services';
 import { FlatButton, ITabItem, Tabs } from 'mithril-materialized';
-import { render, SlimdownView } from 'mithril-ui-form';
+import { SlimdownView } from 'mithril-ui-form';
 import { Patch } from 'meiosis-setup/types';
 import { ReferenceListComponent } from '../ui/reference';
 import { lookupCrimeMeasure } from '../../models/situational-crime-prevention';
@@ -26,10 +26,10 @@ import { t } from '../../services/translations';
 import {
   createTooltip,
   generateLabeledItemsMarkup,
+  highlightFactory,
   measuresToMarkdown,
   toCommaSeparatedList,
   toMarkdownOl,
-  toMarkdownUl,
 } from '../../utils';
 import { ProcessStep, ProcessVisualization } from './process-visualisation';
 
@@ -45,18 +45,20 @@ export const CrimeScriptViewer: FactoryComponent<{
   serviceProviders: ServiceProvider[];
   curActIdx?: number;
   curPhaseIdx?: number;
+  searchFilter?: string;
   update: (patch: Patch<State>) => void;
 }> = () => {
   const lookupPartner = new Map<ID, Labeled>();
   const findCrimeMeasure = lookupCrimeMeasure();
 
   const visualizeAct = (
-    { label = '...', activities = [], indicators = [], conditions = [], locationIds = [] } = {} as Act,
+    { label = '...', activities = [], indicators = [], conditions = [], locationIds = [], measures = [] } = {} as Act,
     cast: Cast[],
     serviceProviders: ServiceProvider[],
     attributes: CrimeScriptAttributes[],
     locations: CrimeLocation[],
-    curPhaseIdx = -1
+    curPhaseIdx = -1,
+    highlighter: (text?: string) => string | undefined
   ) => {
     {
       const castIds = Array.from(
@@ -81,12 +83,17 @@ export const CrimeScriptViewer: FactoryComponent<{
         locationIds && locationIds.length
           ? `##### ${t('LOCATIONS', locationIds.length)}
 
-${toMarkdownUl(locations, locationIds)}`
+${toCommaSeparatedList(locations, locationIds)}`
           : ''
       }
 
-${generateLabeledItemsMarkup(activities)}
+${
+  activities.length > 0
+    ? `##### ${t('STEPS')}
 
+${generateLabeledItemsMarkup(activities)}`
+    : ''
+}
 
 ${
   castIds.length > 0
@@ -126,6 +133,14 @@ ${
 
 ${toMarkdownOl(attributes, attrIds)}`
     : ''
+}
+
+${
+  measures.length > 0
+    ? `##### ${t('MEASURES')}
+  
+${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
+    : ''
 }`;
       const contentTabs = [
         {
@@ -138,7 +153,7 @@ ${toMarkdownOl(attributes, attrIds)}`
         title: label,
         vnode:
           contentTabs.length === 1
-            ? m(SlimdownView, { md: contentTabs[0].md })
+            ? m(SlimdownView, { md: highlighter(contentTabs[0].md) })
             : contentTabs.length > 1
             ? m(Tabs, {
                 tabs: contentTabs.map(
@@ -146,7 +161,7 @@ ${toMarkdownOl(attributes, attrIds)}`
                     ({
                       title,
                       active: index === curPhaseIdx,
-                      vnode: m(SlimdownView, { md }),
+                      vnode: m(SlimdownView, { md: highlighter(md) }),
                     } as ITabItem)
                 ),
               })
@@ -170,12 +185,14 @@ ${toMarkdownOl(attributes, attrIds)}`
         partners = [],
         curActIdx = -1,
         curPhaseIdx = 0,
+        searchFilter,
         update,
       },
     }) => {
       if (lookupPartner.size < partners.length) {
         partners.forEach((p) => lookupPartner.set(p.id, p));
       }
+      const { highlighter, mdHighlighter } = highlightFactory(searchFilter);
       const {
         label = '...',
         description,
@@ -214,18 +231,8 @@ ${toMarkdownOl(attributes, attrIds)}`
           ? acts.find((a) => a.id === stages[0].id)
           : undefined;
       const selectedActContent = selectedAct
-        ? visualizeAct(selectedAct, cast, serviceProviders, attributes, locations, curPhaseIdx)
+        ? visualizeAct(selectedAct, cast, serviceProviders, attributes, locations, curPhaseIdx, mdHighlighter)
         : undefined;
-      // console.log(selectedAct?.measures);
-      const measuresMd =
-        selectedAct && selectedAct.measures?.length > 0
-          ? `##### ${t('MEASURES')}
-
-${measuresToMarkdown(selectedAct.measures, lookupPartner, findCrimeMeasure)}`
-          : undefined;
-      // ${selectedAct.measures
-      //   .map((measure, i) => `${i + 1}. **${findCrimeMeasure(measure.cat)?.label}:** ${measure.label}`)
-      //   .join('\n')}`;
 
       const steps = stages
         .map(({ id: actId, ids }) => {
@@ -272,27 +279,36 @@ ${measuresToMarkdown(selectedAct.measures, lookupPartner, findCrimeMeasure)}`
           '.row',
           m(
             '.col.s9',
-            m('h4', `${label}${productIds.length > 0 ? ` (${toCommaSeparatedList(products, productIds)})` : ''}`),
+            m(
+              'h4',
+              highlighter(`${label}${productIds.length > 0 ? ` (${toCommaSeparatedList(products, productIds)})` : ''}`)
+            ),
             geoLocationIds.length > 0 &&
               m(
                 'i.geo-location',
-                `${t('GEOLOCATIONS', geoLocationIds.length)}: ${toCommaSeparatedList(geoLocations, geoLocationIds)}`
+                highlighter(
+                  `${t('GEOLOCATIONS', geoLocationIds.length)}: ${toCommaSeparatedList(geoLocations, geoLocationIds)}`
+                )
               )
           ),
           m(
             '.col.s3',
-            m('img.right', { src: url, alt: 'Icon', style: { border: '2px solid black', borderRadius: '10px' } })
+            m('img.right', {
+              src: url,
+              alt: 'Icon',
+              style: { border: '2px solid black', borderRadius: '10px', maxWidth: '100px', maxHeight: '100px' },
+            })
           )
         ),
 
-        description && m('p', description),
+        description && m('p', highlighter(description)),
         m('.row', [
           m('.col.s6.m4.l3', [
             allCastIds.size > 0 && [
               m('h5', t('CAST')),
               m(
                 'ol',
-                Array.from(allCastIds).map((id) => m('li', cast.find((c) => c.id === id)?.label))
+                Array.from(allCastIds).map((id) => m('li', highlighter(cast.find((c) => c.id === id)?.label)))
               ),
             ],
           ]),
@@ -301,7 +317,7 @@ ${measuresToMarkdown(selectedAct.measures, lookupPartner, findCrimeMeasure)}`
               m('h5', t('SERVICE_PROVIDERS')),
               m(
                 'ol',
-                Array.from(allSpIds).map((id) => m('li', serviceProviders.find((c) => c.id === id)?.label))
+                Array.from(allSpIds).map((id) => m('li', highlighter(serviceProviders.find((c) => c.id === id)?.label)))
               ),
             ],
           ]),
@@ -313,7 +329,7 @@ ${measuresToMarkdown(selectedAct.measures, lookupPartner, findCrimeMeasure)}`
                 Array.from(allAttrIds)
                   .map((id) => attributes.find((c) => c.id === id))
                   .filter((a) => a?.label)
-                  .map((a) => m('li', a?.label))
+                  .map((a) => m('li', highlighter(a?.label)))
               ),
             ],
           ]),
@@ -322,7 +338,7 @@ ${measuresToMarkdown(selectedAct.measures, lookupPartner, findCrimeMeasure)}`
               m('h5', t('LOCATIONS', allLocIds.size)),
               m(
                 'ol',
-                Array.from(allLocIds).map((id) => m('li', locations.find((c) => c.id === id)?.label))
+                Array.from(allLocIds).map((id) => m('li', highlighter(locations.find((c) => c.id === id)?.label)))
               ),
             ],
           ]),
@@ -368,12 +384,7 @@ ${measuresToMarkdown(selectedAct.measures, lookupPartner, findCrimeMeasure)}`
             }
           },
         }),
-        selectedActContent && [
-          m('h4', selectedActContent.title),
-          selectedAct?.activities && selectedAct?.activities?.length > 0 && m('h5', t('ACTIVITIES')),
-          selectedActContent.vnode,
-        ],
-        measuresMd && m('div.markdown', m.trust(render(measuresMd))),
+        selectedActContent && [m('h4', selectedActContent.title), selectedActContent.vnode],
       ]);
     },
   };

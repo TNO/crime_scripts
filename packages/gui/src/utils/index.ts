@@ -1,3 +1,4 @@
+import m from 'mithril';
 import { padLeft } from 'mithril-materialized';
 import {
   CrimeScriptFilter,
@@ -393,7 +394,9 @@ export const measuresToMarkdown = (
 ): string => {
   debugger;
   type PartnerMeasure = {
+    id: string;
     label: string;
+    description?: string;
     cat?: string;
   };
   const addMeasure = (partnerLabel: string, measure: Measure) => {
@@ -401,7 +404,9 @@ export const measuresToMarkdown = (
       groupedMeasures.set(partnerLabel, []);
     }
     groupedMeasures.get(partnerLabel)?.push({
+      id: measure.id,
       label: measure.label,
+      description: measure.description,
       cat: findCrimeMeasure(measure.cat)?.label,
     });
   };
@@ -427,11 +432,75 @@ export const measuresToMarkdown = (
     .map((a) => a[0]);
   for (const partnerLabel of sortedKeys) {
     const measures = groupedMeasures.get(partnerLabel) || [];
-    markdown += `###### ${partnerLabel}\n\n${measures
-      .map((measure, i) => `${i + 1}. **${measure.cat}**: ${measure.label}`)
+    markdown += `${measures
+      .map((measure, i) => `${i + 1}. **${partnerLabel} (${measure.cat})**: ${measure.label}${createTooltip(measure)}`)
       .join('\n')}\n\n`;
+    // markdown += `###### ${partnerLabel}\n\n${measures
+    //   .map((measure, i) => `${i + 1}. **${measure.cat}**: ${measure.label}`)
+    //   .join('\n')}\n\n`;
   }
 
   // console.log(markdown);
   return markdown;
+};
+
+/**
+ * Function to highlight matched words
+ */
+// export const highlight = (text: string, search?: string): m.Children => {
+export const highlight = (text: string, searchTerms?: string | string[]): m.Children => {
+  if (!searchTerms || !searchTerms.length) return text; // Return plain text if no search terms
+
+  const searchTermList = Array.isArray(searchTerms)
+    ? searchTerms
+    : searchTerms
+        .split(/\s+/g)
+        .map((s) => s.trim())
+        .filter(Boolean);
+  // Escape special regex characters in search terms
+  const escapedTerms = searchTermList.map((term) => term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+
+  // Create a single regex to match any of the terms
+  const regex = new RegExp(`(${escapedTerms.join('|')})`, 'gi');
+
+  // Split the text by the regex and wrap matching parts
+  const parts = text.split(regex);
+  return parts.map((part) => (regex.test(part) ? m('mark', { style: 'background: yellow;' }, part) : part));
+};
+
+export const highlightFactory = (searchTerms?: string | string[]) => {
+  if (!searchTerms || !searchTerms.length)
+    return {
+      highlighter: (text?: string) => text || '',
+      mdHighlighter: (text?: string) => text || '',
+    }; // Return plain text if no search terms
+
+  const searchTermList = Array.isArray(searchTerms)
+    ? searchTerms
+    : searchTerms
+        .split(/\s+/g)
+        .map((s) => s.trim())
+        .filter(Boolean);
+  // Escape special regex characters in search terms
+  const escapedTerms = searchTermList.map((term) => term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+
+  // Create a single regex to match any of the terms
+  const regex = new RegExp(`(${escapedTerms.join('|')})`, 'gi');
+
+  return {
+    highlighter: (text?: string) => {
+      if (!text) return [];
+      // Split the text by the regex and wrap matching parts
+      const parts = text.split(regex);
+      return parts.map((part) => (regex.test(part) ? m('mark', { style: 'background: yellow;' }, part) : part));
+    },
+    mdHighlighter: (text?: string) => {
+      if (!text) return '';
+      // Split the text by the regex and wrap matching parts
+      const parts = text.split(regex);
+      return parts
+        .map((part) => (regex.test(part) ? `<mark style="background:yellow;">${part}</mark>` : part))
+        .join('');
+    },
+  };
 };

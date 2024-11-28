@@ -227,7 +227,7 @@ export const CrimeScriptEditor: FactoryComponent<{
           options: partners.filter(({ label }) => label).map(({ id, label }) => ({ id, label, icon: 'handshake' })),
         },
         { id: 'label', type: 'textarea', className: 'col s12', label: t('NAME') },
-        // { id: 'description', type: 'textarea', className: 'col s12', label: t('DESCRIPTION') },
+        { id: 'description', type: 'textarea', className: 'col s12', label: t('DESCRIPTION') },
       ];
 
       measuresForm = [{ id: 'measures', type: measureForm, repeat: true, label: t('MEASURE') }];

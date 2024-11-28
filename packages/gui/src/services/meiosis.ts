@@ -122,7 +122,7 @@ export const setSearchResults: Service<State> = {
     const { lookup, searchFilter } = state;
     const allFlexResults: FlexSearchResult[] = [];
     if (searchFilter) {
-      const searchWords = searchFilter.trim().toLowerCase().split(/\s+/);
+      const searchWords = tokenize(searchFilter, i18n.stopwords);
       searchWords
         .map((word) => lookup.get(word))
         .filter((results) => typeof results !== 'undefined')

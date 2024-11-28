@@ -165,7 +165,7 @@ export const crimePreventionStrategies = () => [
 
 export const crimeMeasureOptions = (useGroupInLabel = false) => {
   const misc = t('MISC');
-  const createLabel = (label: string, group: string) => (useGroupInLabel ? `${label} (in "${group}")` : label);
+  const createLabel = (label: string, group: string) => (useGroupInLabel ? `${group} > ${label}` : label);
 
   return crimePreventionStrategies().reduce(
     (acc, cur) => {
