@@ -37,7 +37,7 @@ export const CasePage: MeiosisComponent = () => {
         } as FormAttributes<CrimeScriptFilter>),
         m('.col.s12', [
           m(TextInput, {
-            label: 'Aangetroffen zaken',
+            label: t('FOUND_ITEMS'),
             iconName: 'search',
             className: 'center-align',
             initialValue: caseFilter,
