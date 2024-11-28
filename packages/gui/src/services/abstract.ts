@@ -1,4 +1,23 @@
 export const situationCrimePreventionClassificationTable = `
+#### Service Providers
+
+**Service providers** can be categorized into individuals (such as specialists in financial, legal, technical, and logistical fields, government personnel, property owners, landlords, and real estate sellers), businesses (such as companies providing logistical support, legitimization and concealment, and money laundering), and communities (such as industry sectors and subcultural communities). In the DRIOB barrier model, a distinction is also made between service providers in the legitimate world and those in the criminal underworld.
+
+#### Opportunities
+
+**Opportunities** include, for example, the physical and logistical infrastructure that criminals use, devices and raw materials needed for producing illegal goods (e.g., for cocaine, the washing and cutting process), financial, legal, and administrative services (such as transferring money or falsifying accounting records), shielding and security (e.g., shielding through complex financial structures, or security by individuals and technology), and unintentionally created opportunities (such as demand for illegal goods, reduced or intensified enforcement or supervision).
+
+#### Indicators
+
+**Indicators** can be divided into financial indicators (such as suspicious transactions, unexplained wealth, large cash payments), social indicators (such as a lifestyle inconsistent with income), logistical indicators (such as unusual routes, shipments that disappear), physical indicators (e.g., lack of activity at business premises), and administrative indicators (such as no tax filings, insufficient employees for formal business activities).
+
+#### Barriers
+
+**Barriers** can be categorized into economic barriers (such as fines, tax measures, account blocking), legal measures (administrative enforcement, supervision, licensing systems, bans on trade and production), informational barriers (awareness campaigns, improving the information position), and criminal law barriers (such as confiscating unlawfully obtained gains, seizing property, intensifying criminal prosecution).
+
+#### Partners
+
+The **partners** who can contribute to a joint approach to organized crime (public, private, and social entities) are highlighted in bold in the cells containing the barriers.
 
 #### Situational Crime Prevention techniques
 
@@ -12,6 +31,25 @@ export const situationCrimePreventionClassificationTable = `
 `;
 
 export const situationCrimePreventionClassificationTableNL = `
+#### Dienstverleners
+
+**Dienstverleners** zijn onder te verdelen in personen (zoals specialisten op financieel, juridisch, technisch en logistiek gebied, overheidspersoneel, eigenaren, verhuurders en verkopers van vastgoed), ondernemingen (zoals ondernemingen voor logistieke ondersteuning, legitimering en verhulling en witwassen) en gemeenschappen (zoals bedrijfstakken en subculturele gemeenschappen). In het DRIOB-barrièremodel is hiernaast onderscheid gemaakt tussen dienstverleners in de bovenwereld en dienstverleners in de onderwereld.
+
+#### Gelegenheden
+
+**Gelegenheden** zijn bijvoorbeeld de fysieke en logistieke infrastructuur waar criminelen gebruik van maken, apparaten en grondstoffen die nodig zijn voor het produceren van illegale goederen (bij cocaïne ook het uitwassen en versnijden), financiële, juridische en administratieve diensten (bijvoorbeeld om geld van A naar B te krijgen of boekhouding te vervalsen), afscherming en beveiliging (zoals afscherming door middel van moeilijk te doorgronden financiële constructies, beveiliging door personen en technieken) onbedoeld gecreëerde mogelijkheden (vraag naar illegale goederen, vermindering of intensivering van handhaving of toezicht).
+
+#### Indicatoren
+
+**Indicatoren** kunnen onderverdeeld worden in financiële indicatoren (zoals verdachte transacties, onverklaarbaar vermogen, grote cash betalingen), sociale indicatoren (zoals een levensstijl die niet past bij inkomen), logistieke indicatoren (zoals afwijkende routes, zendingen die verdwijnen), fysieke indicatoren (geen bedrijvigheid bij bedrijfspanden), administratieve indicatoren (zoals ontbreken van belastingaangifte, te weinig werknemers in dienst voor formele bedrijfsactiviteiten).
+
+#### Barrières
+
+**Barrières** kunnen onderverdeeld worden in economische barrières (zoals boetes, fiscale maatregelen, het blokkeren van rekeningen), wettelijke maatregelen (bestuursdwang, toezicht, vergunningsstelsel, verbod op handel en productie), informatie barrières (bewustwordingscampagnes, informatiepositie verbeteren), strafrechtelijke barrières (zoals het ontnemen wederrechtelijk verkregen voordeel, ontnemen eigendom, intensiveren strafrechtelijke aanpak).
+
+#### Partners
+
+De **partners** die voor een gezamenlijke aanpak van de georganiseerde criminaliteit kunnen zorgen (publieke, private en maatschappelijke partijen) zijn dikgedrukt in de cellen met de barrières weergegeven.
 
 #### Situational Crime Prevention technieken
 

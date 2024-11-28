@@ -9,7 +9,7 @@ export const messagesNL: typeof messages = {
     DESC: 'Alle misdaadscripts worden opgeslagen in een lokaal bestand en gecached in uw browser. Geen wachtwoord vereist, geen informatiedeling met derden. Dit bestand dient u natuurlijk wel zelf veilig te beheeren.',
   },
   HOME: { TITLE: 'Home', ROUTE: '/home' },
-  ABOUT: { TITLE: 'Over de app', ROUTE: '/over', TEXT: situationCrimePreventionClassificationTableNL },
+  ABOUT: { TITLE: 'Gebruikte definities in PAX', ROUTE: '/over', TEXT: situationCrimePreventionClassificationTableNL },
   CRIME_SCRIPT: { TITLE: 'Crime script', ROUTE: '/crime_script' },
   SETTINGS: { TITLE: 'Instellingen', ROUTE: '/instellingen' },
   LANDING: { TITLE: 'Introductie', ROUTE: '/' },
@@ -233,4 +233,5 @@ export const messagesNL: typeof messages = {
   STEPS: 'Stappen',
   HEADER: 'Titel',
   IS_GENERIC: 'Generieke fase',
+  FOUND_ITEMS: 'Aangetroffen zaken',
 };

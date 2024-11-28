@@ -8,7 +8,7 @@ export const messages = {
     DESC: 'All crime scripts are stored in a local file, and cached in your browser. Ho passwords required.',
   },
   HOME: { TITLE: 'Home', ROUTE: '/home' },
-  ABOUT: { TITLE: 'About the app', ROUTE: '/about', TEXT: situationCrimePreventionClassificationTable },
+  ABOUT: { TITLE: 'Definitions used in PAX', ROUTE: '/about', TEXT: situationCrimePreventionClassificationTable },
   CRIME_SCRIPT: { TITLE: 'Crime script', ROUTE: '/crime_script' },
   SETTINGS: { TITLE: 'Settings', ROUTE: '/settings' },
   LANDING: { TITLE: 'Introduction', ROUTE: '/' },
@@ -231,4 +231,5 @@ export const messages = {
   STEPS: 'Steps',
   HEADER: 'Header',
   IS_GENERIC: 'Generic act',
+  FOUND_ITEMS: 'Found items',
 };
