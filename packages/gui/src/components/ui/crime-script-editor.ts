@@ -217,17 +217,18 @@ export const CrimeScriptEditor: FactoryComponent<{
 
       const measureForm: UIForm<Measure> = [
         { id: 'id', type: 'autogenerate', autogenerate: 'id' },
-        { id: 'cat', type: 'select', options: measOptions, className: 'col s6 m5 l4', label: t('CATEGORY') },
+        { id: 'cat', type: 'select', options: measOptions, className: 'col s4 m4', label: t('CATEGORY') },
         {
           id: 'partners',
           type: 'select',
           multiple: true,
-          className: 'col s6 m7 l8',
+          className: 'col s4 m6',
           label: t('PARTNERS'),
           options: partners.filter(({ label }) => label).map(({ id, label }) => ({ id, label, icon: 'handshake' })),
         },
+        { id: 'hasDesc', type: 'switch', className: 'col s4 m2 switch', label: t('INFO') },
         { id: 'label', type: 'textarea', className: 'col s12', label: t('NAME') },
-        { id: 'description', type: 'textarea', className: 'col s12', label: t('DESCRIPTION') },
+        { id: 'description', show: ['hasDesc=true'], type: 'textarea', className: 'col s12', label: t('DESCRIPTION') },
       ];
 
       measuresForm = [{ id: 'measures', type: measureForm, repeat: true, label: t('MEASURE') }];
