@@ -41,7 +41,7 @@ const configuration: Configuration = {
   devtool: devMode ? 'inline-source-map' : 'source-map',
   plugins: [
     new DefinePlugin({
-      'process.env.SERVER': isProduction ? `'${publicPath}'` : "'http://localhost:4545'",
+      'process.env.SERVER': isProduction ? `'${publicPath}'` : '`http://localhost:${APP_PORT}`',
     }),
     new HtmlRspackPlugin({
       title: APP_TITLE,
@@ -69,13 +69,11 @@ const configuration: Configuration = {
     new HotModuleReplacementPlugin(),
     new LightningCssMinimizerRspackPlugin(),
     new SwcJsMinimizerRspackPlugin({
-      minimizerOptions: devMode
-        ? {}
-        : {
-            compress: true,
-            minify: true,
-            // mangle: true,
-          },
+      minimizerOptions: {
+        compress: isProduction,
+        minify: isProduction,
+        mangle: isProduction,
+      },
     }),
   ],
   resolve: {
