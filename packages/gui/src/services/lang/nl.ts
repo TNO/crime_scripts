@@ -206,7 +206,7 @@ export const messagesNL: typeof messages = {
   BELONGS_TO: 'Behoort tot',
   LOCATIONS: { 0: 'Locaties', 1: 'Locatie', n: 'Locaties' },
   PRODUCTS: { 0: 'Producten', 1: 'Product', n: 'Producten' },
-  GEOLOCATIONS: { 0: 'Kaartlocatie', 1: 'Kaartlocatie', n: 'Kaartlocaties' },
+  GEOLOCATIONS: { 0: 'Geolocatie', 1: 'Geolocatie', n: 'Geolocaties' },
   TRANSPORT: 'Transportmiddel',
   TRANSPORTS: 'Transportmiddelen',
   I18n: {
