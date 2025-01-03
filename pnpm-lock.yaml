@@ -33,8 +33,8 @@ importers:
         specifier: ^6.2.3
         version: 6.2.3
       mithril:
-        specifier: ^2.2.11
-        version: 2.2.11
+        specifier: ^2.2.12
+        version: 2.2.12
       mithril-materialized:
         specifier: ^1.2.2
         version: 1.2.2
@@ -1187,8 +1187,8 @@ packages:
   mithril-ui-form@1.10.14:
     resolution: {integrity: sha512-a2vJdIQD983ALORTjpMmskLu8udkhxtH35dBT23SIENlYVGyWncleCCTg5zyKS7TO0uNlppIqCdfH5CUCAEjOw==}
 
-  mithril@2.2.11:
-    resolution: {integrity: sha512-l7WOWzoc4m6QILj5Ft/uVlZ849h2zt53flbZdG9oLkP3OzitJrgLyoa1YRaGPvQuV5zfaIXVu7/o5zikoh/c6w==}
+  mithril@2.2.12:
+    resolution: {integrity: sha512-EpHb0DkcfwB+83NYvU8WMGBib+/TBtFLzdvYYXijqcW0o1i6cpVPklrCglJi2COXT2MG0Kih81CNPCoZkj0vag==}
 
   mrmime@1.0.1:
     resolution: {integrity: sha512-hzzEagAgDyoU1Q6yg5uI+AorQgdvMCur3FcKf7NhMKWsaYg+RnbTyHRa/9IlLF9rf455MOCtcqqrQQ83pPP7Uw==}
@@ -2969,7 +2969,7 @@ snapshots:
   mithril-materialized@1.2.2:
     dependencies:
       materialize-css: 1.0.0
-      mithril: 2.2.11
+      mithril: 2.2.12
 
   mithril-ui-form-plugin@0.6.7: {}
 
@@ -2978,7 +2978,7 @@ snapshots:
       mithril-ui-form-plugin: 0.6.7
       slimdown-js: 0.7.5
 
-  mithril@2.2.11: {}
+  mithril@2.2.12: {}
 
   mrmime@1.0.1: {}
 

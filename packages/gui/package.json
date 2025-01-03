@@ -24,7 +24,7 @@
     "material-icons": "^1.13.12",
     "materialize-css": "^1.0.0",
     "meiosis-setup": "^6.2.3",
-    "mithril": "^2.2.11",
+    "mithril": "^2.2.12",
     "mithril-materialized": "^1.2.2",
     "mithril-ui-form": "^1.10.14",
     "stopwords-en": "^0.3.0",
