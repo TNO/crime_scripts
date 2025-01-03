@@ -1,6 +1,6 @@
 import m from 'mithril';
 import { Languages, MeiosisComponent, UserRole, i18n, routingSvc, t } from '../../services';
-import { FlatButton, ISelectOptions, Icon, ModalPanel, Select, padLeft } from 'mithril-materialized';
+import { FlatButton, ISelectOptions, ModalPanel, Select, padLeft } from 'mithril-materialized';
 import { DataModel, Page, Pages, defaultModel } from '../../models';
 import { formatDate, isActivePage } from '../../utils';
 import { compressToEncodedURIComponent, decompressFromUint8Array } from 'lz-string';

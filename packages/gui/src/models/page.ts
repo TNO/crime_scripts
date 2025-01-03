@@ -10,6 +10,7 @@ export enum Pages {
   CRIME_SCRIPT = 'CRIME_SCRIPT',
   SETTINGS = 'SETTINGS',
   ABOUT = 'ABOUT',
+  ARTICLE = 'ARTICLE',
   CASE = 'CASE',
 }
 

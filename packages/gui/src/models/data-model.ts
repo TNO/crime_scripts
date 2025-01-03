@@ -15,6 +15,7 @@ export type DataModel = {
   partners: Partner[];
   serviceProviders: ServiceProvider[];
   acts: Act[];
+  articles: NewsArticle[];
 };
 
 export const defaultModel: DataModel = {
@@ -32,6 +33,7 @@ export const defaultModel: DataModel = {
   partners: [],
   serviceProviders: [],
   acts: [],
+  articles: [],
 };
 
 export enum STATUS {
@@ -282,3 +284,15 @@ export const LevelTypeOptions = [
   { id: LevelType.Intermediate, label: 'Intermediate' },
   { id: LevelType.Expert, label: 'Expert' },
 ];
+
+export type NewsArticle = {
+  id: ID;
+  url: string;
+  imageUrl?: string;
+  title: string;
+  text: string;
+  tags: string[];
+  source?: string;
+  publishedAt?: Date;
+  created?: Date;
+};

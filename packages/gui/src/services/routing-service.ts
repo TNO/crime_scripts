@@ -4,6 +4,7 @@ import { Layout } from '../components/layout';
 import { AboutPage, CasePage, CrimeScriptPage, HomePage, LandingPage, SettingsPage } from '../components';
 import { t } from './translations';
 import { appActions, cells } from './meiosis';
+import { ArticlePage } from '../components/article-page';
 
 class RoutingService {
   private pages!: ReadonlyArray<Page>;
@@ -48,6 +49,16 @@ class RoutingService {
         hasSidebar: false,
         visible: true, // ({ role }) => role === 'admin',
         component: CasePage,
+      },
+      {
+        id: Pages.ARTICLE,
+        icon: 'newspaper',
+        // iconClass: 'blue-text',
+        title: t('ARTICLE', 'TITLE'),
+        route: t('ARTICLE', 'ROUTE'),
+        hasSidebar: false,
+        visible: true, // ({ role }) => role === 'admin',
+        component: ArticlePage,
       },
       {
         id: Pages.SETTINGS,
