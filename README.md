@@ -23,14 +23,15 @@ npm start
 - [x] Add option to specify and view literature
 - [x] Allow the user to select multiple acts in each step
 - [x] Add sidenav menu
-- [ ] Search should preferably also select the act variant
+- [x] Search also select the variant
 - [x] Zip the model file
-- [ ] Use the crime script image, e.g. next to the description
+- [x] Use the crime script image, e.g. next to the description
 - [x] Add measures to counteract the activity or condition: use Situational Crime Prevention (SCP) to structure the measures.
-- [ ] Add option to use it with a case
+- [x] Add option to use it with a case
 - [x] Translate to Dutch
-- [ ] Export to Word per script
+- [x] Export to Word per script
 - [ ] Export to Word all scripts
+- [ ] Export to JSON a single script
 
 ## LLM support to label barriers
 

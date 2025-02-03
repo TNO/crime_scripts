@@ -3,6 +3,8 @@ import { ICONS } from './icons';
 export type DataModel = {
   version: number;
   lastUpdate: number;
+  /** In preview mode, you can inspect a crime script before deciding to merge it into the main database. */
+  previewMode?: boolean;
   crimeScripts: CrimeScript[];
   cast: Cast[];
   attributes: CrimeScriptAttributes[];
@@ -10,8 +12,6 @@ export type DataModel = {
   geoLocations: GeographicLocation[];
   products: Product[];
   transports: Transport[];
-  opportunities: Opportunity[];
-  indicators: Indicator[];
   partners: Partner[];
   serviceProviders: ServiceProvider[];
   acts: Act[];
@@ -28,8 +28,6 @@ export const defaultModel: DataModel = {
   geoLocations: [],
   products: [],
   transports: [],
-  opportunities: [],
-  indicators: [],
   partners: [],
   serviceProviders: [],
   acts: [],

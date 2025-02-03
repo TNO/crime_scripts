@@ -48,7 +48,8 @@ export const SideNav: MeiosisComponent = () => {
       case 'download_json': {
         const version = typeof model.version === 'undefined' ? 1 : ++model.version;
         const dataStr =
-          'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify({ ...model, version }, null, 2));
+          'data:text/json;charset=utf-8,' +
+          encodeURIComponent(JSON.stringify({ ...model, version, lastUpdate: Date.now() }));
         const dlAnchorElem = document.createElement('a');
         dlAnchorElem.setAttribute('href', dataStr);
         dlAnchorElem.setAttribute('download', `${formatDate()}_v${padLeft(version, 3)}_crime_scripts.json`);

@@ -195,6 +195,7 @@ export const messagesNL: typeof messages = {
     DESC: "Ademanalysers in bars, Interventie programma's voor barpersoneel, Alcoholvrije evenementen",
   },
   EXPORT_TO_WORD: 'Exporteer naar Word',
+  EXPORT_TO_JSON: 'Exporteer naar JSON',
   INTRODUCTION: 'Introductie',
   SEARCH: 'Zoek...',
   SEARCH_TOOLTIP: 'Type / om te zoeken',

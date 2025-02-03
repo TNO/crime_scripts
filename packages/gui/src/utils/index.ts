@@ -1,7 +1,9 @@
 import m from 'mithril';
 import { padLeft } from 'mithril-materialized';
 import {
+  CrimeScript,
   CrimeScriptFilter,
+  DataModel,
   FlexSearchResult,
   Hierarchical,
   ID,
@@ -12,6 +14,7 @@ import {
   SearchResult,
 } from '../models';
 import { i18n, t } from '../services';
+import saveAs from 'file-saver';
 
 export const LANGUAGE = 'CSS_LANGUAGE';
 export const SAVED = 'CSS_MODEL_SAVED';
@@ -503,4 +506,78 @@ export const highlightFactory = (searchTerms?: string | string[]) => {
         .join('');
     },
   };
+};
+
+/** Converts a crime script to a Word docx document and saves it */
+export const toJSON = async (filename: string, cs: Partial<CrimeScript>, model: DataModel) => {
+  const stageIds = cs.stages?.reduce((acc, stage) => {
+    stage.ids?.forEach((id) => acc.add(id));
+    return acc;
+  }, new Set<ID>());
+  const acts = model.acts.filter((a) => stageIds?.has(a.id));
+  const castIds = acts.reduce((acc, act) => {
+    act.activities.forEach((activity) => {
+      activity.cast?.forEach((cm) => acc.add(cm));
+    });
+    return acc;
+  }, new Set<ID>());
+  const cast = model.cast.filter((a) => castIds?.has(a.id));
+  const attributeIds = acts.reduce((acc, act) => {
+    act.activities.forEach((activity) => {
+      activity.attributes?.forEach((cm) => acc.add(cm));
+    });
+    return acc;
+  }, new Set<ID>());
+  const attributes = model.attributes.filter((a) => attributeIds?.has(a.id));
+  const transportIds = acts.reduce((acc, act) => {
+    act.activities.forEach((activity) => {
+      activity.transports?.forEach((cm) => acc.add(cm));
+    });
+    return acc;
+  }, new Set<ID>());
+  const transports = model.transports.filter((a) => transportIds?.has(a.id));
+  const partnerIds = acts.reduce((acc, act) => {
+    act.measures.forEach((measure) => {
+      measure.partners?.forEach((cm) => acc.add(cm));
+    });
+    return acc;
+  }, new Set<ID>());
+  const partners = model.partners.filter((a) => partnerIds?.has(a.id));
+  const serviceProviderIds = acts.reduce((acc, act) => {
+    act.activities.forEach((activity) => {
+      activity.sp?.forEach((cm) => acc.add(cm));
+    });
+    return acc;
+  }, new Set<ID>());
+  const serviceProviders = model.serviceProviders.filter((a) => serviceProviderIds?.has(a.id));
+  const locationsIds = acts.reduce((acc, act) => {
+    act.locationIds?.forEach((id) => {
+      acc.add(id);
+    });
+    return acc;
+  }, new Set<ID>());
+  const locations = model.locations.filter((a) => locationsIds?.has(a.id));
+  const geoLocations = model.geoLocations.filter((a) => cs.geoLocationIds?.includes(a.id));
+  const products = model.products.filter((a) => cs.productIds?.includes(a.id));
+
+  const dataStr =
+    'data:text/json;charset=utf-8,' +
+    encodeURIComponent(
+      JSON.stringify({
+        ...model,
+        previewMode: true,
+        crimeScripts: [cs],
+        acts,
+        cast,
+        locations,
+        geoLocations,
+        products,
+        attributes,
+        transports,
+        partners,
+        serviceProviders,
+        lastUpdate: Date.now(),
+      } as DataModel)
+    );
+  saveAs(dataStr, filename.replace('.docx', '.json'));
 };

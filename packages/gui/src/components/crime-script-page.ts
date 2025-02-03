@@ -4,7 +4,7 @@ import { MeiosisComponent } from '../services';
 import { FlatButton, ModalPanel } from 'mithril-materialized';
 import { t } from '../services/translations';
 import { toWord } from '../utils/word';
-import { formatDate } from '../utils';
+import { formatDate, toJSON } from '../utils';
 import { CrimeScriptEditor } from './ui/crime-script-editor';
 import { CrimeScriptViewer } from './ui/crime-script-viewer';
 
@@ -40,7 +40,7 @@ export const CrimeScriptPage: MeiosisComponent = () => {
 
       const isEditor = role === 'admin' || role === 'editor';
 
-      const filename = `${formatDate(Date.now(), '')}_${crimeScript?.label}_v${model.version}.docx`;
+      const filename = `${formatDate(Date.now(), '')}_${crimeScript?.label}_v${model.version}.docx`.replace(/\s/g, '_');
 
       return m(
         '#crime-script.page',
@@ -76,14 +76,20 @@ export const CrimeScriptPage: MeiosisComponent = () => {
                       className: 'small',
                       modalId: 'deleteScript',
                     }),
-                    crimeScript &&
+                    crimeScript && [
                       m(FlatButton, {
-                        title: 'Export to Word',
                         label: t('EXPORT_TO_WORD'),
                         className: 'small',
                         iconName: 'download',
                         onclick: () => toWord(filename, crimeScript, model),
                       }),
+                      m(FlatButton, {
+                        label: t('EXPORT_TO_JSON'),
+                        className: 'small',
+                        iconName: 'download',
+                        onclick: () => toJSON(filename, crimeScript, model),
+                      }),
+                    ],
                   ]
             ),
           crimeScript &&

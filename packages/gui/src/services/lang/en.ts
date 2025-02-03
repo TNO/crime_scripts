@@ -193,6 +193,7 @@ export const messages = {
     DESC: 'Breathalyzers in bars, Server intervention programs, Alcohol-free events',
   },
   EXPORT_TO_WORD: 'Export to Word',
+  EXPORT_TO_JSON: 'Export to JSON',
   INTRODUCTION: 'Introduction',
   SEARCH: 'Search...',
   SEARCH_TOOLTIP: 'Type / to search',
