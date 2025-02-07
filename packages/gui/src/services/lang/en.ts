@@ -75,8 +75,6 @@ export const messages = {
   MAIN_ACTS: 'Main Acts',
   ACTS: 'Acts',
   ACT: 'Act',
-  SELECT_ACT_TO_EDIT: 'Select act to edit',
-  CREATE_NEW_ACT: 'Create new act',
   REFERENCES: 'References',
   DETAILS: 'Details',
   LANGUAGE: 'Language',
@@ -85,6 +83,9 @@ export const messages = {
   DOWNLOAD: 'Download model as JSON',
   PERMALINK: 'Create permanent link',
   ROLE: 'Role',
+  ADD_ACT: 'New act',
+  DELETE_ACT: 'Delete act',
+  DELETE_ACT_CONFIRM: 'Are you sure that you want to permanently delete act "{name}"?',
   SELECT_ACT: 'Select act to edit',
   SELECT_ACT_N: 'Select one or more acts for this step',
   /** Crime Prevention Techniques */

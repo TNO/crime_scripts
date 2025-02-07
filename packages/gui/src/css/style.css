@@ -549,9 +549,6 @@ label,
   -ms-user-select: none;
   user-select: none;
 }
-.chips {
-  margin-top: 0;
-}
 
 a.waves-effect.waves-teal.btn-flat.selected {
   background: #1a237e;

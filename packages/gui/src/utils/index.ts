@@ -398,7 +398,6 @@ export const measuresToMarkdown = (
       }
     | undefined
 ): string => {
-  debugger;
   type PartnerMeasure = {
     id: string;
     label: string;

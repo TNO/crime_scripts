@@ -76,8 +76,6 @@ export const messagesNL: typeof messages = {
   MAIN_ACTS: 'Hoofdproces fases',
   ACTS: 'Fases',
   ACT: 'Fase',
-  SELECT_ACT_TO_EDIT: 'Selecteer handeling om te bewerken',
-  CREATE_NEW_ACT: 'Nieuwe handeling maken',
   REFERENCES: 'Referenties',
   DETAILS: 'Details',
   LANGUAGE: 'Taal',
@@ -86,7 +84,10 @@ export const messagesNL: typeof messages = {
   DOWNLOAD: 'Sla model op als JSON',
   PERMALINK: 'Maak permanente link',
   ROLE: 'Rol',
-  SELECT_ACT: 'Selecteer fase om te bewerken',
+  ADD_ACT: 'Nieuwe fase',
+  DELETE_ACT: 'Verwijder fase',
+  DELETE_ACT_CONFIRM: 'Weet je zeker dat je de fase "{name}" wilt verwijderen?',
+  SELECT_ACT: 'Bewerk fase',
   SELECT_ACT_N: 'Selecteer een of meerdere fases',
 
   /** Crime Prevention Techniques */

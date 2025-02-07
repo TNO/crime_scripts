@@ -98,15 +98,7 @@ export const CrimeScriptPage: MeiosisComponent = () => {
               edit
                 ? m(CrimeScriptEditor, {
                     crimeScript,
-                    cast,
-                    acts,
-                    attributes,
-                    locations,
-                    geoLocations,
-                    transports,
-                    products,
-                    partners,
-                    serviceProviders,
+                    model,
                   })
                 : m(CrimeScriptViewer, {
                     crimeScript,
