@@ -6,11 +6,7 @@ settings:
 
 importers:
 
-  .:
-    devDependencies:
-      pnpm:
-        specifier: ^9.15.5
-        version: 9.15.5
+  .: {}
 
   packages/gui:
     dependencies:
@@ -39,8 +35,8 @@ importers:
         specifier: ^1.3.5
         version: 1.3.5
       mithril-ui-form:
-        specifier: ^1.10.15
-        version: 1.10.15
+        specifier: ^1.10.16
+        version: 1.10.16(mithril-materialized@1.3.5)(mithril@2.2.13)
       stopwords-en:
         specifier: ^0.3.0
         version: 0.3.0
@@ -76,11 +72,11 @@ importers:
         specifier: ^6.0.1
         version: 6.0.1
       sass:
-        specifier: ^1.83.4
-        version: 1.83.4
+        specifier: ^1.84.0
+        version: 1.84.0
       sass-loader:
         specifier: 16.0.4
-        version: 16.0.4(@rspack/core@1.2.2)(sass@1.83.4)(webpack@5.90.3)
+        version: 16.0.4(@rspack/core@1.2.2)(sass@1.84.0)(webpack@5.90.3)
       ts-node:
         specifier: ^10.9.2
         version: 10.9.2(@types/node@22.9.0)(typescript@5.7.3)
@@ -1199,8 +1195,11 @@ packages:
   mithril-ui-form-plugin@0.6.7:
     resolution: {integrity: sha512-tm7rQususQQZKdDxCR4OcyrZW3RmkYhCU1GRkKTTNjIv24apDi6CQ4tBgm/+Q4zTwvedtYSG0El4SIkQrexkBA==}
 
-  mithril-ui-form@1.10.15:
-    resolution: {integrity: sha512-ydJVyoq8lO38hZX7esIwuATeT0xrBsWYC8qGoxLIl25vEBfd2cCqaUF63lODxglvNI0l2iUi6NI2NPByi8/eUQ==}
+  mithril-ui-form@1.10.16:
+    resolution: {integrity: sha512-A4BqF96eKM6XyVzcKS50iZ+kg+QaQuFBeRrm+/4vbwrcMuhnjNLoTjs9kWAWk/5B680P83TZdLUyiBhOOdjY4A==}
+    peerDependencies:
+      mithril: ^2.2.0
+      mithril-materialized: ^1.3.5
 
   mithril@2.2.13:
     resolution: {integrity: sha512-dfWFYmRJDXAROG6B1AsQXEwhSgFZ65Am/5Xj3oJ/R1wZtrC0W20P4sIAtFQB0SZsGwV7H2MiEJiFGmlUtXF1Ww==}
@@ -1321,11 +1320,6 @@ packages:
     resolution: {integrity: sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==}
     engines: {node: '>=8.6'}
 
-  pnpm@9.15.5:
-    resolution: {integrity: sha512-hFGWAmqrHMPwmKBHS2TfurKv56G06R3YaJXY5Koyp6bQMEni0K13C75N4COnEi+2jBodbg0DPHB2CF+dXUgA1A==}
-    engines: {node: '>=18.12'}
-    hasBin: true
-
   process-nextick-args@2.0.1:
     resolution: {integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==}
 
@@ -1433,8 +1427,8 @@ packages:
       webpack:
         optional: true
 
-  sass@1.83.4:
-    resolution: {integrity: sha512-B1bozCeNQiOgDcLd33e2Cs2U60wZwjUUXzh900ZyQF5qUasvMdDZYbQ566LJu7cqR+sAHlAfO6RMkaID5s6qpA==}
+  sass@1.84.0:
+    resolution: {integrity: sha512-XDAbhEPJRxi7H0SxrnOpiXFQoUJHwkR2u3Zc4el+fK/Tt5Hpzw5kkQ59qVDfvdaUq6gCrEZIbySFBM2T9DNKHg==}
     engines: {node: '>=14.0.0'}
     hasBin: true
 
@@ -2989,8 +2983,10 @@ snapshots:
 
   mithril-ui-form-plugin@0.6.7: {}
 
-  mithril-ui-form@1.10.15:
+  mithril-ui-form@1.10.16(mithril-materialized@1.3.5)(mithril@2.2.13):
     dependencies:
+      mithril: 2.2.13
+      mithril-materialized: 1.3.5
       mithril-ui-form-plugin: 0.6.7
       slimdown-js: 1.0.0
 
@@ -3089,8 +3085,6 @@ snapshots:
 
   picomatch@2.3.1: {}
 
-  pnpm@9.15.5: {}
-
   process-nextick-args@2.0.1: {}
 
   proxy-addr@2.0.7:
@@ -3175,15 +3169,15 @@ snapshots:
 
   safer-buffer@2.1.2: {}
 
-  sass-loader@16.0.4(@rspack/core@1.2.2)(sass@1.83.4)(webpack@5.90.3):
+  sass-loader@16.0.4(@rspack/core@1.2.2)(sass@1.84.0)(webpack@5.90.3):
     dependencies:
       neo-async: 2.6.2
     optionalDependencies:
       '@rspack/core': 1.2.2
-      sass: 1.83.4
+      sass: 1.84.0
       webpack: 5.90.3
 
-  sass@1.83.4:
+  sass@1.84.0:
     dependencies:
       chokidar: 4.0.1
       immutable: 5.0.2

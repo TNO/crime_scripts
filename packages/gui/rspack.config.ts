@@ -1,24 +1,16 @@
 import { config } from 'dotenv';
 import { resolve } from 'path';
-import { Configuration } from '@rspack/cli';
-import {
-  DefinePlugin,
-  HtmlRspackPlugin,
-  HotModuleReplacementPlugin,
-  SwcJsMinimizerRspackPlugin,
-  LightningCssMinimizerRspackPlugin,
-} from '@rspack/core';
-
-config();
-
+import * as core from '@rspack/core';
 const devMode = (process.env as any).NODE_ENV === 'development';
 const isProduction = !devMode;
-const outputPath = resolve(__dirname, isProduction ? '../../docs' : 'dist');
+const outputPath = resolve(process.cwd(), isProduction ? '../../docs' : 'dist');
 const SERVER = process.env.SERVER || 'localhost';
 const publicPath = isProduction ? 'https://tno.github.io/crime_scripts/' : '';
 const APP_TITLE = 'Crime Scripting';
 const APP_DESC = 'GUI for creating and editing crime scripts';
 const APP_PORT = 3498;
+
+config();
 
 console.log(
   `Running in ${
@@ -26,7 +18,7 @@ console.log(
   } mode, serving from ${SERVER}:${APP_PORT} and public path ${publicPath}, output directed to ${outputPath}.`
 );
 
-const configuration: Configuration = {
+const configuration: core.Configuration = {
   experiments: {
     css: true,
     asyncWebAssembly: true,
@@ -40,10 +32,10 @@ const configuration: Configuration = {
   },
   devtool: devMode ? 'inline-source-map' : 'source-map',
   plugins: [
-    new DefinePlugin({
+    new core.DefinePlugin({
       'process.env.SERVER': isProduction ? `'${publicPath}'` : '`http://localhost:${APP_PORT}`',
     }),
-    new HtmlRspackPlugin({
+    new core.HtmlRspackPlugin({
       title: APP_TITLE,
       publicPath,
       scriptLoading: 'defer',
@@ -66,9 +58,9 @@ const configuration: Configuration = {
         'og:image:height': '200',
       },
     }),
-    new HotModuleReplacementPlugin(),
-    new LightningCssMinimizerRspackPlugin(),
-    new SwcJsMinimizerRspackPlugin({
+    new core.HotModuleReplacementPlugin(),
+    new core.LightningCssMinimizerRspackPlugin(),
+    new core.SwcJsMinimizerRspackPlugin({
       minimizerOptions: {
         compress: isProduction,
         minify: isProduction,
