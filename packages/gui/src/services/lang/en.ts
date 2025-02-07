@@ -46,6 +46,7 @@ export const messages = {
   CAST_TYPE: 'Role type',
   SAVE_SCRIPT: 'Save Script',
   EDIT_SCRIPT: 'Edit Script',
+  MERGE_SCRIPT: 'Merge current script',
   DELETE_SCRIPT: 'Delete Script',
   NEW_SCRIPT: 'New Script',
   SAVE: 'Save',

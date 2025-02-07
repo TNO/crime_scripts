@@ -47,6 +47,7 @@ export const messagesNL: typeof messages = {
   CAST_TYPE: 'Roltype',
   SAVE_SCRIPT: 'Script opslaan',
   EDIT_SCRIPT: 'Script bewerken',
+  MERGE_SCRIPT: 'Script toevoegen',
   DELETE_SCRIPT: 'Script verwijderen',
   NEW_SCRIPT: 'Nieuw script',
   SAVE: 'Bewaar',

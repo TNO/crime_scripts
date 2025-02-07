@@ -4,10 +4,11 @@ import m, { FactoryComponent } from 'mithril';
 import { i18n, routingSvc, t } from '.';
 import { CrimeScriptFilter, DataModel, FlexSearchResult, ID, Pages, SearchResult, Settings } from '../models';
 import { User, UserRole } from './login-service';
-import { aggregateFlexSearchResults, crimeScriptFilterToText, scrollToTop, tokenize } from '../utils';
+import { aggregateFlexSearchResults, crimeScriptFilterToText, mergeDataModels, scrollToTop, tokenize } from '../utils';
 import { flexSearchLookupUpdater } from './flex-search';
 
 // const settingsSvc = restServiceFactory<Settings>('settings');
+const PREVIEW_MODEL_KEY = 'CSS_PREVIEW_MODEL';
 const MODEL_KEY = 'CSS_MODEL';
 const USER_ROLE = 'USER_ROLE';
 export const APP_TITLE = 'PAX Crime Scripting';
@@ -41,6 +42,7 @@ export interface Actions {
     query?: Record<string, string | number | undefined>
   ) => void;
   saveModel: (ds: DataModel) => void;
+  mergePreviewModel: () => void;
   saveSettings: (settings: Settings) => Promise<void>;
   setRole: (role: UserRole) => void;
   login: () => void;
@@ -79,9 +81,28 @@ export const appActions: (cell: MeiosisCell<State>) => Actions = ({ update /* st
   saveModel: (model) => {
     model.lastUpdate = Date.now();
     model.version = model.version ? model.version++ : 1;
-    localStorage.setItem(MODEL_KEY, JSON.stringify(model));
-    console.log(JSON.stringify(model, null, 2));
+    localStorage.setItem(model.previewMode ? PREVIEW_MODEL_KEY : MODEL_KEY, JSON.stringify(model));
+    // console.log(JSON.stringify(model, null, 2));
     update({ model: () => model });
+  },
+  mergePreviewModel: () => {
+    const previewStr = localStorage.getItem(PREVIEW_MODEL_KEY);
+    const modelStr = localStorage.getItem(MODEL_KEY);
+    try {
+      if (previewStr && modelStr) {
+        const preview = JSON.parse(previewStr) as DataModel;
+        const model = JSON.parse(modelStr) as DataModel;
+        const mergedModel = mergeDataModels(model, preview);
+        localStorage.removeItem(PREVIEW_MODEL_KEY);
+        localStorage.setItem(MODEL_KEY, JSON.stringify(mergedModel));
+        update({ model: () => mergedModel });
+      }
+    } catch (e: any) {
+      M.toast({
+        html: `Error loading models: ${e}`,
+        classes: 'red',
+      });
+    }
   },
   saveSettings: async (settings: Settings) => {
     // await settingsSvc.save(settings);

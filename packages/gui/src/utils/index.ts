@@ -1,6 +1,8 @@
 import m from 'mithril';
 import { padLeft } from 'mithril-materialized';
 import {
+  Act,
+  Activity,
   CrimeScript,
   CrimeScriptFilter,
   DataModel,
@@ -9,6 +11,7 @@ import {
   ID,
   Labeled,
   Measure,
+  NewsArticle,
   Page,
   Pages,
   SearchResult,
@@ -433,14 +436,15 @@ export const measuresToMarkdown = (
   const sortedKeys = Array.from(groupedMeasures.entries())
     .sort((a, b) => a[0].localeCompare(b[0]))
     .map((a) => a[0]);
+  let i = 0;
   for (const partnerLabel of sortedKeys) {
+    i++;
     const measures = groupedMeasures.get(partnerLabel) || [];
+    measures.sort(({ cat: catA = '' }, { cat: catB = '' }) => catA.localeCompare(catB));
+    markdown += `${i}. **${partnerLabel}**:\n`;
     markdown += `${measures
-      .map((measure, i) => `${i + 1}. **${partnerLabel} (${measure.cat})**: ${measure.label}${createTooltip(measure)}`)
-      .join('\n')}\n\n`;
-    // markdown += `###### ${partnerLabel}\n\n${measures
-    //   .map((measure, i) => `${i + 1}. **${measure.cat}**: ${measure.label}`)
-    //   .join('\n')}\n\n`;
+      .map((measure) => `  - **${measure.cat}**: ${measure.label}${createTooltip(measure)}`)
+      .join('\n')}\n`;
   }
 
   // console.log(markdown);
@@ -581,3 +585,85 @@ export const toJSON = async (filename: string, cs: Partial<CrimeScript>, model: 
     );
   saveAs(dataStr, filename.replace('.docx', '.json'));
 };
+
+export function mergeDataModels(model1: DataModel, model2: DataModel): DataModel {
+  const labelToIdMap = new Map<string, ID>();
+
+  const mergeLabeledArrays = <T extends { id: ID; label: string }>(arr1: T[], arr2: T[]): T[] => {
+    const mergedMap = new Map<ID, T>();
+
+    arr1.forEach((item) => {
+      mergedMap.set(item.id, item);
+      labelToIdMap.set(item.label, item.id);
+    });
+
+    arr2.forEach((item) => {
+      if (!mergedMap.has(item.id)) {
+        const existingId = labelToIdMap.get(item.label);
+
+        if (existingId) {
+          const existingItem = mergedMap.get(existingId)!;
+          mergedMap.set(existingId, {
+            ...existingItem,
+            ...item,
+            id: existingId,
+          });
+        } else {
+          mergedMap.set(item.id, item);
+          labelToIdMap.set(item.label, item.id);
+        }
+      }
+    });
+
+    return Array.from(mergedMap.values());
+  };
+
+  const updateActReferences = (acts: Act[]): Act[] => {
+    return acts.map((act) => ({
+      ...act,
+      locationIds: act.locationIds?.map((id) => labelToIdMap.get(id) || id),
+      activities: act.activities.map(updateActivityReferences),
+    }));
+  };
+
+  const updateActivityReferences = (activity: Activity): Activity => ({
+    ...activity,
+    cast: activity.cast?.map((id) => labelToIdMap.get(id) || id),
+    attributes: activity.attributes?.map((id) => labelToIdMap.get(id) || id),
+    sp: activity.sp?.map((id) => labelToIdMap.get(id) || id),
+    transports: activity.transports?.map((id) => labelToIdMap.get(id) || id),
+  });
+
+  const mergeArticles = (arr1: NewsArticle[], arr2: NewsArticle[]): NewsArticle[] => {
+    const mergedMap = new Map<string, NewsArticle>();
+
+    arr1.forEach((article) => mergedMap.set(article.url, article));
+
+    arr2.forEach((article) => {
+      const existingArticle = mergedMap.get(article.url);
+      if (!existingArticle) {
+        mergedMap.set(article.url, article);
+      }
+    });
+
+    return Array.from(mergedMap.values());
+  };
+
+  return {
+    version: Math.max(model1.version, model2.version),
+    lastUpdate: Math.max(model1.lastUpdate, model2.lastUpdate),
+    previewMode: false,
+
+    crimeScripts: mergeLabeledArrays(model1.crimeScripts, model2.crimeScripts),
+    cast: mergeLabeledArrays(model1.cast, model2.cast),
+    attributes: mergeLabeledArrays(model1.attributes, model2.attributes),
+    locations: mergeLabeledArrays(model1.locations, model2.locations),
+    geoLocations: mergeLabeledArrays(model1.geoLocations, model2.geoLocations),
+    products: mergeLabeledArrays(model1.products, model2.products),
+    transports: mergeLabeledArrays(model1.transports, model2.transports),
+    partners: mergeLabeledArrays(model1.partners, model2.partners),
+    serviceProviders: mergeLabeledArrays(model1.serviceProviders, model2.serviceProviders),
+    acts: updateActReferences(mergeLabeledArrays(model1.acts, model2.acts)),
+    articles: mergeArticles(model1.articles, model2.articles),
+  };
+}

@@ -39,13 +39,13 @@ export const CrimeScriptEditor: FactoryComponent<{
   partners: Partner[];
   serviceProviders: ServiceProvider[];
 }> = () => {
-  const actsForm: UIForm<any> = [
+  const actsForm: UIForm<{ stages: Stage[] }> = [
     {
       id: 'stages',
       repeat: true,
       pageSize: 1,
       label: t('ACTS'),
-      type: [] as UIForm<Partial<Stage>>,
+      type: [] as UIForm<Stage>,
     },
   ];
 
@@ -56,10 +56,10 @@ export const CrimeScriptEditor: FactoryComponent<{
   let serviceProviderOptions: InputOptions[] = [];
   let attrOptions: InputOptions[] = [];
   let productOptions: InputOptions[] = [];
-  let measuresForm: UIForm<any> = [];
-  let activityForm: UIForm<any>;
-  let opportunitiesForm: UIForm<any>;
-  let indicatorsForm: UIForm<any>;
+  let measuresForm: UIForm<{ measures: Measure }> = [];
+  let activityForm: UIForm<ActivityPhase>;
+  let opportunitiesForm: UIForm<{ conditions: Opportunity[] }>;
+  let indicatorsForm: UIForm<{ indicators: Indicator[] }>;
 
   const ActivityTypeOptions = [
     // { id: ActivityType.NONE, label: 'None' },
@@ -171,7 +171,7 @@ export const CrimeScriptEditor: FactoryComponent<{
           className: 'col s12',
           label: t('ACTIVITIES'),
         },
-      ];
+      ] as UIForm<ActivityPhase>;
 
       opportunitiesForm = [
         {
@@ -192,7 +192,7 @@ export const CrimeScriptEditor: FactoryComponent<{
           className: 'col s12',
           label: t('CONDITIONS'),
         },
-      ];
+      ] as UIForm<{ conditions: Opportunity[] }>;
 
       indicatorsForm = [
         {
@@ -213,7 +213,7 @@ export const CrimeScriptEditor: FactoryComponent<{
           className: 'col s12',
           label: t('INDICATORS'),
         },
-      ];
+      ] as UIForm<{ indicators: Indicator[] }>;
 
       const measureForm: UIForm<Measure> = [
         { id: 'id', type: 'autogenerate', autogenerate: 'id' },

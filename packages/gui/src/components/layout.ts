@@ -1,8 +1,8 @@
 import m from 'mithril';
-import { Icon } from 'mithril-materialized';
+import { FlatButton, Icon } from 'mithril-materialized';
 import logo from '../assets/logo.svg';
 import tno from '../assets/tno.svg';
-import { Pages, Page } from '../models';
+import { Pages, Page, DataModel } from '../models';
 import { routingSvc } from '../services/routing-service';
 import { APP_TITLE, APP_TITLE_SHORT, MeiosisComponent, t } from '../services';
 import { SideNav, SideNavTrigger } from './ui/sidenav';
@@ -29,7 +29,7 @@ export const Layout: MeiosisComponent = () => {
 
   return {
     view: ({ children, attrs: { state, actions } }) => {
-      const { page, searchFilter, searchResults, model } = state;
+      const { page, searchFilter, searchResults, model = {} as DataModel } = state;
       const { changePage, setSearchFilter } = actions;
       const curPage = routingSvc
         .getList()
@@ -195,6 +195,15 @@ export const Layout: MeiosisComponent = () => {
           m(
             '.container',
             { style: 'padding-top: 5px' },
+            model.previewMode &&
+              m(FlatButton, {
+                label: t('MERGE_SCRIPT'),
+                iconName: 'merge',
+                className: 'small',
+                onclick: () => {
+                  actions.mergePreviewModel();
+                },
+              }),
             children,
             m(
               '.row',
