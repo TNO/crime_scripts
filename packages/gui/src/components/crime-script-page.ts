@@ -45,9 +45,9 @@ export const CrimeScriptPage: MeiosisComponent = () => {
       return m(
         '#crime-script.page',
         [
-          isEditor &&
-            m(
-              '.right-align',
+          m(
+            '.right-align',
+            isEditor && [
               edit
                 ? m(FlatButton, {
                     label: t('SAVE_SCRIPT'),
@@ -76,22 +76,23 @@ export const CrimeScriptPage: MeiosisComponent = () => {
                       className: 'small',
                       modalId: 'deleteScript',
                     }),
-                    crimeScript && [
-                      m(FlatButton, {
-                        label: t('EXPORT_TO_WORD'),
-                        className: 'small',
-                        iconName: 'download',
-                        onclick: () => toWord(filename, crimeScript, model),
-                      }),
-                      m(FlatButton, {
-                        label: t('EXPORT_TO_JSON'),
-                        className: 'small',
-                        iconName: 'download',
-                        onclick: () => toJSON(filename, crimeScript, model),
-                      }),
-                    ],
-                  ]
-            ),
+                  ],
+            ],
+            crimeScript && [
+              m(FlatButton, {
+                label: t('EXPORT_TO_WORD'),
+                className: 'small',
+                iconName: 'download',
+                onclick: () => toWord(filename, crimeScript, model),
+              }),
+              m(FlatButton, {
+                label: t('EXPORT_TO_JSON'),
+                className: 'small',
+                iconName: 'download',
+                onclick: () => toJSON(filename, crimeScript, model),
+              }),
+            ]
+          ),
           crimeScript &&
             m(
               '.row.crime-scene',
