@@ -106,6 +106,7 @@ export const CrimeScriptPage: MeiosisComponent = () => {
                     cast,
                     acts,
                     attributes,
+                    transports,
                     locations,
                     geoLocations,
                     products,

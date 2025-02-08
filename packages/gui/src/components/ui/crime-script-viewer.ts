@@ -13,6 +13,7 @@ import {
   Partner,
   Product,
   ServiceProvider,
+  Transport,
   missingIcon,
   scriptIcon,
 } from '../../models';
@@ -42,6 +43,7 @@ export const CrimeScriptViewer: FactoryComponent<{
   geoLocations: GeographicLocation[];
   products: Product[];
   partners: Partner[];
+  transports: Transport[];
   serviceProviders: ServiceProvider[];
   curActIdx?: number;
   curPhaseIdx?: number;
@@ -179,6 +181,7 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
         serviceProviders = [],
         acts = [],
         attributes = [],
+        transports = [],
         locations = [],
         geoLocations = [],
         products = [],
@@ -202,7 +205,7 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
         geoLocationIds = [],
         url = scriptIcon,
       } = crimeScript;
-      const [allCastIds, allSpIds, allAttrIds, allLocIds] = stages.reduce(
+      const [allCastIds, allSpIds, allAttrIds, allLocIds, allTranspIds] = stages.reduce(
         (acc, stage) => {
           const act = acts.find((a) => a.id === stage.id);
           if (act) {
@@ -213,15 +216,17 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
               activity.cast?.forEach((id) => acc[0].add(id));
               activity.sp?.forEach((id) => acc[1].add(id));
               activity.attributes?.forEach((id) => acc[2].add(id));
+              activity.transports?.forEach((id) => acc[4].add(id));
             });
           }
           return acc;
         },
-        [new Set<ID>(), new Set<ID>(), new Set<ID>(), new Set<ID>()] as [
+        [new Set<ID>(), new Set<ID>(), new Set<ID>(), new Set<ID>(), new Set<ID>()] as [
           cast: Set<ID>,
           sp: Set<ID>,
           attr: Set<ID>,
-          locs: Set<ID>
+          locs: Set<ID>,
+          transp: Set<ID>
         ]
       );
       const selectedAct =
@@ -334,6 +339,13 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
             ],
           ]),
           m('.col.s6.m4.l3', [
+            allTranspIds.size > 0 && [
+              m('h5', t('TRANSPORTS', allTranspIds.size)),
+              m(
+                'ol',
+                Array.from(allTranspIds).map((id) => m('li', highlighter(transports.find((c) => c.id === id)?.label)))
+              ),
+            ],
             allLocIds.size > 0 && [
               m('h5', t('LOCATIONS', allLocIds.size)),
               m(
