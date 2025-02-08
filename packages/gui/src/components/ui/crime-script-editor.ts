@@ -246,7 +246,7 @@ export const CrimeScriptEditor: FactoryComponent<{ model: DataModel; crimeScript
       if (curAct && !curAct.measures) {
         curAct.measures = [];
       }
-      console.log(curAct);
+      // console.log(curAct);
 
       const key = curAct ? curAct.id : 'cur-act-id';
       return m('.col.s12', [
@@ -423,6 +423,7 @@ export const CrimeScriptEditor: FactoryComponent<{ model: DataModel; crimeScript
                   const id = curAct.id;
                   console.log(`Deleting ${id}, ${curAct.label}`);
                   if (id) {
+                    actLabels = actLabels.filter((a) => a.id !== id);
                     if (curActIds && curActIds.ids) {
                       curActIds.ids = curActIds.ids.filter((i) => i !== id);
                       curActIds.id = curActIds.ids.length > 0 ? curActIds.ids[0] : '';
