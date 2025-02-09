@@ -206,6 +206,20 @@ export const scrollToTop = (): void => {
   });
 };
 
+export const scrollToActiveItem = (selector: string) => {
+  // Wait for DOM update
+  window.requestAnimationFrame(() => {
+    console.log(`Scrolling to ${selector}`);
+    const activeItem = document.getElementById(selector);
+    if (activeItem) {
+      console.log('Found selector');
+      activeItem.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+      });
+    }
+  });
+};
 export const addLeadingSpaces = (str: string, numSpaces: number): string => {
   // Create a string with the specified number of spaces
   const spaces = ' '.repeat(numSpaces);
@@ -245,7 +259,7 @@ export const toMarkdownUl = (arr: Array<Labeled> = [], ids: ID | ID[] = []) =>
 /** Convert to markdown sorted list */
 export const toMarkdownOl = (arr: Array<Labeled> = [], ids: ID | ID[] = []) =>
   resolveOptions(arr, ids)
-    .map((a, i) => `${i + 1}. ${a.label}`)
+    .map((a, i) => `${i + 1}. [${a.label}](#!/${t('SETTINGS', 'ROUTE')}?id=${a.id})`)
     .join('\n');
 
 /** Convert to comma-separated sorted list */
@@ -399,16 +413,18 @@ export const measuresToMarkdown = (
     | undefined
 ): string => {
   type PartnerMeasure = {
+    pId?: ID;
     id: string;
     label: string;
     description?: string;
     cat?: string;
   };
-  const addMeasure = (partnerLabel: string, measure: Measure) => {
+  const addMeasure = (partnerLabel: string, measure: Measure, partnerId?: ID) => {
     if (!groupedMeasures.has(partnerLabel)) {
       groupedMeasures.set(partnerLabel, []);
     }
     groupedMeasures.get(partnerLabel)?.push({
+      pId: partnerId,
       id: measure.id,
       label: measure.label,
       description: measure.description,
@@ -422,8 +438,9 @@ export const measuresToMarkdown = (
   for (const measure of measures) {
     if (measure.partners && measure.partners.length) {
       for (const partner of measure.partners) {
-        const partnerLabel = lookupPartner.get(partner)?.label || othersLabel;
-        addMeasure(partnerLabel, measure);
+        const p = lookupPartner.get(partner);
+        const partnerLabel = p?.label || othersLabel;
+        addMeasure(partnerLabel, measure, p?.id);
       }
     } else {
       addMeasure(othersLabel, measure);
@@ -439,8 +456,9 @@ export const measuresToMarkdown = (
   for (const partnerLabel of sortedKeys) {
     i++;
     const measures = groupedMeasures.get(partnerLabel) || [];
+    const partnerId = measures.length > 0 ? measures[0].pId : undefined;
     measures.sort(({ cat: catA = '' }, { cat: catB = '' }) => catA.localeCompare(catB));
-    markdown += `${i}. **${partnerLabel}**:\n`;
+    markdown += `${i}. [**${partnerLabel}**](#!/${t('SETTINGS', 'ROUTE')}?id=${partnerId}):\n`;
     markdown += `${measures
       .map((measure) => `  - **${measure.cat}**: ${measure.label}${createTooltip(measure)}`)
       .join('\n')}\n`;

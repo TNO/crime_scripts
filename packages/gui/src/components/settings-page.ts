@@ -9,17 +9,19 @@ import {
   DataModel,
   FlexSearchResult,
   SearchScore,
+  Cast,
 } from '../models';
 import { MeiosisComponent, routingSvc, t } from '../services';
 import { deepCopy, FormAttributes, LayoutForm } from 'mithril-ui-form';
 import { Collapsible, FlatButton, Tabs } from 'mithril-materialized';
 import { attrForm, AttributeType } from '../models/forms';
 import { TextInputWithClear } from './ui/text-input-with-clear';
-import { sortByLabel } from '../utils';
+import { scrollToActiveItem, sortByLabel } from '../utils';
 
 export const SettingsPage: MeiosisComponent = () => {
   let edit = false;
   let storedModel: DataModel;
+  let selectedId: ID | undefined;
 
   return {
     oninit: ({
@@ -35,6 +37,8 @@ export const SettingsPage: MeiosisComponent = () => {
         model.attributes.sort((a, b) => a.label?.localeCompare(b.label || ''));
       }
 
+      selectedId = m.route.param('id');
+      console.log(`Selected ID: ${selectedId}`);
       setPage(Pages.SETTINGS);
     },
     view: ({ attrs: { state, actions } }) => {
@@ -56,62 +60,22 @@ export const SettingsPage: MeiosisComponent = () => {
 
       const isAdmin = role === 'admin';
 
+      const labelFlt = (a: Cast): boolean | '' =>
+        !labelFilter || (a.label && a.label.toLowerCase().includes(labelFilter));
       const tabs = [
-        [
-          'cast',
-          t('CAST'),
-          'cast',
-          'person',
-          cast.filter((a) => !labelFilter || (a.label && a.label.toLowerCase().includes(labelFilter))),
-        ],
-        [
-          'serviceProviders',
-          t('SERVICE_PROVIDERS'),
-          'serviceProviders',
-          'business',
-          serviceProviders.filter((a) => !labelFilter || (a.label && a.label.toLowerCase().includes(labelFilter))),
-        ],
-        [
-          'attributes',
-          t('ATTRIBUTES'),
-          'attributes',
-          'build',
-          attributes.filter((a) => !labelFilter || (a.label && a.label.toLowerCase().includes(labelFilter))),
-        ],
-        [
-          'products',
-          t('PRODUCTS', 2),
-          'products',
-          'shopping_bag',
-          products.filter((a) => !labelFilter || (a.label && a.label.toLowerCase().includes(labelFilter))),
-        ],
-        [
-          'transports',
-          t('TRANSPORTS'),
-          'transports',
-          'directions',
-          transports.filter((a) => !labelFilter || (a.label && a.label.toLowerCase().includes(labelFilter))),
-        ],
-        [
-          'locations',
-          t('LOCATIONS', 2),
-          'locations',
-          'warehouse',
-          locations.filter((a) => !labelFilter || (a.label && a.label.toLowerCase().includes(labelFilter))),
-        ],
-        [
-          'geoLocations',
-          t('GEOLOCATIONS', 2),
-          'geoLocations',
-          'location_on',
-          geoLocations.filter((a) => !labelFilter || (a.label && a.label.toLowerCase().includes(labelFilter))),
-        ],
+        ['cast', t('CAST'), 'cast', 'person', cast.filter(labelFlt)],
+        ['serviceProviders', t('SERVICE_PROVIDERS'), 'serviceProviders', 'business', serviceProviders.filter(labelFlt)],
+        ['attributes', t('ATTRIBUTES'), 'attributes', 'build', attributes.filter(labelFlt)],
+        ['products', t('PRODUCTS', 2), 'products', 'shopping_bag', products.filter(labelFlt)],
+        ['transports', t('TRANSPORTS'), 'transports', 'directions', transports.filter(labelFlt)],
+        ['locations', t('LOCATIONS', 2), 'locations', 'warehouse', locations.filter(labelFlt)],
+        ['geoLocations', t('GEOLOCATIONS', 2), 'geoLocations', 'location_on', geoLocations.filter(labelFlt)],
         [
           'partners',
           t('PARTNERS'),
           'partners',
           'handshake', // groups
-          partners.filter((a) => !labelFilter || (a.label && a.label.toLowerCase().includes(labelFilter))),
+          partners.filter(labelFlt),
         ],
       ] as Array<
         [id: AttributeType, label: string, type: AttributeType, iconName: string, attrs: Array<Hierarchical & Labeled>]
@@ -166,9 +130,10 @@ export const SettingsPage: MeiosisComponent = () => {
         ],
         m(Tabs, {
           tabWidth: 'auto',
-          tabs: tabs.map(([id, label, type, iconName, attr]) => {
+          tabs: tabs.map(([id, label, type, iconName, attr], i) => {
             return {
               id: label.replace('è', 'e'),
+              active: selectedId ? attr.some((a) => a.id === selectedId) : i === 0,
               title: `${attr.length ? `${attr.length} ` : ''}${label}`,
               vnode: edit
                 ? m(LayoutForm, {
@@ -177,6 +142,7 @@ export const SettingsPage: MeiosisComponent = () => {
                   } as FormAttributes<any>)
                 : m(AttrView, {
                     attr,
+                    selectedId,
                     type,
                     iconName,
                     acts,
@@ -193,6 +159,7 @@ export const SettingsPage: MeiosisComponent = () => {
 
 const AttrView: FactoryComponent<{
   attr: Array<Hierarchical & Labeled>;
+  selectedId?: ID;
   type: AttributeType;
   iconName?: string;
   acts: Act[];
@@ -200,7 +167,10 @@ const AttrView: FactoryComponent<{
   setLocation: (currentCrimeScriptId: ID, actIdx: number, phaseIdx: number) => void;
 }> = () => {
   return {
-    view: ({ attrs: { attr, type, iconName, acts, crimeScripts, setLocation } }) => {
+    oncreate: ({ attrs: { selectedId } }) => {
+      selectedId && scrollToActiveItem(selectedId);
+    },
+    view: ({ attrs: { attr, type, iconName, acts, crimeScripts, setLocation, selectedId } }) => {
       return m(
         '.attr',
         m(Collapsible, {
@@ -270,6 +240,7 @@ const AttrView: FactoryComponent<{
                       : ''
                   }`
                 ),
+                active: c.id === selectedId,
                 iconName,
                 body: m(
                   '.cast-content',
@@ -292,10 +263,10 @@ const AttrView: FactoryComponent<{
                         grouped[key].phases.push({ phaseIdx, score, desc });
                         return grouped;
                       }, {} as Record<string, { crimeScript: CrimeScript; actIdx: number; act?: Act; phases: { phaseIdx: number; score: number; desc?: string }[] }>)
-                    ).map(([_, { crimeScript, actIdx, act, phases }]) => {
+                    ).map(([_, { crimeScript, actIdx, act, phases }], i) => {
                       const actLabel = act ? act.label : '...';
 
-                      return m('li', [
+                      return m('li', { id: i === 0 ? c.id : undefined }, [
                         m(
                           'a.truncate',
                           {
@@ -330,28 +301,6 @@ const AttrView: FactoryComponent<{
                       ]);
                     })
                   )
-                  // m(
-                  //   'ol',
-                  //   searchResults.map(([crimeScriptIdx, actIdx, phaseIdx]) => {
-                  //     const crimeScript = crimeScripts[crimeScriptIdx];
-                  //     const act = actIdx >= 0 ? acts[actIdx] : undefined;
-                  //     const actLabel = act ? act.label : '...';
-
-                  //     return m('li', [
-                  //       m(
-                  //         'a.truncate',
-                  //         {
-                  //           style: { cursor: 'pointer' },
-                  //           href: routingSvc.href(Pages.CRIME_SCRIPT, `id=${crimeScript.id}`),
-                  //           onclick: () => {
-                  //             setLocation(crimeScript.id, actIdx, phaseIdx);
-                  //           },
-                  //         },
-                  //         `${crimeScript.label} > ${actLabel}`
-                  //       ),
-                  //     ]);
-                  //   })
-                  // )
                 ),
               };
             }),

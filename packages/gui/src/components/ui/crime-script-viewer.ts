@@ -10,6 +10,7 @@ import {
   ID,
   IconOpts,
   Labeled,
+  Pages,
   Partner,
   Product,
   ServiceProvider,
@@ -17,7 +18,7 @@ import {
   missingIcon,
   scriptIcon,
 } from '../../models';
-import { State } from '../../services';
+import { routingSvc, State } from '../../services';
 import { FlatButton, ITabItem, Tabs } from 'mithril-materialized';
 import { SlimdownView } from 'mithril-ui-form';
 import { Patch } from 'meiosis-setup/types';
@@ -58,6 +59,7 @@ export const CrimeScriptViewer: FactoryComponent<{
     cast: Cast[],
     serviceProviders: ServiceProvider[],
     attributes: CrimeScriptAttributes[],
+    transports: Transport[],
     locations: CrimeLocation[],
     curPhaseIdx = -1,
     highlighter: (text?: string) => string | undefined
@@ -77,6 +79,12 @@ export const CrimeScriptViewer: FactoryComponent<{
       );
       const attrIds = Array.from(
         activities.reduce((acc, { attributes: curAttr }) => {
+          if (curAttr) curAttr.forEach((id) => acc.add(id));
+          return acc;
+        }, new Set<ID>())
+      );
+      const transIds = Array.from(
+        activities.reduce((acc, { transports: curAttr }) => {
           if (curAttr) curAttr.forEach((id) => acc.add(id));
           return acc;
         }, new Set<ID>())
@@ -114,6 +122,22 @@ ${toMarkdownOl(serviceProviders, spIds)}`
 }
 
 ${
+  attrIds.length > 0
+    ? `##### ${t('ATTRIBUTES')}
+
+${toMarkdownOl(attributes, attrIds)}`
+    : ''
+}
+
+${
+  transIds.length > 0
+    ? `##### ${t('TRANSPORTS')}
+
+${toMarkdownOl(transports, transIds)}`
+    : ''
+}
+
+${
   conditions.length > 0
     ? `##### ${t('CONDITIONS')}
 
@@ -126,14 +150,6 @@ ${
     ? `##### ${t('INDICATORS')}
 
 ${indicators.map((ind, i) => `${i + 1}. ${ind.label}${createTooltip(ind)}`).join('\n')}`
-    : ''
-}
-
-${
-  attrIds.length > 0
-    ? `##### ${t('ATTRIBUTES')}
-
-${toMarkdownOl(attributes, attrIds)}`
     : ''
 }
 
@@ -236,8 +252,31 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
           ? acts.find((a) => a.id === stages[0].id)
           : undefined;
       const selectedActContent = selectedAct
-        ? visualizeAct(selectedAct, cast, serviceProviders, attributes, locations, curPhaseIdx, mdHighlighter)
+        ? visualizeAct(
+            selectedAct,
+            cast,
+            serviceProviders,
+            attributes,
+            transports,
+            locations,
+            curPhaseIdx,
+            mdHighlighter
+          )
         : undefined;
+
+      const toLi = (ids: Set<string>, labels: Labeled[]) =>
+        Array.from(ids).map((id) =>
+          m(
+            'li',
+            m(
+              'a',
+              {
+                href: routingSvc.href(Pages.SETTINGS, `id=${id}`),
+              },
+              highlighter(labels.find((c) => c.id === id)?.label)
+            )
+          )
+        );
 
       const steps = stages
         .map(({ id: actId, ids }) => {
@@ -308,51 +347,19 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
 
         description && m('p', highlighter(description)),
         m('.row', [
+          m('.col.s6.m4.l3', [allCastIds.size > 0 && [m('h5', t('CAST')), m('ol', toLi(allCastIds, cast))]]),
           m('.col.s6.m4.l3', [
-            allCastIds.size > 0 && [
-              m('h5', t('CAST')),
-              m(
-                'ol',
-                Array.from(allCastIds).map((id) => m('li', highlighter(cast.find((c) => c.id === id)?.label)))
-              ),
-            ],
+            allSpIds.size > 0 && [m('h5', t('SERVICE_PROVIDERS')), m('ol', toLi(allSpIds, serviceProviders))],
           ]),
           m('.col.s6.m4.l3', [
-            allSpIds.size > 0 && [
-              m('h5', t('SERVICE_PROVIDERS')),
-              m(
-                'ol',
-                Array.from(allSpIds).map((id) => m('li', highlighter(serviceProviders.find((c) => c.id === id)?.label)))
-              ),
-            ],
-          ]),
-          m('.col.s6.m4.l3', [
-            allAttrIds.size > 0 && [
-              m('h5', t('ATTRIBUTES')),
-              m(
-                'ol',
-                Array.from(allAttrIds)
-                  .map((id) => attributes.find((c) => c.id === id))
-                  .filter((a) => a?.label)
-                  .map((a) => m('li', highlighter(a?.label)))
-              ),
-            ],
+            allAttrIds.size > 0 && [m('h5', t('ATTRIBUTES')), m('ol', toLi(allAttrIds, attributes))],
           ]),
           m('.col.s6.m4.l3', [
             allTranspIds.size > 0 && [
               m('h5', t('TRANSPORTS', allTranspIds.size)),
-              m(
-                'ol',
-                Array.from(allTranspIds).map((id) => m('li', highlighter(transports.find((c) => c.id === id)?.label)))
-              ),
+              m('ol', toLi(allTranspIds, transports)),
             ],
-            allLocIds.size > 0 && [
-              m('h5', t('LOCATIONS', allLocIds.size)),
-              m(
-                'ol',
-                Array.from(allLocIds).map((id) => m('li', highlighter(locations.find((c) => c.id === id)?.label)))
-              ),
-            ],
+            allLocIds.size > 0 && [m('h5', t('LOCATIONS', allLocIds.size)), m('ol', toLi(allLocIds, locations))],
           ]),
         ]),
         literature &&
