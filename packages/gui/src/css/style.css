@@ -881,3 +881,33 @@ li input[type='text'] {
 .switch {
   margin-bottom: 8px;
 }
+
+/* START Tree view */
+.tree-view {
+  user-select: none;
+}
+
+.tree-node {
+  margin: 4px 0;
+}
+
+.node-content {
+  display: flex;
+  align-items: center;
+  padding: 4px;
+}
+
+.node-content:hover {
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+.toggle-icon {
+  font-size: 12px;
+  color: #666;
+}
+
+.node-name {
+  font-size: 14px;
+}
+/* END Tree view */

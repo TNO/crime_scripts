@@ -29,14 +29,14 @@ importers:
         specifier: ^6.2.3
         version: 6.2.3
       mithril:
-        specifier: ^2.2.13
-        version: 2.2.13
+        specifier: ^2.2.14
+        version: 2.2.14
       mithril-materialized:
         specifier: ^1.3.5
         version: 1.3.5
       mithril-ui-form:
         specifier: ^1.10.16
-        version: 1.10.16(mithril-materialized@1.3.5)(mithril@2.2.13)
+        version: 1.10.16(mithril-materialized@1.3.5)(mithril@2.2.14)
       stopwords-en:
         specifier: ^0.3.0
         version: 0.3.0
@@ -1201,8 +1201,8 @@ packages:
       mithril: ^2.2.0
       mithril-materialized: ^1.3.5
 
-  mithril@2.2.13:
-    resolution: {integrity: sha512-dfWFYmRJDXAROG6B1AsQXEwhSgFZ65Am/5Xj3oJ/R1wZtrC0W20P4sIAtFQB0SZsGwV7H2MiEJiFGmlUtXF1Ww==}
+  mithril@2.2.14:
+    resolution: {integrity: sha512-+0Nu0jpzI9u2876REDQBuKePl7FvkcMMXPBmnUFlLvdEDtfiW3eiET074edvOj23xPGYiNcIfPp/urKFxCatjw==}
 
   mrmime@1.0.1:
     resolution: {integrity: sha512-hzzEagAgDyoU1Q6yg5uI+AorQgdvMCur3FcKf7NhMKWsaYg+RnbTyHRa/9IlLF9rf455MOCtcqqrQQ83pPP7Uw==}
@@ -2979,18 +2979,18 @@ snapshots:
   mithril-materialized@1.3.5:
     dependencies:
       materialize-css: 1.0.0
-      mithril: 2.2.13
+      mithril: 2.2.14
 
   mithril-ui-form-plugin@0.6.7: {}
 
-  mithril-ui-form@1.10.16(mithril-materialized@1.3.5)(mithril@2.2.13):
+  mithril-ui-form@1.10.16(mithril-materialized@1.3.5)(mithril@2.2.14):
     dependencies:
-      mithril: 2.2.13
+      mithril: 2.2.14
       mithril-materialized: 1.3.5
       mithril-ui-form-plugin: 0.6.7
       slimdown-js: 1.0.0
 
-  mithril@2.2.13: {}
+  mithril@2.2.14: {}
 
   mrmime@1.0.1: {}
 

@@ -17,6 +17,7 @@ import { Collapsible, FlatButton, Tabs } from 'mithril-materialized';
 import { attrForm, AttributeType } from '../models/forms';
 import { TextInputWithClear } from './ui/text-input-with-clear';
 import { scrollToActiveItem, sortByLabel } from '../utils';
+import { TreeNode, TreeView } from './ui/treeview';
 
 export const SettingsPage: MeiosisComponent = () => {
   let edit = false;
@@ -95,6 +96,35 @@ export const SettingsPage: MeiosisComponent = () => {
             actions.setAttributeFilter(v);
           },
         }),
+
+        m(TreeView, {
+          className: 'col s12',
+          data: {
+            label: 'World',
+            expanded: true,
+            children: [
+              {
+                label: 'Europe',
+                children: [
+                  {
+                    label: 'Netherlands',
+                    children: [
+                      {
+                        label: 'North Holland',
+                        children: [{ label: 'Amsterdam' }, { label: 'Haarlem' }],
+                      },
+                      {
+                        label: 'South Holland',
+                        children: [{ label: 'The Hague' }, { label: 'Rotterdam' }],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          } as TreeNode,
+        }),
+
         isAdmin && [
           m(FlatButton, {
             label: edit ? t('SAVE_BUTTON', 'LABEL') : t('EDIT_BUTTON', 'LABEL'),
