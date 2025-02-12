@@ -40,8 +40,10 @@ export const SettingsPage: MeiosisComponent = () => {
       }
 
       selectedId = m.route.param('id');
-      console.log(`Selected ID: ${selectedId}`);
       setPage(Pages.SETTINGS);
+    },
+    oncreate: () => {
+      selectedId = undefined;
     },
     view: ({ attrs: { state, actions } }) => {
       const { model, role, attributeFilter } = state;
@@ -153,7 +155,7 @@ export const SettingsPage: MeiosisComponent = () => {
                     obj: model,
                   } as FormAttributes<any>)
                 : showTree
-                ? m(TreeView, { data: attr, rootLabel: 'MY ROOT', className: 'col s12 ' })
+                ? m(TreeView, { data: attr, rootLabel: label, className: 'col s12 ' })
                 : m(AttrView, {
                     attr,
                     selectedId,
