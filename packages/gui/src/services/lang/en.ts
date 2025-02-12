@@ -90,6 +90,7 @@ export const messages = {
   SELECT_ACT_N: 'Select one or more acts for this step',
   /** Crime Prevention Techniques */
   INCREASE_EFFORT: 'Increase the effort',
+  TREE_VIEW: { HIDE: 'Show list', SHOW: 'Show tree' },
   TARGET_HARDEN: {
     TITLE: 'Target harden',
     DESC: 'Steering column locks and ignition immobilizers, Anti-robbery screens, Tamper-proof packaging',

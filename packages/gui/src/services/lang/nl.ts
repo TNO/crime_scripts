@@ -92,6 +92,7 @@ export const messagesNL: typeof messages = {
 
   /** Crime Prevention Techniques */
   INCREASE_EFFORT: 'Verhoog de inspanning',
+  TREE_VIEW: { HIDE: 'Lijstweergave', SHOW: 'Boomweergave' },
   TARGET_HARDEN: {
     TITLE: 'Doelversteviging',
     DESC: 'Stuursloten en startonderbrekers, Anti-overval schermen, Manipulatiebestendige verpakking',

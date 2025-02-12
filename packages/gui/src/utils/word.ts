@@ -10,7 +10,7 @@ import {
   convertInchesToTwip,
 } from 'docx';
 import { saveAs } from 'file-saver';
-import { ActivityType, CrimeScript, DataModel, Hierarchical, ID, Labeled } from '../models';
+import { ActivityType, CrimeScript, DataModel, Hierarchical, ID, Labelled } from '../models';
 import { t } from '../services';
 import { addLeadingSpaces, measuresToMarkdown } from '.';
 import { lookupCrimeMeasure } from '../models/situational-crime-prevention';
@@ -41,7 +41,7 @@ export const crimeScriptToMarkdown = (crimeScript: Partial<CrimeScript>, model: 
     ...products,
     ...partners,
     ...geoLocations,
-  ].reduce((acc, cur) => acc.set(cur.id, cur), new Map<ID, Labeled & Hierarchical>());
+  ].reduce((acc, cur) => acc.set(cur.id, cur), new Map<ID, Labelled & Hierarchical>());
 
   const md: string[] = [];
 

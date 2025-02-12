@@ -884,6 +884,7 @@ li input[type='text'] {
 
 /* START Tree view */
 .tree-view {
+  -webkit-user-select: none;
   user-select: none;
 }
 
@@ -908,6 +909,6 @@ li input[type='text'] {
 }
 
 .node-name {
-  font-size: 14px;
+  /* font-size: 14px; */
 }
 /* END Tree view */

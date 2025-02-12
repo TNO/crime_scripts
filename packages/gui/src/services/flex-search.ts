@@ -1,6 +1,6 @@
 import { Service } from 'meiosis-setup/types';
 import { State } from './meiosis';
-import { DataModel, FlexSearchResult, Hierarchical, ID, Labeled, SearchScore } from '../models';
+import { DataModel, FlexSearchResult, Hierarchical, ID, Labelled, SearchScore } from '../models';
 import { tokenize } from '../utils';
 import { i18n } from './translations';
 
@@ -53,7 +53,7 @@ export const flexSearchLookupUpdater: Service<State> = {
 
     const itemLookup = [...cast, ...attributes, ...transports, ...locations, ...products, ...geoLocations].reduce(
       (acc, cur) => acc.set(cur.id, cur),
-      new Map<ID, Labeled & Hierarchical>()
+      new Map<ID, Labelled & Hierarchical>()
     );
 
     const lookup = new Map<string, FlexSearchResult[]>();

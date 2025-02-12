@@ -88,7 +88,7 @@ export type CrimeScriptFilter = {
 
 export type ID = string;
 
-export type Labeled = {
+export type Labelled = {
   id: ID;
   label: string;
   description?: string;
@@ -102,12 +102,12 @@ export type Labeled = {
   icon?: ICONS;
 };
 
-export type Literature = Labeled & {
+export type Literature = Labelled & {
   authors?: string;
   type?: LITERATURE_TYPE;
 };
 
-export type CrimeScript = Labeled & {
+export type CrimeScript = Labelled & {
   owner: ID;
   /** Epoch time when last updated */
   updated: number;
@@ -122,7 +122,7 @@ export type CrimeScript = Labeled & {
   geoLocationIds?: ID[];
 };
 
-export type Measure = Labeled & {
+export type Measure = Labelled & {
   /** Category the measure belongs to, e.g. situational crime prevention or other */
   cat: string;
   partners: ID[];
@@ -157,23 +157,23 @@ export enum ATTRIBUTE_TYPE {
   OTHER,
 }
 
-export type Transport = Labeled & Hierarchical;
+export type Transport = Labelled & Hierarchical;
 
-export type Product = Labeled & Hierarchical;
+export type Product = Labelled & Hierarchical;
 
-export type GeographicLocation = Labeled & Hierarchical;
+export type GeographicLocation = Labelled & Hierarchical;
 
-export type Opportunity = Labeled & Hierarchical;
+export type Opportunity = Labelled & Hierarchical;
 
-export type Indicator = Labeled & Hierarchical;
+export type Indicator = Labelled & Hierarchical;
 
-export type Partner = Labeled & Hierarchical;
+export type Partner = Labelled & Hierarchical;
 
-export type ServiceProvider = Labeled & Hierarchical;
+export type ServiceProvider = Labelled & Hierarchical;
 
-export type CrimeLocation = Labeled & Hierarchical;
+export type CrimeLocation = Labelled & Hierarchical;
 
-export type CrimeScriptAttributes = Labeled & Hierarchical;
+export type CrimeScriptAttributes = Labelled & Hierarchical;
 
 /**
  * A crime script consists of different stages, where a stage is a distinct segment
@@ -188,7 +188,7 @@ export type Stage = {
   ids: ID[];
 };
 
-export type Act = Labeled & {
+export type Act = Labelled & {
   /** Overarching act, such as for financial dealings or generic stuff */
   isGeneric?: boolean;
   /** Locations to perform the activity */
@@ -224,7 +224,7 @@ export enum ActivityType {
   // HAS_CAST_ATTRIBUTES = 4,
 }
 
-export type Activity = Labeled & {
+export type Activity = Labelled & {
   /** Header, purely to organize content into two levels */
   header?: boolean;
   type?: ActivityType | ActivityType[];
@@ -237,7 +237,7 @@ export type Activity = Labeled & {
 
 export type Hierarchical = { synonyms?: string[]; parents?: ID[] };
 
-export type Cast = Labeled & Hierarchical;
+export type Cast = Labelled & Hierarchical;
 
 // export enum CastType {
 //   Individual = 'Individual',
@@ -251,7 +251,7 @@ export type Cast = Labeled & Hierarchical;
 //   // { id: CastType.Role, label: 'Role' },
 // ];
 
-export type Condition = Labeled & {
+export type Condition = Labelled & {
   type: ConditionType;
 };
 
@@ -267,7 +267,7 @@ export const ConditionTypeOptions = [
   { id: ConditionType.Enforcement, label: 'Enforcement' },
 ];
 
-export type Skill = Labeled & {
+export type Skill = Labelled & {
   level: LevelType;
 };
 

@@ -5,7 +5,7 @@ import {
   Pages,
   Act,
   Hierarchical,
-  Labeled,
+  Labelled,
   DataModel,
   FlexSearchResult,
   SearchScore,
@@ -17,12 +17,13 @@ import { Collapsible, FlatButton, Tabs } from 'mithril-materialized';
 import { attrForm, AttributeType } from '../models/forms';
 import { TextInputWithClear } from './ui/text-input-with-clear';
 import { scrollToActiveItem, sortByLabel } from '../utils';
-import { TreeNode, TreeView } from './ui/treeview';
+import { TreeView } from './ui/treeview';
 
 export const SettingsPage: MeiosisComponent = () => {
   let edit = false;
   let storedModel: DataModel;
   let selectedId: ID | undefined;
+  let showTree = false;
 
   return {
     oninit: ({
@@ -79,7 +80,7 @@ export const SettingsPage: MeiosisComponent = () => {
           partners.filter(labelFlt),
         ],
       ] as Array<
-        [id: AttributeType, label: string, type: AttributeType, iconName: string, attrs: Array<Hierarchical & Labeled>]
+        [id: AttributeType, label: string, type: AttributeType, iconName: string, attrs: Array<Hierarchical & Labelled>]
       >;
 
       return m(
@@ -97,34 +98,15 @@ export const SettingsPage: MeiosisComponent = () => {
           },
         }),
 
-        m(TreeView, {
-          className: 'col s12',
-          data: {
-            label: 'World',
-            expanded: true,
-            children: [
-              {
-                label: 'Europe',
-                children: [
-                  {
-                    label: 'Netherlands',
-                    children: [
-                      {
-                        label: 'North Holland',
-                        children: [{ label: 'Amsterdam' }, { label: 'Haarlem' }],
-                      },
-                      {
-                        label: 'South Holland',
-                        children: [{ label: 'The Hague' }, { label: 'Rotterdam' }],
-                      },
-                    ],
-                  },
-                ],
-              },
-            ],
-          } as TreeNode,
-        }),
-
+        !edit &&
+          m(FlatButton, {
+            label: t('TREE_VIEW', showTree ? 'HIDE' : 'SHOW'),
+            iconName: showTree ? 'view_list' : 'account_tree',
+            className: 'right small',
+            onclick: () => {
+              showTree = !showTree;
+            },
+          }),
         isAdmin && [
           m(FlatButton, {
             label: edit ? t('SAVE_BUTTON', 'LABEL') : t('EDIT_BUTTON', 'LABEL'),
@@ -163,13 +145,15 @@ export const SettingsPage: MeiosisComponent = () => {
           tabs: tabs.map(([id, label, type, iconName, attr], i) => {
             return {
               id: label.replace('è', 'e'),
-              active: selectedId ? attr.some((a) => a.id === selectedId) : i === 0,
+              active: selectedId ? attr.some((a) => a.id === selectedId) : undefined,
               title: `${attr.length ? `${attr.length} ` : ''}${label}`,
               vnode: edit
                 ? m(LayoutForm, {
                     form: attrForm(id, label, attr, type),
                     obj: model,
                   } as FormAttributes<any>)
+                : showTree
+                ? m(TreeView, { data: attr, rootLabel: 'MY ROOT', className: 'col s12 ' })
                 : m(AttrView, {
                     attr,
                     selectedId,
@@ -188,7 +172,7 @@ export const SettingsPage: MeiosisComponent = () => {
 };
 
 const AttrView: FactoryComponent<{
-  attr: Array<Hierarchical & Labeled>;
+  attr: Array<Hierarchical & Labelled>;
   selectedId?: ID;
   type: AttributeType;
   iconName?: string;

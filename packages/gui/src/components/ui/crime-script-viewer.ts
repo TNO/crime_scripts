@@ -9,7 +9,7 @@ import {
   ICONS,
   ID,
   IconOpts,
-  Labeled,
+  Labelled,
   Pages,
   Partner,
   Product,
@@ -51,7 +51,7 @@ export const CrimeScriptViewer: FactoryComponent<{
   searchFilter?: string;
   update: (patch: Patch<State>) => void;
 }> = () => {
-  const lookupPartner = new Map<ID, Labeled>();
+  const lookupPartner = new Map<ID, Labelled>();
   const findCrimeMeasure = lookupCrimeMeasure();
 
   const visualizeAct = (
@@ -264,7 +264,7 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
           )
         : undefined;
 
-      const toLi = (ids: Set<string>, labels: Labeled[]) =>
+      const toLi = (ids: Set<string>, labels: Labelled[]) =>
         Array.from(ids).map((id) =>
           m(
             'li',

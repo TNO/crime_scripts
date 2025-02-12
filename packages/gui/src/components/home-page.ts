@@ -1,5 +1,5 @@
 import m from 'mithril';
-import { Act, CrimeScript, CrimeScriptFilter, Hierarchical, ID, Labeled, Pages, scriptIcon } from '../models';
+import { Act, CrimeScript, CrimeScriptFilter, Hierarchical, ID, Labelled, Pages, scriptIcon } from '../models';
 import { MeiosisComponent, routingSvc } from '../services';
 import { FlatButton, uniqueId, Icon } from 'mithril-materialized';
 import { I18N, t } from '../services/translations';
@@ -21,7 +21,7 @@ export const HomePage: MeiosisComponent = () => {
     }, [] as ID[]);
   };
 
-  const includeChildren = (arr: Array<Hierarchical & Labeled>, ids: ID[]) => {
+  const includeChildren = (arr: Array<Hierarchical & Labelled>, ids: ID[]) => {
     const included = arr.filter((a) => ids.includes(a.id)).map((a) => a.id);
     const children = arr.filter((a) => a.parents?.some((p) => ids.includes(p))).map((a) => a.id);
     const grandchildren = arr.filter((a) => a.parents?.some((p) => children.includes(p))).map((a) => a.id);

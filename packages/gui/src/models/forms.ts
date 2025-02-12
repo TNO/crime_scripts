@@ -1,5 +1,5 @@
 import { UIForm } from 'mithril-ui-form';
-import { CrimeScript, Literature, Labeled, Hierarchical, CrimeScriptFilter } from './data-model';
+import { CrimeScript, Literature, Labelled, Hierarchical, CrimeScriptFilter } from './data-model';
 import { toOptions } from '../utils';
 import { t } from '../services';
 
@@ -13,7 +13,7 @@ export type AttributeType =
   | 'products'
   | 'partners';
 
-export const attrForm = (id: AttributeType, label: string, attr: Labeled[] = [], attrType: AttributeType) => [
+export const attrForm = (id: AttributeType, label: string, attr: Labelled[] = [], attrType: AttributeType) => [
   {
     id,
     label,
@@ -35,11 +35,11 @@ export const attrForm = (id: AttributeType, label: string, attr: Labeled[] = [],
                 label: t('CATEGORIES'),
                 options: attr.filter(({ label }) => label),
               },
-        ].filter(Boolean) as UIForm<Hierarchical & Labeled>)
+        ].filter(Boolean) as UIForm<Hierarchical & Labelled>)
       : ([
           { id: 'id', type: 'autogenerate', autogenerate: 'id' },
           { id: 'label', type: 'textarea', className: 'col s12', label: t('DESCRIPTION') },
-        ].filter(Boolean) as UIForm<Hierarchical & Labeled>),
+        ].filter(Boolean) as UIForm<Hierarchical & Labelled>),
   },
 ];
 
@@ -61,9 +61,9 @@ export const literatureForm = () =>
   ] as UIForm<Partial<Literature>>;
 
 export const crimeScriptFilterFormFactory = (
-  products: Array<Labeled & Hierarchical>,
-  locations: Array<Labeled & Hierarchical>,
-  geoLocations: Array<Labeled & Hierarchical>,
+  products: Array<Labelled & Hierarchical>,
+  locations: Array<Labelled & Hierarchical>,
+  geoLocations: Array<Labelled & Hierarchical>,
   icon = 'filter_alt'
 ): UIForm<CrimeScriptFilter> =>
   [
@@ -95,9 +95,9 @@ export const crimeScriptFilterFormFactory = (
   ] as UIForm<CrimeScriptFilter>;
 
 export const attributeFilterFormFactory = (
-  cast: Array<Labeled & Hierarchical>,
-  attributes: Array<Labeled & Hierarchical>,
-  transports: Array<Labeled & Hierarchical>,
+  cast: Array<Labelled & Hierarchical>,
+  attributes: Array<Labelled & Hierarchical>,
+  transports: Array<Labelled & Hierarchical>,
   icon = 'filter_alt'
 ) =>
   [

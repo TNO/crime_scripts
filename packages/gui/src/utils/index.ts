@@ -9,7 +9,7 @@ import {
   FlexSearchResult,
   Hierarchical,
   ID,
-  Labeled,
+  Labelled,
   Measure,
   NewsArticle,
   Page,
@@ -234,7 +234,7 @@ export type InputOptions = {
   icon?: string;
 };
 
-export const toOptions = (arr: Array<Hierarchical & Labeled>, noGroup = false): InputOptions[] =>
+export const toOptions = (arr: Array<Hierarchical & Labelled>, noGroup = false): InputOptions[] =>
   arr.map(({ id, label, parents }) => ({
     id,
     label,
@@ -245,33 +245,33 @@ export const toOptions = (arr: Array<Hierarchical & Labeled>, noGroup = false): 
       : t('OTHER'),
   }));
 
-export const resolveOptions = (arr: Array<Labeled> = [], ids: ID | ID[] = []) => {
+export const resolveOptions = (arr: Array<Labelled> = [], ids: ID | ID[] = []) => {
   ids = Array.isArray(ids) ? ids : [ids];
   return arr.filter((a) => ids.includes(a.id));
 };
 
 /** Convert to markdown unsorted list */
-export const toMarkdownUl = (arr: Array<Labeled> = [], ids: ID | ID[] = []) =>
+export const toMarkdownUl = (arr: Array<Labelled> = [], ids: ID | ID[] = []) =>
   resolveOptions(arr, ids)
     .map((a) => `- ${a.label}`)
     .join('\n');
 
 /** Convert to markdown sorted list */
-export const toMarkdownOl = (arr: Array<Labeled> = [], ids: ID | ID[] = []) =>
+export const toMarkdownOl = (arr: Array<Labelled> = [], ids: ID | ID[] = []) =>
   resolveOptions(arr, ids)
     .map((a, i) => `${i + 1}. [${a.label}](#!/${t('SETTINGS', 'ROUTE')}?id=${a.id})`)
     .join('\n');
 
 /** Convert to comma-separated sorted list */
-export const toCommaSeparatedList = (arr: Array<Labeled> = [], ids: ID | ID[] = []) =>
+export const toCommaSeparatedList = (arr: Array<Labelled> = [], ids: ID | ID[] = []) =>
   resolveOptions(arr, ids)
     .map((a, _i) => a.label)
     .join(', ');
 
-export const createTooltip = (c: Labeled) =>
+export const createTooltip = (c: Labelled) =>
   c.description ? `&nbsp;<div class="info tooltip">&#8505;<span class="tooltiptext">${c.description}</span></div>` : '';
 
-export const generateLabeledItemsMarkup = (items: Array<Labeled & { header?: boolean }> = []): string => {
+export const generateLabeledItemsMarkup = (items: Array<Labelled & { header?: boolean }> = []): string => {
   const [_, nested] = items.reduce(
     (acc, cur) => {
       const [isNested] = acc;
@@ -289,7 +289,7 @@ export const generateLabeledItemsMarkup = (items: Array<Labeled & { header?: boo
       }
       return acc;
     },
-    [false, []] as [isNested: boolean, nested: Array<Labeled & { children: Labeled[] }>]
+    [false, []] as [isNested: boolean, nested: Array<Labelled & { children: Labelled[] }>]
   );
 
   return (
@@ -305,7 +305,7 @@ export const generateLabeledItemsMarkup = (items: Array<Labeled & { header?: boo
   );
 };
 
-export const crimeScriptFilterToText = (arr: Array<Labeled> = [], filter = {} as CrimeScriptFilter) => {
+export const crimeScriptFilterToText = (arr: Array<Labelled> = [], filter = {} as CrimeScriptFilter) => {
   const {
     productIds = [],
     geoLocationIds = [],
@@ -390,7 +390,7 @@ export const isSmallPage = (): boolean => {
 };
 
 /** Sort labels alphabetically */
-export const sortByLabel = ({ label: labelA = '' }: Labeled, { label: labelB = '' }: Labeled) =>
+export const sortByLabel = ({ label: labelA = '' }: Labelled, { label: labelB = '' }: Labelled) =>
   labelA.localeCompare(labelB);
 
 /**
@@ -402,7 +402,7 @@ export const sortByLabel = ({ label: labelA = '' }: Labeled, { label: labelB = '
  */
 export const measuresToMarkdown = (
   measures: Measure[],
-  lookupPartner: Map<ID, Labeled>,
+  lookupPartner: Map<ID, Labelled>,
   findCrimeMeasure: (id: string) =>
     | {
         id: string;
