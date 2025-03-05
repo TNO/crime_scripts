@@ -279,7 +279,7 @@ export const CrimeScriptEditor: FactoryComponent<{ model: DataModel; crimeScript
 
         curActIds &&
           curActIds.ids &&
-          crimeScript.stages.length > 0 && [
+          crimeScript.stages?.length > 0 && [
             [
               m(SearchSelect<string>, {
                 key,
