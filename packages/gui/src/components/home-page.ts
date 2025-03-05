@@ -76,10 +76,13 @@ export const HomePage: MeiosisComponent = () => {
               iconName: 'add',
               className: 'small',
               onclick: () => {
-                const newCrimeScript = { id: uniqueId() } as CrimeScript;
+                const newCrimeScript = {
+                  label: t('NEW_SCRIPT_NAME'),
+                  id: uniqueId(),
+                } as CrimeScript;
                 model.crimeScripts.push(newCrimeScript);
                 actions.saveModel(model);
-                actions.changePage(Pages.HOME, { id: newCrimeScript.id });
+                actions.changePage(Pages.CRIME_SCRIPT, { id: newCrimeScript.id, edit: 1 });
               },
             })
           ),

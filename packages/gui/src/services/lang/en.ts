@@ -49,6 +49,7 @@ export const messages = {
   MERGE_SCRIPT: 'Merge current script',
   DELETE_SCRIPT: 'Delete Script',
   NEW_SCRIPT: 'New Script',
+  NEW_SCRIPT_NAME: 'New crime script',
   SAVE: 'Save',
   EDIT: 'Edit',
   DELETE_SCRIPT_CONFIRM: 'Are you certain you want to delete the script "{name}"?',
@@ -87,7 +88,7 @@ export const messages = {
   DELETE_ACT: 'Delete act',
   DELETE_ACT_CONFIRM: 'Are you sure that you want to permanently delete act "{name}"?',
   SELECT_ACT: 'Select act to edit',
-  SELECT_ACT_N: 'Select one or more acts for this step',
+  SELECT_ACT_N: 'Select existing act(s)',
   /** Crime Prevention Techniques */
   INCREASE_EFFORT: 'Increase the effort',
   TREE_VIEW: { HIDE: 'Show list', SHOW: 'Show tree' },

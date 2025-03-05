@@ -278,66 +278,65 @@ export const CrimeScriptEditor: FactoryComponent<{ model: DataModel; crimeScript
         } as FormAttributes<Partial<CrimeScript>>),
 
         curActIds &&
-          curActIds.ids && [
-            m(
-              '.row',
-              [
-                m(SearchSelect<string>, {
-                  key,
-                  label: t('SELECT_ACT_N'),
-                  options: actLabels,
-                  initialValue: curActIds.ids,
-                  className: 'col s12 m6',
-                  onchange: (selectedIds) => {
-                    crimeScript.stages[curActIdx] = {
-                      id: selectedIds.length > 0 ? selectedIds[0] : '',
-                      ids: selectedIds,
-                    };
-                    // m.redraw();
-                  },
-                }),
-                curActIds.ids.length > 0
-                  ? m(Select, {
-                      key,
-                      label: t('SELECT_ACT'),
-                      className: 'col s6 m2',
-                      initialValue: curActIds.id,
-                      // disabled: curActIds.ids.length === 1,
-                      options: acts.filter((a) => curActIds.ids.includes(a.id)),
-                      onchange: (id) => {
-                        crimeScript.stages[curActIdx].id = id[0];
-                      },
-                    } as ISelectOptions<ID>)
-                  : undefined,
-                m(FlatButton, {
-                  key,
-                  label: t('ACT'),
-                  className: 'col s3 m2',
-                  iconName: 'add',
-                  onclick: () => {
-                    const id = uniqueId();
-                    const newAct = {
-                      id,
-                      label: t('ACT'),
-                    } as Act;
-                    acts.push(newAct);
-                    crimeScript.stages[curActIdx].id = id;
-                    if (crimeScript.stages[curActIdx].ids) {
-                      crimeScript.stages[curActIdx].ids.push(id);
-                    } else {
-                      crimeScript.stages[curActIdx].ids = [id];
-                    }
-                  },
-                }),
-                m(FlatButton, {
-                  key,
-                  modalId: 'deletePhase',
-                  label: t('DELETE_ACT'),
-                  className: 'col s3 m2',
-                  iconName: 'delete_forever',
-                }),
-              ].filter(Boolean)
-            ),
+          curActIds.ids &&
+          crimeScript.stages.length > 0 && [
+            [
+              m(SearchSelect<string>, {
+                key,
+                label: t('SELECT_ACT_N'),
+                options: actLabels,
+                initialValue: curActIds.ids,
+                className: 'col s12 m6',
+                onchange: (selectedIds) => {
+                  crimeScript.stages[curActIdx] = {
+                    id: selectedIds.length > 0 ? selectedIds[0] : '',
+                    ids: selectedIds,
+                  };
+                  // m.redraw();
+                },
+              }),
+              curActIds.ids.length > 0
+                ? m(Select, {
+                    key,
+                    label: t('SELECT_ACT'),
+                    className: 'col s6 m2',
+                    initialValue: curActIds.id,
+                    // disabled: curActIds.ids.length === 1,
+                    options: acts.filter((a) => curActIds.ids.includes(a.id)),
+                    onchange: (id) => {
+                      crimeScript.stages[curActIdx].id = id[0];
+                    },
+                  } as ISelectOptions<ID>)
+                : undefined,
+              m(FlatButton, {
+                key,
+                label: t('ADD_ACT'),
+                className: 'col s3 m2',
+                iconName: 'create',
+                onclick: () => {
+                  const id = uniqueId();
+                  const newAct = {
+                    id,
+                    label: t('ADD_ACT'),
+                  } as Act;
+                  acts.push(newAct);
+                  crimeScript.stages[curActIdx].id = id;
+                  curActIds.id = id;
+                  if (crimeScript.stages[curActIdx].ids) {
+                    crimeScript.stages[curActIdx].ids.push(id);
+                  } else {
+                    crimeScript.stages[curActIdx].ids = [id];
+                  }
+                },
+              }),
+              m(FlatButton, {
+                key,
+                modalId: 'deletePhase',
+                label: t('DELETE_ACT'),
+                className: 'col s3 m2',
+                iconName: 'delete_forever',
+              }),
+            ].filter(Boolean),
           ],
 
         curAct && [

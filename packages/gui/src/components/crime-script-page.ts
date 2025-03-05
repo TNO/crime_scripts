@@ -18,6 +18,9 @@ export const CrimeScriptPage: MeiosisComponent = () => {
         actions: { setPage },
       },
     }) => {
+      if (m.route.param('edit') === '1') {
+        edit = true;
+      }
       setPage(Pages.CRIME_SCRIPT);
     },
     view: ({ attrs: { state, actions } }) => {

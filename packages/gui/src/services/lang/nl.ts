@@ -50,6 +50,7 @@ export const messagesNL: typeof messages = {
   MERGE_SCRIPT: 'Script toevoegen',
   DELETE_SCRIPT: 'Script verwijderen',
   NEW_SCRIPT: 'Nieuw script',
+  NEW_SCRIPT_NAME: 'Nieuw crime script',
   SAVE: 'Bewaar',
   EDIT: 'Bewerk',
   DELETE_SCRIPT_CONFIRM: 'Weet je zeker dat je het script "{name}" wilt verwijderen?',
@@ -88,7 +89,7 @@ export const messagesNL: typeof messages = {
   DELETE_ACT: 'Verwijder fase',
   DELETE_ACT_CONFIRM: 'Weet je zeker dat je de fase "{name}" wilt verwijderen?',
   SELECT_ACT: 'Bewerk fase',
-  SELECT_ACT_N: 'Selecteer een of meerdere fases',
+  SELECT_ACT_N: 'Selecteer bestaande fase(s)',
 
   /** Crime Prevention Techniques */
   INCREASE_EFFORT: 'Verhoog de inspanning',
