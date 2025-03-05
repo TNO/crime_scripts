@@ -115,10 +115,10 @@ export const TreeView: FactoryComponent<
   };
 
   return {
-    oninit: ({ attrs: { data } }) => {
+    oninit: ({ attrs: { data, rootLabel } }) => {
       if (Array.isArray(data)) {
         treeData = {
-          label: 'ROOT',
+          label: rootLabel || 'Root',
           expanded: true,
           children: buildTreeFromHierarchy(data),
         } as TreeNode;
