@@ -458,7 +458,7 @@ export const measuresToMarkdown = (
     const measures = groupedMeasures.get(partnerLabel) || [];
     const partnerId = measures.length > 0 ? measures[0].pId : undefined;
     measures.sort(({ cat: catA = '' }, { cat: catB = '' }) => catA.localeCompare(catB));
-    markdown += `${i}. [**${partnerLabel}**](#!/${t('SETTINGS', 'ROUTE')}?id=${partnerId}):\n`;
+    markdown += `${i}. **[${partnerLabel}](#!/${t('SETTINGS', 'ROUTE')}?id=${partnerId}):**\n`;
     markdown += `${measures
       .map((measure) => `  - **${measure.cat}**: ${measure.label}${createTooltip(measure)}`)
       .join('\n')}\n`;

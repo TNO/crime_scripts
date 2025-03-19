@@ -90,9 +90,11 @@ export const crimeScriptToMarkdown = (crimeScript: Partial<CrimeScript>, model: 
         .join(', ')}**\n`
     );
   }
+
   stages.forEach((stage, i) => {
     const stageActs = stage.ids.map((id) => acts.find((a) => a.id === id)).filter((a) => typeof a !== 'undefined');
     newHeading(`${t('ACT')} ${i + 1}: ${stageActs.map((a) => a.label).join(' | ')}`, 1);
+
     stageActs.forEach((act) => {
       newHeading(act.label, 2);
       act.description && md.push(act.description);
@@ -109,6 +111,7 @@ export const crimeScriptToMarkdown = (crimeScript: Partial<CrimeScript>, model: 
                 .join(', ') + '\n'
             );
           }
+
           if (a.activities && a.activities.length > 0) {
             newHeading(t('ACTIVITIES'), 4);
             const activitiesTxt = a.activities.reduce((list, activity, idx) => {
@@ -175,9 +178,6 @@ export const crimeScriptToMarkdown = (crimeScript: Partial<CrimeScript>, model: 
             newHeading(t('MEASURES'), 4);
             const measureMd = measuresToMarkdown(a.measures, itemLookup, lookupCrimeMeasure());
             md.push(measureMd);
-            // const measuresTxt = a.measures.reduce(createListItem, [] as string[]);
-            // measuresTxt.push('');
-            // md.push(...measuresTxt);
           }
         }
       });
@@ -191,7 +191,13 @@ export const crimeScriptToMarkdown = (crimeScript: Partial<CrimeScript>, model: 
       l.description && md.push(addLeadingSpaces(l.description, i < 9 ? 3 : 4));
     });
   }
-  return md.join('\n');
+  const cleaner = cleanText();
+  return md.map(cleaner).join('\n');
+};
+
+const cleanText = (replacement: string = '?') => {
+  const replacer = /[\p{Cf}\uFFFE]/gu;
+  return (text: string) => text.replace(replacer, replacement);
 };
 
 /** Converts a markdown string to a docx document */
