@@ -46,7 +46,7 @@ export const CrimeScriptPage: MeiosisComponent = () => {
       const filename = `${formatDate(Date.now(), '')}_${crimeScript?.label}_v${model.version}.docx`.replace(/\s/g, '_');
 
       const actBelongsToCrimeScript =
-        crimeScript.stages && crimeScript.stages.some((s) => s.ids.includes(acts[curActIdx || 0].id));
+        crimeScript.stages && crimeScript.stages.some((s) => s.ids?.includes(acts[curActIdx || 0].id));
 
       return m(
         '#crime-script.page',
