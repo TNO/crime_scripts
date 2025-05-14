@@ -35,7 +35,6 @@ export const CrimeScriptPage: MeiosisComponent = () => {
         transports = [],
         products = [],
         partners = [],
-        serviceProviders = [],
       } = model;
       id = m.route.param('id') || currentCrimeScriptId || (crimeScripts.length > 0 ? crimeScripts[0].id : '');
       const crimeScript =
@@ -117,7 +116,6 @@ export const CrimeScriptPage: MeiosisComponent = () => {
                     geoLocations,
                     products,
                     partners,
-                    serviceProviders,
                     curActIdx: actBelongsToCrimeScript ? curActIdx : undefined,
                     curPhaseIdx: actBelongsToCrimeScript ? curPhaseIdx : undefined,
                     searchFilter,

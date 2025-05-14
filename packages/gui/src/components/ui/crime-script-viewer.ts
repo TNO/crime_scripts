@@ -13,7 +13,6 @@ import {
   Pages,
   Partner,
   Product,
-  ServiceProvider,
   Transport,
   missingIcon,
   scriptIcon,
@@ -45,7 +44,6 @@ export const CrimeScriptViewer: FactoryComponent<{
   products: Product[];
   partners: Partner[];
   transports: Transport[];
-  serviceProviders: ServiceProvider[];
   curActIdx?: number;
   curPhaseIdx?: number;
   searchFilter?: string;
@@ -57,7 +55,6 @@ export const CrimeScriptViewer: FactoryComponent<{
   const visualizeAct = (
     { label = '...', activities = [], indicators = [], conditions = [], locationIds = [], measures = [] } = {} as Act,
     cast: Cast[],
-    serviceProviders: ServiceProvider[],
     attributes: CrimeScriptAttributes[],
     transports: Transport[],
     locations: CrimeLocation[],
@@ -68,12 +65,6 @@ export const CrimeScriptViewer: FactoryComponent<{
       const castIds = Array.from(
         activities.reduce((acc, { cast: curCast }) => {
           if (curCast) curCast.forEach((id) => acc.add(id));
-          return acc;
-        }, new Set<ID>())
-      );
-      const spIds = Array.from(
-        activities.reduce((acc, { sp }) => {
-          if (sp) sp.forEach((id) => acc.add(id));
           return acc;
         }, new Set<ID>())
       );
@@ -110,14 +101,6 @@ ${
     ? `##### ${t('CAST')}
 
 ${toMarkdownOl(cast, castIds)}`
-    : ''
-}
-
-${
-  spIds.length > 0
-    ? `##### ${t('SERVICE_PROVIDERS')}
-
-${toMarkdownOl(serviceProviders, spIds)}`
     : ''
 }
 
@@ -194,7 +177,6 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
       attrs: {
         crimeScript,
         cast = [],
-        serviceProviders = [],
         acts = [],
         attributes = [],
         transports = [],
@@ -221,25 +203,23 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
         geoLocationIds = [],
         url = scriptIcon,
       } = crimeScript;
-      const [allCastIds, allSpIds, allAttrIds, allLocIds, allTranspIds] = stages.reduce(
+      const [allCastIds, allAttrIds, allLocIds, allTranspIds] = stages.reduce(
         (acc, stage) => {
           const act = acts.find((a) => a.id === stage.id);
           if (act) {
             if (act.locationIds) {
-              act.locationIds.forEach((id) => acc[3].add(id));
+              act.locationIds.forEach((id) => acc[2].add(id));
             }
             act.activities.forEach((activity) => {
               activity.cast?.forEach((id) => acc[0].add(id));
-              activity.sp?.forEach((id) => acc[1].add(id));
-              activity.attributes?.forEach((id) => acc[2].add(id));
-              activity.transports?.forEach((id) => acc[4].add(id));
+              activity.attributes?.forEach((id) => acc[1].add(id));
+              activity.transports?.forEach((id) => acc[3].add(id));
             });
           }
           return acc;
         },
-        [new Set<ID>(), new Set<ID>(), new Set<ID>(), new Set<ID>(), new Set<ID>()] as [
+        [new Set<ID>(), new Set<ID>(), new Set<ID>(), new Set<ID>()] as [
           cast: Set<ID>,
-          sp: Set<ID>,
           attr: Set<ID>,
           locs: Set<ID>,
           transp: Set<ID>
@@ -252,16 +232,7 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
           ? acts.find((a) => a.id === stages[0].id)
           : undefined;
       const selectedActContent = selectedAct
-        ? visualizeAct(
-            selectedAct,
-            cast,
-            serviceProviders,
-            attributes,
-            transports,
-            locations,
-            curPhaseIdx,
-            mdHighlighter
-          )
+        ? visualizeAct(selectedAct, cast, attributes, transports, locations, curPhaseIdx, mdHighlighter)
         : undefined;
 
       const toLi = (ids: Set<string>, labels: Labelled[]) =>
@@ -347,14 +318,9 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
 
         description && m('p', highlighter(description)),
         m('.row', [
-          m('.col.s6.m4.l3', [allCastIds.size > 0 && [m('h5', t('CAST')), m('ol', toLi(allCastIds, cast))]]),
-          m('.col.s6.m4.l3', [
-            allSpIds.size > 0 && [m('h5', t('SERVICE_PROVIDERS')), m('ol', toLi(allSpIds, serviceProviders))],
-          ]),
-          m('.col.s6.m4.l3', [
-            allAttrIds.size > 0 && [m('h5', t('ATTRIBUTES')), m('ol', toLi(allAttrIds, attributes))],
-          ]),
-          m('.col.s6.m4.l3', [
+          m('.col.s6.m4', [allCastIds.size > 0 && [m('h5', t('CAST')), m('ol', toLi(allCastIds, cast))]]),
+          m('.col.s6.m4', [allAttrIds.size > 0 && [m('h5', t('ATTRIBUTES')), m('ol', toLi(allAttrIds, attributes))]]),
+          m('.col.s6.m4', [
             allTranspIds.size > 0 && [
               m('h5', t('TRANSPORTS', allTranspIds.size)),
               m('ol', toLi(allTranspIds, transports)),

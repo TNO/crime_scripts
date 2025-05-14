@@ -2,15 +2,25 @@ import { meiosisSetup } from 'meiosis-setup';
 import { MeiosisCell, MeiosisConfig, Patch, Service } from 'meiosis-setup/types';
 import m, { FactoryComponent } from 'mithril';
 import { i18n, routingSvc, t } from '.';
-import { CrimeScriptFilter, DataModel, FlexSearchResult, ID, Pages, SearchResult, Settings } from '../models';
-import { User, UserRole } from './login-service';
+import {
+  Activity,
+  CrimeScriptFilter,
+  DataModel,
+  FlexSearchResult,
+  ID,
+  Pages,
+  SearchResult,
+  ServiceProvider,
+  Settings,
+} from '../models';
 import { aggregateFlexSearchResults, crimeScriptFilterToText, mergeDataModels, scrollToTop, tokenize } from '../utils';
 import { flexSearchLookupUpdater } from './flex-search';
+import { User, UserRole } from './login-service';
 
 // const settingsSvc = restServiceFactory<Settings>('settings');
 const PREVIEW_MODEL_KEY = 'CSS_PREVIEW_MODEL';
 const MODEL_KEY = 'CSS_MODEL';
-const USER_ROLE = 'USER_ROLE';
+const USER_ROLE = 'CSS_USER_ROLE';
 export const APP_TITLE = 'PAX Crime Scripting';
 export const APP_TITLE_SHORT = 'PAX';
 
@@ -204,9 +214,34 @@ cells.map(() => {
   m.redraw();
 });
 
-const loadData = async () => {
-  const ds = localStorage.getItem(MODEL_KEY);
-  const model: DataModel = ds ? JSON.parse(ds) : { crimeScripts: [] };
+export const loadData = async (ds = localStorage.getItem(MODEL_KEY)) => {
+  const model: DataModel & {
+    serviceProviders?: ServiceProvider[];
+  } = ds ? JSON.parse(ds) : { crimeScripts: [] };
+  if (typeof model.cast === 'undefined') {
+    model.cast = [];
+  }
+  if (typeof model.serviceProviders !== 'undefined') {
+    model.cast = [...model.cast, ...model.serviceProviders];
+    delete model.serviceProviders;
+    if (typeof model.acts !== 'undefined') {
+      model.acts.forEach((act) => {
+        if (act.activities && act.activities.length > 0) {
+          act.activities.forEach((actActivity: Activity & { sp?: ID[] }) => {
+            if (typeof actActivity.sp !== 'undefined') {
+              if (typeof actActivity.cast === 'undefined') {
+                actActivity.cast = [];
+              }
+              actActivity.cast = [...actActivity.cast, ...actActivity.sp];
+              delete actActivity.sp;
+            }
+          });
+        }
+      });
+    }
+  }
+  localStorage.setItem(MODEL_KEY, JSON.stringify(model));
+
   const role = (localStorage.getItem(USER_ROLE) || 'user') as UserRole;
   // const settings = (await settingsSvc.loadList()).shift() || ({} as Settings);
 

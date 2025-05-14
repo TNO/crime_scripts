@@ -13,7 +13,7 @@ export type DataModel = {
   products: Product[];
   transports: Transport[];
   partners: Partner[];
-  serviceProviders: ServiceProvider[];
+  //serviceProviders: ServiceProvider[];
   acts: Act[];
   articles: NewsArticle[];
 };
@@ -29,7 +29,7 @@ export const defaultModel: DataModel = {
   products: [],
   transports: [],
   partners: [],
-  serviceProviders: [],
+  // serviceProviders: [],
   acts: [],
   articles: [],
 };
@@ -230,8 +230,6 @@ export type Activity = Labelled & {
   type?: ActivityType | ActivityType[];
   cast?: ID[];
   attributes?: ID[];
-  /** Service providers */
-  sp: ID[];
   transports?: ID[];
 };
 

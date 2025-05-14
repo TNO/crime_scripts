@@ -57,7 +57,6 @@ export const SettingsPage: MeiosisComponent = () => {
         locations = [],
         geoLocations = [],
         partners = [],
-        serviceProviders = [],
       } = model;
 
       const labelFilter = attributeFilter ? attributeFilter.toLowerCase() : undefined;
@@ -68,7 +67,6 @@ export const SettingsPage: MeiosisComponent = () => {
         !labelFilter || (a.label && a.label.toLowerCase().includes(labelFilter));
       const tabs = [
         ['cast', t('CAST'), 'cast', 'person', cast.filter(labelFlt)],
-        ['serviceProviders', t('SERVICE_PROVIDERS'), 'serviceProviders', 'business', serviceProviders.filter(labelFlt)],
         ['attributes', t('ATTRIBUTES'), 'attributes', 'build', attributes.filter(labelFlt)],
         ['products', t('PRODUCTS', 2), 'products', 'shopping_bag', products.filter(labelFlt)],
         ['transports', t('TRANSPORTS'), 'transports', 'directions', transports.filter(labelFlt)],
@@ -120,7 +118,6 @@ export const SettingsPage: MeiosisComponent = () => {
                 storedModel = deepCopy(model);
               } else {
                 model.cast?.sort(sortByLabel);
-                model.serviceProviders?.sort(sortByLabel);
                 model.attributes?.sort(sortByLabel);
                 model.products?.sort(sortByLabel);
                 model.transports?.sort(sortByLabel);
@@ -144,7 +141,7 @@ export const SettingsPage: MeiosisComponent = () => {
         ],
         m(Tabs, {
           tabWidth: 'auto',
-          tabs: tabs.map(([id, label, type, iconName, attr], i) => {
+          tabs: tabs.map(([id, label, type, iconName, attr], _i) => {
             return {
               id: label.replace('è', 'e'),
               active: selectedId ? attr.some((a) => a.id === selectedId) : undefined,
@@ -225,11 +222,6 @@ const AttrView: FactoryComponent<{
                         } else if (type === 'attributes') {
                           const { attributes = [] } = activity;
                           if (attributes.includes(c.id)) {
-                            acc.push([crimeScriptIdx, actIdx, 0, SearchScore.EXACT_MATCH, activity.label]);
-                          }
-                        } else if (type === 'serviceProviders') {
-                          const { sp = [] } = activity;
-                          if (sp.includes(c.id)) {
                             acc.push([crimeScriptIdx, actIdx, 0, SearchScore.EXACT_MATCH, activity.label]);
                           }
                         } else if (type === 'transports') {

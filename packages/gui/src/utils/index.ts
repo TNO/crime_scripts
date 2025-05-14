@@ -564,13 +564,6 @@ export const toJSON = async (filename: string, cs: Partial<CrimeScript>, model: 
     return acc;
   }, new Set<ID>());
   const partners = model.partners.filter((a) => partnerIds?.has(a.id));
-  const serviceProviderIds = acts.reduce((acc, act) => {
-    act.activities.forEach((activity) => {
-      activity.sp?.forEach((cm) => acc.add(cm));
-    });
-    return acc;
-  }, new Set<ID>());
-  const serviceProviders = model.serviceProviders.filter((a) => serviceProviderIds?.has(a.id));
   const locationsIds = acts.reduce((acc, act) => {
     act.locationIds?.forEach((id) => {
       acc.add(id);
@@ -596,7 +589,6 @@ export const toJSON = async (filename: string, cs: Partial<CrimeScript>, model: 
         attributes,
         transports,
         partners,
-        serviceProviders,
         lastUpdate: Date.now(),
       } as DataModel)
     );
@@ -679,7 +671,6 @@ export function mergeDataModels(model1: DataModel, model2: DataModel): DataModel
     products: mergeLabeledArrays(model1.products, model2.products),
     transports: mergeLabeledArrays(model1.transports, model2.transports),
     partners: mergeLabeledArrays(model1.partners, model2.partners),
-    serviceProviders: mergeLabeledArrays(model1.serviceProviders, model2.serviceProviders),
     acts: updateActReferences(mergeLabeledArrays(model1.acts, model2.acts)),
     articles: mergeArticles(model1.articles, model2.articles),
   };

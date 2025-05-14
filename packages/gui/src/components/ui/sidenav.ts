@@ -1,5 +1,5 @@
 import m from 'mithril';
-import { Languages, MeiosisComponent, UserRole, i18n, routingSvc, t } from '../../services';
+import { Languages, MeiosisComponent, UserRole, i18n, loadData, routingSvc, t } from '../../services';
 import { FlatButton, ISelectOptions, ModalPanel, Select, padLeft } from 'mithril-materialized';
 import { DataModel, Page, Pages, defaultModel } from '../../models';
 import { formatDate, isActivePage } from '../../utils';
@@ -7,27 +7,20 @@ import { compressToEncodedURIComponent, decompressFromUint8Array } from 'lz-stri
 import { LanguageSwitcher } from './language-switcher';
 
 export const SideNav: MeiosisComponent = () => {
-  const handleFileUpload = (binary: boolean, saveModel: (model: DataModel) => void) => (e: Event) => {
+  const handleFileUpload = (binary: boolean, _saveModel: (model: DataModel) => void) => (e: Event) => {
     const fileInput = e.target as HTMLInputElement;
     if (!fileInput.files || fileInput.files.length <= 0) return;
 
     const reader = new FileReader();
     reader.onload = (e: ProgressEvent<FileReader>) => {
       if (e.target && e.target.result) {
-        let result: DataModel;
         if (binary) {
           const arrayBuffer = e.target.result as ArrayBuffer;
           const uint8Array = new Uint8Array(arrayBuffer);
           const decompressedString = decompressFromUint8Array(uint8Array);
-          result = JSON.parse(decompressedString) as DataModel;
+          loadData(decompressedString);
         } else {
-          result = JSON.parse(e.target.result.toString()) as DataModel;
-        }
-        if (result && result.version) {
-          saveModel(result);
-          routingSvc.switchTo(Pages.HOME);
-        } else {
-          console.error('Invalid file format');
+          loadData(e.target.result.toString());
         }
       }
     };

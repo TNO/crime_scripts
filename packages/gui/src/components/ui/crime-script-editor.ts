@@ -8,7 +8,6 @@ import {
   IconOpts,
   Stage,
   Measure,
-  ActivityType,
   Opportunity,
   Indicator,
   DataModel,
@@ -36,21 +35,12 @@ export const CrimeScriptEditor: FactoryComponent<{ model: DataModel; crimeScript
   let geoLocationOptions: InputOptions[] = [];
   let transportOptions: InputOptions[] = [];
   let castOptions: InputOptions[] = [];
-  let serviceProviderOptions: InputOptions[] = [];
   let attrOptions: InputOptions[] = [];
   let productOptions: InputOptions[] = [];
   let measuresForm: UIForm<{ measures: Measure }> = [];
   let activityForm: UIForm<ActivityPhase>;
   let opportunitiesForm: UIForm<{ conditions: Opportunity[] }>;
   let indicatorsForm: UIForm<{ indicators: Indicator[] }>;
-
-  const ActivityTypeOptions = [
-    // { id: ActivityType.NONE, label: 'None' },
-    { id: ActivityType.HAS_CAST, label: t('CAST') },
-    { id: ActivityType.HAS_ATTRIBUTES, label: t('ATTRIBUTE') },
-    { id: ActivityType.HAS_TRANSPORT, label: t('TRANSPORT') },
-    { id: ActivityType.HAS_SERVICE_PROVIDER, label: t('SERVICE_PROVIDER') },
-  ];
 
   const measOptions = crimeMeasureOptions();
 
@@ -67,7 +57,6 @@ export const CrimeScriptEditor: FactoryComponent<{ model: DataModel; crimeScript
           transports = [],
           products = [],
           partners = [],
-          serviceProviders = [],
         },
       },
     }) => {
@@ -90,7 +79,6 @@ export const CrimeScriptEditor: FactoryComponent<{ model: DataModel; crimeScript
       geoLocationOptions = toOptions(geoLocations);
       transportOptions = toOptions(transports);
       productOptions = toOptions(products);
-      serviceProviderOptions = toOptions(serviceProviders);
 
       activityForm = [
         {
@@ -116,19 +104,19 @@ export const CrimeScriptEditor: FactoryComponent<{ model: DataModel; crimeScript
               className: 'col s12',
               label: t('DESCRIPTION'),
             },
-            {
-              id: 'type',
-              type: 'select',
-              // show: ['!header'],
-              multiple: true,
-              className: 'col s12 m6',
-              label: t('SPECIFY'),
-              options: ActivityTypeOptions,
-              checkboxClass: 'col s4',
-            },
+            // {
+            //   id: 'type',
+            //   type: 'select',
+            //   // show: ['!header'],
+            //   multiple: true,
+            //   className: 'col s12 m6',
+            //   label: t('SPECIFY'),
+            //   options: ActivityTypeOptions,
+            //   checkboxClass: 'col s4',
+            // },
             {
               id: 'cast',
-              show: ['type=1'],
+              // show: ['type=1'],
               type: 'search_select',
               className: 'col s12 m6',
               multiple: true,
@@ -137,30 +125,21 @@ export const CrimeScriptEditor: FactoryComponent<{ model: DataModel; crimeScript
             },
             {
               id: 'attributes',
-              show: ['type=2'],
+              // show: ['type=2'],
               type: 'search_select',
-              className: 'col s12 m6',
+              className: 'col s12 m3',
               multiple: true,
               options: attrOptions,
               label: t('ATTRIBUTES'),
             },
             {
               id: 'transports',
-              show: ['type=4'],
+              // show: ['type=4'],
               type: 'search_select',
-              className: 'col s12 m6',
+              className: 'col s12 m3',
               multiple: true,
               options: transportOptions,
               label: t('TRANSPORTS'),
-            },
-            {
-              id: 'sp',
-              show: ['type=8'],
-              type: 'search_select',
-              className: 'col s6 m6',
-              multiple: true,
-              options: serviceProviderOptions,
-              label: t('SERVICE_PROVIDER'),
             },
             // {
             //   id: 'description',
