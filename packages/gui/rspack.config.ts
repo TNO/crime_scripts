@@ -32,6 +32,10 @@ const configuration: core.Configuration = {
   },
   devtool: devMode ? 'inline-source-map' : 'source-map',
   plugins: [
+    new core.SourceMapDevToolPlugin({
+      test: /\.ts$/,
+      filename: '[file].map[query]',
+    }),
     new core.DefinePlugin({
       'process.env.SERVER': isProduction ? `'${publicPath}'` : '`http://localhost:${APP_PORT}`',
     }),
@@ -77,8 +81,8 @@ const configuration: core.Configuration = {
         test: /\.ts$/,
         exclude: [/node_modules/],
         loader: 'builtin:swc-loader',
+        /** @type {import('@rspack/core').SwcLoaderOptions} */
         options: {
-          sourceMap: true,
           jsc: {
             parser: {
               syntax: 'typescript',
@@ -119,7 +123,7 @@ const configuration: core.Configuration = {
     ],
   },
   optimization: {
-    minimize: true,
+    minimize: isProduction,
     minimizer: [],
   },
   output: {
