@@ -11,6 +11,7 @@ import {
   Opportunity,
   Indicator,
   DataModel,
+  Labelled,
 } from '../../models';
 import { FlatButton, Tabs, uniqueId, Select, ISelectOptions, SearchSelect, ModalPanel } from 'mithril-materialized';
 import { FormAttributes, LayoutForm, UIForm } from 'mithril-ui-form';
@@ -19,16 +20,12 @@ import { crimeMeasureOptions } from '../../models/situational-crime-prevention';
 import { I18N, t } from '../../services/translations';
 import { InputOptions, toOptions } from '../../utils';
 
-export const CrimeScriptEditor: FactoryComponent<{ model: DataModel; crimeScript: CrimeScript }> = () => {
-  const actsForm: UIForm<{ stages: Stage[] }> = [
-    {
-      id: 'stages',
-      repeat: true,
-      pageSize: 1,
-      label: t('ACTS'),
-      type: [] as UIForm<Stage>,
-    },
-  ];
+export const CrimeScriptEditor: FactoryComponent<{
+  model: DataModel;
+  crimeScript: CrimeScript;
+  update: (type: 'cast' | 'attributes' | 'transports' | 'locations' | 'acts', option: Labelled) => void;
+}> = () => {
+  let actsForm: UIForm<{ stages: Stage[] }>;
 
   let actLabels: { id: ID; label: string }[] = [];
   let locationOptions: InputOptions[] = [];
@@ -45,21 +42,18 @@ export const CrimeScriptEditor: FactoryComponent<{ model: DataModel; crimeScript
   const measOptions = crimeMeasureOptions();
 
   return {
-    oninit: ({
-      attrs: {
-        model: {
-          crimeScripts = [],
-          acts = [],
-          cast = [],
-          attributes = [],
-          locations = [],
-          geoLocations = [],
-          transports = [],
-          products = [],
-          partners = [],
-        },
-      },
-    }) => {
+    oninit: ({ attrs: { model, update } }) => {
+      const {
+        crimeScripts = [],
+        acts = [],
+        cast = [],
+        attributes = [],
+        locations = [],
+        geoLocations = [],
+        transports = [],
+        products = [],
+        partners = [],
+      } = model;
       const actToCrimeScript = crimeScripts.reduce((acc, cur) => {
         cur.stages?.forEach(({ ids = [] }) => {
           ids.forEach((id) => {
@@ -73,6 +67,30 @@ export const CrimeScriptEditor: FactoryComponent<{ model: DataModel; crimeScript
         const found = actToCrimeScript.get(id) || [];
         return { id, label: `${label} (${found.join(', ')})` };
       });
+      // actsForm = [
+      //   {
+      //     id: 'stages',
+      //     repeat: true,
+      //     pageSize: 1,
+      //     label: t('STAGES'),
+      //     type: [
+      //       {
+      //         id: 'ids',
+      //         label: t('SELECT_ACT_N'),
+      //         type: 'search_select',
+      //         className: 'col s12',
+      //         multiple: true,
+      //         options: actLabels,
+      //         oncreateNewOption: (label: string) => {
+      //           const newOption = { id: uniqueId(), label };
+      //           castOptions.push(newOption);
+      //           update('acts', newOption);
+      //           return newOption;
+      //         },
+      //       },
+      //     ] as UIForm<Stage>,
+      //   },
+      // ];
       castOptions = toOptions(cast, true);
       attrOptions = toOptions(attributes);
       locationOptions = locations.map(({ id, label }) => ({ id, label }));
@@ -83,11 +101,17 @@ export const CrimeScriptEditor: FactoryComponent<{ model: DataModel; crimeScript
       activityForm = [
         {
           id: 'locationIds',
-          type: 'select',
+          type: 'search_select',
           multiple: true,
-          label: t('LOCATIONS', 2),
           className: 'col s12',
+          label: t('LOCATIONS', 2),
           options: locationOptions,
+          oncreateNewOption: (label: string) => {
+            const newOption = { id: uniqueId(), label };
+            castOptions.push(newOption);
+            update('locations', newOption);
+            return newOption;
+          },
         },
         {
           id: 'activities',
@@ -122,6 +146,12 @@ export const CrimeScriptEditor: FactoryComponent<{ model: DataModel; crimeScript
               multiple: true,
               options: castOptions,
               label: t('CAST'),
+              oncreateNewOption: (label: string) => {
+                const newOption = { id: uniqueId(), label };
+                castOptions.push(newOption);
+                update('cast', newOption);
+                return newOption;
+              },
             },
             {
               id: 'attributes',
@@ -131,6 +161,12 @@ export const CrimeScriptEditor: FactoryComponent<{ model: DataModel; crimeScript
               multiple: true,
               options: attrOptions,
               label: t('ATTRIBUTES'),
+              oncreateNewOption: (label: string) => {
+                const newOption = { id: uniqueId(), label };
+                castOptions.push(newOption);
+                update('attributes', newOption);
+                return newOption;
+              },
             },
             {
               id: 'transports',
@@ -140,6 +176,12 @@ export const CrimeScriptEditor: FactoryComponent<{ model: DataModel; crimeScript
               multiple: true,
               options: transportOptions,
               label: t('TRANSPORTS'),
+              oncreateNewOption: (label: string) => {
+                const newOption = { id: uniqueId(), label };
+                castOptions.push(newOption);
+                update('transports', newOption);
+                return newOption;
+              },
             },
             // {
             //   id: 'description',
@@ -212,7 +254,7 @@ export const CrimeScriptEditor: FactoryComponent<{ model: DataModel; crimeScript
 
       measuresForm = [{ id: 'measures', type: measureForm, repeat: true, label: t('MEASURE') }];
     },
-    view: ({ attrs: { crimeScript, model } }) => {
+    view: ({ attrs: { crimeScript, model, update } }) => {
       const { acts = [] } = model;
       const curActIdx = +(m.route.param('stages') || 1) - 1;
       const curActIds =
@@ -226,7 +268,30 @@ export const CrimeScriptEditor: FactoryComponent<{ model: DataModel; crimeScript
         curAct.measures = [];
       }
       // console.log(curAct);
-
+      actsForm = [
+        {
+          id: 'stages',
+          repeat: true,
+          pageSize: 1,
+          label: t('STAGES'),
+          type: [
+            {
+              id: 'ids',
+              label: t('SELECT_ACT_N'),
+              type: 'search_select',
+              className: 'col s12',
+              multiple: true,
+              options: actLabels,
+              oncreateNewOption: (label: string) => {
+                const newOption = { id: uniqueId(), label };
+                castOptions.push(newOption);
+                update('acts', newOption);
+                return newOption;
+              },
+            },
+          ] as UIForm<Stage>,
+        },
+      ];
       const key = curAct ? curAct.id : 'cur-act-id';
       return m('.col.s12', [
         m(LayoutForm, {
@@ -260,25 +325,25 @@ export const CrimeScriptEditor: FactoryComponent<{ model: DataModel; crimeScript
           curActIds.ids &&
           crimeScript.stages?.length > 0 && [
             [
-              m(SearchSelect<string>, {
-                key,
-                label: t('SELECT_ACT_N'),
-                options: actLabels,
-                initialValue: curActIds.ids,
-                className: 'col s12 m6',
-                onchange: (selectedIds) => {
-                  crimeScript.stages[curActIdx] = {
-                    id: selectedIds.length > 0 ? selectedIds[0] : '',
-                    ids: selectedIds,
-                  };
-                  // m.redraw();
-                },
-              }),
-              curActIds.ids.length > 0
+              // m(SearchSelect<string>, {
+              //   key,
+              //   label: t('SELECT_ACT_N'),
+              //   options: actLabels,
+              //   initialValue: curActIds.ids,
+              //   className: 'col s12 m6',
+              //   onchange: (selectedIds) => {
+              //     crimeScript.stages[curActIdx] = {
+              //       id: selectedIds.length > 0 ? selectedIds[0] : '',
+              //       ids: selectedIds,
+              //     };
+              //     // m.redraw();
+              //   },
+              // }),
+              curActIds.ids.length > 1
                 ? m(Select, {
                     key,
                     label: t('SELECT_ACT'),
-                    className: 'col s6 m2',
+                    className: 'col s6 m8',
                     initialValue: curActIds.id,
                     // disabled: curActIds.ids.length === 1,
                     options: acts.filter((a) => curActIds.ids.includes(a.id)),
@@ -287,32 +352,33 @@ export const CrimeScriptEditor: FactoryComponent<{ model: DataModel; crimeScript
                     },
                   } as ISelectOptions<ID>)
                 : undefined,
-              m(FlatButton, {
-                key,
-                label: t('ADD_ACT'),
-                className: 'col s3 m2',
-                iconName: 'create',
-                onclick: () => {
-                  const id = uniqueId();
-                  const newAct = {
-                    id,
-                    label: t('ADD_ACT'),
-                  } as Act;
-                  acts.push(newAct);
-                  crimeScript.stages[curActIdx].id = id;
-                  curActIds.id = id;
-                  if (crimeScript.stages[curActIdx].ids) {
-                    crimeScript.stages[curActIdx].ids.push(id);
-                  } else {
-                    crimeScript.stages[curActIdx].ids = [id];
-                  }
-                },
-              }),
+              // m(FlatButton, {
+              //   key,
+              //   label: t('ADD_ACT'),
+              //   className: 'col s3 m2',
+              //   iconName: 'create',
+              //   onclick: () => {
+              //     const id = uniqueId();
+              //     const newAct = {
+              //       id,
+              //       label: t('ADD_ACT'),
+              //     } as Act;
+              //     acts.push(newAct);
+              //     crimeScript.stages[curActIdx].id = id;
+              //     curActIds.id = id;
+              //     if (crimeScript.stages[curActIdx].ids) {
+              //       crimeScript.stages[curActIdx].ids.push(id);
+              //     } else {
+              //       crimeScript.stages[curActIdx].ids = [id];
+              //     }
+              //   },
+              // }),
               m(FlatButton, {
                 key,
                 modalId: 'deletePhase',
                 label: t('DELETE_ACT'),
-                className: 'col s3 m2',
+                className: 'icon-right right',
+                iconClass: 'right',
                 iconName: 'delete_forever',
               }),
             ].filter(Boolean),
@@ -339,12 +405,11 @@ export const CrimeScriptEditor: FactoryComponent<{ model: DataModel; crimeScript
                 m(Tabs, {
                   tabs: [
                     {
-                      title: t('STEPS'),
-                      vnode: m('.acts', [
+                      title: t('ACTIVITIES'),
+                      vnode: m('.acts.row', [
                         m(LayoutForm, {
                           form: activityForm,
                           obj: curAct,
-                          onchange: () => {},
                           i18n: I18N,
                         } as FormAttributes<Partial<ActivityPhase>>),
                       ]),
@@ -355,7 +420,6 @@ export const CrimeScriptEditor: FactoryComponent<{ model: DataModel; crimeScript
                         m(LayoutForm, {
                           form: opportunitiesForm,
                           obj: curAct,
-                          onchange: () => {},
                           i18n: I18N,
                         } as FormAttributes<Partial<ActivityPhase>>),
                       ]),
@@ -366,7 +430,6 @@ export const CrimeScriptEditor: FactoryComponent<{ model: DataModel; crimeScript
                         m(LayoutForm, {
                           form: indicatorsForm,
                           obj: curAct,
-                          onchange: () => {},
                           i18n: I18N,
                         } as FormAttributes<Partial<ActivityPhase>>),
                       ]),
@@ -378,7 +441,6 @@ export const CrimeScriptEditor: FactoryComponent<{ model: DataModel; crimeScript
                         m(LayoutForm, {
                           form: measuresForm,
                           obj: curAct,
-                          onchange: () => {},
                           i18n: I18N,
                         } as FormAttributes<Partial<ActivityPhase>>),
                       ]),

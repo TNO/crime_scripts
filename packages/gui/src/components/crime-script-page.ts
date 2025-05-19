@@ -1,5 +1,5 @@
 import m from 'mithril';
-import { CrimeScript, Pages } from '../models';
+import { Act, CrimeScript, Labelled, Pages } from '../models';
 import { MeiosisComponent } from '../services';
 import { FlatButton, ModalPanel } from 'mithril-materialized';
 import { t } from '../services/translations';
@@ -62,6 +62,7 @@ export const CrimeScriptPage: MeiosisComponent = () => {
                       edit = false;
                       if (crimeScript) {
                         model.crimeScripts = model.crimeScripts.map((c) => (c.id === id ? crimeScript : c));
+                        console.log(model.cast.map((c) => c.label).join(', '));
                         actions.saveModel(model);
                       }
                     },
@@ -105,6 +106,51 @@ export const CrimeScriptPage: MeiosisComponent = () => {
                 ? m(CrimeScriptEditor, {
                     crimeScript,
                     model,
+                    update: (type: 'cast' | 'attributes' | 'transports' | 'locations' | 'acts', option: Labelled) => {
+                      switch (type) {
+                        case 'cast':
+                          actions.update({
+                            model: (model) => {
+                              model.cast = [option, ...model.cast];
+                              return model;
+                            },
+                          });
+                          break;
+                        case 'attributes':
+                          actions.update({
+                            model: (model) => {
+                              model.attributes = [option, ...model.attributes];
+                              return model;
+                            },
+                          });
+                          break;
+                        case 'transports':
+                          actions.update({
+                            model: (model) => {
+                              model.transports = [option, ...model.transports];
+                              return model;
+                            },
+                          });
+                          break;
+                        case 'locations':
+                          actions.update({
+                            model: (model) => {
+                              model.locations = [option, ...model.locations];
+                              return model;
+                            },
+                          });
+                          break;
+                        case 'acts':
+                          actions.update({
+                            model: (model) => {
+                              const newAct = { ...option } as Act;
+                              model.acts = [newAct, ...model.acts];
+                              return model;
+                            },
+                          });
+                          break;
+                      }
+                    },
                   })
                 : m(CrimeScriptViewer, {
                     crimeScript,

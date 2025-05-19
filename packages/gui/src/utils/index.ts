@@ -247,7 +247,7 @@ export const toOptions = (arr: Array<Hierarchical & Labelled>, noGroup = false):
 
 export const resolveOptions = (arr: Array<Labelled> = [], ids: ID | ID[] = []) => {
   ids = Array.isArray(ids) ? ids : [ids];
-  return arr.filter((a) => ids.includes(a.id));
+  return arr.filter((a) => typeof a.label !== undefined && ids.includes(a.id));
 };
 
 /** Convert to markdown unsorted list */

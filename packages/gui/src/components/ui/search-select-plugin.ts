@@ -2,7 +2,13 @@ import m from 'mithril';
 import { PluginType } from 'mithril-ui-form';
 import { SearchSelect, Option } from 'mithril-materialized';
 
-export const searchSelectPlugin: PluginType<string[], Option<string>[]> = () => {
+export type OnCreateNewOption = <T extends string | number>(term: string) => Option<T> | Promise<Option<T>>;
+
+export const searchSelectPlugin: PluginType<
+  string[],
+  // Option<string>[],
+  { oncreateNewOption?: OnCreateNewOption }
+> = () => {
   let options: Option<string>[] = [];
   let className: string | undefined;
 
@@ -14,7 +20,14 @@ export const searchSelectPlugin: PluginType<string[], Option<string>[]> = () => 
         options = o;
       }
     },
-    view: ({ attrs: { iv, onchange, label } }) => {
+    view: ({
+      attrs: {
+        iv,
+        onchange,
+        label,
+        field: { oncreateNewOption },
+      },
+    }) => {
       return m(
         '.multi-select',
         { className },
@@ -23,6 +36,7 @@ export const searchSelectPlugin: PluginType<string[], Option<string>[]> = () => 
           initialValue: iv,
           options,
           onchange,
+          oncreateNewOption,
         })
       );
     },

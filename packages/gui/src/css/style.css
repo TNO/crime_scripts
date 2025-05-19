@@ -878,8 +878,11 @@ li input[type='text'] {
 .input-field.select-space {
   margin-bottom: 6px;
 }
-.switch {
+.acts.switch {
   margin-bottom: 8px;
+}
+.acts.row {
+  margin-: 8px;
 }
 
 /* START Tree view */

@@ -244,7 +244,7 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
               {
                 href: routingSvc.href(Pages.SETTINGS, `id=${id}`),
               },
-              highlighter(labels.find((c) => c.id === id)?.label)
+              highlighter(labels.find((c) => c.id === id)?.label || '…')
             )
           )
         );
