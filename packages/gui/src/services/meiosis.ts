@@ -240,7 +240,7 @@ export const loadData = async (ds = localStorage.getItem(MODEL_KEY)) => {
       });
     }
   }
-  localStorage.setItem(MODEL_KEY, JSON.stringify(model));
+  localStorage.setItem(model.previewMode ? PREVIEW_MODEL_KEY : MODEL_KEY, JSON.stringify(model));
 
   const role = (localStorage.getItem(USER_ROLE) || 'user') as UserRole;
   // const settings = (await settingsSvc.loadList()).shift() || ({} as Settings);

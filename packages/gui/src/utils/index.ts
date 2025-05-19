@@ -639,7 +639,6 @@ export function mergeDataModels(model1: DataModel, model2: DataModel): DataModel
     ...activity,
     cast: activity.cast?.map((id) => labelToIdMap.get(id) || id),
     attributes: activity.attributes?.map((id) => labelToIdMap.get(id) || id),
-    sp: activity.sp?.map((id) => labelToIdMap.get(id) || id),
     transports: activity.transports?.map((id) => labelToIdMap.get(id) || id),
   });
 
