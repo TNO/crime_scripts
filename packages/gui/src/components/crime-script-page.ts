@@ -62,7 +62,7 @@ export const CrimeScriptPage: MeiosisComponent = () => {
                       edit = false;
                       if (crimeScript) {
                         model.crimeScripts = model.crimeScripts.map((c) => (c.id === id ? crimeScript : c));
-                        console.log(model.cast.map((c) => c.label).join(', '));
+                        // console.log(model.cast.map((c) => c.label).join(', '));
                         actions.saveModel(model);
                       }
                     },

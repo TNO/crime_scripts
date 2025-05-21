@@ -882,7 +882,7 @@ li input[type='text'] {
   margin-bottom: 8px;
 }
 .acts.row {
-  margin-: 8px;
+  margin-top: 12px;
 }
 
 /* START Tree view */
@@ -911,7 +911,4 @@ li input[type='text'] {
   color: #666;
 }
 
-.node-name {
-  /* font-size: 14px; */
-}
 /* END Tree view */

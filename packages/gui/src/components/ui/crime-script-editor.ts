@@ -13,7 +13,7 @@ import {
   DataModel,
   Labelled,
 } from '../../models';
-import { FlatButton, Tabs, uniqueId, Select, ISelectOptions, SearchSelect, ModalPanel } from 'mithril-materialized';
+import { FlatButton, Tabs, uniqueId, Select, ISelectOptions, ModalPanel } from 'mithril-materialized';
 import { FormAttributes, LayoutForm, UIForm } from 'mithril-ui-form';
 import { labelForm, literatureForm } from '../../models/forms';
 import { crimeMeasureOptions } from '../../models/situational-crime-prevention';
@@ -256,14 +256,18 @@ export const CrimeScriptEditor: FactoryComponent<{
     },
     view: ({ attrs: { crimeScript, model, update } }) => {
       const { acts = [] } = model;
+      const actIds = acts.reduce((acc, cur) => acc.set(cur.id, cur), new Map<ID, Act>());
       const curActIdx = +(m.route.param('stages') || 1) - 1;
       const curActIds =
         crimeScript.stages && curActIdx < crimeScript.stages.length
           ? crimeScript.stages[curActIdx]
           : ({ id: '', ids: [] } as Stage);
       if (!curActIds.ids) curActIds.ids = [];
-      const curActId = curActIds && curActIds.id;
-      const curAct = curActId ? acts.find((a) => a.id === curActId) : undefined;
+      const curAct = curActIds.id
+        ? actIds.get(curActIds.id) || (curActIds.ids[0] && actIds.get(curActIds.ids[0]))
+        : curActIds.ids[0] && actIds.get(curActIds.ids[0]);
+
+      // console.table({ acts, curActIdx, curActIds, crimeScript, curActId, curAct });
       if (curAct && !curAct.measures) {
         curAct.measures = [];
       }
