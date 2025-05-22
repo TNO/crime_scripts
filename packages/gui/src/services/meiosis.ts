@@ -221,6 +221,9 @@ export const loadData = async (ds = localStorage.getItem(MODEL_KEY)) => {
   if (typeof model.cast === 'undefined') {
     model.cast = [];
   }
+  if (typeof (model as any).articles !== 'undefined') {
+    delete (model as any).articles;
+  }
   if (typeof model.serviceProviders !== 'undefined') {
     model.cast = [...model.cast, ...model.serviceProviders];
     delete model.serviceProviders;

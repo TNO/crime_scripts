@@ -15,7 +15,7 @@ export type DataModel = {
   partners: Partner[];
   //serviceProviders: ServiceProvider[];
   acts: Act[];
-  articles: NewsArticle[];
+  // articles: NewsArticle[];
 };
 
 export const defaultModel: DataModel = {
@@ -31,7 +31,7 @@ export const defaultModel: DataModel = {
   partners: [],
   // serviceProviders: [],
   acts: [],
-  articles: [],
+  // articles: [],
 };
 
 export enum STATUS {
