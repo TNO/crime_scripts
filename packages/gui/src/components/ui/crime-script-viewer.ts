@@ -250,8 +250,8 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
         );
 
       const steps = stages
-        .map(({ id: actId, ids }) => {
-          const act = acts.find((a) => a.id === actId);
+        .map(({ id: actId, ids = [] }) => {
+          const act = acts.find((a) => a.id === actId || a.id === ids[0]);
           if (act) {
             const { id, label = '...', icon, url, description = '', isGeneric } = act;
             const imgSrc = (icon === ICONS.OTHER ? url : IconOpts.find((i) => i.id === icon)?.img) || missingIcon;
@@ -289,6 +289,7 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
         })
         .filter(Boolean) as Array<ProcessStep & { isGeneric?: boolean }>;
 
+      console.log(steps);
       return m('.col.s12', [
         m(
           '.row',
