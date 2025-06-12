@@ -12,7 +12,7 @@ import {
   Cast,
 } from '../models';
 import { MeiosisComponent, routingSvc, t } from '../services';
-import { deepCopy, FormAttributes, LayoutForm } from 'mithril-ui-form';
+import { deepCopy, FormAttributes, LayoutForm, SlimdownView } from 'mithril-ui-form';
 import { Collapsible, FlatButton, Tabs } from 'mithril-materialized';
 import { attrForm, AttributeType } from '../models/forms';
 import { TextInputWithClear } from './ui/text-input-with-clear';
@@ -66,21 +66,36 @@ export const SettingsPage: MeiosisComponent = () => {
       const labelFlt = (a: Cast): boolean | '' =>
         !labelFilter || (a.label && a.label.toLowerCase().includes(labelFilter));
       const tabs = [
-        ['cast', t('CAST'), 'cast', 'person', cast.filter(labelFlt)],
-        ['attributes', t('ATTRIBUTES'), 'attributes', 'build', attributes.filter(labelFlt)],
-        ['products', t('PRODUCTS', 2), 'products', 'shopping_bag', products.filter(labelFlt)],
-        ['transports', t('TRANSPORTS'), 'transports', 'directions', transports.filter(labelFlt)],
-        ['locations', t('LOCATIONS', 2), 'locations', 'warehouse', locations.filter(labelFlt)],
-        ['geoLocations', t('GEOLOCATIONS', 2), 'geoLocations', 'location_on', geoLocations.filter(labelFlt)],
+        ['cast', t('CAST'), t('CAST_DESC'), 'cast', 'person', cast.filter(labelFlt)],
+        ['attributes', t('ATTRIBUTES'), t('ATTRIBUTE_DESC'), 'attributes', 'build', attributes.filter(labelFlt)],
+        ['products', t('PRODUCTS', 2), '', 'products', 'shopping_bag', products.filter(labelFlt)],
+        ['transports', t('TRANSPORTS'), '', 'transports', 'directions', transports.filter(labelFlt)],
+        ['locations', t('LOCATIONS', 2), '', 'locations', 'warehouse', locations.filter(labelFlt)],
+        [
+          'geoLocations',
+          t('GEOLOCATIONS', 2),
+          t('GEOLOCATIONS', 2),
+          'geoLocations',
+          'location_on',
+          geoLocations.filter(labelFlt),
+        ],
         [
           'partners',
+          t('PARTNERS'),
           t('PARTNERS'),
           'partners',
           'handshake', // groups
           partners.filter(labelFlt),
         ],
       ] as Array<
-        [id: AttributeType, label: string, type: AttributeType, iconName: string, attrs: Array<Hierarchical & Labelled>]
+        [
+          id: AttributeType,
+          label: string,
+          description: string,
+          type: AttributeType,
+          iconName: string,
+          attrs: Array<Hierarchical & Labelled>
+        ]
       >;
 
       return m(
@@ -141,7 +156,7 @@ export const SettingsPage: MeiosisComponent = () => {
         ],
         m(Tabs, {
           tabWidth: 'auto',
-          tabs: tabs.map(([id, label, type, iconName, attr], _i) => {
+          tabs: tabs.map(([id, label, desc, type, iconName, attr], _i) => {
             return {
               id: label.replace('è', 'e'),
               active: selectedId ? attr.some((a) => a.id === selectedId) : undefined,
@@ -151,17 +166,21 @@ export const SettingsPage: MeiosisComponent = () => {
                     form: attrForm(id, label, attr, type),
                     obj: model,
                   } as FormAttributes<any>)
-                : showTree
-                ? m(TreeView, { data: attr, rootLabel: label, className: 'col s12 ' })
-                : m(AttrView, {
-                    attr,
-                    selectedId,
-                    type,
-                    iconName,
-                    acts,
-                    crimeScripts,
-                    setLocation: actions.setLocation,
-                  }),
+                : m(
+                    'div',
+                    desc && m(SlimdownView, { md: desc }),
+                    showTree
+                      ? m(TreeView, { data: attr, rootLabel: label, className: 'col s12 ' })
+                      : m(AttrView, {
+                          attr,
+                          selectedId,
+                          type,
+                          iconName,
+                          acts,
+                          crimeScripts,
+                          setLocation: actions.setLocation,
+                        })
+                  ),
             };
           }),
         })
@@ -252,6 +271,7 @@ const AttrView: FactoryComponent<{
                 iconName,
                 body: m(
                   '.cast-content',
+                  c.description && m(SlimdownView, { md: `*${t('DESCRIPTION').toUpperCase()}:* ${c.description}` }),
                   m(
                     'ol',
                     Object.entries(

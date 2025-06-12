@@ -51,6 +51,7 @@ export const CrimeScriptViewer: FactoryComponent<{
 }> = () => {
   const lookupPartner = new Map<ID, Labelled>();
   const findCrimeMeasure = lookupCrimeMeasure();
+  let showProcessVisualization = true;
 
   const visualizeAct = (
     { label = '...', activities = [], indicators = [], conditions = [], locationIds = [], measures = [] } = {} as Act,
@@ -289,7 +290,6 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
         })
         .filter(Boolean) as Array<ProcessStep & { isGeneric?: boolean }>;
 
-      console.log(steps);
       return m('.col.s12', [
         m(
           '.row',
@@ -331,11 +331,12 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
         ]),
         literature &&
           literature.length > 0 && [m('h5', t('REFERENCES')), m(ReferenceListComponent, { references: literature })],
-        m('h5', t('ACTS')),
+        m('h5', t('SCENES')),
         m(FlatButton, {
           label: t('MAIN_ACTS'),
           style: 'font-size: 16px;',
           onclick: () => {
+            showProcessVisualization = true;
             const stage = stages.length > 0 ? stages[0] : undefined;
             if (stage) {
               // stage.id = variantId;
@@ -353,23 +354,25 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
                 const stage = stages.find((stage) => stage.id === s.id);
                 if (stage) {
                   // stage.id = variantId;
+                  showProcessVisualization = false;
                   update({ curActIdx: acts.findIndex((a) => a.id === s.id) });
                 }
               },
             })
           ),
-        m(ProcessVisualization, {
-          steps: steps.filter((s) => !s.isGeneric),
-          selectedStep: selectedAct?.id,
-          onStepSelect: (stepId) => update({ curActIdx: acts.findIndex((a) => a.id === stepId) }),
-          onVariantSelect: (stepId, variantId) => {
-            const stage = stages.find((s) => s.id === stepId);
-            if (stage) {
-              stage.id = variantId;
-              update({ curActIdx: acts.findIndex((a) => a.id === variantId) });
-            }
-          },
-        }),
+        showProcessVisualization &&
+          m(ProcessVisualization, {
+            steps: steps.filter((s) => !s.isGeneric),
+            selectedStep: selectedAct?.id,
+            onStepSelect: (stepId) => update({ curActIdx: acts.findIndex((a) => a.id === stepId) }),
+            onVariantSelect: (stepId, variantId) => {
+              const stage = stages.find((s) => s.id === stepId);
+              if (stage) {
+                stage.id = variantId;
+                update({ curActIdx: acts.findIndex((a) => a.id === variantId) });
+              }
+            },
+          }),
         selectedActContent && [m('h4', selectedActContent.title), selectedActContent.vnode],
       ]);
     },

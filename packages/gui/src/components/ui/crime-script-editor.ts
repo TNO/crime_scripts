@@ -108,7 +108,7 @@ export const CrimeScriptEditor: FactoryComponent<{
           options: locationOptions,
           oncreateNewOption: (label: string) => {
             const newOption = { id: uniqueId(), label };
-            castOptions.push(newOption);
+            locationOptions.push(newOption);
             update('locations', newOption);
             return newOption;
           },
@@ -163,7 +163,7 @@ export const CrimeScriptEditor: FactoryComponent<{
               label: t('ATTRIBUTES'),
               oncreateNewOption: (label: string) => {
                 const newOption = { id: uniqueId(), label };
-                castOptions.push(newOption);
+                attrOptions.push(newOption);
                 update('attributes', newOption);
                 return newOption;
               },
@@ -178,7 +178,7 @@ export const CrimeScriptEditor: FactoryComponent<{
               label: t('TRANSPORTS'),
               oncreateNewOption: (label: string) => {
                 const newOption = { id: uniqueId(), label };
-                castOptions.push(newOption);
+                transportOptions.push(newOption);
                 update('transports', newOption);
                 return newOption;
               },
@@ -277,7 +277,7 @@ export const CrimeScriptEditor: FactoryComponent<{
           id: 'stages',
           repeat: true,
           pageSize: 1,
-          label: t('STAGES'),
+          label: t('SCENES'),
           type: [
             {
               id: 'ids',
@@ -395,7 +395,7 @@ export const CrimeScriptEditor: FactoryComponent<{
               m('.cur-act', { key: curAct.id }, [
                 m(LayoutForm, {
                   form: [
-                    { id: 'label', type: 'text', className: 'col s6 m6', label: t('NAME'), show: ['!icon=1'] },
+                    { id: 'label', type: 'text', className: 'col s6 m6', label: t('SCENE'), show: ['!icon=1'] },
                     { id: 'label', type: 'text', className: 'col s6 m3', label: t('NAME'), show: ['icon=1'] },
                     { id: 'icon', type: 'select', className: 'col s6 m3', label: t('IMAGE'), options: IconOpts },
                     { id: 'url', type: 'base64', className: 'col s12 m3', label: t('IMAGE'), show: ['icon=1'] },

@@ -25,6 +25,7 @@ export const attrForm = (id: AttributeType, label: string, attr: Labelled[] = []
           { id: 'id', type: 'autogenerate', autogenerate: 'id' },
           { id: 'label', type: 'text', className: 'col s12 m4', label: t('NAME') },
           { id: 'synonyms', type: 'tags', className: 'col s12 m8', label: t('SYNONYMS') },
+          { id: 'description', type: 'textarea', className: 'col s12', label: t('DESCRIPTION') },
           ['partners', 'locations'].includes(attrType)
             ? undefined
             : {
