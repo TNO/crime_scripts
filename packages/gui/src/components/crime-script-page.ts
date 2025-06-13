@@ -24,7 +24,7 @@ export const CrimeScriptPage: MeiosisComponent = () => {
       setPage(Pages.CRIME_SCRIPT);
     },
     view: ({ attrs: { state, actions } }) => {
-      const { model, role, curActIdx, curPhaseIdx, currentCrimeScriptId = '', searchFilter } = state;
+      const { model, role, curActId, curSceneId, currentCrimeScriptId = '', searchFilter } = state;
       const {
         crimeScripts = [],
         cast = [],
@@ -44,8 +44,12 @@ export const CrimeScriptPage: MeiosisComponent = () => {
 
       const filename = `${formatDate(Date.now(), '')}_${crimeScript?.label}_v${model.version}.docx`.replace(/\s/g, '_');
 
-      const actBelongsToCrimeScript =
-        crimeScript.stages && crimeScript.stages.some((s) => s.ids?.includes(acts[curActIdx || 0].id));
+      const curScene =
+        crimeScript.stages && curSceneId ? crimeScript.stages.find((s) => s.id === curSceneId) : undefined;
+      const curAct =
+        curScene && curScene.ids && curActId && curScene.ids.includes(curActId)
+          ? acts.find((a) => a.id === curActId) || (curScene.ids[0] && acts.find((a) => a.id === curScene.ids[0]))
+          : undefined;
 
       return m(
         '#crime-script.page',
@@ -163,8 +167,8 @@ export const CrimeScriptPage: MeiosisComponent = () => {
                     geoLocations,
                     products,
                     partners,
-                    curActIdx: actBelongsToCrimeScript ? curActIdx : undefined,
-                    curPhaseIdx: actBelongsToCrimeScript ? curPhaseIdx : undefined,
+                    curActId: curAct ? curAct.id : undefined,
+                    curSceneId: curScene ? curScene.id : undefined,
                     searchFilter,
                     update: actions.update,
                   })

@@ -196,7 +196,7 @@ const AttrView: FactoryComponent<{
   iconName?: string;
   acts: Act[];
   crimeScripts: CrimeScript[];
-  setLocation: (currentCrimeScriptId: ID, actIdx: number, phaseIdx: number) => void;
+  setLocation: (currentCrimeScriptId: ID, actId: ID, phaseId: ID) => void;
 }> = () => {
   return {
     oncreate: ({ attrs: { selectedId } }) => {
@@ -276,7 +276,7 @@ const AttrView: FactoryComponent<{
                     'ol',
                     Object.entries(
                       searchResults.reduce((grouped, result) => {
-                        const [crimeScriptIdx, actIdx, phaseIdx, score, desc] = result;
+                        const [crimeScriptIdx, actIdx] = result;
                         const key = `${crimeScriptIdx}-${actIdx}`;
 
                         if (!grouped[key]) {
@@ -284,14 +284,11 @@ const AttrView: FactoryComponent<{
                             crimeScript: crimeScripts[crimeScriptIdx],
                             actIdx,
                             act: actIdx >= 0 ? acts[actIdx] : undefined,
-                            phases: [],
                           };
                         }
-
-                        grouped[key].phases.push({ phaseIdx, score, desc });
                         return grouped;
-                      }, {} as Record<string, { crimeScript: CrimeScript; actIdx: number; act?: Act; phases: { phaseIdx: number; score: number; desc?: string }[] }>)
-                    ).map(([_, { crimeScript, actIdx, act, phases }], i) => {
+                      }, {} as Record<string, { crimeScript: CrimeScript; actIdx: number; act?: Act }>)
+                    ).map(([_, { crimeScript, actIdx, act }], i) => {
                       const actLabel = act ? act.label : '...';
 
                       return m('li', { id: i === 0 ? c.id : undefined }, [
@@ -301,31 +298,15 @@ const AttrView: FactoryComponent<{
                             style: { cursor: 'pointer' },
                             href: routingSvc.href(Pages.CRIME_SCRIPT, `id=${crimeScript.id}`),
                             onclick: () => {
-                              const defaultPhase = phases[0];
-                              setLocation(crimeScript.id, actIdx, defaultPhase.phaseIdx);
+                              const curActId = acts[actIdx].id;
+                              const scene = crimeScript.stages
+                                ? crimeScript.stages.find((s) => s.ids && s.ids.includes(curActId))
+                                : undefined;
+                              scene && setLocation(crimeScript.id, curActId, scene.id);
                             },
                           },
                           `${crimeScript.label} > ${actLabel}`
                         ),
-                        phases.length >= 1 &&
-                          m(
-                            'ol[type=a]',
-                            phases.map(({ phaseIdx, desc }) =>
-                              m(
-                                'li',
-                                {
-                                  style: {
-                                    opacity: 0.7,
-                                    cursor: 'pointer',
-                                  },
-                                  onclick: () => {
-                                    setLocation(crimeScript.id, actIdx, phaseIdx);
-                                  },
-                                },
-                                `${desc ? desc : ''}`
-                              )
-                            )
-                          ),
                       ]);
                     })
                   )

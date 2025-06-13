@@ -11,7 +11,7 @@ import { crimeScriptFilterFormFactory } from '../models/forms';
 export const HomePage: MeiosisComponent = () => {
   const actLocations = (cs: CrimeScript, acts: Act[]) => {
     const csActs = cs.stages
-      .map((stage) => acts.find((a) => a.id === stage.id))
+      .map((stage) => acts.find((a) => a.id === stage.actId))
       .filter((a) => typeof a !== 'undefined');
     return csActs.reduce((acc, act) => {
       if (act.locationIds) {

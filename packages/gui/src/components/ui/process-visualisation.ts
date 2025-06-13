@@ -10,7 +10,7 @@ export interface ProcessStep {
 
 export interface ProcessVariant {
   id: string;
-  icon: string;
+  icon?: string;
   title: string;
 }
 
@@ -77,10 +77,11 @@ export const ProcessVisualization: FactoryComponent<ProcessVisualizationAttrs> =
                           onclick: (e: Event) => selectVariant(e, step.id, variant.id, attrs),
                         },
                         [
-                          m('img.variant-icon', {
-                            src: variant.icon,
-                            alt: `${variant.title} icon`,
-                          }),
+                          variant.icon &&
+                            m('img.variant-icon', {
+                              src: variant.icon,
+                              alt: `${variant.title} icon`,
+                            }),
                           variant.title,
                         ]
                       )

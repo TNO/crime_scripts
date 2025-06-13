@@ -16,6 +16,7 @@ import {
 import { aggregateFlexSearchResults, crimeScriptFilterToText, mergeDataModels, scrollToTop, tokenize } from '../utils';
 import { flexSearchLookupUpdater } from './flex-search';
 import { User, UserRole } from './login-service';
+import { uniqueId } from 'mithril-materialized';
 
 // const settingsSvc = restServiceFactory<Settings>('settings');
 const PREVIEW_MODEL_KEY = 'CSS_PREVIEW_MODEL';
@@ -32,8 +33,8 @@ export interface State {
   role: UserRole;
   settings: Settings;
   currentCrimeScriptId?: ID;
-  curActIdx?: number;
-  curPhaseIdx?: number;
+  curActId?: ID;
+  curSceneId?: ID;
   attributeFilter: string;
   searchFilter: string;
   searchResults: SearchResult[];
@@ -59,7 +60,7 @@ export interface Actions {
   update: (patch: Patch<State>) => void;
   setSearchFilter: (searchFilter?: string) => Promise<void>;
   setAttributeFilter: (searchFilter?: string) => Promise<void>;
-  setLocation: (currentCrimeScriptId: ID, actIdx: number, phaseIdx: number) => void;
+  setLocation: (currentCrimeScriptId: ID, actId: ID, sceneId: ID) => void;
 }
 
 export type MeiosisComponent<T extends { [key: string]: any } = {}> = FactoryComponent<{
@@ -141,8 +142,8 @@ export const appActions: (cell: MeiosisCell<State>) => Actions = ({ update /* st
       update({ attributeFilter: undefined });
     }
   },
-  setLocation: (currentCrimeScriptId, curActIdx, curPhaseIdx) => {
-    update({ currentCrimeScriptId, curActIdx, curPhaseIdx });
+  setLocation: (currentCrimeScriptId, curActId, curSceneId) => {
+    update({ currentCrimeScriptId, curActId, curSceneId });
   },
 });
 
@@ -243,6 +244,32 @@ export const loadData = async (ds = localStorage.getItem(MODEL_KEY)) => {
       });
     }
   }
+  // Init stages (scenes)
+  const { acts = [] } = model;
+  model.crimeScripts?.forEach((crimeScript) => {
+    if (!crimeScript.stages) {
+      crimeScript.stages = [];
+    }
+    crimeScript.stages.forEach((stage) => {
+      if (stage.id && stage.ids && stage.ids.includes(stage.id)) {
+        const { actId, ids = [], id = ids[0] } = stage;
+        const act = acts.find((act) => act.id === id);
+        if (act) {
+          stage.actId = id;
+          stage.id = uniqueId();
+          stage.label = act.label;
+          stage.icon = act.icon;
+          stage.description = act.description;
+          stage.url = act.url;
+          stage.isGeneric = (act as any).isGeneric;
+          delete (act as any).isGeneric;
+        }
+        if (!actId) {
+          stage.actId = ids[0];
+        }
+      }
+    });
+  });
   localStorage.setItem(model.previewMode ? PREVIEW_MODEL_KEY : MODEL_KEY, JSON.stringify(model));
 
   const role = (localStorage.getItem(USER_ROLE) || 'user') as UserRole;

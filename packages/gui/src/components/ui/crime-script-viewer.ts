@@ -18,7 +18,7 @@ import {
   scriptIcon,
 } from '../../models';
 import { routingSvc, State } from '../../services';
-import { FlatButton, ITabItem, Tabs } from 'mithril-materialized';
+import { Button, FlatButton, ITabItem, Tabs } from 'mithril-materialized';
 import { SlimdownView } from 'mithril-ui-form';
 import { Patch } from 'meiosis-setup/types';
 import { ReferenceListComponent } from '../ui/reference';
@@ -44,8 +44,8 @@ export const CrimeScriptViewer: FactoryComponent<{
   products: Product[];
   partners: Partner[];
   transports: Transport[];
-  curActIdx?: number;
-  curPhaseIdx?: number;
+  curActId?: ID;
+  curSceneId?: ID;
   searchFilter?: string;
   update: (patch: Patch<State>) => void;
 }> = () => {
@@ -59,35 +59,33 @@ export const CrimeScriptViewer: FactoryComponent<{
     attributes: CrimeScriptAttributes[],
     transports: Transport[],
     locations: CrimeLocation[],
-    curPhaseIdx = -1,
     highlighter: (text?: string) => string | undefined
   ) => {
-    {
-      const castIds = Array.from(
-        activities.reduce((acc, { cast: curCast }) => {
-          if (curCast) curCast.forEach((id) => acc.add(id));
-          return acc;
-        }, new Set<ID>())
-      );
-      const attrIds = Array.from(
-        activities.reduce((acc, { attributes: curAttr }) => {
-          if (curAttr) curAttr.forEach((id) => acc.add(id));
-          return acc;
-        }, new Set<ID>())
-      );
-      const transIds = Array.from(
-        activities.reduce((acc, { transports: curAttr }) => {
-          if (curAttr) curAttr.forEach((id) => acc.add(id));
-          return acc;
-        }, new Set<ID>())
-      );
-      const md = `${
-        locationIds && locationIds.length
-          ? `##### ${t('LOCATIONS', locationIds.length)}
+    const castIds = Array.from(
+      activities.reduce((acc, { cast: curCast }) => {
+        if (curCast) curCast.forEach((id) => acc.add(id));
+        return acc;
+      }, new Set<ID>())
+    );
+    const attrIds = Array.from(
+      activities.reduce((acc, { attributes: curAttr }) => {
+        if (curAttr) curAttr.forEach((id) => acc.add(id));
+        return acc;
+      }, new Set<ID>())
+    );
+    const transIds = Array.from(
+      activities.reduce((acc, { transports: curAttr }) => {
+        if (curAttr) curAttr.forEach((id) => acc.add(id));
+        return acc;
+      }, new Set<ID>())
+    );
+    const md = `${
+      locationIds && locationIds.length
+        ? `##### ${t('LOCATIONS', locationIds.length)}
 
 ${toCommaSeparatedList(locations, locationIds)}`
-          : ''
-      }
+        : ''
+    }
 
 ${
   activities.length > 0
@@ -144,33 +142,32 @@ ${
 ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
     : ''
 }`;
-      const contentTabs = [
-        {
-          title: label,
-          md,
-        },
-      ];
-
-      const tabItem: ITabItem = {
+    const contentTabs = [
+      {
         title: label,
-        vnode:
-          contentTabs.length === 1
-            ? m(SlimdownView, { md: highlighter(contentTabs[0].md) })
-            : contentTabs.length > 1
-            ? m(Tabs, {
-                tabs: contentTabs.map(
-                  ({ title, md }, index) =>
-                    ({
-                      title,
-                      active: index === curPhaseIdx,
-                      vnode: m(SlimdownView, { md: highlighter(md) }),
-                    } as ITabItem)
-                ),
-              })
-            : m('div'),
-      };
-      return tabItem;
-    }
+        md,
+      },
+    ];
+
+    const tabItem: ITabItem = {
+      title: label,
+      vnode:
+        contentTabs.length === 1
+          ? m(SlimdownView, { md: highlighter(contentTabs[0].md) })
+          : contentTabs.length > 1
+          ? m(Tabs, {
+              tabs: contentTabs.map(
+                ({ title, md }) =>
+                  ({
+                    title,
+                    // active: index === curSceneId,
+                    vnode: m(SlimdownView, { md: highlighter(md) }),
+                  } as ITabItem)
+              ),
+            })
+          : m('div'),
+    };
+    return tabItem;
   };
 
   return {
@@ -185,8 +182,7 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
         geoLocations = [],
         products = [],
         partners = [],
-        curActIdx = -1,
-        curPhaseIdx = 0,
+        curSceneId,
         searchFilter,
         update,
       },
@@ -199,19 +195,19 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
         label = '...',
         description,
         literature,
-        stages = [],
+        stages: scenes = [],
         productIds = [],
         geoLocationIds = [],
         url = scriptIcon,
       } = crimeScript;
-      const [allCastIds, allAttrIds, allLocIds, allTranspIds] = stages.reduce(
+      const [allCastIds, allAttrIds, allLocIds, allTranspIds] = scenes.reduce(
         (acc, stage) => {
-          const act = acts.find((a) => a.id === stage.id);
+          const act = acts.find((a) => a.id === stage.actId);
           if (act) {
             if (act.locationIds) {
               act.locationIds.forEach((id) => acc[2].add(id));
             }
-            act.activities.forEach((activity) => {
+            act.activities?.forEach((activity) => {
               activity.cast?.forEach((id) => acc[0].add(id));
               activity.attributes?.forEach((id) => acc[1].add(id));
               activity.transports?.forEach((id) => acc[3].add(id));
@@ -226,14 +222,11 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
           transp: Set<ID>
         ]
       );
-      const selectedAct =
-        0 <= curActIdx && curActIdx < acts.length
-          ? acts[curActIdx]
-          : stages.length > 0
-          ? acts.find((a) => a.id === stages[0].id)
-          : undefined;
-      const selectedActContent = selectedAct
-        ? visualizeAct(selectedAct, cast, attributes, transports, locations, curPhaseIdx, mdHighlighter)
+      const curScene = scenes.find((s) => s.id === curSceneId) || scenes[0];
+      const curAct =
+        curScene && acts.find((a) => (curScene.actId ? a.id === curScene.actId : a.id === curScene.ids[0]));
+      const selectedActContent = curAct
+        ? visualizeAct(curAct, cast, attributes, transports, locations, mdHighlighter)
         : undefined;
 
       const toLi = (ids: Set<string>, labels: Labelled[]) =>
@@ -250,45 +243,31 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
           )
         );
 
-      const steps = stages
-        .map(({ id: actId, ids = [] }) => {
-          const act = acts.find((a) => a.id === actId || a.id === ids[0]);
-          if (act) {
-            const { id, label = '...', icon, url, description = '', isGeneric } = act;
-            const imgSrc = (icon === ICONS.OTHER ? url : IconOpts.find((i) => i.id === icon)?.img) || missingIcon;
-            const variants =
-              ids.length > 1
-                ? ids
-                    .filter((id) => id !== actId)
-                    .map((variantId) => {
-                      const variant = acts.find((a) => a.id === variantId);
-                      return variant
-                        ? {
-                            id: variantId,
-                            icon:
-                              (variant.icon === ICONS.OTHER
-                                ? variant.url
-                                : IconOpts.find((i) => i.id === variant.icon)?.img) || missingIcon,
-                            title: variant.label,
-                          }
-                        : undefined;
-                    })
-                    .filter(Boolean)
-                : undefined;
-            // const actId = selectedAct ? selectedAct.id : undefined;
-            return {
-              id,
-              title: label,
-              icon: imgSrc,
-              description: m(SlimdownView, { md: description, removeParagraphs: true }),
-              variants,
-              isGeneric,
-            } as ProcessStep & { isGeneric?: boolean };
-          } else {
-            return undefined;
-          }
-        })
-        .filter(Boolean) as Array<ProcessStep & { isGeneric?: boolean }>;
+      const steps = scenes.map(({ id, ids = [], isGeneric, label = '...', icon, url, description = '' }) => {
+        const imgSrc = (icon === ICONS.OTHER ? url : IconOpts.find((i) => i.id === icon)?.img) || missingIcon;
+        const variants =
+          ids.length > 1
+            ? ids
+                .map((variantId) => {
+                  const variant = acts.find((a) => a.id === variantId);
+                  return variant
+                    ? {
+                        id: variantId,
+                        title: variant.label,
+                      }
+                    : undefined;
+                })
+                .filter(Boolean)
+            : undefined;
+        return {
+          id,
+          title: label,
+          icon: imgSrc,
+          description: m(SlimdownView, { md: description, removeParagraphs: true }),
+          variants,
+          isGeneric,
+        } as ProcessStep & { isGeneric?: boolean };
+      });
 
       return m('.col.s12', [
         m(
@@ -332,30 +311,30 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
         literature &&
           literature.length > 0 && [m('h5', t('REFERENCES')), m(ReferenceListComponent, { references: literature })],
         m('h5', t('SCENES')),
-        m(FlatButton, {
+        m(showProcessVisualization ? Button : FlatButton, {
           label: t('MAIN_ACTS'),
           style: 'font-size: 16px;',
           onclick: () => {
             showProcessVisualization = true;
-            const stage = stages.length > 0 ? stages[0] : undefined;
-            if (stage) {
+            const scene = scenes.length > 0 ? scenes[0] : undefined;
+            if (scene) {
               // stage.id = variantId;
-              update({ curActIdx: acts.findIndex((a) => a.id === stage.id) });
+              update({ curSceneId: scene.id, curActId: scene.actId || (scene.ids ? scene.ids[0] : undefined) });
             }
           },
         }),
         steps
           .filter((s) => s.isGeneric)
           .map((s) =>
-            m(FlatButton, {
+            m(curScene && curScene.id === s.id ? Button : FlatButton, {
               label: s.title,
               style: 'font-size: 16px;',
               onclick: () => {
-                const stage = stages.find((stage) => stage.id === s.id);
-                if (stage) {
+                const scene = scenes.find((stage) => stage.id === s.id);
+                if (scene) {
                   // stage.id = variantId;
                   showProcessVisualization = false;
-                  update({ curActIdx: acts.findIndex((a) => a.id === s.id) });
+                  update({ curSceneId: scene.id, curActId: scene.actId || (scene.ids ? scene.ids[0] : undefined) });
                 }
               },
             })
@@ -363,13 +342,17 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
         showProcessVisualization &&
           m(ProcessVisualization, {
             steps: steps.filter((s) => !s.isGeneric),
-            selectedStep: selectedAct?.id,
-            onStepSelect: (stepId) => update({ curActIdx: acts.findIndex((a) => a.id === stepId) }),
+            selectedStep: curScene?.id,
+            selectedVariant: curAct?.id,
+            onStepSelect: (stepId) => {
+              console.log(stepId);
+              update({ curSceneId: stepId });
+            },
             onVariantSelect: (stepId, variantId) => {
-              const stage = stages.find((s) => s.id === stepId);
-              if (stage) {
-                stage.id = variantId;
-                update({ curActIdx: acts.findIndex((a) => a.id === variantId) });
+              const scene = scenes.find((s) => s.id === stepId);
+              if (scene) {
+                scene.actId = variantId;
+                update({ curActId: variantId });
               }
             },
           }),

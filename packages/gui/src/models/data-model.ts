@@ -181,16 +181,16 @@ export type CrimeScriptAttributes = Labelled & Hierarchical;
  * possibility of different approaches or methods being used to achieve similar
  * outcomes within that segment.
  */
-export type Stage = {
+export type Stage = Labelled & {
+  /** Overarching act, such as for financial dealings or generic stuff */
+  isGeneric?: boolean;
   /** Currently selected Act ID */
-  id: ID;
+  actId: ID;
   /** Act IDs of all variants */
   ids: ID[];
 };
 
 export type Act = Labelled & {
-  /** Overarching act, such as for financial dealings or generic stuff */
-  isGeneric?: boolean;
   /** Locations to perform the activity */
   locationIds?: ID[];
   /** Barriers or measures to prevent or stop crime */

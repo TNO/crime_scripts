@@ -64,6 +64,7 @@ export const messages = {
   MEASURES: 'Measures',
   NEW_ACT: 'New Act',
   SUMMARY: 'Summary',
+  GOALS: 'Goal(s) of current act',
   IMAGE: 'Image',
   ACTIVITY: 'Activity',
   SPECIFY: 'Specify attributes',
@@ -90,7 +91,7 @@ export const messages = {
   DELETE_ACT: 'Delete act',
   DELETE_ACT_CONFIRM: 'Are you sure that you want to permanently delete act "{name}"?',
   SELECT_ACT: 'Select act to edit',
-  SELECT_ACT_N: 'Select existing act(s)',
+  SELECT_ACT_N: 'Create a new act or select (alternative) acts',
   /** Crime Prevention Techniques */
   INCREASE_EFFORT: 'Increase the effort',
   TREE_VIEW: { HIDE: 'Show list', SHOW: 'Show tree' },

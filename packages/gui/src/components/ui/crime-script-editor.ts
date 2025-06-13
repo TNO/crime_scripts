@@ -256,16 +256,16 @@ export const CrimeScriptEditor: FactoryComponent<{
     },
     view: ({ attrs: { crimeScript, model, update } }) => {
       const { acts = [] } = model;
-      const actIds = acts.reduce((acc, cur) => acc.set(cur.id, cur), new Map<ID, Act>());
+      const lookupAct = acts.reduce((acc, cur) => acc.set(cur.id, cur), new Map<ID, Act>());
       const curActIdx = +(m.route.param('stages') || 1) - 1;
       const curActIds =
         crimeScript.stages && curActIdx < crimeScript.stages.length
           ? crimeScript.stages[curActIdx]
-          : ({ id: '', ids: [] } as Stage);
+          : ({ id: '', actId: '', ids: [] as ID[] } as Stage);
       if (!curActIds.ids) curActIds.ids = [];
-      const curAct = curActIds.id
-        ? actIds.get(curActIds.id) || (curActIds.ids[0] && actIds.get(curActIds.ids[0]))
-        : curActIds.ids[0] && actIds.get(curActIds.ids[0]);
+      const curAct = curActIds.actId
+        ? lookupAct.get(curActIds.actId) || (curActIds.ids[0] && lookupAct.get(curActIds.ids[0]))
+        : curActIds.ids[0] && lookupAct.get(curActIds.ids[0]);
 
       // console.table({ acts, curActIdx, curActIds, crimeScript, curActId, curAct });
       if (curAct && !curAct.measures) {
@@ -279,6 +279,13 @@ export const CrimeScriptEditor: FactoryComponent<{
           pageSize: 1,
           label: t('SCENES'),
           type: [
+            { id: 'id', type: 'autogenerate', autogenerate: 'id' },
+            { id: 'label', type: 'text', className: 'col s6 m6', label: t('SCENE'), show: ['!icon=1'] },
+            { id: 'label', type: 'text', className: 'col s6 m3', label: t('SCENE'), show: ['icon=1'] },
+            { id: 'icon', type: 'select', className: 'col s6 m3', label: t('IMAGE'), options: IconOpts },
+            { id: 'url', type: 'base64', className: 'col s12 m3', label: t('IMAGE'), show: ['icon=1'] },
+            { id: 'isGeneric', type: 'switch', className: 'col s6 m3', label: t('IS_GENERIC') },
+            { id: 'description', type: 'textarea', className: 'col s12', label: t('GOALS') },
             {
               id: 'ids',
               label: t('SELECT_ACT_N'),
@@ -288,7 +295,8 @@ export const CrimeScriptEditor: FactoryComponent<{
               options: actLabels,
               oncreateNewOption: (label: string) => {
                 const newOption = { id: uniqueId(), label };
-                castOptions.push(newOption);
+                actLabels.push(newOption);
+                if (curActIdx >= 0) crimeScript.stages[curActIdx].actId = newOption.id;
                 update('acts', newOption);
                 return newOption;
               },
@@ -329,54 +337,19 @@ export const CrimeScriptEditor: FactoryComponent<{
           curActIds.ids &&
           crimeScript.stages?.length > 0 && [
             [
-              // m(SearchSelect<string>, {
-              //   key,
-              //   label: t('SELECT_ACT_N'),
-              //   options: actLabels,
-              //   initialValue: curActIds.ids,
-              //   className: 'col s12 m6',
-              //   onchange: (selectedIds) => {
-              //     crimeScript.stages[curActIdx] = {
-              //       id: selectedIds.length > 0 ? selectedIds[0] : '',
-              //       ids: selectedIds,
-              //     };
-              //     // m.redraw();
-              //   },
-              // }),
               curActIds.ids.length > 1
                 ? m(Select, {
                     key,
                     label: t('SELECT_ACT'),
                     className: 'col s6 m8',
-                    initialValue: curActIds.id,
+                    initialValue: curActIds.actId,
                     // disabled: curActIds.ids.length === 1,
                     options: acts.filter((a) => curActIds.ids.includes(a.id)),
                     onchange: (id) => {
-                      crimeScript.stages[curActIdx].id = id[0];
+                      crimeScript.stages[curActIdx].actId = id[0];
                     },
                   } as ISelectOptions<ID>)
                 : undefined,
-              // m(FlatButton, {
-              //   key,
-              //   label: t('ADD_ACT'),
-              //   className: 'col s3 m2',
-              //   iconName: 'create',
-              //   onclick: () => {
-              //     const id = uniqueId();
-              //     const newAct = {
-              //       id,
-              //       label: t('ADD_ACT'),
-              //     } as Act;
-              //     acts.push(newAct);
-              //     crimeScript.stages[curActIdx].id = id;
-              //     curActIds.id = id;
-              //     if (crimeScript.stages[curActIdx].ids) {
-              //       crimeScript.stages[curActIdx].ids.push(id);
-              //     } else {
-              //       crimeScript.stages[curActIdx].ids = [id];
-              //     }
-              //   },
-              // }),
               m(FlatButton, {
                 key,
                 modalId: 'deletePhase',
@@ -395,12 +368,9 @@ export const CrimeScriptEditor: FactoryComponent<{
               m('.cur-act', { key: curAct.id }, [
                 m(LayoutForm, {
                   form: [
-                    { id: 'label', type: 'text', className: 'col s6 m6', label: t('SCENE'), show: ['!icon=1'] },
-                    { id: 'label', type: 'text', className: 'col s6 m3', label: t('NAME'), show: ['icon=1'] },
-                    { id: 'icon', type: 'select', className: 'col s6 m3', label: t('IMAGE'), options: IconOpts },
-                    { id: 'url', type: 'base64', className: 'col s12 m3', label: t('IMAGE'), show: ['icon=1'] },
-                    { id: 'isGeneric', type: 'switch', className: 'col s6 m3', label: t('IS_GENERIC') },
-                    { id: 'description', type: 'textarea', className: 'col s12', label: t('SUMMARY') },
+                    { id: 'label', type: 'text', className: 'col s6 m6', label: t('ACT'), show: ['!icon=1'] },
+                    { id: 'label', type: 'text', className: 'col s6 m3', label: t('ACT'), show: ['icon=1'] },
+                    { id: 'description', type: 'textarea', className: 'col s12', label: t('DESCRIPTION') },
                   ],
                   obj: curAct,
                   onchange: () => {},
@@ -470,7 +440,7 @@ export const CrimeScriptEditor: FactoryComponent<{
                     actLabels = actLabels.filter((a) => a.id !== id);
                     if (curActIds && curActIds.ids) {
                       curActIds.ids = curActIds.ids.filter((i) => i !== id);
-                      curActIds.id = curActIds.ids.length > 0 ? curActIds.ids[0] : '';
+                      curActIds.actId = curActIds.ids.length > 0 ? curActIds.ids[0] : '';
                     }
                     model.acts = model.acts?.filter((a) => a.id !== id);
                   }
