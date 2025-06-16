@@ -110,12 +110,26 @@ export const CrimeScriptPage: MeiosisComponent = () => {
                 ? m(CrimeScriptEditor, {
                     crimeScript,
                     model,
-                    update: (type: 'cast' | 'attributes' | 'transports' | 'locations' | 'acts', option: Labelled) => {
+                    update: (
+                      type: 'crimeScript' | 'cast' | 'attributes' | 'transports' | 'locations' | 'acts',
+                      option: Labelled
+                    ) => {
                       switch (type) {
+                        case 'crimeScript':
+                          actions.update({
+                            model: (model) => {
+                              model.crimeScripts = [
+                                option as CrimeScript,
+                                ...model.crimeScripts.filter((a) => a.id !== option.id),
+                              ];
+                              return model;
+                            },
+                          });
+                          break;
                         case 'cast':
                           actions.update({
                             model: (model) => {
-                              model.cast = [option, ...model.cast];
+                              model.cast = [option, ...model.cast.filter((a) => a.id !== option.id)];
                               return model;
                             },
                           });
@@ -123,7 +137,7 @@ export const CrimeScriptPage: MeiosisComponent = () => {
                         case 'attributes':
                           actions.update({
                             model: (model) => {
-                              model.attributes = [option, ...model.attributes];
+                              model.attributes = [option, ...model.attributes.filter((a) => a.id !== option.id)];
                               return model;
                             },
                           });
@@ -131,7 +145,7 @@ export const CrimeScriptPage: MeiosisComponent = () => {
                         case 'transports':
                           actions.update({
                             model: (model) => {
-                              model.transports = [option, ...model.transports];
+                              model.transports = [option, ...model.transports.filter((a) => a.id !== option.id)];
                               return model;
                             },
                           });
@@ -139,7 +153,7 @@ export const CrimeScriptPage: MeiosisComponent = () => {
                         case 'locations':
                           actions.update({
                             model: (model) => {
-                              model.locations = [option, ...model.locations];
+                              model.locations = [option, ...model.locations.filter((a) => a.id !== option.id)];
                               return model;
                             },
                           });
@@ -148,7 +162,7 @@ export const CrimeScriptPage: MeiosisComponent = () => {
                           actions.update({
                             model: (model) => {
                               const newAct = { ...option } as Act;
-                              model.acts = [newAct, ...model.acts];
+                              model.acts = [newAct, ...model.acts.filter((a) => a.id !== newAct.id)];
                               return model;
                             },
                           });

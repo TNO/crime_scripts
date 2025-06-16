@@ -9,36 +9,37 @@ export const searchSelectPlugin: PluginType<
   // Option<string>[],
   { oncreateNewOption?: OnCreateNewOption }
 > = () => {
+  let key = Date.now();
   let options: Option<string>[] = [];
   let className: string | undefined;
 
   return {
     oninit: ({ attrs: { field } }) => {
-      const { options: o, className: c } = field;
+      const { className: c } = field;
       className = c;
-      if (o && typeof o !== 'string') {
-        options = o;
-      }
     },
     view: ({
       attrs: {
         iv,
         onchange,
         label,
-        field: { oncreateNewOption },
+        field: { oncreateNewOption, options: o },
       },
     }) => {
-      return m(
-        '.multi-select',
-        { className },
+      if (o && typeof o !== 'string' && o !== options) {
+        options = o;
+        key = Math.round(Date.now() / 1000);
+        // console.log('options changed: ' + key);
+      }
+      return m('.multi-select', { className, key }, [
         m(SearchSelect<string>, {
           label,
           initialValue: iv,
           options,
           onchange,
           oncreateNewOption,
-        })
-      );
+        }),
+      ]);
     },
   };
 };

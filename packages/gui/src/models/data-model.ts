@@ -116,7 +116,8 @@ export type CrimeScript = Labelled & {
   /** Literature referred to in this article */
   literature: Literature[];
   /** Stages in the crime script */
-  stages: Stage[];
+  stages: Scene[];
+  tracks?: Track[];
   productIds: ID[];
   /** Geographic locations on the map */
   geoLocationIds?: ID[];
@@ -175,13 +176,18 @@ export type CrimeLocation = Labelled & Hierarchical;
 
 export type CrimeScriptAttributes = Labelled & Hierarchical;
 
+/** A track is a specific flow through a crime script, combining one or more variants of a scene */
+export type Track = Labelled & {
+  sceneVariants: { [sceneID: ID]: ID[] | undefined };
+};
+
 /**
- * A crime script consists of different stages, where a stage is a distinct segment
+ * A crime script consists of different scenes, where a scene is a distinct segment
  * in a sequence where various activities (acts) occur, and it also suggests the
  * possibility of different approaches or methods being used to achieve similar
  * outcomes within that segment.
  */
-export type Stage = Labelled & {
+export type Scene = Labelled & {
   /** Overarching act, such as for financial dealings or generic stuff */
   isGeneric?: boolean;
   /** Currently selected Act ID */
@@ -236,18 +242,6 @@ export type Activity = Labelled & {
 export type Hierarchical = { synonyms?: string[]; parents?: ID[] };
 
 export type Cast = Labelled & Hierarchical;
-
-// export enum CastType {
-//   Individual = 'Individual',
-//   Organisation = 'Organisation',
-//   Role = 'Role',
-// }
-
-// export const CastTypeOptions = [
-//   { id: CastType.Individual, label: 'Individual' },
-//   { id: CastType.Organisation, label: 'More than one or group' },
-//   // { id: CastType.Role, label: 'Role' },
-// ];
 
 export type Condition = Labelled & {
   type: ConditionType;
