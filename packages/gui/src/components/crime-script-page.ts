@@ -185,6 +185,8 @@ export const CrimeScriptPage: MeiosisComponent = () => {
                     curSceneId: curScene ? curScene.id : undefined,
                     searchFilter,
                     update: actions.update,
+                    model,
+                    saveModel: actions.saveModel,
                   })
             ),
         ],

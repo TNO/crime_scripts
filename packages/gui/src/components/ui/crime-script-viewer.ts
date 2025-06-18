@@ -5,6 +5,7 @@ import {
   CrimeLocation,
   CrimeScript,
   CrimeScriptAttributes,
+  DataModel,
   GeographicLocation,
   ICONS,
   ID,
@@ -13,13 +14,14 @@ import {
   Pages,
   Partner,
   Product,
+  Track,
   Transport,
   missingIcon,
   scriptIcon,
 } from '../../models';
 import { routingSvc, State } from '../../services';
-import { Button, FlatButton, ITabItem, Tabs } from 'mithril-materialized';
-import { SlimdownView } from 'mithril-ui-form';
+import { Button, FlatButton, ITabItem, ModalPanel, Select, Tabs } from 'mithril-materialized';
+import { LayoutForm, SlimdownView, UIForm } from 'mithril-ui-form';
 import { Patch } from 'meiosis-setup/types';
 import { ReferenceListComponent } from '../ui/reference';
 import { lookupCrimeMeasure } from '../../models/situational-crime-prevention';
@@ -48,10 +50,94 @@ export const CrimeScriptViewer: FactoryComponent<{
   curSceneId?: ID;
   searchFilter?: string;
   update: (patch: Patch<State>) => void;
+  model: DataModel;
+  saveModel: (ds: DataModel) => void;
 }> = () => {
   const lookupPartner = new Map<ID, Labelled>();
   const findCrimeMeasure = lookupCrimeMeasure();
+  const trackForm = [
+    { id: 'id', type: 'autogenerate', autogenerate: 'id' },
+    { id: 'label', type: 'text', label: t('TRACK') },
+    { id: 'description', type: 'textarea', label: t('DESCRIPTION') },
+  ] as UIForm<Track>;
+  let newTrack: Track | undefined;
+  let editTrack: Track | undefined;
   let showProcessVisualization = true;
+  let curTrackId = undefined as string | undefined;
+  let curSceneVariants: { [sceneID: ID]: ID | undefined } = {};
+
+  // Helper function to check if two variant selections are equal
+  const variantsEqual = (
+    variants1: { [sceneID: ID]: ID | undefined },
+    variants2: { [sceneID: ID]: ID | undefined }
+  ) => {
+    const keys1 = Object.keys(variants1);
+    const keys2 = Object.keys(variants2);
+    if (keys1.length !== keys2.length) return false;
+    return keys1.every((key) => variants1[key] === variants2[key]);
+  };
+
+  // Helper function to find a track that matches the current variant selection
+  const findMatchingTrack = (tracks: Track[], sceneVariants: { [sceneID: ID]: ID | undefined }): Track | undefined => {
+    return tracks.find((track) => variantsEqual(track.sceneVariants, sceneVariants));
+  };
+
+  // Helper function to check if all scenes have selected variants
+  const hasCompleteVariantSelection = (scenes: any[], sceneVariants: { [sceneID: ID]: ID | undefined }): boolean => {
+    const scenesWithVariants = scenes.filter((s) => s.ids && s.ids.length > 0);
+    return scenesWithVariants.every((scene) => sceneVariants[scene.id] !== undefined);
+  };
+
+  // Helper function to update track selection and sync variants
+  const updateTrackSelection = (trackId: string | undefined, tracks: Track[], scenes: any[]) => {
+    curTrackId = trackId;
+    if (trackId) {
+      const track = tracks.find((t) => t.id === trackId);
+      if (track) {
+        // Update current scene variants to match the selected track
+        curSceneVariants = { ...track.sceneVariants };
+        // Update scene actIds to match the track
+        scenes.forEach((scene) => {
+          const actId = curSceneVariants[scene.id];
+          if (actId) {
+            scene.actId = actId;
+          }
+        });
+      }
+    }
+    // Note: We don't modify curSceneVariants when trackId is undefined
+    // This allows the current variant selection to remain intact
+    console.log('Track selection updated:', { trackId, newVariants: trackId ? curSceneVariants : 'unchanged' });
+  };
+
+  // Helper function to handle variant selection
+  const handleVariantSelection = (sceneId: ID, variantId: ID, tracks: Track[], scenes: any[]) => {
+    // Update the current scene variants
+    curSceneVariants[sceneId] = variantId;
+
+    // Update the scene actId
+    const scene = scenes.find((s) => s.id === sceneId);
+    if (scene) {
+      scene.actId = variantId;
+    }
+
+    // Check if there's a matching track for this selection
+    const matchingTrack = findMatchingTrack(tracks, curSceneVariants);
+    if (matchingTrack) {
+      curTrackId = matchingTrack.id;
+    } else {
+      // No matching track found, clear current track
+      curTrackId = undefined;
+    }
+
+    console.log('Variant selection changed:', {
+      sceneId,
+      variantId,
+      curSceneVariants,
+      matchingTrack: matchingTrack?.label,
+      curTrackId,
+    });
+  };
 
   const visualizeAct = (
     { label = '...', activities = [], indicators = [], conditions = [], locationIds = [], measures = [] } = {} as Act,
@@ -160,7 +246,6 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
                 ({ title, md }) =>
                   ({
                     title,
-                    // active: index === curSceneId,
                     vnode: m(SlimdownView, { md: highlighter(md) }),
                   } as ITabItem)
               ),
@@ -171,8 +256,25 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
   };
 
   return {
+    oninit: ({ attrs: { crimeScript = {} as CrimeScript } }) => {
+      const { tracks = [], stages: scenes = [] } = crimeScript;
+
+      // Initialize scene variants from the first track if available
+      if (tracks.length > 0) {
+        updateTrackSelection(tracks[0].id, tracks, scenes);
+      } else {
+        // Initialize with first variant of each scene if no tracks exist
+        scenes.forEach((s) => {
+          if (s.ids && s.ids[0]) {
+            curSceneVariants[s.id] = s.ids[0];
+            s.actId = s.ids[0];
+          }
+        });
+      }
+    },
     view: ({
       attrs: {
+        model,
         crimeScript,
         cast = [],
         acts = [],
@@ -185,6 +287,7 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
         curSceneId,
         searchFilter,
         update,
+        saveModel,
       },
     }) => {
       if (lookupPartner.size < partners.length) {
@@ -198,8 +301,27 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
         stages: scenes = [],
         productIds = [],
         geoLocationIds = [],
+        tracks = [],
         url = scriptIcon,
       } = crimeScript;
+
+      const scenesWithVariantsCnt = scenes.filter((s) => s.ids && s.ids.length > 1).length || false;
+      const curTrack: Track | undefined = curTrackId ? tracks.find((t) => t.id === curTrackId) : undefined;
+
+      // Check if we can add a new track (all scenes have variants selected and no matching track exists)
+      const hasCompleteSelection = hasCompleteVariantSelection(scenes, curSceneVariants);
+      const matchingTrack = findMatchingTrack(tracks, curSceneVariants);
+      const canAddTrack = scenesWithVariantsCnt && hasCompleteSelection && !matchingTrack;
+
+      console.log('Render state:', {
+        curTrackId,
+        curTrack: curTrack?.label,
+        curSceneVariants,
+        hasCompleteSelection,
+        canAddTrack,
+        matchingTrack: matchingTrack?.label,
+      });
+
       const [allCastIds, allAttrIds, allLocIds, allTranspIds] = scenes.reduce(
         (acc, stage) => {
           const act = acts.find((a) => a.id === stage.actId);
@@ -222,6 +344,7 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
           transp: Set<ID>
         ]
       );
+
       const curScene = scenes.find((s) => s.id === curSceneId) || scenes[0];
       const curAct =
         curScene && acts.find((a) => (curScene.actId ? a.id === curScene.actId : a.id === curScene.ids[0]));
@@ -243,7 +366,7 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
           )
         );
 
-      const steps = scenes.map(({ id, ids = [], isGeneric, label = '...', icon, url, description = '' }) => {
+      const steps = scenes.map(({ id, actId, ids = [], isGeneric, label = '...', icon, url, description = '' }) => {
         const imgSrc = (icon === ICONS.OTHER ? url : IconOpts.find((i) => i.id === icon)?.img) || missingIcon;
         const variants =
           ids.length > 1
@@ -266,6 +389,7 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
           description: m(SlimdownView, { md: description, removeParagraphs: true }),
           variants,
           isGeneric,
+          curVariantId: actId,
         } as ProcessStep & { isGeneric?: boolean };
       });
 
@@ -310,6 +434,67 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
         ]),
         literature &&
           literature.length > 0 && [m('h5', t('REFERENCES')), m(ReferenceListComponent, { references: literature })],
+
+        scenesWithVariantsCnt && [
+          m('h5', t('TRACKS')),
+          m('.row.tracks', [
+            m(Select<string>, {
+              label: t('TRACK'),
+              className: 'col s6 m3',
+              placeholder: t('NO_TRACK'),
+              options: tracks,
+              disabled: tracks.length === 0,
+              checkedId: curTrackId || '',
+              onchange: (options) => {
+                const selectedTrackId = options[0];
+                console.log('Track dropdown changed:', selectedTrackId);
+                if (selectedTrackId && selectedTrackId !== '') {
+                  updateTrackSelection(selectedTrackId, tracks, scenes);
+                } else {
+                  curTrackId = undefined;
+                }
+                m.redraw();
+              },
+            }),
+            m(FlatButton, {
+              modalId: 'add_track',
+              iconName: 'add',
+              label: t('ADD_TRACK'),
+              className: 'col s6 m3',
+              disabled: !canAddTrack,
+              onclick: () => {
+                newTrack = {
+                  sceneVariants: { ...curSceneVariants },
+                  label: `Track ${tracks.length + 1}`,
+                  description: '',
+                } as Track;
+              },
+            }),
+            m(FlatButton, {
+              modalId: 'edit_track',
+              iconName: 'edit',
+              label: t('EDIT_TRACK'),
+              className: 'col s6 m3',
+              disabled: !curTrack,
+              onclick: () => {
+                if (curTrack) {
+                  editTrack = { ...curTrack };
+                }
+              },
+            }),
+            m(FlatButton, {
+              modalId: 'del_track',
+              iconName: 'delete',
+              label: t('DEL_TRACK'),
+              className: 'col s6 m3',
+              disabled: !curTrack,
+            }),
+          ]),
+          curTrack &&
+            curTrack.description &&
+            m('.row', m(SlimdownView, { className: 'col s12', md: curTrack.description })),
+        ],
+
         m('h5', t('SCENES')),
         m(showProcessVisualization ? Button : FlatButton, {
           label: t('MAIN_ACTS'),
@@ -318,7 +503,6 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
             showProcessVisualization = true;
             const scene = scenes.length > 0 ? scenes[0] : undefined;
             if (scene) {
-              // stage.id = variantId;
               update({ curSceneId: scene.id, curActId: scene.actId || (scene.ids ? scene.ids[0] : undefined) });
             }
           },
@@ -332,7 +516,6 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
               onclick: () => {
                 const scene = scenes.find((stage) => stage.id === s.id);
                 if (scene) {
-                  // stage.id = variantId;
                   showProcessVisualization = false;
                   update({ curSceneId: scene.id, curActId: scene.actId || (scene.ids ? scene.ids[0] : undefined) });
                 }
@@ -345,18 +528,116 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
             selectedStep: curScene?.id,
             selectedVariant: curAct?.id,
             onStepSelect: (stepId) => {
-              console.log(stepId);
               update({ curSceneId: stepId });
             },
             onVariantSelect: (stepId, variantId) => {
-              const scene = scenes.find((s) => s.id === stepId);
-              if (scene) {
-                scene.actId = variantId;
-                update({ curActId: variantId });
-              }
+              handleVariantSelection(stepId, variantId, tracks, scenes);
+              update({ curActId: variantId });
+              m.redraw();
             },
           }),
         selectedActContent && [m('h4', selectedActContent.title), selectedActContent.vnode],
+
+        // Add Track Modal
+        m(ModalPanel, {
+          id: 'add_track',
+          title: t('ADD_TRACK'),
+          description: m(
+            '.row',
+            newTrack &&
+              m(LayoutForm<Track>, {
+                form: trackForm,
+                obj: newTrack,
+                onchange: (_, obj) => {
+                  newTrack = obj;
+                },
+              })
+          ),
+          buttons: [
+            { label: t('CANCEL'), iconName: 'cancel' },
+            {
+              label: t('ADD_TRACK'),
+              iconName: 'add',
+              onclick: () => {
+                if (newTrack && newTrack.label) {
+                  tracks.push(newTrack);
+                  curTrackId = newTrack.id;
+                  crimeScript.tracks = tracks;
+                  model.crimeScripts = model.crimeScripts.map((c) => (c.id === crimeScript.id ? crimeScript : c));
+                  newTrack = undefined;
+                  saveModel(model);
+                }
+              },
+            },
+          ],
+        }),
+
+        // Edit Track Modal
+        m(ModalPanel, {
+          id: 'edit_track',
+          title: t('EDIT_TRACK'),
+          description: m(
+            '.row',
+            editTrack &&
+              m(LayoutForm<Track>, {
+                form: trackForm,
+                obj: editTrack,
+                onchange: (_, obj) => {
+                  editTrack = obj;
+                },
+              })
+          ),
+          buttons: [
+            { label: t('CANCEL'), iconName: 'cancel' },
+            {
+              label: t('SAVE'),
+              iconName: 'save',
+              onclick: () => {
+                if (editTrack && curTrack) {
+                  // Update the track in the tracks array
+                  const trackIndex = tracks.findIndex((t) => t.id === curTrack.id);
+                  if (trackIndex !== -1) {
+                    tracks[trackIndex] = editTrack;
+                    crimeScript.tracks = tracks;
+                    model.crimeScripts = model.crimeScripts.map((c) => (c.id === crimeScript.id ? crimeScript : c));
+                    editTrack = undefined;
+                    saveModel(model);
+                  }
+                }
+              },
+            },
+          ],
+        }),
+
+        // Delete Track Modal
+        m(ModalPanel, {
+          id: 'del_track',
+          title: t('DEL_TRACK'),
+          description: m(
+            '.row',
+            curTrack &&
+              m(LayoutForm<Track>, {
+                form: trackForm,
+                obj: curTrack,
+                readonly: true,
+              })
+          ),
+          buttons: [
+            { label: t('CANCEL'), iconName: 'cancel' },
+            {
+              label: t('DEL_TRACK'),
+              iconName: 'delete',
+              onclick: () => {
+                if (curTrack) {
+                  crimeScript.tracks = tracks.filter((t) => t.id !== curTrack.id);
+                  model.crimeScripts = model.crimeScripts.map((c) => (c.id === crimeScript.id ? crimeScript : c));
+                  curTrackId = undefined;
+                  saveModel(model);
+                }
+              },
+            },
+          ],
+        }),
       ]);
     },
   };

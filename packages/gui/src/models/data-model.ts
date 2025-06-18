@@ -178,7 +178,7 @@ export type CrimeScriptAttributes = Labelled & Hierarchical;
 
 /** A track is a specific flow through a crime script, combining one or more variants of a scene */
 export type Track = Labelled & {
-  sceneVariants: { [sceneID: ID]: ID[] | undefined };
+  sceneVariants: { [sceneID: ID]: ID | undefined };
 };
 
 /**
