@@ -67,6 +67,12 @@
   text-align: center;
 }
 
+.step-subtitle {
+  margin-bottom: 0.5rem;
+  color: #1f2937;
+  text-align: center;
+}
+
 .step-description {
   display: none;
   /* color: #4b5563; */

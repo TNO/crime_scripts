@@ -6,6 +6,7 @@ export interface ProcessStep {
   title: string;
   description?: string | Vnode;
   variants?: ProcessVariant[];
+  curVariantId?: string;
 }
 
 export interface ProcessVariant {
@@ -66,6 +67,9 @@ export const ProcessVisualization: FactoryComponent<ProcessVisualizationAttrs> =
               }),
               m('.step-content', [
                 m('h4.step-title.truncate', step.title),
+                step.curVariantId &&
+                  step.variants &&
+                  m('h5.step-subtitle', step.variants.find((v) => v.id === step.curVariantId)?.title),
                 m('.step-description', step.description),
                 step.variants &&
                   m('.variants-container', [
