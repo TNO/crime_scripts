@@ -23,7 +23,6 @@ export const crimeScriptToMarkdown = (crimeScript: Partial<CrimeScript>, model: 
   const {
     acts,
     cast = [],
-    serviceProviders = [],
     attributes = [],
     transports = [],
     products = [],
@@ -34,7 +33,6 @@ export const crimeScriptToMarkdown = (crimeScript: Partial<CrimeScript>, model: 
 
   const itemLookup = [
     ...cast,
-    ...serviceProviders,
     ...attributes,
     ...transports,
     ...locations,
@@ -126,15 +124,6 @@ export const crimeScriptToMarkdown = (crimeScript: Partial<CrimeScript>, model: 
                   })
                   .filter((l) => typeof l !== undefined);
                 list.push(addLeadingSpaces(`- ${t('CAST')}: ${castNames.join(', ')}`, spaces));
-              }
-              if (type && type.includes(ActivityType.HAS_SERVICE_PROVIDER) && activity.sp) {
-                const spNames = activity.sp
-                  .map((c) => {
-                    const found = itemLookup.get(c);
-                    return found ? found.label : undefined;
-                  })
-                  .filter((l) => typeof l !== undefined);
-                list.push(addLeadingSpaces(`- ${t('SERVICE_PROVIDERS')}: ${spNames.join(', ')}`, spaces));
               }
               if (type && type.includes(ActivityType.HAS_ATTRIBUTES) && activity.attributes) {
                 const attrNames = activity.attributes
