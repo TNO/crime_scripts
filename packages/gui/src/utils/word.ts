@@ -19,7 +19,7 @@ const blue = '2F5496';
 
 /** Convert a crime script to a markdown string. */
 export const crimeScriptToMarkdown = (crimeScript: Partial<CrimeScript>, model: DataModel) => {
-  const { description, stages = [], literature, productIds, geoLocationIds } = crimeScript;
+  const { description, stages: scenes = [], literature, productIds, geoLocationIds } = crimeScript;
   const {
     acts,
     cast = [],
@@ -89,11 +89,11 @@ export const crimeScriptToMarkdown = (crimeScript: Partial<CrimeScript>, model: 
     );
   }
 
-  stages.forEach((stage, i) => {
-    const stageActs = stage.ids.map((id) => acts.find((a) => a.id === id)).filter((a) => typeof a !== 'undefined');
-    newHeading(`${t('ACT')} ${i + 1}: ${stageActs.map((a) => a.label).join(' | ')}`, 1);
+  scenes.forEach((stage, i) => {
+    const activityGroups = stage.ids.map((id) => acts.find((a) => a.id === id)).filter((a) => typeof a !== 'undefined');
+    newHeading(`${t('SCENE')} ${i + 1}: ${activityGroups.map((a) => a.label).join(' | ')}`, 1);
 
-    stageActs.forEach((act) => {
+    activityGroups.forEach((act) => {
       newHeading(act.label, 2);
       act.description && md.push(act.description);
 
