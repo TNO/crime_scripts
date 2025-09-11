@@ -1,8 +1,8 @@
 import m from 'mithril';
 import { PluginType } from 'mithril-ui-form';
-import { SearchSelect, Option } from 'mithril-materialized';
+import { InputOption, SearchSelect } from 'mithril-materialized';
 
-export type OnCreateNewOption = <T extends string | number>(term: string) => Option<T> | Promise<Option<T>>;
+export type OnCreateNewOption = <T extends string | number>(term: string) => InputOption<T> | Promise<InputOption<T>>;
 
 export const searchSelectPlugin: PluginType<
   string[],
@@ -10,7 +10,7 @@ export const searchSelectPlugin: PluginType<
   { oncreateNewOption?: OnCreateNewOption }
 > = () => {
   let key = Date.now();
-  let options: Option<string>[] = [];
+  let options: InputOption<string>[] = [];
   let className: string | undefined;
 
   return {
@@ -27,14 +27,14 @@ export const searchSelectPlugin: PluginType<
       },
     }) => {
       if (o && typeof o !== 'string' && o !== options) {
-        options = o;
+        options = o as InputOption<string>[];
         key = Math.round(Date.now() / 1000);
         // console.log('options changed: ' + key);
       }
       return m('.multi-select', { className, key }, [
         m(SearchSelect<string>, {
           label,
-          initialValue: iv,
+          checkedId: iv,
           options,
           onchange,
           oncreateNewOption,

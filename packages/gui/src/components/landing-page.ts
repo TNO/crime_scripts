@@ -28,7 +28,7 @@ export const LandingPage: MeiosisComponent = () => {
         // ),
         m('img.responsive-img[width=1408][height=704]', { style: { 'margin-left': '15px' }, src: background }),
         m(
-          '.section.white',
+          '.section',
           m('.row.container.center', [
             m('.row', [
               m(

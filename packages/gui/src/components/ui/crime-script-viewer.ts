@@ -20,7 +20,7 @@ import {
   scriptIcon,
 } from '../../models';
 import { routingSvc, State } from '../../services';
-import { Button, FlatButton, ITabItem, ModalPanel, Select, Tabs } from 'mithril-materialized';
+import { Button, FlatButton, ModalPanel, Select, TabItem, Tabs } from 'mithril-materialized';
 import { LayoutForm, SlimdownView, UIForm } from 'mithril-ui-form';
 import { Patch } from 'meiosis-setup/types';
 import { ReferenceListComponent } from '../ui/reference';
@@ -65,7 +65,9 @@ export const CrimeScriptViewer: FactoryComponent<{
   let showProcessVisualization = true;
   let curTrackId = undefined as string | undefined;
   let curSceneVariants: { [sceneID: ID]: ID | undefined } = {};
-
+  let addTrackOpen = false;
+  let editTrackOpen = false;
+  let deleteTrackOpen = false;
   // Helper function to check if two variant selections are equal
   const variantsEqual = (
     variants1: { [sceneID: ID]: ID | undefined },
@@ -235,7 +237,7 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
       },
     ];
 
-    const tabItem: ITabItem = {
+    const tabItem: TabItem = {
       title: label,
       vnode:
         contentTabs.length === 1
@@ -247,7 +249,7 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
                   ({
                     title,
                     vnode: m(SlimdownView, { md: highlighter(md) }),
-                  } as ITabItem)
+                  } as TabItem)
               ),
             })
           : m('div'),
@@ -395,30 +397,25 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
 
       return m('.col.s12', [
         m(
-          '.row',
-          m(
-            '.col.s9',
-            m(
-              'h4',
-              highlighter(`${label}${productIds.length > 0 ? ` (${toCommaSeparatedList(products, productIds)})` : ''}`)
-            ),
-            geoLocationIds.length > 0 &&
-              m(
-                'i.geo-location',
-                highlighter(
-                  `${t('GEOLOCATIONS', geoLocationIds.length)}: ${toCommaSeparatedList(geoLocations, geoLocationIds)}`
-                )
-              )
-          ),
-          m(
-            '.col.s3',
-            m('img.right', {
-              src: url,
-              alt: 'Icon',
-              style: { border: '2px solid black', borderRadius: '10px', maxWidth: '100px', maxHeight: '100px' },
-            })
-          )
+          '.right',
+          m('img.white.circle', {
+            src: url,
+            alt: 'Icon',
+            style: { padding: '2px', height: '64px' },
+            // style: { border: '2px solid black', borderRadius: '10px', maxWidth: '100px', maxHeight: '100px' },
+          })
         ),
+        m(
+          'h4',
+          highlighter(`${label}${productIds.length > 0 ? ` (${toCommaSeparatedList(products, productIds)})` : ''}`)
+        ),
+        geoLocationIds.length > 0 &&
+          m(
+            'i.geo-location',
+            highlighter(
+              `${t('GEOLOCATIONS', geoLocationIds.length)}: ${toCommaSeparatedList(geoLocations, geoLocationIds)}`
+            )
+          ),
 
         description && m('p', highlighter(description)),
         m('.row', [
@@ -457,12 +454,12 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
               },
             }),
             m(FlatButton, {
-              modalId: 'add_track',
               iconName: 'add',
               label: t('ADD_TRACK'),
               className: 'col s6 m3',
               disabled: !canAddTrack,
               onclick: () => {
+                addTrackOpen = true;
                 newTrack = {
                   sceneVariants: { ...curSceneVariants },
                   label: `Track ${tracks.length + 1}`,
@@ -471,23 +468,23 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
               },
             }),
             m(FlatButton, {
-              modalId: 'edit_track',
               iconName: 'edit',
               label: t('EDIT_TRACK'),
               className: 'col s6 m3',
               disabled: !curTrack,
               onclick: () => {
+                editTrackOpen = true;
                 if (curTrack) {
                   editTrack = { ...curTrack };
                 }
               },
             }),
             m(FlatButton, {
-              modalId: 'del_track',
               iconName: 'delete',
               label: t('DEL_TRACK'),
               className: 'col s6 m3',
               disabled: !curTrack,
+              onclick: () => (deleteTrackOpen = true),
             }),
           ]),
           curTrack &&
@@ -539,105 +536,114 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
         selectedActContent && [m('h4', selectedActContent.title), selectedActContent.vnode],
 
         // Add Track Modal
-        m(ModalPanel, {
-          id: 'add_track',
-          title: t('ADD_TRACK'),
-          description: m(
-            '.row',
-            newTrack &&
-              m(LayoutForm<Track>, {
-                form: trackForm,
-                obj: newTrack,
-                onchange: (_, obj) => {
-                  newTrack = obj;
-                },
-              })
-          ),
-          buttons: [
-            { label: t('CANCEL'), iconName: 'cancel' },
-            {
-              label: t('ADD_TRACK'),
-              iconName: 'add',
-              onclick: () => {
-                if (newTrack && newTrack.label) {
-                  tracks.push(newTrack);
-                  curTrackId = newTrack.id;
-                  crimeScript.tracks = tracks;
-                  model.crimeScripts = model.crimeScripts.map((c) => (c.id === crimeScript.id ? crimeScript : c));
-                  newTrack = undefined;
-                  saveModel(model);
-                }
-              },
-            },
-          ],
-        }),
-
-        // Edit Track Modal
-        m(ModalPanel, {
-          id: 'edit_track',
-          title: t('EDIT_TRACK'),
-          description: m(
-            '.row',
-            editTrack &&
-              m(LayoutForm<Track>, {
-                form: trackForm,
-                obj: editTrack,
-                onchange: (_, obj) => {
-                  editTrack = obj;
-                },
-              })
-          ),
-          buttons: [
-            { label: t('CANCEL'), iconName: 'cancel' },
-            {
-              label: t('SAVE'),
-              iconName: 'save',
-              onclick: () => {
-                if (editTrack && curTrack) {
-                  // Update the track in the tracks array
-                  const trackIndex = tracks.findIndex((t) => t.id === curTrack.id);
-                  if (trackIndex !== -1) {
-                    tracks[trackIndex] = editTrack;
+        addTrackOpen &&
+          m(ModalPanel, {
+            id: 'add_track',
+            title: t('ADD_TRACK'),
+            isOpen: true,
+            onClose: () => (addTrackOpen = false),
+            description: m(
+              '.row',
+              newTrack &&
+                m(LayoutForm<Track>, {
+                  form: trackForm,
+                  obj: newTrack,
+                  onchange: (_, obj) => {
+                    newTrack = obj;
+                  },
+                })
+            ),
+            buttons: [
+              { label: t('CANCEL'), iconName: 'cancel' },
+              {
+                label: t('ADD_TRACK'),
+                iconName: 'add',
+                onclick: () => {
+                  if (newTrack && newTrack.label) {
+                    tracks.push(newTrack);
+                    curTrackId = newTrack.id;
                     crimeScript.tracks = tracks;
                     model.crimeScripts = model.crimeScripts.map((c) => (c.id === crimeScript.id ? crimeScript : c));
-                    editTrack = undefined;
+                    newTrack = undefined;
                     saveModel(model);
                   }
-                }
+                },
               },
-            },
-          ],
-        }),
+            ],
+          }),
+
+        // Edit Track Modal
+        editTrackOpen &&
+          m(ModalPanel, {
+            id: 'edit_track',
+            title: t('EDIT_TRACK'),
+            isOpen: true,
+            onClose: () => (editTrackOpen = false),
+            description: m(
+              '.row',
+              editTrack &&
+                m(LayoutForm<Track>, {
+                  form: trackForm,
+                  obj: editTrack,
+                  onchange: (_, obj) => {
+                    editTrack = obj;
+                  },
+                })
+            ),
+            buttons: [
+              { label: t('CANCEL'), iconName: 'cancel' },
+              {
+                label: t('SAVE'),
+                iconName: 'save',
+                onclick: () => {
+                  if (editTrack && curTrack) {
+                    // Update the track in the tracks array
+                    const trackIndex = tracks.findIndex((t) => t.id === curTrack.id);
+                    if (trackIndex !== -1) {
+                      tracks[trackIndex] = editTrack;
+                      crimeScript.tracks = tracks;
+                      model.crimeScripts = model.crimeScripts.map((c) => (c.id === crimeScript.id ? crimeScript : c));
+                      editTrack = undefined;
+                      saveModel(model);
+                    }
+                  }
+                },
+              },
+            ],
+          }),
 
         // Delete Track Modal
-        m(ModalPanel, {
-          id: 'del_track',
-          title: t('DEL_TRACK'),
-          description: m(
-            '.row',
-            curTrack &&
-              m(LayoutForm<Track>, {
-                form: trackForm,
-                obj: curTrack,
-                readonly: true,
-              })
-          ),
-          buttons: [
-            { label: t('CANCEL'), iconName: 'cancel' },
-            {
-              label: t('DEL_TRACK'),
-              iconName: 'delete',
-              onclick: () => {
-                if (curTrack) {
-                  crimeScript.tracks = tracks.filter((t) => t.id !== curTrack.id);
-                  model.crimeScripts = model.crimeScripts.map((c) => (c.id === crimeScript.id ? crimeScript : c));
-                  curTrackId = undefined;
-                  saveModel(model);
-                }
+        deleteTrackOpen &&
+          m(ModalPanel, {
+            id: 'del_track',
+            title: t('DEL_TRACK'),
+            isOpen: true,
+            onClose: () => (deleteTrackOpen = false),
+            description: m(
+              '.row',
+              curTrack &&
+                m(LayoutForm<Track>, {
+                  form: trackForm,
+                  obj: curTrack,
+                  readonly: true,
+                })
+            ),
+            buttons: [
+              { label: t('CANCEL'), iconName: 'cancel' },
+              {
+                label: t('DEL_TRACK'),
+                iconName: 'delete',
+                onclick: () => {
+                  if (curTrack) {
+                    crimeScript.tracks = tracks.filter((t) => t.id !== curTrack.id);
+                    model.crimeScripts = model.crimeScripts.map((c) => (c.id === crimeScript.id ? crimeScript : c));
+                    curTrackId = undefined;
+                    saveModel(model);
+                  }
+                },
               },
-            },
-          ],
-        }),
+            ],
+          }),
       ]);
     },
   };

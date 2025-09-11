@@ -1,6 +1,13 @@
 import { config } from 'dotenv';
 import { resolve } from 'path';
-import * as core from '@rspack/core';
+import {
+  type Configuration,
+  DefinePlugin,
+  HtmlRspackPlugin,
+  SourceMapDevToolPlugin,
+  LightningCssMinimizerRspackPlugin,
+  SwcJsMinimizerRspackPlugin,
+} from '@rspack/core';
 const devMode = (process.env as any).NODE_ENV === 'development';
 const isProduction = !devMode;
 const outputPath = resolve(process.cwd(), isProduction ? '../../docs' : 'dist');
@@ -18,7 +25,7 @@ console.log(
   } mode, serving from ${SERVER}:${APP_PORT} and public path ${publicPath}, output directed to ${outputPath}.`
 );
 
-const configuration: core.Configuration = {
+const configuration: Configuration = {
   experiments: {
     css: true,
     asyncWebAssembly: true,
@@ -32,14 +39,14 @@ const configuration: core.Configuration = {
   },
   devtool: devMode ? 'inline-source-map' : 'source-map',
   plugins: [
-    new core.SourceMapDevToolPlugin({
+    new SourceMapDevToolPlugin({
       test: /\.ts$/,
       filename: '[file].map[query]',
     }),
-    new core.DefinePlugin({
+    new DefinePlugin({
       'process.env.SERVER': isProduction ? `'${publicPath}'` : '`http://localhost:${APP_PORT}`',
     }),
-    new core.HtmlRspackPlugin({
+    new HtmlRspackPlugin({
       title: APP_TITLE,
       publicPath,
       scriptLoading: 'defer',
@@ -62,9 +69,8 @@ const configuration: core.Configuration = {
         'og:image:height': '200',
       },
     }),
-    new core.HotModuleReplacementPlugin(),
-    new core.LightningCssMinimizerRspackPlugin(),
-    new core.SwcJsMinimizerRspackPlugin({
+    new LightningCssMinimizerRspackPlugin(),
+    new SwcJsMinimizerRspackPlugin({
       minimizerOptions: {
         compress: isProduction,
         minify: isProduction,
@@ -102,6 +108,11 @@ const configuration: core.Configuration = {
       {
         test: /^BUILD_ID$/,
         type: 'asset/source',
+      },
+      {
+        test: /\.css$/,
+        type: 'css',
+        sideEffects: true,
       },
       {
         test: /\.scss$/,

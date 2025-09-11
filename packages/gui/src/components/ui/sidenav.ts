@@ -1,12 +1,12 @@
 import m from 'mithril';
 import { Languages, MeiosisComponent, UserRole, i18n, loadData, routingSvc, t } from '../../services';
-import { FlatButton, ISelectOptions, ModalPanel, Select, padLeft } from 'mithril-materialized';
+import { FlatButton, Select, Sidenav, padLeft, toast } from 'mithril-materialized';
 import { DataModel, Page, Pages, defaultModel } from '../../models';
 import { formatDate, isActivePage } from '../../utils';
 import { compressToEncodedURIComponent, decompressFromUint8Array } from 'lz-string';
 import { LanguageSwitcher } from './language-switcher';
 
-export const SideNav: MeiosisComponent = () => {
+export const SideNav: MeiosisComponent<{ onDelete: () => void }> = () => {
   const handleFileUpload = (binary: boolean, _saveModel: (model: DataModel) => void) => (e: Event) => {
     const fileInput = e.target as HTMLInputElement;
     if (!fileInput.files || fileInput.files.length <= 0) return;
@@ -82,13 +82,13 @@ export const SideNav: MeiosisComponent = () => {
         const url = `${window.location.href}${/\?/.test(window.location.href) ? '&' : '?'}model=${compressed}`;
         navigator.clipboard.writeText(url).then(
           () => {
-            M.toast({
+            toast({
               html: 'Copied permanent link to clipboard.',
               classes: 'yellow black-text',
             });
           },
           (err) => {
-            M.toast({
+            toast({
               html: 'Failed copying link to clipboard: ' + err,
               classes: 'red',
             });
@@ -103,20 +103,21 @@ export const SideNav: MeiosisComponent = () => {
     view: ({
       attrs: {
         state,
-        actions: { saveModel, setRole, changePage },
+        options,
+        actions: { saveModel, setRole, changePage, update },
       },
     }) => {
-      const { model, role, page } = state;
+      const { model, role, page, sideNavOpen } = state;
       const roleIcon = role === 'user' ? 'person' : role === 'editor' ? 'edit' : 'manage_accounts';
 
       const isActive = isActivePage(page);
 
       return m(
-        'ul#slide-out.sidenav.row',
+        Sidenav,
         {
-          oncreate: ({ dom }) => {
-            M.Sidenav.init(dom);
-          },
+          width: 300,
+          isOpen: sideNavOpen,
+          onToggle: (open) => update({ sideNavOpen: open }),
         },
         [
           routingSvc
@@ -144,7 +145,7 @@ export const SideNav: MeiosisComponent = () => {
             m(FlatButton, {
               label: t('CLEAR'),
               iconName: 'clear',
-              modalId: 'clear_model',
+              onclick: options?.onDelete,
             })
           ),
           m(
@@ -173,84 +174,98 @@ export const SideNav: MeiosisComponent = () => {
           ),
           m(
             'li',
-            m(Select, {
-              checkedId: role,
-              label: t('ROLE'),
-              iconName: roleIcon,
-              options: [
-                { id: 'user', label: t('USER') },
-                { id: 'editor', label: t('EDITOR') },
-                { id: 'admin', label: t('ADMIN') },
-              ],
-              onchange: (role) => {
-                setRole(role[0]);
-              },
-            } as ISelectOptions<UserRole>)
+            m(
+              '.row',
+              m(Select<UserRole>, {
+                checkedId: role,
+                label: t('ROLE'),
+                iconName: roleIcon,
+                options: [
+                  { id: 'user', label: t('USER') },
+                  { id: 'editor', label: t('EDITOR') },
+                  { id: 'admin', label: t('ADMIN') },
+                ],
+                onchange: (role) => {
+                  setRole(role[0]);
+                },
+              })
+            )
           ),
           m(
             'li',
-            m(LanguageSwitcher, {
-              onLanguageChange: async (language: Languages) => {
-                await i18n.loadAndSetLocale(language as Languages);
-              },
-              currentLanguage: i18n.currentLocale,
-            })
+            m(
+              '.row',
+              m(LanguageSwitcher, {
+                onLanguageChange: async (language: Languages) => {
+                  await i18n.loadAndSetLocale(language as Languages);
+                },
+                currentLanguage: i18n.currentLocale,
+              })
+            )
           ),
         ]
-        // m(ModalPanel, {
-        //   id: 'clear_model',
-        //   title: t('DELETE_ITEM', 'TITLE', { item: t('MODEL') }),
-        //   description: t('DELETE_ITEM', 'DESCRIPTION', { item: t('MODEL').toLowerCase() }),
-        //   buttons: [
-        //     { label: t('CANCEL'), iconName: 'cancel' },
-        //     {
-        //       label: t('DELETE'),
-        //       iconName: 'delete',
-        //       onclick: () => {
-        //         handleSelection('clear', model, saveModel);
+        // clearModelOpen &&
+        //   m(ModalPanel, {
+        //     id: 'clear_model',
+        //     isOpen: true,
+        //     onClose: () => (clearModelOpen = false),
+        //     title: t('DELETE_ITEM', 'TITLE', { item: t('MODEL') }),
+        //     description: t('DELETE_ITEM', 'DESCRIPTION', { item: t('MODEL').toLowerCase() }),
+        //     buttons: [
+        //       { label: t('CANCEL'), iconName: 'cancel' },
+        //       {
+        //         label: t('DELETE'),
+        //         iconName: 'delete',
+        //         onclick: () => {
+        //           saveModel(defaultModel);
+        //         },
         //       },
-        //     },
-        //   ],
-        // })
+        //     ],
+        //   })
       );
     },
   };
 };
 
-export const SideNavTrigger: MeiosisComponent<{}> = () => {
-  return {
-    view: ({
-      attrs: {
-        actions: { saveModel },
-      },
-    }) => {
-      return [
-        m(
-          'a',
-          {
-            href: '#!',
-            'data-target': 'slide-out',
-            class: 'sidenav-trigger',
-            style: 'position: absolute;margin-left: 10px;top: 75px;',
-          },
-          m('i.material-icons', 'menu')
-        ),
-        m(ModalPanel, {
-          id: 'clear_model',
-          title: t('DELETE_ITEM', 'TITLE', { item: t('MODEL') }),
-          description: t('DELETE_ITEM', 'DESCRIPTION', { item: t('MODEL').toLowerCase() }),
-          buttons: [
-            { label: t('CANCEL'), iconName: 'cancel' },
-            {
-              label: t('DELETE'),
-              iconName: 'delete',
-              onclick: () => {
-                saveModel(defaultModel);
-              },
-            },
-          ],
-        }),
-      ];
-    },
-  };
-};
+// export const SideNavTrigger: MeiosisComponent<{}> = () => {
+//   return {
+//     view: ({
+//       attrs: {
+//         actions: { saveModel, update },
+//       },
+//     }) => {
+//       return [
+//         m(
+//           FlatButton,
+//           {
+//             iconName: 'menu',
+//             onclick: () => update({ sideNavOpen: true }),
+//           }
+//           // 'a',
+//           // {
+//           //   href: '#!',
+//           //   'data-target': 'slide-out',
+//           //   style: { position: 'absolute', marginLeft: '10px', top: '75px' },
+//           //   onclick: () => update({ sideNavOpen: true }),
+//           // },
+//           // m('i.material-icons', 'menu')
+//         ),
+//         m(ModalPanel, {
+//           id: 'clear_model',
+//           title: t('DELETE_ITEM', 'TITLE', { item: t('MODEL') }),
+//           description: t('DELETE_ITEM', 'DESCRIPTION', { item: t('MODEL').toLowerCase() }),
+//           buttons: [
+//             { label: t('CANCEL'), iconName: 'cancel' },
+//             {
+//               label: t('DELETE'),
+//               iconName: 'delete',
+//               onclick: () => {
+//                 saveModel(defaultModel);
+//               },
+//             },
+//           ],
+//         }),
+//       ];
+//     },
+//   };
+// };

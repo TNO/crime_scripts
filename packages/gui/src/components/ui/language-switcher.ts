@@ -1,5 +1,5 @@
 import m, { Attributes, FactoryComponent } from 'mithril';
-import { ISelectOptions, Select } from 'mithril-materialized';
+import { Select } from 'mithril-materialized';
 import { Languages, t } from '../../services';
 
 export interface LanguageSwitcherAttrs extends Attributes {
@@ -10,9 +10,9 @@ export interface LanguageSwitcherAttrs extends Attributes {
 export const LanguageSwitcher: FactoryComponent<LanguageSwitcherAttrs> = () => {
   return {
     view: ({ attrs: { currentLanguage, onLanguageChange, className } }) => {
-      return m(Select, {
+      return m(Select<Languages>, {
         iconName: 'language',
-        initialValue: currentLanguage,
+        checkedId: currentLanguage,
         className,
         options: [
           {
@@ -26,7 +26,7 @@ export const LanguageSwitcher: FactoryComponent<LanguageSwitcherAttrs> = () => {
         ],
         label: t('LANGUAGE'),
         onchange: (language) => onLanguageChange(language[0]),
-      } as ISelectOptions<Languages>);
+      });
     },
   };
 };

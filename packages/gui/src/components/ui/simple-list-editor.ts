@@ -4,7 +4,7 @@ import { PluginType } from 'mithril-ui-form';
 
 export const SimpleListEditorPlugin: PluginType<string[], any> = () => {
   return {
-    view: ({ attrs: { field, obj, context = [], onchange } }) => {
+    view: ({ attrs: { field, obj, onchange } }) => {
       const { id = '', label } = field;
       const items = obj[id];
       // console.log(field);
@@ -79,7 +79,7 @@ export const SimpleListEditor: FactoryComponent<SimpleListEditorAttrs> = () => {
                 ? m(TextArea, {
                     disabled,
                     readonly,
-                    initialValue: str,
+                    defaultValue: str,
                     className: 'flex-input',
                     onchange: (v) => {
                       items[index] = v;

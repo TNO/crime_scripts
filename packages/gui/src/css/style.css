@@ -13,47 +13,6 @@ body {
   font-size: 18px;
 }
 
-/* Set theme color */
-.btn,
-.btn-floating {
-  background-color: #1565c0;
-}
-.page-footer,
-.nav-wrapper,
-.statusbar,
-.nav-content {
-  background-color: white;
-}
-nav .title {
-  position: fixed;
-  top: 0;
-  left: 200px;
-  font-size: 2rem;
-}
-.input-field,
-.switch > label,
-.input-field > label,
-.input-field > .material-icons,
-.dropdown-content > li > a,
-.tooltip > .material-icons,
-label > span,
-.secondary-content > .material-icons {
-  color: #1a237e;
-  /* font-weight: bold; */
-}
-.tabs.tabs-transparent .tab a,
-nav ul a {
-  /* font-weight: bold; */
-  color: #1a237e;
-  padding: 0;
-}
-.primary-text {
-  color: #1a237e;
-}
-a {
-  color: #2b36aa;
-}
-
 .markdown ul {
   padding-left: 20px;
   margin: 0;
@@ -68,47 +27,8 @@ a {
   z-index: 950;
 }
 
-/* styles for '...' */
-.block-with-text {
-  /* hide text if it more than N lines  */
-  overflow: hidden;
-  /* for set '...' in absolute position */
-  position: relative;
-  /* use this value to count block height */
-  line-height: 1.2em;
-  /* max-height = line-height (1.2) * lines max number (3) */
-  max-height: 3.6em;
-  /* fix problem when last visible word doesn't adjoin right side  */
-  text-align: justify;
-
-  /* */
-  margin-right: -1em;
-  padding-right: 1em;
-}
-.block-with-text:before {
-  /* points in the end */
-  content: '...';
-  /* absolute position */
-  position: absolute;
-  /* set position to right bottom corner of block */
-  right: 0;
-  bottom: 0;
-}
-.block-with-text:after {
-  /* points in the end */
-  content: '';
-  /* absolute position */
-  position: absolute;
-  /* set position to right bottom corner of text */
-  right: 0;
-  width: 1em;
-  /* set width and height */
-  height: 1em;
-  margin-top: 0.2em;
-  background: white;
-}
 .sidenav {
-  width: 250px;
+  width: 280px;
   top: 66px;
 }
 .sidenav li {
@@ -193,7 +113,6 @@ ul.questionnaire-nav > li > a {
   width: 25%;
 }
 .markdown p {
-  color: black;
   font-weight: normal;
 }
 .markdown.squeeze p {
@@ -483,13 +402,13 @@ ul.projects > li > span.project-id {
 }
 
 /* For the options' label */
-.input-field.options > label {
+/* .input-field.options > label {
   top: -1.7rem;
   transform: scale(0.8);
 }
 .input-field.options {
   margin-top: 1.2rem;
-}
+} */
 
 .condensed .input-field {
   margin: 0 auto;
@@ -554,7 +473,7 @@ a.waves-effect.waves-teal.btn-flat.selected {
   color: white;
 }
 
-.input-field > label:not(.label-icon).active {
+/* .input-field > label:not(.label-icon).active {
   -webkit-transform: translateY(-8px) scale(0.8);
   transform: translateY(-8px) scale(0.8);
   -webkit-transform-origin: 0 0;
@@ -562,7 +481,7 @@ a.waves-effect.waves-teal.btn-flat.selected {
 }
 .input-field > input[type='color'] {
   margin-top: 20px;
-}
+} */
 
 .button-group {
   display: flex;
@@ -868,12 +787,12 @@ li input[type='text'] {
   border: 2px solid #2668a6; /* Teal border to indicate selection */
   box-shadow: 0 4px 8px rgba(38, 115, 166, 0.5);
 }
-.multi-select-dropdown {
+/* .multi-select-dropdown {
   margin-top: 3px;
 }
 .multi-select-dropdown > label {
   transform: translateY(-12px) scale(0.8);
-}
+} */
 .input-field.select-space {
   margin-bottom: 6px;
 }

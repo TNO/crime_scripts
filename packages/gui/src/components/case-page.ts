@@ -40,7 +40,7 @@ export const CasePage: MeiosisComponent = () => {
             label: t('FOUND_ITEMS'),
             iconName: 'search',
             className: 'center-align',
-            initialValue: caseFilter,
+            defaultValue: caseFilter,
             onchange: (v) => {
               // const caseTags = tags.map((tag) => tag.tag);
               update({ caseFilter: v });
@@ -68,7 +68,11 @@ export const CasePage: MeiosisComponent = () => {
                               style: { cursor: 'pointer' },
                               href: routingSvc.href(Pages.CRIME_SCRIPT, `id=${model.crimeScripts[crimeScriptIdx].id}`),
                               onclick: () => {
-                                actions.setLocation(model.crimeScripts[crimeScriptIdx].id, actIdx, phaseIdx);
+                                actions.setLocation(
+                                  model.crimeScripts[crimeScriptIdx].id,
+                                  String(actIdx),
+                                  String(phaseIdx)
+                                );
                               },
                             },
                             `${actIdx >= 0 ? model.acts[actIdx].label : t('TEXT')} (score: ${score})`

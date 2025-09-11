@@ -1,7 +1,8 @@
 import m from 'mithril';
 import 'material-icons/iconfont/filled.css';
-import 'materialize-css/dist/css/materialize.min.css';
-import 'materialize-css/dist/js/materialize.min.js';
+import 'mithril-materialized/index.css';
+// import 'materialize-css/dist/css/materialize.min.css';
+// import 'materialize-css/dist/js/materialize.min.js';
 import './css/style.css';
 import { routingSvc } from './services/routing-service';
 import { LANGUAGE, SAVED } from './utils';

@@ -1,36 +1,37 @@
 import m from 'mithril';
-import { FlatButton, Icon } from 'mithril-materialized';
+import { FlatButton, Icon, ModalPanel, ThemeManager, ThemeToggle, TextInput } from 'mithril-materialized';
 import logo from '../assets/logo.svg';
 import tno from '../assets/tno.svg';
-import { Pages, Page, DataModel } from '../models';
+import tno_white from '../assets/tno_white.svg';
+import { Pages, Page, DataModel, defaultModel } from '../models';
 import { routingSvc } from '../services/routing-service';
 import { APP_TITLE, APP_TITLE_SHORT, MeiosisComponent, t } from '../services';
-import { SideNav, SideNavTrigger } from './ui/sidenav';
-import { TextInputWithClear } from './ui/text-input-with-clear';
+import { SideNav } from './ui/sidenav';
 import { isActivePage, isSmallPage } from '../utils';
 
 export const Layout: MeiosisComponent = () => {
   const style = 'font-size: 2.2rem; width: 4rem;';
-  let searchDialog: M.Modal;
-  let textInput: HTMLInputElement;
+  let searchDialogOpen = false;
+  let clearModelOpen = false;
+  // let searchDialog: M.Modal;
+  // let textInput: HTMLInputElement;
 
   document.addEventListener('keydown', (ev: KeyboardEvent) => {
     if (
       ev.key !== '/' ||
-      searchDialog?.isOpen ||
+      searchDialogOpen ||
       (ev.target && (ev.target as HTMLTextAreaElement).type === 'textarea') ||
       (ev.target as HTMLInputElement).type === 'text'
     )
       return;
     ev.preventDefault(); // Prevent the slash key from being inputted into input fields
-    searchDialog.open();
-    textInput.focus();
+    searchDialogOpen = true;
   });
 
   return {
     view: ({ children, attrs: { state, actions } }) => {
       const { page, searchFilter, searchResults, model = {} as DataModel } = state;
-      const { changePage, setSearchFilter } = actions;
+      const { changePage, setSearchFilter, saveModel } = actions;
       const curPage = routingSvc
         .getList()
         .filter((p) => p.id === page)
@@ -49,7 +50,7 @@ export const Layout: MeiosisComponent = () => {
                   'a.brand-logo.hide-on-med-and-down',
                   {
                     title: APP_TITLE,
-                    style: 'margin-left: 20px; color: black; height: 50%',
+                    style: { marginLeft: '20px', height: '50%' },
                     href: routingSvc.href(Pages.LANDING),
                   },
                   [
@@ -57,22 +58,22 @@ export const Layout: MeiosisComponent = () => {
                       src: logo,
                       style: 'margin: 6px -6px;',
                     }),
-                    m('span', { style: 'margin-left: 20px; vertical-align: top;' }, APP_TITLE),
+                    m('span', { style: { marginLeft: '20px', verticalAlign: 'top' } }, APP_TITLE),
                   ]
                 ),
                 m(
                   'a.brand-logo.show-on-small',
                   {
                     title: APP_TITLE_SHORT,
-                    style: 'margin-left: 20px; color: black; height: 50%',
+                    style: { marginLeft: '20px', height: '50%' },
                     href: routingSvc.href(Pages.LANDING),
                   },
                   [
                     m('img[width=50][height=50][alt=logo]', {
                       src: logo,
-                      style: 'margin: 6px -6px;',
+                      style: { margin: '6px -6px' },
                     }),
-                    m('span', { style: 'margin-left: 20px; vertical-align: top;' }, APP_TITLE_SHORT),
+                    m('span', { style: { marginLeft: '20px', verticalAlign: 'top' } }, APP_TITLE_SHORT),
                   ]
                 ),
 
@@ -86,10 +87,11 @@ export const Layout: MeiosisComponent = () => {
                       },
                       onclick: (e: MouseEvent) => {
                         e.preventDefault();
-                        searchDialog && !searchDialog.isOpen && searchDialog.open();
+                        searchDialogOpen = true;
+                        // searchDialog && !searchDialog.isOpen && searchDialog.open();
                       },
                     }),
-                    m('span.tooltiptext', { style: { 'font-size': '1rem' } }, t('SEARCH_TOOLTIP')),
+                    m('span.tooltiptext', { style: { fontSize: '1rem' } }, t('SEARCH_TOOLTIP')),
                   ]),
                   ...routingSvc
                     .getList()
@@ -99,7 +101,7 @@ export const Layout: MeiosisComponent = () => {
                         ((typeof d.visible === 'boolean' ? d.visible : d.visible(state)) || isActive(d))
                     )
                     .map((d: Page) =>
-                      m('li', { style: 'text-align:center', class: isActive(d) }, [
+                      m('li', { style: { textAlign: 'center' }, class: isActive(d) }, [
                         m(
                           'a.primary-text',
                           {
@@ -115,43 +117,60 @@ export const Layout: MeiosisComponent = () => {
                         ),
                       ])
                     ),
+                  m('li', m(ThemeToggle)),
                 ]),
               ])
             )
           ),
           (isSmallPage() || (curPage && curPage.hasSidebar)) && [
-            m(SideNavTrigger, { state, actions }),
-            m(SideNav, { state, actions }),
+            m(FlatButton, {
+              iconName: 'menu',
+              onclick: () => actions.update({ sideNavOpen: true }),
+            }),
+            m(SideNav, { state, actions, options: { onDelete: () => (clearModelOpen = true) } }),
           ],
-          m(
-            '#searchDialog.modal',
-            {
-              oncreate: ({ dom }) => {
-                searchDialog = M.Modal.init(dom, {
-                  onOpenEnd: () => {
-                    if (textInput) {
-                      textInput.focus();
-                    }
+          clearModelOpen &&
+            m(ModalPanel, {
+              id: 'clear_model',
+              isOpen: true,
+              onClose: () => (clearModelOpen = false),
+              title: t('DELETE_ITEM', 'TITLE', { item: t('MODEL') }),
+              description: t('DELETE_ITEM', 'DESCRIPTION', { item: t('MODEL').toLowerCase() }),
+              buttons: [
+                { label: t('CANCEL'), iconName: 'cancel' },
+                {
+                  label: t('DELETE'),
+                  iconName: 'delete',
+                  onclick: () => {
+                    saveModel(defaultModel);
                   },
-                });
+                },
+              ],
+            }),
+          searchDialogOpen &&
+            m(ModalPanel, {
+              id: 'searchDialog',
+              title: t('SEARCH'),
+              isOpen: true,
+              onClose: () => {
+                searchDialogOpen = false;
               },
-            },
-            [
-              m('.modal-content.row', [
-                m(TextInputWithClear, {
+              description: m('.modal-content.row', [
+                m(TextInput, {
                   id: 'search',
+                  canClear: true,
                   label: t('SEARCH'),
                   onchange: () => {},
                   iconName: 'search',
-                  initialValue: searchFilter,
+                  defaultValue: searchFilter,
                   oninput: (v) => {
                     setSearchFilter(v);
                   },
-                  oncreate: ({ dom }) => (textInput = dom.querySelector('input') as HTMLInputElement),
+                  oncreate: ({ dom }) => (dom.querySelector('input') as HTMLInputElement).focus(),
                 }),
-                searchDialog &&
-                  searchDialog.isOpen &&
-                  searchFilter &&
+                // searchDialog &&
+                // searchDialog.isOpen &&
+                searchFilter &&
                   searchResults && [
                     [m('p', t('HITS', searchResults.length))],
                     searchResults.length > 0 && [
@@ -175,8 +194,12 @@ export const Layout: MeiosisComponent = () => {
                                         `id=${model.crimeScripts[crimeScriptIdx].id}`
                                       ),
                                       onclick: () => {
-                                        searchDialog.close();
-                                        actions.setLocation(model.crimeScripts[crimeScriptIdx].id, actIdx, phaseIdx);
+                                        // searchDialog.close();
+                                        actions.setLocation(
+                                          model.crimeScripts[crimeScriptIdx].id,
+                                          String(actIdx),
+                                          String(phaseIdx)
+                                        );
                                       },
                                     },
                                     `${actIdx >= 0 ? model.acts[actIdx].label : t('TEXT')} (score: ${score})`
@@ -190,8 +213,7 @@ export const Layout: MeiosisComponent = () => {
                     ],
                   ],
               ]),
-            ]
-          ),
+            }),
           m(
             '.container',
             { style: 'padding-top: 5px' },
@@ -214,13 +236,10 @@ export const Layout: MeiosisComponent = () => {
                   {
                     href: 'https://www.tno.nl',
                     target: '_blank',
-                    // style: {
-                    //   position: 'fixed',
-                    //   bottom: '0',
-                    //   right: '10px',
-                    // },
                   },
-                  m('img[width=100][height=50][alt=TNO website][title=TNO website].right', { src: tno })
+                  m('img[width=100][height=50][alt=TNO website][title=TNO website].right', {
+                    src: ThemeManager.getEffectiveTheme() === 'dark' ? tno_white : tno,
+                  })
                 )
               )
             )

@@ -109,7 +109,7 @@ export const HomePage: MeiosisComponent = () => {
                   actions.update({ currentCrimeScriptId: id });
                 };
                 return m('li.collection-item.avatar.cursor-pointer', { onclick }, [
-                  m('img.circle', { src: url, alt: 'Avatar' }),
+                  m('img.white.circle', { src: url, alt: 'Avatar', style: { padding: '2px' } }),
                   m(
                     'span.title',
                     `${label}${

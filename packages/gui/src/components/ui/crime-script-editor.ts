@@ -13,7 +13,7 @@ import {
   DataModel,
   Labelled,
 } from '../../models';
-import { FlatButton, Tabs, uniqueId, Select, ISelectOptions, ModalPanel } from 'mithril-materialized';
+import { FlatButton, Tabs, uniqueId, Select, ModalPanel } from 'mithril-materialized';
 import { FormAttributes, LayoutForm, UIForm } from 'mithril-ui-form';
 import { labelForm, literatureForm } from '../../models/forms';
 import { crimeMeasureOptions } from '../../models/situational-crime-prevention';
@@ -38,6 +38,7 @@ export const CrimeScriptEditor: FactoryComponent<{
   let activityForm: UIForm<ActivityPhase>;
   let opportunitiesForm: UIForm<{ conditions: Opportunity[] }>;
   let indicatorsForm: UIForm<{ indicators: Indicator[] }>;
+  let deletePhaseOpen = false;
 
   const measOptions = crimeMeasureOptions();
 
@@ -317,21 +318,21 @@ export const CrimeScriptEditor: FactoryComponent<{
           crimeScript.stages?.length > 0 && [
             [
               curScene.ids.length > 1
-                ? m(Select, {
+                ? m(Select<ID>, {
                     key,
                     label: t('SELECT_ACT'),
                     className: 'col s6 m8',
-                    initialValue: curScene.actId,
+                    checkedId: curScene.actId,
                     // disabled: curActIds.ids.length === 1,
                     options: acts.filter((a) => curScene.ids.includes(a.id)),
                     onchange: (id) => {
                       curScene.actId = id[0];
                     },
-                  } as ISelectOptions<ID>)
+                  })
                 : undefined,
               m(FlatButton, {
                 key,
-                modalId: 'deletePhase',
+                onclick: () => (deletePhaseOpen = true),
                 label: t('DELETE_ACT'),
                 className: 'icon-right right',
                 iconClass: 'right',
@@ -408,30 +409,33 @@ export const CrimeScriptEditor: FactoryComponent<{
               ]),
             ])
           ),
-          m(ModalPanel, {
-            id: 'deletePhase',
-            title: t('DELETE_ACT'),
-            description: t('DELETE_ACT_CONFIRM', { name: curAct.label }),
-            buttons: [
-              { label: t('CANCEL'), iconName: 'cancel' },
-              {
-                label: t('DELETE'),
-                iconName: 'delete',
-                onclick: () => {
-                  const id = curAct.id;
-                  console.log(`Deleting ${id}, ${curAct.label}`);
-                  if (id) {
-                    actLabels = actLabels.filter((a) => a.id !== id);
-                    if (curScene && curScene.ids) {
-                      curScene.ids = curScene.ids.filter((i) => i !== id);
-                      curScene.actId = curScene.ids.length > 0 ? curScene.ids[0] : '';
+          deletePhaseOpen &&
+            m(ModalPanel, {
+              id: 'deletePhase',
+              title: t('DELETE_ACT'),
+              description: t('DELETE_ACT_CONFIRM', { name: curAct.label }),
+              isOpen: true,
+              onClose: () => (deletePhaseOpen = false),
+              buttons: [
+                { label: t('CANCEL'), iconName: 'cancel' },
+                {
+                  label: t('DELETE'),
+                  iconName: 'delete',
+                  onclick: () => {
+                    const id = curAct.id;
+                    console.log(`Deleting ${id}, ${curAct.label}`);
+                    if (id) {
+                      actLabels = actLabels.filter((a) => a.id !== id);
+                      if (curScene && curScene.ids) {
+                        curScene.ids = curScene.ids.filter((i) => i !== id);
+                        curScene.actId = curScene.ids.length > 0 ? curScene.ids[0] : '';
+                      }
+                      model.acts = model.acts?.filter((a) => a.id !== id);
                     }
-                    model.acts = model.acts?.filter((a) => a.id !== id);
-                  }
+                  },
                 },
-              },
-            ],
-          }),
+              ],
+            }),
         ],
       ]);
     },

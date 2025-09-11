@@ -13,9 +13,8 @@ import {
 } from '../models';
 import { MeiosisComponent, routingSvc, t } from '../services';
 import { deepCopy, FormAttributes, LayoutForm, SlimdownView } from 'mithril-ui-form';
-import { Collapsible, FlatButton, Tabs } from 'mithril-materialized';
+import { Collapsible, FlatButton, Tabs, TextInput } from 'mithril-materialized';
 import { attrForm, AttributeType } from '../models/forms';
-import { TextInputWithClear } from './ui/text-input-with-clear';
 import { scrollToActiveItem, sortByLabel } from '../utils';
 import { TreeView } from './ui/treeview';
 
@@ -100,14 +99,15 @@ export const SettingsPage: MeiosisComponent = () => {
 
       return m(
         '#settings-page.settings.page.row',
-        m(TextInputWithClear, {
+        m(TextInput, {
           id: 'search',
+          canClear: true,
           className: 'col s6',
           style: 'height: 50px',
           label: t('SEARCH'),
           onchange: () => {},
           iconName: 'filter_alt',
-          initialValue: attributeFilter,
+          defaultValue: attributeFilter,
           oninput: (v) => {
             actions.setAttributeFilter(v);
           },

@@ -11,6 +11,7 @@ import { CrimeScriptViewer } from './ui/crime-script-viewer';
 export const CrimeScriptPage: MeiosisComponent = () => {
   let id = '';
   let edit = false;
+  let deleteScriptOpen = false;
 
   return {
     oninit: ({
@@ -84,7 +85,7 @@ export const CrimeScriptPage: MeiosisComponent = () => {
                       label: t('DELETE_SCRIPT'),
                       iconName: 'delete',
                       className: 'small',
-                      modalId: 'deleteScript',
+                      onclick: () => (deleteScriptOpen = true),
                     }),
                   ],
             ],
@@ -190,25 +191,28 @@ export const CrimeScriptPage: MeiosisComponent = () => {
                   })
             ),
         ],
-        m(ModalPanel, {
-          id: 'deleteScript',
-          title: t('DELETE_SCRIPT'),
-          description: t('DELETE_SCRIPT_CONFIRM', { name: crimeScript?.label }),
-          buttons: [
-            { label: t('CANCEL'), iconName: 'cancel' },
-            {
-              label: t('DELETE'),
-              iconName: 'delete',
-              onclick: () => {
-                if (crimeScript) {
-                  model.crimeScripts = model.crimeScripts.filter((c) => c.id !== id);
-                  actions.saveModel(model);
-                  actions.changePage(Pages.HOME);
-                }
+        deleteScriptOpen &&
+          m(ModalPanel, {
+            id: 'deleteScript',
+            title: t('DELETE_SCRIPT'),
+            description: t('DELETE_SCRIPT_CONFIRM', { name: crimeScript?.label }),
+            onClose: () => (deleteScriptOpen = false),
+            isOpen: true,
+            buttons: [
+              { label: t('CANCEL'), iconName: 'cancel' },
+              {
+                label: t('DELETE'),
+                iconName: 'delete',
+                onclick: () => {
+                  if (crimeScript) {
+                    model.crimeScripts = model.crimeScripts.filter((c) => c.id !== id);
+                    actions.saveModel(model);
+                    actions.changePage(Pages.HOME);
+                  }
+                },
               },
-            },
-          ],
-        })
+            ],
+          })
       );
     },
   };

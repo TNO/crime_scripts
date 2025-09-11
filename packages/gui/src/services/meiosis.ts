@@ -16,7 +16,7 @@ import {
 import { aggregateFlexSearchResults, crimeScriptFilterToText, mergeDataModels, scrollToTop, tokenize } from '../utils';
 import { flexSearchLookupUpdater } from './flex-search';
 import { User, UserRole } from './login-service';
-import { uniqueId } from 'mithril-materialized';
+import { toast, uniqueId } from 'mithril-materialized';
 
 // const settingsSvc = restServiceFactory<Settings>('settings');
 const PREVIEW_MODEL_KEY = 'CSS_PREVIEW_MODEL';
@@ -43,6 +43,7 @@ export interface State {
   crimeScriptFilter: CrimeScriptFilter;
   /** For finding search results */
   lookup: Map<string, FlexSearchResult[]>;
+  sideNavOpen: false;
 }
 
 export interface Actions {
@@ -109,7 +110,7 @@ export const appActions: (cell: MeiosisCell<State>) => Actions = ({ update /* st
         update({ model: () => mergedModel });
       }
     } catch (e: any) {
-      M.toast({
+      toast({
         html: `Error loading models: ${e}`,
         classes: 'red',
       });
