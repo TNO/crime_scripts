@@ -803,30 +803,8 @@ li input[type='text'] {
   margin-top: 12px;
 }
 
-/* START Tree view */
-.tree-view {
-  -webkit-user-select: none;
-  user-select: none;
+.wizard-body .row .col,
+.wizard-body .row .col:first-child,
+.wizard-body .row .col:last-child {
+  padding: 0 0.75rem;
 }
-
-.tree-node {
-  margin: 4px 0;
-}
-
-.node-content {
-  display: flex;
-  align-items: center;
-  padding: 4px;
-}
-
-.node-content:hover {
-  background-color: #f5f5f5;
-  border-radius: 4px;
-}
-
-.toggle-icon {
-  font-size: 12px;
-  color: #666;
-}
-
-/* END Tree view */

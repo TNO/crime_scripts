@@ -1,12 +1,6 @@
 import m, { FactoryComponent, Attributes } from 'mithril';
+import { TreeView as MMTreeView, TreeNode } from 'mithril-materialized';
 import { Hierarchical, ID, Labelled } from '../../models';
-
-export interface TreeNode {
-  label: string;
-  children?: TreeNode[];
-  expanded?: boolean;
-  data?: Labelled & Hierarchical;
-}
 
 const buildTreeFromHierarchy = (items: (Labelled & Hierarchical)[]): TreeNode[] => {
   // Create a map for quick item lookup
@@ -31,9 +25,10 @@ const buildTreeFromHierarchy = (items: (Labelled & Hierarchical)[]): TreeNode[] 
   // Helper function to recursively build tree nodes
   const buildNode = (item: Labelled & Hierarchical): TreeNode => {
     const node: TreeNode = {
+      id: item.id,
       label: item.label,
       expanded: true,
-      data: item,
+      // data: item,
     };
 
     // Get children for this node
@@ -56,7 +51,7 @@ const buildTreeFromHierarchy = (items: (Labelled & Hierarchical)[]): TreeNode[] 
 export const TreeView: FactoryComponent<
   { data: TreeNode | Array<Hierarchical & Labelled>; rootLabel?: string } & Attributes
 > = () => {
-  let treeData: TreeNode;
+  let treeData: TreeNode[];
 
   // Recursive function to toggle node expansion
   const toggleNode = (node: TreeNode) => {
@@ -115,28 +110,24 @@ export const TreeView: FactoryComponent<
   };
 
   return {
-    oninit: ({ attrs: { data, rootLabel } }) => {
+    view: ({ attrs: { data, rootLabel } }) => {
       if (Array.isArray(data)) {
-        treeData = {
-          label: rootLabel || 'Root',
-          expanded: true,
-          children: buildTreeFromHierarchy(data),
-        } as TreeNode;
+        treeData = [
+          {
+            label: rootLabel || 'Root',
+            expanded: true,
+            children: buildTreeFromHierarchy(data),
+          } as TreeNode,
+        ];
       } else {
         treeData = JSON.parse(JSON.stringify(data));
       }
+      return m(MMTreeView, {
+        data: treeData,
+        iconType: 'caret',
+        selectionMode: 'none',
+        showConnectors: false,
+      });
     },
-    view: ({ attrs: { data, ...attrs } }) =>
-      m(
-        '.tree-view',
-        {
-          ...attrs,
-          style: {
-            // fontFamily: 'Arial, sans-serif',
-            padding: '1rem',
-          },
-        },
-        renderNode(treeData)
-      ),
   };
 };
