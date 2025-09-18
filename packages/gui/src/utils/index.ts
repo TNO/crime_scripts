@@ -11,7 +11,7 @@ import {
   ID,
   Labelled,
   Measure,
-  NewsArticle,
+  // NewsArticle,
   Page,
   Pages,
   SearchResult,
@@ -642,20 +642,20 @@ export function mergeDataModels(model1: DataModel, model2: DataModel): DataModel
     transports: activity.transports?.map((id) => labelToIdMap.get(id) || id),
   });
 
-  const mergeArticles = (arr1: NewsArticle[], arr2: NewsArticle[]): NewsArticle[] => {
-    const mergedMap = new Map<string, NewsArticle>();
+  // const mergeArticles = (arr1: NewsArticle[], arr2: NewsArticle[]): NewsArticle[] => {
+  //   const mergedMap = new Map<string, NewsArticle>();
 
-    arr1.forEach((article) => mergedMap.set(article.url, article));
+  //   arr1.forEach((article) => mergedMap.set(article.url, article));
 
-    arr2.forEach((article) => {
-      const existingArticle = mergedMap.get(article.url);
-      if (!existingArticle) {
-        mergedMap.set(article.url, article);
-      }
-    });
+  //   arr2.forEach((article) => {
+  //     const existingArticle = mergedMap.get(article.url);
+  //     if (!existingArticle) {
+  //       mergedMap.set(article.url, article);
+  //     }
+  //   });
 
-    return Array.from(mergedMap.values());
-  };
+  //   return Array.from(mergedMap.values());
+  // };
 
   return {
     version: Math.max(model1.version, model2.version),
@@ -671,6 +671,6 @@ export function mergeDataModels(model1: DataModel, model2: DataModel): DataModel
     transports: mergeLabeledArrays(model1.transports, model2.transports),
     partners: mergeLabeledArrays(model1.partners, model2.partners),
     acts: updateActReferences(mergeLabeledArrays(model1.acts, model2.acts)),
-    articles: mergeArticles(model1.articles, model2.articles),
+    // articles: mergeArticles(model1.articles, model2.articles),
   };
 }

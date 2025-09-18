@@ -1,14 +1,17 @@
 import m from 'mithril';
 import { Act, CrimeScript, CrimeScriptFilter, Hierarchical, ID, Labelled, Pages, scriptIcon } from '../models';
 import { MeiosisComponent, routingSvc } from '../services';
-import { FlatButton, uniqueId, Icon } from 'mithril-materialized';
+import { FlatButton, uniqueId, Icon, ModalPanel } from 'mithril-materialized';
 import { I18N, t } from '../services/translations';
 import { toCommaSeparatedList } from '../utils';
 import { FormAttributes, LayoutForm, UIForm } from 'mithril-ui-form';
 import { crimeScriptFilterFormFactory } from '../models/forms';
+import { NewScriptWizard } from './ui/new_script_wizard';
 // import lz from 'lz-string';
 
 export const HomePage: MeiosisComponent = () => {
+  let wizardOpen = false;
+
   const actLocations = (cs: CrimeScript, acts: Act[]) => {
     const csActs = cs.stages
       .map((stage) => acts.find((a) => a.id === stage.actId))
@@ -68,6 +71,17 @@ export const HomePage: MeiosisComponent = () => {
           : (_cs: CrimeScript, _idx: number, _arr: CrimeScript[]) => true;
 
       return m('#home-page.row.home.page', [
+        wizardOpen &&
+          m(ModalPanel, {
+            id: 'new-script-wizard',
+            title: t('NEW_SCRIPT'),
+            isOpen: true,
+            onClose: () => (wizardOpen = false),
+            description: m(NewScriptWizard, {
+              state,
+              actions,
+            }),
+          }),
         isAdmin &&
           m(
             '.right-align',
@@ -76,13 +90,14 @@ export const HomePage: MeiosisComponent = () => {
               iconName: 'add',
               className: 'small',
               onclick: () => {
-                const newCrimeScript = {
-                  label: t('NEW_SCRIPT_NAME'),
-                  id: uniqueId(),
-                } as CrimeScript;
-                model.crimeScripts.push(newCrimeScript);
-                actions.saveModel(model);
-                actions.changePage(Pages.CRIME_SCRIPT, { id: newCrimeScript.id, edit: 1 });
+                wizardOpen = true;
+                // const newCrimeScript = {
+                //   label: t('NEW_SCRIPT_NAME'),
+                //   id: uniqueId(),
+                // } as CrimeScript;
+                // model.crimeScripts.push(newCrimeScript);
+                // actions.saveModel(model);
+                // actions.changePage(Pages.CRIME_SCRIPT, { id: newCrimeScript.id, edit: 1 });
               },
             })
           ),
