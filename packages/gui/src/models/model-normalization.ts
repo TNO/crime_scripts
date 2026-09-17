@@ -32,8 +32,16 @@ const normalizeAct = (act: Act): Act => ({
     };
   }),
   conditions: clone(act.conditions || []),
-  indicators: clone(act.indicators || []),
-  measures: clone(act.measures || []),
+  indicators: clone(act.indicators || []).map((item) => ({
+    ...item,
+    inheritedSources: item.inheritedSources ? clone(item.inheritedSources) : undefined,
+  })),
+  measures: clone(act.measures || []).map((item) => ({
+    ...item,
+    cat: item.cat || 'other',
+    partners: item.partners || [],
+    inheritedSources: item.inheritedSources ? clone(item.inheritedSources) : undefined,
+  })),
   opportunities: clone(act.opportunities || []),
 });
 
@@ -105,7 +113,19 @@ export const normalizeDataModel = (input: unknown): DataModel => {
         ])
       ),
     }));
-    return { ...crimeScript, stages, tracks };
+    return {
+      ...crimeScript,
+      owner: crimeScript.owner || '',
+      updated: crimeScript.updated || legacy.lastUpdate || Date.now(),
+      reviewer: crimeScript.reviewer || [],
+      status: crimeScript.status || 1,
+      literature: (crimeScript.literature || []).map((source) => ({ ...source })),
+      productIds: crimeScript.productIds || [],
+      language: crimeScript.language === 'en' ? 'en' : 'nl',
+      aiGenerated: crimeScript.aiGenerated === true,
+      stages,
+      tracks,
+    };
   });
   const {
     acts: _acts,
@@ -123,7 +143,7 @@ export const normalizeDataModel = (input: unknown): DataModel => {
 
   return {
     ...currentModel,
-    schemaVersion: 2,
+    schemaVersion: 3,
     version: legacy.version || 1,
     lastUpdate: legacy.lastUpdate || Date.now(),
     crimeScripts,
@@ -134,5 +154,6 @@ export const normalizeDataModel = (input: unknown): DataModel => {
     products,
     transports,
     partners,
+    starterBundle: legacy.starterBundle,
   } as DataModel;
 };

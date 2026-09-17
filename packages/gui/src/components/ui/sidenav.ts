@@ -1,14 +1,34 @@
 import { compressToEncodedURIComponent, decompressFromUint8Array } from 'lz-string';
 import m from 'mithril';
-import { FlatButton, padLeft, Select, Sidenav, snackbar } from 'mithril-materialized';
-import type { DataModel, Page } from '../../models';
-import { defaultModel, Pages } from '../../models';
+import { Dialog, FlatButton, padLeft, Select, Sidenav, snackbar } from 'mithril-materialized';
+import type { ConflictAction, DataModel, Page } from '../../models';
+import { defaultModel, findStarterConflicts, importStarterBundle, Pages } from '../../models';
 import type { Languages, MeiosisComponent, UserRole } from '../../services';
-import { i18n, loadData, routingSvc, t } from '../../services';
+import { fetchStarterBundle, i18n, loadData, routingSvc, t } from '../../services';
 import { formatDate, isActivePage } from '../../utils';
 import { LanguageSwitcher } from './language-switcher';
 
 export const SideNav: MeiosisComponent<{ onDelete: () => void }> = () => {
+  let starterImportOpen = false;
+  let starterCandidate: DataModel | undefined;
+  let starterError = false;
+  let conflictChoices: Record<string, ConflictAction> = {};
+
+  const prepareStarterImport = async (model: DataModel) => {
+    try {
+      starterCandidate = await fetchStarterBundle();
+      starterError = false;
+      conflictChoices = Object.fromEntries(
+        findStarterConflicts(model, starterCandidate).map(({ id }) => [id, 'skip' as ConflictAction])
+      );
+    } catch {
+      starterCandidate = undefined;
+      starterError = true;
+    }
+    starterImportOpen = true;
+    m.redraw();
+  };
+
   const handleFileUpload = (binary: boolean, _saveModel: (model: DataModel) => void) => (e: Event) => {
     const fileInput = e.target as HTMLInputElement;
     if (!fileInput.files || fileInput.files.length <= 0) return;
@@ -105,7 +125,7 @@ export const SideNav: MeiosisComponent<{ onDelete: () => void }> = () => {
       attrs: {
         state,
         options,
-        actions: { saveModel, setRole, changePage, update },
+        actions: { saveModel, setRole, changePage, update, resetApplication },
       },
     }) => {
       const { model, role, page, sideNavOpen } = state;
@@ -113,7 +133,10 @@ export const SideNav: MeiosisComponent<{ onDelete: () => void }> = () => {
 
       const isActive = isActivePage(page);
 
-      return m(
+      const conflicts = starterCandidate ? findStarterConflicts(model, starterCandidate) : [];
+
+      return [
+      m(
         Sidenav,
         {
           width: 300,
@@ -147,6 +170,14 @@ export const SideNav: MeiosisComponent<{ onDelete: () => void }> = () => {
               label: t('CLEAR'),
               iconName: 'clear',
               onclick: options?.onDelete,
+            })
+          ),
+          m(
+            'li',
+            m(FlatButton, {
+              label: t('IMPORT_STARTER'),
+              iconName: 'library_add',
+              onclick: () => prepareStarterImport(model),
             })
           ),
           m(
@@ -204,6 +235,16 @@ export const SideNav: MeiosisComponent<{ onDelete: () => void }> = () => {
               })
             )
           ),
+          m(
+            'li',
+            m(FlatButton, {
+              label: t('RESET_APPLICATION'),
+              iconName: 'restart_alt',
+              onclick: () => {
+                if (window.confirm(t('RESET_APPLICATION_CONFIRM'))) resetApplication();
+              },
+            })
+          ),
         ]
         // clearModelOpen &&
         //   m(ModalPanel, {
@@ -223,7 +264,61 @@ export const SideNav: MeiosisComponent<{ onDelete: () => void }> = () => {
         //       },
         //     ],
         //   })
-      );
+      ),
+      starterImportOpen &&
+        m(Dialog, {
+          id: 'starter-import',
+          isOpen: true,
+          onToggle: (open: boolean) => (starterImportOpen = open),
+          title: t('IMPORT_STARTER'),
+          content: starterError
+            ? m('p', t('STARTER_LOAD_FAILED'))
+            : starterCandidate && [
+                m('p', model.crimeScripts.length === 0
+                  ? t('IMPORT_STARTER_EMPTY_CONFIRM')
+                  : t('IMPORT_STARTER_PREVIEW', {
+                      count: starterCandidate.crimeScripts.length,
+                      conflicts: conflicts.length,
+                    })),
+                m('ul.collection', starterCandidate.crimeScripts.map((script) =>
+                  m('li.collection-item', [
+                    m('span', script.label),
+                    conflicts.some(({ id }) => id === script.id) &&
+                      m(Select<ConflictAction>, {
+                        className: 'right',
+                        label: t('IMPORT_CONFLICT_ACTION'),
+                        checkedId: conflictChoices[script.id],
+                        options: [
+                          { id: 'skip', label: t('SKIP') },
+                          { id: 'replace', label: t('REPLACE') },
+                          { id: 'copy', label: t('IMPORT_COPY') },
+                        ],
+                        onchange: ([choice]) => {
+                          conflictChoices[script.id] = choice;
+                        },
+                      }),
+                  ])
+                )),
+              ],
+          secondaryAction: { label: t('CANCEL'), iconName: 'cancel' },
+          primaryAction: starterError
+            ? {
+                label: t('RETRY'),
+                iconName: 'refresh',
+                onclick: () => prepareStarterImport(model),
+              }
+            : {
+                label: t('IMPORT_STARTER'),
+                iconName: 'library_add',
+                onclick: () => {
+                  if (!starterCandidate) return;
+                  saveModel(importStarterBundle(model, starterCandidate, conflictChoices));
+                  starterImportOpen = false;
+                  snackbar({ message: t('STARTER_IMPORTED') });
+                },
+              },
+        }),
+      ];
     },
   };
 };

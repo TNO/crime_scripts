@@ -1,5 +1,6 @@
 import m, { type FactoryComponent } from 'mithril';
 import type { Literature } from '../../models';
+import { t } from '../../services';
 
 const ReferenceComponent: FactoryComponent<{ reference: Literature }> = () => {
   let showSummary = false;
@@ -7,7 +8,7 @@ const ReferenceComponent: FactoryComponent<{ reference: Literature }> = () => {
   return {
     view: ({
       attrs: {
-        reference: { url, label, authors, description },
+        reference: { url, label, authors, description, usedFor },
       },
     }) => {
       return m('li', [
@@ -23,6 +24,7 @@ const ReferenceComponent: FactoryComponent<{ reference: Literature }> = () => {
             showSummary ? ' ... (less)' : ' ... (more)'
           ),
         showSummary && m('p.summary', description),
+        usedFor && m('p.used-for', `${t('USED_FOR')}: ${usedFor}`),
       ]);
     },
   };

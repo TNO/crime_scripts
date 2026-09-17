@@ -60,7 +60,7 @@ export const mergeDataModels = (current: DataModel, imported: DataModel): DataMo
   }));
 
   return {
-    schemaVersion: 2,
+    schemaVersion: 3,
     version: Math.max(current.version, imported.version),
     lastUpdate: Math.max(current.lastUpdate, imported.lastUpdate),
     previewMode: false,
@@ -72,5 +72,6 @@ export const mergeDataModels = (current: DataModel, imported: DataModel): DataMo
     products: products.items,
     transports: transports.items,
     partners: partners.items,
+    starterBundle: imported.starterBundle || current.starterBundle,
   };
 };

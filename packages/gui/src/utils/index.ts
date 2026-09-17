@@ -575,7 +575,7 @@ export const toJSON = async (filename: string, cs: Partial<CrimeScript>, model: 
     encodeURIComponent(
       JSON.stringify({
         ...model,
-        schemaVersion: 2,
+        schemaVersion: 3,
         previewMode: true,
         crimeScripts: [cs],
         cast,

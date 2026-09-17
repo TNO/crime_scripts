@@ -1,6 +1,6 @@
 import m from 'mithril';
 import { AlertDialog, FlatButton } from 'mithril-materialized';
-import { type CrimeScript, type Labelled, Pages } from '../models';
+import { type CrimeScript, detachStarterScript, type Labelled, Pages } from '../models';
 import type { MeiosisComponent } from '../services';
 import { t } from '../services/translations';
 import { formatDate, toJSON } from '../utils';
@@ -89,6 +89,18 @@ export const CrimeScriptPage: MeiosisComponent = () => {
                 ],
             ],
             crimeScript && [
+              crimeScript.starterOrigin &&
+                m(FlatButton, {
+                  label: t('DETACH_STARTER'),
+                  className: 'small',
+                  iconName: 'link_off',
+                  onclick: () => {
+                    const detached = detachStarterScript(crimeScript);
+                    model.crimeScripts = model.crimeScripts.map((script) => script.id === crimeScript.id ? detached : script);
+                    actions.saveModel(model);
+                    actions.changePage(Pages.CRIME_SCRIPT, { id: detached.id });
+                  },
+                }),
               m(FlatButton, {
                 label: t('EXPORT_TO_WORD'),
                 className: 'small',

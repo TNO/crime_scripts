@@ -7,8 +7,10 @@ import {
   type DataModel,
   type FlexSearchResult,
   type ID,
+  importStarterBundle,
   mergeDataModels,
   normalizeDataModel,
+  validateStarterBundle,
   Pages,
   type SearchResult,
   type Settings,
@@ -21,6 +23,7 @@ import type { User, UserRole } from './login-service';
 // const settingsSvc = restServiceFactory<Settings>('settings');
 const PREVIEW_MODEL_KEY = 'CSS_PREVIEW_MODEL';
 const MODEL_KEY = 'CSS_MODEL';
+export const ONBOARDING_CHOICE_KEY = 'CSS_ONBOARDING_CHOICE';
 const USER_ROLE = 'CSS_USER_ROLE';
 export const APP_TITLE = 'PAX Crime Scripting';
 export const APP_TITLE_SHORT = 'PAX';
@@ -44,6 +47,8 @@ export interface State {
   /** For finding search results */
   lookup: Map<string, FlexSearchResult[]>;
   sideNavOpen: false;
+  needsOnboarding: boolean;
+  onboardingError?: string;
 }
 
 export interface Actions {
@@ -55,6 +60,8 @@ export interface Actions {
   ) => void;
   saveModel: (ds: DataModel) => void;
   mergePreviewModel: () => void;
+  completeOnboarding: (choice: 'starter' | 'empty') => Promise<void>;
+  resetApplication: () => void;
   saveSettings: (settings: Settings) => Promise<void>;
   setRole: (role: UserRole) => void;
   login: () => void;
@@ -92,7 +99,7 @@ export const appActions: (cell: MeiosisCell<State>) => Actions = ({ update /* st
   },
   saveModel: (model) => {
     model.lastUpdate = Date.now();
-    model.version = model.version ? model.version++ : 1;
+    model.version = model.version ? model.version + 1 : 1;
     localStorage.setItem(model.previewMode ? PREVIEW_MODEL_KEY : MODEL_KEY, JSON.stringify(model));
     // console.log(JSON.stringify(model, null, 2));
     update({ model: () => model });
@@ -115,6 +122,29 @@ export const appActions: (cell: MeiosisCell<State>) => Actions = ({ update /* st
         dismissible: true,
       });
     }
+  },
+  completeOnboarding: async (choice) => {
+    if (choice === 'empty') {
+      const model = normalizeDataModel({ crimeScripts: [] });
+      localStorage.setItem(ONBOARDING_CHOICE_KEY, choice);
+      localStorage.setItem(MODEL_KEY, JSON.stringify(model));
+      update({ model: () => model, needsOnboarding: false, onboardingError: undefined });
+      return;
+    }
+    try {
+      const model = importStarterBundle(normalizeDataModel({ crimeScripts: [] }), await fetchStarterBundle());
+      localStorage.setItem(ONBOARDING_CHOICE_KEY, choice);
+      localStorage.setItem(MODEL_KEY, JSON.stringify(model));
+      update({ model: () => model, needsOnboarding: false, onboardingError: undefined });
+    } catch (error) {
+      update({ onboardingError: error instanceof Error ? error.message : String(error) });
+    }
+  },
+  resetApplication: () => {
+    localStorage.removeItem(MODEL_KEY);
+    localStorage.removeItem(PREVIEW_MODEL_KEY);
+    localStorage.removeItem(ONBOARDING_CHOICE_KEY);
+    window.location.reload();
   },
   saveSettings: async (settings: Settings) => {
     // await settingsSvc.save(settings);
@@ -204,6 +234,7 @@ const config: MeiosisConfig<State> = {
       role: 'user',
       settings: {} as Settings,
       model: {} as DataModel,
+      needsOnboarding: false,
       crimeScriptFilter: {} as CrimeScriptFilter,
     } as State,
     services: [setSearchResults, setCaseSearchResults, flexSearchLookupUpdater],
@@ -227,7 +258,17 @@ export const loadData = async (ds = localStorage.getItem(MODEL_KEY)) => {
     });
     throw error;
   }
-  localStorage.setItem(model.previewMode ? PREVIEW_MODEL_KEY : MODEL_KEY, JSON.stringify(model));
+  const storedModelExists = Boolean(localStorage.getItem(MODEL_KEY));
+  const onboardingChoiceExists = Boolean(localStorage.getItem(ONBOARDING_CHOICE_KEY));
+  if (ds && !storedModelExists && !onboardingChoiceExists) {
+    localStorage.setItem(ONBOARDING_CHOICE_KEY, 'imported');
+  }
+  if (storedModelExists && !onboardingChoiceExists) {
+    localStorage.setItem(ONBOARDING_CHOICE_KEY, 'existing');
+  }
+  if (ds || storedModelExists) {
+    localStorage.setItem(model.previewMode ? PREVIEW_MODEL_KEY : MODEL_KEY, JSON.stringify(model));
+  }
 
   const role = (localStorage.getItem(USER_ROLE) || 'user') as UserRole;
   // const settings = (await settingsSvc.loadList()).shift() || ({} as Settings);
@@ -235,7 +276,14 @@ export const loadData = async (ds = localStorage.getItem(MODEL_KEY)) => {
   cells().update({
     role,
     model: () => model,
+    needsOnboarding: !ds && !storedModelExists && !onboardingChoiceExists,
     // settings: () => settings,
   });
+};
+
+export const fetchStarterBundle = async (): Promise<DataModel> => {
+  const response = await fetch('/starter-bundles/nl.json', { credentials: 'same-origin' });
+  if (!response.ok) throw new Error(`Starter library could not be loaded (${response.status}).`);
+  return validateStarterBundle(await response.json());
 };
 loadData();

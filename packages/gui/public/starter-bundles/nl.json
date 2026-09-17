@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 3,
+  "version": 1,
+  "lastUpdate": 1789671600000,
+  "starterBundle": {
+    "id": "pax-nl-starter",
+    "version": "1.0.0",
+    "locale": "nl",
+    "title": "Nederlandse starterbibliotheek",
+    "publishedAt": "2026-09-17"
+  },
+  "crimeScripts": [],
+  "cast": [],
+  "attributes": [],
+  "locations": [],
+  "geoLocations": [],
+  "products": [],
+  "transports": [],
+  "partners": []
+}

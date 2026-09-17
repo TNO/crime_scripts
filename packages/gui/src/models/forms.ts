@@ -59,6 +59,7 @@ export const literatureForm = () =>
     { id: 'authors', type: 'text', className: 'col s6', label: t('AUTHORS') },
     { id: 'url', type: 'url', className: 'col s12', label: t('LINK') },
     { id: 'description', type: 'textarea', className: 'col s12', label: t('SUMMARY') },
+    { id: 'usedFor', type: 'textarea', className: 'col s12', label: t('USED_FOR') },
   ] as UIForm<Partial<Literature>>;
 
 export const crimeScriptFilterFormFactory = (

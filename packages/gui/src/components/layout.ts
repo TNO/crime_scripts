@@ -4,9 +4,10 @@ import logo from '../assets/logo.svg';
 import tno from '../assets/tno.svg';
 import tno_white from '../assets/tno_white.svg';
 import { type DataModel, defaultModel, type Page, Pages } from '../models';
-import { APP_TITLE, APP_TITLE_SHORT, type MeiosisComponent, t } from '../services';
+import { APP_TITLE, APP_TITLE_SHORT, i18n, type MeiosisComponent, t } from '../services';
 import { routingSvc } from '../services/routing-service';
-import { isActivePage, isSmallPage } from '../utils';
+import { isActivePage, isSmallPage, LANGUAGE } from '../utils';
+import { LanguageSwitcher } from './ui/language-switcher';
 import { SideNav } from './ui/sidenav';
 
 export const Layout: MeiosisComponent = () => {
@@ -40,6 +41,44 @@ export const Layout: MeiosisComponent = () => {
       const isActive = isActivePage(page);
 
       return [
+        state.needsOnboarding &&
+          m(Dialog, {
+            id: 'starter-onboarding',
+            isOpen: true,
+            onToggle: () => {},
+            title: t('ONBOARDING_TITLE'),
+            content: m('.row', [
+              m('p.col.s12', state.onboardingError ? t('STARTER_LOAD_FAILED') : t('ONBOARDING_DESCRIPTION')),
+              m(LanguageSwitcher, {
+                className: 'col s12',
+                currentLanguage: i18n.currentLocale,
+                onLanguageChange: async (language) => {
+                  localStorage.setItem(LANGUAGE, language);
+                  await i18n.loadAndSetLocale(language);
+                },
+              }),
+            ]),
+            secondaryAction: {
+              label: t('START_EMPTY'),
+              iconName: 'note_add',
+              onclick: () => actions.completeOnboarding('empty'),
+            },
+            primaryAction: {
+              label: state.onboardingError
+                ? t('RETRY')
+                : i18n.currentLocale === 'nl'
+                  ? t('USE_STARTER')
+                  : t('SWITCH_TO_DUTCH'),
+              iconName: 'library_books',
+              onclick: async () => {
+                if (i18n.currentLocale !== 'nl') {
+                  localStorage.setItem(LANGUAGE, 'nl');
+                  await i18n.loadAndSetLocale('nl');
+                }
+                await actions.completeOnboarding('starter');
+              },
+            },
+          }),
         m('.main', { style: 'overflow-x: hidden' }, [
           m(
             '.navbar-fixed',

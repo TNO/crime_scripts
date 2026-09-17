@@ -297,6 +297,10 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
         geoLocationIds = [],
         tracks = [],
         url = scriptIcon,
+        language,
+        aiGenerated,
+        unreviewed,
+        starterOrigin,
       } = crimeScript;
 
       const scenesWithVariantsCnt = scenes.filter((scene) => scene.variants.length > 1).length || false;
@@ -398,6 +402,12 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
           'h4',
           highlighter(`${label}${productIds.length > 0 ? ` (${toCommaSeparatedList(products, productIds)})` : ''}`)
         ),
+        m('.script-provenance', [
+          m('span', `${t('LANGUAGE')}: ${language === 'nl' ? 'Nederlands' : 'English'}`),
+          aiGenerated && m('span.badge', t('AI_GENERATED')),
+          unreviewed && m('span.badge', t('UNREVIEWED')),
+          starterOrigin && m('span', `${starterOrigin.bundleId} ${starterOrigin.bundleVersion}`),
+        ]),
         geoLocationIds.length > 0 &&
         m(
           'i.geo-location',

@@ -19,7 +19,7 @@ const blue = '2F5496';
 
 /** Convert a crime script to a markdown string. */
 export const crimeScriptToMarkdown = (crimeScript: Partial<CrimeScript>, model: DataModel) => {
-  const { description, stages: scenes = [], literature, productIds, geoLocationIds } = crimeScript;
+  const { description, stages: scenes = [], literature, productIds, geoLocationIds, language, aiGenerated, unreviewed } = crimeScript;
   const { cast = [], attributes = [], transports = [], products = [], partners = [], geoLocations = [], locations = [] } =
     model;
 
@@ -34,6 +34,9 @@ export const crimeScriptToMarkdown = (crimeScript: Partial<CrimeScript>, model: 
   ].reduce((acc, cur) => acc.set(cur.id, cur), new Map<ID, Labelled & Hierarchical>());
 
   const md: string[] = [];
+  language && md.push(`${t('LANGUAGE')}: **${language}**`);
+  aiGenerated && md.push(`**${t('AI_GENERATED')}**`);
+  unreviewed && md.push(`**${t('UNREVIEWED')}**`);
 
   const newHeading = (txt: string, level: number) => {
     const last = md.length - 1;
@@ -167,9 +170,10 @@ export const crimeScriptToMarkdown = (crimeScript: Partial<CrimeScript>, model: 
   if (literature) {
     newHeading(t('REFERENCES'), 1);
     literature.forEach((l, i) => {
-      const title = l.url ? `[${l.label}](l.url)` : l.label;
+      const title = l.url ? `[${l.label}](${l.url})` : l.label;
       md.push(`${i + 1}. ${title} (${l.authors || ''})`);
       l.description && md.push(addLeadingSpaces(l.description, i < 9 ? 3 : 4));
+      l.usedFor && md.push(addLeadingSpaces(`${t('USED_FOR')}: ${l.usedFor}`, i < 9 ? 3 : 4));
     });
   }
   const cleaner = cleanText();

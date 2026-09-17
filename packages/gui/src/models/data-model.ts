@@ -1,7 +1,7 @@
 import type { ICONS } from './icons';
 
 export type DataModel = {
-  schemaVersion: 2;
+  schemaVersion: 3;
   version: number;
   lastUpdate: number;
   /** In preview mode, you can inspect a crime script before deciding to merge it into the main database. */
@@ -14,12 +14,13 @@ export type DataModel = {
   products: Product[];
   transports: Transport[];
   partners: Partner[];
+  starterBundle?: StarterBundleMetadata;
   //serviceProviders: ServiceProvider[];
   // articles: NewsArticle[];
 };
 
 export const defaultModel: DataModel = {
-  schemaVersion: 2,
+  schemaVersion: 3,
   version: 1,
   lastUpdate: new Date().valueOf(),
   crimeScripts: [],
@@ -111,6 +112,30 @@ export type Labelled = {
 export type Literature = Labelled & {
   authors?: string;
   type?: LITERATURE_TYPE;
+  /** What this source supports in the script. */
+  usedFor?: string;
+};
+
+export type ContentLanguage = 'nl' | 'en';
+
+export type StarterBundleMetadata = {
+  id: string;
+  version: string;
+  locale: ContentLanguage;
+  title: string;
+  /** ISO 8601 publication date. */
+  publishedAt: string;
+};
+
+export type StarterOrigin = {
+  bundleId: string;
+  bundleVersion: string;
+  scriptId: ID;
+};
+
+export type SuggestionOrigin = StarterOrigin & {
+  itemId: ID;
+  kind: 'indicator' | 'measure';
 };
 
 export type CrimeScript = Labelled & {
@@ -127,12 +152,22 @@ export type CrimeScript = Labelled & {
   productIds: ID[];
   /** Geographic locations on the map */
   geoLocationIds?: ID[];
+  language: ContentLanguage;
+  /** Permanent provenance; review does not remove this value. */
+  aiGenerated: boolean;
+  /** Editors and administrators may clear this after expert review. */
+  unreviewed?: boolean;
+  starterOrigin?: StarterOrigin;
 };
 
 export type Measure = Labelled & {
   /** Category the measure belongs to, e.g. situational crime prevention or other */
   cat: string;
   partners: ID[];
+  /** Internal provenance; not shown as an editor grouping. */
+  derivedFrom?: SuggestionOrigin;
+  /** Snapshot retained even if the source script later changes. */
+  inheritedSources?: Literature[];
 };
 
 export enum ATTRIBUTE_TYPE {
@@ -172,7 +207,10 @@ export type GeographicLocation = Labelled & Hierarchical;
 
 export type Opportunity = Labelled & Hierarchical;
 
-export type Indicator = Labelled & Hierarchical;
+export type Indicator = Labelled & Hierarchical & {
+  derivedFrom?: SuggestionOrigin;
+  inheritedSources?: Literature[];
+};
 
 export type Partner = Labelled & Hierarchical;
 

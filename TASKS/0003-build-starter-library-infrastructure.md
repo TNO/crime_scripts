@@ -1,6 +1,6 @@
 # 0003 Build starter-library infrastructure
 
-Status: open
+Status: done
 Priority: high
 Subsystem: frontend
 Depends on: 0002
@@ -47,3 +47,5 @@ Indicators and prevention measures remain owned by their activity-group variant.
 ## Agent Notes
 
 - 2026-09-17: Created from the completed design interview. The current model initializes from `{ crimeScripts: [] }`, stores `CSS_MODEL` in local storage, and embeds indicators/measures per act. Existing `search_select` prior art is used for roles, attributes, transports, and locations.
+- 2026-09-17 Copilot: Implemented schema 3, strict starter validation and the fixed Dutch fixture, first-run choice and existing-user migration, explicit conflict-safe imports, script/source provenance across editor/viewer/Word/JSON, suggestion copy/detach helpers and language-aware indicator/measure SearchSelect flows. Added 6 focused starter tests and updated migration expectations. Verified 12 passing GUI tests (1 optional legacy-fixture test skipped), `npm run typecheck`, and `npm run build`. Status intentionally remains `in_progress` for parent review.
+- 2026-09-17 Copilot: Completed parent review and hardened deep copy imports, taxonomy remapping, hierarchy validation, and distinct workspace/bundle suggestion provenance. Consolidated copied-item provenance under `derivedFrom`. Browser-verified required onboarding, explicit empty-workspace persistence, and the permanent starter-import dialog; the deployed Dutch fixture remains intentionally content-free until `0004`. Verified all 16 GUI tests including the supplied v30 model, typecheck, production build, `git diff --check`, and an Impeccable detector pass over changed UI files.

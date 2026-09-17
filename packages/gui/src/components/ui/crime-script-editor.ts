@@ -1,5 +1,5 @@
 import m, { type FactoryComponent } from 'mithril';
-import { AlertDialog, FlatButton, Select, Tabs, uniqueId } from 'mithril-materialized';
+import { AlertDialog, FlatButton, SearchSelect, Select, snackbar, Tabs, uniqueId } from 'mithril-materialized';
 import { type FormAttributes, LayoutForm, type UIForm } from 'mithril-ui-form';
 import {
   type Act,
@@ -14,9 +14,15 @@ import {
   type Measure,
   type Opportunity,
   type Scene,
+  collectStarterSuggestions,
+  copySuggestion,
+  hasCloseDuplicate,
+  saveAsNewSuggestion,
+  suggestionKey,
 } from '../../models';
 import { labelForm, literatureForm } from '../../models/forms';
 import { crimeMeasureOptions } from '../../models/situational-crime-prevention';
+import { fetchStarterBundle } from '../../services';
 import { I18N, t } from '../../services/translations';
 import { type InputOptions, toOptions } from '../../utils';
 
@@ -38,11 +44,18 @@ export const CrimeScriptEditor: FactoryComponent<{
   let opportunitiesForm: UIForm<{ conditions: Opportunity[] }>;
   let indicatorsForm: UIForm<{ indicators: Indicator[] }>;
   let deletePhaseOpen = false;
+  let starterBundle: DataModel | undefined;
+  let includeOtherLanguages = false;
+  let suggestionSelection: string | undefined;
 
   const measOptions = crimeMeasureOptions();
 
   return {
     oninit: ({ attrs: { model, update } }) => {
+      fetchStarterBundle().then((bundle) => {
+        starterBundle = bundle;
+        m.redraw();
+      }).catch(() => undefined);
       const {
         cast = [],
         attributes = [],
@@ -216,7 +229,7 @@ export const CrimeScriptEditor: FactoryComponent<{
 
       measuresForm = [{ id: 'measures', type: measureForm, repeat: true, label: t('MEASURE') }];
     },
-    view: ({ attrs: { crimeScript, update } }) => {
+    view: ({ attrs: { crimeScript, model, update } }) => {
       const curActIdx = +(m.route.param('stages') || 1) - 1;
       const curScene =
         crimeScript.stages && curActIdx < crimeScript.stages.length
@@ -249,10 +262,75 @@ export const CrimeScriptEditor: FactoryComponent<{
         },
       ];
       const key = curAct ? curAct.id + curAct.label : 'cur-act-id';
+      const suggestionPicker = (kind: 'indicator' | 'measure') => {
+        if (!curAct) return undefined;
+        const suggestions = collectStarterSuggestions(
+          model,
+          starterBundle,
+          kind,
+          crimeScript.language,
+          includeOtherLanguages
+        );
+        const byId = new Map(suggestions.map((suggestion) => [suggestionKey(suggestion), suggestion]));
+        return m('.row.suggestion-picker', [
+          m(SearchSelect<string>, {
+            className: 'col s12 m8',
+            label: kind === 'indicator' ? t('INDICATOR') : t('MEASURE'),
+            checkedId: suggestionSelection,
+            options: suggestions.map((suggestion) => ({
+              id: suggestionKey(suggestion),
+              label: suggestion.label,
+            })),
+            onchange: (ids: string[]) => {
+              const suggestion = byId.get(ids[0]);
+              if (!suggestion) return;
+              const copy = copySuggestion(suggestion);
+              if (hasCloseDuplicate(copy.label, kind === 'indicator' ? curAct.indicators : curAct.measures)) {
+                snackbar({ message: t('CLOSE_DUPLICATE'), dismissible: true });
+              }
+              if (kind === 'indicator') curAct.indicators.push(copy as Indicator);
+              else curAct.measures.push(copy as Measure);
+              suggestionSelection = undefined;
+              update('crimeScript', crimeScript);
+            },
+          }),
+          m('label.col.s12.m4', [
+            m('input[type=checkbox]', {
+              checked: includeOtherLanguages,
+              onchange: (event: Event) => {
+                includeOtherLanguages = (event.target as HTMLInputElement).checked;
+              },
+            }),
+            m('span', t('SHOW_OTHER_LANGUAGES')),
+          ]),
+        ]);
+      };
+      const sourcedCopyActions = (kind: 'indicator' | 'measure', items: Array<Indicator | Measure>) =>
+        items.filter((item) => item.derivedFrom).map((item) =>
+          m(FlatButton, {
+            key: `${kind}-${item.id}-save-new`,
+            label: `${t('SAVE_NEW_SUGGESTION')}: ${item.label}`,
+            iconName: 'content_copy',
+            onclick: () => {
+              const detached = saveAsNewSuggestion(item);
+              if (kind === 'indicator') curAct?.indicators.push(detached as Indicator);
+              else curAct?.measures.push(detached as Measure);
+              update('crimeScript', crimeScript);
+            },
+          })
+        );
       return m('.col.s12', [
         m(LayoutForm, {
           form: [
             ...labelForm(),
+            {
+              id: 'language',
+              type: 'select',
+              label: t('LANGUAGE'),
+              className: 'col s6',
+              options: [{ id: 'nl', label: 'Nederlands' }, { id: 'en', label: 'English' }],
+            },
+            { id: 'unreviewed', type: 'switch', label: t('UNREVIEWED'), className: 'col s6 switch' },
             {
               id: 'productIds',
               type: 'select',
@@ -372,22 +450,26 @@ export const CrimeScriptEditor: FactoryComponent<{
                     {
                       title: t('INDICATORS'),
                       vnode: m('.indicators', [
+                        suggestionPicker('indicator'),
                         m(LayoutForm, {
                           form: indicatorsForm,
                           obj: curAct,
                           i18n: I18N,
                         } as FormAttributes<Partial<ActivityPhase>>),
+                        ...sourcedCopyActions('indicator', curAct.indicators),
                       ]),
                     },
                     {
                       id: 'measures',
                       title: t('MEASURES'),
                       vnode: m('.measures', [
+                        suggestionPicker('measure'),
                         m(LayoutForm, {
                           form: measuresForm,
                           obj: curAct,
                           i18n: I18N,
                         } as FormAttributes<Partial<ActivityPhase>>),
+                        ...sourcedCopyActions('measure', curAct.measures),
                       ]),
                     },
                   ],

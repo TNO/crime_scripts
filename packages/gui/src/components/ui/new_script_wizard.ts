@@ -2,7 +2,7 @@ import m from 'mithril';
 import { snackbar, uniqueId, Wizard } from 'mithril-materialized';
 import { LayoutForm, type UIForm } from 'mithril-ui-form';
 import { createScenesFromOutline, type CrimeScript, Pages, type SceneOutline, STATUS } from '../../models';
-import { type MeiosisComponent, t } from '../../services';
+import { i18n, type MeiosisComponent, t } from '../../services';
 
 export const NewScriptWizard: MeiosisComponent = () => {
   let crimeScript: CrimeScript = {
@@ -15,6 +15,8 @@ export const NewScriptWizard: MeiosisComponent = () => {
     literature: [],
     stages: [],
     productIds: [],
+    language: i18n.currentLocale,
+    aiGenerated: false,
   };
   const outline: { scenes: SceneOutline[] } = {
     scenes: [{ label: '' }],

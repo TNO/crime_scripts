@@ -65,7 +65,7 @@ test('legacy acts become independently owned scene variants without changing tra
       hasGlobalActs: 'acts' in normalized,
     },
     {
-      schemaVersion: 2,
+      schemaVersion: 3,
       firstVariantId: 'shared-act',
       secondVariantId: 'shared-act',
       selectedVariantId: 'shared-act',
@@ -225,7 +225,7 @@ test('the supplied v30 model preserves every referenced variant and track select
       hasGlobalActs: 'acts' in normalized,
     },
     {
-      schemaVersion: 2,
+      schemaVersion: 3,
       scripts: 7,
       scenes: 39,
       variants: 46,
