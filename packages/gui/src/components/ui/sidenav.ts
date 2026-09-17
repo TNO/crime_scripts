@@ -2,10 +2,10 @@ import { compressToEncodedURIComponent, decompressFromUint8Array } from 'lz-stri
 import m from 'mithril';
 import { Dialog, FlatButton, padLeft, Select, Sidenav, snackbar } from 'mithril-materialized';
 import type { ConflictAction, DataModel, Page } from '../../models';
-import { defaultModel, findStarterConflicts, importStarterBundle, Pages } from '../../models';
+import { findStarterConflicts, importStarterBundle, normalizeDataModel, Pages } from '../../models';
 import type { Languages, MeiosisComponent, UserRole } from '../../services';
 import { fetchStarterBundle, i18n, loadData, routingSvc, t } from '../../services';
-import { formatDate, isActivePage } from '../../utils';
+import { formatDate, isActivePage, LANGUAGE } from '../../utils';
 import { LanguageSwitcher } from './language-switcher';
 
 export const SideNav: MeiosisComponent<{ onDelete: () => void }> = () => {
@@ -58,7 +58,7 @@ export const SideNav: MeiosisComponent<{ onDelete: () => void }> = () => {
     switch (option) {
       case 'clear':
         console.log('CLEARING DATAS');
-        saveModel(defaultModel);
+        saveModel(normalizeDataModel({ crimeScripts: [] }));
         break;
       case 'download_json': {
         const version = typeof model.version === 'undefined' ? 1 : ++model.version;
@@ -229,6 +229,7 @@ export const SideNav: MeiosisComponent<{ onDelete: () => void }> = () => {
               '.row',
               m(LanguageSwitcher, {
                 onLanguageChange: async (language: Languages) => {
+                  localStorage.setItem(LANGUAGE, language);
                   await i18n.loadAndSetLocale(language as Languages);
                 },
                 currentLanguage: i18n.currentLocale,
@@ -281,11 +282,11 @@ export const SideNav: MeiosisComponent<{ onDelete: () => void }> = () => {
                       conflicts: conflicts.length,
                     })),
                 m('ul.collection', starterCandidate.crimeScripts.map((script) =>
-                  m('li.collection-item', [
-                    m('span', script.label),
+                  m('li.collection-item.starter-import-row', [
+                    m('span.starter-import-label', script.label),
                     conflicts.some(({ id }) => id === script.id) &&
                       m(Select<ConflictAction>, {
-                        className: 'right',
+                        className: 'starter-conflict-action',
                         label: t('IMPORT_CONFLICT_ACTION'),
                         checkedId: conflictChoices[script.id],
                         options: [

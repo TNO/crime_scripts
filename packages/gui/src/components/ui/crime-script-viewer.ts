@@ -10,6 +10,7 @@ import {
   type CrimeScriptAttributes,
   type DataModel,
   type GeographicLocation,
+  getMatchingStarterBundleMetadata,
   type ID,
   type Labelled,
   missingIcon,
@@ -303,6 +304,7 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
         starterOrigin,
       } = crimeScript;
       const scriptImage = resolveIconSource(icon, url) || url || scriptIcon;
+      const starterMetadata = getMatchingStarterBundleMetadata(crimeScript, model);
 
       const scenesWithVariantsCnt = scenes.filter((scene) => scene.variants.length > 1).length || false;
       const curTrack: Track | undefined = curTrackId ? tracks.find((t) => t.id === curTrackId) : undefined;
@@ -407,7 +409,19 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
           m('span', `${t('LANGUAGE')}: ${language === 'nl' ? 'Nederlands' : 'English'}`),
           aiGenerated && m('span.badge', t('AI_GENERATED')),
           unreviewed && m('span.badge', t('UNREVIEWED')),
-          starterOrigin && m('span', `${starterOrigin.bundleId} ${starterOrigin.bundleVersion}`),
+          starterOrigin && m('span', [
+            `${t('STARTER_PROVENANCE')}: ${starterMetadata?.title || starterOrigin.bundleId} ${starterOrigin.bundleVersion}`,
+            starterMetadata?.license && [
+              ' · ',
+              m('a', {
+                href: starterMetadata.licenseUrl,
+                target: '_blank',
+                rel: 'noopener noreferrer',
+              }, starterMetadata.license),
+            ],
+          ]),
+          starterMetadata?.attribution && m('span', starterMetadata.attribution),
+          starterMetadata?.disclaimer && m('span', starterMetadata.disclaimer),
         ]),
         geoLocationIds.length > 0 &&
         m(

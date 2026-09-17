@@ -125,6 +125,11 @@ export type StarterBundleMetadata = {
   title: string;
   /** ISO 8601 publication date. */
   publishedAt: string;
+  /** Optional editorial metadata used by public bundles. */
+  license?: string;
+  licenseUrl?: string;
+  attribution?: string;
+  disclaimer?: string;
 };
 
 export type StarterOrigin = {

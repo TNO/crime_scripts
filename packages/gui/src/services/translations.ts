@@ -73,15 +73,12 @@ function addOnChangeListener(listener: Listener) {
 }
 
 async function loadAndSetLocale(newLocale: Languages) {
-  if (i18n.currentLocale === newLocale) {
-    return;
-  }
-
   const resolvedLocale = supported(newLocale) ? newLocale : i18n.defaultLocale;
   i18n.currentLocale = resolvedLocale;
-  i18n.stopwords = newLocale === 'nl' ? stopwordsNl : stopwordsEn;
+  document.documentElement.setAttribute('lang', resolvedLocale);
+  i18n.stopwords = resolvedLocale === 'nl' ? stopwordsNl : stopwordsEn;
   // stemmer = newLocale === 'nl' ? PorterStemmerNl : PorterStemmer;
-  t = setGuiLanguage(newLocale);
+  t = setGuiLanguage(resolvedLocale);
   I18N.agree = t('I18n', 'agree');
   I18N.disagree = t('I18n', 'disagree');
   I18N.cancel = t('I18n', 'cancel');

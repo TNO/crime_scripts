@@ -11,6 +11,7 @@ import {
 } from '../src/models/icons.ts';
 import { normalizeDataModel } from '../src/models/model-normalization.ts';
 import { createSingleScriptExportModel } from '../src/models/single-script-export.ts';
+import { getMatchingStarterBundleMetadata, validateStarterBundle } from '../src/models/starter-library.ts';
 
 type Attribution = {
   kind: 'original' | 'third-party';
@@ -162,4 +163,28 @@ test('single-script export retains built-in keys and embedded uploaded images', 
   assert.equal(exported.crimeScripts[0].url, 'data:image/png;base64,c2NyaXB0');
   assert.equal(exported.crimeScripts[0].stages[0].icon, ICONS.OTHER);
   assert.equal(exported.crimeScripts[0].stages[0].url, 'data:image/png;base64,c2NlbmU=');
+});
+
+test('every public starter script exports as a standalone valid model', () => {
+  const starter = validateStarterBundle(readJson<DataModel>('starter-bundles/nl.json'));
+
+  starter.crimeScripts.forEach((script) => {
+    const exported = validateStarterBundle(createSingleScriptExportModel(script, starter, 123));
+    assert.deepEqual(exported.crimeScripts.map(({ id }) => id), [script.id]);
+    assert.equal(exported.crimeScripts[0].starterOrigin?.scriptId, script.id);
+    assert.equal(exported.starterBundle?.license, 'CC BY 4.0');
+  });
+});
+
+test('starter metadata is only associated with scripts from the same bundle version', () => {
+  const starter = validateStarterBundle(readJson<DataModel>('starter-bundles/nl.json'));
+  const script = starter.crimeScripts[0];
+  assert.equal(getMatchingStarterBundleMetadata(script, starter)?.license, 'CC BY 4.0');
+
+  const mismatched = {
+    ...starter,
+    starterBundle: { ...starter.starterBundle!, version: '2.0.0', attribution: 'Andere attributie' },
+  };
+  assert.equal(getMatchingStarterBundleMetadata(script, mismatched), undefined);
+  assert.equal(createSingleScriptExportModel(script, mismatched, 123).starterBundle, undefined);
 });

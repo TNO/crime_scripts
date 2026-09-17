@@ -13,7 +13,7 @@ const ReferenceComponent: FactoryComponent<{ reference: Literature }> = () => {
     }) => {
       return m('li', [
         m('a', { href: url, target: '_blank' }, label),
-        m('span', `, by ${authors}`),
+        authors && m('span', `, ${t('BY')} ${authors}`),
         description &&
           m(
             'span.ellipsis',

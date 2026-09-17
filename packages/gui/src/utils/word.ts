@@ -10,7 +10,15 @@ import {
   TextRun,
 } from 'docx';
 import { saveAs } from 'file-saver';
-import { ActivityType, type CrimeScript, type DataModel, type Hierarchical, type ID, type Labelled } from '../models';
+import {
+  ActivityType,
+  type CrimeScript,
+  type DataModel,
+  getMatchingStarterBundleMetadata,
+  type Hierarchical,
+  type ID,
+  type Labelled,
+} from '../models';
 import { lookupCrimeMeasure } from '../models/situational-crime-prevention';
 import { t } from '../services';
 import { addLeadingSpaces, measuresToMarkdown } from '.';
@@ -19,7 +27,17 @@ const blue = '2F5496';
 
 /** Convert a crime script to a markdown string. */
 export const crimeScriptToMarkdown = (crimeScript: Partial<CrimeScript>, model: DataModel) => {
-  const { description, stages: scenes = [], literature, productIds, geoLocationIds, language, aiGenerated, unreviewed } = crimeScript;
+  const {
+    description,
+    stages: scenes = [],
+    literature,
+    productIds,
+    geoLocationIds,
+    language,
+    aiGenerated,
+    unreviewed,
+    starterOrigin,
+  } = crimeScript;
   const { cast = [], attributes = [], transports = [], products = [], partners = [], geoLocations = [], locations = [] } =
     model;
 
@@ -37,6 +55,15 @@ export const crimeScriptToMarkdown = (crimeScript: Partial<CrimeScript>, model: 
   language && md.push(`${t('LANGUAGE')}: **${language}**`);
   aiGenerated && md.push(`**${t('AI_GENERATED')}**`);
   unreviewed && md.push(`**${t('UNREVIEWED')}**`);
+  if (starterOrigin) {
+    const metadata = getMatchingStarterBundleMetadata(crimeScript, model);
+    md.push(`${t('STARTER_PROVENANCE')}: **${metadata?.title || starterOrigin.bundleId} ${starterOrigin.bundleVersion}**`);
+    metadata?.attribution && md.push(metadata.attribution);
+    metadata?.license && md.push(
+      metadata.licenseUrl ? `[${metadata.license}](${metadata.licenseUrl})` : metadata.license
+    );
+    metadata?.disclaimer && md.push(metadata.disclaimer);
+  }
 
   const newHeading = (txt: string, level: number) => {
     const last = md.length - 1;

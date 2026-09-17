@@ -1,4 +1,5 @@
 import type { CrimeScript, DataModel, ID } from './data-model';
+import { getMatchingStarterBundleMetadata } from './starter-library.ts';
 
 export const createSingleScriptExportModel = (
   cs: Partial<CrimeScript>,
@@ -26,6 +27,7 @@ export const createSingleScriptExportModel = (
     act.locationIds?.forEach((id) => ids.add(id));
     return ids;
   }, new Set<ID>());
+  const starterBundle = getMatchingStarterBundleMetadata(cs, model);
 
   return {
     ...model,
@@ -39,6 +41,7 @@ export const createSingleScriptExportModel = (
     locations: model.locations.filter(({ id }) => locationIds.has(id)),
     geoLocations: model.geoLocations.filter(({ id }) => cs.geoLocationIds?.includes(id)),
     products: model.products.filter(({ id }) => cs.productIds?.includes(id)),
+    starterBundle,
     lastUpdate,
   } as DataModel;
 };

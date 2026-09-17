@@ -3,7 +3,7 @@ import { AlertDialog, Dialog, FlatButton, Icon, TextInput, ThemeManager, ThemeTo
 import logo from '../assets/logo.svg';
 import tno from '../assets/tno.svg';
 import tno_white from '../assets/tno_white.svg';
-import { type DataModel, defaultModel, type Page, Pages } from '../models';
+import { type DataModel, normalizeDataModel, type Page, Pages } from '../models';
 import { APP_TITLE, APP_TITLE_SHORT, i18n, type MeiosisComponent, t } from '../services';
 import { routingSvc } from '../services/routing-service';
 import { isActivePage, isSmallPage, LANGUAGE } from '../utils';
@@ -182,7 +182,8 @@ export const Layout: MeiosisComponent = () => {
               iconName: 'delete',
               destructive: true,
               onclick: () => {
-                saveModel(defaultModel);
+                saveModel(normalizeDataModel({ crimeScripts: [] }));
+                changePage(Pages.HOME);
               },
             },
           }),

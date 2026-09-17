@@ -66,6 +66,10 @@ test('starter bundles are structurally validated including references', () => {
   assert.throws(() => validateStarterBundle(invalid), /missing partner/);
 });
 
+test('runtime validation accepts protected bundles without public editorial metadata', () => {
+  assert.equal(validateStarterBundle(bundle()).starterBundle?.id, 'pax-nl');
+});
+
 const expectedDutchStarterIds = [
   'nl-starter:script:cocaine-import-havens',
   'nl-starter:script:synthetische-drugsproductie',
@@ -93,7 +97,17 @@ const expectedDutchStarterLabels = [
 
 test('the Dutch starter fixture contains exactly the ten researched topics', () => {
   const fixture = validateStarterBundle(JSON.parse(readFileSync('public/starter-bundles/nl.json', 'utf8')));
-  assert.equal(fixture.starterBundle?.locale, 'nl');
+  assert.deepEqual(fixture.starterBundle, {
+    id: 'pax-nl-starter',
+    version: '1.0.0',
+    locale: 'nl',
+    title: 'Nederlandse starterbibliotheek',
+    publishedAt: '2026-09-17',
+    license: 'CC BY 4.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by/4.0/',
+    attribution: 'Nederlandse starterbibliotheek voor Crime Scripts, PAX/TNO, versie 1.0.0 (2026), met AI-ondersteuning',
+    disclaimer: 'AI-gegenereerd en onbeoordeeld; controleer de inhoud vóór gebruik. Geen juridisch advies.',
+  });
   assert.deepEqual(fixture.crimeScripts.map(({ id }) => id), expectedDutchStarterIds);
   assert.deepEqual(fixture.crimeScripts.map(({ label }) => label), expectedDutchStarterLabels);
 });
@@ -249,6 +263,18 @@ test('imports skip conflicts by default and support replace and copy', () => {
   assert.notEqual(copied.crimeScripts[0].id, copied.crimeScripts[1].id);
   assert.notEqual(copied.crimeScripts[0].stages[0].id, copied.crimeScripts[1].stages[0].id);
   assert.notEqual(copied.crimeScripts[0].stages[0].variants[0].id, copied.crimeScripts[1].stages[0].variants[0].id);
+});
+
+test('complete public import preserves a conflicting local edit and adds all missing scripts', () => {
+  const starter = validateStarterBundle(JSON.parse(readFileSync('public/starter-bundles/nl.json', 'utf8')));
+  const localScript = structuredClone(starter.crimeScripts[0]);
+  localScript.label = 'Lokale wijziging';
+  const current = normalizeDataModel({ crimeScripts: [localScript] });
+
+  const imported = importStarterBundle(current, starter);
+
+  assert.equal(imported.crimeScripts.length, 10);
+  assert.equal(imported.crimeScripts.find(({ id }) => id === localScript.id)?.label, 'Lokale wijziging');
 });
 
 test('suggestions are language-filtered originals and copied with internal metadata', () => {

@@ -19,6 +19,19 @@ export type StarterSuggestion = (Indicator | Measure) & {
   sources: Literature[];
 };
 
+export const getMatchingStarterBundleMetadata = (
+  crimeScript: Pick<CrimeScript, 'starterOrigin'>,
+  model: Pick<DataModel, 'starterBundle'>
+) => {
+  const { starterOrigin } = crimeScript;
+  const { starterBundle } = model;
+  return starterOrigin &&
+    starterBundle?.id === starterOrigin.bundleId &&
+    starterBundle.version === starterOrigin.bundleVersion
+    ? starterBundle
+    : undefined;
+};
+
 export const suggestionKey = ({ suggestionOrigin }: StarterSuggestion): string =>
   [
     suggestionOrigin.bundleId,
