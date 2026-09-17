@@ -1,10 +1,10 @@
 import m from 'mithril';
+import { AlertDialog, FlatButton } from 'mithril-materialized';
 import { Act, CrimeScript, Labelled, Pages } from '../models';
 import { MeiosisComponent } from '../services';
-import { FlatButton, ModalPanel } from 'mithril-materialized';
 import { t } from '../services/translations';
-import { toWord } from '../utils/word';
 import { formatDate, toJSON } from '../utils';
+import { toWord } from '../utils/word';
 import { CrimeScriptEditor } from './ui/crime-script-editor';
 import { CrimeScriptViewer } from './ui/crime-script-viewer';
 
@@ -60,34 +60,34 @@ export const CrimeScriptPage: MeiosisComponent = () => {
             isEditor && [
               edit
                 ? m(FlatButton, {
-                    label: t('SAVE_SCRIPT'),
-                    iconName: 'save',
+                  label: t('SAVE_SCRIPT'),
+                  iconName: 'save',
+                  className: 'small',
+                  onclick: () => {
+                    edit = false;
+                    if (crimeScript) {
+                      model.crimeScripts = model.crimeScripts.map((c) => (c.id === id ? crimeScript : c));
+                      // console.log(model.cast.map((c) => c.label).join(', '));
+                      // actions.saveModel(model);
+                    }
+                  },
+                })
+                : [
+                  m(FlatButton, {
+                    label: t('EDIT_SCRIPT'),
+                    iconName: 'edit',
                     className: 'small',
                     onclick: () => {
-                      edit = false;
-                      if (crimeScript) {
-                        model.crimeScripts = model.crimeScripts.map((c) => (c.id === id ? crimeScript : c));
-                        // console.log(model.cast.map((c) => c.label).join(', '));
-                        // actions.saveModel(model);
-                      }
+                      edit = true;
                     },
-                  })
-                : [
-                    m(FlatButton, {
-                      label: t('EDIT_SCRIPT'),
-                      iconName: 'edit',
-                      className: 'small',
-                      onclick: () => {
-                        edit = true;
-                      },
-                    }),
-                    m(FlatButton, {
-                      label: t('DELETE_SCRIPT'),
-                      iconName: 'delete',
-                      className: 'small',
-                      onclick: () => (deleteScriptOpen = true),
-                    }),
-                  ],
+                  }),
+                  m(FlatButton, {
+                    label: t('DELETE_SCRIPT'),
+                    iconName: 'delete',
+                    className: 'small',
+                    onclick: () => (deleteScriptOpen = true),
+                  }),
+                ],
             ],
             crimeScript && [
               m(FlatButton, {
@@ -105,114 +105,113 @@ export const CrimeScriptPage: MeiosisComponent = () => {
             ]
           ),
           crimeScript &&
-            m(
-              '.row.crime-scene',
-              edit
-                ? m(CrimeScriptEditor, {
-                    crimeScript,
-                    model,
-                    update: (
-                      type: 'crimeScript' | 'cast' | 'attributes' | 'transports' | 'locations' | 'acts',
-                      option: Labelled
-                    ) => {
-                      switch (type) {
-                        case 'crimeScript':
-                          actions.update({
-                            model: (model) => {
-                              model.crimeScripts = [
-                                option as CrimeScript,
-                                ...model.crimeScripts.filter((a) => a.id !== option.id),
-                              ];
-                              return model;
-                            },
-                          });
-                          break;
-                        case 'cast':
-                          actions.update({
-                            model: (model) => {
-                              model.cast = [option, ...model.cast.filter((a) => a.id !== option.id)];
-                              return model;
-                            },
-                          });
-                          break;
-                        case 'attributes':
-                          actions.update({
-                            model: (model) => {
-                              model.attributes = [option, ...model.attributes.filter((a) => a.id !== option.id)];
-                              return model;
-                            },
-                          });
-                          break;
-                        case 'transports':
-                          actions.update({
-                            model: (model) => {
-                              model.transports = [option, ...model.transports.filter((a) => a.id !== option.id)];
-                              return model;
-                            },
-                          });
-                          break;
-                        case 'locations':
-                          actions.update({
-                            model: (model) => {
-                              model.locations = [option, ...model.locations.filter((a) => a.id !== option.id)];
-                              return model;
-                            },
-                          });
-                          break;
-                        case 'acts':
-                          actions.update({
-                            model: (model) => {
-                              const newAct = { ...option } as Act;
-                              model.acts = [newAct, ...model.acts.filter((a) => a.id !== newAct.id)];
-                              return model;
-                            },
-                          });
-                          break;
-                      }
-                      actions.saveModel(model);
-                    },
-                  })
-                : m(CrimeScriptViewer, {
-                    crimeScript,
-                    cast,
-                    acts,
-                    attributes,
-                    transports,
-                    locations,
-                    geoLocations,
-                    products,
-                    partners,
-                    curActId: curAct ? curAct.id : undefined,
-                    curSceneId: curScene ? curScene.id : undefined,
-                    searchFilter,
-                    update: actions.update,
-                    model,
-                    saveModel: actions.saveModel,
-                  })
-            ),
+          m(
+            '.row.crime-scene',
+            edit
+              ? m(CrimeScriptEditor, {
+                crimeScript,
+                model,
+                update: (
+                  type: 'crimeScript' | 'cast' | 'attributes' | 'transports' | 'locations' | 'acts',
+                  option: Labelled
+                ) => {
+                  switch (type) {
+                    case 'crimeScript':
+                      actions.update({
+                        model: (model) => {
+                          model.crimeScripts = [
+                            option as CrimeScript,
+                            ...model.crimeScripts.filter((a) => a.id !== option.id),
+                          ];
+                          return model;
+                        },
+                      });
+                      break;
+                    case 'cast':
+                      actions.update({
+                        model: (model) => {
+                          model.cast = [option, ...model.cast.filter((a) => a.id !== option.id)];
+                          return model;
+                        },
+                      });
+                      break;
+                    case 'attributes':
+                      actions.update({
+                        model: (model) => {
+                          model.attributes = [option, ...model.attributes.filter((a) => a.id !== option.id)];
+                          return model;
+                        },
+                      });
+                      break;
+                    case 'transports':
+                      actions.update({
+                        model: (model) => {
+                          model.transports = [option, ...model.transports.filter((a) => a.id !== option.id)];
+                          return model;
+                        },
+                      });
+                      break;
+                    case 'locations':
+                      actions.update({
+                        model: (model) => {
+                          model.locations = [option, ...model.locations.filter((a) => a.id !== option.id)];
+                          return model;
+                        },
+                      });
+                      break;
+                    case 'acts':
+                      actions.update({
+                        model: (model) => {
+                          const newAct = { ...option } as Act;
+                          model.acts = [newAct, ...model.acts.filter((a) => a.id !== newAct.id)];
+                          return model;
+                        },
+                      });
+                      break;
+                  }
+                  actions.saveModel(model);
+                },
+              })
+              : m(CrimeScriptViewer, {
+                crimeScript,
+                cast,
+                acts,
+                attributes,
+                transports,
+                locations,
+                geoLocations,
+                products,
+                partners,
+                curActId: curAct ? curAct.id : undefined,
+                curSceneId: curScene ? curScene.id : undefined,
+                searchFilter,
+                update: actions.update,
+                model,
+                saveModel: actions.saveModel,
+              })
+          ),
         ],
         deleteScriptOpen &&
-          m(ModalPanel, {
-            id: 'deleteScript',
-            title: t('DELETE_SCRIPT'),
-            description: t('DELETE_SCRIPT_CONFIRM', { name: crimeScript?.label }),
-            onClose: () => (deleteScriptOpen = false),
-            isOpen: true,
-            buttons: [
-              { label: t('CANCEL'), iconName: 'cancel' },
-              {
-                label: t('DELETE'),
-                iconName: 'delete',
-                onclick: () => {
-                  if (crimeScript) {
-                    model.crimeScripts = model.crimeScripts.filter((c) => c.id !== id);
-                    actions.saveModel(model);
-                    actions.changePage(Pages.HOME);
-                  }
-                },
-              },
-            ],
-          })
+        m(AlertDialog, {
+          id: 'deleteScript',
+          title: t('DELETE_SCRIPT'),
+          description: t('DELETE_SCRIPT_CONFIRM', { name: crimeScript?.label }),
+          onToggle: (open: boolean) => (deleteScriptOpen = open),
+          isOpen: true,
+          secondaryAction: { label: t('CANCEL'), iconName: 'cancel' },
+          primaryAction: {
+            label: t('DELETE'),
+            iconName: 'delete',
+            destructive: true,
+            onclick: () => {
+              if (crimeScript) {
+                model.crimeScripts = model.crimeScripts.filter((c) => c.id !== id);
+                actions.saveModel(model);
+                actions.changePage(Pages.HOME);
+              }
+            },
+          },
+        })
       );
     },
   };

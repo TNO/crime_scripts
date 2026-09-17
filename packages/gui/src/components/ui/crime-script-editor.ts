@@ -1,20 +1,20 @@
 import m, { FactoryComponent } from 'mithril';
+import { AlertDialog, FlatButton, Select, Tabs, uniqueId } from 'mithril-materialized';
+import { FormAttributes, LayoutForm, UIForm } from 'mithril-ui-form';
 import {
   Act,
   Activity,
   ActivityPhase,
   CrimeScript,
-  ID,
+  DataModel,
   IconOpts,
-  Scene,
+  ID,
+  Indicator,
+  Labelled,
   Measure,
   Opportunity,
-  Indicator,
-  DataModel,
-  Labelled,
+  Scene,
 } from '../../models';
-import { FlatButton, Tabs, uniqueId, Select, ModalPanel } from 'mithril-materialized';
-import { FormAttributes, LayoutForm, UIForm } from 'mithril-ui-form';
 import { labelForm, literatureForm } from '../../models/forms';
 import { crimeMeasureOptions } from '../../models/situational-crime-prevention';
 import { I18N, t } from '../../services/translations';
@@ -314,32 +314,32 @@ export const CrimeScriptEditor: FactoryComponent<{
         } as FormAttributes<Partial<CrimeScript>>),
 
         curScene &&
-          curScene.ids &&
-          crimeScript.stages?.length > 0 && [
-            [
-              curScene.ids.length > 1
-                ? m(Select<ID>, {
-                    key,
-                    label: t('SELECT_ACT'),
-                    className: 'col s6 m8',
-                    checkedId: curScene.actId,
-                    // disabled: curActIds.ids.length === 1,
-                    options: acts.filter((a) => curScene.ids.includes(a.id)),
-                    onchange: (id) => {
-                      curScene.actId = id[0];
-                    },
-                  })
-                : undefined,
-              m(FlatButton, {
+        curScene.ids &&
+        crimeScript.stages?.length > 0 && [
+          [
+            curScene.ids.length > 1
+              ? m(Select<ID>, {
                 key,
-                onclick: () => (deletePhaseOpen = true),
-                label: t('DELETE_ACT'),
-                className: 'icon-right right',
-                iconClass: 'right',
-                iconName: 'delete_forever',
-              }),
-            ].filter(Boolean),
-          ],
+                label: t('SELECT_ACT'),
+                className: 'col s6 m8',
+                checkedId: curScene.actId,
+                // disabled: curActIds.ids.length === 1,
+                options: acts.filter((a) => curScene.ids.includes(a.id)),
+                onchange: (id) => {
+                  curScene.actId = id[0];
+                },
+              })
+              : undefined,
+            m(FlatButton, {
+              key,
+              onclick: () => (deletePhaseOpen = true),
+              label: t('DELETE_ACT'),
+              className: 'icon-right right',
+              iconClass: 'right',
+              iconName: 'delete_forever',
+            }),
+          ].filter(Boolean),
+        ],
 
         curAct && [
           m(
@@ -410,32 +410,31 @@ export const CrimeScriptEditor: FactoryComponent<{
             ])
           ),
           deletePhaseOpen &&
-            m(ModalPanel, {
-              id: 'deletePhase',
-              title: t('DELETE_ACT'),
-              description: t('DELETE_ACT_CONFIRM', { name: curAct.label }),
-              isOpen: true,
-              onClose: () => (deletePhaseOpen = false),
-              buttons: [
-                { label: t('CANCEL'), iconName: 'cancel' },
-                {
-                  label: t('DELETE'),
-                  iconName: 'delete',
-                  onclick: () => {
-                    const id = curAct.id;
-                    console.log(`Deleting ${id}, ${curAct.label}`);
-                    if (id) {
-                      actLabels = actLabels.filter((a) => a.id !== id);
-                      if (curScene && curScene.ids) {
-                        curScene.ids = curScene.ids.filter((i) => i !== id);
-                        curScene.actId = curScene.ids.length > 0 ? curScene.ids[0] : '';
-                      }
-                      model.acts = model.acts?.filter((a) => a.id !== id);
-                    }
-                  },
-                },
-              ],
-            }),
+          m(AlertDialog, {
+            id: 'deletePhase',
+            title: t('DELETE_ACT'),
+            description: t('DELETE_ACT_CONFIRM', { name: curAct.label }),
+            isOpen: true,
+            onToggle: (open: boolean) => (deletePhaseOpen = open),
+            secondaryAction: { label: t('CANCEL'), iconName: 'cancel' },
+            primaryAction: {
+              label: t('DELETE'),
+              iconName: 'delete',
+              destructive: true,
+              onclick: () => {
+                const id = curAct.id;
+                console.log(`Deleting ${id}, ${curAct.label}`);
+                if (id) {
+                  actLabels = actLabels.filter((a) => a.id !== id);
+                  if (curScene && curScene.ids) {
+                    curScene.ids = curScene.ids.filter((i) => i !== id);
+                    curScene.actId = curScene.ids.length > 0 ? curScene.ids[0] : '';
+                  }
+                  model.acts = model.acts?.filter((a) => a.id !== id);
+                }
+              },
+            },
+          }),
         ],
       ]);
     },

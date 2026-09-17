@@ -1,6 +1,9 @@
 packages:
   # all packages in subdirs of packages/ and components/
-  - 'packages/*'
+  - "packages/*"
   # - 'components/**'
   # # exclude packages that are inside test directories
   # - '!**/test/**'
+allowBuilds:
+  "@parcel/watcher": true
+  esbuild: true

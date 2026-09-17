@@ -1,7 +1,7 @@
 import { meiosisSetup } from 'meiosis-setup';
 import { MeiosisCell, MeiosisConfig, Patch, Service } from 'meiosis-setup/types';
 import m, { FactoryComponent } from 'mithril';
-import { i18n, routingSvc, t } from '.';
+import { snackbar, uniqueId } from 'mithril-materialized';
 import {
   Activity,
   CrimeScriptFilter,
@@ -14,9 +14,9 @@ import {
   Settings,
 } from '../models';
 import { aggregateFlexSearchResults, crimeScriptFilterToText, mergeDataModels, scrollToTop, tokenize } from '../utils';
+import { i18n, routingSvc, t } from '.';
 import { flexSearchLookupUpdater } from './flex-search';
 import { User, UserRole } from './login-service';
-import { toast, uniqueId } from 'mithril-materialized';
 
 // const settingsSvc = restServiceFactory<Settings>('settings');
 const PREVIEW_MODEL_KEY = 'CSS_PREVIEW_MODEL';
@@ -110,9 +110,9 @@ export const appActions: (cell: MeiosisCell<State>) => Actions = ({ update /* st
         update({ model: () => mergedModel });
       }
     } catch (e: any) {
-      toast({
-        html: `Error loading models: ${e}`,
-        classes: 'red',
+      snackbar({
+        message: `Error loading models: ${e}`,
+        dismissible: true,
       });
     }
   },
@@ -126,7 +126,7 @@ export const appActions: (cell: MeiosisCell<State>) => Actions = ({ update /* st
     localStorage.setItem(USER_ROLE, role);
     update({ role });
   },
-  login: () => {},
+  login: () => { },
   update: (state) => update(state),
   setSearchFilter: async (searchFilter?: string) => {
     if (searchFilter) {

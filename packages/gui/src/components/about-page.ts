@@ -11,7 +11,7 @@ Om de PAX-methode en het prototype in de praktijk te testen leg ik bij deze onde
 - DOEL: De haalbaarheid van de TNO PAX-methode en het bijbehorende prototype instrumentarium in de RIEC-praktijk te testen, en de werkgroep crime scripting in staat te stellen de bruikbaarheid van de methode aan de hand van fenomeen en casus informatie te onderzoeken
 - WAT: PAX-methode en het bijhorend prototype worden beschikbaar gesteld aan het werkgroep crime scripting en derden.
 
-Alle eventuele inhoudelijke inzichten & conclusies met betrekking tot concrete operationele casuïstiek door de RIEC’s of een RIEC-partner kunnen zonder toestemming van TNO niet worden toegerekend aan de inzet van TNO-PAX dan wel aan TNO in zijn algemeenheid. 
+Alle eventuele inhoudelijke inzichten & conclusies met betrekking tot concrete operationele casuïstiek door de RIEC’s of een RIEC-partner kunnen zonder toestemming van TNO niet worden toegerekend aan de inzet van TNO-PAX dan wel aan TNO in zijn algemeenheid.
 
 TNO voert een onderzoek uit op basis van een aan TNO verstrekte subsidie:
 - Er is derhalve geen sprake van een levering van een product of dienst van TNO aan een opdrachtgever.

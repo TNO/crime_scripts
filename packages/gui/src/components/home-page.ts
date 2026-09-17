@@ -1,11 +1,11 @@
 import m from 'mithril';
+import { Dialog, FlatButton, Icon } from 'mithril-materialized';
+import { FormAttributes, LayoutForm, UIForm } from 'mithril-ui-form';
 import { Act, CrimeScript, CrimeScriptFilter, Hierarchical, ID, Labelled, Pages, scriptIcon } from '../models';
+import { crimeScriptFilterFormFactory } from '../models/forms';
 import { MeiosisComponent, routingSvc } from '../services';
-import { FlatButton, uniqueId, Icon, ModalPanel } from 'mithril-materialized';
 import { I18N, t } from '../services/translations';
 import { toCommaSeparatedList } from '../utils';
-import { FormAttributes, LayoutForm, UIForm } from 'mithril-ui-form';
-import { crimeScriptFilterFormFactory } from '../models/forms';
 import { NewScriptWizard } from './ui/new_script_wizard';
 // import lz from 'lz-string';
 
@@ -55,52 +55,52 @@ export const HomePage: MeiosisComponent = () => {
 
       const csFilter =
         crimeScriptFilter.productIds?.length > 0 ||
-        crimeScriptFilter.geoLocationIds?.length > 0 ||
-        crimeScriptFilter.locationIds?.length > 0
+          crimeScriptFilter.geoLocationIds?.length > 0 ||
+          crimeScriptFilter.locationIds?.length > 0
           ? (cs: CrimeScript, _idx: number, _arr: CrimeScript[]) => {
-              const { productIds = [], locationIds = [], geoLocationIds = [] } = crimeScriptFilter;
-              const allProductIds = includeChildren(products, productIds);
-              const allGeoIds = includeChildren(geoLocations, geoLocationIds);
-              const allLocIds = includeChildren(locations, locationIds);
-              return (
-                (allProductIds.length === 0 || cs.productIds?.some((id) => allProductIds.includes(id))) &&
-                (allGeoIds?.length === 0 || cs.geoLocationIds?.some((id) => allGeoIds?.includes(id))) &&
-                (allLocIds?.length === 0 || actLocations(cs, acts).some((id) => allLocIds?.includes(id)))
-              );
-            }
+            const { productIds = [], locationIds = [], geoLocationIds = [] } = crimeScriptFilter;
+            const allProductIds = includeChildren(products, productIds);
+            const allGeoIds = includeChildren(geoLocations, geoLocationIds);
+            const allLocIds = includeChildren(locations, locationIds);
+            return (
+              (allProductIds.length === 0 || cs.productIds?.some((id) => allProductIds.includes(id))) &&
+              (allGeoIds?.length === 0 || cs.geoLocationIds?.some((id) => allGeoIds?.includes(id))) &&
+              (allLocIds?.length === 0 || actLocations(cs, acts).some((id) => allLocIds?.includes(id)))
+            );
+          }
           : (_cs: CrimeScript, _idx: number, _arr: CrimeScript[]) => true;
 
       return m('#home-page.row.home.page', [
         wizardOpen &&
-          m(ModalPanel, {
-            id: 'new-script-wizard',
-            title: t('NEW_SCRIPT'),
-            isOpen: true,
-            onClose: () => (wizardOpen = false),
-            description: m(NewScriptWizard, {
-              state,
-              actions,
-            }),
+        m(Dialog, {
+          id: 'new-script-wizard',
+          title: t('NEW_SCRIPT'),
+          isOpen: true,
+          onToggle: (open: boolean) => (wizardOpen = open),
+          content: m(NewScriptWizard, {
+            state,
+            actions,
           }),
+        }),
         isAdmin &&
-          m(
-            '.right-align',
-            m(FlatButton, {
-              label: t('NEW_SCRIPT'),
-              iconName: 'add',
-              className: 'small',
-              onclick: () => {
-                wizardOpen = true;
-                // const newCrimeScript = {
-                //   label: t('NEW_SCRIPT_NAME'),
-                //   id: uniqueId(),
-                // } as CrimeScript;
-                // model.crimeScripts.push(newCrimeScript);
-                // actions.saveModel(model);
-                // actions.changePage(Pages.CRIME_SCRIPT, { id: newCrimeScript.id, edit: 1 });
-              },
-            })
-          ),
+        m(
+          '.right-align',
+          m(FlatButton, {
+            label: t('NEW_SCRIPT'),
+            iconName: 'add',
+            className: 'small',
+            onclick: () => {
+              wizardOpen = true;
+              // const newCrimeScript = {
+              //   label: t('NEW_SCRIPT_NAME'),
+              //   id: uniqueId(),
+              // } as CrimeScript;
+              // model.crimeScripts.push(newCrimeScript);
+              // actions.saveModel(model);
+              // actions.changePage(Pages.CRIME_SCRIPT, { id: newCrimeScript.id, edit: 1 });
+            },
+          })
+        ),
         m(
           '.col.s12.filters',
           m(LayoutForm, {
@@ -127,26 +127,25 @@ export const HomePage: MeiosisComponent = () => {
                   m('img.white.circle', { src: url, alt: 'Avatar', style: { padding: '2px' } }),
                   m(
                     'span.title',
-                    `${label}${
-                      productIds.length > 0
-                        ? ` (${t('PRODUCTS', productIds.length).toLowerCase()}: ${toCommaSeparatedList(
-                            products,
-                            productIds
-                          )})`
-                        : ''
+                    `${label}${productIds.length > 0
+                      ? ` (${t('PRODUCTS', productIds.length).toLowerCase()}: ${toCommaSeparatedList(
+                        products,
+                        productIds
+                      )})`
+                      : ''
                     }`
                   ),
                   geoLocationIds.length > 0 &&
+                  m(
+                    'p',
                     m(
-                      'p',
-                      m(
-                        'i',
-                        `${t('GEOLOCATIONS', geoLocationIds.length)}: ${toCommaSeparatedList(
-                          geoLocations,
-                          geoLocationIds
-                        )}`
-                      )
-                    ),
+                      'i',
+                      `${t('GEOLOCATIONS', geoLocationIds.length)}: ${toCommaSeparatedList(
+                        geoLocations,
+                        geoLocationIds
+                      )}`
+                    )
+                  ),
                   m('p', description),
                   m(
                     'a.secondary-content',

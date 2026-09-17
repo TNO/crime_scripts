@@ -1,13 +1,13 @@
 import m from 'mithril';
-import { FlatButton, Icon, ModalPanel, ThemeManager, ThemeToggle, TextInput } from 'mithril-materialized';
+import { AlertDialog, Dialog, FlatButton, Icon, TextInput, ThemeManager, ThemeToggle } from 'mithril-materialized';
 import logo from '../assets/logo.svg';
 import tno from '../assets/tno.svg';
 import tno_white from '../assets/tno_white.svg';
-import { Pages, Page, DataModel, defaultModel } from '../models';
-import { routingSvc } from '../services/routing-service';
+import { DataModel, defaultModel, Page, Pages } from '../models';
 import { APP_TITLE, APP_TITLE_SHORT, MeiosisComponent, t } from '../services';
-import { SideNav } from './ui/sidenav';
+import { routingSvc } from '../services/routing-service';
 import { isActivePage, isSmallPage } from '../utils';
+import { SideNav } from './ui/sidenav';
 
 export const Layout: MeiosisComponent = () => {
   const style = 'font-size: 2.2rem; width: 4rem;';
@@ -26,6 +26,7 @@ export const Layout: MeiosisComponent = () => {
       return;
     ev.preventDefault(); // Prevent the slash key from being inputted into input fields
     searchDialogOpen = true;
+    m.redraw();
   });
 
   return {
@@ -130,102 +131,99 @@ export const Layout: MeiosisComponent = () => {
             m(SideNav, { state, actions, options: { onDelete: () => (clearModelOpen = true) } }),
           ],
           clearModelOpen &&
-            m(ModalPanel, {
-              id: 'clear_model',
-              isOpen: true,
-              onClose: () => (clearModelOpen = false),
-              title: t('DELETE_ITEM', 'TITLE', { item: t('MODEL') }),
-              description: t('DELETE_ITEM', 'DESCRIPTION', { item: t('MODEL').toLowerCase() }),
-              buttons: [
-                { label: t('CANCEL'), iconName: 'cancel' },
-                {
-                  label: t('DELETE'),
-                  iconName: 'delete',
-                  onclick: () => {
-                    saveModel(defaultModel);
-                  },
-                },
-              ],
-            }),
-          searchDialogOpen &&
-            m(ModalPanel, {
-              id: 'searchDialog',
-              title: t('SEARCH'),
-              isOpen: true,
-              onClose: () => {
-                searchDialogOpen = false;
+          m(AlertDialog, {
+            id: 'clear_model',
+            isOpen: true,
+            onToggle: (open: boolean) => (clearModelOpen = open),
+            title: t('DELETE_ITEM', 'TITLE', { item: t('MODEL') }),
+            description: t('DELETE_ITEM', 'DESCRIPTION', { item: t('MODEL').toLowerCase() }),
+            secondaryAction: { label: t('CANCEL'), iconName: 'cancel' },
+            primaryAction: {
+              label: t('DELETE'),
+              iconName: 'delete',
+              destructive: true,
+              onclick: () => {
+                saveModel(defaultModel);
               },
-              description: m('.modal-content.row', [
-                m(TextInput, {
-                  id: 'search',
-                  canClear: true,
-                  label: t('SEARCH'),
-                  onchange: () => {},
-                  iconName: 'search',
-                  defaultValue: searchFilter,
-                  oninput: (v) => {
-                    setSearchFilter(v);
-                  },
-                  oncreate: ({ dom }) => (dom.querySelector('input') as HTMLInputElement).focus(),
-                }),
-                // searchDialog &&
-                // searchDialog.isOpen &&
-                searchFilter &&
-                  searchResults && [
-                    [m('p', t('HITS', searchResults.length))],
-                    searchResults.length > 0 && [
+            },
+          }),
+          searchDialogOpen &&
+          m(Dialog, {
+            id: 'searchDialog',
+            title: t('SEARCH'),
+            isOpen: true,
+            onToggle: (open: boolean) => (searchDialogOpen = open),
+            content: m('.row', [
+              m(TextInput, {
+                id: 'search',
+                canClear: true,
+                label: t('SEARCH'),
+                onchange: () => { },
+                iconName: 'search',
+                defaultValue: searchFilter,
+                oninput: (v) => {
+                  setSearchFilter(v);
+                },
+                oncreate: ({ dom }) => (dom.querySelector('input') as HTMLInputElement).focus(),
+              }),
+              // searchDialog &&
+              // searchDialog.isOpen &&
+              searchFilter &&
+              searchResults && [
+                [m('p', t('HITS', searchResults.length))],
+                searchResults.length > 0 && [
+                  m(
+                    'ol',
+                    searchResults.map(({ crimeScriptIdx, totalScore, acts }) =>
                       m(
-                        'ol',
-                        searchResults.map(({ crimeScriptIdx, totalScore, acts }) =>
-                          m(
-                            'li',
-                            `${model.crimeScripts[crimeScriptIdx].label} (score ${totalScore})`,
+                        'li',
+                        `${model.crimeScripts[crimeScriptIdx].label} (score ${totalScore})`,
+                        m(
+                          'ul.browser-default',
+                          acts.map(({ actIdx, phaseIdx, score }) =>
                             m(
-                              'ul.browser-default',
-                              acts.map(({ actIdx, phaseIdx, score }) =>
-                                m(
-                                  'li',
-                                  m(
-                                    'a.truncate',
-                                    {
-                                      style: { cursor: 'pointer' },
-                                      href: routingSvc.href(
-                                        Pages.CRIME_SCRIPT,
-                                        `id=${model.crimeScripts[crimeScriptIdx].id}`
-                                      ),
-                                      onclick: () => {
-                                        // searchDialog.close();
-                                        actions.setLocation(
-                                          model.crimeScripts[crimeScriptIdx].id,
-                                          String(actIdx),
-                                          String(phaseIdx)
-                                        );
-                                      },
-                                    },
-                                    `${actIdx >= 0 ? model.acts[actIdx].label : t('TEXT')} (score: ${score})`
-                                  )
-                                )
+                              'li',
+                              m(
+                                'a.truncate',
+                                {
+                                  style: { cursor: 'pointer' },
+                                  href: routingSvc.href(
+                                    Pages.CRIME_SCRIPT,
+                                    `id=${model.crimeScripts[crimeScriptIdx].id}`
+                                  ),
+                                  onclick: () => {
+                                    // searchDialog.close();
+                                    actions.setLocation(
+                                      model.crimeScripts[crimeScriptIdx].id,
+                                      String(actIdx),
+                                      String(phaseIdx)
+                                    );
+                                  },
+                                },
+                                `${actIdx >= 0 ? model.acts[actIdx].label : t('TEXT')} (score: ${score})`
                               )
                             )
                           )
                         )
-                      ),
-                    ],
-                  ],
-              ]),
-            }),
+                      )
+                    )
+                  ),
+                ],
+              ],
+            ]),
+          }),
           m(
             '.container',
             { style: 'padding-top: 5px' },
             model.previewMode &&
-              m(FlatButton, {
-                label: t('MERGE_SCRIPT'),
-                iconName: 'merge',
-                className: 'small',
-                onclick: () => {
-                  actions.mergePreviewModel();
-                },
-              }),
+            m(FlatButton, {
+              label: t('MERGE_SCRIPT'),
+              iconName: 'merge',
+              className: 'small',
+              onclick: () => {
+                actions.mergePreviewModel();
+              },
+            }),
             children,
             m(
               '.row',

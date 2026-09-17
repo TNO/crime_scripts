@@ -1,9 +1,11 @@
-import m from 'mithril';
-import { Languages, MeiosisComponent, UserRole, i18n, loadData, routingSvc, t } from '../../services';
-import { FlatButton, Select, Sidenav, padLeft, toast } from 'mithril-materialized';
-import { DataModel, Page, Pages, defaultModel } from '../../models';
-import { formatDate, isActivePage } from '../../utils';
 import { compressToEncodedURIComponent, decompressFromUint8Array } from 'lz-string';
+import m from 'mithril';
+import { FlatButton, Select, Sidenav, padLeft, snackbar } from 'mithril-materialized';
+import { Pages, defaultModel } from '../../models';
+import type { DataModel, Page } from '../../models';
+import { i18n, loadData, routingSvc, t } from '../../services';
+import type { Languages, MeiosisComponent, UserRole } from '../../services';
+import { formatDate, isActivePage } from '../../utils';
 import { LanguageSwitcher } from './language-switcher';
 
 export const SideNav: MeiosisComponent<{ onDelete: () => void }> = () => {
@@ -82,15 +84,14 @@ export const SideNav: MeiosisComponent<{ onDelete: () => void }> = () => {
         const url = `${window.location.href}${/\?/.test(window.location.href) ? '&' : '?'}model=${compressed}`;
         navigator.clipboard.writeText(url).then(
           () => {
-            toast({
-              html: 'Copied permanent link to clipboard.',
-              classes: 'yellow black-text',
+            snackbar({
+              message: 'Copied permanent link to clipboard.',
             });
           },
           (err) => {
-            toast({
-              html: 'Failed copying link to clipboard: ' + err,
-              classes: 'red',
+            snackbar({
+              message: 'Failed copying link to clipboard: ' + err,
+              dismissible: true,
             });
           }
         );

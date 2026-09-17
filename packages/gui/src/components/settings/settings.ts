@@ -1,9 +1,9 @@
-import m, { FactoryComponent } from 'mithril';
-import { IActions, IAppModel } from '../../services/meiosis';
+import m, { type FactoryComponent } from 'mithril';
+import type { Actions, State } from '../../services/meiosis';
 
 export const Settings: FactoryComponent<{
-  state: IAppModel;
-  actions: IActions;
+  state: State;
+  actions: Actions;
 }> = () => {
   let setting: 'Icon Set' | 'No Setting Selected' = 'No Setting Selected';
 
@@ -30,31 +30,31 @@ export const Settings: FactoryComponent<{
         m('.col.s12.l7', [
           setting === 'Icon Set'
             ? [
-                m('h4', setting),
-                m('.card-panel', [
-                  m(
-                    'p',
-                    m('label', [
-                      m('input', {
-                        name: 'icons',
-                        type: 'radio',
-                        checked: true,
-                      }),
-                      m('span', 'Indigo'),
-                    ])
-                  ),
-                  m(
-                    'p',
-                    m('label', [
-                      m('input', {
-                        name: 'icons',
-                        type: 'radio',
-                      }),
-                      m('span', 'APP-6'),
-                    ])
-                  ),
-                ]),
-              ]
+              m('h4', setting),
+              m('.card-panel', [
+                m(
+                  'p',
+                  m('label', [
+                    m('input', {
+                      name: 'icons',
+                      type: 'radio',
+                      checked: true,
+                    }),
+                    m('span', 'Indigo'),
+                  ])
+                ),
+                m(
+                  'p',
+                  m('label', [
+                    m('input', {
+                      name: 'icons',
+                      type: 'radio',
+                    }),
+                    m('span', 'APP-6'),
+                  ])
+                ),
+              ]),
+            ]
             : [m('h4', setting), m('.card-panel', [])],
         ])
       );

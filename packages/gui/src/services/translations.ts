@@ -1,10 +1,10 @@
-import translate, { Options, Translate } from 'translate.js';
-import { plural_EN } from 'translate.js/pluralize';
-import { messages, messagesNL } from './lang';
-import { I18n } from 'mithril-ui-form';
-import stopwordsNl from 'stopwords-nl';
+import type { I18n } from 'mithril-ui-form';
 import stopwordsEn from 'stopwords-en';
+import stopwordsNl from 'stopwords-nl';
+import translate, { type Options, type Translate } from 'translate.js';
+import { plural_EN } from 'translate.js/pluralize';
 import { LanguageStemmer } from 'wasm-stemmers';
+import { messages, messagesNL } from './lang';
 
 export type Languages = 'nl' | 'en';
 
@@ -91,7 +91,7 @@ async function loadAndSetLocale(newLocale: Languages) {
   I18N.deleteItem = t('I18n', 'deleteItem');
   I18N.pickOne = t('I18n', 'pickOne');
   I18N.pickOneOrMore = t('I18n', 'pickOneOrMore');
-  onChangeLocale.forEach((listener) => listener(i18n.currentLocale, dir()));
+  onChangeLocale.forEach((listener) => { listener(i18n.currentLocale, dir()) });
 }
 
 function supported(locale: Languages) {
