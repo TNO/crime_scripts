@@ -2,7 +2,7 @@
 import m from 'mithril';
 import { LandingPage } from '../components';
 import { Pages } from '../models';
-import { MeiosisComponent } from './meiosis';
+import type { MeiosisComponent } from './meiosis';
 
 const userId = 'userid';
 const userRole = 'userrole';

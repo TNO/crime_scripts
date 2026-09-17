@@ -1,6 +1,7 @@
+import saveAs from 'file-saver';
 import m from 'mithril';
 import { padLeft } from 'mithril-materialized';
-import {
+import type {
   Act,
   Activity,
   CrimeScript,
@@ -17,7 +18,6 @@ import {
   SearchResult,
 } from '../models';
 import { i18n, t } from '../services';
-import saveAs from 'file-saver';
 
 export const LANGUAGE = 'CSS_LANGUAGE';
 export const SAVED = 'CSS_MODEL_SAVED';

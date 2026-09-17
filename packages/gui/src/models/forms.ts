@@ -1,7 +1,7 @@
-import { UIForm } from 'mithril-ui-form';
-import { CrimeScript, Literature, Labelled, Hierarchical, CrimeScriptFilter } from './data-model';
-import { toOptions } from '../utils';
+import type { UIForm } from 'mithril-ui-form';
 import { t } from '../services';
+import { toOptions } from '../utils';
+import type { CrimeScript, CrimeScriptFilter, Hierarchical, Labelled, Literature } from './data-model';
 
 export type AttributeType =
   | 'cast'

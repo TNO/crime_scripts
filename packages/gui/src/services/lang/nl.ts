@@ -1,5 +1,5 @@
 import { situationCrimePreventionClassificationTableNL } from '../abstract';
-import { messages } from './en';
+import type { messages } from './en';
 
 export const messagesNL: typeof messages = {
   LANDING_CASES: { TITLE: 'Case management', DESC: 'Voer uw zaak in en vind de meest relevante misdaadscripts.' },

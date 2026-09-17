@@ -1,7 +1,7 @@
 import m from 'mithril';
-import { Pages } from '../models';
-import { MeiosisComponent, t } from '../services';
 import { SlimdownView } from 'mithril-ui-form';
+import { Pages } from '../models';
+import { type MeiosisComponent, t } from '../services';
 
 const license = `
 

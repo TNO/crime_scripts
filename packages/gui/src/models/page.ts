@@ -1,5 +1,5 @@
-import { ComponentTypes } from 'mithril';
-import { State } from '../services';
+import type { ComponentTypes } from 'mithril';
+import type { State } from '../services';
 
 type IconResolver = string | (() => string);
 

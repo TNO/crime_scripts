@@ -1,6 +1,6 @@
-import m, { Attributes, FactoryComponent } from 'mithril';
+import m, { type Attributes, type FactoryComponent } from 'mithril';
 import { Select } from 'mithril-materialized';
-import { Languages, t } from '../../services';
+import { type Languages, t } from '../../services';
 
 export interface LanguageSwitcherAttrs extends Attributes {
   currentLanguage: Languages;

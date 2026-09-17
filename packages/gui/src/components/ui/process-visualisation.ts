@@ -1,4 +1,4 @@
-import m, { FactoryComponent, Vnode } from 'mithril';
+import m, { type FactoryComponent, type Vnode } from 'mithril';
 
 export interface ProcessStep {
   id: string;

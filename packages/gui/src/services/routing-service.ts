@@ -1,9 +1,9 @@
-import m, { RouteDefs } from 'mithril';
-import { Pages, Page } from '../models';
-import { Layout } from '../components/layout';
+import m, { type RouteDefs } from 'mithril';
 import { AboutPage, CasePage, CrimeScriptPage, HomePage, LandingPage, SettingsPage } from '../components';
-import { t } from './translations';
+import { Layout } from '../components/layout';
+import { type Page, Pages } from '../models';
 import { appActions, cells } from './meiosis';
+import { t } from './translations';
 
 class RoutingService {
   private pages!: ReadonlyArray<Page>;

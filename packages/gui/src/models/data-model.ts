@@ -1,4 +1,4 @@
-import { ICONS } from './icons';
+import type { ICONS } from './icons';
 
 export type DataModel = {
   version: number;

@@ -1,29 +1,29 @@
-import { Patch } from 'meiosis-setup/types';
-import m, { FactoryComponent } from 'mithril';
-import { AlertDialog, Button, Dialog, FlatButton, Select, TabItem, Tabs } from 'mithril-materialized';
-import { LayoutForm, SlimdownView, UIForm } from 'mithril-ui-form';
+import type { Patch } from 'meiosis-setup/types';
+import m, { type FactoryComponent } from 'mithril';
+import { AlertDialog, Button, Dialog, FlatButton, Select, type TabItem, Tabs } from 'mithril-materialized';
+import { LayoutForm, SlimdownView, type UIForm } from 'mithril-ui-form';
 import {
-  Act,
-  Cast,
-  CrimeLocation,
-  CrimeScript,
-  CrimeScriptAttributes,
-  DataModel,
-  GeographicLocation,
+  type Act,
+  type Cast,
+  type CrimeLocation,
+  type CrimeScript,
+  type CrimeScriptAttributes,
+  type DataModel,
+  type GeographicLocation,
   ICONS,
   IconOpts,
-  ID,
-  Labelled,
+  type ID,
+  type Labelled,
   missingIcon,
   Pages,
-  Partner,
-  Product,
+  type Partner,
+  type Product,
   scriptIcon,
-  Track,
-  Transport,
+  type Track,
+  type Transport,
 } from '../../models';
 import { lookupCrimeMeasure } from '../../models/situational-crime-prevention';
-import { routingSvc, State } from '../../services';
+import { routingSvc, type State } from '../../services';
 import { t } from '../../services/translations';
 import {
   createTooltip,
@@ -34,7 +34,7 @@ import {
   toMarkdownOl,
 } from '../../utils';
 import { ReferenceListComponent } from '../ui/reference';
-import { ProcessStep, ProcessVisualization } from './process-visualisation';
+import { type ProcessStep, ProcessVisualization } from './process-visualisation';
 
 export const CrimeScriptViewer: FactoryComponent<{
   crimeScript: CrimeScript;

@@ -1,8 +1,8 @@
 import m from 'mithril';
 import { Icon } from 'mithril-materialized';
 import background from '../assets/background.webp';
-import { MeiosisComponent, t } from '../services';
 import { Pages } from '../models';
+import { type MeiosisComponent, t } from '../services';
 
 // const readerAvailable = window.File && window.FileReader && window.FileList && window.Blob;
 

@@ -1,20 +1,20 @@
-import m, { FactoryComponent } from 'mithril';
-import {
-  CrimeScript,
-  ID,
-  Pages,
-  Act,
-  Hierarchical,
-  Labelled,
-  DataModel,
-  FlexSearchResult,
-  SearchScore,
-  Cast,
-} from '../models';
-import { MeiosisComponent, routingSvc, t } from '../services';
-import { deepCopy, FormAttributes, LayoutForm, SlimdownView } from 'mithril-ui-form';
+import m, { type FactoryComponent } from 'mithril';
 import { Collapsible, FlatButton, Tabs, TextInput } from 'mithril-materialized';
-import { attrForm, AttributeType } from '../models/forms';
+import { deepCopy, type FormAttributes, LayoutForm, SlimdownView } from 'mithril-ui-form';
+import {
+  type Act,
+  type Cast,
+  type CrimeScript,
+  type DataModel,
+  type FlexSearchResult,
+  type Hierarchical,
+  type ID,
+  type Labelled,
+  Pages,
+  SearchScore,
+} from '../models';
+import { type AttributeType, attrForm } from '../models/forms';
+import { type MeiosisComponent, routingSvc, t } from '../services';
 import { scrollToActiveItem, sortByLabel } from '../utils';
 import { TreeView } from './ui/treeview';
 

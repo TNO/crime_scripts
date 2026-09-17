@@ -1,9 +1,9 @@
 import m from 'mithril';
-import { CrimeScriptFilter, Pages } from '../models';
-import { I18N, MeiosisComponent, routingSvc, t } from '../services';
 import { TextInput } from 'mithril-materialized';
-import { FormAttributes, LayoutForm, UIForm } from 'mithril-ui-form';
+import { type FormAttributes, LayoutForm, type UIForm } from 'mithril-ui-form';
+import { type CrimeScriptFilter, Pages } from '../models';
 import { attributeFilterFormFactory, crimeScriptFilterFormFactory } from '../models/forms';
+import { I18N, type MeiosisComponent, routingSvc, t } from '../services';
 
 export const CasePage: MeiosisComponent = () => {
   let crimeScriptFilterForm: UIForm<CrimeScriptFilter>;

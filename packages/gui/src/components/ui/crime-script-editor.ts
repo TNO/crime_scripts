@@ -1,24 +1,24 @@
-import m, { FactoryComponent } from 'mithril';
+import m, { type FactoryComponent } from 'mithril';
 import { AlertDialog, FlatButton, Select, Tabs, uniqueId } from 'mithril-materialized';
-import { FormAttributes, LayoutForm, UIForm } from 'mithril-ui-form';
+import { type FormAttributes, LayoutForm, type UIForm } from 'mithril-ui-form';
 import {
-  Act,
-  Activity,
-  ActivityPhase,
-  CrimeScript,
-  DataModel,
+  type Act,
+  type Activity,
+  type ActivityPhase,
+  type CrimeScript,
+  type DataModel,
   IconOpts,
-  ID,
-  Indicator,
-  Labelled,
-  Measure,
-  Opportunity,
-  Scene,
+  type ID,
+  type Indicator,
+  type Labelled,
+  type Measure,
+  type Opportunity,
+  type Scene,
 } from '../../models';
 import { labelForm, literatureForm } from '../../models/forms';
 import { crimeMeasureOptions } from '../../models/situational-crime-prevention';
 import { I18N, t } from '../../services/translations';
-import { InputOptions, toOptions } from '../../utils';
+import { type InputOptions, toOptions } from '../../utils';
 
 export const CrimeScriptEditor: FactoryComponent<{
   model: DataModel;

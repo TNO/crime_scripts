@@ -1,22 +1,22 @@
 import { meiosisSetup } from 'meiosis-setup';
-import { MeiosisCell, MeiosisConfig, Patch, Service } from 'meiosis-setup/types';
-import m, { FactoryComponent } from 'mithril';
+import type { MeiosisCell, MeiosisConfig, Patch, Service } from 'meiosis-setup/types';
+import m, { type FactoryComponent } from 'mithril';
 import { snackbar, uniqueId } from 'mithril-materialized';
 import {
-  Activity,
-  CrimeScriptFilter,
-  DataModel,
-  FlexSearchResult,
-  ID,
+  type Activity,
+  type CrimeScriptFilter,
+  type DataModel,
+  type FlexSearchResult,
+  type ID,
   Pages,
-  SearchResult,
-  ServiceProvider,
-  Settings,
+  type SearchResult,
+  type ServiceProvider,
+  type Settings,
 } from '../models';
 import { aggregateFlexSearchResults, crimeScriptFilterToText, mergeDataModels, scrollToTop, tokenize } from '../utils';
 import { i18n, routingSvc, t } from '.';
 import { flexSearchLookupUpdater } from './flex-search';
-import { User, UserRole } from './login-service';
+import type { User, UserRole } from './login-service';
 
 // const settingsSvc = restServiceFactory<Settings>('settings');
 const PREVIEW_MODEL_KEY = 'CSS_PREVIEW_MODEL';

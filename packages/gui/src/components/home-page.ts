@@ -1,9 +1,9 @@
 import m from 'mithril';
 import { Dialog, FlatButton, Icon } from 'mithril-materialized';
-import { FormAttributes, LayoutForm, UIForm } from 'mithril-ui-form';
-import { Act, CrimeScript, CrimeScriptFilter, Hierarchical, ID, Labelled, Pages, scriptIcon } from '../models';
+import { type FormAttributes, LayoutForm, type UIForm } from 'mithril-ui-form';
+import { type Act, type CrimeScript, type CrimeScriptFilter, type Hierarchical, type ID, type Labelled, Pages, scriptIcon } from '../models';
 import { crimeScriptFilterFormFactory } from '../models/forms';
-import { MeiosisComponent, routingSvc } from '../services';
+import { type MeiosisComponent, routingSvc } from '../services';
 import { I18N, t } from '../services/translations';
 import { toCommaSeparatedList } from '../utils';
 import { NewScriptWizard } from './ui/new_script_wizard';

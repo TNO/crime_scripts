@@ -1,10 +1,10 @@
 import { compressToEncodedURIComponent, decompressFromUint8Array } from 'lz-string';
 import m from 'mithril';
-import { FlatButton, Select, Sidenav, padLeft, snackbar } from 'mithril-materialized';
-import { Pages, defaultModel } from '../../models';
+import { FlatButton, padLeft, Select, Sidenav, snackbar } from 'mithril-materialized';
 import type { DataModel, Page } from '../../models';
-import { i18n, loadData, routingSvc, t } from '../../services';
+import { defaultModel, Pages } from '../../models';
 import type { Languages, MeiosisComponent, UserRole } from '../../services';
+import { i18n, loadData, routingSvc, t } from '../../services';
 import { formatDate, isActivePage } from '../../utils';
 import { LanguageSwitcher } from './language-switcher';
 

@@ -1,7 +1,7 @@
 import m from 'mithril';
 import { AlertDialog, FlatButton } from 'mithril-materialized';
-import { Act, CrimeScript, Labelled, Pages } from '../models';
-import { MeiosisComponent } from '../services';
+import { type Act, type CrimeScript, type Labelled, Pages } from '../models';
+import type { MeiosisComponent } from '../services';
 import { t } from '../services/translations';
 import { formatDate, toJSON } from '../utils';
 import { toWord } from '../utils/word';

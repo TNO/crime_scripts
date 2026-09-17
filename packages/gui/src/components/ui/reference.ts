@@ -1,5 +1,5 @@
-import m, { FactoryComponent } from 'mithril';
-import { Literature } from '../../models';
+import m, { type FactoryComponent } from 'mithril';
+import type { Literature } from '../../models';
 
 const ReferenceComponent: FactoryComponent<{ reference: Literature }> = () => {
   let showSummary = false;

@@ -1,6 +1,6 @@
-import m, { FactoryComponent, Attributes } from 'mithril';
-import { TreeView as MMTreeView, TreeNode } from 'mithril-materialized';
-import { Hierarchical, ID, Labelled } from '../../models';
+import m, { type Attributes, type FactoryComponent } from 'mithril';
+import { TreeView as MMTreeView, type TreeNode } from 'mithril-materialized';
+import type { Hierarchical, ID, Labelled } from '../../models';
 
 const buildTreeFromHierarchy = (items: (Labelled & Hierarchical)[]): TreeNode[] => {
   // Create a map for quick item lookup

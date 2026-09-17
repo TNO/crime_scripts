@@ -1,7 +1,7 @@
-import { Service } from 'meiosis-setup/types';
-import { State } from './meiosis';
-import { DataModel, FlexSearchResult, Hierarchical, ID, Labelled, SearchScore } from '../models';
+import type { Service } from 'meiosis-setup/types';
+import { type DataModel, type FlexSearchResult, type Hierarchical, type ID, type Labelled, SearchScore } from '../models';
 import { tokenize } from '../utils';
+import type { State } from './meiosis';
 import { i18n } from './translations';
 
 /**

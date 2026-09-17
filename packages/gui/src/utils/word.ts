@@ -1,5 +1,6 @@
 import {
   AlignmentType,
+  convertInchesToTwip,
   Document,
   ExternalHyperlink,
   HeadingLevel,
@@ -7,13 +8,12 @@ import {
   Packer,
   Paragraph,
   TextRun,
-  convertInchesToTwip,
 } from 'docx';
 import { saveAs } from 'file-saver';
-import { ActivityType, CrimeScript, DataModel, Hierarchical, ID, Labelled } from '../models';
+import { ActivityType, type CrimeScript, type DataModel, type Hierarchical, type ID, type Labelled } from '../models';
+import { lookupCrimeMeasure } from '../models/situational-crime-prevention';
 import { t } from '../services';
 import { addLeadingSpaces, measuresToMarkdown } from '.';
-import { lookupCrimeMeasure } from '../models/situational-crime-prevention';
 
 const blue = '2F5496';
 

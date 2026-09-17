@@ -1,4 +1,4 @@
-import m, { Attributes, FactoryComponent } from 'mithril';
+import m, { type Attributes, type FactoryComponent } from 'mithril';
 
 export const CircularSpinner: FactoryComponent<Attributes> = () => {
   return {

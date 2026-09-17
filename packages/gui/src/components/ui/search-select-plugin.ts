@@ -1,6 +1,6 @@
 import m from 'mithril';
-import { InputOption, SearchSelect } from 'mithril-materialized';
-import { PluginType } from 'mithril-ui-form';
+import { type InputOption, SearchSelect } from 'mithril-materialized';
+import type { PluginType } from 'mithril-ui-form';
 
 export type OnCreateNewOption = <T extends string | number>(term: string) => InputOption<T> | Promise<InputOption<T>>;
 

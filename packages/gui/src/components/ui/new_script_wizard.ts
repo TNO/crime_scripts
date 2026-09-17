@@ -1,9 +1,9 @@
 import m from 'mithril';
-import { MeiosisComponent, t } from '../../services';
 import { Wizard } from 'mithril-materialized';
-import { LayoutForm, UIForm } from 'mithril-ui-form';
-import { CrimeScript, IconOpts, Pages, Scene } from '../../models';
+import { LayoutForm, type UIForm } from 'mithril-ui-form';
+import { type CrimeScript, IconOpts, Pages, type Scene } from '../../models';
 import { labelForm } from '../../models/forms';
+import { type MeiosisComponent, t } from '../../services';
 
 export const NewScriptWizard: MeiosisComponent = () => {
   let crimeScript: CrimeScript = {

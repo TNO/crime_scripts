@@ -1,6 +1,6 @@
-import m, { FactoryComponent } from 'mithril';
+import m, { type FactoryComponent } from 'mithril';
 import { FlatButton, TextArea } from 'mithril-materialized';
-import { PluginType } from 'mithril-ui-form';
+import type { PluginType } from 'mithril-ui-form';
 
 export const SimpleListEditorPlugin: PluginType<string[], any> = () => {
   return {
