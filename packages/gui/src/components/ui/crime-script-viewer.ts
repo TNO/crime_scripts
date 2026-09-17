@@ -168,10 +168,10 @@ export const CrimeScriptViewer: FactoryComponent<{
       }, new Set<ID>())
     );
     const md = `${locationIds && locationIds.length
-        ? `##### ${t('LOCATIONS', locationIds.length)}
+      ? `##### ${t('LOCATIONS', locationIds.length)}
 
 ${toCommaSeparatedList(locations, locationIds)}`
-        : ''
+      : ''
       }
 
 ${activities.length > 0
