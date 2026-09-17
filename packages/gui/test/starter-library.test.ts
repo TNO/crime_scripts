@@ -8,6 +8,7 @@ import {
   detachStarterScript,
   hasCloseDuplicate,
   importStarterBundle,
+  resolveStarterBundleUrl,
   saveAsNewSuggestion,
   suggestionKey,
   validateStarterBundle,
@@ -64,6 +65,13 @@ test('starter bundles are structurally validated including references', () => {
   const invalid = bundle();
   invalid.crimeScripts[0].stages[0].variants[0].measures[0].partners = ['missing'];
   assert.throws(() => validateStarterBundle(invalid), /missing partner/);
+});
+
+test('starter bundle URL respects the deployed application base path', () => {
+  assert.equal(
+    resolveStarterBundleUrl('https://example.test/crime_scripts/'),
+    'https://example.test/crime_scripts/starter-bundles/nl.json'
+  );
 });
 
 test('runtime validation accepts protected bundles without public editorial metadata', () => {
@@ -295,6 +303,26 @@ test('taxonomy id conflicts are remapped without changing imported meaning', () 
   const current = normalizeDataModel({
     crimeScripts: [],
     products: [{ id: 'shared-id', label: 'Lokaal product' }],
+  });
+
+  test('starter imports remap taxonomy ids that collide with owned workspace ids', () => {
+    const imported = bundle();
+    const localScript = structuredClone(imported.crimeScripts[0]);
+    localScript.id = 'local-script';
+    localScript.stages[0].variants[0].activities = [{
+      id: 'partner',
+      label: 'Bestaande activiteit',
+      description: 'Een lokale activiteit met dezelfde id als een startertaxonomie.',
+      type: 0,
+    }];
+    const current = normalizeDataModel({ crimeScripts: [localScript] });
+
+    const result = importStarterBundle(current, imported);
+    const importedScript = result.crimeScripts.find(({ starterOrigin }) => starterOrigin?.scriptId === 'starter-script');
+    const importedPartnerId = importedScript?.stages[0].variants[0].measures[0].partners[0];
+    assert.ok(importedPartnerId);
+    assert.notEqual(importedPartnerId, 'partner');
+    assert.equal(result.partners.some(({ id }) => id === importedPartnerId), true);
   });
   const starter = bundle();
   starter.products = [{ id: 'shared-id', label: 'Starterproduct' }];

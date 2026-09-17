@@ -19,6 +19,9 @@ export type StarterSuggestion = (Indicator | Measure) & {
   sources: Literature[];
 };
 
+export const resolveStarterBundleUrl = (baseUrl: string): string =>
+  new URL('starter-bundles/nl.json', baseUrl).toString();
+
 export const getMatchingStarterBundleMetadata = (
   crimeScript: Pick<CrimeScript, 'starterOrigin'>,
   model: Pick<DataModel, 'starterBundle'>
@@ -259,63 +262,6 @@ const copyOwnedScript = (script: CrimeScript): CrimeScript => {
   return copy;
 };
 
-const mergeTaxonomy = <T extends { id: ID; label: string; parents?: ID[] }>(
-  current: T[],
-  imported: T[]
-): { items: T[]; importedIds: Map<ID, ID> } => {
-  const items = structuredClone(current);
-  const added: T[] = [];
-  const byId = new Map(items.map((item) => [item.id, item]));
-  const byLabel = new Map(items.map((item) => [item.label.trim().toLocaleLowerCase(), item.id]));
-  const importedIds = new Map<ID, ID>();
-  imported.forEach((source) => {
-    const labelKey = source.label.trim().toLocaleLowerCase();
-    const sameLabelId = byLabel.get(labelKey);
-    const sameId = byId.get(source.id);
-    if (sameLabelId) {
-      importedIds.set(source.id, sameLabelId);
-      return;
-    }
-    const item = structuredClone(source);
-    if (sameId) item.id = newId();
-    items.push(item);
-    added.push(item);
-    byId.set(item.id, item);
-    byLabel.set(labelKey, item.id);
-    importedIds.set(source.id, item.id);
-  });
-  added.forEach((item) => {
-    item.parents = item.parents?.map((id) => importedIds.get(id) || id);
-  });
-  return { items, importedIds };
-};
-
-const mergeSharedTaxonomies = (result: DataModel, imported: DataModel) => {
-  const cast = mergeTaxonomy(result.cast, imported.cast);
-  const attributes = mergeTaxonomy(result.attributes, imported.attributes);
-  const locations = mergeTaxonomy(result.locations, imported.locations);
-  const geoLocations = mergeTaxonomy(result.geoLocations, imported.geoLocations);
-  const products = mergeTaxonomy(result.products, imported.products);
-  const transports = mergeTaxonomy(result.transports, imported.transports);
-  const partners = mergeTaxonomy(result.partners, imported.partners);
-  result.cast = cast.items;
-  result.attributes = attributes.items;
-  result.locations = locations.items;
-  result.geoLocations = geoLocations.items;
-  result.products = products.items;
-  result.transports = transports.items;
-  result.partners = partners.items;
-  return {
-    cast: cast.importedIds,
-    attributes: attributes.importedIds,
-    locations: locations.importedIds,
-    geoLocations: geoLocations.importedIds,
-    products: products.importedIds,
-    transports: transports.importedIds,
-    partners: partners.importedIds,
-  };
-};
-
 const visitModelIds = (model: DataModel, visit: (id: ID) => void) => {
   [
     ...model.cast,
@@ -484,7 +430,9 @@ export const importStarterBundle = (
   const bundle = validateStarterBundle(bundleInput);
   const metadata = bundle.starterBundle!;
   const result = structuredClone(current);
-  const remaps = mergeSharedTaxonomies(result, bundle);
+  const initialUsedIds = new Set<ID>();
+  visitModelIds(result, (id) => initialUsedIds.add(id));
+  const remaps = mergeSharedTaxonomiesGlobally(result, bundle, initialUsedIds);
   bundle.crimeScripts.map((script) => remapScriptTaxonomies(script, remaps)).forEach((source) => {
     const index = result.crimeScripts.findIndex(({ id, starterOrigin }) =>
       id === source.id ||
@@ -492,13 +440,20 @@ export const importStarterBundle = (
     );
     const action = index < 0 ? 'replace' : choices[source.id] || 'skip';
     if (action === 'skip') return;
-    const imported = action === 'copy'
+    const candidate = action === 'copy'
       ? copyOwnedScript(withStarterOrigin(source, metadata))
       : withStarterOrigin(source, metadata);
+    const usedIds = new Set<ID>();
+    const modelWithoutReplacedScript = index >= 0 && action === 'replace'
+      ? { ...result, crimeScripts: result.crimeScripts.filter((_, scriptIndex) => scriptIndex !== index) }
+      : result;
+    visitModelIds(modelWithoutReplacedScript, (id) => usedIds.add(id));
+    const imported = remapCollidingOwnedIds(candidate, usedIds);
     if (index >= 0 && action === 'replace') result.crimeScripts[index] = imported;
     else result.crimeScripts.push(imported);
   });
   result.starterBundle = metadata;
+  assertGloballyUniqueIds(result);
   return result;
 };
 
