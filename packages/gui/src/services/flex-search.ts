@@ -44,7 +44,6 @@ export const flexSearchLookupUpdater: Service<State> = {
       crimeScripts = [],
       cast = [],
       attributes = [],
-      acts = [],
       locations = [],
       transports = [],
       products = [],
@@ -84,25 +83,22 @@ export const flexSearchLookupUpdater: Service<State> = {
       const { label = '', description = '', stages: actVariants = [] } = crimeScript;
       const flexLoc: FlexSearchResult = [crimeScriptIdx, -1, -1, SearchScore.OTHER_MATCH];
       tokenize(label + ' ' + description, i18n.stopwords).forEach((word) => updateLookup(word, flexLoc));
-      actVariants.forEach(({ ids = [] }) => {
-        ids.forEach((actId) => {
-          const actIdx = acts.findIndex((a) => a.id === actId);
-          if (actIdx < 0) return;
-          const act = acts[actIdx];
-          [{ ...act }].forEach((phase, phaseIdx) => {
+      actVariants.forEach(({ variants = [] }, sceneIdx) => {
+        variants.forEach((act, variantIdx) => {
+          [{ ...act }].forEach((phase) => {
             if (phase.locationIds && Array.isArray(phase.locationIds)) {
               processItemIds(phase.locationIds, [
                 crimeScriptIdx,
-                actIdx,
-                phaseIdx,
+                sceneIdx,
+                variantIdx,
                 SearchScore.EXACT_MATCH,
               ] as FlexSearchResult);
             }
-            const res: FlexSearchResult = [crimeScriptIdx, actIdx, phaseIdx, SearchScore.OTHER_MATCH];
+            const res: FlexSearchResult = [crimeScriptIdx, sceneIdx, variantIdx, SearchScore.OTHER_MATCH];
             phase.activities?.forEach((activity) => {
               const { label = '', description = '', cast = [], attributes = [], transports = [] } = activity;
               tokenize(label + ' ' + description, i18n.stopwords).forEach((word) => updateLookup(word, res));
-              const exactRes: FlexSearchResult = [crimeScriptIdx, actIdx, phaseIdx, SearchScore.EXACT_MATCH];
+              const exactRes: FlexSearchResult = [crimeScriptIdx, sceneIdx, variantIdx, SearchScore.EXACT_MATCH];
               processItemIds([...cast, ...attributes, ...transports], exactRes);
             });
             phase.conditions?.forEach((condition) => {

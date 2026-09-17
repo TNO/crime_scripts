@@ -48,7 +48,6 @@ export const SettingsPage: MeiosisComponent = () => {
       const { model, role, attributeFilter } = state;
       const {
         cast = [],
-        acts = [],
         crimeScripts = [],
         attributes = [],
         products = [],
@@ -176,7 +175,6 @@ export const SettingsPage: MeiosisComponent = () => {
                           selectedId,
                           type,
                           iconName,
-                          acts,
                           crimeScripts,
                           setLocation: actions.setLocation,
                         })
@@ -194,7 +192,6 @@ const AttrView: FactoryComponent<{
   selectedId?: ID;
   type: AttributeType;
   iconName?: string;
-  acts: Act[];
   crimeScripts: CrimeScript[];
   setLocation: (currentCrimeScriptId: ID, actId: ID, phaseId: ID) => void;
 }> = () => {
@@ -202,7 +199,7 @@ const AttrView: FactoryComponent<{
     oncreate: ({ attrs: { selectedId } }) => {
       selectedId && scrollToActiveItem(selectedId);
     },
-    view: ({ attrs: { attr, type, iconName, acts, crimeScripts, setLocation, selectedId } }) => {
+    view: ({ attrs: { attr, type, iconName, crimeScripts, setLocation, selectedId } }) => {
       return m(
         '.attr',
         m(Collapsible, {
@@ -216,37 +213,34 @@ const AttrView: FactoryComponent<{
                     return acc;
                   }
                 }
-                cs.stages?.forEach(({ ids = [] }) => {
-                  ids.forEach((actId) => {
-                    const actIdx = acts.findIndex((a) => a.id === actId);
-                    if (actIdx < 0) return;
-                    const act = acts[actIdx];
+                cs.stages?.forEach((scene, sceneIdx) => {
+                  scene.variants.forEach((act, variantIdx) => {
                     if (type === 'locations') {
                       if (act.locationIds && act.locationIds.includes(c.id)) {
-                        acc.push([crimeScriptIdx, actIdx, 0, SearchScore.EXACT_MATCH, act.label]);
+                        acc.push([crimeScriptIdx, sceneIdx, variantIdx, SearchScore.EXACT_MATCH, act.label]);
                       }
                     } else if (type === 'partners') {
                       act.measures
                         ?.filter((m) => m.partners?.includes(c.id))
                         .forEach((m) => {
-                          acc.push([crimeScriptIdx, actIdx, 0, SearchScore.EXACT_MATCH, m.label]);
+                          acc.push([crimeScriptIdx, sceneIdx, variantIdx, SearchScore.EXACT_MATCH, m.label]);
                         });
                     } else {
                       act.activities?.forEach((activity) => {
                         if (type === 'cast') {
                           const { cast = [] } = activity;
                           if (cast.includes(c.id)) {
-                            acc.push([crimeScriptIdx, actIdx, 0, SearchScore.EXACT_MATCH, activity.label]);
+                            acc.push([crimeScriptIdx, sceneIdx, variantIdx, SearchScore.EXACT_MATCH, activity.label]);
                           }
                         } else if (type === 'attributes') {
                           const { attributes = [] } = activity;
                           if (attributes.includes(c.id)) {
-                            acc.push([crimeScriptIdx, actIdx, 0, SearchScore.EXACT_MATCH, activity.label]);
+                            acc.push([crimeScriptIdx, sceneIdx, variantIdx, SearchScore.EXACT_MATCH, activity.label]);
                           }
                         } else if (type === 'transports') {
                           const { transports = [] } = activity;
                           if (transports.includes(c.id)) {
-                            acc.push([crimeScriptIdx, actIdx, 0, SearchScore.EXACT_MATCH, activity.label]);
+                            acc.push([crimeScriptIdx, sceneIdx, variantIdx, SearchScore.EXACT_MATCH, activity.label]);
                           }
                         }
                       });
@@ -276,19 +270,20 @@ const AttrView: FactoryComponent<{
                     'ol',
                     Object.entries(
                       searchResults.reduce((grouped, result) => {
-                        const [crimeScriptIdx, actIdx] = result;
-                        const key = `${crimeScriptIdx}-${actIdx}`;
+                        const [crimeScriptIdx, sceneIdx, variantIdx] = result;
+                        const key = `${crimeScriptIdx}-${sceneIdx}-${variantIdx}`;
 
                         if (!grouped[key]) {
                           grouped[key] = {
                             crimeScript: crimeScripts[crimeScriptIdx],
-                            actIdx,
-                            act: actIdx >= 0 ? acts[actIdx] : undefined,
+                            sceneIdx,
+                            variantIdx,
+                            act: crimeScripts[crimeScriptIdx].stages[sceneIdx]?.variants[variantIdx],
                           };
                         }
                         return grouped;
-                      }, {} as Record<string, { crimeScript: CrimeScript; actIdx: number; act?: Act }>)
-                    ).map(([_, { crimeScript, actIdx, act }], i) => {
+                      }, {} as Record<string, { crimeScript: CrimeScript; sceneIdx: number; variantIdx: number; act?: Act }>)
+                    ).map(([_, { crimeScript, sceneIdx, act }], i) => {
                       const actLabel = act ? act.label : '...';
 
                       return m('li', { id: i === 0 ? c.id : undefined }, [
@@ -298,11 +293,8 @@ const AttrView: FactoryComponent<{
                             style: { cursor: 'pointer' },
                             href: routingSvc.href(Pages.CRIME_SCRIPT, `id=${crimeScript.id}`),
                             onclick: () => {
-                              const curActId = acts[actIdx].id;
-                              const scene = crimeScript.stages
-                                ? crimeScript.stages.find((s) => s.ids && s.ids.includes(curActId))
-                                : undefined;
-                              scene && setLocation(crimeScript.id, curActId, scene.id);
+                              const scene = crimeScript.stages[sceneIdx];
+                              if (scene && act) setLocation(crimeScript.id, act.id, scene.id);
                             },
                           },
                           `${crimeScript.label} > ${actLabel}`

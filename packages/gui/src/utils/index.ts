@@ -2,8 +2,6 @@ import saveAs from 'file-saver';
 import m from 'mithril';
 import { padLeft } from 'mithril-materialized';
 import type {
-  Act,
-  Activity,
   CrimeScript,
   CrimeScriptFilter,
   DataModel,
@@ -334,7 +332,7 @@ export const aggregateFlexSearchResults = (results: FlexSearchResult[]): SearchR
   // Step 1: Aggregate by crimeScriptIdx
   const crimeScriptMap = new Map<number, SearchResult>();
 
-  for (const [crimeScriptIdx, actIdx, phaseIdx, score] of results) {
+  for (const [crimeScriptIdx, sceneIdx, variantIdx, score] of results) {
     if (!crimeScriptMap.has(crimeScriptIdx)) {
       crimeScriptMap.set(crimeScriptIdx, {
         crimeScriptIdx,
@@ -346,11 +344,13 @@ export const aggregateFlexSearchResults = (results: FlexSearchResult[]): SearchR
     const crimeScript = crimeScriptMap.get(crimeScriptIdx)!;
     crimeScript.totalScore += score;
 
-    const existingAct = crimeScript.acts.find((act) => act.actIdx === actIdx);
+    const existingAct = crimeScript.acts.find(
+      (act) => act.sceneIdx === sceneIdx && act.variantIdx === variantIdx
+    );
     if (existingAct) {
       existingAct.score += score;
     } else {
-      crimeScript.acts.push({ actIdx, phaseIdx, score });
+      crimeScript.acts.push({ sceneIdx, variantIdx, score });
     }
   }
 
@@ -531,11 +531,7 @@ export const highlightFactory = (searchTerms?: string | string[]) => {
 
 /** Converts a crime script to a Word docx document and saves it */
 export const toJSON = async (filename: string, cs: Partial<CrimeScript>, model: DataModel) => {
-  const stageIds = cs.stages?.reduce((acc, stage) => {
-    stage.ids?.forEach((id) => acc.add(id));
-    return acc;
-  }, new Set<ID>());
-  const acts = model.acts.filter((a) => stageIds?.has(a.id));
+  const acts = cs.stages?.flatMap((stage) => stage.variants) || [];
   const castIds = acts.reduce((acc, act) => {
     act.activities.forEach((activity) => {
       activity.cast?.forEach((cm) => acc.add(cm));
@@ -579,9 +575,9 @@ export const toJSON = async (filename: string, cs: Partial<CrimeScript>, model: 
     encodeURIComponent(
       JSON.stringify({
         ...model,
+        schemaVersion: 2,
         previewMode: true,
         crimeScripts: [cs],
-        acts,
         cast,
         locations,
         geoLocations,
@@ -594,83 +590,3 @@ export const toJSON = async (filename: string, cs: Partial<CrimeScript>, model: 
     );
   saveAs(dataStr, filename.replace('.docx', '.json'));
 };
-
-export function mergeDataModels(model1: DataModel, model2: DataModel): DataModel {
-  const labelToIdMap = new Map<string, ID>();
-
-  const mergeLabeledArrays = <T extends { id: ID; label: string }>(arr1: T[], arr2: T[]): T[] => {
-    const mergedMap = new Map<ID, T>();
-
-    arr1.forEach((item) => {
-      mergedMap.set(item.id, item);
-      labelToIdMap.set(item.label, item.id);
-    });
-
-    arr2.forEach((item) => {
-      if (!mergedMap.has(item.id)) {
-        const existingId = labelToIdMap.get(item.label);
-
-        if (existingId) {
-          const existingItem = mergedMap.get(existingId)!;
-          mergedMap.set(existingId, {
-            ...existingItem,
-            ...item,
-            id: existingId,
-          });
-        } else {
-          mergedMap.set(item.id, item);
-          labelToIdMap.set(item.label, item.id);
-        }
-      }
-    });
-
-    return Array.from(mergedMap.values());
-  };
-
-  const updateActReferences = (acts: Act[]): Act[] => {
-    return acts.map((act) => ({
-      ...act,
-      locationIds: act.locationIds?.map((id) => labelToIdMap.get(id) || id),
-      activities: act.activities.map(updateActivityReferences),
-    }));
-  };
-
-  const updateActivityReferences = (activity: Activity): Activity => ({
-    ...activity,
-    cast: activity.cast?.map((id) => labelToIdMap.get(id) || id),
-    attributes: activity.attributes?.map((id) => labelToIdMap.get(id) || id),
-    transports: activity.transports?.map((id) => labelToIdMap.get(id) || id),
-  });
-
-  // const mergeArticles = (arr1: NewsArticle[], arr2: NewsArticle[]): NewsArticle[] => {
-  //   const mergedMap = new Map<string, NewsArticle>();
-
-  //   arr1.forEach((article) => mergedMap.set(article.url, article));
-
-  //   arr2.forEach((article) => {
-  //     const existingArticle = mergedMap.get(article.url);
-  //     if (!existingArticle) {
-  //       mergedMap.set(article.url, article);
-  //     }
-  //   });
-
-  //   return Array.from(mergedMap.values());
-  // };
-
-  return {
-    version: Math.max(model1.version, model2.version),
-    lastUpdate: Math.max(model1.lastUpdate, model2.lastUpdate),
-    previewMode: false,
-
-    crimeScripts: mergeLabeledArrays(model1.crimeScripts, model2.crimeScripts),
-    cast: mergeLabeledArrays(model1.cast, model2.cast),
-    attributes: mergeLabeledArrays(model1.attributes, model2.attributes),
-    locations: mergeLabeledArrays(model1.locations, model2.locations),
-    geoLocations: mergeLabeledArrays(model1.geoLocations, model2.geoLocations),
-    products: mergeLabeledArrays(model1.products, model2.products),
-    transports: mergeLabeledArrays(model1.transports, model2.transports),
-    partners: mergeLabeledArrays(model1.partners, model2.partners),
-    acts: updateActReferences(mergeLabeledArrays(model1.acts, model2.acts)),
-    // articles: mergeArticles(model1.articles, model2.articles),
-  };
-}

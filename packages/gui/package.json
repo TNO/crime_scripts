@@ -7,7 +7,9 @@
     "dev": "vite",
     "start": "vite",
     "build": "vite build",
-    "build:domain": "npm run clean && npm run build"
+    "build:domain": "npm run clean && npm run build",
+    "test": "node --experimental-strip-types --test test/*.test.ts",
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [
     "mithril",

@@ -1,7 +1,7 @@
 import m from 'mithril';
 import { Dialog, FlatButton, Icon } from 'mithril-materialized';
 import { type FormAttributes, LayoutForm, type UIForm } from 'mithril-ui-form';
-import { type Act, type CrimeScript, type CrimeScriptFilter, type Hierarchical, type ID, type Labelled, Pages, scriptIcon } from '../models';
+import { type CrimeScript, type CrimeScriptFilter, type Hierarchical, type ID, type Labelled, Pages, scriptIcon } from '../models';
 import { crimeScriptFilterFormFactory } from '../models/forms';
 import { type MeiosisComponent, routingSvc } from '../services';
 import { I18N, t } from '../services/translations';
@@ -12,9 +12,9 @@ import { NewScriptWizard } from './ui/new_script_wizard';
 export const HomePage: MeiosisComponent = () => {
   let wizardOpen = false;
 
-  const actLocations = (cs: CrimeScript, acts: Act[]) => {
+  const actLocations = (cs: CrimeScript) => {
     const csActs = cs.stages
-      .map((stage) => acts.find((a) => a.id === stage.actId))
+      .map((stage) => stage.variants.find((variant) => variant.id === stage.selectedVariantId) || stage.variants[0])
       .filter((a) => typeof a !== 'undefined');
     return csActs.reduce((acc, act) => {
       if (act.locationIds) {
@@ -50,7 +50,7 @@ export const HomePage: MeiosisComponent = () => {
     },
     view: ({ attrs: { state, actions } }) => {
       const { model, role, crimeScriptFilter = {} as CrimeScriptFilter } = state;
-      const { crimeScripts = [], products = [], geoLocations = [], locations = [], acts = [] } = model;
+      const { crimeScripts = [], products = [], geoLocations = [], locations = [] } = model;
       const isAdmin = role === 'admin';
 
       const csFilter =
@@ -65,7 +65,7 @@ export const HomePage: MeiosisComponent = () => {
             return (
               (allProductIds.length === 0 || cs.productIds?.some((id) => allProductIds.includes(id))) &&
               (allGeoIds?.length === 0 || cs.geoLocationIds?.some((id) => allGeoIds?.includes(id))) &&
-              (allLocIds?.length === 0 || actLocations(cs, acts).some((id) => allLocIds?.includes(id)))
+              (allLocIds?.length === 0 || actLocations(cs).some((id) => allLocIds?.includes(id)))
             );
           }
           : (_cs: CrimeScript, _idx: number, _arr: CrimeScript[]) => true;

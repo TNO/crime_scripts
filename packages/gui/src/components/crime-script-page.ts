@@ -1,6 +1,6 @@
 import m from 'mithril';
 import { AlertDialog, FlatButton } from 'mithril-materialized';
-import { type Act, type CrimeScript, type Labelled, Pages } from '../models';
+import { type CrimeScript, type Labelled, Pages } from '../models';
 import type { MeiosisComponent } from '../services';
 import { t } from '../services/translations';
 import { formatDate, toJSON } from '../utils';
@@ -29,7 +29,6 @@ export const CrimeScriptPage: MeiosisComponent = () => {
       const {
         crimeScripts = [],
         cast = [],
-        acts = [],
         attributes = [],
         locations = [],
         geoLocations = [],
@@ -48,8 +47,8 @@ export const CrimeScriptPage: MeiosisComponent = () => {
       const curScene =
         crimeScript.stages && curSceneId ? crimeScript.stages.find((s) => s.id === curSceneId) : undefined;
       const curAct =
-        curScene && curScene.ids && curActId && curScene.ids.includes(curActId)
-          ? acts.find((a) => a.id === curActId) || (curScene.ids[0] && acts.find((a) => a.id === curScene.ids[0]))
+        curScene && curActId
+          ? curScene.variants.find((variant) => variant.id === curActId) || curScene.variants[0]
           : undefined;
 
       return m(
@@ -111,10 +110,7 @@ export const CrimeScriptPage: MeiosisComponent = () => {
               ? m(CrimeScriptEditor, {
                 crimeScript,
                 model,
-                update: (
-                  type: 'crimeScript' | 'cast' | 'attributes' | 'transports' | 'locations' | 'acts',
-                  option: Labelled
-                ) => {
+                update: (type: 'crimeScript' | 'cast' | 'attributes' | 'transports' | 'locations', option: Labelled) => {
                   switch (type) {
                     case 'crimeScript':
                       actions.update({
@@ -159,15 +155,6 @@ export const CrimeScriptPage: MeiosisComponent = () => {
                         },
                       });
                       break;
-                    case 'acts':
-                      actions.update({
-                        model: (model) => {
-                          const newAct = { ...option } as Act;
-                          model.acts = [newAct, ...model.acts.filter((a) => a.id !== newAct.id)];
-                          return model;
-                        },
-                      });
-                      break;
                   }
                   actions.saveModel(model);
                 },
@@ -175,7 +162,6 @@ export const CrimeScriptPage: MeiosisComponent = () => {
               : m(CrimeScriptViewer, {
                 crimeScript,
                 cast,
-                acts,
                 attributes,
                 transports,
                 locations,

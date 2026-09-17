@@ -1,13 +1,23 @@
 import m from 'mithril';
-import { Wizard } from 'mithril-materialized';
+import { uniqueId, Wizard } from 'mithril-materialized';
 import { LayoutForm, type UIForm } from 'mithril-ui-form';
-import { type CrimeScript, IconOpts, Pages, type Scene } from '../../models';
+import { type Act, type CrimeScript, IconOpts, Pages, type Scene } from '../../models';
 import { labelForm } from '../../models/forms';
 import { type MeiosisComponent, t } from '../../services';
 
 export const NewScriptWizard: MeiosisComponent = () => {
+  const newAct = (): Act => ({
+    id: uniqueId(),
+    label: t('NEW_ACT'),
+    activities: [],
+    conditions: [],
+    indicators: [],
+    measures: [],
+    opportunities: [],
+  });
+  const firstAct = newAct();
   let crimeScript: CrimeScript = {
-    stages: [{ label: `${t('SCENE')} 1` }],
+    stages: [{ label: `${t('SCENE')} 1`, variants: [firstAct], selectedVariantId: firstAct.id }],
   } as CrimeScript;
   return {
     view: ({ attrs: { state, actions } }) => {
@@ -15,6 +25,11 @@ export const NewScriptWizard: MeiosisComponent = () => {
 
       return m(Wizard, {
         onComplete: () => {
+          crimeScript.stages.forEach((scene) => {
+            scene.variants ||= [];
+            scene.selectedVariantId =
+              scene.variants.find((variant) => variant.id === scene.selectedVariantId)?.id || scene.variants[0]?.id;
+          });
           model.crimeScripts.push(crimeScript);
           actions.saveModel(model);
           actions.changePage(Pages.CRIME_SCRIPT, { id: crimeScript.id, edit: 1 });
@@ -49,21 +64,6 @@ export const NewScriptWizard: MeiosisComponent = () => {
                         { id: 'label', type: 'text', className: 'col s6', label: t('SCENE') },
                         { id: 'icon', type: 'select', className: 'col s6', label: t('IMAGE'), options: IconOpts },
                         { id: 'description', type: 'textarea', className: 'col s12', label: t('GOALS') },
-                        // {
-                        //   id: 'ids',
-                        //   label: t('SELECT_ACT_N'),
-                        //   type: 'search_select',
-                        //   className: 'col s12',
-                        //   multiple: true,
-                        //   options: actLabels,
-                        //   oncreateNewOption: (label: string) => {
-                        //     const newOption = { id: uniqueId(), label };
-                        //     // actLabels.push(newOption);
-                        //     if (curScene) curScene.actId = newOption.id;
-                        //     update('acts', newOption);
-                        //     return newOption;
-                        //   },
-                        // },
                       ] as UIForm<Scene>,
                     },
                   ] as UIForm<Partial<CrimeScript>>,

@@ -1,6 +1,7 @@
 import type { ICONS } from './icons';
 
 export type DataModel = {
+  schemaVersion: 2;
   version: number;
   lastUpdate: number;
   /** In preview mode, you can inspect a crime script before deciding to merge it into the main database. */
@@ -14,11 +15,11 @@ export type DataModel = {
   transports: Transport[];
   partners: Partner[];
   //serviceProviders: ServiceProvider[];
-  acts: Act[];
   // articles: NewsArticle[];
 };
 
 export const defaultModel: DataModel = {
+  schemaVersion: 2,
   version: 1,
   lastUpdate: new Date().valueOf(),
   crimeScripts: [],
@@ -30,7 +31,6 @@ export const defaultModel: DataModel = {
   transports: [],
   partners: [],
   // serviceProviders: [],
-  acts: [],
   // articles: [],
 };
 
@@ -63,8 +63,8 @@ export type SearchResult = {
   crimeScriptIdx: number;
   totalScore: number;
   acts: {
-    actIdx: number;
-    phaseIdx: number;
+    sceneIdx: number;
+    variantIdx: number;
     score: number;
   }[];
 };
@@ -75,7 +75,13 @@ export enum SearchScore {
   OTHER_MATCH = 1,
 }
 
-export type FlexSearchResult = [crimeScriptIdx: number, actIdx: number, phaseIdx: number, score: number, desc?: string];
+export type FlexSearchResult = [
+  crimeScriptIdx: number,
+  sceneIdx: number,
+  variantIdx: number,
+  score: number,
+  desc?: string,
+];
 
 export type CrimeScriptFilter = {
   productIds: ID[];
@@ -190,10 +196,10 @@ export type Track = Labelled & {
 export type Scene = Labelled & {
   /** Overarching act, such as for financial dealings or generic stuff */
   isGeneric?: boolean;
-  /** Currently selected Act ID */
-  actId: ID;
-  /** Act IDs of all variants */
-  ids: ID[];
+  /** Currently selected variant ID */
+  selectedVariantId?: ID;
+  /** Act variants owned by this scene */
+  variants: Act[];
 };
 
 export type Act = Labelled & {

@@ -180,8 +180,10 @@ export const Layout: MeiosisComponent = () => {
                         `${model.crimeScripts[crimeScriptIdx].label} (score ${totalScore})`,
                         m(
                           'ul.browser-default',
-                          acts.map(({ actIdx, phaseIdx, score }) =>
-                            m(
+                          acts.map(({ sceneIdx, variantIdx, score }) => {
+                            const scene = model.crimeScripts[crimeScriptIdx].stages[sceneIdx];
+                            const variant = scene?.variants[variantIdx];
+                            return m(
                               'li',
                               m(
                                 'a.truncate',
@@ -192,18 +194,15 @@ export const Layout: MeiosisComponent = () => {
                                     `id=${model.crimeScripts[crimeScriptIdx].id}`
                                   ),
                                   onclick: () => {
-                                    // searchDialog.close();
-                                    actions.setLocation(
-                                      model.crimeScripts[crimeScriptIdx].id,
-                                      String(actIdx),
-                                      String(phaseIdx)
-                                    );
+                                    if (scene && variant) {
+                                      actions.setLocation(model.crimeScripts[crimeScriptIdx].id, variant.id, scene.id);
+                                    }
                                   },
                                 },
-                                `${actIdx >= 0 ? model.acts[actIdx].label : t('TEXT')} (score: ${score})`
+                                `${variant?.label || t('TEXT')} (score: ${score})`
                               )
-                            )
-                          )
+                            );
+                          })
                         )
                       )
                     )

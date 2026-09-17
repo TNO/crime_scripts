@@ -19,6 +19,7 @@ import {
   type Partner,
   type Product,
   scriptIcon,
+  type Scene,
   type Track,
   type Transport,
 } from '../../models';
@@ -39,7 +40,6 @@ import { type ProcessStep, ProcessVisualization } from './process-visualisation'
 export const CrimeScriptViewer: FactoryComponent<{
   crimeScript: CrimeScript;
   cast: Cast[];
-  acts: Act[];
   attributes: CrimeScriptAttributes[];
   locations: CrimeLocation[];
   geoLocations: GeographicLocation[];
@@ -85,13 +85,13 @@ export const CrimeScriptViewer: FactoryComponent<{
   };
 
   // Helper function to check if all scenes have selected variants
-  const hasCompleteVariantSelection = (scenes: any[], sceneVariants: { [sceneID: ID]: ID | undefined }): boolean => {
-    const scenesWithVariants = scenes.filter((s) => s.ids && s.ids.length > 0);
+  const hasCompleteVariantSelection = (scenes: Scene[], sceneVariants: { [sceneID: ID]: ID | undefined }): boolean => {
+    const scenesWithVariants = scenes.filter((scene) => scene.variants.length > 0);
     return scenesWithVariants.every((scene) => sceneVariants[scene.id] !== undefined);
   };
 
   // Helper function to update track selection and sync variants
-  const updateTrackSelection = (trackId: string | undefined, tracks: Track[], scenes: any[]) => {
+  const updateTrackSelection = (trackId: string | undefined, tracks: Track[], scenes: Scene[]) => {
     curTrackId = trackId;
     if (trackId) {
       const track = tracks.find((t) => t.id === trackId);
@@ -102,7 +102,7 @@ export const CrimeScriptViewer: FactoryComponent<{
         scenes.forEach((scene) => {
           const actId = curSceneVariants[scene.id];
           if (actId) {
-            scene.actId = actId;
+            scene.selectedVariantId = actId;
           }
         });
       }
@@ -113,14 +113,14 @@ export const CrimeScriptViewer: FactoryComponent<{
   };
 
   // Helper function to handle variant selection
-  const handleVariantSelection = (sceneId: ID, variantId: ID, tracks: Track[], scenes: any[]) => {
+  const handleVariantSelection = (sceneId: ID, variantId: ID, tracks: Track[], scenes: Scene[]) => {
     // Update the current scene variants
     curSceneVariants[sceneId] = variantId;
 
     // Update the scene actId
     const scene = scenes.find((s) => s.id === sceneId);
     if (scene) {
-      scene.actId = variantId;
+      scene.selectedVariantId = variantId;
     }
 
     // Check if there's a matching track for this selection
@@ -257,11 +257,12 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
       if (tracks.length > 0) {
         updateTrackSelection(tracks[0].id, tracks, scenes);
       } else {
-        // Initialize with first variant of each scene if no tracks exist
         scenes.forEach((s) => {
-          if (s.ids && s.ids[0]) {
-            curSceneVariants[s.id] = s.ids[0];
-            s.actId = s.ids[0];
+          const selectedVariant =
+            s.variants.find((variant) => variant.id === s.selectedVariantId) || s.variants[0];
+          if (selectedVariant) {
+            curSceneVariants[s.id] = selectedVariant.id;
+            s.selectedVariantId = selectedVariant.id;
           }
         });
       }
@@ -271,7 +272,6 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
         model,
         crimeScript,
         cast = [],
-        acts = [],
         attributes = [],
         transports = [],
         locations = [],
@@ -299,7 +299,7 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
         url = scriptIcon,
       } = crimeScript;
 
-      const scenesWithVariantsCnt = scenes.filter((s) => s.ids && s.ids.length > 1).length || false;
+      const scenesWithVariantsCnt = scenes.filter((scene) => scene.variants.length > 1).length || false;
       const curTrack: Track | undefined = curTrackId ? tracks.find((t) => t.id === curTrackId) : undefined;
 
       // Check if we can add a new track (all scenes have variants selected and no matching track exists)
@@ -318,7 +318,8 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
 
       const [allCastIds, allAttrIds, allLocIds, allTranspIds] = scenes.reduce(
         (acc, stage) => {
-          const act = acts.find((a) => a.id === stage.actId);
+          const act =
+            stage.variants.find((variant) => variant.id === stage.selectedVariantId) || stage.variants[0];
           if (act) {
             if (act.locationIds) {
               act.locationIds.forEach((id) => acc[2].add(id));
@@ -341,7 +342,8 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
 
       const curScene = scenes.find((s) => s.id === curSceneId) || scenes[0];
       const curAct =
-        curScene && acts.find((a) => (curScene.actId ? a.id === curScene.actId : a.id === curScene.ids[0]));
+        curScene &&
+        (curScene.variants.find((variant) => variant.id === curScene.selectedVariantId) || curScene.variants[0]);
       const selectedActContent = curAct
         ? visualizeAct(curAct, cast, attributes, transports, locations, mdHighlighter)
         : undefined;
@@ -360,32 +362,27 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
           )
         );
 
-      const steps = scenes.map(({ id, actId, ids = [], isGeneric, label = '...', icon, url, description = '' }) => {
-        const imgSrc = (icon === ICONS.OTHER ? url : IconOpts.find((i) => i.id === icon)?.img) || missingIcon;
-        const variants =
-          ids.length > 1
-            ? ids
-              .map((variantId) => {
-                const variant = acts.find((a) => a.id === variantId);
-                return variant
-                  ? {
-                    id: variantId,
-                    title: variant.label,
-                  }
-                  : undefined;
-              })
-              .filter(Boolean)
-            : undefined;
-        return {
-          id,
-          title: label,
-          icon: imgSrc,
-          description: m(SlimdownView, { md: description, removeParagraphs: true }),
-          variants,
-          isGeneric,
-          curVariantId: actId,
-        } as ProcessStep & { isGeneric?: boolean };
-      });
+      const steps = scenes.map(
+        ({ id, selectedVariantId, variants: sceneVariants = [], isGeneric, label = '...', icon, url, description = '' }) => {
+          const imgSrc = (icon === ICONS.OTHER ? url : IconOpts.find((i) => i.id === icon)?.img) || missingIcon;
+          const variants =
+            sceneVariants.length > 1
+              ? sceneVariants.map((variant) => ({
+                  id: variant.id,
+                  title: variant.label,
+                }))
+              : undefined;
+          return {
+            id,
+            title: label,
+            icon: imgSrc,
+            description: m(SlimdownView, { md: description, removeParagraphs: true }),
+            variants,
+            isGeneric,
+            curVariantId: selectedVariantId,
+          } as ProcessStep & { isGeneric?: boolean };
+        }
+      );
 
       return m('.col.s12', [
         m(
@@ -492,7 +489,10 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
             showProcessVisualization = true;
             const scene = scenes.length > 0 ? scenes[0] : undefined;
             if (scene) {
-              update({ curSceneId: scene.id, curActId: scene.actId || (scene.ids ? scene.ids[0] : undefined) });
+              update({
+                curSceneId: scene.id,
+                curActId: scene.selectedVariantId || scene.variants[0]?.id,
+              });
             }
           },
         }),
@@ -506,7 +506,10 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
                 const scene = scenes.find((stage) => stage.id === s.id);
                 if (scene) {
                   showProcessVisualization = false;
-                  update({ curSceneId: scene.id, curActId: scene.actId || (scene.ids ? scene.ids[0] : undefined) });
+                  update({
+                    curSceneId: scene.id,
+                    curActId: scene.selectedVariantId || scene.variants[0]?.id,
+                  });
                 }
               },
             })

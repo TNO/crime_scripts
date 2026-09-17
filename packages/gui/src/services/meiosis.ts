@@ -1,19 +1,19 @@
 import { meiosisSetup } from 'meiosis-setup';
 import type { MeiosisCell, MeiosisConfig, Patch, Service } from 'meiosis-setup/types';
 import m, { type FactoryComponent } from 'mithril';
-import { snackbar, uniqueId } from 'mithril-materialized';
+import { snackbar } from 'mithril-materialized';
 import {
-  type Activity,
   type CrimeScriptFilter,
   type DataModel,
   type FlexSearchResult,
   type ID,
+  mergeDataModels,
+  normalizeDataModel,
   Pages,
   type SearchResult,
-  type ServiceProvider,
   type Settings,
 } from '../models';
-import { aggregateFlexSearchResults, crimeScriptFilterToText, mergeDataModels, scrollToTop, tokenize } from '../utils';
+import { aggregateFlexSearchResults, crimeScriptFilterToText, scrollToTop, tokenize } from '../utils';
 import { i18n, routingSvc, t } from '.';
 import { flexSearchLookupUpdater } from './flex-search';
 import type { User, UserRole } from './login-service';
@@ -217,60 +217,16 @@ cells.map(() => {
 });
 
 export const loadData = async (ds = localStorage.getItem(MODEL_KEY)) => {
-  const model: DataModel & {
-    serviceProviders?: ServiceProvider[];
-  } = ds ? JSON.parse(ds) : { crimeScripts: [] };
-  if (typeof model.cast === 'undefined') {
-    model.cast = [];
-  }
-  if (typeof (model as any).articles !== 'undefined') {
-    delete (model as any).articles;
-  }
-  if (typeof model.serviceProviders !== 'undefined') {
-    model.cast = [...model.cast, ...model.serviceProviders];
-    delete model.serviceProviders;
-    if (typeof model.acts !== 'undefined') {
-      model.acts.forEach((act) => {
-        if (act.activities && act.activities.length > 0) {
-          act.activities.forEach((actActivity: Activity & { sp?: ID[] }) => {
-            if (typeof actActivity.sp !== 'undefined') {
-              if (typeof actActivity.cast === 'undefined') {
-                actActivity.cast = [];
-              }
-              actActivity.cast = [...actActivity.cast, ...actActivity.sp];
-              delete actActivity.sp;
-            }
-          });
-        }
-      });
-    }
-  }
-  // Init stages (scenes)
-  const { acts = [] } = model;
-  model.crimeScripts?.forEach((crimeScript) => {
-    if (!crimeScript.stages) {
-      crimeScript.stages = [];
-    }
-    crimeScript.stages.forEach((stage) => {
-      if (stage.id && stage.ids && stage.ids.includes(stage.id)) {
-        const { actId, ids = [], id = ids[0] } = stage;
-        const act = acts.find((act) => act.id === id);
-        if (act) {
-          stage.actId = id;
-          stage.id = uniqueId();
-          stage.label = act.label;
-          stage.icon = act.icon;
-          stage.description = act.description;
-          stage.url = act.url;
-          stage.isGeneric = (act as any).isGeneric;
-          delete (act as any).isGeneric;
-        }
-        if (!actId) {
-          stage.actId = ids[0];
-        }
-      }
+  let model: DataModel;
+  try {
+    model = normalizeDataModel(ds ? JSON.parse(ds) : { crimeScripts: [] });
+  } catch (error) {
+    snackbar({
+      message: `Error loading crime-script model: ${error instanceof Error ? error.message : String(error)}`,
+      dismissible: true,
     });
-  });
+    throw error;
+  }
   localStorage.setItem(model.previewMode ? PREVIEW_MODEL_KEY : MODEL_KEY, JSON.stringify(model));
 
   const role = (localStorage.getItem(USER_ROLE) || 'user') as UserRole;
