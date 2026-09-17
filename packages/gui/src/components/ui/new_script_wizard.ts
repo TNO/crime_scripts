@@ -1,35 +1,37 @@
 import m from 'mithril';
-import { uniqueId, Wizard } from 'mithril-materialized';
+import { snackbar, uniqueId, Wizard } from 'mithril-materialized';
 import { LayoutForm, type UIForm } from 'mithril-ui-form';
-import { type Act, type CrimeScript, IconOpts, Pages, type Scene } from '../../models';
-import { labelForm } from '../../models/forms';
+import { createScenesFromOutline, type CrimeScript, Pages, type SceneOutline, STATUS } from '../../models';
 import { type MeiosisComponent, t } from '../../services';
 
 export const NewScriptWizard: MeiosisComponent = () => {
-  const newAct = (): Act => ({
-    id: uniqueId(),
-    label: t('NEW_ACT'),
-    activities: [],
-    conditions: [],
-    indicators: [],
-    measures: [],
-    opportunities: [],
-  });
-  const firstAct = newAct();
   let crimeScript: CrimeScript = {
-    stages: [{ label: `${t('SCENE')} 1`, variants: [firstAct], selectedVariantId: firstAct.id }],
-  } as CrimeScript;
+    id: uniqueId(),
+    label: '',
+    owner: '',
+    updated: Date.now(),
+    reviewer: [],
+    status: STATUS.FIRST_DRAFT,
+    literature: [],
+    stages: [],
+    productIds: [],
+  };
+  const outline: { scenes: SceneOutline[] } = {
+    scenes: [{ label: '' }],
+  };
+
   return {
     view: ({ attrs: { state, actions } }) => {
       const { model } = state;
 
       return m(Wizard, {
         onComplete: () => {
-          crimeScript.stages.forEach((scene) => {
-            scene.variants ||= [];
-            scene.selectedVariantId =
-              scene.variants.find((variant) => variant.id === scene.selectedVariantId)?.id || scene.variants[0]?.id;
-          });
+          crimeScript.label = crimeScript.label.trim();
+          if (!crimeScript.label) {
+            snackbar({ message: t('SCRIPT_NAME_REQUIRED'), dismissible: true });
+            return;
+          }
+          crimeScript.stages = createScenesFromOutline(outline.scenes, uniqueId);
           model.crimeScripts.push(crimeScript);
           actions.saveModel(model);
           actions.changePage(Pages.CRIME_SCRIPT, { id: crimeScript.id, edit: 1 });
@@ -40,40 +42,32 @@ export const NewScriptWizard: MeiosisComponent = () => {
             vnode: () =>
               m(LayoutForm<Partial<CrimeScript>>, {
                 obj: crimeScript,
-                form: labelForm(),
-                onchange: () => {
-                  console.log(JSON.stringify(crimeScript));
-                },
+                form: [
+                  { id: 'label', type: 'text', className: 'col s12', label: t('NAME') },
+                  { id: 'description', type: 'textarea', className: 'col s12', label: t('SUMMARY') },
+                ],
               }),
           },
           {
-            title: t('SCENES'),
+            title: t('SCENES_OPTIONAL'),
             vnode: () =>
-              m(
-                '.row',
-                m(LayoutForm<Partial<CrimeScript>>, {
-                  obj: crimeScript,
+              m('.row', [
+                m('p.col.s12', t('SCENES_HINT')),
+                m(LayoutForm<{ scenes: SceneOutline[] }>, {
+                  obj: outline,
                   form: [
                     {
-                      id: 'stages',
+                      id: 'scenes',
                       repeat: true,
-                      pageSize: 1,
-                      label: t('SCENES'),
+                      label: t('SCENES_OPTIONAL'),
                       type: [
-                        { id: 'id', type: 'autogenerate', autogenerate: 'id' },
-                        { id: 'label', type: 'text', className: 'col s6', label: t('SCENE') },
-                        { id: 'icon', type: 'select', className: 'col s6', label: t('IMAGE'), options: IconOpts },
-                        { id: 'description', type: 'textarea', className: 'col s12', label: t('GOALS') },
-                      ] as UIForm<Scene>,
+                        { id: 'label', type: 'text', className: 'col s12', label: t('SCENE') },
+                      ] as UIForm<SceneOutline>,
                     },
-                  ] as UIForm<Partial<CrimeScript>>,
+                  ] as UIForm<{ scenes: SceneOutline[] }>,
                 })
-              ),
+              ]),
           },
-          // {
-          //   title: 'Step 3',
-          //   vnode: () => m('Three'),
-          // },
         ],
       });
     },
