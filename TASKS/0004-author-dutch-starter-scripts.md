@@ -1,6 +1,6 @@
 # 0004 Author Dutch starter scripts
 
-Status: open
+Status: done
 Priority: high
 Subsystem: content
 Depends on: 0003
@@ -47,3 +47,6 @@ The intended users are Dutch public-sector practitioners with HBO or MBO backgro
 ## Agent Notes
 
 - 2026-09-17: Topic slate and editorial boundary were agreed during the design interview. Labour exploitation and trafficking for sexual exploitation are intentionally separate scripts.
+- 2026-09-17 Copilot: Started after `0003` was completed and committed as `dc30b4a`. Author only from public sources; the private v30 fixture is explicitly out of scope.
+- 2026-09-17 Copilot: Authored all ten Dutch starter scripts with six scenes each, shared referenced taxonomies, stable `nl-starter:` IDs, permanent AI/unreviewed provenance, practical partner-owned measures, and 20 script-level bibliography entries. Research used public material from EUDA/EMCDDA, Europol, the European Commission, ILO, Nederlandse Arbeidsinspectie, UNODC, GRETA, WODC, FATF, RIVM, CITES/ICCWC, INTERPOL, NCSC, and IPLO; the prohibited private v30 file was not inspected. Content omits recipes, quantities, evasion advice, vulnerable wildlife locations, and technical theft or phishing instructions. Routes were assessed; only the NCSC-supported e-mail/sms contact alternatives warranted explicit tracks. Added a 70-entry icon-requirements manifest and CC BY 4.0 notice that excludes third-party source material, plus focused editorial tests. Verified 12/12 focused tests, 18 passing full-package tests with one pre-existing optional fixture skip, clean typecheck, production build, deployed-copy equality, and `git diff --check`. Status remains `in_progress` for parent review.
+- 2026-09-17 Copilot: Final review corrected historical EMCDDA/Europol attribution and strengthened the source-host and operational-guidance checks against lookalike domains and common evasion wording. Reverified 12 focused tests, 18 passing package tests with one optional fixture skip, typecheck, production build, deployed-copy equality, and `git diff --check`.

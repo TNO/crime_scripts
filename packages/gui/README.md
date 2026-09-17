@@ -21,6 +21,8 @@ Legacy JSON models with a top-level `acts` collection and schema-version-2 model
 
 On first launch, users choose the fixed Dutch starter library at `/starter-bundles/nl.json` or an empty workspace. Starter imports are explicit and preserve local conflicts by default. Script language, AI/review provenance, starter origin, and source usage notes remain in JSON and Word exports.
 
+The Dutch starter library contains ten AI-assisted, unreviewed public-safety scripts. Its original content is available under CC BY 4.0; third-party bibliography items retain their own rights. See `/starter-bundles/NOTICE.nl.md`. Icon requirements for the separate catalogue work are recorded in `/starter-bundles/icon-requirements.nl.json`.
+
 ## Deployment to GitHub docs
 
 ```bash

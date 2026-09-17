@@ -66,10 +66,159 @@ test('starter bundles are structurally validated including references', () => {
   assert.throws(() => validateStarterBundle(invalid), /missing partner/);
 });
 
-test('the deployed Dutch starter fixture is valid and intentionally content-free', () => {
+const expectedDutchStarterIds = [
+  'nl-starter:script:cocaine-import-havens',
+  'nl-starter:script:synthetische-drugsproductie',
+  'nl-starter:script:arbeidsuitbuiting',
+  'nl-starter:script:mensenhandel-seksuele-uitbuiting',
+  'nl-starter:script:witwassen-legale-ondernemingen',
+  'nl-starter:script:illegale-dumping-chemisch-afval',
+  'nl-starter:script:stroperij-illegale-wildhandel',
+  'nl-starter:script:voertuigdiefstal-export',
+  'nl-starter:script:phishing-betaalfraude',
+  'nl-starter:script:illegale-asbestverwijdering',
+];
+const expectedDutchStarterLabels = [
+  'Cocaïne-import via zeehavens',
+  'Productie van synthetische drugs',
+  'Arbeidsuitbuiting',
+  'Mensenhandel voor seksuele uitbuiting',
+  'Witwassen via legale ondernemingen',
+  'Illegale dumping van chemisch afval',
+  'Stroperij en illegale handel in wilde dieren',
+  'Voertuigdiefstal en export',
+  'Phishing en betaalfraude',
+  'Illegale asbestverwijdering',
+];
+
+test('the Dutch starter fixture contains exactly the ten researched topics', () => {
   const fixture = validateStarterBundle(JSON.parse(readFileSync('public/starter-bundles/nl.json', 'utf8')));
   assert.equal(fixture.starterBundle?.locale, 'nl');
-  assert.equal(fixture.crimeScripts.length, 0);
+  assert.deepEqual(fixture.crimeScripts.map(({ id }) => id), expectedDutchStarterIds);
+  assert.deepEqual(fixture.crimeScripts.map(({ label }) => label), expectedDutchStarterLabels);
+});
+
+test('Dutch starter scripts meet source, provenance, scene, and editorial requirements', () => {
+  const fixture = validateStarterBundle(JSON.parse(readFileSync('public/starter-bundles/nl.json', 'utf8')));
+  const allPartnerIds = new Set(fixture.partners.map(({ id }) => id));
+  const approvedSourceHosts = [
+    'europa.eu',
+    'euda.europa.eu',
+    'ilo.org',
+    'unodc.org',
+    'coe.int',
+    'wodc.nl',
+    'fatf-gafi.org',
+    'rivm.nl',
+    'cites.org',
+    'interpol.int',
+    'ncsc.nl',
+    'nlarbeidsinspectie.nl',
+    'iplo.nl',
+  ];
+  const prohibitedOperationalPhrases = [
+    /stap voor stap/i,
+    /\b(?:omzeil|ontwijk|vermijd)\b.{0,40}\b(?:controle|detectie|toezicht)\b/i,
+    /\b(?:wis|verwijder)\b.{0,30}\b(?:sporen|logs?|logbestanden)\b/i,
+    /\b(?:optimale|exacte)\b.{0,30}\b(?:verhouding|dosering|hoeveelheid|temperatuur)\b/i,
+    /\b(?:recept|mengverhouding|dosering)\b.{0,30}\b(?:gram|kilogram|kg|liter|ml|procent|°c)\b/i,
+    /\b(?:zo|hiermee) (?:kun|kan) je\b.{0,60}\b(?:omzeilen|ontwijken|verbergen|wissen)\b/i,
+  ];
+
+  fixture.crimeScripts.forEach((script) => {
+    assert.equal(script.language, 'nl');
+    assert.equal(script.aiGenerated, true);
+    assert.equal(script.unreviewed, true);
+    assert.deepEqual(script.starterOrigin, {
+      bundleId: fixture.starterBundle?.id,
+      bundleVersion: fixture.starterBundle?.version,
+      scriptId: script.id,
+    });
+    assert.match(script.id, /^nl-starter:script:[a-z0-9-]+$/);
+    assert.ok(script.stages.length >= 5 && script.stages.length <= 8);
+    assert.ok(script.literature.length >= 2);
+    script.literature.forEach((source) => {
+      assert.match(source.id, /^nl-starter:source:[a-z0-9-]+$/);
+      assert.ok(source.label.length >= 3);
+      assert.ok((source.authors || '').length >= 3);
+      assert.match(source.url || '', /^https:\/\//);
+      const hostname = new URL(source.url || '').hostname;
+      assert.ok(approvedSourceHosts.some((host) => hostname === host || hostname.endsWith(`.${host}`)));
+      assert.ok((source.description || '').length >= 80);
+      assert.ok((source.usedFor || '').length >= 20);
+    });
+    script.stages.forEach((scene) => {
+      assert.match(scene.id, new RegExp(`^${script.id.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}:scene:`));
+      assert.ok(scene.variants.length >= 1);
+      scene.variants.forEach((act) => {
+        assert.match(act.id, /^nl-starter:script:[a-z0-9-]+:scene:[a-z0-9-]+:variant:[a-z0-9-]+$/);
+        assert.ok(act.activities.length >= 1);
+        assert.ok(act.conditions.length >= 1);
+        assert.ok(act.indicators.length >= 1);
+        assert.ok(act.measures.length >= 1);
+        assert.ok(act.activities.some(({ cast }) => (cast || []).length > 0));
+        assert.ok(act.activities.every(({ description }) => (description || '').length >= 30));
+        assert.ok(act.conditions.every(({ description }) => (description || '').length >= 30));
+        assert.ok(act.indicators.every(({ description }) => (description || '').length >= 30));
+        assert.ok(act.measures.every(({ description }) => (description || '').length >= 30));
+        act.measures.forEach((measure) => {
+          assert.ok(measure.partners.length >= 1);
+          measure.partners.forEach((partnerId) => assert.ok(allPartnerIds.has(partnerId)));
+        });
+      });
+    });
+    const prose = JSON.stringify(script);
+    prohibitedOperationalPhrases.forEach((phrase) => assert.doesNotMatch(prose, phrase));
+    assert.ok(!/[.!?]\s+[A-ZÀ-Ý][^.!?]{220,}[.!?]/.test(prose), `${script.id} bevat een te lange zin`);
+  });
+  const everyId = [
+    ...fixture.cast, ...fixture.attributes, ...fixture.locations, ...fixture.geoLocations,
+    ...fixture.products, ...fixture.transports, ...fixture.partners,
+    ...fixture.crimeScripts.flatMap((script) => [
+      script, ...script.literature,
+      ...script.stages.flatMap((scene) => [
+        scene,
+        ...scene.variants.flatMap((act) => [
+          act, ...act.activities, ...act.conditions, ...act.opportunities, ...act.indicators, ...act.measures,
+        ]),
+      ]),
+      ...(script.tracks || []),
+    ]),
+  ];
+  everyId.forEach(({ id }) => assert.match(id, /^nl-starter:/));
+});
+
+test('Dutch starter icon requirements cover every script and scene exactly once', () => {
+  const fixture = validateStarterBundle(JSON.parse(readFileSync('public/starter-bundles/nl.json', 'utf8')));
+  const manifest = JSON.parse(readFileSync('public/starter-bundles/icon-requirements.nl.json', 'utf8')) as {
+    schemaVersion: number;
+    requirements: Array<{ id: string; description: string; appliesTo: string[] }>;
+  };
+  const expectedTargets = fixture.crimeScripts.flatMap((script) => [
+    script.id,
+    ...script.stages.map(({ id }) => id),
+  ]);
+  const actualTargets = manifest.requirements.flatMap(({ appliesTo }) => appliesTo);
+
+  assert.equal(manifest.schemaVersion, 1);
+  assert.deepEqual(new Set(actualTargets), new Set(expectedTargets));
+  assert.equal(actualTargets.length, expectedTargets.length);
+  assert.equal(new Set(manifest.requirements.map(({ id }) => id)).size, manifest.requirements.length);
+  manifest.requirements.forEach((requirement) => {
+    assert.match(requirement.id, /^nl-starter:icon:[a-z0-9-]+$/);
+    assert.ok(requirement.description.length >= 20);
+    assert.ok(requirement.appliesTo.length >= 1);
+  });
+});
+
+test('Dutch starter attribution licenses original content without relicensing sources', () => {
+  const notice = readFileSync('public/starter-bundles/NOTICE.nl.md', 'utf8');
+  assert.match(notice, /Creative Commons Naamsvermelding 4\.0 Internationaal/i);
+  assert.match(notice, /CC BY 4\.0/i);
+  assert.match(notice, /AI-gegenereerd/i);
+  assert.match(notice, /Onbeoordeeld/i);
+  assert.match(notice, /bronnen[\s\S]*(?:eigen|oorspronkelijke).*licent/i);
+  assert.match(notice, /geen\s+juridisch advies/i);
 });
 
 test('schema-2 models gain schema-3 defaults without losing content', () => {

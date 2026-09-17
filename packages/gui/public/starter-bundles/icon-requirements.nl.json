@@ -1,0 +1,498 @@
+{
+  "schemaVersion": 1,
+  "bundleId": "pax-nl-starter",
+  "bundleVersion": "1.0.0",
+  "style": "Monochroom zwart, solid-fill, eenvoudige vormen rond een 100×100-viewBox; zonder tekst.",
+  "requirements": [
+    {
+      "id": "nl-starter:icon:script-cocaine-import-havens",
+      "description": "Zwart solid-fill pictogram van een containerschip met een schild voor havenweerbaarheid.",
+      "appliesTo": [
+        "nl-starter:script:cocaine-import-havens"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-cocaine-import-havens-voorbereiding",
+      "description": "Zwart pictogram van een logistieke checklist naast gestapelde containers.",
+      "appliesTo": [
+        "nl-starter:script:cocaine-import-havens:scene:voorbereiding"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-cocaine-import-havens-invoer",
+      "description": "Zwart pictogram van een containerschip dat een havenkraan nadert.",
+      "appliesTo": [
+        "nl-starter:script:cocaine-import-havens:scene:invoer"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-cocaine-import-havens-toegang",
+      "description": "Zwart pictogram van een toegangspas bij een beveiligde havenpoort.",
+      "appliesTo": [
+        "nl-starter:script:cocaine-import-havens:scene:toegang"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-cocaine-import-havens-uithalen",
+      "description": "Zwart pictogram van een geopende container onder cameratoezicht.",
+      "appliesTo": [
+        "nl-starter:script:cocaine-import-havens:scene:uithalen"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-cocaine-import-havens-vervoer",
+      "description": "Zwart pictogram van een vrachtwagen op een gecontroleerde route.",
+      "appliesTo": [
+        "nl-starter:script:cocaine-import-havens:scene:vervoer"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-cocaine-import-havens-verstoring",
+      "description": "Zwart pictogram van verbonden havenpartners rond een schild en vergrootglas.",
+      "appliesTo": [
+        "nl-starter:script:cocaine-import-havens:scene:verstoring"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:script-synthetische-drugsproductie",
+      "description": "Zwart solid-fill pictogram van een fabriekspand met waarschuwingsdriehoek, zonder chemische details.",
+      "appliesTo": [
+        "nl-starter:script:synthetische-drugsproductie"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-synthetische-drugsproductie-locatie",
+      "description": "Zwart pictogram van een afgelegen bedrijfspand onder een vergrootglas.",
+      "appliesTo": [
+        "nl-starter:script:synthetische-drugsproductie:scene:locatie"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-synthetische-drugsproductie-middelen",
+      "description": "Zwart pictogram van zakelijke dozen en een controlelijst, zonder stofsymbolen.",
+      "appliesTo": [
+        "nl-starter:script:synthetische-drugsproductie:scene:middelen"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-synthetische-drugsproductie-inrichting",
+      "description": "Zwart pictogram van een pand met waarschuwingsdriehoek en brandveiligheidsschild.",
+      "appliesTo": [
+        "nl-starter:script:synthetische-drugsproductie:scene:inrichting"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-synthetische-drugsproductie-productie",
+      "description": "Zwart pictogram van een afgesloten gevarenlocatie met hulpverlenersschild.",
+      "appliesTo": [
+        "nl-starter:script:synthetische-drugsproductie:scene:productie"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-synthetische-drugsproductie-afvoer",
+      "description": "Zwart pictogram van een gesloten afvalvat naast een transportvoertuig.",
+      "appliesTo": [
+        "nl-starter:script:synthetische-drugsproductie:scene:afvoer"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-synthetische-drugsproductie-onderzoek",
+      "description": "Zwart pictogram van politie, milieu en gemeente verbonden rond een onderzoeksmap.",
+      "appliesTo": [
+        "nl-starter:script:synthetische-drugsproductie:scene:onderzoek"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:script-arbeidsuitbuiting",
+      "description": "Zwart solid-fill pictogram van een werknemer achter een gebroken hek met beschermende hand.",
+      "appliesTo": [
+        "nl-starter:script:arbeidsuitbuiting"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-arbeidsuitbuiting-werving",
+      "description": "Zwart pictogram van een arbeidsaanbod met vergrootglas en waarschuwingsmarkering.",
+      "appliesTo": [
+        "nl-starter:script:arbeidsuitbuiting:scene:werving"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-arbeidsuitbuiting-reis",
+      "description": "Zwart pictogram van een reizende werknemer tussen vervoer, werk en woning.",
+      "appliesTo": [
+        "nl-starter:script:arbeidsuitbuiting:scene:reis"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-arbeidsuitbuiting-afhankelijkheid",
+      "description": "Zwart pictogram van een werknemer verbonden aan loon, vervoer en huisvesting.",
+      "appliesTo": [
+        "nl-starter:script:arbeidsuitbuiting:scene:afhankelijkheid"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-arbeidsuitbuiting-werk",
+      "description": "Zwart pictogram van een werknemer met klok, loonstrook en veiligheidsschild.",
+      "appliesTo": [
+        "nl-starter:script:arbeidsuitbuiting:scene:werk"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-arbeidsuitbuiting-controle",
+      "description": "Zwart pictogram van een geïsoleerde werknemer met een veilig meldkanaal.",
+      "appliesTo": [
+        "nl-starter:script:arbeidsuitbuiting:scene:controle"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-arbeidsuitbuiting-bescherming",
+      "description": "Zwart pictogram van opvang, inspectie en politie rond een beschermd slachtoffer.",
+      "appliesTo": [
+        "nl-starter:script:arbeidsuitbuiting:scene:bescherming"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:script-mensenhandel-seksuele-uitbuiting",
+      "description": "Zwart solid-fill pictogram van een beschermende hand rond een persoon, waardig en niet-stigmatiserend.",
+      "appliesTo": [
+        "nl-starter:script:mensenhandel-seksuele-uitbuiting"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-mensenhandel-seksuele-uitbuiting-benadering",
+      "description": "Zwart pictogram van online contact met een beschermend waarschuwingsschild.",
+      "appliesTo": [
+        "nl-starter:script:mensenhandel-seksuele-uitbuiting:scene:benadering"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-mensenhandel-seksuele-uitbuiting-isolatie",
+      "description": "Zwart pictogram van een persoon achter een communicatiesymbool met open hulplijn.",
+      "appliesTo": [
+        "nl-starter:script:mensenhandel-seksuele-uitbuiting:scene:isolatie"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-mensenhandel-seksuele-uitbuiting-exploitatie",
+      "description": "Zwart pictogram van een beschermde persoon en een verbroken controlesymbool.",
+      "appliesTo": [
+        "nl-starter:script:mensenhandel-seksuele-uitbuiting:scene:exploitatie"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-mensenhandel-seksuele-uitbuiting-verplaatsing",
+      "description": "Zwart pictogram van een persoon tussen meerdere locaties met één hulpcontact.",
+      "appliesTo": [
+        "nl-starter:script:mensenhandel-seksuele-uitbuiting:scene:verplaatsing"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-mensenhandel-seksuele-uitbuiting-opbrengst",
+      "description": "Zwart pictogram van een rekening onder controle van een derde en een vergrootglas.",
+      "appliesTo": [
+        "nl-starter:script:mensenhandel-seksuele-uitbuiting:scene:opbrengst"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-mensenhandel-seksuele-uitbuiting-interventie",
+      "description": "Zwart pictogram van hulpverlening en opsporing rond een beschermd slachtoffer.",
+      "appliesTo": [
+        "nl-starter:script:mensenhandel-seksuele-uitbuiting:scene:interventie"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:script-witwassen-legale-ondernemingen",
+      "description": "Zwart solid-fill pictogram van een winkelgevel met vergrootglas boven financiële regels.",
+      "appliesTo": [
+        "nl-starter:script:witwassen-legale-ondernemingen"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-witwassen-legale-ondernemingen-bedrijf",
+      "description": "Zwart pictogram van een winkelgevel met eigendomsregister en vergrootglas.",
+      "appliesTo": [
+        "nl-starter:script:witwassen-legale-ondernemingen:scene:bedrijf"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-witwassen-legale-ondernemingen-inbreng",
+      "description": "Zwart pictogram van kas- en bankstromen naast een afwijkingsmarkering.",
+      "appliesTo": [
+        "nl-starter:script:witwassen-legale-ondernemingen:scene:inbreng"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-witwassen-legale-ondernemingen-administratie",
+      "description": "Zwart pictogram van factuur, contract en goederen die worden vergeleken.",
+      "appliesTo": [
+        "nl-starter:script:witwassen-legale-ondernemingen:scene:administratie"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-witwassen-legale-ondernemingen-verplaatsing",
+      "description": "Zwart pictogram van verbonden bankrekeningen onder transactietoezicht.",
+      "appliesTo": [
+        "nl-starter:script:witwassen-legale-ondernemingen:scene:verplaatsing"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-witwassen-legale-ondernemingen-besteding",
+      "description": "Zwart pictogram van investering en bezit met herkomstcontrole.",
+      "appliesTo": [
+        "nl-starter:script:witwassen-legale-ondernemingen:scene:besteding"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-witwassen-legale-ondernemingen-verstoring",
+      "description": "Zwart pictogram van publieke en private partners rond een financieel netwerk.",
+      "appliesTo": [
+        "nl-starter:script:witwassen-legale-ondernemingen:scene:verstoring"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:script-illegale-dumping-chemisch-afval",
+      "description": "Zwart solid-fill pictogram van een lekkend vat naast een waarschuwingsdriehoek.",
+      "appliesTo": [
+        "nl-starter:script:illegale-dumping-chemisch-afval"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-illegale-dumping-chemisch-afval-ontstaan",
+      "description": "Zwart pictogram van gesloten residuvaten bij een afgeschermd pand.",
+      "appliesTo": [
+        "nl-starter:script:illegale-dumping-chemisch-afval:scene:ontstaan"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-illegale-dumping-chemisch-afval-verzameling",
+      "description": "Zwart pictogram van opgeslagen vaten boven een vloeistofdichte vloer.",
+      "appliesTo": [
+        "nl-starter:script:illegale-dumping-chemisch-afval:scene:verzameling"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-illegale-dumping-chemisch-afval-transport",
+      "description": "Zwart pictogram van een afvaltransport met documentcontrole.",
+      "appliesTo": [
+        "nl-starter:script:illegale-dumping-chemisch-afval:scene:transport"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-illegale-dumping-chemisch-afval-dumping",
+      "description": "Zwart pictogram van een lekkend vat in natuur met ruime veiligheidsafzetting.",
+      "appliesTo": [
+        "nl-starter:script:illegale-dumping-chemisch-afval:scene:dumping"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-illegale-dumping-chemisch-afval-melding",
+      "description": "Zwart pictogram van een melder op afstand en naderende hulpdiensten.",
+      "appliesTo": [
+        "nl-starter:script:illegale-dumping-chemisch-afval:scene:melding"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-illegale-dumping-chemisch-afval-herstel",
+      "description": "Zwart pictogram van monstername, sanering en onderzoek rond een vindplaats.",
+      "appliesTo": [
+        "nl-starter:script:illegale-dumping-chemisch-afval:scene:herstel"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:script-stroperij-illegale-wildhandel",
+      "description": "Zwart solid-fill pictogram van een beschermde diersilhouet binnen een schild.",
+      "appliesTo": [
+        "nl-starter:script:stroperij-illegale-wildhandel"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-stroperij-illegale-wildhandel-selectie",
+      "description": "Zwart pictogram van beschermde natuur onder discreet gebiedstoezicht.",
+      "appliesTo": [
+        "nl-starter:script:stroperij-illegale-wildhandel:scene:selectie"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-stroperij-illegale-wildhandel-onttrekking",
+      "description": "Zwart pictogram van een dierspoor binnen een natuurgebied en een schild.",
+      "appliesTo": [
+        "nl-starter:script:stroperij-illegale-wildhandel:scene:onttrekking"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-stroperij-illegale-wildhandel-verzameling",
+      "description": "Zwart pictogram van een beschermd specimen met registratiebewijs.",
+      "appliesTo": [
+        "nl-starter:script:stroperij-illegale-wildhandel:scene:verzameling"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-stroperij-illegale-wildhandel-handel",
+      "description": "Zwart pictogram van een online marktplaats met CITES-controle.",
+      "appliesTo": [
+        "nl-starter:script:stroperij-illegale-wildhandel:scene:handel"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-stroperij-illegale-wildhandel-vervoer",
+      "description": "Zwart pictogram van een zending bij een grenscontrole met diersilhouet.",
+      "appliesTo": [
+        "nl-starter:script:stroperij-illegale-wildhandel:scene:vervoer"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-stroperij-illegale-wildhandel-interventie",
+      "description": "Zwart pictogram van veilige dierenzorg en ketenonderzoek na inbeslagname.",
+      "appliesTo": [
+        "nl-starter:script:stroperij-illegale-wildhandel:scene:interventie"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:script-voertuigdiefstal-export",
+      "description": "Zwart solid-fill pictogram van een auto, scheepscontainer en vergrootglas.",
+      "appliesTo": [
+        "nl-starter:script:voertuigdiefstal-export"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-voertuigdiefstal-export-selectie",
+      "description": "Zwart pictogram van een geparkeerde auto onder waakzaam toezicht.",
+      "appliesTo": [
+        "nl-starter:script:voertuigdiefstal-export:scene:selectie"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-voertuigdiefstal-export-diefstal",
+      "description": "Zwart pictogram van een auto met gelaagd slot en alarmschild.",
+      "appliesTo": [
+        "nl-starter:script:voertuigdiefstal-export:scene:diefstal"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-voertuigdiefstal-export-opslag",
+      "description": "Zwart pictogram van een voertuig in tijdelijke opslag onder vergrootglas.",
+      "appliesTo": [
+        "nl-starter:script:voertuigdiefstal-export:scene:opslag"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-voertuigdiefstal-export-identiteit",
+      "description": "Zwart pictogram van voertuigkenmerk en document die worden vergeleken.",
+      "appliesTo": [
+        "nl-starter:script:voertuigdiefstal-export:scene:identiteit"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-voertuigdiefstal-export-handel",
+      "description": "Zwart pictogram van een auto bij grens en containerschip met controlepost.",
+      "appliesTo": [
+        "nl-starter:script:voertuigdiefstal-export:scene:handel"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-voertuigdiefstal-export-opsporing",
+      "description": "Zwart pictogram van een teruggevonden auto verbonden met een onderzoeksnetwerk.",
+      "appliesTo": [
+        "nl-starter:script:voertuigdiefstal-export:scene:opsporing"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:script-phishing-betaalfraude",
+      "description": "Zwart solid-fill pictogram van een bericht met haak naast een beveiligd betaalteken.",
+      "appliesTo": [
+        "nl-starter:script:phishing-betaalfraude"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-phishing-betaalfraude-voorbereiding",
+      "description": "Zwart pictogram van een berichtsjabloon met waarschuwingsdriehoek, zonder technische details.",
+      "appliesTo": [
+        "nl-starter:script:phishing-betaalfraude:scene:voorbereiding"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-phishing-betaalfraude-contact",
+      "description": "Zwart pictogram van e-mail en sms naast een zelfstandig verificatiekanaal.",
+      "appliesTo": [
+        "nl-starter:script:phishing-betaalfraude:scene:contact"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-phishing-betaalfraude-gegevens",
+      "description": "Zwart pictogram van een account met meervoudig slot en waarschuwingsmelding.",
+      "appliesTo": [
+        "nl-starter:script:phishing-betaalfraude:scene:gegevens"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-phishing-betaalfraude-betaling",
+      "description": "Zwart pictogram van een betaalopdracht onder dubbele controle.",
+      "appliesTo": [
+        "nl-starter:script:phishing-betaalfraude:scene:betaling"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-phishing-betaalfraude-doorgifte",
+      "description": "Zwart pictogram van verbonden rekeningen met een afwijkingsmarkering.",
+      "appliesTo": [
+        "nl-starter:script:phishing-betaalfraude:scene:doorgifte"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-phishing-betaalfraude-respons",
+      "description": "Zwart pictogram van bank, politie en melder rond een incidentdossier.",
+      "appliesTo": [
+        "nl-starter:script:phishing-betaalfraude:scene:respons"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:script-illegale-asbestverwijdering",
+      "description": "Zwart solid-fill pictogram van een bouwplaat met vezelwaarschuwing en beschermend schild.",
+      "appliesTo": [
+        "nl-starter:script:illegale-asbestverwijdering"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-illegale-asbestverwijdering-opdracht",
+      "description": "Zwart pictogram van een bouwplan met inventarisatiecheck en waarschuwingssymbool.",
+      "appliesTo": [
+        "nl-starter:script:illegale-asbestverwijdering:scene:opdracht"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-illegale-asbestverwijdering-inventarisatie",
+      "description": "Zwart pictogram van een bouwinspectie met rapport en vergrootglas.",
+      "appliesTo": [
+        "nl-starter:script:illegale-asbestverwijdering:scene:inventarisatie"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-illegale-asbestverwijdering-verwijdering",
+      "description": "Zwart pictogram van een stilgelegde bouwplaats met veiligheidsafzetting.",
+      "appliesTo": [
+        "nl-starter:script:illegale-asbestverwijdering:scene:verwijdering"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-illegale-asbestverwijdering-werknemers",
+      "description": "Zwart pictogram van een werknemer met masker, instructie en beschermend schild.",
+      "appliesTo": [
+        "nl-starter:script:illegale-asbestverwijdering:scene:werknemers"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-illegale-asbestverwijdering-afvoer",
+      "description": "Zwart pictogram van verpakt bouwafval met document- en transportcontrole.",
+      "appliesTo": [
+        "nl-starter:script:illegale-asbestverwijdering:scene:afvoer"
+      ]
+    },
+    {
+      "id": "nl-starter:icon:scene-illegale-asbestverwijdering-toezicht",
+      "description": "Zwart pictogram van toezichthouders rond een veilig gesaneerde bouwplaats.",
+      "appliesTo": [
+        "nl-starter:script:illegale-asbestverwijdering:scene:toezicht"
+      ]
+    }
+  ]
+}
