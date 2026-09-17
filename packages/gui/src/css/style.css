@@ -87,6 +87,153 @@ body {
   margin: 5px;
 }
 
+#llm-script-wizard {
+  width: min(92vw, 58rem);
+  max-height: 90vh;
+}
+
+#llm-script-wizard .modal-content {
+  overflow-x: hidden;
+}
+
+.llm-step-list {
+  display: flex;
+  gap: 0.5rem;
+  margin: 0 0 1.5rem;
+  padding: 0;
+  list-style: none;
+  font-size: 0.85rem;
+}
+
+.llm-step-list li {
+  flex: 1;
+  padding: 0.5rem;
+  border-bottom: 2px solid currentColor;
+  opacity: 0.45;
+  text-align: center;
+}
+
+.llm-step-list li.active {
+  opacity: 1;
+  font-weight: 600;
+}
+
+.llm-privacy-note,
+.llm-confirm-note {
+  max-width: 72ch;
+}
+
+.llm-code-field {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 18rem;
+  padding: 0.75rem;
+  resize: vertical;
+  font-family: monospace;
+  font-size: 0.85rem;
+  line-height: 1.45;
+}
+
+.llm-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+}
+
+.llm-preview-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+  gap: 1rem;
+}
+
+.llm-preview-summary div {
+  min-width: 0;
+}
+
+.llm-preview-summary dt {
+  font-size: 0.8rem;
+  opacity: 0.75;
+}
+
+.llm-preview-summary dd {
+  margin: 0.2rem 0 0;
+  overflow-wrap: anywhere;
+  font-weight: 600;
+}
+
+.llm-validation-error {
+  overflow-wrap: anywhere;
+}
+
+.llm-complete-preview {
+  margin-top: 1.5rem;
+}
+
+.llm-preview-section {
+  margin-top: 1.5rem;
+}
+
+.llm-preview-section h5,
+.llm-preview-section h6 {
+  margin-bottom: 0.5rem;
+}
+
+.llm-preview-scene,
+.llm-preview-act {
+  margin-top: 1rem;
+}
+
+.llm-preview-act {
+  padding: 0.75rem 1rem;
+  background: color-mix(in srgb, currentColor 5%, transparent);
+}
+
+.llm-preview-item {
+  margin-bottom: 0.65rem;
+  overflow-wrap: anywhere;
+}
+
+.llm-preview-item p {
+  margin: 0.2rem 0;
+}
+
+.llm-source-url {
+  word-break: break-all;
+}
+
+.llm-empty {
+  margin-top: 0.25rem;
+  opacity: 0.72;
+}
+
+@media only screen and (max-width: 600px) {
+  #llm-script-wizard {
+    width: 100%;
+    max-height: 100vh;
+    top: 0 !important;
+    transform: translateX(-50%) !important;
+  }
+
+  .llm-step-list {
+    font-size: 0.72rem;
+  }
+
+  .llm-step-list li {
+    padding-inline: 0.2rem;
+  }
+
+  .llm-actions {
+    justify-content: stretch;
+  }
+
+  .llm-actions a {
+    flex: 1 1 auto;
+    text-align: center;
+  }
+}
+
 /* print styles */
 @media print {
   html,

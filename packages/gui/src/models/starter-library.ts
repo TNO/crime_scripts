@@ -290,6 +290,191 @@ const mergeTaxonomy = <T extends { id: ID; label: string; parents?: ID[] }>(
   return { items, importedIds };
 };
 
+const mergeSharedTaxonomies = (result: DataModel, imported: DataModel) => {
+  const cast = mergeTaxonomy(result.cast, imported.cast);
+  const attributes = mergeTaxonomy(result.attributes, imported.attributes);
+  const locations = mergeTaxonomy(result.locations, imported.locations);
+  const geoLocations = mergeTaxonomy(result.geoLocations, imported.geoLocations);
+  const products = mergeTaxonomy(result.products, imported.products);
+  const transports = mergeTaxonomy(result.transports, imported.transports);
+  const partners = mergeTaxonomy(result.partners, imported.partners);
+  result.cast = cast.items;
+  result.attributes = attributes.items;
+  result.locations = locations.items;
+  result.geoLocations = geoLocations.items;
+  result.products = products.items;
+  result.transports = transports.items;
+  result.partners = partners.items;
+  return {
+    cast: cast.importedIds,
+    attributes: attributes.importedIds,
+    locations: locations.importedIds,
+    geoLocations: geoLocations.importedIds,
+    products: products.importedIds,
+    transports: transports.importedIds,
+    partners: partners.importedIds,
+  };
+};
+
+const visitModelIds = (model: DataModel, visit: (id: ID) => void) => {
+  [
+    ...model.cast,
+    ...model.attributes,
+    ...model.locations,
+    ...model.geoLocations,
+    ...model.products,
+    ...model.transports,
+    ...model.partners,
+  ].forEach(({ id }) => visit(id));
+  model.crimeScripts.forEach((script) => {
+    visit(script.id);
+    script.literature.forEach(({ id }) => visit(id));
+    script.stages.forEach((scene) => {
+      visit(scene.id);
+      scene.variants.forEach((act) => {
+        visit(act.id);
+        [
+          ...act.activities,
+          ...act.conditions,
+          ...act.opportunities,
+          ...act.indicators,
+          ...act.measures,
+        ].forEach(({ id }) => visit(id));
+      });
+    });
+    (script.tracks || []).forEach(({ id }) => visit(id));
+  });
+};
+
+const uniqueId = (usedIds: Set<ID>): ID => {
+  let id = newId();
+  while (usedIds.has(id)) id = newId();
+  return id;
+};
+
+const mergeTaxonomyGlobally = <T extends { id: ID; label: string; parents?: ID[] }>(
+  current: T[],
+  imported: T[],
+  usedIds: Set<ID>
+): { items: T[]; importedIds: Map<ID, ID> } => {
+  const items = structuredClone(current);
+  const added: T[] = [];
+  const byLabel = new Map(items.map((item) => [item.label.trim().toLocaleLowerCase(), item.id]));
+  const importedIds = new Map<ID, ID>();
+  imported.forEach((source) => {
+    const sameLabelId = byLabel.get(source.label.trim().toLocaleLowerCase());
+    if (sameLabelId) {
+      importedIds.set(source.id, sameLabelId);
+      return;
+    }
+    const item = structuredClone(source);
+    if (usedIds.has(item.id)) item.id = uniqueId(usedIds);
+    usedIds.add(item.id);
+    items.push(item);
+    added.push(item);
+    byLabel.set(item.label.trim().toLocaleLowerCase(), item.id);
+    importedIds.set(source.id, item.id);
+  });
+  added.forEach((item) => {
+    item.parents = item.parents?.map((id) => importedIds.get(id) || id);
+  });
+  return { items, importedIds };
+};
+
+const mergeSharedTaxonomiesGlobally = (result: DataModel, imported: DataModel, usedIds: Set<ID>) => {
+  const cast = mergeTaxonomyGlobally(result.cast, imported.cast, usedIds);
+  const attributes = mergeTaxonomyGlobally(result.attributes, imported.attributes, usedIds);
+  const locations = mergeTaxonomyGlobally(result.locations, imported.locations, usedIds);
+  const geoLocations = mergeTaxonomyGlobally(result.geoLocations, imported.geoLocations, usedIds);
+  const products = mergeTaxonomyGlobally(result.products, imported.products, usedIds);
+  const transports = mergeTaxonomyGlobally(result.transports, imported.transports, usedIds);
+  const partners = mergeTaxonomyGlobally(result.partners, imported.partners, usedIds);
+  result.cast = cast.items;
+  result.attributes = attributes.items;
+  result.locations = locations.items;
+  result.geoLocations = geoLocations.items;
+  result.products = products.items;
+  result.transports = transports.items;
+  result.partners = partners.items;
+  return {
+    cast: cast.importedIds,
+    attributes: attributes.importedIds,
+    locations: locations.importedIds,
+    geoLocations: geoLocations.importedIds,
+    products: products.importedIds,
+    transports: transports.importedIds,
+    partners: partners.importedIds,
+  };
+};
+
+const remapCollidingOwnedIds = (source: CrimeScript, usedIds: Set<ID>): CrimeScript => {
+  const script = structuredClone(source);
+  const remappedIds = new Map<ID, ID>();
+  const register = (item: { id: ID }) => {
+    const original = item.id;
+    if (usedIds.has(item.id)) item.id = uniqueId(usedIds);
+    usedIds.add(item.id);
+    remappedIds.set(original, item.id);
+  };
+  register(script);
+  script.literature.forEach(register);
+  script.stages.forEach((scene) => {
+    register(scene);
+    scene.variants.forEach((act) => {
+      register(act);
+      act.activities.forEach(register);
+      act.conditions.forEach(register);
+      act.opportunities.forEach(register);
+      act.indicators.forEach(register);
+      act.measures.forEach(register);
+    });
+  });
+  (script.tracks || []).forEach(register);
+  script.stages.forEach((scene) => {
+    scene.selectedVariantId = scene.selectedVariantId
+      ? remappedIds.get(scene.selectedVariantId) || scene.selectedVariantId
+      : undefined;
+    scene.variants.forEach((act) => {
+      act.opportunities.forEach((item) => {
+        item.parents = item.parents?.map((id) => remappedIds.get(id) || id);
+      });
+      act.indicators.forEach((item) => {
+        item.parents = item.parents?.map((id) => remappedIds.get(id) || id);
+      });
+    });
+  });
+  (script.tracks || []).forEach((track) => {
+    track.sceneVariants = Object.fromEntries(
+      Object.entries(track.sceneVariants).map(([sceneId, variantId]) => [
+        remappedIds.get(sceneId) || sceneId,
+        variantId ? remappedIds.get(variantId) || variantId : undefined,
+      ])
+    );
+  });
+  return script;
+};
+
+const assertGloballyUniqueIds = (model: DataModel) => {
+  const ids = new Set<ID>();
+  visitModelIds(model, (id) => {
+    if (ids.has(id)) throw new Error(`Imported model contains duplicate global id "${id}".`);
+    ids.add(id);
+  });
+};
+
+/** Import one validated standalone script without replacing existing workspace content. */
+export const importStandaloneScript = (currentInput: DataModel, importedInput: DataModel): DataModel => {
+  const result = structuredClone(normalizeDataModel(currentInput));
+  const imported = normalizeDataModel(importedInput);
+  const usedIds = new Set<ID>();
+  visitModelIds(result, (id) => usedIds.add(id));
+  const remaps = mergeSharedTaxonomiesGlobally(result, imported, usedIds);
+  const script = remapCollidingOwnedIds(remapScriptTaxonomies(imported.crimeScripts[0], remaps), usedIds);
+  result.crimeScripts.push(script);
+  assertGloballyUniqueIds(result);
+  return result;
+};
+
 export const importStarterBundle = (
   currentInput: DataModel,
   bundleInput: DataModel,
@@ -299,16 +484,7 @@ export const importStarterBundle = (
   const bundle = validateStarterBundle(bundleInput);
   const metadata = bundle.starterBundle!;
   const result = structuredClone(current);
-  const cast = mergeTaxonomy(result.cast, bundle.cast);
-  const attributes = mergeTaxonomy(result.attributes, bundle.attributes);
-  const locations = mergeTaxonomy(result.locations, bundle.locations);
-  const geoLocations = mergeTaxonomy(result.geoLocations, bundle.geoLocations);
-  const products = mergeTaxonomy(result.products, bundle.products);
-  const transports = mergeTaxonomy(result.transports, bundle.transports);
-  const partners = mergeTaxonomy(result.partners, bundle.partners);
-  const remaps = { cast: cast.importedIds, attributes: attributes.importedIds, locations: locations.importedIds,
-    geoLocations: geoLocations.importedIds, products: products.importedIds, transports: transports.importedIds,
-    partners: partners.importedIds };
+  const remaps = mergeSharedTaxonomies(result, bundle);
   bundle.crimeScripts.map((script) => remapScriptTaxonomies(script, remaps)).forEach((source) => {
     const index = result.crimeScripts.findIndex(({ id, starterOrigin }) =>
       id === source.id ||
@@ -323,13 +499,6 @@ export const importStarterBundle = (
     else result.crimeScripts.push(imported);
   });
   result.starterBundle = metadata;
-  result.cast = cast.items;
-  result.attributes = attributes.items;
-  result.locations = locations.items;
-  result.geoLocations = geoLocations.items;
-  result.products = products.items;
-  result.transports = transports.items;
-  result.partners = partners.items;
   return result;
 };
 

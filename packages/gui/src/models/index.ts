@@ -1,5 +1,6 @@
 export * from './data-model';
 export * from './icons';
+export * from './llm-script';
 export * from './model-merge';
 export * from './model-normalization';
 export * from './page';

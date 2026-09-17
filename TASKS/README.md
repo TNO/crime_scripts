@@ -18,4 +18,4 @@ These tasks are implemented in order because content depends on the starter infr
 
 This does not block the starter-library release but follows it in the current implementation sequence.
 
-- [ ] 0007 Add LLM-assisted script wizard *(needs 0003)*
+- [x] 0007 Add LLM-assisted script wizard *(needs 0003)*

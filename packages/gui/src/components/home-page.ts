@@ -16,10 +16,12 @@ import { type MeiosisComponent, routingSvc } from '../services';
 import { I18N, t } from '../services/translations';
 import { toCommaSeparatedList } from '../utils';
 import { NewScriptWizard } from './ui/new_script_wizard';
+import { LlmScriptWizard } from './ui/llm_script_wizard';
 // import lz from 'lz-string';
 
 export const HomePage: MeiosisComponent = () => {
   let wizardOpen = false;
+  let llmWizardOpen = false;
 
   const actLocations = (cs: CrimeScript) => {
     const csActs = cs.stages
@@ -91,24 +93,39 @@ export const HomePage: MeiosisComponent = () => {
             actions,
           }),
         }),
+        llmWizardOpen &&
+        m(Dialog, {
+          id: 'llm-script-wizard',
+          title: t('LLM_WIZARD_TITLE'),
+          isOpen: true,
+          onToggle: (open: boolean) => (llmWizardOpen = open),
+          content: m(LlmScriptWizard, {
+            state,
+            actions,
+            options: { onClose: () => (llmWizardOpen = false) },
+          }),
+        }),
         isAdmin &&
         m(
-          '.right-align',
-          m(FlatButton, {
-            label: t('NEW_SCRIPT'),
-            iconName: 'add',
-            className: 'small',
-            onclick: () => {
-              wizardOpen = true;
-              // const newCrimeScript = {
-              //   label: t('NEW_SCRIPT_NAME'),
-              //   id: uniqueId(),
-              // } as CrimeScript;
-              // model.crimeScripts.push(newCrimeScript);
-              // actions.saveModel(model);
-              // actions.changePage(Pages.CRIME_SCRIPT, { id: newCrimeScript.id, edit: 1 });
-            },
-          })
+          '.right-align.buttons',
+          [
+            m(FlatButton, {
+              label: t('LLM_WIZARD_TITLE'),
+              iconName: 'auto_awesome',
+              className: 'small',
+              onclick: () => {
+                llmWizardOpen = true;
+              },
+            }),
+            m(FlatButton, {
+              label: t('NEW_SCRIPT'),
+              iconName: 'add',
+              className: 'small',
+              onclick: () => {
+                wizardOpen = true;
+              },
+            }),
+          ]
         ),
         m(
           '.col.s12.filters',
