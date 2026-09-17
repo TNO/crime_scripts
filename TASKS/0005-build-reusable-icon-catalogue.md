@@ -1,6 +1,6 @@
 # 0005 Build reusable icon catalogue
 
-Status: open
+Status: done
 Priority: medium
 Subsystem: frontend
 Depends on: 0004
@@ -34,3 +34,7 @@ Use the icon requirements authored in `0004`. The existing visual language uses 
 ## Agent Notes
 
 - 2026-09-17: Created after reviewing the current `packages/gui/src/assets/icons/` collection and The Noun Project terms effective 2026-09-02. The current catalogue is a numeric `ICONS` enum with embedded data URIs; this task should preserve old references while adding stable extensible keys.
+- 2026-09-17 Copilot: Started after `0004` was completed and committed as `4a1dbfa`. Use its icon-requirements manifest as the authoritative coverage list.
+- 2026-09-17 Copilot: Added an application-level catalogue of 34 original MIT-licensed, monochrome 100×100 SVGs and mapped all 70 starter script/scene requirements to stable `builtin:*` keys (19 keys are reused, avoiding requirement-specific duplication). Added machine-readable provenance, a human notice, SVGO 4.0.0 configuration/workflow, built-in picker and rendering support for scripts/scenes, and a pure single-script export seam that preserves catalogue keys and embedded uploads. Legacy numeric values 1–14 remain unchanged. Verified 6 focused catalogue/export tests, the full GUI suite (24 passing, 1 pre-existing optional-fixture skip), clean typecheck, production build with matching deployed docs copies, a second SVGO pass reporting 0% changes for all 34 files, and `git diff --check`. No third-party artwork was introduced; no licensing uncertainty remains. Status intentionally remains `in_progress` for parent review.
+- 2026-09-17 Copilot: Follow-up semantic audit replaced broad starter mappings with 59 requirement-specific scene icons and revised all 10 script icons, so 69 distinct keys now cover the 70 authoritative targets. The sole retained reuse is `protected-person-response` for the genuinely equivalent protected-victim multi-agency responses in labour and sexual exploitation. Every mapped icon now depicts the requirement's defining subjects; `hazardous-waste.svg` uses non-zero barrel separator rectangles. The catalogue retains the 24 earlier general-purpose keys for compatibility (93 SVGs total). Strengthened tests to reject empty mappings and duplicate requirement/target IDs, require exact starter target-set equality before key validation, and verify deployed copies. Reverified 6 focused tests, full GUI tests (24 passing, 1 pre-existing optional-fixture skip), clean typecheck, production build, a hash-identical second SVGO pass across all 93 SVGs, and `git diff --check`.
+- 2026-09-17 Copilot: Browser-verified the application-level catalogue in an intentionally empty workspace: metadata reported 93 icons, every `/icons/*.svg` request succeeded, and no console errors occurred. An Impeccable detector pass over the changed UI files reported no findings.

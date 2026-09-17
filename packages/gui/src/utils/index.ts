@@ -15,6 +15,7 @@ import type {
   Pages,
   SearchResult,
 } from '../models';
+import { createSingleScriptExportModel } from '../models';
 import { i18n, t } from '../services';
 
 export const LANGUAGE = 'CSS_LANGUAGE';
@@ -529,64 +530,10 @@ export const highlightFactory = (searchTerms?: string | string[]) => {
   };
 };
 
-/** Converts a crime script to a Word docx document and saves it */
+/** Converts a crime script to JSON and saves it. */
 export const toJSON = async (filename: string, cs: Partial<CrimeScript>, model: DataModel) => {
-  const acts = cs.stages?.flatMap((stage) => stage.variants) || [];
-  const castIds = acts.reduce((acc, act) => {
-    act.activities.forEach((activity) => {
-      activity.cast?.forEach((cm) => acc.add(cm));
-    });
-    return acc;
-  }, new Set<ID>());
-  const cast = model.cast.filter((a) => castIds?.has(a.id));
-  const attributeIds = acts.reduce((acc, act) => {
-    act.activities.forEach((activity) => {
-      activity.attributes?.forEach((cm) => acc.add(cm));
-    });
-    return acc;
-  }, new Set<ID>());
-  const attributes = model.attributes.filter((a) => attributeIds?.has(a.id));
-  const transportIds = acts.reduce((acc, act) => {
-    act.activities.forEach((activity) => {
-      activity.transports?.forEach((cm) => acc.add(cm));
-    });
-    return acc;
-  }, new Set<ID>());
-  const transports = model.transports.filter((a) => transportIds?.has(a.id));
-  const partnerIds = acts.reduce((acc, act) => {
-    act.measures.forEach((measure) => {
-      measure.partners?.forEach((cm) => acc.add(cm));
-    });
-    return acc;
-  }, new Set<ID>());
-  const partners = model.partners.filter((a) => partnerIds?.has(a.id));
-  const locationsIds = acts.reduce((acc, act) => {
-    act.locationIds?.forEach((id) => {
-      acc.add(id);
-    });
-    return acc;
-  }, new Set<ID>());
-  const locations = model.locations.filter((a) => locationsIds?.has(a.id));
-  const geoLocations = model.geoLocations.filter((a) => cs.geoLocationIds?.includes(a.id));
-  const products = model.products.filter((a) => cs.productIds?.includes(a.id));
-
   const dataStr =
     'data:text/json;charset=utf-8,' +
-    encodeURIComponent(
-      JSON.stringify({
-        ...model,
-        schemaVersion: 3,
-        previewMode: true,
-        crimeScripts: [cs],
-        cast,
-        locations,
-        geoLocations,
-        products,
-        attributes,
-        transports,
-        partners,
-        lastUpdate: Date.now(),
-      } as DataModel)
-    );
+    encodeURIComponent(JSON.stringify(createSingleScriptExportModel(cs, model)));
   saveAs(dataStr, filename.replace('.docx', '.json'));
 };

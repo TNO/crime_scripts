@@ -8,6 +8,7 @@
     "start": "vite",
     "build": "vite build",
     "build:domain": "npm run clean && npm run build",
+    "icons:optimize": "pnpm dlx svgo@4.0.0 --config svgo.config.mjs --folder public/icons --recursive",
     "test": "node --experimental-strip-types --test test/*.test.ts",
     "typecheck": "tsc --noEmit"
   },

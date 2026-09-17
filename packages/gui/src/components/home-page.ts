@@ -1,7 +1,16 @@
 import m from 'mithril';
 import { Dialog, FlatButton, Icon } from 'mithril-materialized';
 import { type FormAttributes, LayoutForm, type UIForm } from 'mithril-ui-form';
-import { type CrimeScript, type CrimeScriptFilter, type Hierarchical, type ID, type Labelled, Pages, scriptIcon } from '../models';
+import {
+  type CrimeScript,
+  type CrimeScriptFilter,
+  type Hierarchical,
+  type ID,
+  type Labelled,
+  Pages,
+  resolveIconSource,
+  scriptIcon,
+} from '../models';
 import { crimeScriptFilterFormFactory } from '../models/forms';
 import { type MeiosisComponent, routingSvc } from '../services';
 import { I18N, t } from '../services/translations';
@@ -118,13 +127,17 @@ export const HomePage: MeiosisComponent = () => {
             m('li.collection-header', m('h4', 'Crime Scripts')),
             crimeScripts
               .filter(csFilter)
-              .map(({ url = scriptIcon, label, description, id, productIds = [], geoLocationIds = [] }) => {
+              .map(({ icon, url, label, description, id, productIds = [], geoLocationIds = [] }) => {
                 const onclick = () => {
                   actions.changePage(Pages.CRIME_SCRIPT, { id });
                   actions.update({ currentCrimeScriptId: id });
                 };
                 return m('li.collection-item.avatar.cursor-pointer', { onclick }, [
-                  m('img.white.circle', { src: url, alt: 'Avatar', style: { padding: '2px' } }),
+                  m('img.white.circle', {
+                    src: resolveIconSource(icon, url) || url || scriptIcon,
+                    alt: 'Avatar',
+                    style: { padding: '2px' },
+                  }),
                   m(
                     'span.title',
                     `${label}${productIds.length > 0

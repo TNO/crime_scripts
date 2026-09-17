@@ -97,7 +97,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:cocaine-import-havens-voorbereiding"
         },
         {
           "id": "nl-starter:script:cocaine-import-havens:scene:invoer",
@@ -160,7 +161,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:cocaine-import-havens-invoer"
         },
         {
           "id": "nl-starter:script:cocaine-import-havens:scene:toegang",
@@ -220,7 +222,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:cocaine-import-havens-toegang"
         },
         {
           "id": "nl-starter:script:cocaine-import-havens:scene:uithalen",
@@ -282,7 +285,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:cocaine-import-havens-uithalen"
         },
         {
           "id": "nl-starter:script:cocaine-import-havens:scene:vervoer",
@@ -344,7 +348,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:cocaine-import-havens-vervoer"
         },
         {
           "id": "nl-starter:script:cocaine-import-havens:scene:verstoring",
@@ -406,7 +411,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:cocaine-import-havens-verstoring"
         }
       ],
       "productIds": [
@@ -424,7 +430,8 @@
         "bundleId": "pax-nl-starter",
         "bundleVersion": "1.0.0",
         "scriptId": "nl-starter:script:cocaine-import-havens"
-      }
+      },
+      "icon": "builtin:port-security"
     },
     {
       "id": "nl-starter:script:synthetische-drugsproductie",
@@ -514,7 +521,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:synthetische-drugsproductie-locatie"
         },
         {
           "id": "nl-starter:script:synthetische-drugsproductie:scene:middelen",
@@ -576,7 +584,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:synthetische-drugsproductie-middelen"
         },
         {
           "id": "nl-starter:script:synthetische-drugsproductie:scene:inrichting",
@@ -636,7 +645,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:synthetische-drugsproductie-inrichting"
         },
         {
           "id": "nl-starter:script:synthetische-drugsproductie:scene:productie",
@@ -697,7 +707,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:synthetische-drugsproductie-productie"
         },
         {
           "id": "nl-starter:script:synthetische-drugsproductie:scene:afvoer",
@@ -760,7 +771,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:synthetische-drugsproductie-afvoer"
         },
         {
           "id": "nl-starter:script:synthetische-drugsproductie:scene:onderzoek",
@@ -822,7 +834,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:synthetische-drugsproductie-onderzoek"
         }
       ],
       "productIds": [
@@ -839,7 +852,8 @@
         "bundleId": "pax-nl-starter",
         "bundleVersion": "1.0.0",
         "scriptId": "nl-starter:script:synthetische-drugsproductie"
-      }
+      },
+      "icon": "builtin:hazard-building"
     },
     {
       "id": "nl-starter:script:arbeidsuitbuiting",
@@ -927,7 +941,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:arbeidsuitbuiting-werving"
         },
         {
           "id": "nl-starter:script:arbeidsuitbuiting:scene:reis",
@@ -990,7 +1005,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:arbeidsuitbuiting-reis"
         },
         {
           "id": "nl-starter:script:arbeidsuitbuiting:scene:afhankelijkheid",
@@ -1052,7 +1068,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:arbeidsuitbuiting-afhankelijkheid"
         },
         {
           "id": "nl-starter:script:arbeidsuitbuiting:scene:werk",
@@ -1111,7 +1128,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:arbeidsuitbuiting-werk"
         },
         {
           "id": "nl-starter:script:arbeidsuitbuiting:scene:controle",
@@ -1172,7 +1190,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:arbeidsuitbuiting-controle"
         },
         {
           "id": "nl-starter:script:arbeidsuitbuiting:scene:bescherming",
@@ -1235,7 +1254,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:protected-person-response"
         }
       ],
       "productIds": [
@@ -1252,7 +1272,8 @@
         "bundleId": "pax-nl-starter",
         "bundleVersion": "1.0.0",
         "scriptId": "nl-starter:script:arbeidsuitbuiting"
-      }
+      },
+      "icon": "builtin:worker-protection"
     },
     {
       "id": "nl-starter:script:mensenhandel-seksuele-uitbuiting",
@@ -1342,7 +1363,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:mensenhandel-seksuele-uitbuiting-benadering"
         },
         {
           "id": "nl-starter:script:mensenhandel-seksuele-uitbuiting:scene:isolatie",
@@ -1403,7 +1425,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:mensenhandel-seksuele-uitbuiting-isolatie"
         },
         {
           "id": "nl-starter:script:mensenhandel-seksuele-uitbuiting:scene:exploitatie",
@@ -1464,7 +1487,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:mensenhandel-seksuele-uitbuiting-exploitatie"
         },
         {
           "id": "nl-starter:script:mensenhandel-seksuele-uitbuiting:scene:verplaatsing",
@@ -1528,7 +1552,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:mensenhandel-seksuele-uitbuiting-verplaatsing"
         },
         {
           "id": "nl-starter:script:mensenhandel-seksuele-uitbuiting:scene:opbrengst",
@@ -1591,7 +1616,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:mensenhandel-seksuele-uitbuiting-opbrengst"
         },
         {
           "id": "nl-starter:script:mensenhandel-seksuele-uitbuiting:scene:interventie",
@@ -1653,7 +1679,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:protected-person-response"
         }
       ],
       "productIds": [
@@ -1671,7 +1698,8 @@
         "bundleId": "pax-nl-starter",
         "bundleVersion": "1.0.0",
         "scriptId": "nl-starter:script:mensenhandel-seksuele-uitbuiting"
-      }
+      },
+      "icon": "builtin:victim-support"
     },
     {
       "id": "nl-starter:script:witwassen-legale-ondernemingen",
@@ -1760,7 +1788,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:witwassen-legale-ondernemingen-bedrijf"
         },
         {
           "id": "nl-starter:script:witwassen-legale-ondernemingen:scene:inbreng",
@@ -1822,7 +1851,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:witwassen-legale-ondernemingen-inbreng"
         },
         {
           "id": "nl-starter:script:witwassen-legale-ondernemingen:scene:administratie",
@@ -1881,7 +1911,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:witwassen-legale-ondernemingen-administratie"
         },
         {
           "id": "nl-starter:script:witwassen-legale-ondernemingen:scene:verplaatsing",
@@ -1942,7 +1973,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:witwassen-legale-ondernemingen-verplaatsing"
         },
         {
           "id": "nl-starter:script:witwassen-legale-ondernemingen:scene:besteding",
@@ -2004,7 +2036,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:witwassen-legale-ondernemingen-besteding"
         },
         {
           "id": "nl-starter:script:witwassen-legale-ondernemingen:scene:verstoring",
@@ -2068,7 +2101,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:witwassen-legale-ondernemingen-verstoring"
         }
       ],
       "productIds": [
@@ -2086,7 +2120,8 @@
         "bundleId": "pax-nl-starter",
         "bundleVersion": "1.0.0",
         "scriptId": "nl-starter:script:witwassen-legale-ondernemingen"
-      }
+      },
+      "icon": "builtin:financial-investigation"
     },
     {
       "id": "nl-starter:script:illegale-dumping-chemisch-afval",
@@ -2175,7 +2210,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:illegale-dumping-chemisch-afval-ontstaan"
         },
         {
           "id": "nl-starter:script:illegale-dumping-chemisch-afval:scene:verzameling",
@@ -2236,7 +2272,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:illegale-dumping-chemisch-afval-verzameling"
         },
         {
           "id": "nl-starter:script:illegale-dumping-chemisch-afval:scene:transport",
@@ -2299,7 +2336,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:illegale-dumping-chemisch-afval-transport"
         },
         {
           "id": "nl-starter:script:illegale-dumping-chemisch-afval:scene:dumping",
@@ -2359,7 +2397,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:illegale-dumping-chemisch-afval-dumping"
         },
         {
           "id": "nl-starter:script:illegale-dumping-chemisch-afval:scene:melding",
@@ -2420,7 +2459,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:illegale-dumping-chemisch-afval-melding"
         },
         {
           "id": "nl-starter:script:illegale-dumping-chemisch-afval:scene:herstel",
@@ -2482,7 +2522,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:illegale-dumping-chemisch-afval-herstel"
         }
       ],
       "productIds": [
@@ -2499,7 +2540,8 @@
         "bundleId": "pax-nl-starter",
         "bundleVersion": "1.0.0",
         "scriptId": "nl-starter:script:illegale-dumping-chemisch-afval"
-      }
+      },
+      "icon": "builtin:hazardous-waste"
     },
     {
       "id": "nl-starter:script:stroperij-illegale-wildhandel",
@@ -2588,7 +2630,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:stroperij-illegale-wildhandel-selectie"
         },
         {
           "id": "nl-starter:script:stroperij-illegale-wildhandel:scene:onttrekking",
@@ -2645,7 +2688,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:stroperij-illegale-wildhandel-onttrekking"
         },
         {
           "id": "nl-starter:script:stroperij-illegale-wildhandel:scene:verzameling",
@@ -2705,7 +2749,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:stroperij-illegale-wildhandel-verzameling"
         },
         {
           "id": "nl-starter:script:stroperij-illegale-wildhandel:scene:handel",
@@ -2766,7 +2811,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:stroperij-illegale-wildhandel-handel"
         },
         {
           "id": "nl-starter:script:stroperij-illegale-wildhandel:scene:vervoer",
@@ -2830,7 +2876,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:stroperij-illegale-wildhandel-vervoer"
         },
         {
           "id": "nl-starter:script:stroperij-illegale-wildhandel:scene:interventie",
@@ -2892,7 +2939,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:stroperij-illegale-wildhandel-interventie"
         }
       ],
       "productIds": [
@@ -2910,7 +2958,8 @@
         "bundleId": "pax-nl-starter",
         "bundleVersion": "1.0.0",
         "scriptId": "nl-starter:script:stroperij-illegale-wildhandel"
-      }
+      },
+      "icon": "builtin:wildlife-protection"
     },
     {
       "id": "nl-starter:script:voertuigdiefstal-export",
@@ -3000,7 +3049,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:voertuigdiefstal-export-selectie"
         },
         {
           "id": "nl-starter:script:voertuigdiefstal-export:scene:diefstal",
@@ -3062,7 +3112,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:voertuigdiefstal-export-diefstal"
         },
         {
           "id": "nl-starter:script:voertuigdiefstal-export:scene:opslag",
@@ -3124,7 +3175,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:voertuigdiefstal-export-opslag"
         },
         {
           "id": "nl-starter:script:voertuigdiefstal-export:scene:identiteit",
@@ -3185,7 +3237,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:voertuigdiefstal-export-identiteit"
         },
         {
           "id": "nl-starter:script:voertuigdiefstal-export:scene:handel",
@@ -3250,7 +3303,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:voertuigdiefstal-export-handel"
         },
         {
           "id": "nl-starter:script:voertuigdiefstal-export:scene:opsporing",
@@ -3314,7 +3368,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:voertuigdiefstal-export-opsporing"
         }
       ],
       "productIds": [
@@ -3332,7 +3387,8 @@
         "bundleId": "pax-nl-starter",
         "bundleVersion": "1.0.0",
         "scriptId": "nl-starter:script:voertuigdiefstal-export"
-      }
+      },
+      "icon": "builtin:vehicle-export"
     },
     {
       "id": "nl-starter:script:phishing-betaalfraude",
@@ -3422,7 +3478,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:phishing-betaalfraude-voorbereiding"
         },
         {
           "id": "nl-starter:script:phishing-betaalfraude:scene:contact",
@@ -3534,7 +3591,8 @@
               ]
             }
           ],
-          "selectedVariantId": "nl-starter:script:phishing-betaalfraude:scene:contact:variant:e-mail"
+          "selectedVariantId": "nl-starter:script:phishing-betaalfraude:scene:contact:variant:e-mail",
+          "icon": "builtin:phishing-betaalfraude-contact"
         },
         {
           "id": "nl-starter:script:phishing-betaalfraude:scene:gegevens",
@@ -3593,7 +3651,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:phishing-betaalfraude-gegevens"
         },
         {
           "id": "nl-starter:script:phishing-betaalfraude:scene:betaling",
@@ -3653,7 +3712,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:phishing-betaalfraude-betaling"
         },
         {
           "id": "nl-starter:script:phishing-betaalfraude:scene:doorgifte",
@@ -3713,7 +3773,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:phishing-betaalfraude-doorgifte"
         },
         {
           "id": "nl-starter:script:phishing-betaalfraude:scene:respons",
@@ -3776,7 +3837,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:phishing-betaalfraude-respons"
         }
       ],
       "productIds": [
@@ -3812,7 +3874,8 @@
             "nl-starter:script:phishing-betaalfraude:scene:contact": "nl-starter:script:phishing-betaalfraude:scene:contact:variant:sms"
           }
         }
-      ]
+      ],
+      "icon": "builtin:phishing-protection"
     },
     {
       "id": "nl-starter:script:illegale-asbestverwijdering",
@@ -3900,7 +3963,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:illegale-asbestverwijdering-opdracht"
         },
         {
           "id": "nl-starter:script:illegale-asbestverwijdering:scene:inventarisatie",
@@ -3960,7 +4024,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:illegale-asbestverwijdering-inventarisatie"
         },
         {
           "id": "nl-starter:script:illegale-asbestverwijdering:scene:verwijdering",
@@ -4020,7 +4085,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:illegale-asbestverwijdering-verwijdering"
         },
         {
           "id": "nl-starter:script:illegale-asbestverwijdering:scene:werknemers",
@@ -4079,7 +4145,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:illegale-asbestverwijdering-werknemers"
         },
         {
           "id": "nl-starter:script:illegale-asbestverwijdering:scene:afvoer",
@@ -4142,7 +4209,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:illegale-asbestverwijdering-afvoer"
         },
         {
           "id": "nl-starter:script:illegale-asbestverwijdering:scene:toezicht",
@@ -4204,7 +4272,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "icon": "builtin:illegale-asbestverwijdering-toezicht"
         }
       ],
       "productIds": [
@@ -4220,7 +4289,8 @@
         "bundleId": "pax-nl-starter",
         "bundleVersion": "1.0.0",
         "scriptId": "nl-starter:script:illegale-asbestverwijdering"
-      }
+      },
+      "icon": "builtin:asbestos-safety"
     }
   ],
   "cast": [

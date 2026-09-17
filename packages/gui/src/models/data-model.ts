@@ -1,4 +1,4 @@
-import type { ICONS } from './icons';
+import type { IconValue } from './icons';
 
 export type DataModel = {
   schemaVersion: 3;
@@ -106,7 +106,7 @@ export type Labelled = {
   /** Data image, base64 encoded */
   url?: string;
   /** Icon */
-  icon?: ICONS;
+  icon?: IconValue;
 };
 
 export type Literature = Labelled & {

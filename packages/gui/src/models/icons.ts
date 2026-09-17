@@ -1,19 +1,21 @@
-export enum ICONS {
-  OTHER = 1,
-  CAR,
-  CONTAINER_SHIP,
-  DISPOSAL,
-  FILTER,
-  OIL_BARREL,
-  DRUGS,
-  MONEY_LAUNDERING,
-  PLANNING,
-  STORAGE,
-  TRUCK,
-  WEED,
-  UNPACK,
-  DISTRIBUTE,
-}
+export const ICONS = {
+  OTHER: 1,
+  CAR: 2,
+  CONTAINER_SHIP: 3,
+  DISPOSAL: 4,
+  FILTER: 5,
+  OIL_BARREL: 6,
+  DRUGS: 7,
+  MONEY_LAUNDERING: 8,
+  PLANNING: 9,
+  STORAGE: 10,
+  TRUCK: 11,
+  WEED: 12,
+  UNPACK: 13,
+  DISTRIBUTE: 14,
+} as const;
+
+export type ICONS = (typeof ICONS)[keyof typeof ICONS];
 
 export const car =
   'data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSItNSAtMTAgMTAwIDEwMCIgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTIxLjM3IDEwLjgyMmExMy4zMTYgMTMuMzE2IDAgMDE0LjQzNy0uNTQzYzcuOTI1LjAyIDE1Ljg1Mi0uMDIgMjMuNzc3LjAwOHYtLjAwNGE4LjY1OCA4LjY1OCAwIDAxNi4wNyAyLjVjMi4wNDMgMi4wNTQgMy44NzUgNC4zMDQgNS44NjMgNi40MTQgMi4wODYgMi4yNTQgNC4xNDUgNC41MzUgNi4yMTEgNi44MDVhMTMuNDk0IDEzLjQ5NCAwIDAwMy4yMjMgMy4xNTIgNC43MTcgNC43MTcgMCAwMDIuNTQ3LjUwNGMzLjM4My4wMDggNi43Ny0uMDA0IDEwLjE1Mi4wMDRoLjAwNGMuODgyLjAwNCAxLjc2NS4wNzggMi42MzYuMjIyIDEuMjU0LjE2IDIuNDguNDkzIDMuNjQuOTg1YTUuNTUyIDUuNTUyIDAgMDEyLjc3IDMuMTQ4Yy4yMTEuODUyLjI5NyAxLjczLjI1NCAyLjYxLS45MzMtLjE1Ny0xLjg3NS4wODItMi44MDQtLjA2My0uNjYuMTI1LTEuMzgzLS4wNjItMS45ODkuMzA5YTIuMTE4IDIuMTE4IDAgMDAuOTQ2IDQuMDA3YzEuMjkzLjAxMiAyLjU4Ni0uMDExIDMuODc1LjAxMiAwIDMuMDA4LS4wMTYgNi4wMTItLjAxNiA5LjAyYTUuMDY4IDUuMDY4IDAgMDEtMS4zOTggMy42OTEgNS45MzQgNS45MzQgMCAwMS01LjAwNCAxLjUzMSAxMy41NTYgMTMuNTU2IDAgMDAtMS44NjQtNy45MzcgMTUuNDU1IDE1LjQ1NSAwIDAwLTQuMzE2LTQuNjMgMTQuMjgyIDE0LjI4MiAwIDAwLTExLjE5NS0yLjIzNCAxNS4yIDE1LjIgMCAwMC02Ljg2NyAzLjczOSAxNC40NjIgMTQuNDYyIDAgMDAtNC4zMzYgMTEuMTAyYy04LjI1LS4wMzItMTYuNS0uMDA0LTI0Ljc1LS4wMTJhMTUuNDE4IDE1LjQxOCAwIDAwLS4yODUtMy43NjYgMTQuNjY0IDE0LjY2NCAwIDAwLTQuODE3LTcuODk4IDEzLjc3IDEzLjc3IDAgMDAtNi4xMzYtMy4xMDUgMTMuNzQyIDEzLjc0MiAwIDAwLTkuNDM0IDEuMTEzIDE0LjEwNyAxNC4xMDcgMCAwMC03LjkzIDEzLjY2OGMtMS4wNy4wNjItMi4xNDQuMDIzLTMuMjA3LS4xMWE1LjMxMiA1LjMxMiAwIDAxLTQuMDY2LTQuMzYzYy0uMDA0LTMuMzI4LjAwOC02LjY1Ni4wMzEtOS45ODggMS43NDYtLjA1NSAzLjQ5Ni4wMjcgNS4yMzktLjA1MWguMDAzYTIuMDIyIDIuMDIyIDAgMDAxLjc5LTIuNDA2IDIuMzIgMi4zMiAwIDAwLTIuMjQzLTEuN2MtMS42MzMtLjAwNy0zLjI2MSAwLTQuODk0LS4wMDNhOS41MTggOS41MTggMCAwMS4zOS0zLjM4MyA1LjI0NSA1LjI0NSAwIDAxMi4wNzUtMi4yMTFjMS4zNzUtLjc5NyAzLjAwNy0uOTE4IDQuNDMzLTEuNTk4aC0uMDA0YTUuODY0IDUuODY0IDAgMDAxLjg2LTEuNDg0YzEuOTE0LTIuMjkgMy43MTUtNC42NjggNS42MDEtNi45NzcgMS43MjMtMi4xMTMgMy4zODMtNC4yNzcgNS4wNDctNi40Mzd2LjAwNGExMC4wMDIgMTAuMDAyIDAgMDE0LjY4LTMuNjQ1bTMuMDIgNi4zMzZhMy4wMTUgMy4wMTUgMCAwMC0xLjYyNiAxLjI1Yy0xLjA3OCAxLjQwMi0yLjA5NyAyLjg0OC0zLjE0OCA0LjI2Ni0xLjI3MyAxLjgzMi0yLjY1NiAzLjU5LTMuOTEgNS40MzNsLjAwNC4wMDRhMS45MTYgMS45MTYgMCAwMDEuOTIyIDEuMzk5YzUuMDQzLjAxMSAxMC4wOS4wMjcgMTUuMTMzLjAwM3YtLjAwM2EzLjA4IDMuMDggMCAwMDIuOTYtMy4yMDhjLS4wMTUtMy4xNDQuMDEyLTYuMjg1LS4wMzUtOS40My0yLjE4MyAwLTQuMzc1LS4wMy02LjU1OC4wMzYtLjY1My0uMDc4LTEuMzA1LjAyNy0xLjk1My4wMDhoLS4wMDRhOC42OTMgOC42OTMgMCAwMC0yLjc4NS4yNDJtMTguMTc2LS4yMzh2OS44MTZoLS4wMDRhMi45MyAyLjkzIDAgMDAuOTU3IDIuMDQgMi45MjMgMi45MjMgMCAwMDIuMTIuNzVjNC4yODYgMCA4LjU3NS4wMTUgMTIuODYtLjAxM2guMDA0YTEuODEzIDEuODEzIDAgMDAxLjgyLTEuMTA1Yy4xMS0uNTA4LS40MDYtLjgwNS0uNjgtMS4xNDUtMi44MzItMy4xMi01LjYwNS02LjMtOC41NTgtOS4zMDR2LjAwNGEzLjI2MiAzLjI2MiAwIDAwLTIuMTUzLTEuMDI0Yy0yLjEyLS4wMi00LjI0NiAwLTYuMzY3LS4wMnoiLz48cGF0aCBkPSJNNzEuMTY2IDQzLjUzM0ExMC45NzEgMTAuOTcxIDAgMDE4Mi4zIDUwLjA4YzEgMi4zMDggMS4xODggNC44OS41MzEgNy4zMmExMS41MjggMTEuNTI4IDAgMDEtMy42NjQgNS42MDIgMTEuMDcgMTEuMDcgMCAwMS0xNC4zOTgtLjU1NSAxMC42IDEwLjYgMCAwMS0zLjM0Ny02LjIwMyAxMS4yIDExLjIgMCAwMTEuNTY2LTcuNjI1IDEwLjgwNiAxMC44MDYgMCAwMTguMTc2LTUuMDg2bS4xNCA2LjIxNWguMDA0YTQuNzYxIDQuNzYxIDAgMDAtMy41ODIgMy4zMDggNC43MDIgNC43MDIgMCAwMDcuODc1IDQuNTcgNC42MzYgNC42MzYgMCAwMC44ODctNS41OSA0LjY0IDQuNjQgMCAwMC01LjE4LTIuMjg4em0tNTMuNjczLTYuMThhMTAuNzM0IDEwLjczNCAwIDAxNy44MDUgMi4xNTYgMTEuMzEzIDExLjMxMyAwIDAxNC4wNTUgNi4wNyAxMC45NTYgMTAuOTU2IDAgMDEtNS40MzggMTIuMjgxIDEwLjk2NSAxMC45NjUgMCAwMS0xMy4zOTEtMi4zNiAxMC4zNzMgMTAuMzczIDAgMDEtMi43MjMtNy4yNjUgMTEuMDE5IDExLjAxOSAwIDAxMi45OTMtNy41NzggMTAuNjk0IDEwLjY5NCAwIDAxNi42OTktMy4zMDRtLjM3IDYuMTQ4YTQuODQ2IDQuODQ2IDAgMDAtMy42OSAzLjM2NyA0Ljc0NSA0Ljc0NSAwIDAwMi4zNTEgNS4zNzUgNC43NDIgNC43NDIgMCAwMDUuNzczLTEuMDEyIDQuOTcgNC45NyAwIDAwMS4xOTYtMy43NzcgNC43NTQgNC43NTQgMCAwMC0yLjEzMy0zLjI0NiA1LjA3IDUuMDcgMCAwMC0zLjQ5Ni0uNzA3eiIvPjwvc3ZnPg==';
@@ -60,7 +62,129 @@ export const unpackIcon =
 export const distributeIcon =
   'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMjguNzA3IDY4LjIxNGwxNC4yNDUtOS40OTdjLjQ0LS4yOTQuNzA1LS43ODguNzA1LTEuMzE3VjQxLjU3YzAtLjA3NC0uMDItLjE0NS0uMDMtLjIxOC0uMDA2LS4wNDYtLjAwOC0uMDkxLS4wMTgtLjEzN2ExLjU2OCAxLjU2OCAwIDAwLS4yMDEtLjQ4OGMtLjAyLS4wMy0uMDQ1LS4wNTUtLjA2Ny0uMDg0YTEuNTY1IDEuNTY1IDAgMDAtLjMyOS0uMzNjLS4wMjMtLjAxNy0uMDM1LS4wNDMtLjA2LS4wNmwtMTQuMjQ1LTkuNDk3YTEuNTg1IDEuNTg1IDAgMDAtMS43NTYgMGwtMTQuMjQ2IDkuNDk3Yy0uMDI1LjAxNy0uMDM3LjA0My0uMDYuMDZhMS41NjUgMS41NjUgMCAwMC0uMzMuMzNjLS4wMi4wMy0uMDQ3LjA1NC0uMDY2LjA4NC0uMDk1LjE1LS4xNi4zMTQtLjIuNDg4LS4wMS4wNDYtLjAxMy4wOS0uMDIuMTM3LS4wMS4wNzMtLjAyOS4xNDQtLjAyOS4yMThWNTcuNGMwIC41My4yNjQgMS4wMjMuNzA1IDEuMzE3bDE0LjI0NiA5LjQ5N2MuMDUzLjAzNi4xMTQuMDUyLjE3LjA4LjA1NC4wMjguMTA0LjA1NC4xNi4wNzUuMTc4LjA2Ni4zNi4xMS41NDguMTEuMTg2IDAgLjM3LS4wNDQuNTQ3LS4xMS4wNTctLjAyLjEwNi0uMDQ3LjE2LS4wNzUuMDU2LS4wMjguMTE3LS4wNDQuMTctLjA4em0uNzA0LTQuMjc0VjUxLjkxNmwxMS4wOC03LjM4N3Y0LjcyYy0uMDEyLjA4LS4wNDguMTUyLS4wNDguMjM3IDAgLjA4NC4wMzYuMTU2LjA0OC4yMzd2Ni44M3pNMjcuODMgMzMuOTc2bDExLjM5MiA3LjU5NS0xMS4zOTIgNy41OTUtMTEuMzkzLTcuNTk1ek0xNS4xNjYgNDQuNTNsMTEuMDggNy4zODdWNjMuOTRsLTExLjA4LTcuMzg3em02Ni40OCAxNi4wMzZjLTEuMTcxIDAtMi4yNTUuMzQtMy4xOTYuODk3bC03Ljg2Mi03Ljg2MWMuOTYtMS4xMSAxLjU2LTIuNTM4IDEuNTYtNC4xMTYgMC0xLjU3OS0uNi0zLjAwNy0xLjU2LTQuMTE3bDcuODYyLTcuODZhNi4yNTggNi4yNTggMCAwMDMuMTk2Ljg5NyA2LjMzOCA2LjMzOCAwIDAwNi4zMzEtNi4zMzIgNi4zMzggNi4zMzggMCAwMC02LjMzMS02LjMzMSA2LjMzOCA2LjMzOCAwIDAwLTYuMzMyIDYuMzMxYzAgMS4xNy4zNDEgMi4yNTUuODk3IDMuMTk2bC04LjI3NiA4LjI3NmE2LjI1OCA2LjI1OCAwIDAwLTIuMTE4LS4zOTJjLTIuOTQyIDAtNS4zOTkgMi4wMjYtNi4xMDcgNC43NDlINDguNDA2YTEuNTgyIDEuNTgyIDAgMTAwIDMuMTY2SDU5LjcxYy43MDggMi43MjIgMy4xNjUgNC43NDggNi4xMDcgNC43NDguNzQ3IDAgMS40NTMtLjE1MyAyLjExOC0uMzkxbDguMjc2IDguMjc1Yy0uNTU2Ljk0Mi0uODk3IDIuMDI1LS44OTcgMy4xOTZhNi4zMzggNi4zMzggMCAwMDYuMzMyIDYuMzMyIDYuMzM4IDYuMzM4IDAgMDA2LjMzMS02LjMzMiA2LjMzOCA2LjMzOCAwIDAwLTYuMzMxLTYuMzMxem0wLTMxLjY1N2EzLjE3IDMuMTcgMCAwMTMuMTY1IDMuMTY1IDMuMTcgMy4xNyAwIDAxLTMuMTY1IDMuMTY2IDMuMTU1IDMuMTU1IDAgMDEtMi4yMzUtLjkyNmwtLjAwMi0uMDAzLS4wMDMtLjAwMmEzLjE1NSAzLjE1NSAwIDAxLS45MjYtMi4yMzUgMy4xNyAzLjE3IDAgMDEzLjE2Ni0zLjE2NXpNNjIuNjUgNDkuNDg2YTMuMTcgMy4xNyAwIDAxMy4xNjYtMy4xNjYgMy4xNyAzLjE3IDAgMDEzLjE2NiAzLjE2NiAzLjE3IDMuMTcgMCAwMS0zLjE2NiAzLjE2NSAzLjE3IDMuMTcgMCAwMS0zLjE2Ni0zLjE2NXptMTguOTk1IDIwLjU3N2EzLjE3IDMuMTcgMCAwMS0zLjE2Ni0zLjE2NmMwLS44NzIuMzU0LTEuNjYyLjkyNi0yLjIzNSAwIDAgLjAwMiAwIC4wMDMtLjAwMmwuMDAyLS4wMDNhMy4xNTUgMy4xNTUgMCAwMTIuMjM1LS45MjYgMy4xNyAzLjE3IDAgMDEzLjE2NSAzLjE2NiAzLjE3IDMuMTcgMCAwMS0zLjE2NSAzLjE2NnoiLz48cGF0aCBkPSJNMzkuNDMxIDMzLjc2OGMuNDA1IDAgLjgxLS4xNTUgMS4xMi0uNDY0bDcuMjUtNy4yNTJhNi4yNzIgNi4yNzIgMCAwMDMuNzcgMS4yNzQgNi4yNyA2LjI3IDAgMDAzLjMzLS45N2wzLjQ0MiAzLjQ0MmE2LjI3NCA2LjI3NCAwIDAwLS40NCAyLjI3NiA2LjMzOCA2LjMzOCAwIDAwNi4zMzEgNi4zMzIgNi4zMzggNi4zMzggMCAwMDYuMzMyLTYuMzMyIDYuMzM4IDYuMzM4IDAgMDAtNi4zMzItNi4zMzFjLTEuNTI2IDAtMi45MDguNTY0LTQuMDAzIDEuNDY3bC0zLjE1My0zLjE1M2MuNTEtLjkxMi44MjUtMS45NDYuODI1LTMuMDYzYTYuMjcyIDYuMjcyIDAgMDAtMS4yNzQtMy43NjlsMy44MzYtMy44MzZhNi4yNzEgNi4yNzEgMCAwMDMuNzcgMS4yNzQgNi4zMzggNi4zMzggMCAwMDYuMzMtNi4zMzJBNi4zMzggNi4zMzggMCAwMDY0LjIzNiAyYTYuMzM4IDYuMzM4IDAgMDAtNi4zMzIgNi4zMzFjMCAuOTIyLjIwOCAxLjc5MS41NjMgMi41ODJsLTQuMzE0IDQuMzEzYTYuMjc0IDYuMjc0IDAgMDAtMi41OC0uNTYzIDYuMzM4IDYuMzM4IDAgMDAtNi4zMzIgNi4zMzFjMCAuOTIxLjIwNyAxLjc5LjU2MiAyLjU4bC03LjQ5IDcuNDkyYTEuNTgyIDEuNTgyIDAgMDAxLjExOSAyLjcwMnptMjQuODAzLTQuODZhMy4xNyAzLjE3IDAgMDEzLjE2NiAzLjE2NiAzLjE3IDMuMTcgMCAwMS0zLjE2NiAzLjE2NiAzLjE3IDMuMTcgMCAwMS0zLjE2NS0zLjE2NiAzLjE3IDMuMTcgMCAwMTMuMTY1LTMuMTY1em0wLTIzLjc0MkEzLjE3IDMuMTcgMCAwMTY3LjQgOC4zM2EzLjE3IDMuMTcgMCAwMS0zLjE2NiAzLjE2NiAzLjE3IDMuMTcgMCAwMS0zLjE2NS0zLjE2NiAzLjE3IDMuMTcgMCAwMTMuMTY1LTMuMTY1ek01MS41NzEgMTcuODI5YTMuMTcgMy4xNyAwIDAxMy4xNjYgMy4xNjUgMy4xNyAzLjE3IDAgMDEtMy4xNjYgMy4xNjYgMy4xNyAzLjE3IDAgMDEtMy4xNjUtMy4xNjYgMy4xNyAzLjE3IDAgMDEzLjE2NS0zLjE2NXptMTIuNjYzIDU1LjRhNi4zMzggNi4zMzggMCAwMDYuMzMyLTYuMzMyIDYuMzM4IDYuMzM4IDAgMDAtNi4zMzItNi4zMzEgNi4zMzggNi4zMzggMCAwMC02LjMzMSA2LjMzMWMwIC44MDUuMTY1IDEuNTY4LjQ0IDIuMjc2bC0zLjQ0MiAzLjQ0MmE2LjI3MSA2LjI3MSAwIDAwLTMuMzMtLjk3IDYuMjcxIDYuMjcxIDAgMDAtMy43NyAxLjI3NWwtNy4yNjYtNy4yNjlhMS41ODIgMS41ODIgMCAxMC0yLjIzOSAyLjIzOGw3LjUwNiA3LjUwOGE2LjI3NCA2LjI3NCAwIDAwLS41NjIgMi41OCA2LjMzOCA2LjMzOCAwIDAwNi4zMzEgNi4zMzFjLjkyMSAwIDEuNzkxLS4yMDcgMi41ODEtLjU2Mmw0LjMxNCA0LjMxM2E2LjI3NSA2LjI3NSAwIDAwLS41NjMgMi41OCA2LjMzOCA2LjMzOCAwIDAwNi4zMzEgNi4zMzIgNi4zMzggNi4zMzggMCAwMDYuMzMyLTYuMzMxIDYuMzM4IDYuMzM4IDAgMDAtNi4zMzItNi4zMzIgNi4yNzEgNi4yNzEgMCAwMC0zLjc2OSAxLjI3NGwtMy44MzYtMy44MzZhNi4yNzIgNi4yNzIgMCAwMDEuMjc0LTMuNzY5YzAtMS4xMTYtLjMxNi0yLjE1LS44MjUtMy4wNjNsMy4xNTMtMy4xNTJjMS4wOTUuOTAyIDIuNDc3IDEuNDY3IDQuMDAzIDEuNDY3em0wLTkuNDk4YTMuMTcgMy4xNyAwIDAxMy4xNjYgMy4xNjYgMy4xNyAzLjE3IDAgMDEtMy4xNjYgMy4xNjYgMy4xNyAzLjE3IDAgMDEtMy4xNjUtMy4xNjYgMy4xNyAzLjE3IDAgMDEzLjE2NS0zLjE2NnpNNDguNDA2IDc3Ljk3N2EzLjE3IDMuMTcgMCAwMTMuMTY1LTMuMTY2IDMuMTcgMy4xNyAwIDAxMy4xNjYgMy4xNjYgMy4xNyAzLjE3IDAgMDEtMy4xNjYgMy4xNjYgMy4xNyAzLjE3IDAgMDEtMy4xNjUtMy4xNjZ6bTE1LjgyOCA5LjQ5N0EzLjE3IDMuMTcgMCAwMTY3LjQgOTAuNjRhMy4xNyAzLjE3IDAgMDEtMy4xNjYgMy4xNjYgMy4xNyAzLjE3IDAgMDEtMy4xNjUtMy4xNjYgMy4xNyAzLjE3IDAgMDEzLjE2NS0zLjE2NnoiLz48L3N2Zz4=';
 
-export const IconOpts = [
+export const BUILT_IN_ICONS = [
+  { key: 'builtin:access-security', label: 'Access security', category: 'Security', file: 'access-security.svg' },
+  { key: 'builtin:account-security', label: 'Account security', category: 'Digital', file: 'account-security.svg' },
+  { key: 'builtin:arbeidsuitbuiting-afhankelijkheid', label: 'Arbeidsuitbuiting Afhankelijkheid', category: 'Starter scenes', file: 'arbeidsuitbuiting-afhankelijkheid.svg' },
+  { key: 'builtin:arbeidsuitbuiting-controle', label: 'Arbeidsuitbuiting Controle', category: 'Starter scenes', file: 'arbeidsuitbuiting-controle.svg' },
+  { key: 'builtin:arbeidsuitbuiting-reis', label: 'Arbeidsuitbuiting Reis', category: 'Starter scenes', file: 'arbeidsuitbuiting-reis.svg' },
+  { key: 'builtin:arbeidsuitbuiting-werk', label: 'Arbeidsuitbuiting Werk', category: 'Starter scenes', file: 'arbeidsuitbuiting-werk.svg' },
+  { key: 'builtin:arbeidsuitbuiting-werving', label: 'Arbeidsuitbuiting Werving', category: 'Starter scenes', file: 'arbeidsuitbuiting-werving.svg' },
+  { key: 'builtin:asbestos-safety', label: 'Asbestos safety', category: 'Environment', file: 'asbestos-safety.svg' },
+  { key: 'builtin:cargo-ship', label: 'Cargo ship', category: 'Transport', file: 'cargo-ship.svg' },
+  { key: 'builtin:cocaine-import-havens-invoer', label: 'Cocaine Import Havens Invoer', category: 'Starter scenes', file: 'cocaine-import-havens-invoer.svg' },
+  { key: 'builtin:cocaine-import-havens-toegang', label: 'Cocaine Import Havens Toegang', category: 'Starter scenes', file: 'cocaine-import-havens-toegang.svg' },
+  { key: 'builtin:cocaine-import-havens-uithalen', label: 'Cocaine Import Havens Uithalen', category: 'Starter scenes', file: 'cocaine-import-havens-uithalen.svg' },
+  { key: 'builtin:cocaine-import-havens-verstoring', label: 'Cocaine Import Havens Verstoring', category: 'Starter scenes', file: 'cocaine-import-havens-verstoring.svg' },
+  { key: 'builtin:cocaine-import-havens-vervoer', label: 'Cocaine Import Havens Vervoer', category: 'Starter scenes', file: 'cocaine-import-havens-vervoer.svg' },
+  { key: 'builtin:cocaine-import-havens-voorbereiding', label: 'Cocaine Import Havens Voorbereiding', category: 'Starter scenes', file: 'cocaine-import-havens-voorbereiding.svg' },
+  { key: 'builtin:construction-safety', label: 'Construction safety', category: 'Environment', file: 'construction-safety.svg' },
+  { key: 'builtin:container-inspection', label: 'Container inspection', category: 'Inspection', file: 'container-inspection.svg' },
+  { key: 'builtin:dependency-network', label: 'Dependency network', category: 'People', file: 'dependency-network.svg' },
+  { key: 'builtin:document-check', label: 'Document check', category: 'Inspection', file: 'document-check.svg' },
+  { key: 'builtin:emergency-response', label: 'Emergency response', category: 'Response', file: 'emergency-response.svg' },
+  { key: 'builtin:finance-check', label: 'Financial check', category: 'Finance', file: 'finance-check.svg' },
+  { key: 'builtin:financial-investigation', label: 'Financial investigation', category: 'Finance', file: 'financial-investigation.svg' },
+  { key: 'builtin:hazard-building', label: 'Hazardous production site', category: 'Environment', file: 'hazard-building.svg' },
+  { key: 'builtin:hazardous-waste', label: 'Hazardous waste', category: 'Environment', file: 'hazardous-waste.svg' },
+  { key: 'builtin:illegale-asbestverwijdering-afvoer', label: 'Illegale Asbestverwijdering Afvoer', category: 'Starter scenes', file: 'illegale-asbestverwijdering-afvoer.svg' },
+  { key: 'builtin:illegale-asbestverwijdering-inventarisatie', label: 'Illegale Asbestverwijdering Inventarisatie', category: 'Starter scenes', file: 'illegale-asbestverwijdering-inventarisatie.svg' },
+  { key: 'builtin:illegale-asbestverwijdering-opdracht', label: 'Illegale Asbestverwijdering Opdracht', category: 'Starter scenes', file: 'illegale-asbestverwijdering-opdracht.svg' },
+  { key: 'builtin:illegale-asbestverwijdering-toezicht', label: 'Illegale Asbestverwijdering Toezicht', category: 'Starter scenes', file: 'illegale-asbestverwijdering-toezicht.svg' },
+  { key: 'builtin:illegale-asbestverwijdering-verwijdering', label: 'Illegale Asbestverwijdering Verwijdering', category: 'Starter scenes', file: 'illegale-asbestverwijdering-verwijdering.svg' },
+  { key: 'builtin:illegale-asbestverwijdering-werknemers', label: 'Illegale Asbestverwijdering Werknemers', category: 'Starter scenes', file: 'illegale-asbestverwijdering-werknemers.svg' },
+  { key: 'builtin:illegale-dumping-chemisch-afval-dumping', label: 'Illegale Dumping Chemisch Afval Dumping', category: 'Starter scenes', file: 'illegale-dumping-chemisch-afval-dumping.svg' },
+  { key: 'builtin:illegale-dumping-chemisch-afval-herstel', label: 'Illegale Dumping Chemisch Afval Herstel', category: 'Starter scenes', file: 'illegale-dumping-chemisch-afval-herstel.svg' },
+  { key: 'builtin:illegale-dumping-chemisch-afval-melding', label: 'Illegale Dumping Chemisch Afval Melding', category: 'Starter scenes', file: 'illegale-dumping-chemisch-afval-melding.svg' },
+  { key: 'builtin:illegale-dumping-chemisch-afval-ontstaan', label: 'Illegale Dumping Chemisch Afval Ontstaan', category: 'Starter scenes', file: 'illegale-dumping-chemisch-afval-ontstaan.svg' },
+  { key: 'builtin:illegale-dumping-chemisch-afval-transport', label: 'Illegale Dumping Chemisch Afval Transport', category: 'Starter scenes', file: 'illegale-dumping-chemisch-afval-transport.svg' },
+  { key: 'builtin:illegale-dumping-chemisch-afval-verzameling', label: 'Illegale Dumping Chemisch Afval Verzameling', category: 'Starter scenes', file: 'illegale-dumping-chemisch-afval-verzameling.svg' },
+  { key: 'builtin:materials-check', label: 'Materials check', category: 'Inspection', file: 'materials-check.svg' },
+  { key: 'builtin:mensenhandel-seksuele-uitbuiting-benadering', label: 'Mensenhandel Seksuele Uitbuiting Benadering', category: 'Starter scenes', file: 'mensenhandel-seksuele-uitbuiting-benadering.svg' },
+  { key: 'builtin:mensenhandel-seksuele-uitbuiting-exploitatie', label: 'Mensenhandel Seksuele Uitbuiting Exploitatie', category: 'Starter scenes', file: 'mensenhandel-seksuele-uitbuiting-exploitatie.svg' },
+  { key: 'builtin:mensenhandel-seksuele-uitbuiting-isolatie', label: 'Mensenhandel Seksuele Uitbuiting Isolatie', category: 'Starter scenes', file: 'mensenhandel-seksuele-uitbuiting-isolatie.svg' },
+  { key: 'builtin:mensenhandel-seksuele-uitbuiting-opbrengst', label: 'Mensenhandel Seksuele Uitbuiting Opbrengst', category: 'Starter scenes', file: 'mensenhandel-seksuele-uitbuiting-opbrengst.svg' },
+  { key: 'builtin:mensenhandel-seksuele-uitbuiting-verplaatsing', label: 'Mensenhandel Seksuele Uitbuiting Verplaatsing', category: 'Starter scenes', file: 'mensenhandel-seksuele-uitbuiting-verplaatsing.svg' },
+  { key: 'builtin:nature-monitoring', label: 'Nature monitoring', category: 'Environment', file: 'nature-monitoring.svg' },
+  { key: 'builtin:network-monitoring', label: 'Network monitoring', category: 'Investigation', file: 'network-monitoring.svg' },
+  { key: 'builtin:online-safety', label: 'Online safety', category: 'Digital', file: 'online-safety.svg' },
+  { key: 'builtin:partner-response', label: 'Partner response', category: 'Response', file: 'partner-response.svg' },
+  { key: 'builtin:payment-check', label: 'Payment check', category: 'Finance', file: 'payment-check.svg' },
+  { key: 'builtin:phishing-betaalfraude-betaling', label: 'Phishing Betaalfraude Betaling', category: 'Starter scenes', file: 'phishing-betaalfraude-betaling.svg' },
+  { key: 'builtin:phishing-betaalfraude-contact', label: 'Phishing Betaalfraude Contact', category: 'Starter scenes', file: 'phishing-betaalfraude-contact.svg' },
+  { key: 'builtin:phishing-betaalfraude-doorgifte', label: 'Phishing Betaalfraude Doorgifte', category: 'Starter scenes', file: 'phishing-betaalfraude-doorgifte.svg' },
+  { key: 'builtin:phishing-betaalfraude-gegevens', label: 'Phishing Betaalfraude Gegevens', category: 'Starter scenes', file: 'phishing-betaalfraude-gegevens.svg' },
+  { key: 'builtin:phishing-betaalfraude-respons', label: 'Phishing Betaalfraude Respons', category: 'Starter scenes', file: 'phishing-betaalfraude-respons.svg' },
+  { key: 'builtin:phishing-betaalfraude-voorbereiding', label: 'Phishing Betaalfraude Voorbereiding', category: 'Starter scenes', file: 'phishing-betaalfraude-voorbereiding.svg' },
+  { key: 'builtin:phishing-protection', label: 'Phishing protection', category: 'Digital', file: 'phishing-protection.svg' },
+  { key: 'builtin:planning-checklist', label: 'Planning checklist', category: 'Planning', file: 'planning-checklist.svg' },
+  { key: 'builtin:port-security', label: 'Port security', category: 'Security', file: 'port-security.svg' },
+  { key: 'builtin:protected-person-response', label: 'Protected Person Response', category: 'Starter scenes', file: 'protected-person-response.svg' },
+  { key: 'builtin:safe-work', label: 'Safe work', category: 'People', file: 'safe-work.svg' },
+  { key: 'builtin:secure-contact', label: 'Secure contact', category: 'Communication', file: 'secure-contact.svg' },
+  { key: 'builtin:secure-transport', label: 'Secure transport', category: 'Transport', file: 'secure-transport.svg' },
+  { key: 'builtin:site-inspection', label: 'Site inspection', category: 'Inspection', file: 'site-inspection.svg' },
+  { key: 'builtin:site-safety', label: 'Site safety', category: 'Security', file: 'site-safety.svg' },
+  { key: 'builtin:stroperij-illegale-wildhandel-handel', label: 'Stroperij Illegale Wildhandel Handel', category: 'Starter scenes', file: 'stroperij-illegale-wildhandel-handel.svg' },
+  { key: 'builtin:stroperij-illegale-wildhandel-interventie', label: 'Stroperij Illegale Wildhandel Interventie', category: 'Starter scenes', file: 'stroperij-illegale-wildhandel-interventie.svg' },
+  { key: 'builtin:stroperij-illegale-wildhandel-onttrekking', label: 'Stroperij Illegale Wildhandel Onttrekking', category: 'Starter scenes', file: 'stroperij-illegale-wildhandel-onttrekking.svg' },
+  { key: 'builtin:stroperij-illegale-wildhandel-selectie', label: 'Stroperij Illegale Wildhandel Selectie', category: 'Starter scenes', file: 'stroperij-illegale-wildhandel-selectie.svg' },
+  { key: 'builtin:stroperij-illegale-wildhandel-vervoer', label: 'Stroperij Illegale Wildhandel Vervoer', category: 'Starter scenes', file: 'stroperij-illegale-wildhandel-vervoer.svg' },
+  { key: 'builtin:stroperij-illegale-wildhandel-verzameling', label: 'Stroperij Illegale Wildhandel Verzameling', category: 'Starter scenes', file: 'stroperij-illegale-wildhandel-verzameling.svg' },
+  { key: 'builtin:suspicious-offer', label: 'Suspicious offer', category: 'People', file: 'suspicious-offer.svg' },
+  { key: 'builtin:synthetische-drugsproductie-afvoer', label: 'Synthetische Drugsproductie Afvoer', category: 'Starter scenes', file: 'synthetische-drugsproductie-afvoer.svg' },
+  { key: 'builtin:synthetische-drugsproductie-inrichting', label: 'Synthetische Drugsproductie Inrichting', category: 'Starter scenes', file: 'synthetische-drugsproductie-inrichting.svg' },
+  { key: 'builtin:synthetische-drugsproductie-locatie', label: 'Synthetische Drugsproductie Locatie', category: 'Starter scenes', file: 'synthetische-drugsproductie-locatie.svg' },
+  { key: 'builtin:synthetische-drugsproductie-middelen', label: 'Synthetische Drugsproductie Middelen', category: 'Starter scenes', file: 'synthetische-drugsproductie-middelen.svg' },
+  { key: 'builtin:synthetische-drugsproductie-onderzoek', label: 'Synthetische Drugsproductie Onderzoek', category: 'Starter scenes', file: 'synthetische-drugsproductie-onderzoek.svg' },
+  { key: 'builtin:synthetische-drugsproductie-productie', label: 'Synthetische Drugsproductie Productie', category: 'Starter scenes', file: 'synthetische-drugsproductie-productie.svg' },
+  { key: 'builtin:vehicle-export', label: 'Vehicle export', category: 'Transport', file: 'vehicle-export.svg' },
+  { key: 'builtin:vehicle-security', label: 'Vehicle security', category: 'Security', file: 'vehicle-security.svg' },
+  { key: 'builtin:victim-support', label: 'Victim support', category: 'People', file: 'victim-support.svg' },
+  { key: 'builtin:voertuigdiefstal-export-diefstal', label: 'Voertuigdiefstal Export Diefstal', category: 'Starter scenes', file: 'voertuigdiefstal-export-diefstal.svg' },
+  { key: 'builtin:voertuigdiefstal-export-handel', label: 'Voertuigdiefstal Export Handel', category: 'Starter scenes', file: 'voertuigdiefstal-export-handel.svg' },
+  { key: 'builtin:voertuigdiefstal-export-identiteit', label: 'Voertuigdiefstal Export Identiteit', category: 'Starter scenes', file: 'voertuigdiefstal-export-identiteit.svg' },
+  { key: 'builtin:voertuigdiefstal-export-opslag', label: 'Voertuigdiefstal Export Opslag', category: 'Starter scenes', file: 'voertuigdiefstal-export-opslag.svg' },
+  { key: 'builtin:voertuigdiefstal-export-opsporing', label: 'Voertuigdiefstal Export Opsporing', category: 'Starter scenes', file: 'voertuigdiefstal-export-opsporing.svg' },
+  { key: 'builtin:voertuigdiefstal-export-selectie', label: 'Voertuigdiefstal Export Selectie', category: 'Starter scenes', file: 'voertuigdiefstal-export-selectie.svg' },
+  { key: 'builtin:wildlife-protection', label: 'Wildlife protection', category: 'Environment', file: 'wildlife-protection.svg' },
+  { key: 'builtin:witwassen-legale-ondernemingen-administratie', label: 'Witwassen Legale Ondernemingen Administratie', category: 'Starter scenes', file: 'witwassen-legale-ondernemingen-administratie.svg' },
+  { key: 'builtin:witwassen-legale-ondernemingen-bedrijf', label: 'Witwassen Legale Ondernemingen Bedrijf', category: 'Starter scenes', file: 'witwassen-legale-ondernemingen-bedrijf.svg' },
+  { key: 'builtin:witwassen-legale-ondernemingen-besteding', label: 'Witwassen Legale Ondernemingen Besteding', category: 'Starter scenes', file: 'witwassen-legale-ondernemingen-besteding.svg' },
+  { key: 'builtin:witwassen-legale-ondernemingen-inbreng', label: 'Witwassen Legale Ondernemingen Inbreng', category: 'Starter scenes', file: 'witwassen-legale-ondernemingen-inbreng.svg' },
+  { key: 'builtin:witwassen-legale-ondernemingen-verplaatsing', label: 'Witwassen Legale Ondernemingen Verplaatsing', category: 'Starter scenes', file: 'witwassen-legale-ondernemingen-verplaatsing.svg' },
+  { key: 'builtin:witwassen-legale-ondernemingen-verstoring', label: 'Witwassen Legale Ondernemingen Verstoring', category: 'Starter scenes', file: 'witwassen-legale-ondernemingen-verstoring.svg' },
+  { key: 'builtin:worker-protection', label: 'Worker protection', category: 'People', file: 'worker-protection.svg' },
+  { key: 'builtin:worker-travel', label: 'Worker travel', category: 'Transport', file: 'worker-travel.svg' },
+] as const;
+
+export type BuiltInIconKey = (typeof BUILT_IN_ICONS)[number]['key'];
+export type IconValue = ICONS | BuiltInIconKey;
+
+export const isBuiltInIconKey = (icon: unknown): icon is BuiltInIconKey =>
+  typeof icon === 'string' && BUILT_IN_ICONS.some(({ key }) => key === icon);
+
+export const resolveIconSource = (icon?: IconValue, uploadedImage?: string): string | undefined => {
+  if (icon === ICONS.OTHER) return uploadedImage;
+  if (typeof icon === 'string') {
+    const builtIn = BUILT_IN_ICONS.find(({ key }) => key === icon);
+    return builtIn ? `icons/${builtIn.file}` : undefined;
+  }
+  return IconOpts.find(({ id }) => id === icon)?.img;
+};
+
+export const IconOpts: Array<{
+  group: string;
+  id: IconValue;
+  label: string;
+  img?: string;
+}> = [
+  ...BUILT_IN_ICONS.map(({ key, label, category, file }) => ({
+    group: `Catalogue · ${category}`,
+    id: key,
+    label,
+    img: `icons/${file}`,
+  })),
   { group: 'Transport', id: ICONS.CAR, label: 'Car', img: car },
   { group: 'Transport', id: ICONS.TRUCK, label: 'Truck', img: truck },
   { group: 'Transport', id: ICONS.CONTAINER_SHIP, label: 'Ship', img: containerShip },

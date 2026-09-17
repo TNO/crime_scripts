@@ -11,7 +11,7 @@ These tasks are implemented in order because content depends on the starter infr
 
 - [x] 0003 Build starter-library infrastructure
 - [x] 0004 Author Dutch starter scripts *(needs 0003)*
-- [ ] 0005 Build reusable icon catalogue *(needs 0004)*
+- [x] 0005 Build reusable icon catalogue *(needs 0004)*
 - [ ] 0006 Integrate and verify starter bundle *(needs 0005)*
 
 ## Assisted authoring

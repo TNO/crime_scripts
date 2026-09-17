@@ -1,0 +1,1307 @@
+{
+  "schemaVersion": 1,
+  "icons": [
+    {
+      "key": "builtin:access-security",
+      "label": "Access security",
+      "category": "Security",
+      "file": "access-security.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Access security",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/access-security.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:account-security",
+      "label": "Account security",
+      "category": "Digital",
+      "file": "account-security.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Account security",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/account-security.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:arbeidsuitbuiting-afhankelijkheid",
+      "label": "Arbeidsuitbuiting Afhankelijkheid",
+      "category": "Starter scenes",
+      "file": "arbeidsuitbuiting-afhankelijkheid.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Arbeidsuitbuiting Afhankelijkheid",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/arbeidsuitbuiting-afhankelijkheid.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:arbeidsuitbuiting-controle",
+      "label": "Arbeidsuitbuiting Controle",
+      "category": "Starter scenes",
+      "file": "arbeidsuitbuiting-controle.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Arbeidsuitbuiting Controle",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/arbeidsuitbuiting-controle.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:arbeidsuitbuiting-reis",
+      "label": "Arbeidsuitbuiting Reis",
+      "category": "Starter scenes",
+      "file": "arbeidsuitbuiting-reis.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Arbeidsuitbuiting Reis",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/arbeidsuitbuiting-reis.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:arbeidsuitbuiting-werk",
+      "label": "Arbeidsuitbuiting Werk",
+      "category": "Starter scenes",
+      "file": "arbeidsuitbuiting-werk.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Arbeidsuitbuiting Werk",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/arbeidsuitbuiting-werk.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:arbeidsuitbuiting-werving",
+      "label": "Arbeidsuitbuiting Werving",
+      "category": "Starter scenes",
+      "file": "arbeidsuitbuiting-werving.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Arbeidsuitbuiting Werving",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/arbeidsuitbuiting-werving.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:asbestos-safety",
+      "label": "Asbestos safety",
+      "category": "Environment",
+      "file": "asbestos-safety.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Asbestos safety",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/asbestos-safety.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:cargo-ship",
+      "label": "Cargo ship",
+      "category": "Transport",
+      "file": "cargo-ship.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Cargo ship",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/cargo-ship.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:cocaine-import-havens-invoer",
+      "label": "Cocaine Import Havens Invoer",
+      "category": "Starter scenes",
+      "file": "cocaine-import-havens-invoer.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Cocaine Import Havens Invoer",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/cocaine-import-havens-invoer.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:cocaine-import-havens-toegang",
+      "label": "Cocaine Import Havens Toegang",
+      "category": "Starter scenes",
+      "file": "cocaine-import-havens-toegang.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Cocaine Import Havens Toegang",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/cocaine-import-havens-toegang.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:cocaine-import-havens-uithalen",
+      "label": "Cocaine Import Havens Uithalen",
+      "category": "Starter scenes",
+      "file": "cocaine-import-havens-uithalen.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Cocaine Import Havens Uithalen",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/cocaine-import-havens-uithalen.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:cocaine-import-havens-verstoring",
+      "label": "Cocaine Import Havens Verstoring",
+      "category": "Starter scenes",
+      "file": "cocaine-import-havens-verstoring.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Cocaine Import Havens Verstoring",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/cocaine-import-havens-verstoring.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:cocaine-import-havens-vervoer",
+      "label": "Cocaine Import Havens Vervoer",
+      "category": "Starter scenes",
+      "file": "cocaine-import-havens-vervoer.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Cocaine Import Havens Vervoer",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/cocaine-import-havens-vervoer.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:cocaine-import-havens-voorbereiding",
+      "label": "Cocaine Import Havens Voorbereiding",
+      "category": "Starter scenes",
+      "file": "cocaine-import-havens-voorbereiding.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Cocaine Import Havens Voorbereiding",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/cocaine-import-havens-voorbereiding.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:construction-safety",
+      "label": "Construction safety",
+      "category": "Environment",
+      "file": "construction-safety.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Construction safety",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/construction-safety.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:container-inspection",
+      "label": "Container inspection",
+      "category": "Inspection",
+      "file": "container-inspection.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Container inspection",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/container-inspection.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:dependency-network",
+      "label": "Dependency network",
+      "category": "People",
+      "file": "dependency-network.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Dependency network",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/dependency-network.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:document-check",
+      "label": "Document check",
+      "category": "Inspection",
+      "file": "document-check.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Document check",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/document-check.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:emergency-response",
+      "label": "Emergency response",
+      "category": "Response",
+      "file": "emergency-response.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Emergency response",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/emergency-response.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:finance-check",
+      "label": "Financial check",
+      "category": "Finance",
+      "file": "finance-check.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Financial check",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/finance-check.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:financial-investigation",
+      "label": "Financial investigation",
+      "category": "Finance",
+      "file": "financial-investigation.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Financial investigation",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/financial-investigation.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:hazard-building",
+      "label": "Hazardous production site",
+      "category": "Environment",
+      "file": "hazard-building.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Hazardous production site",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/hazard-building.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:hazardous-waste",
+      "label": "Hazardous waste",
+      "category": "Environment",
+      "file": "hazardous-waste.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Hazardous waste",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/hazardous-waste.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:illegale-asbestverwijdering-afvoer",
+      "label": "Illegale Asbestverwijdering Afvoer",
+      "category": "Starter scenes",
+      "file": "illegale-asbestverwijdering-afvoer.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Illegale Asbestverwijdering Afvoer",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/illegale-asbestverwijdering-afvoer.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:illegale-asbestverwijdering-inventarisatie",
+      "label": "Illegale Asbestverwijdering Inventarisatie",
+      "category": "Starter scenes",
+      "file": "illegale-asbestverwijdering-inventarisatie.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Illegale Asbestverwijdering Inventarisatie",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/illegale-asbestverwijdering-inventarisatie.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:illegale-asbestverwijdering-opdracht",
+      "label": "Illegale Asbestverwijdering Opdracht",
+      "category": "Starter scenes",
+      "file": "illegale-asbestverwijdering-opdracht.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Illegale Asbestverwijdering Opdracht",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/illegale-asbestverwijdering-opdracht.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:illegale-asbestverwijdering-toezicht",
+      "label": "Illegale Asbestverwijdering Toezicht",
+      "category": "Starter scenes",
+      "file": "illegale-asbestverwijdering-toezicht.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Illegale Asbestverwijdering Toezicht",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/illegale-asbestverwijdering-toezicht.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:illegale-asbestverwijdering-verwijdering",
+      "label": "Illegale Asbestverwijdering Verwijdering",
+      "category": "Starter scenes",
+      "file": "illegale-asbestverwijdering-verwijdering.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Illegale Asbestverwijdering Verwijdering",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/illegale-asbestverwijdering-verwijdering.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:illegale-asbestverwijdering-werknemers",
+      "label": "Illegale Asbestverwijdering Werknemers",
+      "category": "Starter scenes",
+      "file": "illegale-asbestverwijdering-werknemers.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Illegale Asbestverwijdering Werknemers",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/illegale-asbestverwijdering-werknemers.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:illegale-dumping-chemisch-afval-dumping",
+      "label": "Illegale Dumping Chemisch Afval Dumping",
+      "category": "Starter scenes",
+      "file": "illegale-dumping-chemisch-afval-dumping.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Illegale Dumping Chemisch Afval Dumping",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/illegale-dumping-chemisch-afval-dumping.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:illegale-dumping-chemisch-afval-herstel",
+      "label": "Illegale Dumping Chemisch Afval Herstel",
+      "category": "Starter scenes",
+      "file": "illegale-dumping-chemisch-afval-herstel.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Illegale Dumping Chemisch Afval Herstel",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/illegale-dumping-chemisch-afval-herstel.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:illegale-dumping-chemisch-afval-melding",
+      "label": "Illegale Dumping Chemisch Afval Melding",
+      "category": "Starter scenes",
+      "file": "illegale-dumping-chemisch-afval-melding.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Illegale Dumping Chemisch Afval Melding",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/illegale-dumping-chemisch-afval-melding.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:illegale-dumping-chemisch-afval-ontstaan",
+      "label": "Illegale Dumping Chemisch Afval Ontstaan",
+      "category": "Starter scenes",
+      "file": "illegale-dumping-chemisch-afval-ontstaan.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Illegale Dumping Chemisch Afval Ontstaan",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/illegale-dumping-chemisch-afval-ontstaan.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:illegale-dumping-chemisch-afval-transport",
+      "label": "Illegale Dumping Chemisch Afval Transport",
+      "category": "Starter scenes",
+      "file": "illegale-dumping-chemisch-afval-transport.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Illegale Dumping Chemisch Afval Transport",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/illegale-dumping-chemisch-afval-transport.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:illegale-dumping-chemisch-afval-verzameling",
+      "label": "Illegale Dumping Chemisch Afval Verzameling",
+      "category": "Starter scenes",
+      "file": "illegale-dumping-chemisch-afval-verzameling.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Illegale Dumping Chemisch Afval Verzameling",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/illegale-dumping-chemisch-afval-verzameling.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:materials-check",
+      "label": "Materials check",
+      "category": "Inspection",
+      "file": "materials-check.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Materials check",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/materials-check.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:mensenhandel-seksuele-uitbuiting-benadering",
+      "label": "Mensenhandel Seksuele Uitbuiting Benadering",
+      "category": "Starter scenes",
+      "file": "mensenhandel-seksuele-uitbuiting-benadering.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Mensenhandel Seksuele Uitbuiting Benadering",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/mensenhandel-seksuele-uitbuiting-benadering.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:mensenhandel-seksuele-uitbuiting-exploitatie",
+      "label": "Mensenhandel Seksuele Uitbuiting Exploitatie",
+      "category": "Starter scenes",
+      "file": "mensenhandel-seksuele-uitbuiting-exploitatie.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Mensenhandel Seksuele Uitbuiting Exploitatie",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/mensenhandel-seksuele-uitbuiting-exploitatie.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:mensenhandel-seksuele-uitbuiting-isolatie",
+      "label": "Mensenhandel Seksuele Uitbuiting Isolatie",
+      "category": "Starter scenes",
+      "file": "mensenhandel-seksuele-uitbuiting-isolatie.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Mensenhandel Seksuele Uitbuiting Isolatie",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/mensenhandel-seksuele-uitbuiting-isolatie.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:mensenhandel-seksuele-uitbuiting-opbrengst",
+      "label": "Mensenhandel Seksuele Uitbuiting Opbrengst",
+      "category": "Starter scenes",
+      "file": "mensenhandel-seksuele-uitbuiting-opbrengst.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Mensenhandel Seksuele Uitbuiting Opbrengst",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/mensenhandel-seksuele-uitbuiting-opbrengst.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:mensenhandel-seksuele-uitbuiting-verplaatsing",
+      "label": "Mensenhandel Seksuele Uitbuiting Verplaatsing",
+      "category": "Starter scenes",
+      "file": "mensenhandel-seksuele-uitbuiting-verplaatsing.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Mensenhandel Seksuele Uitbuiting Verplaatsing",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/mensenhandel-seksuele-uitbuiting-verplaatsing.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:nature-monitoring",
+      "label": "Nature monitoring",
+      "category": "Environment",
+      "file": "nature-monitoring.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Nature monitoring",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/nature-monitoring.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:network-monitoring",
+      "label": "Network monitoring",
+      "category": "Investigation",
+      "file": "network-monitoring.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Network monitoring",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/network-monitoring.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:online-safety",
+      "label": "Online safety",
+      "category": "Digital",
+      "file": "online-safety.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Online safety",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/online-safety.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:partner-response",
+      "label": "Partner response",
+      "category": "Response",
+      "file": "partner-response.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Partner response",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/partner-response.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:payment-check",
+      "label": "Payment check",
+      "category": "Finance",
+      "file": "payment-check.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Payment check",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/payment-check.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:phishing-betaalfraude-betaling",
+      "label": "Phishing Betaalfraude Betaling",
+      "category": "Starter scenes",
+      "file": "phishing-betaalfraude-betaling.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Phishing Betaalfraude Betaling",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/phishing-betaalfraude-betaling.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:phishing-betaalfraude-contact",
+      "label": "Phishing Betaalfraude Contact",
+      "category": "Starter scenes",
+      "file": "phishing-betaalfraude-contact.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Phishing Betaalfraude Contact",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/phishing-betaalfraude-contact.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:phishing-betaalfraude-doorgifte",
+      "label": "Phishing Betaalfraude Doorgifte",
+      "category": "Starter scenes",
+      "file": "phishing-betaalfraude-doorgifte.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Phishing Betaalfraude Doorgifte",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/phishing-betaalfraude-doorgifte.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:phishing-betaalfraude-gegevens",
+      "label": "Phishing Betaalfraude Gegevens",
+      "category": "Starter scenes",
+      "file": "phishing-betaalfraude-gegevens.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Phishing Betaalfraude Gegevens",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/phishing-betaalfraude-gegevens.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:phishing-betaalfraude-respons",
+      "label": "Phishing Betaalfraude Respons",
+      "category": "Starter scenes",
+      "file": "phishing-betaalfraude-respons.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Phishing Betaalfraude Respons",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/phishing-betaalfraude-respons.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:phishing-betaalfraude-voorbereiding",
+      "label": "Phishing Betaalfraude Voorbereiding",
+      "category": "Starter scenes",
+      "file": "phishing-betaalfraude-voorbereiding.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Phishing Betaalfraude Voorbereiding",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/phishing-betaalfraude-voorbereiding.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:phishing-protection",
+      "label": "Phishing protection",
+      "category": "Digital",
+      "file": "phishing-protection.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Phishing protection",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/phishing-protection.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:planning-checklist",
+      "label": "Planning checklist",
+      "category": "Planning",
+      "file": "planning-checklist.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Planning checklist",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/planning-checklist.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:port-security",
+      "label": "Port security",
+      "category": "Security",
+      "file": "port-security.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Port security",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/port-security.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:protected-person-response",
+      "label": "Protected Person Response",
+      "category": "Starter scenes",
+      "file": "protected-person-response.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Protected Person Response",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/protected-person-response.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:safe-work",
+      "label": "Safe work",
+      "category": "People",
+      "file": "safe-work.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Safe work",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/safe-work.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:secure-contact",
+      "label": "Secure contact",
+      "category": "Communication",
+      "file": "secure-contact.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Secure contact",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/secure-contact.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:secure-transport",
+      "label": "Secure transport",
+      "category": "Transport",
+      "file": "secure-transport.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Secure transport",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/secure-transport.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:site-inspection",
+      "label": "Site inspection",
+      "category": "Inspection",
+      "file": "site-inspection.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Site inspection",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/site-inspection.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:site-safety",
+      "label": "Site safety",
+      "category": "Security",
+      "file": "site-safety.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Site safety",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/site-safety.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:stroperij-illegale-wildhandel-handel",
+      "label": "Stroperij Illegale Wildhandel Handel",
+      "category": "Starter scenes",
+      "file": "stroperij-illegale-wildhandel-handel.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Stroperij Illegale Wildhandel Handel",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/stroperij-illegale-wildhandel-handel.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:stroperij-illegale-wildhandel-interventie",
+      "label": "Stroperij Illegale Wildhandel Interventie",
+      "category": "Starter scenes",
+      "file": "stroperij-illegale-wildhandel-interventie.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Stroperij Illegale Wildhandel Interventie",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/stroperij-illegale-wildhandel-interventie.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:stroperij-illegale-wildhandel-onttrekking",
+      "label": "Stroperij Illegale Wildhandel Onttrekking",
+      "category": "Starter scenes",
+      "file": "stroperij-illegale-wildhandel-onttrekking.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Stroperij Illegale Wildhandel Onttrekking",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/stroperij-illegale-wildhandel-onttrekking.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:stroperij-illegale-wildhandel-selectie",
+      "label": "Stroperij Illegale Wildhandel Selectie",
+      "category": "Starter scenes",
+      "file": "stroperij-illegale-wildhandel-selectie.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Stroperij Illegale Wildhandel Selectie",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/stroperij-illegale-wildhandel-selectie.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:stroperij-illegale-wildhandel-vervoer",
+      "label": "Stroperij Illegale Wildhandel Vervoer",
+      "category": "Starter scenes",
+      "file": "stroperij-illegale-wildhandel-vervoer.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Stroperij Illegale Wildhandel Vervoer",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/stroperij-illegale-wildhandel-vervoer.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:stroperij-illegale-wildhandel-verzameling",
+      "label": "Stroperij Illegale Wildhandel Verzameling",
+      "category": "Starter scenes",
+      "file": "stroperij-illegale-wildhandel-verzameling.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Stroperij Illegale Wildhandel Verzameling",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/stroperij-illegale-wildhandel-verzameling.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:suspicious-offer",
+      "label": "Suspicious offer",
+      "category": "People",
+      "file": "suspicious-offer.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Suspicious offer",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/suspicious-offer.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:synthetische-drugsproductie-afvoer",
+      "label": "Synthetische Drugsproductie Afvoer",
+      "category": "Starter scenes",
+      "file": "synthetische-drugsproductie-afvoer.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Synthetische Drugsproductie Afvoer",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/synthetische-drugsproductie-afvoer.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:synthetische-drugsproductie-inrichting",
+      "label": "Synthetische Drugsproductie Inrichting",
+      "category": "Starter scenes",
+      "file": "synthetische-drugsproductie-inrichting.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Synthetische Drugsproductie Inrichting",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/synthetische-drugsproductie-inrichting.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:synthetische-drugsproductie-locatie",
+      "label": "Synthetische Drugsproductie Locatie",
+      "category": "Starter scenes",
+      "file": "synthetische-drugsproductie-locatie.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Synthetische Drugsproductie Locatie",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/synthetische-drugsproductie-locatie.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:synthetische-drugsproductie-middelen",
+      "label": "Synthetische Drugsproductie Middelen",
+      "category": "Starter scenes",
+      "file": "synthetische-drugsproductie-middelen.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Synthetische Drugsproductie Middelen",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/synthetische-drugsproductie-middelen.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:synthetische-drugsproductie-onderzoek",
+      "label": "Synthetische Drugsproductie Onderzoek",
+      "category": "Starter scenes",
+      "file": "synthetische-drugsproductie-onderzoek.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Synthetische Drugsproductie Onderzoek",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/synthetische-drugsproductie-onderzoek.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:synthetische-drugsproductie-productie",
+      "label": "Synthetische Drugsproductie Productie",
+      "category": "Starter scenes",
+      "file": "synthetische-drugsproductie-productie.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Synthetische Drugsproductie Productie",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/synthetische-drugsproductie-productie.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:vehicle-export",
+      "label": "Vehicle export",
+      "category": "Transport",
+      "file": "vehicle-export.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Vehicle export",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/vehicle-export.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:vehicle-security",
+      "label": "Vehicle security",
+      "category": "Security",
+      "file": "vehicle-security.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Vehicle security",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/vehicle-security.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:victim-support",
+      "label": "Victim support",
+      "category": "People",
+      "file": "victim-support.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Victim support",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/victim-support.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:voertuigdiefstal-export-diefstal",
+      "label": "Voertuigdiefstal Export Diefstal",
+      "category": "Starter scenes",
+      "file": "voertuigdiefstal-export-diefstal.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Voertuigdiefstal Export Diefstal",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/voertuigdiefstal-export-diefstal.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:voertuigdiefstal-export-handel",
+      "label": "Voertuigdiefstal Export Handel",
+      "category": "Starter scenes",
+      "file": "voertuigdiefstal-export-handel.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Voertuigdiefstal Export Handel",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/voertuigdiefstal-export-handel.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:voertuigdiefstal-export-identiteit",
+      "label": "Voertuigdiefstal Export Identiteit",
+      "category": "Starter scenes",
+      "file": "voertuigdiefstal-export-identiteit.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Voertuigdiefstal Export Identiteit",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/voertuigdiefstal-export-identiteit.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:voertuigdiefstal-export-opslag",
+      "label": "Voertuigdiefstal Export Opslag",
+      "category": "Starter scenes",
+      "file": "voertuigdiefstal-export-opslag.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Voertuigdiefstal Export Opslag",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/voertuigdiefstal-export-opslag.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:voertuigdiefstal-export-opsporing",
+      "label": "Voertuigdiefstal Export Opsporing",
+      "category": "Starter scenes",
+      "file": "voertuigdiefstal-export-opsporing.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Voertuigdiefstal Export Opsporing",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/voertuigdiefstal-export-opsporing.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:voertuigdiefstal-export-selectie",
+      "label": "Voertuigdiefstal Export Selectie",
+      "category": "Starter scenes",
+      "file": "voertuigdiefstal-export-selectie.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Voertuigdiefstal Export Selectie",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/voertuigdiefstal-export-selectie.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:wildlife-protection",
+      "label": "Wildlife protection",
+      "category": "Environment",
+      "file": "wildlife-protection.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Wildlife protection",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/wildlife-protection.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:witwassen-legale-ondernemingen-administratie",
+      "label": "Witwassen Legale Ondernemingen Administratie",
+      "category": "Starter scenes",
+      "file": "witwassen-legale-ondernemingen-administratie.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Witwassen Legale Ondernemingen Administratie",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/witwassen-legale-ondernemingen-administratie.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:witwassen-legale-ondernemingen-bedrijf",
+      "label": "Witwassen Legale Ondernemingen Bedrijf",
+      "category": "Starter scenes",
+      "file": "witwassen-legale-ondernemingen-bedrijf.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Witwassen Legale Ondernemingen Bedrijf",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/witwassen-legale-ondernemingen-bedrijf.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:witwassen-legale-ondernemingen-besteding",
+      "label": "Witwassen Legale Ondernemingen Besteding",
+      "category": "Starter scenes",
+      "file": "witwassen-legale-ondernemingen-besteding.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Witwassen Legale Ondernemingen Besteding",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/witwassen-legale-ondernemingen-besteding.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:witwassen-legale-ondernemingen-inbreng",
+      "label": "Witwassen Legale Ondernemingen Inbreng",
+      "category": "Starter scenes",
+      "file": "witwassen-legale-ondernemingen-inbreng.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Witwassen Legale Ondernemingen Inbreng",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/witwassen-legale-ondernemingen-inbreng.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:witwassen-legale-ondernemingen-verplaatsing",
+      "label": "Witwassen Legale Ondernemingen Verplaatsing",
+      "category": "Starter scenes",
+      "file": "witwassen-legale-ondernemingen-verplaatsing.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Witwassen Legale Ondernemingen Verplaatsing",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/witwassen-legale-ondernemingen-verplaatsing.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:witwassen-legale-ondernemingen-verstoring",
+      "label": "Witwassen Legale Ondernemingen Verstoring",
+      "category": "Starter scenes",
+      "file": "witwassen-legale-ondernemingen-verstoring.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Witwassen Legale Ondernemingen Verstoring",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/witwassen-legale-ondernemingen-verstoring.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:worker-protection",
+      "label": "Worker protection",
+      "category": "People",
+      "file": "worker-protection.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Worker protection",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/worker-protection.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:worker-travel",
+      "label": "Worker travel",
+      "category": "Transport",
+      "file": "worker-travel.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Worker travel",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/worker-travel.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    }
+  ]
+}

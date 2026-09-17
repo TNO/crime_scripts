@@ -10,14 +10,13 @@ import {
   type CrimeScriptAttributes,
   type DataModel,
   type GeographicLocation,
-  ICONS,
-  IconOpts,
   type ID,
   type Labelled,
   missingIcon,
   Pages,
   type Partner,
   type Product,
+  resolveIconSource,
   scriptIcon,
   type Scene,
   type Track,
@@ -296,12 +295,14 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
         productIds = [],
         geoLocationIds = [],
         tracks = [],
-        url = scriptIcon,
+        icon,
+        url,
         language,
         aiGenerated,
         unreviewed,
         starterOrigin,
       } = crimeScript;
+      const scriptImage = resolveIconSource(icon, url) || url || scriptIcon;
 
       const scenesWithVariantsCnt = scenes.filter((scene) => scene.variants.length > 1).length || false;
       const curTrack: Track | undefined = curTrackId ? tracks.find((t) => t.id === curTrackId) : undefined;
@@ -368,7 +369,7 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
 
       const steps = scenes.map(
         ({ id, selectedVariantId, variants: sceneVariants = [], isGeneric, label = '...', icon, url, description = '' }) => {
-          const imgSrc = (icon === ICONS.OTHER ? url : IconOpts.find((i) => i.id === icon)?.img) || missingIcon;
+          const imgSrc = resolveIconSource(icon, url) || missingIcon;
           const variants =
             sceneVariants.length > 1
               ? sceneVariants.map((variant) => ({
@@ -392,7 +393,7 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
         m(
           '.right',
           m('img.white.circle', {
-            src: url,
+            src: scriptImage,
             alt: 'Icon',
             style: { padding: '2px', height: '64px' },
             // style: { border: '2px solid black', borderRadius: '10px', maxWidth: '100px', maxHeight: '100px' },
