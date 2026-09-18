@@ -19,3 +19,9 @@ These tasks are implemented in order because content depends on the starter infr
 This does not block the starter-library release but follows it in the current implementation sequence.
 
 - [x] 0007 Add LLM-assisted script wizard *(needs 0003)*
+
+## Restricted workflows
+
+Restricted content remains outside the public repository; only classification, mode, safeguards, and assembly tooling are versioned here.
+
+- [ ] 0008 Add restricted script mode *(needs 0007)*
