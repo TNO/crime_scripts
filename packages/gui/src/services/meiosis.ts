@@ -7,6 +7,7 @@ import {
   type DataModel,
   type FlexSearchResult,
   type ID,
+  type ScriptMode,
   importStarterBundle,
   mergeDataModels,
   normalizeDataModel,
@@ -26,6 +27,7 @@ const PREVIEW_MODEL_KEY = 'CSS_PREVIEW_MODEL';
 const MODEL_KEY = 'CSS_MODEL';
 export const ONBOARDING_CHOICE_KEY = 'CSS_ONBOARDING_CHOICE';
 const USER_ROLE = 'CSS_USER_ROLE';
+export const SCRIPT_MODE_KEY = 'CSS_SCRIPT_MODE';
 export const APP_TITLE = 'PAX Crime Scripting';
 export const APP_TITLE_SHORT = 'PAX';
 
@@ -35,6 +37,7 @@ export interface State {
   locale: string;
   loggedInUser?: User;
   role: UserRole;
+  scriptMode: ScriptMode;
   settings: Settings;
   currentCrimeScriptId?: ID;
   curActId?: ID;
@@ -65,6 +68,7 @@ export interface Actions {
   resetApplication: () => void;
   saveSettings: (settings: Settings) => Promise<void>;
   setRole: (role: UserRole) => void;
+  setScriptMode: (mode: ScriptMode) => void;
   login: () => void;
   update: (patch: Patch<State>) => void;
   setSearchFilter: (searchFilter?: string) => Promise<void>;
@@ -145,6 +149,7 @@ export const appActions: (cell: MeiosisCell<State>) => Actions = ({ update /* st
     localStorage.removeItem(MODEL_KEY);
     localStorage.removeItem(PREVIEW_MODEL_KEY);
     localStorage.removeItem(ONBOARDING_CHOICE_KEY);
+    localStorage.removeItem(SCRIPT_MODE_KEY);
     window.location.reload();
   },
   saveSettings: async (settings: Settings) => {
@@ -156,6 +161,10 @@ export const appActions: (cell: MeiosisCell<State>) => Actions = ({ update /* st
   setRole: (role) => {
     localStorage.setItem(USER_ROLE, role);
     update({ role });
+  },
+  setScriptMode: (scriptMode) => {
+    localStorage.setItem(SCRIPT_MODE_KEY, scriptMode);
+    update({ scriptMode });
   },
   login: () => { },
   update: (state) => update(state),
@@ -233,6 +242,7 @@ const config: MeiosisConfig<State> = {
       page: Pages.HOME,
       loggedInUser: undefined,
       role: 'user',
+      scriptMode: 'public',
       settings: {} as Settings,
       model: {} as DataModel,
       needsOnboarding: false,
@@ -272,10 +282,12 @@ export const loadData = async (ds = localStorage.getItem(MODEL_KEY)) => {
   }
 
   const role = (localStorage.getItem(USER_ROLE) || 'user') as UserRole;
+  const scriptMode = localStorage.getItem(SCRIPT_MODE_KEY) === 'restricted' ? 'restricted' : 'public';
   // const settings = (await settingsSvc.loadList()).shift() || ({} as Settings);
 
   cells().update({
     role,
+    scriptMode,
     model: () => model,
     needsOnboarding: !ds && !storedModelExists && !onboardingChoiceExists,
     // settings: () => settings,

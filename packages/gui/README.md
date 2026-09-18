@@ -23,6 +23,8 @@ On first launch, users choose the fixed Dutch starter library at `/starter-bundl
 
 The Dutch starter library contains ten AI-assisted, unreviewed public-safety scripts. Its original content is available under CC BY 4.0; third-party bibliography items retain their own rights. See `/starter-bundles/NOTICE.nl.md`. Icon requirements for the separate catalogue work are recorded in `/starter-bundles/icon-requirements.nl.json`.
 
+Every script has a `public` or `restricted` classification and a stable family ID that links counterparts. The global script mode defaults to public and is only persisted after the user switches it. Public exports omit restricted scripts and their private-only taxonomy data. Restricted JSON and Word exports require confirmation and use classified filenames and document headers; permanent links are unavailable when their model contains restricted content.
+
 The application-level icon catalogue is available in `/icons/catalogue.json`, so built-in icons remain available in empty workspaces and single-script exports only need to retain their stable `builtin:*` key. Uploaded images remain embedded as data URLs. Catalogue provenance and licensing are documented in `/icons/NOTICE.md`. Optimize catalogue artwork before committing changes:
 
 ```bash

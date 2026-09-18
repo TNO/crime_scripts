@@ -24,4 +24,4 @@ This does not block the starter-library release but follows it in the current im
 
 Restricted content remains outside the public repository; only classification, mode, safeguards, and assembly tooling are versioned here.
 
-- [ ] 0008 Add restricted script mode *(needs 0007)*
+- [x] 0008 Add restricted script mode *(needs 0007)*

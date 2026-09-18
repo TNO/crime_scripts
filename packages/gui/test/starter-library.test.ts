@@ -14,6 +14,7 @@ import {
   validateStarterBundle,
 } from '../src/models/starter-library.ts';
 import { normalizeDataModel } from '../src/models/model-normalization.ts';
+import { scriptsForMode } from '../src/models/script-classification.ts';
 
 const bundle = (): DataModel =>
   normalizeDataModel({
@@ -149,6 +150,8 @@ test('Dutch starter scripts meet source, provenance, scene, and editorial requir
 
   fixture.crimeScripts.forEach((script) => {
     assert.equal(script.language, 'nl');
+    assert.equal(script.classification, 'public');
+    assert.equal(script.scriptFamilyId, script.id);
     assert.equal(script.aiGenerated, true);
     assert.equal(script.unreviewed, true);
     assert.deepEqual(script.starterOrigin, {
@@ -268,6 +271,9 @@ test('imports skip conflicts by default and support replace and copy', () => {
   assert.equal(importStarterBundle(current, bundle(), { 'starter-script': 'replace' }).crimeScripts[0].label, 'Voorbeeld');
   const copied = importStarterBundle(current, bundle(), { 'starter-script': 'copy' });
   assert.equal(copied.crimeScripts.length, 2);
+  const copiedScript = copied.crimeScripts.find(({ id }) => id !== 'starter-script')!;
+  assert.equal(copiedScript.scriptFamilyId, copiedScript.id);
+  assert.equal(scriptsForMode(copied.crimeScripts, 'restricted').length, 2);
   assert.notEqual(copied.crimeScripts[0].id, copied.crimeScripts[1].id);
   assert.notEqual(copied.crimeScripts[0].stages[0].id, copied.crimeScripts[1].stages[0].id);
   assert.notEqual(copied.crimeScripts[0].stages[0].variants[0].id, copied.crimeScripts[1].stages[0].variants[0].id);
@@ -297,6 +303,25 @@ test('suggestions are language-filtered originals and copied with internal metad
   assert.equal(independent.inheritedSources?.[0].usedFor, 'Structuur');
   assert.equal(collectStarterSuggestions(model, model, 'indicator', 'en').length, 0);
   assert.equal(hasCloseDuplicate('Ongewone betalingen', suggestions), true);
+});
+
+test('restricted-mode suggestions prefer restricted counterpart content over the public starter', () => {
+  const starter = bundle();
+  const restrictedScript = structuredClone(starter.crimeScripts[0]);
+  restrictedScript.id = 'restricted-script';
+  restrictedScript.classification = 'restricted';
+  restrictedScript.scriptFamilyId = starter.crimeScripts[0].scriptFamilyId;
+  restrictedScript.stages[0].variants[0].indicators[0].description = 'Restricted investigative detail';
+  const workspace = normalizeDataModel({
+    ...starter,
+    starterBundle: undefined,
+    crimeScripts: [restrictedScript],
+  });
+
+  const suggestions = collectStarterSuggestions(workspace, starter, 'indicator', 'nl', false, 'restricted');
+  assert.equal(suggestions.length, 1);
+  assert.equal(suggestions[0].description, 'Restricted investigative detail');
+  assert.equal(suggestions[0].suggestionOrigin.scriptId, 'restricted-script');
 });
 
 test('taxonomy id conflicts are remapped without changing imported meaning', () => {
@@ -351,10 +376,11 @@ test('hierarchy parent references must resolve within their taxonomy', () => {
   assert.throws(() => validateStarterBundle(invalid), /missing product parent/);
 });
 
-test('detaching a starter script changes id and only clears starter origin', () => {
+test('detaching a starter script creates an independent family and clears starter origin', () => {
   const script = { ...bundle().crimeScripts[0], aiGenerated: true, unreviewed: true, starterOrigin: { bundleId: 'pax-nl', bundleVersion: '1.0.0', scriptId: 'starter-script' } };
   const detached = detachStarterScript(script);
   assert.notEqual(detached.id, script.id);
+  assert.equal(detached.scriptFamilyId, detached.id);
   assert.equal(detached.starterOrigin, undefined);
   assert.equal(detached.aiGenerated, true);
   assert.equal(detached.literature.length, 1);

@@ -13,6 +13,7 @@ import { saveAs } from 'file-saver';
 import {
   ActivityType,
   type CrimeScript,
+  classificationHeader,
   type DataModel,
   getMatchingStarterBundleMetadata,
   type Hierarchical,
@@ -52,6 +53,7 @@ export const crimeScriptToMarkdown = (crimeScript: Partial<CrimeScript>, model: 
   ].reduce((acc, cur) => acc.set(cur.id, cur), new Map<ID, Labelled & Hierarchical>());
 
   const md: string[] = [];
+  crimeScript.classification && md.push(classificationHeader(crimeScript.classification));
   language && md.push(`${t('LANGUAGE')}: **${language}**`);
   aiGenerated && md.push(`**${t('AI_GENERATED')}**`);
   unreviewed && md.push(`**${t('UNREVIEWED')}**`);
@@ -442,7 +444,8 @@ export const toWord = async (filename: string, cs: Partial<CrimeScript>, model: 
   const markdown = crimeScriptToMarkdown(cs, model);
   // console.log(markdown);
 
-  const doc = markdownToDocx(title, description, markdown);
+  const classifiedTitle = cs.classification ? `${cs.classification.toUpperCase()} — ${title}` : title;
+  const doc = markdownToDocx(classifiedTitle, description, markdown);
 
   Packer.toBlob(doc).then((blob) => {
     // saveAs from FileSaver will download the blob

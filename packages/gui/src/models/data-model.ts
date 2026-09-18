@@ -117,6 +117,8 @@ export type Literature = Labelled & {
 };
 
 export type ContentLanguage = 'nl' | 'en';
+export type ScriptClassification = 'public' | 'restricted';
+export type ScriptMode = ScriptClassification;
 
 export type StarterBundleMetadata = {
   id: string;
@@ -144,6 +146,9 @@ export type SuggestionOrigin = StarterOrigin & {
 };
 
 export type CrimeScript = Labelled & {
+  classification: ScriptClassification;
+  /** Stable identifier shared by public and restricted counterparts. */
+  scriptFamilyId: ID;
   owner: ID;
   /** Epoch time when last updated */
   updated: number;

@@ -25,6 +25,7 @@ PAX connects scenes and their variants with actors, activities, attributes, cond
 - Editors create and revise scripts, stages, act variants, tracks, activities, conditions, references, barriers, and related taxonomies.
 - Users can inspect scripts in the browser and export a script to Word or JSON.
 - The complete model can be imported from or exported to JSON. Users can also create an encoded permalink when they intentionally choose to share a model.
+- A prominent public/restricted script mode groups counterparts by stable family identity. Public exports exclude restricted content, while restricted exports require an explicit warning confirmation and cannot be shared through permanent links.
 - The interface supports Dutch and English, light and dark themes, and user, editor, and administrator modes.
 
 ## Capabilities and Constraints

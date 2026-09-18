@@ -61,9 +61,9 @@ export const LlmScriptWizard: MeiosisComponent<{ onClose: () => void }> = () => 
     step = 'prompt';
   };
 
-  const validatePaste = () => {
+  const validatePaste = (classification: 'public' | 'restricted') => {
     try {
-      preview = prepareGeneratedScriptImport(pastedJson, language);
+      preview = prepareGeneratedScriptImport(pastedJson, language, classification);
       validationError = undefined;
       step = 'preview';
     } catch (error) {
@@ -226,7 +226,11 @@ export const LlmScriptWizard: MeiosisComponent<{ onClose: () => void }> = () => 
           ]),
           m('.llm-actions', [
             m(FlatButton, { label: t('BACK'), iconName: 'arrow_back', onclick: () => (step = 'prompt') }),
-            m(FlatButton, { label: t('LLM_VALIDATE_PREVIEW'), iconName: 'fact_check', onclick: validatePaste }),
+            m(FlatButton, {
+              label: t('LLM_VALIDATE_PREVIEW'),
+              iconName: 'fact_check',
+              onclick: () => validatePaste(state.scriptMode),
+            }),
           ]),
         ]),
         step === 'preview' && preview && m('.llm-step', [
@@ -234,6 +238,10 @@ export const LlmScriptWizard: MeiosisComponent<{ onClose: () => void }> = () => 
           m('dl.llm-preview-summary', [
             m('div', [m('dt', t('NAME')), m('dd', preview.script.label)]),
             m('div', [m('dt', t('LANGUAGE')), m('dd', preview.script.language.toUpperCase())]),
+            m('div', [
+              m('dt', t('CLASSIFICATION')),
+              m('dd', t(preview.script.classification === 'restricted' ? 'RESTRICTED' : 'PUBLIC')),
+            ]),
             m('div', [m('dt', t('SCENES')), m('dd', String(preview.counts.scenes))]),
             m('div', [m('dt', t('REFERENCES')), m('dd', String(preview.counts.sources))]),
             m('div', [m('dt', t('LLM_TAXONOMY_ITEMS')), m('dd', String(preview.counts.taxonomyItems))]),

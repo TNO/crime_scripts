@@ -1,7 +1,7 @@
 import m from 'mithril';
 import { TextInput } from 'mithril-materialized';
 import { type FormAttributes, LayoutForm, type UIForm } from 'mithril-ui-form';
-import { type CrimeScriptFilter, Pages } from '../models';
+import { type CrimeScriptFilter, Pages, scriptsForMode } from '../models';
 import { attributeFilterFormFactory, crimeScriptFilterFormFactory } from '../models/forms';
 import { I18N, type MeiosisComponent, routingSvc, t } from '../services';
 
@@ -23,7 +23,11 @@ export const CasePage: MeiosisComponent = () => {
       setPage(Pages.CASE);
     },
     view: ({ attrs: { state, actions } }) => {
-      const { caseResults = [], caseFilter, crimeScriptFilter = {} as CrimeScriptFilter, model } = state;
+      const { caseResults = [], caseFilter, crimeScriptFilter = {} as CrimeScriptFilter, model, scriptMode } = state;
+      const visibleScriptIds = new Set(scriptsForMode(model.crimeScripts, scriptMode).map(({ id }) => id));
+      const visibleCaseResults = caseResults.filter(({ crimeScriptIdx }) =>
+        visibleScriptIds.has(model.crimeScripts[crimeScriptIdx]?.id)
+      );
       const { update } = actions;
 
       return m('#case-page.row.case.page', [
@@ -47,13 +51,13 @@ export const CasePage: MeiosisComponent = () => {
             },
           }),
         ]),
-        caseResults &&
+        visibleCaseResults &&
           m('.col.s12', [
-            m('p', t('HITS', caseResults.length)),
-            caseResults.length > 0 && [
+            m('p', t('HITS', visibleCaseResults.length)),
+            visibleCaseResults.length > 0 && [
               m(
                 'ol',
-                caseResults.map(({ crimeScriptIdx, totalScore, acts }) =>
+                visibleCaseResults.map(({ crimeScriptIdx, totalScore, acts }) =>
                   m(
                     'li',
                     `${model.crimeScripts[crimeScriptIdx].label} (score ${totalScore})`,

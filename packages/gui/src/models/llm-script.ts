@@ -66,6 +66,8 @@ const minimalExample = {
   lastUpdate: 1,
   crimeScripts: [{
     id: 'script-1',
+    scriptFamilyId: 'script-1',
+    classification: 'public',
     label: 'Example',
     owner: '',
     updated: 1,
@@ -97,6 +99,7 @@ const compactSchema = `DataModel {
 Labelled { id: non-empty string; label: non-empty string; description?: string; hasDesc?: boolean; abbrev?: string; icon?: string|number }
 Hierarchical extends Labelled { synonyms?: string[]; parents?: existing IDs in the same taxonomy[] }
 CrimeScript extends Labelled {
+  scriptFamilyId: non-empty string; classification: "public"|"restricted";
   owner: string; updated: number; reviewer: string[]; status: 1|2|3|4|5;
   literature: Literature[]; stages: Scene[]; tracks?: Track[]; productIds: product IDs[];
   geoLocationIds?: geographic-location IDs[]; language: "nl"|"en"; aiGenerated: boolean; unreviewed?: boolean;
@@ -349,7 +352,7 @@ const validateTrack = (value: unknown, path: string) => {
 
 const validateScript = (value: unknown, path: string) => {
   const keys = ['owner', 'updated', 'reviewer', 'status', 'literature', 'stages', 'tracks', 'productIds',
-    'geoLocationIds', 'language', 'aiGenerated', 'unreviewed'];
+    'geoLocationIds', 'language', 'aiGenerated', 'unreviewed', 'classification', 'scriptFamilyId'];
   const object = validateLabelled(value, path, keys);
   stringAt(requireField(object, 'owner', path), `${path}.owner`);
   numberAt(requireField(object, 'updated', path), `${path}.updated`);
@@ -369,6 +372,10 @@ const validateScript = (value: unknown, path: string) => {
   if (language !== 'nl' && language !== 'en') fail(`${path}.language`, 'invalidValue', 'Expected "nl" or "en".');
   booleanAt(requireField(object, 'aiGenerated', path), `${path}.aiGenerated`);
   if (object.unreviewed !== undefined) booleanAt(object.unreviewed, `${path}.unreviewed`);
+  if (object.classification !== undefined && object.classification !== 'public' && object.classification !== 'restricted') {
+    fail(`${path}.classification`, 'invalidValue', 'Expected "public" or "restricted".');
+  }
+  if (object.scriptFamilyId !== undefined) stringAt(object.scriptFamilyId, `${path}.scriptFamilyId`, true);
 };
 
 const assertReferences = (model: DataModel) => {
@@ -482,7 +489,8 @@ const validateGeneratedModel = (input: unknown): DataModel => {
 
 export const prepareGeneratedScriptImport = (
   json: string,
-  language: ContentLanguage
+  language: ContentLanguage,
+  classification: 'public' | 'restricted' = 'public'
 ): GeneratedScriptPreview => {
   let parsed: unknown;
   try {
@@ -493,6 +501,8 @@ export const prepareGeneratedScriptImport = (
   const model = validateGeneratedModel(parsed);
   const script = model.crimeScripts[0];
   script.language = language;
+  script.classification = classification;
+  script.scriptFamilyId = script.id;
   script.aiGenerated = true;
   script.unreviewed = true;
   delete script.starterOrigin;

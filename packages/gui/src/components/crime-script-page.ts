@@ -1,6 +1,15 @@
 import m from 'mithril';
-import { AlertDialog, FlatButton } from 'mithril-materialized';
-import { type CrimeScript, detachStarterScript, type Labelled, Pages } from '../models';
+import { AlertDialog, FlatButton, uniqueId } from 'mithril-materialized';
+import {
+  classifiedExportFilename,
+  createRestrictedCounterpart,
+  type CrimeScript,
+  detachStarterScript,
+  hasRestrictedCounterpart,
+  type Labelled,
+  Pages,
+  scriptsForMode,
+} from '../models';
 import type { MeiosisComponent } from '../services';
 import { t } from '../services/translations';
 import { formatDate, toJSON } from '../utils';
@@ -25,7 +34,7 @@ export const CrimeScriptPage: MeiosisComponent = () => {
       setPage(Pages.CRIME_SCRIPT);
     },
     view: ({ attrs: { state, actions } }) => {
-      const { model, role, curActId, curSceneId, currentCrimeScriptId = '', searchFilter } = state;
+      const { model, role, scriptMode, curActId, curSceneId, currentCrimeScriptId = '', searchFilter } = state;
       const {
         crimeScripts = [],
         cast = [],
@@ -36,13 +45,38 @@ export const CrimeScriptPage: MeiosisComponent = () => {
         products = [],
         partners = [],
       } = model;
-      id = m.route.param('id') || currentCrimeScriptId || (crimeScripts.length > 0 ? crimeScripts[0].id : '');
+      const requestedId = m.route.param('id') || currentCrimeScriptId;
+      const requestedFamily = crimeScripts.find(({ id }) => id === requestedId)?.scriptFamilyId;
+      const visibleScripts = scriptsForMode(crimeScripts, scriptMode);
+      id =
+        visibleScripts.find(({ id }) => id === requestedId)?.id ||
+        visibleScripts.find(({ scriptFamilyId }) => scriptFamilyId === requestedFamily)?.id ||
+        visibleScripts[0]?.id ||
+        '';
       const crimeScript =
-        crimeScripts.find((c) => c.id === id) || (crimeScripts.length > 0 ? crimeScripts[0] : ({} as CrimeScript));
+        crimeScripts.find((c) => c.id === id);
+      if (!crimeScript) {
+        return m('#crime-script.page', [
+          m('p', t('NO_SCRIPTS_MODE')),
+          m(FlatButton, {
+            label: t('HOME', 'TITLE'),
+            iconName: 'home',
+            onclick: () => actions.changePage(Pages.HOME),
+          }),
+        ]);
+      }
 
       const isEditor = role === 'admin' || role === 'editor';
 
-      const filename = `${formatDate(Date.now(), '')}_${crimeScript?.label}_v${model.version}.docx`.replace(/\s/g, '_');
+      const filename = crimeScript
+        ? classifiedExportFilename(
+            `${formatDate(Date.now(), '')}_${crimeScript.label}_v${model.version}`,
+            crimeScript.classification,
+            'docx'
+          )
+        : '';
+      const confirmRestrictedExport = () =>
+        crimeScript.classification !== 'restricted' || window.confirm(t('RESTRICTED_EXPORT_CONFIRM'));
 
       const curScene =
         crimeScript.stages && curSceneId ? crimeScript.stages.find((s) => s.id === curSceneId) : undefined;
@@ -80,6 +114,24 @@ export const CrimeScriptPage: MeiosisComponent = () => {
                       edit = true;
                     },
                   }),
+                  crimeScript.classification === 'public' &&
+                    m(FlatButton, {
+                      label: t('CREATE_RESTRICTED_VERSION'),
+                      iconName: 'content_copy',
+                      className: 'small',
+                      disabled: hasRestrictedCounterpart(model, crimeScript),
+                      title: hasRestrictedCounterpart(model, crimeScript)
+                        ? t('RESTRICTED_VERSION_EXISTS')
+                        : undefined,
+                      onclick: () => {
+                        const counterpart = createRestrictedCounterpart(model, crimeScript, uniqueId);
+                        model.crimeScripts.push(counterpart);
+                        actions.saveModel(model);
+                        actions.setScriptMode('restricted');
+                        edit = true;
+                        actions.changePage(Pages.CRIME_SCRIPT, { id: counterpart.id, edit: 1 });
+                      },
+                    }),
                   m(FlatButton, {
                     label: t('DELETE_SCRIPT'),
                     iconName: 'delete',
@@ -105,13 +157,17 @@ export const CrimeScriptPage: MeiosisComponent = () => {
                 label: t('EXPORT_TO_WORD'),
                 className: 'small',
                 iconName: 'download',
-                onclick: () => toWord(filename, crimeScript, model),
+                onclick: () => {
+                  if (confirmRestrictedExport()) toWord(filename, crimeScript, model);
+                },
               }),
               m(FlatButton, {
                 label: t('EXPORT_TO_JSON'),
                 className: 'small',
                 iconName: 'download',
-                onclick: () => toJSON(filename, crimeScript, model),
+                onclick: () => {
+                  if (confirmRestrictedExport()) toJSON(filename, crimeScript, model);
+                },
               }),
             ]
           ),
@@ -122,6 +178,7 @@ export const CrimeScriptPage: MeiosisComponent = () => {
               ? m(CrimeScriptEditor, {
                 crimeScript,
                 model,
+                scriptMode,
                 update: (type: 'crimeScript' | 'cast' | 'attributes' | 'transports' | 'locations', option: Labelled) => {
                   switch (type) {
                     case 'crimeScript':

@@ -10,6 +10,7 @@ import {
   Pages,
   resolveIconSource,
   scriptIcon,
+  scriptsForMode,
 } from '../models';
 import { crimeScriptFilterFormFactory } from '../models/forms';
 import { type MeiosisComponent, routingSvc } from '../services';
@@ -60,7 +61,7 @@ export const HomePage: MeiosisComponent = () => {
       setPage(Pages.HOME);
     },
     view: ({ attrs: { state, actions } }) => {
-      const { model, role, crimeScriptFilter = {} as CrimeScriptFilter } = state;
+      const { model, role, scriptMode, crimeScriptFilter = {} as CrimeScriptFilter } = state;
       const { crimeScripts = [], products = [], geoLocations = [], locations = [] } = model;
       const isAdmin = role === 'admin';
 
@@ -142,9 +143,9 @@ export const HomePage: MeiosisComponent = () => {
           '.crime-scenes',
           m('ul.collection.with-header', [
             m('li.collection-header', m('h4', 'Crime Scripts')),
-            crimeScripts
+            scriptsForMode(crimeScripts, scriptMode)
               .filter(csFilter)
-              .map(({ icon, url, label, description, id, productIds = [], geoLocationIds = [] }) => {
+              .map(({ icon, url, label, description, id, classification, productIds = [], geoLocationIds = [] }) => {
                 const onclick = () => {
                   actions.changePage(Pages.CRIME_SCRIPT, { id });
                   actions.update({ currentCrimeScriptId: id });
@@ -155,6 +156,7 @@ export const HomePage: MeiosisComponent = () => {
                     alt: 'Avatar',
                     style: { padding: '2px' },
                   }),
+                  m('span.classification-badge', t(classification === 'restricted' ? 'RESTRICTED' : 'PUBLIC')),
                   m(
                     'span.title',
                     `${label}${productIds.length > 0

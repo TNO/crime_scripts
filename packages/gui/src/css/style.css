@@ -52,6 +52,31 @@ body {
   margin: 0;
 }
 
+.classification-mode-bar {
+  min-height: 48px;
+  padding: 4px 20px;
+  border-bottom: 2px solid var(--mm-primary-color, #1565c0);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.classification-mode-bar .restricted-mode,
+.classification-badge,
+.classification-notice {
+  font-weight: 700;
+}
+
+.classification-mode-bar .restricted-mode,
+.classification-badge {
+  text-transform: uppercase;
+}
+
+.classification-notice {
+  margin: 8px 0 16px;
+}
+
 .starter-import-row {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(12rem, 18rem);

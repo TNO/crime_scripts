@@ -435,7 +435,9 @@
         "bundleVersion": "1.0.0",
         "scriptId": "nl-starter:script:cocaine-import-havens"
       },
-      "icon": "builtin:port-security"
+      "icon": "builtin:port-security",
+      "classification": "public",
+      "scriptFamilyId": "nl-starter:script:cocaine-import-havens"
     },
     {
       "id": "nl-starter:script:synthetische-drugsproductie",
@@ -857,7 +859,9 @@
         "bundleVersion": "1.0.0",
         "scriptId": "nl-starter:script:synthetische-drugsproductie"
       },
-      "icon": "builtin:hazard-building"
+      "icon": "builtin:hazard-building",
+      "classification": "public",
+      "scriptFamilyId": "nl-starter:script:synthetische-drugsproductie"
     },
     {
       "id": "nl-starter:script:arbeidsuitbuiting",
@@ -1277,7 +1281,9 @@
         "bundleVersion": "1.0.0",
         "scriptId": "nl-starter:script:arbeidsuitbuiting"
       },
-      "icon": "builtin:worker-protection"
+      "icon": "builtin:worker-protection",
+      "classification": "public",
+      "scriptFamilyId": "nl-starter:script:arbeidsuitbuiting"
     },
     {
       "id": "nl-starter:script:mensenhandel-seksuele-uitbuiting",
@@ -1703,7 +1709,9 @@
         "bundleVersion": "1.0.0",
         "scriptId": "nl-starter:script:mensenhandel-seksuele-uitbuiting"
       },
-      "icon": "builtin:victim-support"
+      "icon": "builtin:victim-support",
+      "classification": "public",
+      "scriptFamilyId": "nl-starter:script:mensenhandel-seksuele-uitbuiting"
     },
     {
       "id": "nl-starter:script:witwassen-legale-ondernemingen",
@@ -2125,7 +2133,9 @@
         "bundleVersion": "1.0.0",
         "scriptId": "nl-starter:script:witwassen-legale-ondernemingen"
       },
-      "icon": "builtin:financial-investigation"
+      "icon": "builtin:financial-investigation",
+      "classification": "public",
+      "scriptFamilyId": "nl-starter:script:witwassen-legale-ondernemingen"
     },
     {
       "id": "nl-starter:script:illegale-dumping-chemisch-afval",
@@ -2545,7 +2555,9 @@
         "bundleVersion": "1.0.0",
         "scriptId": "nl-starter:script:illegale-dumping-chemisch-afval"
       },
-      "icon": "builtin:hazardous-waste"
+      "icon": "builtin:hazardous-waste",
+      "classification": "public",
+      "scriptFamilyId": "nl-starter:script:illegale-dumping-chemisch-afval"
     },
     {
       "id": "nl-starter:script:stroperij-illegale-wildhandel",
@@ -2963,7 +2975,9 @@
         "bundleVersion": "1.0.0",
         "scriptId": "nl-starter:script:stroperij-illegale-wildhandel"
       },
-      "icon": "builtin:wildlife-protection"
+      "icon": "builtin:wildlife-protection",
+      "classification": "public",
+      "scriptFamilyId": "nl-starter:script:stroperij-illegale-wildhandel"
     },
     {
       "id": "nl-starter:script:voertuigdiefstal-export",
@@ -3392,7 +3406,9 @@
         "bundleVersion": "1.0.0",
         "scriptId": "nl-starter:script:voertuigdiefstal-export"
       },
-      "icon": "builtin:vehicle-export"
+      "icon": "builtin:vehicle-export",
+      "classification": "public",
+      "scriptFamilyId": "nl-starter:script:voertuigdiefstal-export"
     },
     {
       "id": "nl-starter:script:phishing-betaalfraude",
@@ -3879,7 +3895,9 @@
           }
         }
       ],
-      "icon": "builtin:phishing-protection"
+      "icon": "builtin:phishing-protection",
+      "classification": "public",
+      "scriptFamilyId": "nl-starter:script:phishing-betaalfraude"
     },
     {
       "id": "nl-starter:script:illegale-asbestverwijdering",
@@ -4294,7 +4312,9 @@
         "bundleVersion": "1.0.0",
         "scriptId": "nl-starter:script:illegale-asbestverwijdering"
       },
-      "icon": "builtin:asbestos-safety"
+      "icon": "builtin:asbestos-safety",
+      "classification": "public",
+      "scriptFamilyId": "nl-starter:script:illegale-asbestverwijdering"
     }
   ],
   "cast": [

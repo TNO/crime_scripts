@@ -3,7 +3,7 @@ import { AlertDialog, Dialog, FlatButton, Icon, TextInput, ThemeManager, ThemeTo
 import logo from '../assets/logo.svg';
 import tno from '../assets/tno.svg';
 import tno_white from '../assets/tno_white.svg';
-import { type DataModel, normalizeDataModel, type Page, Pages } from '../models';
+import { type DataModel, normalizeDataModel, type Page, Pages, scriptsForMode } from '../models';
 import { APP_TITLE, APP_TITLE_SHORT, i18n, type MeiosisComponent, t } from '../services';
 import { routingSvc } from '../services/routing-service';
 import { isActivePage, isSmallPage, LANGUAGE } from '../utils';
@@ -39,6 +39,10 @@ export const Layout: MeiosisComponent = () => {
         .filter((p) => p.id === page)
         .shift();
       const isActive = isActivePage(page);
+      const visibleScriptIds = new Set(scriptsForMode(model.crimeScripts || [], state.scriptMode).map(({ id }) => id));
+      const visibleSearchResults = (searchResults || []).filter(({ crimeScriptIdx }) =>
+        visibleScriptIds.has(model.crimeScripts[crimeScriptIdx]?.id)
+      );
 
       return [
         state.needsOnboarding &&
@@ -162,6 +166,16 @@ export const Layout: MeiosisComponent = () => {
               ])
             )
           ),
+          m('.classification-mode-bar', [
+            m('strong', `${t('SCRIPT_MODE')}: `),
+            m(FlatButton, {
+              label: state.scriptMode === 'public' ? t('PUBLIC_MODE') : t('RESTRICTED_MODE'),
+              iconName: state.scriptMode === 'public' ? 'public' : 'lock',
+              className: state.scriptMode === 'restricted' ? 'restricted-mode' : 'public-mode',
+              onclick: () => actions.setScriptMode(state.scriptMode === 'public' ? 'restricted' : 'public'),
+            }),
+            state.scriptMode === 'restricted' && m('span', t('RESTRICTED_MODE_NOTICE')),
+          ]),
           (isSmallPage() || (curPage && curPage.hasSidebar)) && [
             m(FlatButton, {
               iconName: 'menu',
@@ -210,11 +224,11 @@ export const Layout: MeiosisComponent = () => {
               // searchDialog.isOpen &&
               searchFilter &&
               searchResults && [
-                [m('p', t('HITS', searchResults.length))],
-                searchResults.length > 0 && [
+                [m('p', t('HITS', visibleSearchResults.length))],
+                visibleSearchResults.length > 0 && [
                   m(
                     'ol',
-                    searchResults.map(({ crimeScriptIdx, totalScore, acts }) =>
+                    visibleSearchResults.map(({ crimeScriptIdx, totalScore, acts }) =>
                       m(
                         'li',
                         `${model.crimeScripts[crimeScriptIdx].label} (score ${totalScore})`,

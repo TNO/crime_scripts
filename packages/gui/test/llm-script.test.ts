@@ -233,6 +233,12 @@ test('preview is prepared before mutation and import requires a separate confirm
   assert.equal(imported.crimeScripts.length, 1);
 });
 
+test('preview applies the active classification before confirmation', () => {
+  const preview = prepareGeneratedScriptImport(JSON.stringify(validGeneratedModel()), 'en', 'restricted');
+  assert.equal(preview.script.classification, 'restricted');
+  assert.equal(preview.script.scriptFamilyId, preview.script.id);
+});
+
 test('confirmation forces language and provenance and deduplicates referenced taxonomies', () => {
   const current = normalizeDataModel({
     crimeScripts: [],

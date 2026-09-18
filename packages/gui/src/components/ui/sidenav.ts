@@ -2,7 +2,16 @@ import { compressToEncodedURIComponent, decompressFromUint8Array } from 'lz-stri
 import m from 'mithril';
 import { Dialog, FlatButton, padLeft, Select, Sidenav, snackbar } from 'mithril-materialized';
 import type { ConflictAction, DataModel, Page } from '../../models';
-import { findStarterConflicts, importStarterBundle, normalizeDataModel, Pages } from '../../models';
+import {
+  canShareModel,
+  classifiedExportFilename,
+  filterModelForPublicExport,
+  findStarterConflicts,
+  hasRestrictedContent,
+  importStarterBundle,
+  normalizeDataModel,
+  Pages,
+} from '../../models';
 import type { Languages, MeiosisComponent, UserRole } from '../../services';
 import { fetchStarterBundle, i18n, loadData, routingSvc, t } from '../../services';
 import { formatDate, isActivePage, LANGUAGE } from '../../utils';
@@ -54,20 +63,34 @@ export const SideNav: MeiosisComponent<{ onDelete: () => void }> = () => {
     }
   };
 
-  const handleSelection = (option: string, model: DataModel, saveModel: (model: DataModel) => void) => {
+  const handleSelection = (
+    option: string,
+    model: DataModel,
+    mode: 'public' | 'restricted',
+    saveModel: (model: DataModel) => void
+  ) => {
     switch (option) {
       case 'clear':
         console.log('CLEARING DATAS');
         saveModel(normalizeDataModel({ crimeScripts: [] }));
         break;
       case 'download_json': {
-        const version = typeof model.version === 'undefined' ? 1 : ++model.version;
+        const exportModel = mode === 'public' ? filterModelForPublicExport(model) : model;
+        if (hasRestrictedContent(exportModel) && !window.confirm(t('RESTRICTED_EXPORT_CONFIRM'))) return;
+        const version = typeof exportModel.version === 'undefined' ? 1 : exportModel.version + 1;
         const dataStr =
           'data:text/json;charset=utf-8,' +
-          encodeURIComponent(JSON.stringify({ ...model, version, lastUpdate: Date.now() }));
+          encodeURIComponent(JSON.stringify({ ...exportModel, version, lastUpdate: Date.now() }));
         const dlAnchorElem = document.createElement('a');
         dlAnchorElem.setAttribute('href', dataStr);
-        dlAnchorElem.setAttribute('download', `${formatDate()}_v${padLeft(version, 3)}_crime_scripts.json`);
+        dlAnchorElem.setAttribute(
+          'download',
+          classifiedExportFilename(
+            `${formatDate()}_v${padLeft(version, 3)}_crime_scripts`,
+            hasRestrictedContent(exportModel) ? 'restricted' : 'public',
+            'json'
+          )
+        );
         dlAnchorElem.click();
         break;
       }
@@ -100,7 +123,9 @@ export const SideNav: MeiosisComponent<{ onDelete: () => void }> = () => {
       //   break;
       // }
       case 'link': {
-        const compressed = compressToEncodedURIComponent(JSON.stringify(model));
+        const shareModel = mode === 'public' ? filterModelForPublicExport(model) : model;
+        if (!canShareModel(shareModel)) return;
+        const compressed = compressToEncodedURIComponent(JSON.stringify(shareModel));
         const url = `${window.location.href}${/\?/.test(window.location.href) ? '&' : '?'}model=${compressed}`;
         navigator.clipboard.writeText(url).then(
           () => {
@@ -128,7 +153,8 @@ export const SideNav: MeiosisComponent<{ onDelete: () => void }> = () => {
         actions: { saveModel, setRole, changePage, update, resetApplication },
       },
     }) => {
-      const { model, role, page, sideNavOpen } = state;
+      const { model, role, page, sideNavOpen, scriptMode } = state;
+      const relevantModel = scriptMode === 'public' ? filterModelForPublicExport(model) : model;
       const roleIcon = role === 'user' ? 'person' : role === 'editor' ? 'edit' : 'manage_accounts';
 
       const isActive = isActivePage(page);
@@ -184,7 +210,7 @@ export const SideNav: MeiosisComponent<{ onDelete: () => void }> = () => {
             'li',
             m(FlatButton, {
               label: t('DOWNLOAD'),
-              onclick: () => handleSelection('download_json', model, saveModel),
+              onclick: () => handleSelection('download_json', model, scriptMode, saveModel),
               iconName: 'download',
             })
           ),
@@ -192,7 +218,7 @@ export const SideNav: MeiosisComponent<{ onDelete: () => void }> = () => {
             'li',
             m(FlatButton, {
               label: t('UPLOAD'),
-              onclick: () => handleSelection('upload_json', model, saveModel),
+              onclick: () => handleSelection('upload_json', model, scriptMode, saveModel),
               iconName: 'upload',
             })
           ),
@@ -200,8 +226,10 @@ export const SideNav: MeiosisComponent<{ onDelete: () => void }> = () => {
             'li',
             m(FlatButton, {
               label: t('PERMALINK'),
-              onclick: () => handleSelection('link', model, saveModel),
+              onclick: () => handleSelection('link', model, scriptMode, saveModel),
               iconName: 'link',
+              disabled: !canShareModel(relevantModel),
+              title: !canShareModel(relevantModel) ? t('RESTRICTED_SHARING_DISABLED') : undefined,
             })
           ),
           m(

@@ -225,6 +225,7 @@ const copyOwnedScript = (script: CrimeScript): CrimeScript => {
     item.id = id;
   };
   remapItem(copy);
+  copy.scriptFamilyId = copy.id;
   copy.literature.forEach(remapItem);
   copy.stages.forEach((scene) => {
     remapItem(scene);
@@ -363,6 +364,9 @@ const remapCollidingOwnedIds = (source: CrimeScript, usedIds: Set<ID>): CrimeScr
     remappedIds.set(original, item.id);
   };
   register(script);
+  if (script.id !== source.id && source.scriptFamilyId === source.id) {
+    script.scriptFamilyId = script.id;
+  }
   script.literature.forEach(register);
   script.stages.forEach((scene) => {
     register(scene);
@@ -462,12 +466,17 @@ export const collectStarterSuggestions = (
   bundle: DataModel | undefined,
   kind: SuggestionKind,
   language: 'nl' | 'en',
-  includeOtherLanguages = false
+  includeOtherLanguages = false,
+  mode?: 'public' | 'restricted'
 ): StarterSuggestion[] => {
   const seen = new Set<string>();
   const suggestions: StarterSuggestion[] = [];
-  const visit = (model: DataModel, metadata?: StarterBundleMetadata) =>
-    model.crimeScripts.forEach((script) => {
+  const visitScripts = (
+    scripts: CrimeScript[],
+    model: DataModel,
+    metadata?: StarterBundleMetadata
+  ) =>
+    scripts.forEach((script) => {
       if (!includeOtherLanguages && script.language !== language) return;
       script.stages.forEach((scene) => scene.variants.forEach((act) => {
         const items = kind === 'indicator' ? act.indicators : act.measures;
@@ -492,8 +501,28 @@ export const collectStarterSuggestions = (
         });
       }));
     });
-  if (bundle) visit(bundle, bundle.starterBundle);
-  visit(workspace);
+  if (mode) {
+    const candidates = [
+      ...(bundle?.crimeScripts || []).map((script) => ({ script, model: bundle!, metadata: bundle!.starterBundle })),
+      ...workspace.crimeScripts.map((script) => ({ script, model: workspace, metadata: undefined })),
+    ];
+    const byFamily = new Map<ID, typeof candidates[number]>();
+    candidates.forEach((candidate) => {
+      const current = byFamily.get(candidate.script.scriptFamilyId);
+      if (!current || (current.script.classification === 'public' && candidate.script.classification === 'restricted')) {
+        byFamily.set(candidate.script.scriptFamilyId, candidate);
+      }
+    });
+    Array.from(byFamily.values())
+      .filter(({ script }) => mode === 'restricted' || script.classification === 'public')
+      .sort((left, right) =>
+        Number(right.script.classification === 'restricted') - Number(left.script.classification === 'restricted')
+      )
+      .forEach(({ script, model, metadata }) => visitScripts([script], model, metadata));
+  } else {
+    if (bundle) visitScripts(bundle.crimeScripts, bundle, bundle.starterBundle);
+    visitScripts(workspace.crimeScripts, workspace);
+  }
   return suggestions;
 };
 
@@ -549,6 +578,7 @@ export const saveAsNewSuggestion = <T extends Indicator | Measure>(item: T): T =
 export const detachStarterScript = (script: CrimeScript): CrimeScript => {
   const detached = structuredClone(script);
   detached.id = newId();
+  detached.scriptFamilyId = detached.id;
   delete detached.starterOrigin;
   return detached;
 };

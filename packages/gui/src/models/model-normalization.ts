@@ -1,4 +1,13 @@
-import type { Act, Activity, CrimeScript, DataModel, ID, Scene, ServiceProvider } from './data-model';
+import type {
+  Act,
+  Activity,
+  CrimeScript,
+  DataModel,
+  ID,
+  Scene,
+  ScriptClassification,
+  ServiceProvider,
+} from './data-model';
 
 type LegacyActivity = Activity & { sp?: ID[] };
 
@@ -45,7 +54,10 @@ const normalizeAct = (act: Act): Act => ({
   opportunities: clone(act.opportunities || []),
 });
 
-export const normalizeDataModel = (input: unknown): DataModel => {
+export const normalizeDataModel = (
+  input: unknown,
+  defaultClassification: ScriptClassification = 'public'
+): DataModel => {
   if (!input || typeof input !== 'object') {
     throw new Error('Crime-script model must be an object.');
   }
@@ -115,6 +127,11 @@ export const normalizeDataModel = (input: unknown): DataModel => {
     }));
     return {
       ...crimeScript,
+      classification:
+        crimeScript.classification === 'public' || crimeScript.classification === 'restricted'
+          ? crimeScript.classification
+          : defaultClassification,
+      scriptFamilyId: crimeScript.scriptFamilyId || crimeScript.id,
       owner: crimeScript.owner || '',
       updated: crimeScript.updated || legacy.lastUpdate || Date.now(),
       reviewer: crimeScript.reviewer || [],

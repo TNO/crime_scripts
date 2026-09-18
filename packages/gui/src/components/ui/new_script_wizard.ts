@@ -1,28 +1,19 @@
 import m from 'mithril';
 import { snackbar, uniqueId, Wizard } from 'mithril-materialized';
 import { LayoutForm, type UIForm } from 'mithril-ui-form';
-import { createScenesFromOutline, type CrimeScript, Pages, type SceneOutline, STATUS } from '../../models';
+import { createScenesFromOutline, createScriptForMode, type CrimeScript, Pages, type SceneOutline } from '../../models';
 import { i18n, type MeiosisComponent, t } from '../../services';
 
 export const NewScriptWizard: MeiosisComponent = () => {
-  let crimeScript: CrimeScript = {
-    id: uniqueId(),
-    label: '',
-    owner: '',
-    updated: Date.now(),
-    reviewer: [],
-    status: STATUS.FIRST_DRAFT,
-    literature: [],
-    stages: [],
-    productIds: [],
-    language: i18n.currentLocale,
-    aiGenerated: false,
-  };
+  let crimeScript: CrimeScript;
   const outline: { scenes: SceneOutline[] } = {
     scenes: [{ label: '' }],
   };
 
   return {
+    oninit: ({ attrs: { state } }) => {
+      crimeScript = createScriptForMode(state.scriptMode, uniqueId(), i18n.currentLocale);
+    },
     view: ({ attrs: { state, actions } }) => {
       const { model } = state;
 
@@ -42,13 +33,19 @@ export const NewScriptWizard: MeiosisComponent = () => {
           {
             title: t('INFO'),
             vnode: () =>
-              m(LayoutForm<Partial<CrimeScript>>, {
+              m('.row', [
+                m('.col.s12.classification-notice', [
+                  m('strong', `${t('CLASSIFICATION')}: `),
+                  t(crimeScript.classification === 'restricted' ? 'RESTRICTED' : 'PUBLIC'),
+                ]),
+                m(LayoutForm<Partial<CrimeScript>>, {
                 obj: crimeScript,
                 form: [
                   { id: 'label', type: 'text', className: 'col s12', label: t('NAME') },
                   { id: 'description', type: 'textarea', className: 'col s12', label: t('SUMMARY') },
                 ],
-              }),
+                }),
+              ]),
           },
           {
             title: t('SCENES_OPTIONAL'),

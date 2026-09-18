@@ -302,6 +302,7 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
         aiGenerated,
         unreviewed,
         starterOrigin,
+        classification,
       } = crimeScript;
       const scriptImage = resolveIconSource(icon, url) || url || scriptIcon;
       const starterMetadata = getMatchingStarterBundleMetadata(crimeScript, model);
@@ -406,6 +407,7 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
           highlighter(`${label}${productIds.length > 0 ? ` (${toCommaSeparatedList(products, productIds)})` : ''}`)
         ),
         m('.script-provenance', [
+          m('span.classification-badge', t(classification === 'restricted' ? 'RESTRICTED' : 'PUBLIC')),
           m('span', `${t('LANGUAGE')}: ${language === 'nl' ? 'Nederlands' : 'English'}`),
           aiGenerated && m('span.badge', t('AI_GENERATED')),
           unreviewed && m('span.badge', t('UNREVIEWED')),

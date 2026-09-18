@@ -16,6 +16,7 @@ import {
   type Scene,
   collectStarterSuggestions,
   copySuggestion,
+  scriptsForMode,
   hasCloseDuplicate,
   saveAsNewSuggestion,
   suggestionKey,
@@ -29,6 +30,7 @@ import { type InputOptions, toOptions } from '../../utils';
 export const CrimeScriptEditor: FactoryComponent<{
   model: DataModel;
   crimeScript: CrimeScript;
+  scriptMode: 'public' | 'restricted';
   update: (type: 'crimeScript' | 'cast' | 'attributes' | 'transports' | 'locations', option: Labelled) => void;
 }> = () => {
   let actsForm: UIForm<{ stages: Scene[] }>;
@@ -229,7 +231,7 @@ export const CrimeScriptEditor: FactoryComponent<{
 
       measuresForm = [{ id: 'measures', type: measureForm, repeat: true, label: t('MEASURE') }];
     },
-    view: ({ attrs: { crimeScript, model, update } }) => {
+    view: ({ attrs: { crimeScript, model, scriptMode, update } }) => {
       const curActIdx = +(m.route.param('stages') || 1) - 1;
       const curScene =
         crimeScript.stages && curActIdx < crimeScript.stages.length
@@ -265,11 +267,12 @@ export const CrimeScriptEditor: FactoryComponent<{
       const suggestionPicker = (kind: 'indicator' | 'measure') => {
         if (!curAct) return undefined;
         const suggestions = collectStarterSuggestions(
-          model,
+          { ...model, crimeScripts: scriptsForMode(model.crimeScripts, scriptMode) },
           starterBundle,
           kind,
           crimeScript.language,
-          includeOtherLanguages
+          includeOtherLanguages,
+          scriptMode
         );
         const byId = new Map(suggestions.map((suggestion) => [suggestionKey(suggestion), suggestion]));
         return m('.row.suggestion-picker', [
@@ -320,6 +323,10 @@ export const CrimeScriptEditor: FactoryComponent<{
           })
         );
       return m('.col.s12', [
+        m('.classification-notice', [
+          m('strong', `${t('CLASSIFICATION')}: `),
+          t(crimeScript.classification === 'restricted' ? 'RESTRICTED' : 'PUBLIC'),
+        ]),
         m(LayoutForm, {
           form: [
             ...labelForm(),
