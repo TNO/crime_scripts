@@ -1,7 +1,7 @@
 .process-container {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: stretch;
   gap: 0;
   /* max-width: 1200px; */
   margin: 0 auto;
@@ -9,6 +9,8 @@
 }
 
 .process-step {
+  display: flex;
+  flex-direction: column;
   flex: 1;
   background: white;
   border-radius: 8px;
@@ -21,10 +23,6 @@
   min-width: 200px;
 }
 
-.process-step.has-variants {
-  border-left: 4px solid #3b82f6;
-}
-
 .process-step:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
@@ -32,15 +30,19 @@
 .process-step.active {
   flex: 2;
   max-width: fit-content;
-  color: #eafaf9;
-  background-color: #26a69a;
+  color: var(--pax-process-active-text, #122331);
+  background-color: var(--pax-process-active, #2f6fa5);
+}
+
+.process-step.active .step-content {
+  color: var(--pax-process-active-text, #122331);
 }
 
 .step-number {
   position: absolute;
   top: -10px;
   left: -10px;
-  background: #3b82f6;
+  background: var(--mm-primary-color, #2f6fa5);
   color: white;
   width: 24px;
   height: 24px;
@@ -66,6 +68,9 @@
 }
 
 .step-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
   color: black;
 }
 .step-title {
@@ -91,21 +96,29 @@
   margin-top: 0.5rem;
 }
 
-.variants-container {
-  display: none;
-  margin-top: 1rem;
-  border-top: 1px solid #e5e7eb;
-  padding-top: 1rem;
+.process-variants-panel {
+  margin: 0 1rem 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  background: var(--mm-surface-color, #fff);
 }
 
-.process-step.active .variants-container {
-  display: block;
+.process-variants-title {
+  margin: 0 0 0.5rem;
+}
+
+.process-variants-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 .variant-option {
+  border: 1px solid var(--mm-border-color, #d1d5db);
   padding: 0.5rem;
-  margin: 0.25rem 0;
   border-radius: 4px;
+  color: var(--mm-text-primary, #111827);
+  background: transparent;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -114,12 +127,8 @@
 
 .variant-option.active,
 .variant-option:hover {
-  color: black;
-  background: #f3f4f6;
-}
-
-.variant-option.selected {
-  background: #dbeafe;
+  color: var(--mm-text-primary, #111827);
+  background: color-mix(in srgb, var(--mm-primary-color, #2f6fa5) 16%, transparent);
 }
 
 .variant-icon {

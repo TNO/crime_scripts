@@ -1,6 +1,7 @@
 import m from 'mithril';
 import 'material-icons/iconfont/filled.css';
 import 'mithril-materialized/index.css';
+import 'mithril-materialized/presets/compact-minimal.css';
 import { ThemeManager } from 'mithril-materialized';
 // import 'materialize-css/dist/css/materialize.min.css';
 // import 'materialize-css/dist/js/materialize.min.js';
@@ -17,6 +18,7 @@ registerPlugin('list', SimpleListEditorPlugin);
 registerPlugin('search_select', searchSelectPlugin);
 
 ThemeManager.initialize('auto');
+document.documentElement.dataset.mmPreset = 'compact-minimal';
 document.documentElement.setAttribute('lang', 'en');
 
 window.onbeforeunload = (e) => {
