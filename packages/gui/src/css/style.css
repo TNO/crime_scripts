@@ -10,8 +10,29 @@
   max-width: unset;
 }
 
-body {
-  font-size: 18px;
+[data-mm-preset='compact-minimal'] .navbar-fixed,
+[data-mm-preset='compact-minimal'] nav,
+[data-mm-preset='compact-minimal'] nav .nav-wrapper,
+[data-mm-preset='compact-minimal'] nav a {
+  height: 52px;
+  line-height: 52px;
+}
+
+[data-mm-preset='compact-minimal'] nav .brand-logo {
+  font-size: 1.65rem;
+}
+
+[data-mm-preset='compact-minimal'] nav .brand-logo img {
+  width: 40px;
+  height: 40px;
+  margin: 6px -4px !important;
+}
+
+[data-mm-preset='compact-minimal'] nav .nav-wrapper i,
+[data-mm-preset='compact-minimal'] nav a.sidenav-trigger,
+[data-mm-preset='compact-minimal'] nav a.sidenav-trigger i {
+  height: 52px;
+  line-height: 52px;
 }
 
 .landing-hero {
@@ -207,6 +228,42 @@ body {
   padding-left: 10.75rem;
 }
 
+[data-mm-preset='compact-minimal'] .crime-scenes .collection-item.avatar.script-list-item--with-icons {
+  min-height: 7.25rem;
+  padding-block: 0.75rem;
+  padding-inline-start: 7.5rem;
+  padding-inline-end: 2.5rem;
+}
+
+[data-mm-preset='compact-minimal'] .script-list-icon-strip {
+  top: 0.625rem;
+  left: 0.75rem;
+  width: 6rem;
+  height: 6rem;
+  padding: 0.25rem;
+}
+
+[data-mm-preset='compact-minimal'] .script-list-icon-strip .icon-strip-symbol {
+  width: 2.65rem;
+  height: 2.65rem;
+  padding: 0.1rem;
+}
+
+[data-mm-preset='compact-minimal'] .script-list-icon-strip.icon-strip--count-1 {
+  grid-template-columns: 5.5rem;
+}
+
+[data-mm-preset='compact-minimal'] .script-list-icon-strip.icon-strip--count-1 .icon-strip-symbol {
+  width: 5.5rem;
+  height: 5.5rem;
+}
+
+[data-mm-preset='compact-minimal'] .script-list-icon-strip.icon-strip--count-2,
+[data-mm-preset='compact-minimal'] .script-list-icon-strip.icon-strip--count-3,
+[data-mm-preset='compact-minimal'] .script-list-icon-strip.icon-strip--count-4 {
+  grid-template-columns: repeat(2, 2.65rem);
+}
+
 .icon-strip {
   display: grid;
   width: 8.9rem;
@@ -269,10 +326,20 @@ body {
   line-height: 1.25;
 }
 
+[data-mm-preset='compact-minimal'] .script-list-title {
+  margin-bottom: 0.2rem;
+  font-size: 1rem;
+}
+
 .crime-scenes .collection-item.avatar .script-list-description {
   margin: 0 0 0.65rem;
   font-style: italic;
   line-height: 1.45;
+}
+
+[data-mm-preset='compact-minimal'] .crime-scenes .collection-item.avatar .script-list-description {
+  margin-bottom: 0.4rem;
+  font-size: 0.875rem;
 }
 
 .script-tags {
@@ -335,15 +402,15 @@ body {
 }
 
 @media only screen and (max-width: 600px) {
-  .crime-scenes .collection-item.avatar.script-list-item--with-icons {
+  [data-mm-preset='compact-minimal'] .crime-scenes .collection-item.avatar.script-list-item--with-icons {
     display: block;
     min-height: 0;
-    padding-left: 1rem;
+    padding: 1rem;
   }
 
   .script-list-icon-strip {
     position: static;
-    margin-bottom: 0.85rem;
+    margin: 0 auto 0.85rem;
   }
 
   .starter-import-row {
