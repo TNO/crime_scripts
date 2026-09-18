@@ -8,16 +8,15 @@ import {
   type ID,
   type Labelled,
   Pages,
-  resolveIconSource,
   scriptIcon,
   scriptsForMode,
 } from '../models';
 import { crimeScriptFilterFormFactory } from '../models/forms';
 import { type MeiosisComponent, routingSvc } from '../services';
 import { I18N, t } from '../services/translations';
-import { toCommaSeparatedList } from '../utils';
-import { NewScriptWizard } from './ui/new_script_wizard';
+import { IconStrip } from './ui/icon-strip';
 import { LlmScriptWizard } from './ui/llm_script_wizard';
+import { NewScriptWizard } from './ui/new_script_wizard';
 // import lz from 'lz-string';
 
 export const HomePage: MeiosisComponent = () => {
@@ -145,40 +144,70 @@ export const HomePage: MeiosisComponent = () => {
             m('li.collection-header', m('h4', 'Crime Scripts')),
             scriptsForMode(crimeScripts, scriptMode)
               .filter(csFilter)
-              .map(({ icon, url, label, description, id, classification, productIds = [], geoLocationIds = [] }) => {
+              .map(({ icon, icons, url, label, description, id, classification, productIds = [], geoLocationIds = [] }) => {
                 const onclick = () => {
                   actions.changePage(Pages.CRIME_SCRIPT, { id });
                   actions.update({ currentCrimeScriptId: id });
                 };
-                return m('li.collection-item.avatar.cursor-pointer', { onclick }, [
-                  m('img.white.circle', {
-                    src: resolveIconSource(icon, url) || url || scriptIcon,
-                    alt: 'Avatar',
-                    style: { padding: '2px' },
+                return m('li.collection-item.avatar.cursor-pointer', {
+                  className: 'script-list-item--with-icons',
+                  onclick,
+                }, [
+                  m(IconStrip, {
+                    className: 'script-list-icon-strip',
+                    fallback: scriptIcon,
+                    icon,
+                    icons,
+                    uploadedImage: url,
                   }),
                   m('span.classification-badge', t(classification === 'restricted' ? 'RESTRICTED' : 'PUBLIC')),
-                  m(
-                    'span.title',
-                    `${label}${productIds.length > 0
-                      ? ` (${t('PRODUCTS', productIds.length).toLowerCase()}: ${toCommaSeparatedList(
-                        products,
-                        productIds
-                      )})`
-                      : ''
-                    }`
-                  ),
-                  geoLocationIds.length > 0 &&
-                  m(
-                    'p',
-                    m(
-                      'i',
-                      `${t('GEOLOCATIONS', geoLocationIds.length)}: ${toCommaSeparatedList(
-                        geoLocations,
-                        geoLocationIds
-                      )}`
-                    )
-                  ),
-                  m('p', description),
+                  m('h5.script-list-title', label),
+                  description && m('p.script-list-description', description),
+                  (productIds.length > 0 || geoLocationIds.length > 0) &&
+                  m('.script-tags', [
+                    ...productIds.map((productId) => {
+                      const product = products.find(({ id }) => id === productId);
+                      const selected = crimeScriptFilter.productIds?.includes(productId) ?? false;
+                      return product && m('button.script-product-badge', {
+                        key: `product:${productId}`,
+                        type: 'button',
+                        'aria-label': `${t('PRODUCTS', 1)}: ${product.label}`,
+                        'aria-pressed': selected ? 'true' : 'false',
+                        onclick: (event: MouseEvent) => {
+                          event.stopPropagation();
+                          actions.update({
+                            crimeScriptFilter: {
+                              ...crimeScriptFilter,
+                              productIds: selected
+                                ? crimeScriptFilter.productIds.filter((filterId) => filterId !== productId)
+                                : [...(crimeScriptFilter.productIds || []), productId],
+                            },
+                          });
+                        },
+                      }, product.label);
+                    }),
+                    ...geoLocationIds.map((locationId) => {
+                      const location = geoLocations.find(({ id }) => id === locationId);
+                      const selected = crimeScriptFilter.geoLocationIds?.includes(locationId) ?? false;
+                      return location && m('button.script-location-badge', {
+                        key: `location:${locationId}`,
+                        type: 'button',
+                        'aria-label': `${t('GEOLOCATIONS', 1)}: ${location.label}`,
+                        'aria-pressed': selected ? 'true' : 'false',
+                        onclick: (event: MouseEvent) => {
+                          event.stopPropagation();
+                          actions.update({
+                            crimeScriptFilter: {
+                              ...crimeScriptFilter,
+                              geoLocationIds: selected
+                                ? crimeScriptFilter.geoLocationIds.filter((filterId) => filterId !== locationId)
+                                : [...(crimeScriptFilter.geoLocationIds || []), locationId],
+                            },
+                          });
+                        },
+                      }, location.label);
+                    }),
+                  ]),
                   m(
                     'a.secondary-content',
                     { href: routingSvc.href(Pages.CRIME_SCRIPT, `id=${id}`) },

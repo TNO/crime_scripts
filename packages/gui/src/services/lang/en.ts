@@ -1,6 +1,7 @@
 import { situationCrimePreventionClassificationTable } from '../abstract';
 
 export const messages = {
+  LANDING_CTA_DESCRIPTION: 'Load ten Dutch example scripts into your local workspace and adapt them to your analysis.',
   LANDING_CASES: { TITLE: 'Case management', DESC: 'Enter your case and find the most relevant crime scripts.' },
   LANDING_HAND: { TITLE: 'Work together', DESC: 'Work together to solve crimes and prevent them.' },
   LANDING_SECURITY: {
@@ -67,6 +68,7 @@ export const messages = {
   SUMMARY: 'Summary',
   GOALS: 'Goal(s) of current act',
   IMAGE: 'Image',
+  ICONS_MAX_FOUR: 'Icons (up to 4)',
   ACTIVITY: 'Activity',
   SPECIFY: 'Specify attributes',
   CONDITION: 'Condition',
@@ -115,6 +117,7 @@ export const messages = {
   START_EMPTY: 'Start empty',
   RETRY: 'Retry',
   STARTER_LOAD_FAILED: 'The starter library could not be loaded. Retry or start empty.',
+  LOADING_STARTER: 'Loading starter library…',
   IMPORT_STARTER: 'Import starter library',
   IMPORT_STARTER_EMPTY_CONFIRM: 'Load the Dutch starter library into this empty workspace?',
   IMPORT_STARTER_PREVIEW: 'Import {count} scripts? {conflicts} conflicts will be skipped unless you choose otherwise.',

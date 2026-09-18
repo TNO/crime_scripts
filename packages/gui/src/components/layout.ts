@@ -11,7 +11,7 @@ import { LanguageSwitcher } from './ui/language-switcher';
 import { SideNav } from './ui/sidenav';
 
 export const Layout: MeiosisComponent = () => {
-  const style = 'font-size: 2.2rem; width: 4rem;';
+  const style = 'font-size: 2.2rem; width: 2.75rem;';
   let searchDialogOpen = false;
   let clearModelOpen = false;
   // let searchDialog: M.Modal;
@@ -32,7 +32,7 @@ export const Layout: MeiosisComponent = () => {
 
   return {
     view: ({ children, attrs: { state, actions } }) => {
-      const { page, searchFilter, searchResults, model = {} as DataModel } = state;
+      const { page, currentCrimeScriptId, searchFilter, searchResults, model = {} as DataModel } = state;
       const { changePage, setSearchFilter, saveModel } = actions;
       const curPage = routingSvc
         .getList()
@@ -43,6 +43,11 @@ export const Layout: MeiosisComponent = () => {
       const visibleSearchResults = (searchResults || []).filter(({ crimeScriptIdx }) =>
         visibleScriptIds.has(model.crimeScripts[crimeScriptIdx]?.id)
       );
+      const currentCrimeScript =
+        page === Pages.CRIME_SCRIPT
+          ? model.crimeScripts?.find(({ id }) => id === (m.route.param('id') || currentCrimeScriptId))
+          : undefined;
+      const brandTitle = currentCrimeScript ? `PAX: ${currentCrimeScript.label}` : APP_TITLE;
 
       return [
         state.needsOnboarding &&
@@ -102,7 +107,7 @@ export const Layout: MeiosisComponent = () => {
                       src: logo,
                       style: 'margin: 6px -6px;',
                     }),
-                    m('span', { style: { marginLeft: '20px', verticalAlign: 'top' } }, APP_TITLE),
+                    m('span.desktop-brand-title', brandTitle),
                   ]
                 ),
                 m(
@@ -121,7 +126,7 @@ export const Layout: MeiosisComponent = () => {
                   ]
                 ),
 
-                m('ul.right.hide-on-med-and-down', [
+                m('ul.right.hide-on-med-and-down.desktop-nav', [
                   m('li.tooltip.cursor-pointer', [
                     m(Icon, {
                       iconName: 'search',

@@ -2,6 +2,7 @@ import { situationCrimePreventionClassificationTableNL } from '../abstract';
 import type { messages } from './en';
 
 export const messagesNL: typeof messages = {
+  LANDING_CTA_DESCRIPTION: 'Laad tien Nederlandse voorbeeldscripts in je lokale werkruimte en pas ze aan je eigen analyse aan.',
   LANDING_CASES: { TITLE: 'Case management', DESC: 'Voer uw zaak in en vind de meest relevante misdaadscripts.' },
   LANDING_HAND: { TITLE: 'Samenwerken', DESC: 'Werk samen om misdaden op te lossen en te voorkomen.' },
   LANDING_SECURITY: {
@@ -69,6 +70,7 @@ export const messagesNL: typeof messages = {
   SUMMARY: 'Samenvatting',
   GOALS: 'Doel(en) van huidige scène',
   IMAGE: 'Afbeelding',
+  ICONS_MAX_FOUR: 'Iconen (maximaal 4)',
   ACTIVITY: 'Activiteit',
   ACTIVITIES: 'Activiteiten',
   SPECIFY: 'Specificeer eigenschappen',
@@ -117,6 +119,7 @@ export const messagesNL: typeof messages = {
   START_EMPTY: 'Start leeg',
   RETRY: 'Opnieuw proberen',
   STARTER_LOAD_FAILED: 'De starterbibliotheek kon niet worden geladen. Probeer opnieuw of start leeg.',
+  LOADING_STARTER: 'Starterbibliotheek laden…',
   IMPORT_STARTER: 'Importeer starterbibliotheek',
   IMPORT_STARTER_EMPTY_CONFIRM: 'Laad de Nederlandse starterbibliotheek in deze lege werkruimte?',
   IMPORT_STARTER_PREVIEW: 'Importeer {count} scripts? {conflicts} conflicten worden standaard overgeslagen.',

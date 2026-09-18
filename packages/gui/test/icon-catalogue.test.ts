@@ -8,6 +8,7 @@ import {
   IconOpts,
   isBuiltInIconKey,
   resolveIconSource,
+  resolveIconSources,
 } from '../src/models/icons.ts';
 import { normalizeDataModel } from '../src/models/model-normalization.ts';
 import { createSingleScriptExportModel } from '../src/models/single-script-export.ts';
@@ -137,6 +138,29 @@ test('icon resolution preserves uploaded images and resolves catalogue keys', ()
   assert.equal(resolveIconSource(ICONS.OTHER, upload), upload);
   assert.match(resolveIconSource(BUILT_IN_ICONS[0].key, upload), /^icons\/.+\.svg$/);
   assert.equal(resolveIconSource(999_999 as ICONS, upload), undefined);
+});
+
+test('icon compositions resolve up to four symbols and retain legacy fallback', () => {
+  const upload = 'data:image/png;base64,dXNlci1pbWFnZQ==';
+  const iconKeys = BUILT_IN_ICONS.slice(0, 4).map(({ key }) => key);
+
+  assert.deepEqual(resolveIconSources(undefined, iconKeys[0]), [`icons/${BUILT_IN_ICONS[0].file}`]);
+  assert.deepEqual(resolveIconSources([ICONS.OTHER], undefined, upload), [upload]);
+  assert.equal(resolveIconSources(iconKeys).length, 4);
+  assert.deepEqual(resolveIconSources([999_999 as ICONS], iconKeys[0]), []);
+});
+
+test('model normalization promotes legacy icons and caps compositions', () => {
+  const legacyIcon = BUILT_IN_ICONS[0].key;
+  const model = normalizeDataModel({
+    crimeScripts: [
+      { id: 'legacy', label: 'Legacy', icon: legacyIcon, stages: [] },
+      { id: 'composed', label: 'Composed', icons: BUILT_IN_ICONS.slice(0, 4).map(({ key }) => key), stages: [] },
+    ],
+  });
+
+  assert.deepEqual(model.crimeScripts[0].icons, [legacyIcon]);
+  assert.equal(model.crimeScripts[1].icons?.length, 4);
 });
 
 test('single-script export retains built-in keys and embedded uploaded images', () => {

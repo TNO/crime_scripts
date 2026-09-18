@@ -6,18 +6,19 @@ import {
   type Activity,
   type ActivityPhase,
   type CrimeScript,
+  collectStarterSuggestions,
+  copySuggestion,
   type DataModel,
+  hasCloseDuplicate,
   IconOpts,
   type ID,
   type Indicator,
   type Labelled,
+  MAX_COMPOSED_ICONS,
   type Measure,
   type Opportunity,
   type Scene,
-  collectStarterSuggestions,
-  copySuggestion,
   scriptsForMode,
-  hasCloseDuplicate,
   saveAsNewSuggestion,
   suggestionKey,
 } from '../../models';
@@ -359,6 +360,8 @@ export const CrimeScriptEditor: FactoryComponent<{
           ],
           obj: crimeScript,
           onchange: () => {
+            crimeScript.icons = crimeScript.icons?.slice(0, MAX_COMPOSED_ICONS);
+            crimeScript.icon = crimeScript.icons?.[0];
             update('crimeScript', crimeScript);
           },
           i18n: I18N,

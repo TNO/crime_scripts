@@ -132,6 +132,11 @@ export const normalizeDataModel = (
           ? crimeScript.classification
           : defaultClassification,
       scriptFamilyId: crimeScript.scriptFamilyId || crimeScript.id,
+      icons: (crimeScript.icons?.length
+        ? crimeScript.icons
+        : crimeScript.icon !== undefined
+          ? [crimeScript.icon]
+          : undefined)?.slice(0, 4),
       owner: crimeScript.owner || '',
       updated: crimeScript.updated || legacy.lastUpdate || Date.now(),
       reviewer: crimeScript.reviewer || [],

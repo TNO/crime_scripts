@@ -38,7 +38,7 @@ export const ReferenceListComponent: FactoryComponent<ReferenceAttrs> = () => {
   return {
     view: ({ attrs: { references } }) => {
       return m(
-        'ol',
+        'ol.reference-list',
         references.map((reference) => m(ReferenceComponent, { reference }))
       );
     },
