@@ -1,12 +1,14 @@
 import m from 'mithril';
-import { Icon } from 'mithril-materialized';
+import { Button, Icon } from 'mithril-materialized';
 import background from '../assets/background.webp';
 import { Pages } from '../models';
-import { type MeiosisComponent, t } from '../services';
+import { APP_TITLE, type MeiosisComponent, t } from '../services';
 
 // const readerAvailable = window.File && window.FileReader && window.FileList && window.Blob;
 
 export const LandingPage: MeiosisComponent = () => {
+  let starterLoading = false;
+
   return {
     oninit: ({
       attrs: {
@@ -15,18 +17,27 @@ export const LandingPage: MeiosisComponent = () => {
     }) => {
       setPage(Pages.LANDING);
     },
-    view: ({}) => [
-      m('.center', { style: 'position: relative;' }, [
-        // m(
-        //   '.overlay.center',
-        //   {
-        //     style: 'position: absolute; width: 100%',
-        //   },
-        //   [
-        //     m('h3.indigo-text.text-darken-4.bold.hide-on-med-and-down', 'Introduction'),
-        //   ]
-        // ),
-        m('img.responsive-img[width=1408][height=704]', { style: { 'margin-left': '15px' }, src: background }),
+    view: ({ attrs: { actions } }) => [
+      m('.center', [
+        m('.landing-hero', [
+          m('img.landing-hero-image[width=1408][height=704]', { src: background, alt: '' }),
+          m('.landing-hero-content', [
+            m('h1', APP_TITLE),
+            m('p', t('LANDING_CTA_DESCRIPTION')),
+            m(Button, {
+              className: 'landing-hero-cta',
+              label: starterLoading ? t('LOADING_STARTER') : t('USE_STARTER'),
+              iconName: 'library_books',
+              disabled: starterLoading,
+              onclick: async () => {
+                starterLoading = true;
+                const imported = await actions.importStarterLibrary();
+                starterLoading = false;
+                if (imported) actions.changePage(Pages.HOME);
+              },
+            }),
+          ]),
+        ]),
         m(
           '.section',
           m('.row.container.center', [

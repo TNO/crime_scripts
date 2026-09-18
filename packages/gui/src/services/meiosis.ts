@@ -62,6 +62,7 @@ export interface Actions {
   saveModel: (ds: DataModel) => void;
   mergePreviewModel: () => void;
   completeOnboarding: (choice: 'starter' | 'empty') => Promise<void>;
+  importStarterLibrary: () => Promise<boolean>;
   resetApplication: () => void;
   saveSettings: (settings: Settings) => Promise<void>;
   setRole: (role: UserRole) => void;
@@ -78,7 +79,7 @@ export type MeiosisComponent<T extends { [key: string]: any } = {}> = FactoryCom
   options?: T;
 }>;
 
-export const appActions: (cell: MeiosisCell<State>) => Actions = ({ update /* states */ }) => ({
+export const appActions: (cell: MeiosisCell<State>) => Actions = ({ getState, update /* states */ }) => ({
   // addDucks: (cell, amount) => {
   //   cell.update({ ducks: (value) => value + amount });
   // },
@@ -139,6 +140,20 @@ export const appActions: (cell: MeiosisCell<State>) => Actions = ({ update /* st
       update({ model: () => model, needsOnboarding: false, onboardingError: undefined });
     } catch (error) {
       update({ onboardingError: error instanceof Error ? error.message : String(error) });
+    }
+  },
+  importStarterLibrary: async () => {
+    try {
+      const model = importStarterBundle(getState().model, await fetchStarterBundle());
+      model.lastUpdate = Date.now();
+      model.version = model.version ? model.version + 1 : 1;
+      localStorage.setItem(MODEL_KEY, JSON.stringify(model));
+      update({ model: () => model, onboardingError: undefined });
+      snackbar({ message: t('STARTER_IMPORTED') });
+      return true;
+    } catch {
+      snackbar({ message: t('STARTER_LOAD_FAILED'), dismissible: true });
+      return false;
     }
   },
   resetApplication: () => {
