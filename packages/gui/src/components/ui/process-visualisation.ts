@@ -28,18 +28,13 @@ export interface ProcessVisualizationAttrs {
 }
 
 export const ProcessVisualization: FactoryComponent<ProcessVisualizationAttrs> = () => {
-  let currentStep: string | null = null;
-
-  const toggleStep = (stepId: string, attrs: ProcessVisualizationAttrs) => {
-    console.log('TOGGLE');
-    currentStep = currentStep === stepId ? null : stepId;
+  const selectStep = (stepId: string, attrs: ProcessVisualizationAttrs) => {
     if (attrs.onStepSelect) {
       attrs.onStepSelect(stepId);
     }
   };
 
   const selectVariant = (event: Event, stepId: string, variantId: string, attrs: ProcessVisualizationAttrs) => {
-    console.log('VARIANT');
     event.stopPropagation();
     if (attrs.onVariantSelect) {
       attrs.onVariantSelect(stepId, variantId);
@@ -49,59 +44,69 @@ export const ProcessVisualization: FactoryComponent<ProcessVisualizationAttrs> =
   return {
     view: ({ attrs }) => {
       const { steps, selectedStep, selectedVariant } = attrs;
-      return m('.process-container', [
-        steps.map((step, i) =>
-          m(
-            '.process-step',
-            {
-              class: [
-                selectedStep === step.id ? 'active' : '',
-                step.variants && step.variants.length ? 'has-variants' : '',
+      const activeStep = steps.find(({ id }) => id === selectedStep);
+
+      return m('.process-visualization', [
+        m('.process-container', [
+          steps.map((step, i) =>
+            m(
+              '.process-step',
+              {
+                class: [
+                  selectedStep === step.id ? 'active' : '',
+                  step.variants && step.variants.length ? 'has-variants' : '',
+                ]
+                  .filter(Boolean)
+                  .join(' ')
+                  .trim(),
+                onclick: () => selectStep(step.id, attrs),
+              },
+              [
+                m('.step-number', i + 1),
+                m(IconStrip, {
+                  className: 'step-icon-strip',
+                  fallback: missingIcon,
+                  icon: step.icon,
+                  icons: step.icons,
+                  uploadedImage: step.uploadedImage,
+                }),
+                m('.step-content', [
+                  m('h4.step-title', step.title),
+                  step.curVariantId &&
+                    step.variants &&
+                    m('h5.step-subtitle', step.variants.find((v) => v.id === step.curVariantId)?.title),
+                  m('.step-description', step.description),
+                ]),
               ]
-                .filter(Boolean)
-                .join(' ')
-                .trim(),
-              onclick: () => toggleStep(step.id, attrs),
-            },
-            [
-              m('.step-number', i + 1),
-              m(IconStrip, {
-                className: 'step-icon-strip',
-                fallback: missingIcon,
-                icon: step.icon,
-                icons: step.icons,
-                uploadedImage: step.uploadedImage,
-              }),
-              m('.step-content', [
-                m('h4.step-title', step.title),
-                step.curVariantId &&
-                  step.variants &&
-                  m('h5.step-subtitle', step.variants.find((v) => v.id === step.curVariantId)?.title),
-                m('.step-description', step.description),
-                step.variants &&
-                  m('.variants-container', [
-                    step.variants.map((variant) =>
-                      m(
-                        '.variant-option',
-                        {
-                          class: selectedVariant === variant.id ? 'active' : '',
-                          onclick: (e: Event) => selectVariant(e, step.id, variant.id, attrs),
-                        },
-                        [
-                          variant.icon &&
-                            m('img.variant-icon', {
-                              src: variant.icon,
-                              alt: `${variant.title} icon`,
-                            }),
-                          variant.title,
-                        ]
-                      )
-                    ),
-                  ]),
-              ]),
-            ]
-          )
-        ),
+            )
+          ),
+        ]),
+        activeStep?.variants &&
+          m('.process-variants-panel', [
+            m('h5.process-variants-title', activeStep.title),
+            m(
+              '.process-variants-list',
+              activeStep.variants.map((variant) =>
+                m(
+                  'button.variant-option',
+                  {
+                    type: 'button',
+                    class: selectedVariant === variant.id ? 'active' : '',
+                    'aria-pressed': selectedVariant === variant.id ? 'true' : 'false',
+                    onclick: (event: Event) => selectVariant(event, activeStep.id, variant.id, attrs),
+                  },
+                  [
+                    variant.icon &&
+                      m('img.variant-icon', {
+                        src: variant.icon,
+                        alt: '',
+                      }),
+                    variant.title,
+                  ]
+                )
+              )
+            ),
+          ]),
       ]);
     },
   };

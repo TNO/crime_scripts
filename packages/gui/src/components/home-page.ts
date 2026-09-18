@@ -127,7 +127,7 @@ export const HomePage: MeiosisComponent = () => {
           ]
         ),
         m(
-          '.col.s12.filters',
+          '.row.filters',
           m(LayoutForm, {
             form: crimeScriptFilterForm,
             obj: crimeScriptFilter,
