@@ -70,6 +70,7 @@ export const messagesNL: typeof messages = {
   SUMMARY: 'Samenvatting',
   GOALS: 'Doel(en) van huidige scène',
   IMAGE: 'Afbeelding',
+  ICONS_MAX_FOUR: 'Iconen (maximaal 4)',
   ACTIVITY: 'Activiteit',
   ACTIVITIES: 'Activiteiten',
   SPECIFY: 'Specificeer eigenschappen',

@@ -8,14 +8,14 @@ import {
   type ID,
   type Labelled,
   Pages,
-  resolveIconSource,
   scriptIcon,
 } from '../models';
 import { crimeScriptFilterFormFactory } from '../models/forms';
 import { type MeiosisComponent, routingSvc } from '../services';
 import { I18N, t } from '../services/translations';
-import { NewScriptWizard } from './ui/new_script_wizard';
+import { IconStrip } from './ui/icon-strip';
 import { LlmScriptWizard } from './ui/llm_script_wizard';
+import { NewScriptWizard } from './ui/new_script_wizard';
 // import lz from 'lz-string';
 
 export const HomePage: MeiosisComponent = () => {
@@ -143,21 +143,21 @@ export const HomePage: MeiosisComponent = () => {
             m('li.collection-header', m('h4', 'Crime Scripts')),
             crimeScripts
               .filter(csFilter)
-              .map(({ icon, url, label, description, id, productIds = [], geoLocationIds = [] }) => {
-                const hasEditorialImage = icon === 'builtin:port-security';
+              .map(({ icon, icons, url, label, description, id, productIds = [], geoLocationIds = [] }) => {
                 const onclick = () => {
                   actions.changePage(Pages.CRIME_SCRIPT, { id });
                   actions.update({ currentCrimeScriptId: id });
                 };
                 return m('li.collection-item.avatar.cursor-pointer', {
-                  className: hasEditorialImage ? 'script-list-item--illustrated' : undefined,
+                  className: 'script-list-item--with-icons',
                   onclick,
                 }, [
-                  m('img', {
-                    className: hasEditorialImage ? 'script-list-thumbnail' : 'white circle',
-                    src: resolveIconSource(icon, url) || url || scriptIcon,
-                    alt: '',
-                    style: hasEditorialImage ? undefined : { padding: '2px' },
+                  m(IconStrip, {
+                    className: 'script-list-icon-strip',
+                    fallback: scriptIcon,
+                    icon,
+                    icons,
+                    uploadedImage: url,
                   }),
                   m('h5.script-list-title', label),
                   description && m('p.script-list-description', description),

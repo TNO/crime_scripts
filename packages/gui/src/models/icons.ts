@@ -65,13 +65,16 @@ export const distributeIcon =
 export const BUILT_IN_ICONS = [
   { key: 'builtin:access-security', label: 'Access security', category: 'Security', file: 'access-security.svg' },
   { key: 'builtin:account-security', label: 'Account security', category: 'Digital', file: 'account-security.svg' },
+  { key: 'builtin:animal-trafficking', label: 'Animal trafficking', category: 'Environment', file: 'animal-trafficking.svg' },
   { key: 'builtin:arbeidsuitbuiting-afhankelijkheid', label: 'Arbeidsuitbuiting Afhankelijkheid', category: 'Starter scenes', file: 'arbeidsuitbuiting-afhankelijkheid.svg' },
   { key: 'builtin:arbeidsuitbuiting-controle', label: 'Arbeidsuitbuiting Controle', category: 'Starter scenes', file: 'arbeidsuitbuiting-controle.svg' },
   { key: 'builtin:arbeidsuitbuiting-reis', label: 'Arbeidsuitbuiting Reis', category: 'Starter scenes', file: 'arbeidsuitbuiting-reis.svg' },
   { key: 'builtin:arbeidsuitbuiting-werk', label: 'Arbeidsuitbuiting Werk', category: 'Starter scenes', file: 'arbeidsuitbuiting-werk.svg' },
   { key: 'builtin:arbeidsuitbuiting-werving', label: 'Arbeidsuitbuiting Werving', category: 'Starter scenes', file: 'arbeidsuitbuiting-werving.svg' },
   { key: 'builtin:asbestos-safety', label: 'Asbestos safety', category: 'Environment', file: 'asbestos-safety.svg' },
+  { key: 'builtin:car-theft', label: 'Car theft', category: 'Transport', file: 'car-theft.svg' },
   { key: 'builtin:cargo-ship', label: 'Cargo ship', category: 'Transport', file: 'cargo-ship.svg' },
+  { key: 'builtin:cocaine-powder', label: 'Cocaine powder', category: 'Product', file: 'cocaine-powder.svg' },
   { key: 'builtin:cocaine-import-havens-invoer', label: 'Cocaine Import Havens Invoer', category: 'Starter scenes', file: 'cocaine-import-havens-invoer.svg' },
   { key: 'builtin:cocaine-import-havens-toegang', label: 'Cocaine Import Havens Toegang', category: 'Starter scenes', file: 'cocaine-import-havens-toegang.svg' },
   { key: 'builtin:cocaine-import-havens-uithalen', label: 'Cocaine Import Havens Uithalen', category: 'Starter scenes', file: 'cocaine-import-havens-uithalen.svg' },
@@ -87,6 +90,9 @@ export const BUILT_IN_ICONS = [
   { key: 'builtin:financial-investigation', label: 'Financial investigation', category: 'Finance', file: 'financial-investigation.svg' },
   { key: 'builtin:hazard-building', label: 'Hazardous production site', category: 'Environment', file: 'hazard-building.svg' },
   { key: 'builtin:hazardous-waste', label: 'Hazardous waste', category: 'Environment', file: 'hazardous-waste.svg' },
+  { key: 'builtin:human-trafficking', label: 'Human trafficking', category: 'People', file: 'human-trafficking.svg' },
+  { key: 'builtin:illegal-asbestos-removal', label: 'Illegal asbestos removal', category: 'Environment', file: 'illegal-asbestos-removal.svg' },
+  { key: 'builtin:illegal-dumping', label: 'Illegal dumping', category: 'Environment', file: 'illegal-dumping.svg' },
   { key: 'builtin:illegale-asbestverwijdering-afvoer', label: 'Illegale Asbestverwijdering Afvoer', category: 'Starter scenes', file: 'illegale-asbestverwijdering-afvoer.svg' },
   { key: 'builtin:illegale-asbestverwijdering-inventarisatie', label: 'Illegale Asbestverwijdering Inventarisatie', category: 'Starter scenes', file: 'illegale-asbestverwijdering-inventarisatie.svg' },
   { key: 'builtin:illegale-asbestverwijdering-opdracht', label: 'Illegale Asbestverwijdering Opdracht', category: 'Starter scenes', file: 'illegale-asbestverwijdering-opdracht.svg' },
@@ -99,7 +105,10 @@ export const BUILT_IN_ICONS = [
   { key: 'builtin:illegale-dumping-chemisch-afval-ontstaan', label: 'Illegale Dumping Chemisch Afval Ontstaan', category: 'Starter scenes', file: 'illegale-dumping-chemisch-afval-ontstaan.svg' },
   { key: 'builtin:illegale-dumping-chemisch-afval-transport', label: 'Illegale Dumping Chemisch Afval Transport', category: 'Starter scenes', file: 'illegale-dumping-chemisch-afval-transport.svg' },
   { key: 'builtin:illegale-dumping-chemisch-afval-verzameling', label: 'Illegale Dumping Chemisch Afval Verzameling', category: 'Starter scenes', file: 'illegale-dumping-chemisch-afval-verzameling.svg' },
+  { key: 'builtin:laboratory', label: 'Laboratory', category: 'Product', file: 'laboratory.svg' },
+  { key: 'builtin:labour-exploitation', label: 'Labour exploitation', category: 'People', file: 'labour-exploitation.svg' },
   { key: 'builtin:materials-check', label: 'Materials check', category: 'Inspection', file: 'materials-check.svg' },
+  { key: 'builtin:money-laundering', label: 'Money laundering', category: 'Finance', file: 'money-laundering.svg' },
   { key: 'builtin:mensenhandel-seksuele-uitbuiting-benadering', label: 'Mensenhandel Seksuele Uitbuiting Benadering', category: 'Starter scenes', file: 'mensenhandel-seksuele-uitbuiting-benadering.svg' },
   { key: 'builtin:mensenhandel-seksuele-uitbuiting-exploitatie', label: 'Mensenhandel Seksuele Uitbuiting Exploitatie', category: 'Starter scenes', file: 'mensenhandel-seksuele-uitbuiting-exploitatie.svg' },
   { key: 'builtin:mensenhandel-seksuele-uitbuiting-isolatie', label: 'Mensenhandel Seksuele Uitbuiting Isolatie', category: 'Starter scenes', file: 'mensenhandel-seksuele-uitbuiting-isolatie.svg' },
@@ -110,6 +119,8 @@ export const BUILT_IN_ICONS = [
   { key: 'builtin:online-safety', label: 'Online safety', category: 'Digital', file: 'online-safety.svg' },
   { key: 'builtin:partner-response', label: 'Partner response', category: 'Response', file: 'partner-response.svg' },
   { key: 'builtin:payment-check', label: 'Payment check', category: 'Finance', file: 'payment-check.svg' },
+  { key: 'builtin:payment-fraud', label: 'Payment fraud', category: 'Finance', file: 'payment-fraud.svg' },
+  { key: 'builtin:phishing', label: 'Phishing', category: 'Digital', file: 'phishing.svg' },
   { key: 'builtin:phishing-betaalfraude-betaling', label: 'Phishing Betaalfraude Betaling', category: 'Starter scenes', file: 'phishing-betaalfraude-betaling.svg' },
   { key: 'builtin:phishing-betaalfraude-contact', label: 'Phishing Betaalfraude Contact', category: 'Starter scenes', file: 'phishing-betaalfraude-contact.svg' },
   { key: 'builtin:phishing-betaalfraude-doorgifte', label: 'Phishing Betaalfraude Doorgifte', category: 'Starter scenes', file: 'phishing-betaalfraude-doorgifte.svg' },
@@ -118,8 +129,11 @@ export const BUILT_IN_ICONS = [
   { key: 'builtin:phishing-betaalfraude-voorbereiding', label: 'Phishing Betaalfraude Voorbereiding', category: 'Starter scenes', file: 'phishing-betaalfraude-voorbereiding.svg' },
   { key: 'builtin:phishing-protection', label: 'Phishing protection', category: 'Digital', file: 'phishing-protection.svg' },
   { key: 'builtin:planning-checklist', label: 'Planning checklist', category: 'Planning', file: 'planning-checklist.svg' },
+  { key: 'builtin:port-crane', label: 'Port crane', category: 'Transport', file: 'port-crane.svg' },
   { key: 'builtin:port-security', label: 'Port security', category: 'Security', file: 'port-security.svg' },
+  { key: 'builtin:poaching', label: 'Poaching', category: 'Environment', file: 'poaching.svg' },
   { key: 'builtin:protected-person-response', label: 'Protected Person Response', category: 'Starter scenes', file: 'protected-person-response.svg' },
+  { key: 'builtin:retail-store', label: 'Retail store', category: 'Commerce', file: 'retail-store.svg' },
   { key: 'builtin:safe-work', label: 'Safe work', category: 'People', file: 'safe-work.svg' },
   { key: 'builtin:secure-contact', label: 'Secure contact', category: 'Communication', file: 'secure-contact.svg' },
   { key: 'builtin:secure-transport', label: 'Secure transport', category: 'Transport', file: 'secure-transport.svg' },
@@ -160,6 +174,7 @@ export const BUILT_IN_ICONS = [
 
 export type BuiltInIconKey = (typeof BUILT_IN_ICONS)[number]['key'];
 export type IconValue = ICONS | BuiltInIconKey;
+export const MAX_COMPOSED_ICONS = 4;
 
 export const isBuiltInIconKey = (icon: unknown): icon is BuiltInIconKey =>
   typeof icon === 'string' && BUILT_IN_ICONS.some(({ key }) => key === icon);
@@ -171,6 +186,18 @@ export const resolveIconSource = (icon?: IconValue, uploadedImage?: string): str
     return builtIn ? `icons/${builtIn.file}` : undefined;
   }
   return IconOpts.find(({ id }) => id === icon)?.img;
+};
+
+export const resolveIconSources = (
+  icons: IconValue[] | undefined,
+  legacyIcon?: IconValue,
+  uploadedImage?: string
+): string[] => {
+  const selectedIcons = icons?.length ? icons : legacyIcon !== undefined ? [legacyIcon] : [];
+  return selectedIcons
+    .slice(0, MAX_COMPOSED_ICONS)
+    .map((icon) => resolveIconSource(icon, uploadedImage))
+    .filter((source): source is string => Boolean(source));
 };
 
 export const IconOpts: Array<{

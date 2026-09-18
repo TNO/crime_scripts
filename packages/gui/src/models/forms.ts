@@ -2,7 +2,7 @@ import type { UIForm } from 'mithril-ui-form';
 import { t } from '../services';
 import { toOptions } from '../utils';
 import type { CrimeScript, CrimeScriptFilter, Hierarchical, Labelled, Literature } from './data-model';
-import { ICONS, IconOpts } from './icons';
+import { IconOpts } from './icons';
 
 export type AttributeType =
   | 'cast'
@@ -48,10 +48,9 @@ export const attrForm = (id: AttributeType, label: string, attr: Labelled[] = []
 export const labelForm = () =>
   [
     { id: 'id', type: 'autogenerate', autogenerate: 'id' },
-    { id: 'label', type: 'text', className: 'col s6 m6', label: t('NAME'), show: ['!icon=1'] },
-    { id: 'label', type: 'text', className: 'col s6 m3', label: t('NAME'), show: ['icon=1'] },
-    { id: 'icon', type: 'select', className: 'col s6 m3', label: t('IMAGE'), options: IconOpts },
-    { id: 'url', type: 'base64', className: 'col s12 m3', label: t('IMAGE'), show: [`icon=${ICONS.OTHER}`] },
+    { id: 'label', type: 'text', className: 'col s6', label: t('NAME') },
+    { id: 'icons', type: 'select', multiple: true, className: 'col s6', label: t('ICONS_MAX_FOUR'), options: IconOpts },
+    { id: 'url', type: 'base64', className: 'col s12', label: t('IMAGE') },
     { id: 'description', type: 'textarea', className: 'col s12', label: t('SUMMARY') },
   ] as UIForm<Partial<CrimeScript>>;
 

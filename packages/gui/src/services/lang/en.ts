@@ -68,6 +68,7 @@ export const messages = {
   SUMMARY: 'Summary',
   GOALS: 'Goal(s) of current act',
   IMAGE: 'Image',
+  ICONS_MAX_FOUR: 'Icons (up to 4)',
   ACTIVITY: 'Activity',
   SPECIFY: 'Specify attributes',
   CONDITION: 'Condition',

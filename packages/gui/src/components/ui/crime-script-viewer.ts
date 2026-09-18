@@ -13,13 +13,11 @@ import {
   getMatchingStarterBundleMetadata,
   type ID,
   type Labelled,
-  missingIcon,
   Pages,
   type Partner,
   type Product,
-  resolveIconSource,
-  scriptIcon,
   type Scene,
+  scriptIcon,
   type Track,
   type Transport,
 } from '../../models';
@@ -35,6 +33,7 @@ import {
   toMarkdownOl,
 } from '../../utils';
 import { ReferenceListComponent } from '../ui/reference';
+import { IconStrip } from './icon-strip';
 import { type ProcessStep, ProcessVisualization } from './process-visualisation';
 
 export const CrimeScriptViewer: FactoryComponent<{
@@ -297,13 +296,13 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
         geoLocationIds = [],
         tracks = [],
         icon,
+        icons,
         url,
         language,
         aiGenerated,
         unreviewed,
         starterOrigin,
       } = crimeScript;
-      const scriptImage = resolveIconSource(icon, url) || url || scriptIcon;
       const starterMetadata = getMatchingStarterBundleMetadata(crimeScript, model);
 
       const scenesWithVariantsCnt = scenes.filter((scene) => scene.variants.length > 1).length || false;
@@ -370,8 +369,7 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
         );
 
       const steps = scenes.map(
-        ({ id, selectedVariantId, variants: sceneVariants = [], isGeneric, label = '...', icon, url, description = '' }) => {
-          const imgSrc = resolveIconSource(icon, url) || missingIcon;
+        ({ id, selectedVariantId, variants: sceneVariants = [], isGeneric, label = '...', icon, icons, url, description = '' }) => {
           const variants =
             sceneVariants.length > 1
               ? sceneVariants.map((variant) => ({
@@ -382,7 +380,9 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
           return {
             id,
             title: label,
-            icon: imgSrc,
+            icon,
+            icons,
+            uploadedImage: url,
             description: m(SlimdownView, { md: description, removeParagraphs: true }),
             variants,
             isGeneric,
@@ -394,42 +394,40 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
       return m('.col.s12', [
         m(
           '.right',
-          m('img.white.circle', {
-            src: scriptImage,
-            alt: 'Icon',
-            style: { padding: '2px', height: '64px' },
-            // style: { border: '2px solid black', borderRadius: '10px', maxWidth: '100px', maxHeight: '100px' },
+          m(IconStrip, {
+            className: 'script-viewer-icon-strip',
+            fallback: scriptIcon,
+            icon,
+            icons,
+            uploadedImage: url,
           })
         ),
         m(
           'h4',
-          highlighter(`${label}${productIds.length > 0 ? ` (${toCommaSeparatedList(products, productIds)})` : ''}`)
+          highlighter(label)
         ),
-        m('.script-provenance', [
-          m('span', `${t('LANGUAGE')}: ${language === 'nl' ? 'Nederlands' : 'English'}`),
-          aiGenerated && m('span.badge', t('AI_GENERATED')),
-          unreviewed && m('span.badge', t('UNREVIEWED')),
-          starterOrigin && m('span', [
-            `${t('STARTER_PROVENANCE')}: ${starterMetadata?.title || starterOrigin.bundleId} ${starterOrigin.bundleVersion}`,
-            starterMetadata?.license && [
-              ' · ',
-              m('a', {
-                href: starterMetadata.licenseUrl,
-                target: '_blank',
-                rel: 'noopener noreferrer',
-              }, starterMetadata.license),
-            ],
-          ]),
-          starterMetadata?.attribution && m('span', starterMetadata.attribution),
-          starterMetadata?.disclaimer && m('span', starterMetadata.disclaimer),
+        m('.script-metadata', [
+          m('span.script-meta-pill.script-meta-pill--language', `${t('LANGUAGE')}: ${language === 'nl' ? 'Nederlands' : 'English'}`),
+          productIds.map((productId) => {
+            const product = products.find(({ id }) => id === productId);
+            return product && m('span.script-meta-pill.script-meta-pill--product', {
+              key: productId,
+            }, `${t('PRODUCTS', 1)}: ${product.label}`);
+          }),
+          geoLocationIds.length > 0 && m(
+            'span.script-meta-pill.script-meta-pill--location',
+            highlighter(`${t('GEOLOCATIONS', geoLocationIds.length)}: ${toCommaSeparatedList(geoLocations, geoLocationIds)}`)
+          ),
+          aiGenerated && m('span.script-meta-pill.script-meta-pill--generated', t('AI_GENERATED')),
+          unreviewed && m('span.script-meta-pill.script-meta-pill--review', t('UNREVIEWED')),
+          starterOrigin && m('span.script-meta-pill.script-meta-pill--source', {
+            title: [
+              `${starterMetadata?.title || starterOrigin.bundleId} ${starterOrigin.bundleVersion}`,
+              starterMetadata?.attribution,
+              starterMetadata?.license && `${starterMetadata.license}${starterMetadata.licenseUrl ? `: ${starterMetadata.licenseUrl}` : ''}`,
+            ].filter(Boolean).join('\n'),
+          }, t('STARTER_PROVENANCE')),
         ]),
-        geoLocationIds.length > 0 &&
-        m(
-          'i.geo-location',
-          highlighter(
-            `${t('GEOLOCATIONS', geoLocationIds.length)}: ${toCommaSeparatedList(geoLocations, geoLocationIds)}`
-          )
-        ),
 
         description && m('p', highlighter(description)),
         m('.row', [

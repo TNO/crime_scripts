@@ -1,8 +1,12 @@
 import m, { type FactoryComponent, type Vnode } from 'mithril';
+import { type IconValue, missingIcon } from '../../models';
+import { IconStrip } from './icon-strip';
 
 export interface ProcessStep {
   id: string;
-  icon: string;
+  icon?: IconValue;
+  icons?: IconValue[];
+  uploadedImage?: string;
   title: string;
   description?: string | Vnode;
   variants?: ProcessVariant[];
@@ -61,12 +65,15 @@ export const ProcessVisualization: FactoryComponent<ProcessVisualizationAttrs> =
             },
             [
               m('.step-number', i + 1),
-              m('img.step-icon', {
-                src: step.icon,
-                alt: `${step.title} icon`,
+              m(IconStrip, {
+                className: 'step-icon-strip',
+                fallback: missingIcon,
+                icon: step.icon,
+                icons: step.icons,
+                uploadedImage: step.uploadedImage,
               }),
               m('.step-content', [
-                m('h4.step-title.truncate', step.title),
+                m('h4.step-title', step.title),
                 step.curVariantId &&
                   step.variants &&
                   m('h5.step-subtitle', step.variants.find((v) => v.id === step.curVariantId)?.title),

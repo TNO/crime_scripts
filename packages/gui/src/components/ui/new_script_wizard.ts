@@ -1,7 +1,15 @@
 import m from 'mithril';
 import { snackbar, uniqueId, Wizard } from 'mithril-materialized';
 import { LayoutForm, type UIForm } from 'mithril-ui-form';
-import { createScenesFromOutline, type CrimeScript, Pages, type SceneOutline, STATUS } from '../../models';
+import {
+  type CrimeScript,
+  createScenesFromOutline,
+  IconOpts,
+  MAX_COMPOSED_ICONS,
+  Pages,
+  type SceneOutline,
+  STATUS,
+} from '../../models';
 import { i18n, type MeiosisComponent, t } from '../../services';
 
 export const NewScriptWizard: MeiosisComponent = () => {
@@ -46,8 +54,20 @@ export const NewScriptWizard: MeiosisComponent = () => {
                 obj: crimeScript,
                 form: [
                   { id: 'label', type: 'text', className: 'col s12', label: t('NAME') },
+                  {
+                    id: 'icons',
+                    type: 'select',
+                    multiple: true,
+                    className: 'col s12',
+                    label: t('ICONS_MAX_FOUR'),
+                    options: IconOpts,
+                  },
                   { id: 'description', type: 'textarea', className: 'col s12', label: t('SUMMARY') },
-                ],
+                ] as UIForm<Partial<CrimeScript>>,
+                onchange: () => {
+                  crimeScript.icons = crimeScript.icons?.slice(0, MAX_COMPOSED_ICONS);
+                  crimeScript.icon = crimeScript.icons?.[0];
+                },
               }),
           },
           {

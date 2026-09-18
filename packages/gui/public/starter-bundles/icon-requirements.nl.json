@@ -62,11 +62,11 @@
     },
     {
       "id": "nl-starter:icon:script-synthetische-drugsproductie",
-      "description": "Zwart solid-fill pictogram van een fabriekspand met waarschuwingsdriehoek, zonder chemische details.",
+      "description": "Zwart solid-fill pictogram van een laboratoriumkolf, gecombineerd met pillen.",
       "appliesTo": [
         "nl-starter:script:synthetische-drugsproductie"
       ],
-      "iconKey": "builtin:hazard-building"
+      "iconKey": "builtin:laboratory"
     },
     {
       "id": "nl-starter:icon:scene-synthetische-drugsproductie-locatie",
@@ -118,11 +118,11 @@
     },
     {
       "id": "nl-starter:icon:script-arbeidsuitbuiting",
-      "description": "Zwart solid-fill pictogram van een werknemer achter een gebroken hek met beschermende hand.",
+      "description": "Zwart solid-fill pictogram van een gebalde vuist tussen twee moersleutels en een gebroken ketting.",
       "appliesTo": [
         "nl-starter:script:arbeidsuitbuiting"
       ],
-      "iconKey": "builtin:worker-protection"
+      "iconKey": "builtin:labour-exploitation"
     },
     {
       "id": "nl-starter:icon:scene-arbeidsuitbuiting-werving",
@@ -174,11 +174,11 @@
     },
     {
       "id": "nl-starter:icon:script-mensenhandel-seksuele-uitbuiting",
-      "description": "Zwart solid-fill pictogram van een beschermende hand rond een persoon, waardig en niet-stigmatiserend.",
+      "description": "Zwart solid-fill pictogram van twee personen met een verbindende beweging.",
       "appliesTo": [
         "nl-starter:script:mensenhandel-seksuele-uitbuiting"
       ],
-      "iconKey": "builtin:victim-support"
+      "iconKey": "builtin:human-trafficking"
     },
     {
       "id": "nl-starter:icon:scene-mensenhandel-seksuele-uitbuiting-benadering",
@@ -230,11 +230,11 @@
     },
     {
       "id": "nl-starter:icon:script-witwassen-legale-ondernemingen",
-      "description": "Zwart solid-fill pictogram van een winkelgevel met vergrootglas boven financiële regels.",
+      "description": "Zwart solid-fill pictogram van een wasmachine met euroteken, gecombineerd met een winkelgevel.",
       "appliesTo": [
         "nl-starter:script:witwassen-legale-ondernemingen"
       ],
-      "iconKey": "builtin:financial-investigation"
+      "iconKey": "builtin:money-laundering"
     },
     {
       "id": "nl-starter:icon:scene-witwassen-legale-ondernemingen-bedrijf",
@@ -286,11 +286,11 @@
     },
     {
       "id": "nl-starter:icon:script-illegale-dumping-chemisch-afval",
-      "description": "Zwart solid-fill pictogram van een lekkend vat naast een waarschuwingsdriehoek.",
+      "description": "Zwart solid-fill pictogram van illegale afvaldumping bij water en industrie.",
       "appliesTo": [
         "nl-starter:script:illegale-dumping-chemisch-afval"
       ],
-      "iconKey": "builtin:hazardous-waste"
+      "iconKey": "builtin:illegal-dumping"
     },
     {
       "id": "nl-starter:icon:scene-illegale-dumping-chemisch-afval-ontstaan",
@@ -342,11 +342,11 @@
     },
     {
       "id": "nl-starter:icon:script-stroperij-illegale-wildhandel",
-      "description": "Zwart solid-fill pictogram van een beschermde diersilhouet binnen een schild.",
+      "description": "Tweedelige compositie van stroperij en illegale handel in wilde dieren.",
       "appliesTo": [
         "nl-starter:script:stroperij-illegale-wildhandel"
       ],
-      "iconKey": "builtin:wildlife-protection"
+      "iconKey": "builtin:poaching"
     },
     {
       "id": "nl-starter:icon:scene-stroperij-illegale-wildhandel-selectie",
@@ -398,11 +398,11 @@
     },
     {
       "id": "nl-starter:icon:script-voertuigdiefstal-export",
-      "description": "Zwart solid-fill pictogram van een auto, scheepscontainer en vergrootglas.",
+      "description": "Zwart solid-fill pictogram van autodiefstal met een auto en gemaskerde dader.",
       "appliesTo": [
         "nl-starter:script:voertuigdiefstal-export"
       ],
-      "iconKey": "builtin:vehicle-export"
+      "iconKey": "builtin:car-theft"
     },
     {
       "id": "nl-starter:icon:scene-voertuigdiefstal-export-selectie",
@@ -454,11 +454,11 @@
     },
     {
       "id": "nl-starter:icon:script-phishing-betaalfraude",
-      "description": "Zwart solid-fill pictogram van een bericht met haak naast een beveiligd betaalteken.",
+      "description": "Tweedelige compositie van een phishingbericht met vishaak en betaalfraude.",
       "appliesTo": [
         "nl-starter:script:phishing-betaalfraude"
       ],
-      "iconKey": "builtin:phishing-protection"
+      "iconKey": "builtin:phishing"
     },
     {
       "id": "nl-starter:icon:scene-phishing-betaalfraude-voorbereiding",
@@ -514,7 +514,7 @@
       "appliesTo": [
         "nl-starter:script:illegale-asbestverwijdering"
       ],
-      "iconKey": "builtin:asbestos-safety"
+      "iconKey": "builtin:illegal-asbestos-removal"
     },
     {
       "id": "nl-starter:icon:scene-illegale-asbestverwijdering-opdracht",

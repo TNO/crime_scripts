@@ -107,6 +107,8 @@ export type Labelled = {
   url?: string;
   /** Icon */
   icon?: IconValue;
+  /** Up to three icons forming a visual description. */
+  icons?: IconValue[];
 };
 
 export type Literature = Labelled & {
