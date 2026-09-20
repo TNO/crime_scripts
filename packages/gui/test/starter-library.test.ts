@@ -123,6 +123,9 @@ test('the Dutch starter fixture contains exactly the ten researched topics', () 
 
 test('Dutch starter scripts meet source, provenance, scene, and editorial requirements', () => {
   const fixture = validateStarterBundle(JSON.parse(readFileSync('public/starter-bundles/nl.json', 'utf8')));
+  const allCastIds = new Set(fixture.cast.map(({ id }) => id));
+  const allAttributeIds = new Set(fixture.attributes.map(({ id }) => id));
+  const allTransportIds = new Set(fixture.transports.map(({ id }) => id));
   const allPartnerIds = new Set(fixture.partners.map(({ id }) => id));
   const approvedSourceHosts = [
     'europa.eu',
@@ -177,12 +180,21 @@ test('Dutch starter scripts meet source, provenance, scene, and editorial requir
       assert.ok(scene.variants.length >= 1);
       scene.variants.forEach((act) => {
         assert.match(act.id, /^nl-starter:script:[a-z0-9-]+:scene:[a-z0-9-]+:variant:[a-z0-9-]+$/);
-        assert.ok(act.activities.length >= 1);
+        assert.ok(act.activities.length >= 3 && act.activities.length <= 4);
+        assert.equal(new Set(act.activities.map(({ label }) => label)).size, act.activities.length);
+        assert.notEqual(act.activities[0].label, scene.label);
+        assert.notEqual(act.activities[0].label, act.label);
         assert.ok(act.conditions.length >= 1);
         assert.ok(act.indicators.length >= 1);
         assert.ok(act.measures.length >= 1);
         assert.ok(act.activities.some(({ cast }) => (cast || []).length > 0));
         assert.ok(act.activities.every(({ description }) => (description || '').length >= 30));
+        act.activities.forEach((activity) => {
+          assert.match(activity.id, new RegExp(`^${act.id.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}:activity:`));
+          (activity.cast || []).forEach((castId) => assert.ok(allCastIds.has(castId)));
+          (activity.attributes || []).forEach((attributeId) => assert.ok(allAttributeIds.has(attributeId)));
+          (activity.transports || []).forEach((transportId) => assert.ok(allTransportIds.has(transportId)));
+        });
         assert.ok(act.conditions.every(({ description }) => (description || '').length >= 30));
         assert.ok(act.indicators.every(({ description }) => (description || '').length >= 30));
         assert.ok(act.measures.every(({ description }) => (description || '').length >= 30));
@@ -211,6 +223,7 @@ test('Dutch starter scripts meet source, provenance, scene, and editorial requir
     ]),
   ];
   everyId.forEach(({ id }) => assert.match(id, /^nl-starter:/));
+  assert.equal(new Set(everyId.map(({ id }) => id)).size, everyId.length);
 });
 
 test('Dutch starter icon requirements cover every script and scene exactly once', () => {
