@@ -255,7 +255,6 @@ export const setCaseSearchResults: Service<State> = {
       [...products, ...transports, ...attributes, ...geoLocations, ...locations, ...cast],
       crimeScriptFilter
     );
-    console.log(`${crimeScriptLabels || ''} ${caseFilter || ''}`);
     const allFlexResults: FlexSearchResult[] = [];
     if (crimeScriptLabels || caseFilter) {
       const searchWords = tokenize(`${crimeScriptLabels || ''} ${caseFilter || ''}`, i18n.stopwords);

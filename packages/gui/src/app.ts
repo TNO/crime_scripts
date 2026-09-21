@@ -29,7 +29,6 @@ window.onbeforeunload = (e) => {
 
 const guiLanguage = window.localStorage.getItem(LANGUAGE) || 'nl';
 i18n.addOnChangeListener((locale: string) => {
-  console.log(`GUI language loaded: ${locale}`);
   routingSvc.init(locale);
   m.route(document.body, routingSvc.defaultRoute, routingSvc.routingTable());
 });

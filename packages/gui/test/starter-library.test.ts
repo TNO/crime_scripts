@@ -184,6 +184,10 @@ test('Dutch starter scripts meet source, provenance, scene, and editorial requir
         assert.equal(new Set(act.activities.map(({ label }) => label)).size, act.activities.length);
         assert.notEqual(act.activities[0].label, scene.label);
         assert.notEqual(act.activities[0].label, act.label);
+        assert.ok(
+          act.activities.every(({ label }) => !label.toLocaleLowerCase().includes(script.label.toLocaleLowerCase()))
+        );
+        assert.ok(act.activities.every(({ label }) => !/risicocontext voor .* afbakenen/i.test(label)));
         assert.ok(act.conditions.length >= 1);
         assert.ok(act.indicators.length >= 1);
         assert.ok(act.measures.length >= 1);

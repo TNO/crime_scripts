@@ -193,8 +193,6 @@ export const scrollToSection = (e: MouseEvent, id: string): void => {
 
   if (element) {
     element.scrollIntoView({ behavior: 'smooth' });
-  } else {
-    console.log(`Element with id ${id} not found.`);
   }
 };
 
@@ -208,10 +206,8 @@ export const scrollToTop = (): void => {
 export const scrollToActiveItem = (selector: string) => {
   // Wait for DOM update
   window.requestAnimationFrame(() => {
-    console.log(`Scrolling to ${selector}`);
     const activeItem = document.getElementById(selector);
     if (activeItem) {
-      console.log('Found selector');
       activeItem.scrollIntoView({
         behavior: 'smooth',
         block: 'center',

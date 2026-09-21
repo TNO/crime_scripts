@@ -108,7 +108,6 @@ export const CrimeScriptViewer: FactoryComponent<{
     }
     // Note: We don't modify curSceneVariants when trackId is undefined
     // This allows the current variant selection to remain intact
-    console.log('Track selection updated:', { trackId, newVariants: trackId ? curSceneVariants : 'unchanged' });
   };
 
   // Helper function to handle variant selection
@@ -131,13 +130,6 @@ export const CrimeScriptViewer: FactoryComponent<{
       curTrackId = undefined;
     }
 
-    console.log('Variant selection changed:', {
-      sceneId,
-      variantId,
-      curSceneVariants,
-      matchingTrack: matchingTrack?.label,
-      curTrackId,
-    });
   };
 
   const visualizeAct = (
@@ -313,15 +305,6 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
       const matchingTrack = findMatchingTrack(tracks, curSceneVariants);
       const canAddTrack = scenesWithVariantsCnt && hasCompleteSelection && !matchingTrack;
 
-      console.log('Render state:', {
-        curTrackId,
-        curTrack: curTrack?.label,
-        curSceneVariants,
-        hasCompleteSelection,
-        canAddTrack,
-        matchingTrack: matchingTrack?.label,
-      });
-
       const [allCastIds, allAttrIds, allLocIds, allTranspIds] = scenes.reduce(
         (acc, stage) => {
           const act =
@@ -459,7 +442,6 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
               checkedId: curTrackId || '',
               onchange: (options) => {
                 const selectedTrackId = options[0];
-                console.log('Track dropdown changed:', selectedTrackId);
                 if (selectedTrackId && selectedTrackId !== '') {
                   updateTrackSelection(selectedTrackId, tracks, scenes);
                 } else {

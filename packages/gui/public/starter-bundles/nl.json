@@ -1,7 +1,7 @@
 {
   "schemaVersion": 3,
   "version": 1,
-  "lastUpdate": 1789671600000,
+  "lastUpdate": 1790022491184,
   "starterBundle": {
     "id": "pax-nl-starter",
     "version": "1.0.0",
@@ -79,8 +79,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:cocaine-import-havens:scene:voorbereiding:variant:hoofdroute:activity:kern",
-                  "label": "Cocaïne-import via zeehavens — risicocontext voor logistieke voorbereiding afbakenen",
-                  "description": "Analisten brengen voor cocaïne-import via zeehavens de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond logistieke voorbereiding in beeld.",
+                  "label": "Een netwerk zoekt toegang tot een internationale goederenstroom en verdeelt taken",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Onverklaarbare belangstelling voor lading, planning of toegangsrechten”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:crimineel-netwerk",
@@ -107,7 +107,7 @@
                 },
                 {
                   "id": "nl-starter:script:cocaine-import-havens:scene:voorbereiding:variant:hoofdroute:activity:opvolging",
-                  "label": "Pas risicogerichte screening en functiescheiding toe — Logistieke voorbereiding",
+                  "label": "Pas risicogerichte screening en functiescheiding toe",
                   "description": "Bevoegde partners wegen het signaal “Onverklaarbare belangstelling voor lading, planning of toegangsrechten” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -167,8 +167,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:cocaine-import-havens:scene:invoer:variant:hoofdroute:activity:kern",
-                  "label": "Cocaïne-import via zeehavens — risicocontext voor aankomst van goederen afbakenen",
-                  "description": "Analisten brengen voor cocaïne-import via zeehavens de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond aankomst van goederen in beeld.",
+                  "label": "Goederen komen via een internationale vervoersketen in een Nederlandse zeehaven aan",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Afwijkingen tussen laadgegevens, planning en feitelijke goederenbeweging”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:crimineel-netwerk",
@@ -203,7 +203,7 @@
                 },
                 {
                   "id": "nl-starter:script:cocaine-import-havens:scene:invoer:variant:hoofdroute:activity:opvolging",
-                  "label": "Combineer douane-, terminal- en vervoerssignalen binnen wettelijke kaders — Aankomst van goederen",
+                  "label": "Combineer douane-, terminal- en vervoerssignalen binnen wettelijke kaders",
                   "description": "Bevoegde partners wegen het signaal “Afwijkingen tussen laadgegevens, planning en feitelijke goederenbeweging” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -268,8 +268,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:cocaine-import-havens:scene:toegang:variant:hoofdroute:activity:kern",
-                  "label": "Cocaïne-import via zeehavens — risicocontext voor onrechtmatige toegang afbakenen",
-                  "description": "Analisten brengen voor cocaïne-import via zeehavens de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond onrechtmatige toegang in beeld.",
+                  "label": "Een facilitator probeert invloed of toegang in de havenketen te verkrijgen",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Ongebruikelijke toegangspogingen, gedeelde passen of afwijkende dienstpatronen”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:facilitator",
@@ -296,7 +296,7 @@
                 },
                 {
                   "id": "nl-starter:script:cocaine-import-havens:scene:toegang:variant:hoofdroute:activity:opvolging",
-                  "label": "Beperk rechten tot taken en controleer toegang en integriteit periodiek — Onrechtmatige toegang",
+                  "label": "Beperk rechten tot taken en controleer toegang en integriteit periodiek",
                   "description": "Bevoegde partners wegen het signaal “Ongebruikelijke toegangspogingen, gedeelde passen of afwijkende dienstpatronen” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -357,8 +357,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:cocaine-import-havens:scene:uithalen:variant:hoofdroute:activity:kern",
-                  "label": "Cocaïne-import via zeehavens — risicocontext voor onttrekking aan de goederenstroom afbakenen",
-                  "description": "Analisten brengen voor cocaïne-import via zeehavens de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond onttrekking aan de goederenstroom in beeld.",
+                  "label": "Verdachte goederen worden buiten het normale logistieke proces gebracht",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Verbroken verzegeling, ongeplande verplaatsing of een mismatch in registratie”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:crimineel-netwerk",
@@ -389,7 +389,7 @@
                 },
                 {
                   "id": "nl-starter:script:cocaine-import-havens:scene:uithalen:variant:hoofdroute:activity:opvolging",
-                  "label": "Borg cameratoezicht, meldprocedures en snelle gezamenlijke opvolging — Onttrekking aan de goederenstroom",
+                  "label": "Borg cameratoezicht, meldprocedures en snelle gezamenlijke opvolging",
                   "description": "Bevoegde partners wegen het signaal “Verbroken verzegeling, ongeplande verplaatsing of een mismatch in registratie” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -452,8 +452,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:cocaine-import-havens:scene:vervoer:variant:hoofdroute:activity:kern",
-                  "label": "Cocaïne-import via zeehavens — risicocontext voor binnenlands vervolgtransport afbakenen",
-                  "description": "Analisten brengen voor cocaïne-import via zeehavens de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond binnenlands vervolgtransport in beeld.",
+                  "label": "Het netwerk laat goederen verder vervoeren naar een tijdelijke bestemming",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Korte huur, wisselende voertuigen of documenten die niet bij de rit passen”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:coordinator",
@@ -484,7 +484,7 @@
                 },
                 {
                   "id": "nl-starter:script:cocaine-import-havens:scene:vervoer:variant:hoofdroute:activity:opvolging",
-                  "label": "Controleer vervoerders, opdrachtgevers en afwijkingen in de keten — Binnenlands vervolgtransport",
+                  "label": "Controleer vervoerders, opdrachtgevers en afwijkingen in de keten",
                   "description": "Bevoegde partners wegen het signaal “Korte huur, wisselende voertuigen of documenten die niet bij de rit passen” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -549,8 +549,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:cocaine-import-havens:scene:verstoring:variant:hoofdroute:activity:kern",
-                  "label": "Cocaïne-import via zeehavens — risicocontext voor onderzoek en verstoring afbakenen",
-                  "description": "Analisten brengen voor cocaïne-import via zeehavens de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond onderzoek en verstoring in beeld.",
+                  "label": "Partners brengen signalen samen, beschermen medewerkers en verstoren betrokken netwerken",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Terugkerende combinaties van personen, bedrijven, ladingen en toegangsmomenten”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:crimineel-netwerk",
@@ -577,7 +577,7 @@
                 },
                 {
                   "id": "nl-starter:script:cocaine-import-havens:scene:verstoring:variant:hoofdroute:activity:opvolging",
-                  "label": "Werk informatiegestuurd en bied een veilig meldkanaal voor havenmedewerkers — Onderzoek en verstoring",
+                  "label": "Werk informatiegestuurd en bied een veilig meldkanaal voor havenmedewerkers",
                   "description": "Bevoegde partners wegen het signaal “Terugkerende combinaties van personen, bedrijven, ladingen en toegangsmomenten” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -694,8 +694,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:synthetische-drugsproductie:scene:locatie:variant:hoofdroute:activity:kern",
-                  "label": "Productie van synthetische drugs — risicocontext voor geschikte locatie zoeken afbakenen",
-                  "description": "Analisten brengen voor productie van synthetische drugs de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond geschikte locatie zoeken in beeld.",
+                  "label": "Een netwerk regelt een pand waar activiteiten uit het zicht kunnen plaatsvinden",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Afgeschermde ramen, ongebruikelijke aanpassingen of activiteit op vreemde tijden”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:crimineel-netwerk",
@@ -722,7 +722,7 @@
                 },
                 {
                   "id": "nl-starter:script:synthetische-drugsproductie:scene:locatie:variant:hoofdroute:activity:opvolging",
-                  "label": "Controleer verhuur, feitelijk gebruik en brandveiligheid risicogericht — Geschikte locatie zoeken",
+                  "label": "Controleer verhuur, feitelijk gebruik en brandveiligheid risicogericht",
                   "description": "Bevoegde partners wegen het signaal “Afgeschermde ramen, ongebruikelijke aanpassingen of activiteit op vreemde tijden” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -782,8 +782,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:synthetische-drugsproductie:scene:middelen:variant:hoofdroute:activity:kern",
-                  "label": "Productie van synthetische drugs — risicocontext voor middelen en apparatuur verwerven afbakenen",
-                  "description": "Analisten brengen voor productie van synthetische drugs de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond middelen en apparatuur verwerven in beeld.",
+                  "label": "Betrokkenen verzamelen goederen die in samenhang een verhoogd risico vormen",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Bestellingen die niet passen bij bedrijfsprofiel of normale bedrijfsvoering”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:coordinator",
@@ -816,7 +816,7 @@
                 },
                 {
                   "id": "nl-starter:script:synthetische-drugsproductie:scene:middelen:variant:hoofdroute:activity:opvolging",
-                  "label": "Stimuleer zorgvuldige klantcontrole en een veilig meldproces — Middelen en apparatuur verwerven",
+                  "label": "Stimuleer zorgvuldige klantcontrole en een veilig meldproces",
                   "description": "Bevoegde partners wegen het signaal “Bestellingen die niet passen bij bedrijfsprofiel of normale bedrijfsvoering” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -880,8 +880,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:synthetische-drugsproductie:scene:inrichting:variant:hoofdroute:activity:kern",
-                  "label": "Productie van synthetische drugs — risicocontext voor locatie inrichten afbakenen",
-                  "description": "Analisten brengen voor productie van synthetische drugs de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond locatie inrichten in beeld.",
+                  "label": "De locatie wordt aangepast voor verboden productie, met risico voor omwonenden en hulpdiensten",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Chemische geur, condens, verborgen afvoer of opvallend energiegebruik”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:crimineel-netwerk",
@@ -908,7 +908,7 @@
                 },
                 {
                   "id": "nl-starter:script:synthetische-drugsproductie:scene:inrichting:variant:hoofdroute:activity:opvolging",
-                  "label": "Benader verdachte locaties niet zelf; meld en laat deskundigen het risico beoordelen — Locatie inrichten",
+                  "label": "Benader verdachte locaties niet zelf; meld en laat deskundigen het risico beoordelen",
                   "description": "Bevoegde partners wegen het signaal “Chemische geur, condens, verborgen afvoer of opvallend energiegebruik” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -969,8 +969,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:synthetische-drugsproductie:scene:productie:variant:hoofdroute:activity:kern",
-                  "label": "Productie van synthetische drugs — risicocontext voor verboden productie afbakenen",
-                  "description": "Analisten brengen voor productie van synthetische drugs de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond verboden productie in beeld.",
+                  "label": "Het netwerk laat een chemisch proces uitvoeren",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Herhaald bezoek, veiligheidsincidenten of zichtbare chemische verontreiniging”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:coordinator",
@@ -999,7 +999,7 @@
                 },
                 {
                   "id": "nl-starter:script:synthetische-drugsproductie:scene:productie:variant:hoofdroute:activity:opvolging",
-                  "label": "Gebruik een multidisciplinair interventieplan met veilige afstand en specialistische ondersteuning — Verboden productie",
+                  "label": "Gebruik een multidisciplinair interventieplan met veilige afstand en specialistische ondersteuning",
                   "description": "Bevoegde partners wegen het signaal “Herhaald bezoek, veiligheidsincidenten of zichtbare chemische verontreiniging” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -1062,8 +1062,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:synthetische-drugsproductie:scene:afvoer:variant:hoofdroute:activity:kern",
-                  "label": "Productie van synthetische drugs — risicocontext voor afvoer van product en residu afbakenen",
-                  "description": "Analisten brengen voor productie van synthetische drugs de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond afvoer van product en residu in beeld.",
+                  "label": "Producten en gevaarlijke resten verlaten de locatie via gescheiden stromen",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Onverklaarbare vloeistoffen, verpakkingen of schade aan bodem en vegetatie”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:crimineel-netwerk",
@@ -1094,7 +1094,7 @@
                 },
                 {
                   "id": "nl-starter:script:synthetische-drugsproductie:scene:afvoer:variant:hoofdroute:activity:opvolging",
-                  "label": "Beveilig de vindplaats en schakel milieu- en opsporingsdiensten in — Afvoer van product en residu",
+                  "label": "Beveilig de vindplaats en schakel milieu- en opsporingsdiensten in",
                   "description": "Bevoegde partners wegen het signaal “Onverklaarbare vloeistoffen, verpakkingen of schade aan bodem en vegetatie” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -1159,8 +1159,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:synthetische-drugsproductie:scene:onderzoek:variant:hoofdroute:activity:kern",
-                  "label": "Productie van synthetische drugs — risicocontext voor veilig onderzoek en herstel afbakenen",
-                  "description": "Analisten brengen voor productie van synthetische drugs de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond veilig onderzoek en herstel in beeld.",
+                  "label": "Partners leggen verbanden vast, ontmantelen veilig en beperken schade voor omgeving en slachtoffers",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Overeenkomende pand-, bedrijfs-, aankoop- en afvalsignalen”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:crimineel-netwerk",
@@ -1187,7 +1187,7 @@
                 },
                 {
                   "id": "nl-starter:script:synthetische-drugsproductie:scene:onderzoek:variant:hoofdroute:activity:opvolging",
-                  "label": "Maak één veiligheids- en informatieplan voor opsporing, ontmanteling en nazorg — Veilig onderzoek en herstel",
+                  "label": "Maak één veiligheids- en informatieplan voor opsporing, ontmanteling en nazorg",
                   "description": "Bevoegde partners wegen het signaal “Overeenkomende pand-, bedrijfs-, aankoop- en afvalsignalen” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -1300,8 +1300,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:arbeidsuitbuiting:scene:werving:variant:hoofdroute:activity:kern",
-                  "label": "Arbeidsuitbuiting — risicocontext voor werving met misleiding afbakenen",
-                  "description": "Analisten brengen voor arbeidsuitbuiting de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond werving met misleiding in beeld.",
+                  "label": "Een werker krijgt een aanbod dat gunstiger lijkt dan de feitelijke voorwaarden",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Voorwaarden zijn mondeling, onvolledig of veranderen na aankomst”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:ronselaar",
@@ -1328,7 +1328,7 @@
                 },
                 {
                   "id": "nl-starter:script:arbeidsuitbuiting:scene:werving:variant:hoofdroute:activity:opvolging",
-                  "label": "Geef vóór vertrek begrijpelijke informatie over loon, werk en rechten — Werving met misleiding",
+                  "label": "Geef vóór vertrek begrijpelijke informatie over loon, werk en rechten",
                   "description": "Bevoegde partners wegen het signaal “Voorwaarden zijn mondeling, onvolledig of veranderen na aankomst” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -1389,8 +1389,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:arbeidsuitbuiting:scene:reis:variant:hoofdroute:activity:kern",
-                  "label": "Arbeidsuitbuiting — risicocontext voor reis en plaatsing afbakenen",
-                  "description": "Analisten brengen voor arbeidsuitbuiting de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond reis en plaatsing in beeld.",
+                  "label": "De werker reist en wordt geplaatst bij een werkgever, inlener of tussenpersoon",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “De werker kent adres, werkgever of contractpartij niet goed”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:ronselaar",
@@ -1423,7 +1423,7 @@
                 },
                 {
                   "id": "nl-starter:script:arbeidsuitbuiting:scene:reis:variant:hoofdroute:activity:opvolging",
-                  "label": "Controleer ketenpartijen en bied een onafhankelijk contactpunt — Reis en plaatsing",
+                  "label": "Controleer ketenpartijen en bied een onafhankelijk contactpunt",
                   "description": "Bevoegde partners wegen het signaal “De werker kent adres, werkgever of contractpartij niet goed” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -1488,8 +1488,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:arbeidsuitbuiting:scene:afhankelijkheid:variant:hoofdroute:activity:kern",
-                  "label": "Arbeidsuitbuiting — risicocontext voor afhankelijkheid vergroten afbakenen",
-                  "description": "Analisten brengen voor arbeidsuitbuiting de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond afhankelijkheid vergroten in beeld.",
+                  "label": "De exploitant beperkt de vrije keuze door documenten, geld, vervoer of huisvesting te beheersen",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Documenten worden ingenomen of werknemers kunnen niet vrij vertrekken”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:werkgever",
@@ -1518,7 +1518,7 @@
                 },
                 {
                   "id": "nl-starter:script:arbeidsuitbuiting:scene:afhankelijkheid:variant:hoofdroute:activity:opvolging",
-                  "label": "Scheid loon, vervoer en huisvesting en faciliteer vertrouwelijke gesprekken — Afhankelijkheid vergroten",
+                  "label": "Scheid loon, vervoer en huisvesting en faciliteer vertrouwelijke gesprekken",
                   "description": "Bevoegde partners wegen het signaal “Documenten worden ingenomen of werknemers kunnen niet vrij vertrekken” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -1579,8 +1579,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:arbeidsuitbuiting:scene:werk:variant:hoofdroute:activity:kern",
-                  "label": "Arbeidsuitbuiting — risicocontext voor uitbuitende arbeid afbakenen",
-                  "description": "Analisten brengen voor arbeidsuitbuiting de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond uitbuitende arbeid in beeld.",
+                  "label": "De werker verricht arbeid onder onveilige, oneerlijke of gedwongen omstandigheden",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Extreem lange inzet, looninhouding, angst of onveilige omstandigheden”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:werkgever",
@@ -1607,7 +1607,7 @@
                 },
                 {
                   "id": "nl-starter:script:arbeidsuitbuiting:scene:werk:variant:hoofdroute:activity:opvolging",
-                  "label": "Voer onaangekondigd toezicht uit en spreek werknemers buiten het zicht van leidinggevenden — Uitbuitende arbeid",
+                  "label": "Voer onaangekondigd toezicht uit en spreek werknemers buiten het zicht van leidinggevenden",
                   "description": "Bevoegde partners wegen het signaal “Extreem lange inzet, looninhouding, angst of onveilige omstandigheden” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -1669,8 +1669,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:arbeidsuitbuiting:scene:controle:variant:hoofdroute:activity:kern",
-                  "label": "Arbeidsuitbuiting — risicocontext voor controle en intimidatie afbakenen",
-                  "description": "Analisten brengen voor arbeidsuitbuiting de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond controle en intimidatie in beeld.",
+                  "label": "Dreiging, schulden of isolatie houden de werker in de situatie",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Een begeleider antwoordt steeds namens werknemers of beperkt contact”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:werkgever",
@@ -1697,7 +1697,7 @@
                 },
                 {
                   "id": "nl-starter:script:arbeidsuitbuiting:scene:controle:variant:hoofdroute:activity:opvolging",
-                  "label": "Gebruik getrainde tolken, een veilige meldroute en een individuele risico-inschatting — Controle en intimidatie",
+                  "label": "Gebruik getrainde tolken, een veilige meldroute en een individuele risico-inschatting",
                   "description": "Bevoegde partners wegen het signaal “Een begeleider antwoordt steeds namens werknemers of beperkt contact” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -1760,8 +1760,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:arbeidsuitbuiting:scene:bescherming:variant:hoofdroute:activity:kern",
-                  "label": "Arbeidsuitbuiting — risicocontext voor bescherming en onderzoek afbakenen",
-                  "description": "Analisten brengen voor arbeidsuitbuiting de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond bescherming en onderzoek in beeld.",
+                  "label": "Instanties stoppen de uitbuiting, beschermen betrokkenen en onderzoeken werkgevers en ketenpartners",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Meerdere signalen van dwang, financieel voordeel en afhankelijkheid komen samen”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:slachtoffer",
@@ -1790,7 +1790,7 @@
                 },
                 {
                   "id": "nl-starter:script:arbeidsuitbuiting:scene:bescherming:variant:hoofdroute:activity:opvolging",
-                  "label": "Stem opvang, loonherstel, toezicht en strafrechtelijk onderzoek af — Bescherming en onderzoek",
+                  "label": "Stem opvang, loonherstel, toezicht en strafrechtelijk onderzoek af",
                   "description": "Bevoegde partners wegen het signaal “Meerdere signalen van dwang, financieel voordeel en afhankelijkheid komen samen” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -1905,8 +1905,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:mensenhandel-seksuele-uitbuiting:scene:benadering:variant:hoofdroute:activity:kern",
-                  "label": "Mensenhandel voor seksuele uitbuiting — risicocontext voor benadering afbakenen",
-                  "description": "Analisten brengen voor mensenhandel voor seksuele uitbuiting de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond benadering in beeld.",
+                  "label": "Een ronselaar legt contact en speelt in op persoonlijke, sociale of financiële kwetsbaarheid",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Een relatie of werkaanbod ontwikkelt snel en gaat samen met druk of geheimhouding”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:ronselaar",
@@ -1933,7 +1933,7 @@
                 },
                 {
                   "id": "nl-starter:script:mensenhandel-seksuele-uitbuiting:scene:benadering:variant:hoofdroute:activity:opvolging",
-                  "label": "Vergroot weerbaarheid en bied laagdrempelige, vertrouwelijke hulp — Benadering",
+                  "label": "Vergroot weerbaarheid en bied laagdrempelige, vertrouwelijke hulp",
                   "description": "Bevoegde partners wegen het signaal “Een relatie of werkaanbod ontwikkelt snel en gaat samen met druk of geheimhouding” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -1994,8 +1994,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:mensenhandel-seksuele-uitbuiting:scene:isolatie:variant:hoofdroute:activity:kern",
-                  "label": "Mensenhandel voor seksuele uitbuiting — risicocontext voor isolatie en controle afbakenen",
-                  "description": "Analisten brengen voor mensenhandel voor seksuele uitbuiting de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond isolatie en controle in beeld.",
+                  "label": "De exploitant beperkt zelfstandige contacten en beheert praktische keuzes",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Een ander beheert telefoon, identiteitsdocument, vervoer of afspraken”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:seksueel-exploitant",
@@ -2024,7 +2024,7 @@
                 },
                 {
                   "id": "nl-starter:script:mensenhandel-seksuele-uitbuiting:scene:isolatie:variant:hoofdroute:activity:opvolging",
-                  "label": "Spreek mogelijke slachtoffers afzonderlijk en gebruik een veilige contactmethode — Isolatie en controle",
+                  "label": "Spreek mogelijke slachtoffers afzonderlijk en gebruik een veilige contactmethode",
                   "description": "Bevoegde partners wegen het signaal “Een ander beheert telefoon, identiteitsdocument, vervoer of afspraken” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -2087,8 +2087,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:mensenhandel-seksuele-uitbuiting:scene:exploitatie:variant:hoofdroute:activity:kern",
-                  "label": "Mensenhandel voor seksuele uitbuiting — risicocontext voor seksuele uitbuiting afbakenen",
-                  "description": "Analisten brengen voor mensenhandel voor seksuele uitbuiting de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond seksuele uitbuiting in beeld.",
+                  "label": "Het slachtoffer moet seksuele diensten verrichten terwijl een ander profiteert en dwang of misbruik inzet",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Angst, gebrek aan zeggenschap, letsel of betalingen aan een controlerende derde”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:seksueel-exploitant",
@@ -2115,7 +2115,7 @@
                 },
                 {
                   "id": "nl-starter:script:mensenhandel-seksuele-uitbuiting:scene:exploitatie:variant:hoofdroute:activity:opvolging",
-                  "label": "Train toezichthouders in niet-veroordelende signalering en veilige doorverwijzing — Seksuele uitbuiting",
+                  "label": "Train toezichthouders in niet-veroordelende signalering en veilige doorverwijzing",
                   "description": "Bevoegde partners wegen het signaal “Angst, gebrek aan zeggenschap, letsel of betalingen aan een controlerende derde” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -2177,8 +2177,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:mensenhandel-seksuele-uitbuiting:scene:verplaatsing:variant:hoofdroute:activity:kern",
-                  "label": "Mensenhandel voor seksuele uitbuiting — risicocontext voor verplaatsing tussen locaties afbakenen",
-                  "description": "Analisten brengen voor mensenhandel voor seksuele uitbuiting de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond verplaatsing tussen locaties in beeld.",
+                  "label": "Het slachtoffer wordt tussen werk- of verblijfsplaatsen verplaatst of moet vaak wisselen",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Steeds wisselende locaties, begeleiders of contactgegevens”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:seksueel-exploitant",
@@ -2211,7 +2211,7 @@
                 },
                 {
                   "id": "nl-starter:script:mensenhandel-seksuele-uitbuiting:scene:verplaatsing:variant:hoofdroute:activity:opvolging",
-                  "label": "Deel signalen rechtmatig tussen regio's en behoud één hulpcontact — Verplaatsing tussen locaties",
+                  "label": "Deel signalen rechtmatig tussen regio's en behoud één hulpcontact",
                   "description": "Bevoegde partners wegen het signaal “Steeds wisselende locaties, begeleiders of contactgegevens” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -2277,8 +2277,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:mensenhandel-seksuele-uitbuiting:scene:opbrengst:variant:hoofdroute:activity:kern",
-                  "label": "Mensenhandel voor seksuele uitbuiting — risicocontext voor afromen van opbrengsten afbakenen",
-                  "description": "Analisten brengen voor mensenhandel voor seksuele uitbuiting de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond afromen van opbrengsten in beeld.",
+                  "label": "De exploitant neemt inkomsten over of legt onduidelijke schulden en kosten op",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Het slachtoffer heeft weinig toegang tot eigen inkomsten of rekening”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:seksueel-exploitant",
@@ -2307,7 +2307,7 @@
                 },
                 {
                   "id": "nl-starter:script:mensenhandel-seksuele-uitbuiting:scene:opbrengst:variant:hoofdroute:activity:opvolging",
-                  "label": "Onderzoek geldstromen en bied veilige financiële ondersteuning — Afromen van opbrengsten",
+                  "label": "Onderzoek geldstromen en bied veilige financiële ondersteuning",
                   "description": "Bevoegde partners wegen het signaal “Het slachtoffer heeft weinig toegang tot eigen inkomsten of rekening” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -2371,8 +2371,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:mensenhandel-seksuele-uitbuiting:scene:interventie:variant:hoofdroute:activity:kern",
-                  "label": "Mensenhandel voor seksuele uitbuiting — risicocontext voor bescherming en onderzoek afbakenen",
-                  "description": "Analisten brengen voor mensenhandel voor seksuele uitbuiting de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond bescherming en onderzoek in beeld.",
+                  "label": "Partners beoordelen veiligheid, regelen passende hulp en onderzoeken uitbuiting en financieel voordeel",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Meerdere signalen van dwang, afhankelijkheid en voordeel komen samen”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:slachtoffer",
@@ -2399,7 +2399,7 @@
                 },
                 {
                   "id": "nl-starter:script:mensenhandel-seksuele-uitbuiting:scene:interventie:variant:hoofdroute:activity:opvolging",
-                  "label": "Werk traumabewust, voorkom herhaald vertellen en stem bescherming en opsporing af — Bescherming en onderzoek",
+                  "label": "Werk traumabewust, voorkom herhaald vertellen en stem bescherming en opsporing af",
                   "description": "Bevoegde partners wegen het signaal “Meerdere signalen van dwang, afhankelijkheid en voordeel komen samen” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -2513,8 +2513,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:witwassen-legale-ondernemingen:scene:bedrijf:variant:hoofdroute:activity:kern",
-                  "label": "Witwassen via legale ondernemingen — risicocontext voor onderneming selecteren afbakenen",
-                  "description": "Analisten brengen voor witwassen via legale ondernemingen de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond onderneming selecteren in beeld.",
+                  "label": "Een netwerk gebruikt of beïnvloedt een onderneming met legale activiteiten",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Eigendom, leiding of financiering wijzigt zonder duidelijke economische reden”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:crimineel-netwerk",
@@ -2541,7 +2541,7 @@
                 },
                 {
                   "id": "nl-starter:script:witwassen-legale-ondernemingen:scene:bedrijf:variant:hoofdroute:activity:opvolging",
-                  "label": "Controleer uiteindelijk belanghebbenden en zakelijke achtergrond risicogericht — Onderneming selecteren",
+                  "label": "Controleer uiteindelijk belanghebbenden en zakelijke achtergrond risicogericht",
                   "description": "Bevoegde partners wegen het signaal “Eigendom, leiding of financiering wijzigt zonder duidelijke economische reden” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -2603,8 +2603,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:witwassen-legale-ondernemingen:scene:inbreng:variant:hoofdroute:activity:kern",
-                  "label": "Witwassen via legale ondernemingen — risicocontext voor verdachte waarde inbrengen afbakenen",
-                  "description": "Analisten brengen voor witwassen via legale ondernemingen de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond verdachte waarde inbrengen in beeld.",
+                  "label": "Geld of andere waarde komt in de bedrijfs- of betaalstroom terecht",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Omzet, stortingen of betalingen passen niet bij locatie, voorraad of branche”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:ondernemer",
@@ -2633,7 +2633,7 @@
                 },
                 {
                   "id": "nl-starter:script:witwassen-legale-ondernemingen:scene:inbreng:variant:hoofdroute:activity:opvolging",
-                  "label": "Vergelijk geldstromen met aantoonbare bedrijfsactiviteiten en meld ongebruikelijke transacties — Verdachte waarde inbrengen",
+                  "label": "Vergelijk geldstromen met aantoonbare bedrijfsactiviteiten en meld ongebruikelijke transacties",
                   "description": "Bevoegde partners wegen het signaal “Omzet, stortingen of betalingen passen niet bij locatie, voorraad of branche” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -2694,8 +2694,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:witwassen-legale-ondernemingen:scene:administratie:variant:hoofdroute:activity:kern",
-                  "label": "Witwassen via legale ondernemingen — risicocontext voor legale schijn vastleggen afbakenen",
-                  "description": "Analisten brengen voor witwassen via legale ondernemingen de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond legale schijn vastleggen in beeld.",
+                  "label": "Administratie en overeenkomsten geven transacties een ogenschijnlijk zakelijke reden",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Facturen, contracten of goederenstromen spreken elkaar tegen”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:ondernemer",
@@ -2722,7 +2722,7 @@
                 },
                 {
                   "id": "nl-starter:script:witwassen-legale-ondernemingen:scene:administratie:variant:hoofdroute:activity:opvolging",
-                  "label": "Verifieer tegenpartijen, prestaties en documenten op basis van risico — Legale schijn vastleggen",
+                  "label": "Verifieer tegenpartijen, prestaties en documenten op basis van risico",
                   "description": "Bevoegde partners wegen het signaal “Facturen, contracten of goederenstromen spreken elkaar tegen” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -2784,8 +2784,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:witwassen-legale-ondernemingen:scene:verplaatsing:variant:hoofdroute:activity:kern",
-                  "label": "Witwassen via legale ondernemingen — risicocontext voor waarde verplaatsen afbakenen",
-                  "description": "Analisten brengen voor witwassen via legale ondernemingen de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond waarde verplaatsen in beeld.",
+                  "label": "Waarde beweegt tussen rekeningen, bedrijven of landen en wordt moeilijker te herleiden",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Snelle doorboekingen, veel verbonden partijen of onverklaarde buitenlandse stromen”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:financieel-facilitator",
@@ -2812,7 +2812,7 @@
                 },
                 {
                   "id": "nl-starter:script:witwassen-legale-ondernemingen:scene:verplaatsing:variant:hoofdroute:activity:opvolging",
-                  "label": "Versterk transactiemonitoring en deel relevante signalen via bevoegde kanalen — Waarde verplaatsen",
+                  "label": "Versterk transactiemonitoring en deel relevante signalen via bevoegde kanalen",
                   "description": "Bevoegde partners wegen het signaal “Snelle doorboekingen, veel verbonden partijen of onverklaarde buitenlandse stromen” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -2874,8 +2874,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:witwassen-legale-ondernemingen:scene:besteding:variant:hoofdroute:activity:kern",
-                  "label": "Witwassen via legale ondernemingen — risicocontext voor opbrengst benutten afbakenen",
-                  "description": "Analisten brengen voor witwassen via legale ondernemingen de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond opbrengst benutten in beeld.",
+                  "label": "De opbrengst wordt gebruikt voor bezit, investeringen of verdere bedrijfsactiviteiten",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Aankopen of investeringen passen niet bij bekend inkomen of bedrijfsresultaat”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:crimineel-netwerk",
@@ -2904,7 +2904,7 @@
                 },
                 {
                   "id": "nl-starter:script:witwassen-legale-ondernemingen:scene:besteding:variant:hoofdroute:activity:opvolging",
-                  "label": "Onderzoek herkomst van vermogen en benut fiscale en strafrechtelijke interventies — Opbrengst benutten",
+                  "label": "Onderzoek herkomst van vermogen en benut fiscale en strafrechtelijke interventies",
                   "description": "Bevoegde partners wegen het signaal “Aankopen of investeringen passen niet bij bekend inkomen of bedrijfsresultaat” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -2969,8 +2969,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:witwassen-legale-ondernemingen:scene:verstoring:variant:hoofdroute:activity:kern",
-                  "label": "Witwassen via legale ondernemingen — risicocontext voor netwerk en facilitators verstoren afbakenen",
-                  "description": "Analisten brengen voor witwassen via legale ondernemingen de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond netwerk en facilitators verstoren in beeld.",
+                  "label": "Partners verbinden bedrijfs-, fiscale en financiële informatie en beschermen bonafide sectoren",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Terugkerende relaties tussen ondernemingen, bestuurders, adressen en transacties”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:ondernemer",
@@ -2999,7 +2999,7 @@
                 },
                 {
                   "id": "nl-starter:script:witwassen-legale-ondernemingen:scene:verstoring:variant:hoofdroute:activity:opvolging",
-                  "label": "Maak een gezamenlijk interventieplan met toezicht, opsporing en herstel — Netwerk en facilitators verstoren",
+                  "label": "Maak een gezamenlijk interventieplan met toezicht, opsporing en herstel",
                   "description": "Bevoegde partners wegen het signaal “Terugkerende relaties tussen ondernemingen, bestuurders, adressen en transacties” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -3115,8 +3115,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:illegale-dumping-chemisch-afval:scene:ontstaan:variant:hoofdroute:activity:kern",
-                  "label": "Illegale dumping van chemisch afval — risicocontext voor gevaarlijk residu ontstaat afbakenen",
-                  "description": "Analisten brengen voor illegale dumping van chemisch afval de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond gevaarlijk residu ontstaat in beeld.",
+                  "label": "Bij verboden productie blijft chemisch residu achter dat veilig verwerkt zou moeten worden",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Ongebruikelijke vaten, chemische geur of sporen van lekkage bij een pand”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:crimineel-netwerk",
@@ -3143,7 +3143,7 @@
                 },
                 {
                   "id": "nl-starter:script:illegale-dumping-chemisch-afval:scene:ontstaan:variant:hoofdroute:activity:opvolging",
-                  "label": "Meld signalen zonder materiaal aan te raken en laat deskundigen beoordelen — Gevaarlijk residu ontstaat",
+                  "label": "Meld signalen zonder materiaal aan te raken en laat deskundigen beoordelen",
                   "description": "Bevoegde partners wegen het signaal “Ongebruikelijke vaten, chemische geur of sporen van lekkage bij een pand” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -3205,8 +3205,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:illegale-dumping-chemisch-afval:scene:verzameling:variant:hoofdroute:activity:kern",
-                  "label": "Illegale dumping van chemisch afval — risicocontext voor afval verzamelen afbakenen",
-                  "description": "Analisten brengen voor illegale dumping van chemisch afval de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond afval verzamelen in beeld.",
+                  "label": "Residuen worden tijdelijk opgeslagen en klaargezet voor illegale afvoer",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Niet-passende verpakkingen, verkleuring of beschadigde vloer en vegetatie”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:afvalontdoener",
@@ -3233,7 +3233,7 @@
                 },
                 {
                   "id": "nl-starter:script:illegale-dumping-chemisch-afval:scene:verzameling:variant:hoofdroute:activity:opvolging",
-                  "label": "Controleer verdachte opslag vanuit milieu- en brandveiligheidstoezicht — Afval verzamelen",
+                  "label": "Controleer verdachte opslag vanuit milieu- en brandveiligheidstoezicht",
                   "description": "Bevoegde partners wegen het signaal “Niet-passende verpakkingen, verkleuring of beschadigde vloer en vegetatie” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -3294,8 +3294,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:illegale-dumping-chemisch-afval:scene:transport:variant:hoofdroute:activity:kern",
-                  "label": "Illegale dumping van chemisch afval — risicocontext voor verdacht afvaltransport afbakenen",
-                  "description": "Analisten brengen voor illegale dumping van chemisch afval de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond verdacht afvaltransport in beeld.",
+                  "label": "Een vervoerder verplaatst chemisch afval zonder transparante herkomst of bestemming",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Lading, vervoersdocumenten en bedrijfsactiviteit passen niet bij elkaar”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:afvalontdoener",
@@ -3328,7 +3328,7 @@
                 },
                 {
                   "id": "nl-starter:script:illegale-dumping-chemisch-afval:scene:transport:variant:hoofdroute:activity:opvolging",
-                  "label": "Controleer vervoerder en afvaldocumenten risicogericht en veilig — Verdacht afvaltransport",
+                  "label": "Controleer vervoerder en afvaldocumenten risicogericht en veilig",
                   "description": "Bevoegde partners wegen het signaal “Lading, vervoersdocumenten en bedrijfsactiviteit passen niet bij elkaar” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -3393,8 +3393,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:illegale-dumping-chemisch-afval:scene:dumping:variant:hoofdroute:activity:kern",
-                  "label": "Illegale dumping van chemisch afval — risicocontext voor dumping of lozing afbakenen",
-                  "description": "Analisten brengen voor illegale dumping van chemisch afval de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond dumping of lozing in beeld.",
+                  "label": "Afval wordt achtergelaten of geloosd, met direct risico voor mens en milieu",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Achtergelaten verpakkingen, vreemde vloeistof, geur of plotselinge vegetatieschade”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:afvalontdoener"
@@ -3419,7 +3419,7 @@
                 },
                 {
                   "id": "nl-starter:script:illegale-dumping-chemisch-afval:scene:dumping:variant:hoofdroute:activity:opvolging",
-                  "label": "Zet ruim af, blijf bovenwinds waar relevant en bel hulpdiensten; raak niets aan — Dumping of lozing",
+                  "label": "Zet ruim af, blijf bovenwinds waar relevant en bel hulpdiensten; raak niets aan",
                   "description": "Bevoegde partners wegen het signaal “Achtergelaten verpakkingen, vreemde vloeistof, geur of plotselinge vegetatieschade” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -3480,8 +3480,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:illegale-dumping-chemisch-afval:scene:melding:variant:hoofdroute:activity:kern",
-                  "label": "Illegale dumping van chemisch afval — risicocontext voor melding en veilige respons afbakenen",
-                  "description": "Analisten brengen voor illegale dumping van chemisch afval de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond melding en veilige respons in beeld.",
+                  "label": "Melder en hulpdiensten behandelen de locatie eerst als mogelijk gevaarlijk",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Mensen of dieren hebben klachten na nabijheid van de vindplaats”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:werknemer",
@@ -3508,7 +3508,7 @@
                 },
                 {
                   "id": "nl-starter:script:illegale-dumping-chemisch-afval:scene:melding:variant:hoofdroute:activity:opvolging",
-                  "label": "Registreer waarnemingen op afstand en volg instructies van hulpdiensten — Melding en veilige respons",
+                  "label": "Registreer waarnemingen op afstand en volg instructies van hulpdiensten",
                   "description": "Bevoegde partners wegen het signaal “Mensen of dieren hebben klachten na nabijheid van de vindplaats” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -3571,8 +3571,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:illegale-dumping-chemisch-afval:scene:herstel:variant:hoofdroute:activity:kern",
-                  "label": "Illegale dumping van chemisch afval — risicocontext voor onderzoek en milieuschade herstellen afbakenen",
-                  "description": "Analisten brengen voor illegale dumping van chemisch afval de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond onderzoek en milieuschade herstellen in beeld.",
+                  "label": "Partners onderzoeken herkomst, verwijderen afval deskundig en volgen bodem- of waterschade",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Overeenkomsten in verpakkingen, locaties, voertuigen of bedrijfsrelaties”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:afvalontdoener",
@@ -3599,7 +3599,7 @@
                 },
                 {
                   "id": "nl-starter:script:illegale-dumping-chemisch-afval:scene:herstel:variant:hoofdroute:activity:opvolging",
-                  "label": "Stem opsporing, monstername, sanering en kostenverhaal vooraf af — Onderzoek en milieuschade herstellen",
+                  "label": "Stem opsporing, monstername, sanering en kostenverhaal vooraf af",
                   "description": "Bevoegde partners wegen het signaal “Overeenkomsten in verpakkingen, locaties, voertuigen of bedrijfsrelaties” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -3712,8 +3712,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:stroperij-illegale-wildhandel:scene:selectie:variant:hoofdroute:activity:kern",
-                  "label": "Stroperij en illegale handel in wilde dieren — risicocontext voor doelsoort of gebied selecteren afbakenen",
-                  "description": "Analisten brengen voor stroperij en illegale handel in wilde dieren de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond doelsoort of gebied selecteren in beeld.",
+                  "label": "Een dader richt zich op een beschermde soort of kwetsbaar natuurgebied",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Herhaalde verstoring, verdachte observatie of online vraag naar beschermde soorten”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:stroper",
@@ -3740,7 +3740,7 @@
                 },
                 {
                   "id": "nl-starter:script:stroperij-illegale-wildhandel:scene:selectie:variant:hoofdroute:activity:opvolging",
-                  "label": "Gebruik gebiedstoezicht en deel marktinformatie zonder kwetsbare locaties openbaar te maken — Doelsoort of gebied selecteren",
+                  "label": "Gebruik gebiedstoezicht en deel marktinformatie zonder kwetsbare locaties openbaar te maken",
                   "description": "Bevoegde partners wegen het signaal “Herhaalde verstoring, verdachte observatie of online vraag naar beschermde soorten” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -3801,8 +3801,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:stroperij-illegale-wildhandel:scene:onttrekking:variant:hoofdroute:activity:kern",
-                  "label": "Stroperij en illegale handel in wilde dieren — risicocontext voor illegale onttrekking afbakenen",
-                  "description": "Analisten brengen voor stroperij en illegale handel in wilde dieren de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond illegale onttrekking in beeld.",
+                  "label": "Dieren, planten of delen daarvan worden zonder geldige toestemming uit de natuur gehaald",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Beschadigde verblijfplaatsen, achtergelaten materiaal of plotselinge afname”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:stroper"
@@ -3823,7 +3823,7 @@
                 },
                 {
                   "id": "nl-starter:script:stroperij-illegale-wildhandel:scene:onttrekking:variant:hoofdroute:activity:opvolging",
-                  "label": "Combineer toezicht, publieksmeldingen en ecologische monitoring — Illegale onttrekking",
+                  "label": "Combineer toezicht, publieksmeldingen en ecologische monitoring",
                   "description": "Bevoegde partners wegen het signaal “Beschadigde verblijfplaatsen, achtergelaten materiaal of plotselinge afname” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -3881,8 +3881,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:stroperij-illegale-wildhandel:scene:verzameling:variant:hoofdroute:activity:kern",
-                  "label": "Stroperij en illegale handel in wilde dieren — risicocontext voor verzamelen en bewaren afbakenen",
-                  "description": "Analisten brengen voor stroperij en illegale handel in wilde dieren de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond verzamelen en bewaren in beeld.",
+                  "label": "Illegaal verkregen specimens worden tijdelijk bijeengebracht of verzorgd",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Specimens zonder passende administratie, merktekens of welzijnszorg”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:stroper",
@@ -3909,7 +3909,7 @@
                 },
                 {
                   "id": "nl-starter:script:stroperij-illegale-wildhandel:scene:verzameling:variant:hoofdroute:activity:opvolging",
-                  "label": "Controleer herkomstbewijzen, registratie en dierenwelzijn deskundig — Verzamelen en bewaren",
+                  "label": "Controleer herkomstbewijzen, registratie en dierenwelzijn deskundig",
                   "description": "Bevoegde partners wegen het signaal “Specimens zonder passende administratie, merktekens of welzijnszorg” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -3970,8 +3970,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:stroperij-illegale-wildhandel:scene:handel:variant:hoofdroute:activity:kern",
-                  "label": "Stroperij en illegale handel in wilde dieren — risicocontext voor aanbod en verkoop afbakenen",
-                  "description": "Analisten brengen voor stroperij en illegale handel in wilde dieren de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond aanbod en verkoop in beeld.",
+                  "label": "Een handelaar biedt specimens of producten aan via fysieke of online kanalen",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Beschermde soort, onduidelijke herkomst of ontbrekende vergunning in een aanbod”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:wildhandelaar",
@@ -4000,7 +4000,7 @@
                 },
                 {
                   "id": "nl-starter:script:stroperij-illegale-wildhandel:scene:handel:variant:hoofdroute:activity:opvolging",
-                  "label": "Monitor openbare markten risicogericht en informeer kopers over legale herkomst — Aanbod en verkoop",
+                  "label": "Monitor openbare markten risicogericht en informeer kopers over legale herkomst",
                   "description": "Bevoegde partners wegen het signaal “Beschermde soort, onduidelijke herkomst of ontbrekende vergunning in een aanbod” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -4063,8 +4063,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:stroperij-illegale-wildhandel:scene:vervoer:variant:hoofdroute:activity:kern",
-                  "label": "Stroperij en illegale handel in wilde dieren — risicocontext voor vervoer en grenspassage afbakenen",
-                  "description": "Analisten brengen voor stroperij en illegale handel in wilde dieren de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond vervoer en grenspassage in beeld.",
+                  "label": "Specimens bewegen door handels- en vervoersketens en kunnen grenzen passeren",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Documenten, soort, aantal of bestemming komen niet met elkaar overeen”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:wildhandelaar",
@@ -4097,7 +4097,7 @@
                 },
                 {
                   "id": "nl-starter:script:stroperij-illegale-wildhandel:scene:vervoer:variant:hoofdroute:activity:opvolging",
-                  "label": "Laat soort en vergunning door deskundigen controleren en deel signalen internationaal — Vervoer en grenspassage",
+                  "label": "Laat soort en vergunning door deskundigen controleren en deel signalen internationaal",
                   "description": "Bevoegde partners wegen het signaal “Documenten, soort, aantal of bestemming komen niet met elkaar overeen” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -4163,8 +4163,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:stroperij-illegale-wildhandel:scene:interventie:variant:hoofdroute:activity:kern",
-                  "label": "Stroperij en illegale handel in wilde dieren — risicocontext voor inbeslagname, zorg en onderzoek afbakenen",
-                  "description": "Analisten brengen voor stroperij en illegale handel in wilde dieren de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond inbeslagname, zorg en onderzoek in beeld.",
+                  "label": "Partners stellen specimens veilig, regelen passende zorg en onderzoeken de hele keten",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Herhaalde relaties tussen aanbieders, betalingen, zendingen en herkomstgebieden”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:wildhandelaar",
@@ -4191,7 +4191,7 @@
                 },
                 {
                   "id": "nl-starter:script:stroperij-illegale-wildhandel:scene:interventie:variant:hoofdroute:activity:opvolging",
-                  "label": "Plan bewijsborging, soortzorg, financieel onderzoek en vervolging gezamenlijk — Inbeslagname, zorg en onderzoek",
+                  "label": "Plan bewijsborging, soortzorg, financieel onderzoek en vervolging gezamenlijk",
                   "description": "Bevoegde partners wegen het signaal “Herhaalde relaties tussen aanbieders, betalingen, zendingen en herkomstgebieden” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -4306,8 +4306,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:voertuigdiefstal-export:scene:selectie:variant:hoofdroute:activity:kern",
-                  "label": "Voertuigdiefstal en export — risicocontext voor voertuig selecteren afbakenen",
-                  "description": "Analisten brengen voor voertuigdiefstal en export de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond voertuig selecteren in beeld.",
+                  "label": "Een netwerk zoekt voertuigen met verwachte handelswaarde en beperkte zichtbaarheid",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Herhaalde ongebruikelijke belangstelling voor voertuig, sleutel of verblijfplaats”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:voertuigdief",
@@ -4336,7 +4336,7 @@
                 },
                 {
                   "id": "nl-starter:script:voertuigdiefstal-export:scene:selectie:variant:hoofdroute:activity:opvolging",
-                  "label": "Beperk onnodige voertuiggegevens en stimuleer risicobewust parkeren — Voertuig selecteren",
+                  "label": "Beperk onnodige voertuiggegevens en stimuleer risicobewust parkeren",
                   "description": "Bevoegde partners wegen het signaal “Herhaalde ongebruikelijke belangstelling voor voertuig, sleutel of verblijfplaats” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -4398,8 +4398,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:voertuigdiefstal-export:scene:diefstal:variant:hoofdroute:activity:kern",
-                  "label": "Voertuigdiefstal en export — risicocontext voor voertuig wegnemen afbakenen",
-                  "description": "Analisten brengen voor voertuigdiefstal en export de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond voertuig wegnemen in beeld.",
+                  "label": "Daders nemen een voertuig weg zonder toestemming",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Verdachte verplaatsing, manipulatie of afwijkend voertuiggedrag”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:voertuigdief",
@@ -4430,7 +4430,7 @@
                 },
                 {
                   "id": "nl-starter:script:voertuigdiefstal-export:scene:diefstal:variant:hoofdroute:activity:opvolging",
-                  "label": "Gebruik gelaagde beveiliging en meld diefstal direct met correcte kenmerken — Voertuig wegnemen",
+                  "label": "Gebruik gelaagde beveiliging en meld diefstal direct met correcte kenmerken",
                   "description": "Bevoegde partners wegen het signaal “Verdachte verplaatsing, manipulatie of afwijkend voertuiggedrag” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -4493,8 +4493,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:voertuigdiefstal-export:scene:opslag:variant:hoofdroute:activity:kern",
-                  "label": "Voertuigdiefstal en export — risicocontext voor tijdelijke opslag afbakenen",
-                  "description": "Analisten brengen voor voertuigdiefstal en export de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond tijdelijke opslag in beeld.",
+                  "label": "Het voertuig wordt tijdelijk gestald terwijl het netwerk vervolgacties organiseert",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Korte huur, afgeschermde opslag of voertuigen zonder duidelijke eigenaar”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:voertuigdief",
@@ -4525,7 +4525,7 @@
                 },
                 {
                   "id": "nl-starter:script:voertuigdiefstal-export:scene:opslag:variant:hoofdroute:activity:opvolging",
-                  "label": "Controleer huurders en meld ongebruikelijk gebruik via een veilig kanaal — Tijdelijke opslag",
+                  "label": "Controleer huurders en meld ongebruikelijk gebruik via een veilig kanaal",
                   "description": "Bevoegde partners wegen het signaal “Korte huur, afgeschermde opslag of voertuigen zonder duidelijke eigenaar” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -4588,8 +4588,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:voertuigdiefstal-export:scene:identiteit:variant:hoofdroute:activity:kern",
-                  "label": "Voertuigdiefstal en export — risicocontext voor herkomst verhullen afbakenen",
-                  "description": "Analisten brengen voor voertuigdiefstal en export de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond herkomst verhullen in beeld.",
+                  "label": "Documenten of zichtbare kenmerken worden onrechtmatig gewijzigd om herkomstonderzoek te bemoeilijken",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Kenmerken, documenten, onderdelen en registraties komen niet overeen”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:facilitator",
@@ -4618,7 +4618,7 @@
                 },
                 {
                   "id": "nl-starter:script:voertuigdiefstal-export:scene:identiteit:variant:hoofdroute:activity:opvolging",
-                  "label": "Laat identificatie deskundig controleren en verbind RDW-, politie- en verzekeringssignalen — Herkomst verhullen",
+                  "label": "Laat identificatie deskundig controleren en verbind RDW-, politie- en verzekeringssignalen",
                   "description": "Bevoegde partners wegen het signaal “Kenmerken, documenten, onderdelen en registraties komen niet overeen” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -4681,8 +4681,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:voertuigdiefstal-export:scene:handel:variant:hoofdroute:activity:kern",
-                  "label": "Voertuigdiefstal en export — risicocontext voor verkoop en transport afbakenen",
-                  "description": "Analisten brengen voor voertuigdiefstal en export de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond verkoop en transport in beeld.",
+                  "label": "Een gestolen voertuig wordt aangeboden of naar een andere regio of land vervoerd",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Prijs, verkoper, betaling, documenten of route passen niet bij een normale transactie”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:exporteur",
@@ -4717,7 +4717,7 @@
                 },
                 {
                   "id": "nl-starter:script:voertuigdiefstal-export:scene:handel:variant:hoofdroute:activity:opvolging",
-                  "label": "Controleer identiteit, eigendom en voertuigstatus vóór overdracht of export — Verkoop en transport",
+                  "label": "Controleer identiteit, eigendom en voertuigstatus vóór overdracht of export",
                   "description": "Bevoegde partners wegen het signaal “Prijs, verkoper, betaling, documenten of route passen niet bij een normale transactie” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -4785,8 +4785,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:voertuigdiefstal-export:scene:opsporing:variant:hoofdroute:activity:kern",
-                  "label": "Voertuigdiefstal en export — risicocontext voor terugvinden en netwerkonderzoek afbakenen",
-                  "description": "Analisten brengen voor voertuigdiefstal en export de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond terugvinden en netwerkonderzoek in beeld.",
+                  "label": "Partners registreren het voertuig, leggen verbanden en onderzoeken handel en facilitators",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Terugkerende relaties tussen voertuigen, documenten, bedrijven, opslag en transport”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:voertuigdief",
@@ -4815,7 +4815,7 @@
                 },
                 {
                   "id": "nl-starter:script:voertuigdiefstal-export:scene:opsporing:variant:hoofdroute:activity:opvolging",
-                  "label": "Registreer kenmerken direct en wissel gegevens uit via bevoegde nationale en internationale kanalen — Terugvinden en netwerkonderzoek",
+                  "label": "Registreer kenmerken direct en wissel gegevens uit via bevoegde nationale en internationale kanalen",
                   "description": "Bevoegde partners wegen het signaal “Terugkerende relaties tussen voertuigen, documenten, bedrijven, opslag en transport” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -4930,8 +4930,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:phishing-betaalfraude:scene:voorbereiding:variant:hoofdroute:activity:kern",
-                  "label": "Phishing en betaalfraude — risicocontext voor misleiding voorbereiden afbakenen",
-                  "description": "Analisten brengen voor phishing en betaalfraude de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond misleiding voorbereiden in beeld.",
+                  "label": "Een fraudeur kiest een geloofwaardige aanleiding en een doelgroep, zonder dat hier technische uitvoeringsdetails worden beschreven",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Onverwacht gebruik van merk, functie of actuele gebeurtenis in een verzoek”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:fraudeur",
@@ -4960,7 +4960,7 @@
                 },
                 {
                   "id": "nl-starter:script:phishing-betaalfraude:scene:voorbereiding:variant:hoofdroute:activity:opvolging",
-                  "label": "Beperk openbare persoonsgegevens en leg verificatieregels voor betaalverzoeken vast — Misleiding voorbereiden",
+                  "label": "Beperk openbare persoonsgegevens en leg verificatieregels voor betaalverzoeken vast",
                   "description": "Bevoegde partners wegen het signaal “Onverwacht gebruik van merk, functie of actuele gebeurtenis in een verzoek” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -5021,8 +5021,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:phishing-betaalfraude:scene:contact:variant:e-mail:activity:kern",
-                  "label": "Phishing en betaalfraude — risicocontext voor misleidend contact (e-mailroute) afbakenen",
-                  "description": "Analisten brengen voor phishing en betaalfraude de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond misleidend contact (e-mailroute) in beeld.",
+                  "label": "Het slachtoffer ontvangt een misleidende e-mail met druk om snel te handelen",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Afwijkend afzenderadres, onverwachte link of dringende toon”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:fraudeur",
@@ -5101,8 +5101,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:phishing-betaalfraude:scene:contact:variant:sms:activity:kern",
-                  "label": "Phishing en betaalfraude — risicocontext voor misleidend contact (sms-route) afbakenen",
-                  "description": "Analisten brengen voor phishing en betaalfraude de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond misleidend contact (sms-route) in beeld.",
+                  "label": "Het slachtoffer ontvangt een misleidend sms-bericht met druk om snel te handelen",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Onverwachte afzender, verkorte link of dringende toon”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:fraudeur",
@@ -5190,8 +5190,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:phishing-betaalfraude:scene:gegevens:variant:hoofdroute:activity:kern",
-                  "label": "Phishing en betaalfraude — risicocontext voor gegevens of toegang ontlokken afbakenen",
-                  "description": "Analisten brengen voor phishing en betaalfraude de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond gegevens of toegang ontlokken in beeld.",
+                  "label": "De fraudeur probeert vertrouwelijke gegevens, goedkeuring of accounttoegang te verkrijgen",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Onverwachte inlogmelding, onbekend apparaat of verzoek om beveiligingscodes”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:fraudeur",
@@ -5218,7 +5218,7 @@
                 },
                 {
                   "id": "nl-starter:script:phishing-betaalfraude:scene:gegevens:variant:hoofdroute:activity:opvolging",
-                  "label": "Gebruik phishingbestendige meervoudige authenticatie en deel nooit beveiligingscodes — Gegevens of toegang ontlokken",
+                  "label": "Gebruik phishingbestendige meervoudige authenticatie en deel nooit beveiligingscodes",
                   "description": "Bevoegde partners wegen het signaal “Onverwachte inlogmelding, onbekend apparaat of verzoek om beveiligingscodes” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -5279,8 +5279,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:phishing-betaalfraude:scene:betaling:variant:hoofdroute:activity:kern",
-                  "label": "Phishing en betaalfraude — risicocontext voor onrechtmatige betaling afbakenen",
-                  "description": "Analisten brengen voor phishing en betaalfraude de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond onrechtmatige betaling in beeld.",
+                  "label": "Een betaling wordt door misleiding gestart of naar een verkeerde begunstigde geleid",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Nieuwe begunstigde, gewijzigd rekeningnummer of transactie buiten normaal patroon”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:fraudeur",
@@ -5307,7 +5307,7 @@
                 },
                 {
                   "id": "nl-starter:script:phishing-betaalfraude:scene:betaling:variant:hoofdroute:activity:opvolging",
-                  "label": "Voer functiescheiding en terugbelcontrole in voor risicovolle betalingen — Onrechtmatige betaling",
+                  "label": "Voer functiescheiding en terugbelcontrole in voor risicovolle betalingen",
                   "description": "Bevoegde partners wegen het signaal “Nieuwe begunstigde, gewijzigd rekeningnummer of transactie buiten normaal patroon” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -5368,8 +5368,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:phishing-betaalfraude:scene:doorgifte:variant:hoofdroute:activity:kern",
-                  "label": "Phishing en betaalfraude — risicocontext voor geldstroom via derden afbakenen",
-                  "description": "Analisten brengen voor phishing en betaalfraude de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond geldstroom via derden in beeld.",
+                  "label": "Ontvangen geld beweegt via rekeningen van derden, waaronder mogelijke geldezels",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Rekening ontvangt en verzendt snel bedragen zonder passende economische reden”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:fraudeur",
@@ -5396,7 +5396,7 @@
                 },
                 {
                   "id": "nl-starter:script:phishing-betaalfraude:scene:doorgifte:variant:hoofdroute:activity:opvolging",
-                  "label": "Waarschuw voor geldezelwerving en monitor afwijkende rekeningpatronen — Geldstroom via derden",
+                  "label": "Waarschuw voor geldezelwerving en monitor afwijkende rekeningpatronen",
                   "description": "Bevoegde partners wegen het signaal “Rekening ontvangt en verzendt snel bedragen zonder passende economische reden” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -5459,8 +5459,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:phishing-betaalfraude:scene:respons:variant:hoofdroute:activity:kern",
-                  "label": "Phishing en betaalfraude — risicocontext voor melden, beperken en onderzoeken afbakenen",
-                  "description": "Analisten brengen voor phishing en betaalfraude de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond melden, beperken en onderzoeken in beeld.",
+                  "label": "Slachtoffer en organisaties blokkeren toegang, proberen financiële schade te beperken en bewaren relevante gegevens",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Meerdere meldingen delen afzender, domein, rekening of verhaal”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:slachtoffer",
@@ -5489,7 +5489,7 @@
                 },
                 {
                   "id": "nl-starter:script:phishing-betaalfraude:scene:respons:variant:hoofdroute:activity:opvolging",
-                  "label": "Meld direct bij bank en bevoegde instanties, wijzig toegang veilig en leg relevante feiten vast — Melden, beperken en onderzoeken",
+                  "label": "Meld direct bij bank en bevoegde instanties, wijzig toegang veilig en leg relevante feiten vast",
                   "description": "Bevoegde partners wegen het signaal “Meerdere meldingen delen afzender, domein, rekening of verhaal” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -5622,8 +5622,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:illegale-asbestverwijdering:scene:opdracht:variant:hoofdroute:activity:kern",
-                  "label": "Illegale asbestverwijdering — risicocontext voor opdracht en planning afbakenen",
-                  "description": "Analisten brengen voor illegale asbestverwijdering de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond opdracht en planning in beeld.",
+                  "label": "Een eigenaar of aannemer plant sloop of renovatie waarbij asbest aanwezig kan zijn",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Werk start snel terwijl bouwjaar, materiaal en onderzoek onduidelijk zijn”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:opdrachtgever",
@@ -5650,7 +5650,7 @@
                 },
                 {
                   "id": "nl-starter:script:illegale-asbestverwijdering:scene:opdracht:variant:hoofdroute:activity:opvolging",
-                  "label": "Controleer vooraf inventarisatieplicht, melding, opdrachtgever en uitvoerder — Opdracht en planning",
+                  "label": "Controleer vooraf inventarisatieplicht, melding, opdrachtgever en uitvoerder",
                   "description": "Bevoegde partners wegen het signaal “Werk start snel terwijl bouwjaar, materiaal en onderzoek onduidelijk zijn” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -5711,8 +5711,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:illegale-asbestverwijdering:scene:inventarisatie:variant:hoofdroute:activity:kern",
-                  "label": "Illegale asbestverwijdering — risicocontext voor inventarisatie omzeilen of negeren afbakenen",
-                  "description": "Analisten brengen voor illegale asbestverwijdering de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond inventarisatie omzeilen of negeren in beeld.",
+                  "label": "Mogelijk asbesthoudend materiaal wordt niet juist onderzocht of het rapport wordt niet gevolgd",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Rapport ontbreekt, is niet passend bij de locatie of sluit niet aan op het werk”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:malafide-aannemer",
@@ -5739,7 +5739,7 @@
                 },
                 {
                   "id": "nl-starter:script:illegale-asbestverwijdering:scene:inventarisatie:variant:hoofdroute:activity:opvolging",
-                  "label": "Laat een vereiste inventarisatie uitvoeren en controleer reikwijdte en geldigheid — Inventarisatie omzeilen of negeren",
+                  "label": "Laat een vereiste inventarisatie uitvoeren en controleer reikwijdte en geldigheid",
                   "description": "Bevoegde partners wegen het signaal “Rapport ontbreekt, is niet passend bij de locatie of sluit niet aan op het werk” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -5800,8 +5800,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:illegale-asbestverwijdering:scene:verwijdering:variant:hoofdroute:activity:kern",
-                  "label": "Illegale asbestverwijdering — risicocontext voor onveilige verwijdering afbakenen",
-                  "description": "Analisten brengen voor illegale asbestverwijdering de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond onveilige verwijdering in beeld.",
+                  "label": "Materiaal wordt bewerkt of verwijderd zonder passende beheersing en deskundigheid",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Beschadigd verdacht materiaal, stofverspreiding of ontbrekende afzetting”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:malafide-aannemer",
@@ -5828,7 +5828,7 @@
                 },
                 {
                   "id": "nl-starter:script:illegale-asbestverwijdering:scene:verwijdering:variant:hoofdroute:activity:opvolging",
-                  "label": "Stop het werk, houd afstand en laat deskundig beoordelen welke aanpak nodig is — Onveilige verwijdering",
+                  "label": "Stop het werk, houd afstand en laat deskundig beoordelen welke aanpak nodig is",
                   "description": "Bevoegde partners wegen het signaal “Beschadigd verdacht materiaal, stofverspreiding of ontbrekende afzetting” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -5888,8 +5888,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:illegale-asbestverwijdering:scene:werknemers:variant:hoofdroute:activity:kern",
-                  "label": "Illegale asbestverwijdering — risicocontext voor werknemers blootstellen afbakenen",
-                  "description": "Analisten brengen voor illegale asbestverwijdering de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond werknemers blootstellen in beeld.",
+                  "label": "Werknemers krijgen onvoldoende informatie, bescherming of mogelijkheid om onveilig werk te weigeren",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Werknemers kennen materiaal of werkplan niet en gebruiken ongeschikte bescherming”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:malafide-aannemer",
@@ -5916,7 +5916,7 @@
                 },
                 {
                   "id": "nl-starter:script:illegale-asbestverwijdering:scene:werknemers:variant:hoofdroute:activity:opvolging",
-                  "label": "Geef begrijpelijke instructies, bescherm melders en controleer arbeidsomstandigheden — Werknemers blootstellen",
+                  "label": "Geef begrijpelijke instructies, bescherm melders en controleer arbeidsomstandigheden",
                   "description": "Bevoegde partners wegen het signaal “Werknemers kennen materiaal of werkplan niet en gebruiken ongeschikte bescherming” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -5978,8 +5978,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:illegale-asbestverwijdering:scene:afvoer:variant:hoofdroute:activity:kern",
-                  "label": "Illegale asbestverwijdering — risicocontext voor onjuiste verpakking en afvoer afbakenen",
-                  "description": "Analisten brengen voor illegale asbestverwijdering de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond onjuiste verpakking en afvoer in beeld.",
+                  "label": "Asbesthoudend afval wordt niet volgens de geldende ketenregels aangeboden en vervoerd",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Verdacht bouwafval is beschadigd, ongemarkeerd of heeft onduidelijke documenten”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:malafide-aannemer",
@@ -6010,7 +6010,7 @@
                 },
                 {
                   "id": "nl-starter:script:illegale-asbestverwijdering:scene:afvoer:variant:hoofdroute:activity:opvolging",
-                  "label": "Zet materiaal niet zelf om en laat bevoegde diensten verpakking en bestemming controleren — Onjuiste verpakking en afvoer",
+                  "label": "Zet materiaal niet zelf om en laat bevoegde diensten verpakking en bestemming controleren",
                   "description": "Bevoegde partners wegen het signaal “Verdacht bouwafval is beschadigd, ongemarkeerd of heeft onduidelijke documenten” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [
@@ -6074,8 +6074,8 @@
               "activities": [
                 {
                   "id": "nl-starter:script:illegale-asbestverwijdering:scene:toezicht:variant:hoofdroute:activity:kern",
-                  "label": "Illegale asbestverwijdering — risicocontext voor toezicht, onderzoek en herstel afbakenen",
-                  "description": "Analisten brengen voor illegale asbestverwijdering de betrokken rollen, beschermingsbehoeften en rechtmatig beschikbare context rond toezicht, onderzoek en herstel in beeld.",
+                  "label": "Toezichthouders stoppen onveilig werk, beperken blootstelling en onderzoeken betrokken partijen",
+                  "description": "Breng de betrokken handelingen, rollen en overdrachtsmomenten in kaart en toets daarbij het signaal “Melding, inventarisatie, uitvoerder, werkplan en afvalregistratie sluiten niet op elkaar aan”.",
                   "type": 1,
                   "cast": [
                     "nl-starter:cast:malafide-aannemer",
@@ -6104,7 +6104,7 @@
                 },
                 {
                   "id": "nl-starter:script:illegale-asbestverwijdering:scene:toezicht:variant:hoofdroute:activity:opvolging",
-                  "label": "Stem bestuursrechtelijk, arbeidsrechtelijk en strafrechtelijk optreden af en regel veilige sanering — Toezicht, onderzoek en herstel",
+                  "label": "Stem bestuursrechtelijk, arbeidsrechtelijk en strafrechtelijk optreden af en regel veilige sanering",
                   "description": "Bevoegde partners wegen het signaal “Melding, inventarisatie, uitvoerder, werkplan en afvalregistratie sluiten niet op elkaar aan” in samenhang en volgen dit proportioneel, veilig en zonder voorbarige conclusies op.",
                   "type": 1,
                   "cast": [

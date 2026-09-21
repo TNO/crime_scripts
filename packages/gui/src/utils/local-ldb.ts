@@ -47,8 +47,7 @@ const dbFact = () => {
       db = this.result;
     };
     request.onerror = (event: Event) => {
-      console.error('indexedDB request error');
-      console.log(event);
+      console.error('indexedDB request error', event);
     };
 
     request.onupgradeneeded = function (event: IDBVersionChangeEvent) {

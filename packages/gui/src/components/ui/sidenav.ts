@@ -72,7 +72,6 @@ export const SideNav: MeiosisComponent<{ onDelete: () => void }> = () => {
   ) => {
     switch (option) {
       case 'clear':
-        console.log('CLEARING DATAS');
         saveModel(normalizeDataModel({ crimeScripts: [] }));
         break;
       case 'download_json': {

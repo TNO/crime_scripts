@@ -501,7 +501,6 @@ export const CrimeScriptEditor: FactoryComponent<{
               destructive: true,
               onclick: () => {
                 const id = curAct.id;
-                console.log(`Deleting ${id}, ${curAct.label}`);
                 if (id && curScene) {
                   curScene.variants = curScene.variants.filter((variant) => variant.id !== id);
                   curScene.selectedVariantId = curScene.variants[0]?.id;
