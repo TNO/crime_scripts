@@ -90,6 +90,12 @@ const expectedDutchStarterIds = [
   'nl-starter:script:voertuigdiefstal-export',
   'nl-starter:script:phishing-betaalfraude',
   'nl-starter:script:illegale-asbestverwijdering',
+  'nl-starter:script:asbestsaneringsketen',
+  'nl-starter:script:bijtincidenten-honden',
+  'nl-starter:script:co-vergisting',
+  'nl-starter:script:complexe-zorgstructuren',
+  'nl-starter:script:criminele-uitbuiting',
+  'nl-starter:script:fake-carriers',
 ];
 const expectedDutchStarterLabels = [
   'Cocaïne-import via zeehavens',
@@ -102,9 +108,15 @@ const expectedDutchStarterLabels = [
   'Voertuigdiefstal en export',
   'Phishing en betaalfraude',
   'Illegale asbestverwijdering',
+  'Asbestsaneringsketen',
+  'Risicoketen bijtincidenten met honden',
+  'Co-vergisting en afvalstromen',
+  'Complexe juridische structuren in de zorg',
+  'Criminele uitbuiting',
+  'Fake carriers op digitale vrachtmarktplaatsen',
 ];
 
-test('the Dutch starter fixture contains exactly the ten researched topics', () => {
+test('the Dutch starter fixture contains all researched topics', () => {
   const fixture = validateStarterBundle(JSON.parse(readFileSync('public/starter-bundles/nl.json', 'utf8')));
   assert.deepEqual(fixture.starterBundle, {
     id: 'pax-nl-starter',
@@ -141,6 +153,10 @@ test('Dutch starter scripts meet source, provenance, scene, and editorial requir
     'ncsc.nl',
     'nlarbeidsinspectie.nl',
     'iplo.nl',
+    'barrieremodellen.nl',
+    'hetccv.nl',
+    'ilent.nl',
+    'nza.nl',
   ];
   const prohibitedOperationalPhrases = [
     /stap voor stap/i,
@@ -163,7 +179,7 @@ test('Dutch starter scripts meet source, provenance, scene, and editorial requir
       scriptId: script.id,
     });
     assert.match(script.id, /^nl-starter:script:[a-z0-9-]+$/);
-    assert.ok(script.stages.length >= 5 && script.stages.length <= 8);
+    assert.ok(script.stages.length >= 4 && script.stages.length <= 12);
     assert.ok(script.literature.length >= 2);
     script.literature.forEach((source) => {
       assert.match(source.id, /^nl-starter:source:[a-z0-9-]+$/);
@@ -304,7 +320,7 @@ test('complete public import preserves a conflicting local edit and adds all mis
 
   const imported = importStarterBundle(current, starter);
 
-  assert.equal(imported.crimeScripts.length, 10);
+  assert.equal(imported.crimeScripts.length, 16);
   assert.equal(imported.crimeScripts.find(({ id }) => id === localScript.id)?.label, 'Lokale wijziging');
 });
 

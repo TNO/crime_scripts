@@ -563,6 +563,366 @@
         "nl-starter:script:illegale-asbestverwijdering:scene:toezicht"
       ],
       "iconKey": "builtin:illegale-asbestverwijdering-toezicht"
+    },
+    {
+      "id": "nl-starter:icon:script-asbestsaneringsketen",
+      "description": "Herbruikbaar cataloguspictogram voor het openbare model Asbestsaneringsketen.",
+      "appliesTo": [
+        "nl-starter:script:asbestsaneringsketen"
+      ],
+      "iconKey": "builtin:illegal-asbestos-removal"
+    },
+    {
+      "id": "nl-starter:icon:scene-asbestsaneringsketen-opdracht",
+      "description": "Herbruikbaar cataloguspictogram voor de fase Eigenaar besluit tot sanering binnen Asbestsaneringsketen.",
+      "appliesTo": [
+        "nl-starter:script:asbestsaneringsketen:scene:opdracht"
+      ],
+      "iconKey": "builtin:illegale-asbestverwijdering-opdracht"
+    },
+    {
+      "id": "nl-starter:icon:scene-asbestsaneringsketen-inventarisatie",
+      "description": "Herbruikbaar cataloguspictogram voor de fase Onafhankelijke inventarisatie binnen Asbestsaneringsketen.",
+      "appliesTo": [
+        "nl-starter:script:asbestsaneringsketen:scene:inventarisatie"
+      ],
+      "iconKey": "builtin:illegale-asbestverwijdering-inventarisatie"
+    },
+    {
+      "id": "nl-starter:icon:scene-asbestsaneringsketen-verwijdering",
+      "description": "Herbruikbaar cataloguspictogram voor de fase Asbest verwijderen binnen Asbestsaneringsketen.",
+      "appliesTo": [
+        "nl-starter:script:asbestsaneringsketen:scene:verwijdering"
+      ],
+      "iconKey": "builtin:illegale-asbestverwijdering-verwijdering"
+    },
+    {
+      "id": "nl-starter:icon:scene-asbestsaneringsketen-eindcontrole",
+      "description": "Herbruikbaar cataloguspictogram voor de fase Onafhankelijke eindcontrole binnen Asbestsaneringsketen.",
+      "appliesTo": [
+        "nl-starter:script:asbestsaneringsketen:scene:eindcontrole"
+      ],
+      "iconKey": "builtin:illegale-asbestverwijdering-toezicht"
+    },
+    {
+      "id": "nl-starter:icon:scene-asbestsaneringsketen-eerste-transport",
+      "description": "Herbruikbaar cataloguspictogram voor de fase Transport naar inzamel- of tussenlocatie binnen Asbestsaneringsketen.",
+      "appliesTo": [
+        "nl-starter:script:asbestsaneringsketen:scene:eerste-transport"
+      ],
+      "iconKey": "builtin:illegale-asbestverwijdering-afvoer"
+    },
+    {
+      "id": "nl-starter:icon:scene-asbestsaneringsketen-tussenlocatie",
+      "description": "Herbruikbaar cataloguspictogram voor de fase Ontvangst op tussenlocatie binnen Asbestsaneringsketen.",
+      "appliesTo": [
+        "nl-starter:script:asbestsaneringsketen:scene:tussenlocatie"
+      ],
+      "iconKey": "builtin:materials-check"
+    },
+    {
+      "id": "nl-starter:icon:scene-asbestsaneringsketen-vervolgtransport",
+      "description": "Herbruikbaar cataloguspictogram voor de fase Vervolgtransport naar eindverwerker binnen Asbestsaneringsketen.",
+      "appliesTo": [
+        "nl-starter:script:asbestsaneringsketen:scene:vervolgtransport"
+      ],
+      "iconKey": "builtin:secure-transport"
+    },
+    {
+      "id": "nl-starter:icon:scene-asbestsaneringsketen-eindverwerking",
+      "description": "Herbruikbaar cataloguspictogram voor de fase Ontdoen bij erkende eindverwerker binnen Asbestsaneringsketen.",
+      "appliesTo": [
+        "nl-starter:script:asbestsaneringsketen:scene:eindverwerking"
+      ],
+      "iconKey": "builtin:hazardous-waste"
+    },
+    {
+      "id": "nl-starter:icon:script-bijtincidenten-honden",
+      "description": "Herbruikbaar cataloguspictogram voor het openbare model Risicoketen bijtincidenten met honden.",
+      "appliesTo": [
+        "nl-starter:script:bijtincidenten-honden"
+      ],
+      "iconKey": "builtin:animal-trafficking"
+    },
+    {
+      "id": "nl-starter:icon:scene-bijtincidenten-honden-sociale-context",
+      "description": "Herbruikbaar cataloguspictogram voor de fase Sociale context en keuze van ouderdieren binnen Risicoketen bijtincidenten met honden.",
+      "appliesTo": [
+        "nl-starter:script:bijtincidenten-honden:scene:sociale-context"
+      ],
+      "iconKey": "builtin:planning-checklist"
+    },
+    {
+      "id": "nl-starter:icon:scene-bijtincidenten-honden-dracht-geboorte",
+      "description": "Herbruikbaar cataloguspictogram voor de fase Dekking, dracht en geboorte binnen Risicoketen bijtincidenten met honden.",
+      "appliesTo": [
+        "nl-starter:script:bijtincidenten-honden:scene:dracht-geboorte"
+      ],
+      "iconKey": "builtin:site-inspection"
+    },
+    {
+      "id": "nl-starter:icon:scene-bijtincidenten-honden-eerste-levensfase",
+      "description": "Herbruikbaar cataloguspictogram voor de fase Eerste levensfase en socialisatie binnen Risicoketen bijtincidenten met honden.",
+      "appliesTo": [
+        "nl-starter:script:bijtincidenten-honden:scene:eerste-levensfase"
+      ],
+      "iconKey": "builtin:safe-work"
+    },
+    {
+      "id": "nl-starter:icon:scene-bijtincidenten-honden-nieuwe-eigenaar",
+      "description": "Herbruikbaar cataloguspictogram voor de fase Overdracht aan nieuwe eigenaar binnen Risicoketen bijtincidenten met honden.",
+      "appliesTo": [
+        "nl-starter:script:bijtincidenten-honden:scene:nieuwe-eigenaar"
+      ],
+      "iconKey": "builtin:document-check"
+    },
+    {
+      "id": "nl-starter:icon:scene-bijtincidenten-honden-ontwikkeling",
+      "description": "Herbruikbaar cataloguspictogram voor de fase Opvoeding, socialisatie en puberteit binnen Risicoketen bijtincidenten met honden.",
+      "appliesTo": [
+        "nl-starter:script:bijtincidenten-honden:scene:ontwikkeling"
+      ],
+      "iconKey": "builtin:dependency-network"
+    },
+    {
+      "id": "nl-starter:icon:scene-bijtincidenten-honden-volwassen-senior",
+      "description": "Herbruikbaar cataloguspictogram voor de fase Volwassenheid en seniorfase binnen Risicoketen bijtincidenten met honden.",
+      "appliesTo": [
+        "nl-starter:script:bijtincidenten-honden:scene:volwassen-senior"
+      ],
+      "iconKey": "builtin:site-inspection"
+    },
+    {
+      "id": "nl-starter:icon:scene-bijtincidenten-honden-incidentrespons",
+      "description": "Herbruikbaar cataloguspictogram voor de fase Incidentrespons en nazorg binnen Risicoketen bijtincidenten met honden.",
+      "appliesTo": [
+        "nl-starter:script:bijtincidenten-honden:scene:incidentrespons"
+      ],
+      "iconKey": "builtin:partner-response"
+    },
+    {
+      "id": "nl-starter:icon:script-co-vergisting",
+      "description": "Herbruikbaar cataloguspictogram voor het openbare model Co-vergisting en afvalstromen.",
+      "appliesTo": [
+        "nl-starter:script:co-vergisting"
+      ],
+      "iconKey": "builtin:hazardous-waste"
+    },
+    {
+      "id": "nl-starter:icon:scene-co-vergisting-productie",
+      "description": "Herbruikbaar cataloguspictogram voor de fase Productie en classificatie van stoffen binnen Co-vergisting en afvalstromen.",
+      "appliesTo": [
+        "nl-starter:script:co-vergisting:scene:productie"
+      ],
+      "iconKey": "builtin:illegale-dumping-chemisch-afval-ontstaan"
+    },
+    {
+      "id": "nl-starter:icon:scene-co-vergisting-transport",
+      "description": "Herbruikbaar cataloguspictogram voor de fase Transport van stoffen binnen Co-vergisting en afvalstromen.",
+      "appliesTo": [
+        "nl-starter:script:co-vergisting:scene:transport"
+      ],
+      "iconKey": "builtin:illegale-dumping-chemisch-afval-transport"
+    },
+    {
+      "id": "nl-starter:icon:scene-co-vergisting-tussenbewerking",
+      "description": "Herbruikbaar cataloguspictogram voor de fase Tussentijdse bewerking en opslag binnen Co-vergisting en afvalstromen.",
+      "appliesTo": [
+        "nl-starter:script:co-vergisting:scene:tussenbewerking"
+      ],
+      "iconKey": "builtin:illegale-dumping-chemisch-afval-verzameling"
+    },
+    {
+      "id": "nl-starter:icon:scene-co-vergisting-vergisting",
+      "description": "Herbruikbaar cataloguspictogram voor de fase Acceptatie en co-vergisting binnen Co-vergisting en afvalstromen.",
+      "appliesTo": [
+        "nl-starter:script:co-vergisting:scene:vergisting"
+      ],
+      "iconKey": "builtin:laboratory"
+    },
+    {
+      "id": "nl-starter:icon:scene-co-vergisting-digestaat",
+      "description": "Herbruikbaar cataloguspictogram voor de fase Afvoer en toepassing van digestaat binnen Co-vergisting en afvalstromen.",
+      "appliesTo": [
+        "nl-starter:script:co-vergisting:scene:digestaat"
+      ],
+      "iconKey": "builtin:illegale-dumping-chemisch-afval-herstel"
+    },
+    {
+      "id": "nl-starter:icon:script-complexe-zorgstructuren",
+      "description": "Herbruikbaar cataloguspictogram voor het openbare model Complexe juridische structuren in de zorg.",
+      "appliesTo": [
+        "nl-starter:script:complexe-zorgstructuren"
+      ],
+      "iconKey": "builtin:financial-investigation"
+    },
+    {
+      "id": "nl-starter:icon:scene-complexe-zorgstructuren-bedrijfsstructuur",
+      "description": "Herbruikbaar cataloguspictogram voor de fase Bedrijfsstructuur en governance opzetten binnen Complexe juridische structuren in de zorg.",
+      "appliesTo": [
+        "nl-starter:script:complexe-zorgstructuren:scene:bedrijfsstructuur"
+      ],
+      "iconKey": "builtin:witwassen-legale-ondernemingen-bedrijf"
+    },
+    {
+      "id": "nl-starter:icon:scene-complexe-zorgstructuren-poortwachters",
+      "description": "Herbruikbaar cataloguspictogram voor de fase Contact met poortwachters binnen Complexe juridische structuren in de zorg.",
+      "appliesTo": [
+        "nl-starter:script:complexe-zorgstructuren:scene:poortwachters"
+      ],
+      "iconKey": "builtin:document-check"
+    },
+    {
+      "id": "nl-starter:icon:scene-complexe-zorgstructuren-bedrijfsmiddelen",
+      "description": "Herbruikbaar cataloguspictogram voor de fase Bedrijfsmiddelen en contracten inrichten binnen Complexe juridische structuren in de zorg.",
+      "appliesTo": [
+        "nl-starter:script:complexe-zorgstructuren:scene:bedrijfsmiddelen"
+      ],
+      "iconKey": "builtin:finance-check"
+    },
+    {
+      "id": "nl-starter:icon:scene-complexe-zorgstructuren-bedrijfsvoering",
+      "description": "Herbruikbaar cataloguspictogram voor de fase Reguliere bedrijfsvoering uitvoeren binnen Complexe juridische structuren in de zorg.",
+      "appliesTo": [
+        "nl-starter:script:complexe-zorgstructuren:scene:bedrijfsvoering"
+      ],
+      "iconKey": "builtin:site-inspection"
+    },
+    {
+      "id": "nl-starter:icon:scene-complexe-zorgstructuren-clienten",
+      "description": "Herbruikbaar cataloguspictogram voor de fase Cliënten werven en plaatsen binnen Complexe juridische structuren in de zorg.",
+      "appliesTo": [
+        "nl-starter:script:complexe-zorgstructuren:scene:clienten"
+      ],
+      "iconKey": "builtin:dependency-network"
+    },
+    {
+      "id": "nl-starter:icon:scene-complexe-zorgstructuren-verantwoording",
+      "description": "Herbruikbaar cataloguspictogram voor de fase Interne en externe verantwoording binnen Complexe juridische structuren in de zorg.",
+      "appliesTo": [
+        "nl-starter:script:complexe-zorgstructuren:scene:verantwoording"
+      ],
+      "iconKey": "builtin:financial-investigation"
+    },
+    {
+      "id": "nl-starter:icon:scene-complexe-zorgstructuren-locatie",
+      "description": "Herbruikbaar cataloguspictogram voor de fase Pand en zorglocatie organiseren binnen Complexe juridische structuren in de zorg.",
+      "appliesTo": [
+        "nl-starter:script:complexe-zorgstructuren:scene:locatie"
+      ],
+      "iconKey": "builtin:site-safety"
+    },
+    {
+      "id": "nl-starter:icon:scene-complexe-zorgstructuren-einde-bedrijf",
+      "description": "Herbruikbaar cataloguspictogram voor de fase Beëindiging, overdracht of doorstart binnen Complexe juridische structuren in de zorg.",
+      "appliesTo": [
+        "nl-starter:script:complexe-zorgstructuren:scene:einde-bedrijf"
+      ],
+      "iconKey": "builtin:partner-response"
+    },
+    {
+      "id": "nl-starter:icon:script-criminele-uitbuiting",
+      "description": "Herbruikbaar cataloguspictogram voor het openbare model Criminele uitbuiting.",
+      "appliesTo": [
+        "nl-starter:script:criminele-uitbuiting"
+      ],
+      "iconKey": "builtin:human-trafficking"
+    },
+    {
+      "id": "nl-starter:icon:scene-criminele-uitbuiting-identificeren",
+      "description": "Herbruikbaar cataloguspictogram voor de fase Kwetsbare personen identificeren binnen Criminele uitbuiting.",
+      "appliesTo": [
+        "nl-starter:script:criminele-uitbuiting:scene:identificeren"
+      ],
+      "iconKey": "builtin:mensenhandel-seksuele-uitbuiting-benadering"
+    },
+    {
+      "id": "nl-starter:icon:scene-criminele-uitbuiting-binden",
+      "description": "Herbruikbaar cataloguspictogram voor de fase Binding en loyaliteit opbouwen binnen Criminele uitbuiting.",
+      "appliesTo": [
+        "nl-starter:script:criminele-uitbuiting:scene:binden"
+      ],
+      "iconKey": "builtin:dependency-network"
+    },
+    {
+      "id": "nl-starter:icon:scene-criminele-uitbuiting-grensvervaging",
+      "description": "Herbruikbaar cataloguspictogram voor de fase Grenzen en normbesef verschuiven binnen Criminele uitbuiting.",
+      "appliesTo": [
+        "nl-starter:script:criminele-uitbuiting:scene:grensvervaging"
+      ],
+      "iconKey": "builtin:network-monitoring"
+    },
+    {
+      "id": "nl-starter:icon:scene-criminele-uitbuiting-beheersen",
+      "description": "Herbruikbaar cataloguspictogram voor de fase Controle en afhankelijkheid versterken binnen Criminele uitbuiting.",
+      "appliesTo": [
+        "nl-starter:script:criminele-uitbuiting:scene:beheersen"
+      ],
+      "iconKey": "builtin:arbeidsuitbuiting-controle"
+    },
+    {
+      "id": "nl-starter:icon:scene-criminele-uitbuiting-uitvoeren",
+      "description": "Herbruikbaar cataloguspictogram voor de fase Strafbare opdrachten laten uitvoeren binnen Criminele uitbuiting.",
+      "appliesTo": [
+        "nl-starter:script:criminele-uitbuiting:scene:uitvoeren"
+      ],
+      "iconKey": "builtin:account-security"
+    },
+    {
+      "id": "nl-starter:icon:scene-criminele-uitbuiting-voordeel",
+      "description": "Herbruikbaar cataloguspictogram voor de fase Voordeel afromen binnen Criminele uitbuiting.",
+      "appliesTo": [
+        "nl-starter:script:criminele-uitbuiting:scene:voordeel"
+      ],
+      "iconKey": "builtin:financial-investigation"
+    },
+    {
+      "id": "nl-starter:icon:scene-criminele-uitbuiting-verankeren",
+      "description": "Herbruikbaar cataloguspictogram voor de fase Herhaling en verankering in het netwerk binnen Criminele uitbuiting.",
+      "appliesTo": [
+        "nl-starter:script:criminele-uitbuiting:scene:verankeren"
+      ],
+      "iconKey": "builtin:victim-support"
+    },
+    {
+      "id": "nl-starter:icon:script-fake-carriers",
+      "description": "Herbruikbaar cataloguspictogram voor het openbare model Fake carriers op digitale vrachtmarktplaatsen.",
+      "appliesTo": [
+        "nl-starter:script:fake-carriers"
+      ],
+      "iconKey": "builtin:cargo-ship"
+    },
+    {
+      "id": "nl-starter:icon:scene-fake-carriers-voorbereiden",
+      "description": "Herbruikbaar cataloguspictogram voor de fase Identiteit en toegang voorbereiden binnen Fake carriers op digitale vrachtmarktplaatsen.",
+      "appliesTo": [
+        "nl-starter:script:fake-carriers:scene:voorbereiden"
+      ],
+      "iconKey": "builtin:planning-checklist"
+    },
+    {
+      "id": "nl-starter:icon:scene-fake-carriers-diensten-aanbieden",
+      "description": "Herbruikbaar cataloguspictogram voor de fase Vervoersdienst aanbieden binnen Fake carriers op digitale vrachtmarktplaatsen.",
+      "appliesTo": [
+        "nl-starter:script:fake-carriers:scene:diensten-aanbieden"
+      ],
+      "iconKey": "builtin:secure-contact"
+    },
+    {
+      "id": "nl-starter:icon:scene-fake-carriers-goederen-ophalen",
+      "description": "Herbruikbaar cataloguspictogram voor de fase Goederen bij verlader ophalen binnen Fake carriers op digitale vrachtmarktplaatsen.",
+      "appliesTo": [
+        "nl-starter:script:fake-carriers:scene:goederen-ophalen"
+      ],
+      "iconKey": "builtin:document-check"
+    },
+    {
+      "id": "nl-starter:icon:scene-fake-carriers-vervoer-opslag",
+      "description": "Herbruikbaar cataloguspictogram voor de fase Vervoer, aflevering en incidentrespons binnen Fake carriers op digitale vrachtmarktplaatsen.",
+      "appliesTo": [
+        "nl-starter:script:fake-carriers:scene:vervoer-opslag"
+      ],
+      "iconKey": "builtin:secure-transport"
     }
   ]
 }
