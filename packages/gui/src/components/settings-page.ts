@@ -10,13 +10,32 @@ import {
   type Hierarchical,
   type ID,
   type Labelled,
+  type TaxonomyName,
+  collectTaxonomyReferenceUsages,
+  findRemovedTaxonomyItems,
   Pages,
+  removeTaxonomyReferences,
   SearchScore,
 } from '../models';
 import { type AttributeType, attrForm } from '../models/forms';
 import { type MeiosisComponent, routingSvc, t } from '../services';
 import { scrollToActiveItem, sortByLabel } from '../utils';
 import { TreeView } from './ui/treeview';
+
+const text = (value: unknown): string => Array.isArray(value) ? value.join('') : String(value);
+
+const taxonomyTranslationKeys = {
+  cast: 'ROLE',
+  attributes: 'ATTRIBUTE',
+  products: 'PRODUCTS',
+  transports: 'TRANSPORT',
+  locations: 'LOCATIONS',
+  geoLocations: 'GEOLOCATIONS',
+  partners: 'PARTNER',
+} as const;
+
+const taxonomyLabel = (taxonomy: TaxonomyName): string =>
+  text(t(taxonomyTranslationKeys[taxonomy], 1));
 
 export const SettingsPage: MeiosisComponent = () => {
   let edit = false;
@@ -127,19 +146,39 @@ export const SettingsPage: MeiosisComponent = () => {
             iconName: edit ? 'save' : 'edit',
             className: 'right small',
             onclick: () => {
-              edit = !edit;
-              if (edit) {
+              if (!edit) {
+                edit = true;
                 storedModel = deepCopy(model);
-              } else {
-                model.cast?.sort(sortByLabel);
-                model.attributes?.sort(sortByLabel);
-                model.products?.sort(sortByLabel);
-                model.transports?.sort(sortByLabel);
-                model.locations?.sort(sortByLabel);
-                model.geoLocations?.sort(sortByLabel);
-                model.partners?.sort(sortByLabel);
-                actions.saveModel(model);
+                return;
               }
+
+              const removedItems = findRemovedTaxonomyItems(storedModel, model);
+              const usages = collectTaxonomyReferenceUsages(model);
+              const impacts = removedItems.flatMap((item) => {
+                const paths = usages
+                  .filter(({ taxonomy, itemId }) => taxonomy === item.taxonomy && itemId === item.id)
+                  .map(({ path }) => path.join(' › '));
+                return paths.length > 0
+                  ? [`${taxonomyLabel(item.taxonomy)} "${item.label}": ${paths.join('; ')}`]
+                  : [];
+              });
+              if (
+                impacts.length > 0 &&
+                !window.confirm(text(t('DELETE_REFERENCED_ITEMS_CONFIRM', { details: impacts.join('\n') })))
+              ) {
+                return;
+              }
+
+              edit = false;
+              const cleanedModel = removeTaxonomyReferences(model, removedItems);
+              cleanedModel.cast.sort(sortByLabel);
+              cleanedModel.attributes.sort(sortByLabel);
+              cleanedModel.products.sort(sortByLabel);
+              cleanedModel.transports.sort(sortByLabel);
+              cleanedModel.locations.sort(sortByLabel);
+              cleanedModel.geoLocations.sort(sortByLabel);
+              cleanedModel.partners.sort(sortByLabel);
+              actions.saveModel(cleanedModel);
             },
           }),
           edit &&

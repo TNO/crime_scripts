@@ -9,6 +9,7 @@ export * from './script-classification';
 export * from './single-script-export';
 export * from './starter-library';
 export * from './settings';
+export * from './taxonomy-references';
 
 export interface ILokiObj {
   id: number;

@@ -122,6 +122,10 @@ export const messagesNL: typeof messages = {
   STARTER_LOAD_FAILED: 'De starterbibliotheek kon niet worden geladen. Probeer opnieuw of start leeg.',
   MODEL_REPAIRED:
     'Het oude model bevatte {count} ontbrekende activiteitgroepen. {relinked} konden aan bestaande inhoud worden gekoppeld; {removed} hadden geen broninhoud en zijn verwijderd.',
+  DELETE_REFERENCED_ITEMS_CONFIRM:
+    'De volgende items worden nog gebruikt in crime scripts. Als je doorgaat, worden ook deze verwijzingen verwijderd:\n\n{details}',
+  DANGLING_REFERENCE_WARNING:
+    'Ontbrekende {type} "{id}" wordt nog gebruikt bij {locations}. Open deze locaties en verwijder de ontbrekende selectie handmatig.',
   LOADING_STARTER: 'Starterbibliotheek laden…',
   IMPORT_STARTER: 'Importeer starterbibliotheek',
   IMPORT_STARTER_EMPTY_CONFIRM: 'Laad de Nederlandse starterbibliotheek in deze lege werkruimte?',

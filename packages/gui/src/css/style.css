@@ -160,8 +160,15 @@
 }
 
 .landing-hero-cta--secondary {
-  border: 1px solid rgb(255 255 255 / 72%);
-  background: rgb(7 17 28 / 72%);
+  border: 1px solid color-mix(in srgb, var(--mm-nav-text) 72%, transparent);
+  background: color-mix(in srgb, var(--mm-nav-background) 72%, transparent);
+  color: var(--mm-nav-text);
+}
+
+.landing-hero-cta--secondary:hover,
+.landing-hero-cta--secondary:focus-visible {
+  background: var(--mm-nav-background);
+  color: var(--mm-nav-text);
 }
 
 @media only screen and (max-width: 600px) {

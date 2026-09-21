@@ -8,6 +8,8 @@ import {
   type FlexSearchResult,
   type ID,
   type ScriptMode,
+  type TaxonomyName,
+  findDanglingTaxonomyReferences,
   importStarterBundle,
   mergeDataModels,
   normalizeDataModel,
@@ -27,6 +29,21 @@ import type { User, UserRole } from './login-service';
 const PREVIEW_MODEL_KEY = 'CSS_PREVIEW_MODEL';
 const MODEL_KEY = 'CSS_MODEL';
 export const ONBOARDING_CHOICE_KEY = 'CSS_ONBOARDING_CHOICE';
+
+const translatedText = (value: unknown): string => Array.isArray(value) ? value.join('') : String(value);
+
+const taxonomyTranslationKeys = {
+  cast: 'ROLE',
+  attributes: 'ATTRIBUTE',
+  products: 'PRODUCTS',
+  transports: 'TRANSPORT',
+  locations: 'LOCATIONS',
+  geoLocations: 'GEOLOCATIONS',
+  partners: 'PARTNER',
+} as const;
+
+const taxonomyLabel = (taxonomy: TaxonomyName): string =>
+  translatedText(t(taxonomyTranslationKeys[taxonomy], 1));
 const USER_ROLE = 'CSS_USER_ROLE';
 export const SCRIPT_MODE_KEY = 'CSS_SCRIPT_MODE';
 export const APP_TITLE = 'PAX Crime Scripting';
@@ -305,16 +322,41 @@ export const loadData = async (ds = localStorage.getItem(MODEL_KEY)) => {
   if (ds || storedModelExists) {
     localStorage.setItem(model.previewMode ? PREVIEW_MODEL_KEY : MODEL_KEY, JSON.stringify(model));
   }
+  const loadWarnings: Array<() => string> = [];
   if (legacyActRepairs.relinked + legacyActRepairs.removed > 0) {
-    const repairMessage = t('MODEL_REPAIRED', {
-      count: legacyActRepairs.relinked + legacyActRepairs.removed,
-      relinked: legacyActRepairs.relinked,
-      removed: legacyActRepairs.removed,
+    loadWarnings.push(() => {
+      const message = t('MODEL_REPAIRED', {
+        count: legacyActRepairs.relinked + legacyActRepairs.removed,
+        relinked: legacyActRepairs.relinked,
+        removed: legacyActRepairs.removed,
+      });
+      return translatedText(message);
     });
-    snackbar({
-      message: Array.isArray(repairMessage) ? repairMessage.join('') : repairMessage,
+  }
+  const danglingReferences = findDanglingTaxonomyReferences(model);
+  const danglingGroups = new Map<string, typeof danglingReferences>();
+  danglingReferences.forEach((usage) => {
+    const key = `${usage.taxonomy}:${usage.itemId}`;
+    danglingGroups.set(key, [...(danglingGroups.get(key) || []), usage]);
+  });
+  danglingGroups.forEach((usages) => {
+    const [{ taxonomy, itemId }] = usages;
+    const locations = [...new Set(usages.map(({ path }) => path.join(' › ')))].join('; ');
+    loadWarnings.push(() => {
+      const message = t('DANGLING_REFERENCE_WARNING', {
+        type: taxonomyLabel(taxonomy).toLowerCase(),
+        id: itemId,
+        locations,
+      });
+      return translatedText(message);
+    });
+  });
+  if (loadWarnings.length > 0) {
+    setTimeout(() => snackbar({
+      message: loadWarnings.map((createMessage) => createMessage()).join('\n\n'),
       dismissible: true,
-    });
+      duration: 15_000,
+    }));
   }
 
   const role = (localStorage.getItem(USER_ROLE) || 'user') as UserRole;
