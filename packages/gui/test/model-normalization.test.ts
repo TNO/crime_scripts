@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import test from 'node:test';
 import { mergeDataModels } from '../src/models/model-merge.ts';
-import { normalizeDataModel } from '../src/models/model-normalization.ts';
+import { normalizeDataModel, normalizeUploadedDataModel } from '../src/models/model-normalization.ts';
 
 const legacyModel = {
   version: 30,
@@ -83,6 +83,98 @@ test('missing legacy act references are reported instead of discarded', () => {
   invalidModel.crimeScripts[0].stages[0].ids.push('missing-act');
 
   assert.throws(() => normalizeDataModel(invalidModel), /missing-act.*First script.*Scene/);
+});
+
+test('uploaded legacy models recover stale selected acts without borrowing unrelated content', () => {
+  const uploadedModel = {
+    ...structuredClone(legacyModel),
+    crimeScripts: [
+      {
+        id: 'recoverable-script',
+        label: 'Recoverable script',
+        stages: [
+          { id: 'context-scene', label: 'Context', ids: ['context-act'], actId: 'context-act' },
+          { id: 'recovered-scene', label: 'Recovered', ids: ['missing-recovered'], actId: 'missing-recovered' },
+        ],
+      },
+      {
+        id: 'placeholder-script',
+        label: 'Placeholder script',
+        stages: [
+          {
+            id: 'placeholder-scene',
+            label: 'Unrelated',
+            ids: ['missing-placeholder'],
+            actId: 'missing-placeholder',
+          },
+        ],
+      },
+    ],
+    acts: [
+      {
+        id: 'context-act',
+        label: 'Context',
+        activities: [{ id: 'context-activity', label: 'Context', cast: ['shared-cast'] }],
+      },
+      {
+        id: 'orphan-recovered',
+        label: 'Recovered',
+        activities: [{ id: 'recovered-activity', label: 'Recovered content', cast: ['shared-cast'] }],
+      },
+      {
+        id: 'orphan-unrelated',
+        label: 'Unrelated',
+        activities: [{ id: 'unrelated-activity', label: 'Wrong content', cast: ['other-cast'] }],
+      },
+    ],
+  };
+
+  const { model, repairs } = normalizeUploadedDataModel(uploadedModel);
+  const recovered = model.crimeScripts[0].stages[1].variants[0];
+  const placeholder = model.crimeScripts[1].stages[0].variants[0];
+
+  assert.deepEqual(
+    {
+      recoveredId: recovered.id,
+      recoveredActivity: recovered.activities[0]?.label,
+      placeholderId: placeholder.id,
+      placeholderActivities: placeholder.activities,
+      repairs: repairs.map(({ actId, kind }) => ({ actId, kind })),
+    },
+    {
+      recoveredId: 'missing-recovered',
+      recoveredActivity: 'Recovered content',
+      placeholderId: 'missing-placeholder',
+      placeholderActivities: [],
+      repairs: [
+        { actId: 'missing-recovered', kind: 'relinked' },
+        { actId: 'missing-placeholder', kind: 'placeholder' },
+      ],
+    }
+  );
+});
+
+test('v48 defaults every script except the oil-pipeline script to restricted', () => {
+  const v48Model = {
+    ...structuredClone(legacyModel),
+    version: 48,
+    crimeScripts: [
+      {
+        id: 'id060ecbd5',
+        label: 'Diefstal van geraffineerde olieproducten via illegale pijplijnaftapping',
+        stages: [],
+      },
+      { id: 'other-script', label: 'Operational script', stages: [] },
+      { id: 'classified-script', label: 'Explicit classification', classification: 'public', stages: [] },
+    ],
+  };
+
+  const normalized = normalizeDataModel(v48Model);
+
+  assert.deepEqual(
+    normalized.crimeScripts.map(({ classification }) => classification),
+    ['public', 'restricted', 'public']
+  );
 });
 
 test('older scenes that used an act id as their scene id receive a distinct id and keep track selections', () => {

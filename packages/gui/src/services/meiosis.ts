@@ -11,6 +11,7 @@ import {
   importStarterBundle,
   mergeDataModels,
   normalizeDataModel,
+  normalizeUploadedDataModel,
   resolveStarterBundleUrl,
   validateStarterBundle,
   Pages,
@@ -278,8 +279,14 @@ cells.map(() => {
 
 export const loadData = async (ds = localStorage.getItem(MODEL_KEY)) => {
   let model: DataModel;
+  let legacyActRepairs = { relinked: 0, placeholders: 0 };
   try {
-    model = normalizeDataModel(ds ? JSON.parse(ds) : { crimeScripts: [] });
+    const normalized = normalizeUploadedDataModel(ds ? JSON.parse(ds) : { crimeScripts: [] });
+    model = normalized.model;
+    legacyActRepairs = {
+      relinked: normalized.repairs.filter(({ kind }) => kind === 'relinked').length,
+      placeholders: normalized.repairs.filter(({ kind }) => kind === 'placeholder').length,
+    };
   } catch (error) {
     snackbar({
       message: `Error loading crime-script model: ${error instanceof Error ? error.message : String(error)}`,
@@ -297,6 +304,17 @@ export const loadData = async (ds = localStorage.getItem(MODEL_KEY)) => {
   }
   if (ds || storedModelExists) {
     localStorage.setItem(model.previewMode ? PREVIEW_MODEL_KEY : MODEL_KEY, JSON.stringify(model));
+  }
+  if (legacyActRepairs.relinked + legacyActRepairs.placeholders > 0) {
+    const repairMessage = t('MODEL_REPAIRED', {
+      count: legacyActRepairs.relinked + legacyActRepairs.placeholders,
+      relinked: legacyActRepairs.relinked,
+      placeholders: legacyActRepairs.placeholders,
+    });
+    snackbar({
+      message: Array.isArray(repairMessage) ? repairMessage.join('') : repairMessage,
+      dismissible: true,
+    });
   }
 
   const role = (localStorage.getItem(USER_ROLE) || 'user') as UserRole;

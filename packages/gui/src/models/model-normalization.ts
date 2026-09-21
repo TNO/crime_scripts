@@ -29,7 +29,28 @@ type LegacyDataModel = Omit<DataModel, 'schemaVersion' | 'crimeScripts'> & {
   serviceProviders?: ServiceProvider[];
 };
 
+export type LegacyActRepair = {
+  actId: ID;
+  crimeScriptLabel: string;
+  sceneLabel: string;
+  kind: 'relinked' | 'placeholder';
+  sourceActId?: ID;
+};
+
 const clone = <T>(value: T): T => structuredClone(value);
+const V48_PUBLIC_SCRIPT_IDS = new Set<ID>(['id060ecbd5']);
+
+const collectActReferenceIds = (act: Act): Set<ID> =>
+  new Set([
+    ...(act.locationIds || []),
+    ...(act.activities || []).flatMap((activity: LegacyActivity) => [
+      ...(activity.cast || []),
+      ...(activity.sp || []),
+      ...(activity.attributes || []),
+      ...(activity.transports || []),
+    ]),
+    ...(act.measures || []).flatMap((measure) => measure.partners || []),
+  ]);
 
 const normalizeAct = (act: Act): Act => ({
   ...clone(act),
@@ -54,9 +75,10 @@ const normalizeAct = (act: Act): Act => ({
   opportunities: clone(act.opportunities || []),
 });
 
-export const normalizeDataModel = (
+const normalizeDataModelInternal = (
   input: unknown,
-  defaultClassification: ScriptClassification = 'public'
+  defaultClassification: ScriptClassification,
+  repairs?: LegacyActRepair[]
 ): DataModel => {
   if (!input || typeof input !== 'object') {
     throw new Error('Crime-script model must be an object.');
@@ -64,20 +86,66 @@ export const normalizeDataModel = (
 
   const legacy = clone(input) as LegacyDataModel;
   const actLookup = new Map((legacy.acts || []).map((act) => [act.id, act]));
+  const referencedActIds = new Set(
+    (legacy.crimeScripts || []).flatMap((crimeScript) =>
+      (crimeScript.stages || []).flatMap((scene) => scene.ids || [])
+    )
+  );
+  const unreferencedActs = (legacy.acts || []).filter((act) => !referencedActIds.has(act.id));
+  const claimedRecoveryActIds = new Set<ID>();
   const crimeScripts = (legacy.crimeScripts || []).map((crimeScript) => {
     const sceneIdChanges = new Map<ID, ID>();
     const usedSceneIds = new Set((crimeScript.stages || []).map((scene) => scene.id));
+    const scriptReferenceIds = new Set(
+      (crimeScript.stages || [])
+        .flatMap((scene) => scene.ids || [])
+        .map((actId) => actLookup.get(actId))
+        .filter((act): act is Act => Boolean(act))
+        .flatMap((act) => [...collectActReferenceIds(act)])
+    );
     const stages = (crimeScript.stages || []).map((scene, sceneIndex) => {
       const variants = scene.variants
         ? scene.variants.map(normalizeAct)
         : (scene.ids || []).map((actId) => {
             const act = actLookup.get(actId);
-            if (!act) {
+            if (act) return normalizeAct(act);
+            if (!repairs) {
               throw new Error(
                 `Legacy act reference "${actId}" is missing in crime script "${crimeScript.label}", scene "${scene.label}".`
               );
             }
-            return normalizeAct(act);
+
+            const matchingOrphans = unreferencedActs.filter(
+              (candidate) =>
+                !claimedRecoveryActIds.has(candidate.id) &&
+                candidate.label.trim().toLocaleLowerCase() === scene.label.trim().toLocaleLowerCase() &&
+                [...collectActReferenceIds(candidate)].some((id) => scriptReferenceIds.has(id))
+            );
+            const recoveredAct = matchingOrphans.length === 1 ? matchingOrphans[0] : undefined;
+            if (recoveredAct) claimedRecoveryActIds.add(recoveredAct.id);
+            repairs.push({
+              actId,
+              crimeScriptLabel: crimeScript.label,
+              sceneLabel: scene.label,
+              kind: recoveredAct ? 'relinked' : 'placeholder',
+              sourceActId: recoveredAct?.id,
+            });
+            return normalizeAct(
+              recoveredAct
+                ? { ...recoveredAct, id: actId }
+                : {
+                    id: actId,
+                    label: scene.label,
+                    description: scene.description,
+                    icon: scene.icon,
+                    url: scene.url,
+                    activities: [],
+                    conditions: [],
+                    indicators: [],
+                    measures: [],
+                    opportunities: [],
+                  }
+            );
           });
 
       const { ids: _ids, actId: _actId, ...currentScene } = scene;
@@ -130,7 +198,9 @@ export const normalizeDataModel = (
       classification:
         crimeScript.classification === 'public' || crimeScript.classification === 'restricted'
           ? crimeScript.classification
-          : defaultClassification,
+          : legacy.version === 48 && !V48_PUBLIC_SCRIPT_IDS.has(crimeScript.id)
+            ? 'restricted'
+            : defaultClassification,
       scriptFamilyId: crimeScript.scriptFamilyId || crimeScript.id,
       icons: (crimeScript.icons?.length
         ? crimeScript.icons
@@ -178,4 +248,20 @@ export const normalizeDataModel = (
     partners,
     starterBundle: legacy.starterBundle,
   } as DataModel;
+};
+
+export const normalizeDataModel = (
+  input: unknown,
+  defaultClassification: ScriptClassification = 'public'
+): DataModel => normalizeDataModelInternal(input, defaultClassification);
+
+export const normalizeUploadedDataModel = (
+  input: unknown,
+  defaultClassification: ScriptClassification = 'public'
+): { model: DataModel; repairs: LegacyActRepair[] } => {
+  const repairs: LegacyActRepair[] = [];
+  return {
+    model: normalizeDataModelInternal(input, defaultClassification, repairs),
+    repairs,
+  };
 };
