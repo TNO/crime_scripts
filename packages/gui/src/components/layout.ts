@@ -3,10 +3,10 @@ import { AlertDialog, Dialog, FlatButton, Icon, TextInput, ThemeManager, ThemeTo
 import logo from '../assets/logo.svg';
 import tno from '../assets/tno.svg';
 import tno_white from '../assets/tno_white.svg';
-import { type DataModel, normalizeDataModel, type Page, Pages, scriptsForMode } from '../models';
-import { APP_TITLE, APP_TITLE_SHORT, i18n, type MeiosisComponent, t } from '../services';
+import { type DataModel, hasRestrictedContent, normalizeDataModel, type Page, Pages, scriptsForMode } from '../models';
+import { APP_TITLE, APP_TITLE_SHORT, i18n, loadData, type MeiosisComponent, t } from '../services';
 import { routingSvc } from '../services/routing-service';
-import { isActivePage, isSmallPage, LANGUAGE } from '../utils';
+import { isActivePage, isSmallPage, LANGUAGE, openFilePicker } from '../utils';
 import { LanguageSwitcher } from './ui/language-switcher';
 import { SideNav } from './ui/sidenav';
 
@@ -66,6 +66,29 @@ export const Layout: MeiosisComponent = () => {
                   await i18n.loadAndSetLocale(language);
                 },
               }),
+              m(
+                '.col.s12.onboarding-model-import',
+                m(FlatButton, {
+                  label: t('LOAD_MODEL_FILE'),
+                  iconName: 'upload',
+                  onclick: () => openFilePicker('.json', (event) => {
+                    const file = (event.target as HTMLInputElement).files?.[0];
+                    if (!file) return;
+                    const reader = new FileReader();
+                    reader.onload = async ({ target }) => {
+                      if (!target || typeof target.result !== 'string') return;
+                      try {
+                        const loadedModel = await loadData(target.result);
+                        if (hasRestrictedContent(loadedModel)) actions.setScriptMode('restricted');
+                        actions.changePage(Pages.HOME);
+                      } catch {
+                        // loadData already reports the validation error to the user.
+                      }
+                    };
+                    reader.readAsText(file);
+                  }),
+                })
+              ),
             ]),
             secondaryAction: {
               label: t('START_EMPTY'),

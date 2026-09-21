@@ -171,6 +171,16 @@
   color: var(--mm-nav-text);
 }
 
+.onboarding-model-import {
+  margin-top: 1rem;
+}
+
+.onboarding-model-import .btn-flat {
+  width: 100%;
+  border: 1px solid var(--mm-border-color);
+  text-align: left;
+}
+
 @media only screen and (max-width: 600px) {
   .landing-hero {
     height: calc(100vh - 10rem);
