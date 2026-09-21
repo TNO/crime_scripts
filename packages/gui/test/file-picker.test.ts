@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { openFilePicker } from '../src/utils/file-picker.ts';
+import { JSON_FILE_ACCEPT, openFilePicker } from '../src/utils/file-picker.ts';
 
 test('file picker is attached before opening and removed after selection', () => {
   let appended = false;
@@ -30,12 +30,12 @@ test('file picker is attached before opening and removed after selection', () =>
     },
   } as unknown as Document;
 
-  openFilePicker('.json', () => {
+  openFilePicker(JSON_FILE_ACCEPT, () => {
     changed = true;
   }, ownerDocument);
 
   assert.equal(input.type, 'file');
-  assert.equal(input.accept, '.json');
+  assert.equal(input.accept, '.json,application/json,text/json,text/plain');
   assert.equal(input.hidden, true);
   assert.equal(clickedWhileAttached, true);
   input.onchange?.(new Event('change'));

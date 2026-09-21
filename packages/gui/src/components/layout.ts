@@ -6,7 +6,7 @@ import tno_white from '../assets/tno_white.svg';
 import { type DataModel, hasRestrictedContent, normalizeDataModel, type Page, Pages, scriptsForMode } from '../models';
 import { APP_TITLE, APP_TITLE_SHORT, i18n, loadData, type MeiosisComponent, t } from '../services';
 import { routingSvc } from '../services/routing-service';
-import { isActivePage, isSmallPage, LANGUAGE, openFilePicker } from '../utils';
+import { isActivePage, isSmallPage, JSON_FILE_ACCEPT, LANGUAGE, openFilePicker } from '../utils';
 import { LanguageSwitcher } from './ui/language-switcher';
 import { SideNav } from './ui/sidenav';
 
@@ -71,7 +71,7 @@ export const Layout: MeiosisComponent = () => {
                 m(FlatButton, {
                   label: t('LOAD_MODEL_FILE'),
                   iconName: 'upload',
-                  onclick: () => openFilePicker('.json', (event) => {
+                  onclick: () => openFilePicker(JSON_FILE_ACCEPT, (event) => {
                     const file = (event.target as HTMLInputElement).files?.[0];
                     if (!file) return;
                     const reader = new FileReader();

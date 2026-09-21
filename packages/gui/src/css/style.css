@@ -264,6 +264,20 @@
   fill: var(--mm-nav-text);
 }
 
+.sidenav .dropdown-content {
+  background-color: var(--mm-nav-background);
+}
+
+.sidenav .dropdown-content li > span {
+  color: var(--mm-nav-text);
+}
+
+.sidenav .dropdown-content li:hover,
+.sidenav .dropdown-content li.active,
+.sidenav .dropdown-content li.selected {
+  background-color: color-mix(in srgb, var(--mm-nav-text) 14%, transparent);
+}
+
 .desktop-nav > li > a.primary-text {
   padding-right: 0.5rem;
   padding-left: 0.5rem;

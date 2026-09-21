@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import test from 'node:test';
-import type { DataModel } from '../src/models/data-model.ts';
+import type { DataModel, Indicator, Measure } from '../src/models/data-model.ts';
 import {
   collectStarterSuggestions,
   copySuggestion,
@@ -391,6 +391,27 @@ test('suggestions are language-filtered originals and copied with internal metad
   assert.equal(independent.inheritedSources?.[0].usedFor, 'Structuur');
   assert.equal(collectStarterSuggestions(model, model, 'indicator', 'en').length, 0);
   assert.equal(hasCloseDuplicate('Ongewone betalingen', suggestions), true);
+});
+
+test('suggestions ignore incomplete rows created while editing repeat forms', () => {
+  const model = bundle();
+  model.crimeScripts[0].stages[0].variants[0].indicators.push({
+    id: 'draft-indicator',
+  } as Indicator);
+  model.crimeScripts[0].stages[0].variants[0].measures.push({
+    id: 'draft-measure',
+    cat: 'other',
+    partners: [],
+  } as Measure);
+
+  assert.deepEqual(
+    collectStarterSuggestions(model, undefined, 'indicator', 'nl').map(({ label }) => label),
+    ['Ongewone betaling']
+  );
+  assert.deepEqual(
+    collectStarterSuggestions(model, undefined, 'measure', 'nl').map(({ label }) => label),
+    ['Controleer betaling']
+  );
 });
 
 test('restricted-mode suggestions prefer restricted counterpart content over the public starter', () => {

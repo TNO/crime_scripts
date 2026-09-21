@@ -506,7 +506,7 @@ export const collectStarterSuggestions = (
       script.stages.forEach((scene) => scene.variants.forEach((act) => {
         const items = kind === 'indicator' ? act.indicators : act.measures;
         items.forEach((item) => {
-          if (item.derivedFrom) return;
+          if (item.derivedFrom || typeof item.label !== 'string' || !item.label.trim()) return;
           const key = `${kind}:${item.label.trim().toLocaleLowerCase()}`;
           if (seen.has(key)) return;
           seen.add(key);

@@ -1,3 +1,5 @@
+export const JSON_FILE_ACCEPT = '.json,application/json,text/json,text/plain';
+
 export const openFilePicker = (
   accept: string,
   onchange: (event: Event) => void,

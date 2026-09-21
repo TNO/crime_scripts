@@ -50,6 +50,18 @@ const legacyModel = {
   partners: [],
 };
 
+test('uploaded JSON must contain a crimeScripts array', () => {
+  assert.throws(
+    () => normalizeUploadedDataModel({ artifact: 'crime-scripts.json', status: 'pass' }),
+    /not a crime-script model.*crimeScripts/i
+  );
+  assert.throws(
+    () => normalizeUploadedDataModel({ crimeScripts: null }),
+    /not a crime-script model.*crimeScripts/i
+  );
+  assert.deepEqual(normalizeUploadedDataModel({ crimeScripts: [] }).model.crimeScripts, []);
+});
+
 test('legacy acts become independently owned scene variants without changing track ids', () => {
   const normalized = normalizeDataModel(legacyModel);
   const firstVariant = normalized.crimeScripts[0].stages[0].variants[0];

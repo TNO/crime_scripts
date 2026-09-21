@@ -14,7 +14,7 @@ import {
 } from '../../models';
 import type { Languages, MeiosisComponent, UserRole } from '../../services';
 import { fetchStarterBundle, i18n, loadData, routingSvc, t } from '../../services';
-import { formatDate, isActivePage, LANGUAGE, openFilePicker } from '../../utils';
+import { formatDate, isActivePage, JSON_FILE_ACCEPT, LANGUAGE, openFilePicker } from '../../utils';
 import { LanguageSwitcher } from './language-switcher';
 
 export const SideNav: MeiosisComponent<{ onDelete: () => void }> = () => {
@@ -108,7 +108,7 @@ export const SideNav: MeiosisComponent<{ onDelete: () => void }> = () => {
       //   break;
       //       }
       case 'upload_json': {
-        openFilePicker('.json', handleFileUpload(false, onLoaded));
+        openFilePicker(JSON_FILE_ACCEPT, handleFileUpload(false, onLoaded));
         break;
       }
       // case 'upload_bin': {

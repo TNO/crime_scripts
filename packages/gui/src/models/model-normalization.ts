@@ -253,6 +253,16 @@ export const normalizeUploadedDataModel = (
   input: unknown,
   defaultClassification: ScriptClassification = 'public'
 ): { model: DataModel; repairs: LegacyActRepair[] } => {
+  if (
+    !input ||
+    typeof input !== 'object' ||
+    Array.isArray(input) ||
+    !Array.isArray((input as { crimeScripts?: unknown }).crimeScripts)
+  ) {
+    throw new Error(
+      'This JSON file is not a crime-script model. Select a model file containing a crimeScripts array.'
+    );
+  }
   const repairs: LegacyActRepair[] = [];
   return {
     model: normalizeDataModelInternal(input, defaultClassification, repairs),
