@@ -537,3 +537,4 @@ export const toJSON = async (filename: string, cs: Partial<CrimeScript>, model: 
     encodeURIComponent(JSON.stringify(createSingleScriptExportModel(cs, model)));
   saveAs(dataStr, filename.replace('.docx', '.json'));
 };
+export * from './file-picker';

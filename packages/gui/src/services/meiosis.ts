@@ -370,6 +370,7 @@ export const loadData = async (ds = localStorage.getItem(MODEL_KEY)) => {
     needsOnboarding: !ds && !storedModelExists && !onboardingChoiceExists,
     // settings: () => settings,
   });
+  return model;
 };
 
 export const fetchStarterBundle = async (): Promise<DataModel> => {

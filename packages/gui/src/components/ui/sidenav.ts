@@ -14,7 +14,7 @@ import {
 } from '../../models';
 import type { Languages, MeiosisComponent, UserRole } from '../../services';
 import { fetchStarterBundle, i18n, loadData, routingSvc, t } from '../../services';
-import { formatDate, isActivePage, LANGUAGE } from '../../utils';
+import { formatDate, isActivePage, LANGUAGE, openFilePicker } from '../../utils';
 import { LanguageSwitcher } from './language-switcher';
 
 export const SideNav: MeiosisComponent<{ onDelete: () => void }> = () => {
@@ -38,20 +38,20 @@ export const SideNav: MeiosisComponent<{ onDelete: () => void }> = () => {
     m.redraw();
   };
 
-  const handleFileUpload = (binary: boolean, _saveModel: (model: DataModel) => void) => (e: Event) => {
+  const handleFileUpload = (binary: boolean, onLoaded: (model: DataModel) => void) => (e: Event) => {
     const fileInput = e.target as HTMLInputElement;
     if (!fileInput.files || fileInput.files.length <= 0) return;
 
     const reader = new FileReader();
-    reader.onload = (e: ProgressEvent<FileReader>) => {
+    reader.onload = async (e: ProgressEvent<FileReader>) => {
       if (e.target && e.target.result) {
         if (binary) {
           const arrayBuffer = e.target.result as ArrayBuffer;
           const uint8Array = new Uint8Array(arrayBuffer);
           const decompressedString = decompressFromUint8Array(uint8Array);
-          loadData(decompressedString);
+          onLoaded(await loadData(decompressedString));
         } else {
-          loadData(e.target.result.toString());
+          onLoaded(await loadData(e.target.result.toString()));
         }
       }
     };
@@ -67,7 +67,8 @@ export const SideNav: MeiosisComponent<{ onDelete: () => void }> = () => {
     option: string,
     model: DataModel,
     mode: 'public' | 'restricted',
-    saveModel: (model: DataModel) => void
+    saveModel: (model: DataModel) => void,
+    onLoaded: (model: DataModel) => void = () => {}
   ) => {
     switch (option) {
       case 'clear':
@@ -105,13 +106,9 @@ export const SideNav: MeiosisComponent<{ onDelete: () => void }> = () => {
       //   dlAnchorElem.click();
       //   URL.revokeObjectURL(url);
       //   break;
-      // }
+      //       }
       case 'upload_json': {
-        const fileInput = document.createElement('input');
-        fileInput.type = 'file';
-        fileInput.accept = '.json';
-        fileInput.onchange = handleFileUpload(false, saveModel);
-        fileInput.click();
+        openFilePicker('.json', handleFileUpload(false, onLoaded));
         break;
       }
       // case 'upload_bin': {
@@ -218,7 +215,10 @@ export const SideNav: MeiosisComponent<{ onDelete: () => void }> = () => {
             'li',
             m(FlatButton, {
               label: t('UPLOAD'),
-              onclick: () => handleSelection('upload_json', model, scriptMode, saveModel),
+              onclick: () => handleSelection('upload_json', model, scriptMode, saveModel, (loadedModel) => {
+                if (hasRestrictedContent(loadedModel)) setScriptMode('restricted');
+                changePage(Pages.HOME);
+              }),
               iconName: 'upload',
             })
           ),
