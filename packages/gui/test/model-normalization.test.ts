@@ -85,7 +85,7 @@ test('missing legacy act references are reported instead of discarded', () => {
   assert.throws(() => normalizeDataModel(invalidModel), /missing-act.*First script.*Scene/);
 });
 
-test('uploaded legacy models recover stale selected acts without borrowing unrelated content', () => {
+test('uploaded legacy models recover stale selected acts and remove entries with no source content', () => {
   const uploadedModel = {
     ...structuredClone(legacyModel),
     crimeScripts: [
@@ -131,24 +131,21 @@ test('uploaded legacy models recover stale selected acts without borrowing unrel
 
   const { model, repairs } = normalizeUploadedDataModel(uploadedModel);
   const recovered = model.crimeScripts[0].stages[1].variants[0];
-  const placeholder = model.crimeScripts[1].stages[0].variants[0];
 
   assert.deepEqual(
     {
       recoveredId: recovered.id,
       recoveredActivity: recovered.activities[0]?.label,
-      placeholderId: placeholder.id,
-      placeholderActivities: placeholder.activities,
+      placeholderScriptStages: model.crimeScripts[1].stages,
       repairs: repairs.map(({ actId, kind }) => ({ actId, kind })),
     },
     {
       recoveredId: 'missing-recovered',
       recoveredActivity: 'Recovered content',
-      placeholderId: 'missing-placeholder',
-      placeholderActivities: [],
+      placeholderScriptStages: [],
       repairs: [
         { actId: 'missing-recovered', kind: 'relinked' },
-        { actId: 'missing-placeholder', kind: 'placeholder' },
+        { actId: 'missing-placeholder', kind: 'removed' },
       ],
     }
   );

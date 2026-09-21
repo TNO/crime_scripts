@@ -202,19 +202,49 @@
 
 .sidenav {
   width: 280px;
-  top: 66px;
+  top: 0;
+  height: 100dvh;
+  background-color: var(--mm-nav-background);
+  color: var(--mm-nav-text);
+  z-index: 1002;
 }
 
 .sidenav li {
   line-height: normal;
 }
 
-.sidenav li>a>i.material-icons {
-  margin-right: 16px;
+.sidenav > li > .btn-flat {
+  display: flex;
+  width: 100%;
+  min-height: 48px;
+  height: auto;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 0;
+  padding: 8px 10px;
+  color: var(--mm-nav-text);
+  line-height: 1.35;
+  text-align: left;
+  white-space: normal;
 }
 
-.sidenav a[type='button'] {
-  padding: 0;
+.sidenav > li > .btn-flat > i.material-icons {
+  flex: 0 0 auto;
+  margin-right: 8px;
+}
+
+.sidenav .input-field,
+.sidenav .input-field input.select-dropdown,
+.sidenav .input-field > label {
+  color: var(--mm-nav-text);
+}
+
+.sidenav .input-field input.select-dropdown {
+  border-bottom-color: color-mix(in srgb, var(--mm-nav-text) 52%, transparent);
+}
+
+.sidenav .select-wrapper .caret {
+  fill: var(--mm-nav-text);
 }
 
 .desktop-nav > li > a.primary-text {

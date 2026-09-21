@@ -33,7 +33,7 @@ export type LegacyActRepair = {
   actId: ID;
   crimeScriptLabel: string;
   sceneLabel: string;
-  kind: 'relinked' | 'placeholder';
+  kind: 'relinked' | 'removed';
   sourceActId?: ID;
 };
 
@@ -95,6 +95,7 @@ const normalizeDataModelInternal = (
   const claimedRecoveryActIds = new Set<ID>();
   const crimeScripts = (legacy.crimeScripts || []).map((crimeScript) => {
     const sceneIdChanges = new Map<ID, ID>();
+    const removedSceneIds = new Set<ID>();
     const usedSceneIds = new Set((crimeScript.stages || []).map((scene) => scene.id));
     const scriptReferenceIds = new Set(
       (crimeScript.stages || [])
@@ -103,7 +104,7 @@ const normalizeDataModelInternal = (
         .filter((act): act is Act => Boolean(act))
         .flatMap((act) => [...collectActReferenceIds(act)])
     );
-    const stages = (crimeScript.stages || []).map((scene, sceneIndex) => {
+    const stages = (crimeScript.stages || []).map((scene, sceneIndex): Scene | undefined => {
       const variants = scene.variants
         ? scene.variants.map(normalizeAct)
         : (scene.ids || []).map((actId) => {
@@ -123,30 +124,17 @@ const normalizeDataModelInternal = (
             );
             const recoveredAct = matchingOrphans.length === 1 ? matchingOrphans[0] : undefined;
             if (recoveredAct) claimedRecoveryActIds.add(recoveredAct.id);
-            repairs.push({
+            const repair: LegacyActRepair = {
               actId,
               crimeScriptLabel: crimeScript.label,
               sceneLabel: scene.label,
-              kind: recoveredAct ? 'relinked' : 'placeholder',
+              kind: recoveredAct ? 'relinked' : 'removed',
               sourceActId: recoveredAct?.id,
-            });
-            return normalizeAct(
-              recoveredAct
-                ? { ...recoveredAct, id: actId }
-                : {
-                    id: actId,
-                    label: scene.label,
-                    description: scene.description,
-                    icon: scene.icon,
-                    url: scene.url,
-                    activities: [],
-                    conditions: [],
-                    indicators: [],
-                    measures: [],
-                    opportunities: [],
-                  }
-            );
-          });
+            };
+            repairs.push(repair);
+            return recoveredAct ? normalizeAct({ ...recoveredAct, id: actId }) : undefined;
+          })
+            .filter((variant): variant is Act => Boolean(variant));
 
       const { ids: _ids, actId: _actId, ...currentScene } = scene;
       const selectedVariantId = scene.selectedVariantId || scene.actId || variants[0]?.id;
@@ -170,6 +158,10 @@ const normalizeDataModelInternal = (
             return currentVariant;
           })
         : variants;
+      if (!scene.variants && sceneVariants.length === 0) {
+        removedSceneIds.add(scene.id);
+        return undefined;
+      }
       return {
         ...currentScene,
         id: sceneId,
@@ -183,14 +175,16 @@ const normalizeDataModelInternal = (
           ? selectedVariantId
           : variants[0]?.id,
       };
-    });
+    }).filter((scene): scene is Scene => Boolean(scene));
     const tracks = crimeScript.tracks?.map((track) => ({
       ...track,
       sceneVariants: Object.fromEntries(
-        Object.entries(track.sceneVariants).map(([sceneId, variantId]) => [
-          sceneIdChanges.get(sceneId) || sceneId,
-          variantId,
-        ])
+        Object.entries(track.sceneVariants)
+          .filter(([sceneId]) => !removedSceneIds.has(sceneId))
+          .map(([sceneId, variantId]) => [
+            sceneIdChanges.get(sceneId) || sceneId,
+            variantId,
+          ])
       ),
     }));
     return {

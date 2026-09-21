@@ -119,7 +119,7 @@ export const messages = {
   RETRY: 'Retry',
   STARTER_LOAD_FAILED: 'The starter library could not be loaded. Retry or start empty.',
   MODEL_REPAIRED:
-    'The legacy model contained {count} missing activity groups. {relinked} were reconnected to existing content; {placeholders} had no source content and were retained as empty activity groups.',
+    'The legacy model contained {count} missing activity groups. {relinked} were reconnected to existing content; {removed} had no source content and were removed.',
   LOADING_STARTER: 'Loading starter library…',
   IMPORT_STARTER: 'Import starter library',
   IMPORT_STARTER_EMPTY_CONFIRM: 'Load the Dutch starter library into this empty workspace?',

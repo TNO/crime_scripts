@@ -121,7 +121,7 @@ export const messagesNL: typeof messages = {
   RETRY: 'Opnieuw proberen',
   STARTER_LOAD_FAILED: 'De starterbibliotheek kon niet worden geladen. Probeer opnieuw of start leeg.',
   MODEL_REPAIRED:
-    'Het oude model bevatte {count} ontbrekende activiteitgroepen. {relinked} konden aan bestaande inhoud worden gekoppeld; voor {placeholders} ontbrak de broninhoud en zijn lege activiteitgroepen behouden.',
+    'Het oude model bevatte {count} ontbrekende activiteitgroepen. {relinked} konden aan bestaande inhoud worden gekoppeld; {removed} hadden geen broninhoud en zijn verwijderd.',
   LOADING_STARTER: 'Starterbibliotheek laden…',
   IMPORT_STARTER: 'Importeer starterbibliotheek',
   IMPORT_STARTER_EMPTY_CONFIRM: 'Laad de Nederlandse starterbibliotheek in deze lege werkruimte?',

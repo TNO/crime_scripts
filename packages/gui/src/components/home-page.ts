@@ -172,7 +172,6 @@ export const HomePage: MeiosisComponent = () => {
                       const product = products.find(({ id }) => id === productId);
                       const selected = crimeScriptFilter.productIds?.includes(productId) ?? false;
                       return product && m('button.script-product-badge', {
-                        key: `product:${productId}`,
                         type: 'button',
                         'aria-label': `${t('PRODUCTS', 1)}: ${product.label}`,
                         'aria-pressed': selected ? 'true' : 'false',
@@ -193,7 +192,6 @@ export const HomePage: MeiosisComponent = () => {
                       const location = geoLocations.find(({ id }) => id === locationId);
                       const selected = crimeScriptFilter.geoLocationIds?.includes(locationId) ?? false;
                       return location && m('button.script-location-badge', {
-                        key: `location:${locationId}`,
                         type: 'button',
                         'aria-label': `${t('GEOLOCATIONS', 1)}: ${location.label}`,
                         'aria-pressed': selected ? 'true' : 'false',
