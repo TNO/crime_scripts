@@ -64,7 +64,7 @@ export interface Actions {
   ) => void;
   saveModel: (ds: DataModel) => void;
   mergePreviewModel: () => void;
-  completeOnboarding: (choice: 'starter' | 'empty') => Promise<void>;
+  completeOnboarding: (choice: 'starter' | 'empty') => Promise<boolean>;
   importStarterLibrary: () => Promise<boolean>;
   resetApplication: () => void;
   saveSettings: (settings: Settings) => Promise<void>;
@@ -135,15 +135,17 @@ export const appActions: (cell: MeiosisCell<State>) => Actions = ({ getState, up
       localStorage.setItem(ONBOARDING_CHOICE_KEY, choice);
       localStorage.setItem(MODEL_KEY, JSON.stringify(model));
       update({ model: () => model, needsOnboarding: false, onboardingError: undefined });
-      return;
+      return true;
     }
     try {
       const model = importStarterBundle(normalizeDataModel({ crimeScripts: [] }), await fetchStarterBundle());
       localStorage.setItem(ONBOARDING_CHOICE_KEY, choice);
       localStorage.setItem(MODEL_KEY, JSON.stringify(model));
       update({ model: () => model, needsOnboarding: false, onboardingError: undefined });
+      return true;
     } catch (error) {
       update({ onboardingError: error instanceof Error ? error.message : String(error) });
+      return false;
     }
   },
   importStarterLibrary: async () => {

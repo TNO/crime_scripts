@@ -160,8 +160,11 @@ export const HomePage: MeiosisComponent = () => {
                     icons,
                     uploadedImage: url,
                   }),
-                  m('span.classification-badge', t(classification === 'restricted' ? 'RESTRICTED' : 'PUBLIC')),
                   m('h5.script-list-title', label),
+                  m(
+                    'span.classification-badge.script-list-classification',
+                    t(classification === 'restricted' ? 'RESTRICTED' : 'PUBLIC')
+                  ),
                   description && m('p.script-list-description', description),
                   (productIds.length > 0 || geoLocationIds.length > 0) &&
                   m('.script-tags', [

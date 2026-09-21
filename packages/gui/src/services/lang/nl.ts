@@ -115,6 +115,7 @@ export const messagesNL: typeof messages = {
   ONBOARDING_TITLE: 'Kies je werkruimte',
   ONBOARDING_DESCRIPTION: 'Start met de Nederlandse starterbibliotheek of met een lege werkruimte.',
   USE_STARTER: 'Gebruik starterbibliotheek',
+  GO_TO_HOME: 'Naar overzicht',
   SWITCH_TO_DUTCH: 'Schakel naar Nederlands',
   START_EMPTY: 'Start leeg',
   RETRY: 'Opnieuw proberen',

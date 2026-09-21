@@ -84,7 +84,9 @@ export const Layout: MeiosisComponent = () => {
                   localStorage.setItem(LANGUAGE, 'nl');
                   await i18n.loadAndSetLocale('nl');
                 }
-                await actions.completeOnboarding('starter');
+                if (await actions.completeOnboarding('starter')) {
+                  actions.changePage(Pages.HOME);
+                }
               },
             },
           }),
@@ -171,16 +173,6 @@ export const Layout: MeiosisComponent = () => {
               ])
             )
           ),
-          m('.classification-mode-bar', [
-            m('strong', `${t('SCRIPT_MODE')}: `),
-            m(FlatButton, {
-              label: state.scriptMode === 'public' ? t('PUBLIC_MODE') : t('RESTRICTED_MODE'),
-              iconName: state.scriptMode === 'public' ? 'public' : 'lock',
-              className: state.scriptMode === 'restricted' ? 'restricted-mode' : 'public-mode',
-              onclick: () => actions.setScriptMode(state.scriptMode === 'public' ? 'restricted' : 'public'),
-            }),
-            state.scriptMode === 'restricted' && m('span', t('RESTRICTED_MODE_NOTICE')),
-          ]),
           (isSmallPage() || (curPage && curPage.hasSidebar)) && [
             m(FlatButton, {
               iconName: 'menu',

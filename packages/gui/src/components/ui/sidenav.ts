@@ -1,7 +1,7 @@
 import { compressToEncodedURIComponent, decompressFromUint8Array } from 'lz-string';
 import m from 'mithril';
 import { Dialog, FlatButton, padLeft, Select, Sidenav, snackbar } from 'mithril-materialized';
-import type { ConflictAction, DataModel, Page } from '../../models';
+import type { ConflictAction, DataModel, Page, ScriptMode } from '../../models';
 import {
   canShareModel,
   classifiedExportFilename,
@@ -150,7 +150,7 @@ export const SideNav: MeiosisComponent<{ onDelete: () => void }> = () => {
       attrs: {
         state,
         options,
-        actions: { saveModel, setRole, changePage, update, resetApplication },
+        actions: { saveModel, setRole, setScriptMode, changePage, update, resetApplication },
       },
     }) => {
       const { model, role, page, sideNavOpen, scriptMode } = state;
@@ -266,6 +266,24 @@ export const SideNav: MeiosisComponent<{ onDelete: () => void }> = () => {
           ),
           m(
             'li',
+            m(
+              '.row',
+              m(Select<ScriptMode>, {
+                checkedId: scriptMode,
+                label: t('SCRIPT_MODE'),
+                iconName: scriptMode === 'public' ? 'public' : 'lock',
+                options: [
+                  { id: 'public', label: t('PUBLIC_MODE') },
+                  { id: 'restricted', label: t('RESTRICTED_MODE') },
+                ],
+                onchange: ([mode]) => {
+                  setScriptMode(mode);
+                },
+              })
+            )
+          ),
+          m(
+            'li',
             m(FlatButton, {
               label: t('RESET_APPLICATION'),
               iconName: 'restart_alt',
@@ -344,6 +362,8 @@ export const SideNav: MeiosisComponent<{ onDelete: () => void }> = () => {
                   saveModel(importStarterBundle(model, starterCandidate, conflictChoices));
                   starterImportOpen = false;
                   snackbar({ message: t('STARTER_IMPORTED') });
+                  update({ sideNavOpen: false });
+                  changePage(Pages.HOME);
                 },
               },
         }),

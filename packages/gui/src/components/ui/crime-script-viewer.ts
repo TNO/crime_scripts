@@ -301,7 +301,6 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
         language,
         aiGenerated,
         unreviewed,
-        starterOrigin,
         classification,
       } = crimeScript;
       const starterMetadata = getMatchingStarterBundleMetadata(crimeScript, model);
@@ -420,23 +419,17 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
             'span.script-meta-pill.script-meta-pill--location',
             highlighter(`${t('GEOLOCATIONS', geoLocationIds.length)}: ${toCommaSeparatedList(geoLocations, geoLocationIds)}`)
           ),
-          aiGenerated && m('span.script-meta-pill.script-meta-pill--generated', t('AI_GENERATED')),
-          unreviewed && m('span.script-meta-pill.script-meta-pill--review', t('UNREVIEWED')),
-          starterOrigin && m('span.script-meta-pill.script-meta-pill--source', {
-            title: [
-              `${starterMetadata?.title || starterOrigin.bundleId} ${starterOrigin.bundleVersion}`,
-              starterMetadata?.attribution,
-              starterMetadata?.license && `${starterMetadata.license}${starterMetadata.licenseUrl ? `: ${starterMetadata.licenseUrl}` : ''}`,
-              starterMetadata?.disclaimer,
-            ].filter(Boolean).join('\n'),
-          }, t('STARTER_PROVENANCE')),
+          aiGenerated && m('span.script-meta-pill.script-meta-pill--generated', {
+            title: starterMetadata?.attribution,
+          }, t('AI_GENERATED')),
+          unreviewed && m('span.script-meta-pill.script-meta-pill--review', {
+            title: starterMetadata?.disclaimer,
+          }, t('UNREVIEWED')),
           starterMetadata?.license && m('a.script-meta-pill.script-meta-pill--source', {
             href: starterMetadata.licenseUrl,
             target: '_blank',
             rel: 'noopener noreferrer',
           }, starterMetadata.license),
-          starterMetadata?.attribution && m('span.script-meta-pill.script-meta-pill--source', starterMetadata.attribution),
-          starterMetadata?.disclaimer && m('span.script-meta-pill.script-meta-pill--source', starterMetadata.disclaimer),
         ]),
 
         description && m('p', highlighter(description)),

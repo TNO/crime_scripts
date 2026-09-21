@@ -35,6 +35,26 @@
   --pax-process-active-text: #fff;
 }
 
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --mm-primary-color: #8ab9df;
+    --mm-primary-color-light: #b7d4eb;
+    --mm-primary-color-dark: #5f94bf;
+    --mm-button-background: var(--mm-primary-color);
+    --mm-button-text: #102638;
+    --mm-button-flat-text: var(--mm-primary-color);
+    --mm-input-border-focus: var(--mm-primary-color);
+    --mm-nav-background: #172c3f;
+    --mm-switch-checked-track: rgb(138 185 223 / 36%);
+    --mm-switch-checked-thumb: var(--mm-primary-color);
+    --pax-list-row-alt: #252c34;
+    --pax-list-row-hover: #2d3742;
+    --pax-list-header: #303945;
+    --pax-process-active: #315f87;
+    --pax-process-active-text: #fff;
+  }
+}
+
 @media only screen and (min-width: 601px) {
   .container {
     width: 95%;
@@ -129,8 +149,19 @@
   line-height: 1.55;
 }
 
+.landing-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
 .landing-hero-cta {
   text-shadow: none;
+}
+
+.landing-hero-cta--secondary {
+  border: 1px solid rgb(255 255 255 / 72%);
+  background: rgb(7 17 28 / 72%);
 }
 
 @media only screen and (max-width: 600px) {
@@ -391,8 +422,24 @@
 }
 
 [data-mm-preset='compact-minimal'] .script-list-title {
-  margin-bottom: 0.2rem;
-  font-size: 1rem;
+  margin-bottom: 0.35rem;
+  font-size: 1.2rem;
+}
+
+.classification-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.55rem;
+  padding: 0.12rem 0.55rem;
+  border: 1px solid color-mix(in srgb, var(--mm-primary-color, #2f6fa5) 45%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--mm-primary-color, #2f6fa5) 13%, transparent);
+  font-size: 0.75rem;
+  line-height: 1.2;
+}
+
+.script-list-classification {
+  margin-bottom: 0.45rem;
 }
 
 .crime-scenes .collection-item.avatar .script-list-description {
@@ -450,23 +497,11 @@
   background: color-mix(in srgb, #f9a825 20%, transparent);
 }
 
-.classification-mode-bar {
-  min-height: 48px;
-  padding: 4px 20px;
-  border-bottom: 2px solid var(--mm-primary-color, #1565c0);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.classification-mode-bar .restricted-mode,
 .classification-badge,
 .classification-notice {
   font-weight: 700;
 }
 
-.classification-mode-bar .restricted-mode,
 .classification-badge {
   text-transform: uppercase;
 }

@@ -17,25 +17,33 @@ export const LandingPage: MeiosisComponent = () => {
     }) => {
       setPage(Pages.LANDING);
     },
-    view: ({ attrs: { actions } }) => [
+    view: ({ attrs: { state, actions } }) => [
       m('.center', [
         m('.landing-hero', [
           m('img.landing-hero-image[width=1408][height=704]', { src: background, alt: '' }),
           m('.landing-hero-content', [
             m('h1', APP_TITLE),
             m('p', t('LANDING_CTA_DESCRIPTION')),
-            m(Button, {
-              className: 'landing-hero-cta',
-              label: starterLoading ? t('LOADING_STARTER') : t('USE_STARTER'),
-              iconName: 'library_books',
-              disabled: starterLoading,
-              onclick: async () => {
-                starterLoading = true;
-                const imported = await actions.importStarterLibrary();
-                starterLoading = false;
-                if (imported) actions.changePage(Pages.HOME);
-              },
-            }),
+            m('.landing-hero-actions', [
+              m(Button, {
+                className: 'landing-hero-cta',
+                label: starterLoading ? t('LOADING_STARTER') : t('USE_STARTER'),
+                iconName: 'library_books',
+                disabled: starterLoading,
+                onclick: async () => {
+                  starterLoading = true;
+                  const imported = await actions.importStarterLibrary();
+                  starterLoading = false;
+                  if (imported) actions.changePage(Pages.HOME);
+                },
+              }),
+              state.model.crimeScripts.length > 0 && m(Button, {
+                className: 'landing-hero-cta landing-hero-cta--secondary',
+                label: t('GO_TO_HOME'),
+                iconName: 'home',
+                onclick: () => actions.changePage(Pages.HOME),
+              }),
+            ]),
           ]),
         ]),
         m(

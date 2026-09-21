@@ -113,6 +113,7 @@ export const messages = {
   ONBOARDING_TITLE: 'Choose your workspace',
   ONBOARDING_DESCRIPTION: 'Start empty, or switch to Dutch and load the starter library.',
   USE_STARTER: 'Use starter library',
+  GO_TO_HOME: 'Go to overview',
   SWITCH_TO_DUTCH: 'Switch to Dutch',
   START_EMPTY: 'Start empty',
   RETRY: 'Retry',
