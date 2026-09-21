@@ -304,6 +304,81 @@ test('complete public import preserves a conflicting local edit and adds all mis
   assert.equal(imported.crimeScripts.find(({ id }) => id === localScript.id)?.label, 'Lokale wijziging');
 });
 
+test('starter import repairs duplicate owned ids from persisted reusable acts', () => {
+  const current = normalizeDataModel({
+    crimeScripts: [
+      {
+        id: 'legacy-one',
+        label: 'Legacy one',
+        stages: [
+          {
+            id: 'legacy-scene-one',
+            label: 'Scene one',
+            variants: [{
+              id: 'shared-act',
+              label: 'Shared act',
+              activities: [],
+              conditions: [],
+              opportunities: [],
+              indicators: [],
+              measures: [],
+            }],
+            selectedVariantId: 'shared-act',
+          },
+          {
+            id: 'legacy-scene-two',
+            label: 'Scene two',
+            variants: [{
+              id: 'shared-act',
+              label: 'Shared act',
+              activities: [],
+              conditions: [],
+              opportunities: [],
+              indicators: [],
+              measures: [],
+            }],
+            selectedVariantId: 'shared-act',
+          },
+        ],
+      },
+      {
+        id: 'legacy-two',
+        label: 'Legacy two',
+        stages: [{
+          id: 'legacy-scene-three',
+          label: 'Scene three',
+          variants: [{
+            id: 'shared-act',
+            label: 'Shared act',
+            activities: [],
+            conditions: [],
+            opportunities: [],
+            indicators: [],
+            measures: [],
+          }],
+        }],
+      },
+    ],
+  });
+
+  const imported = importStarterBundle(current, bundle());
+  const variantIds = imported.crimeScripts.flatMap((script) =>
+    script.stages.flatMap((scene) => scene.variants.map(({ id }) => id))
+  );
+
+  assert.equal(imported.crimeScripts.length, 3);
+  assert.equal(new Set(variantIds).size, variantIds.length);
+  imported.crimeScripts.slice(0, 2).forEach((script) => {
+    script.stages.forEach((scene) => {
+      assert.equal(scene.variants.some(({ id }) => id === scene.selectedVariantId), true);
+    });
+  });
+  assert.deepEqual(
+    imported.crimeScripts.slice(0, 2).map(({ label }) => label),
+    ['Legacy one', 'Legacy two']
+  );
+});
+
 test('suggestions are language-filtered originals and copied with internal metadata', () => {
   const model = bundle();
   const suggestions = collectStarterSuggestions(model, model, 'indicator', 'nl');

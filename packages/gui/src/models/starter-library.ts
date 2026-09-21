@@ -356,51 +356,61 @@ const mergeSharedTaxonomiesGlobally = (result: DataModel, imported: DataModel, u
 
 const remapCollidingOwnedIds = (source: CrimeScript, usedIds: Set<ID>): CrimeScript => {
   const script = structuredClone(source);
-  const remappedIds = new Map<ID, ID>();
-  const register = (item: { id: ID }) => {
+  const register = (item: { id: ID }): ID => {
     const original = item.id;
     if (usedIds.has(item.id)) item.id = uniqueId(usedIds);
     usedIds.add(item.id);
-    remappedIds.set(original, item.id);
+    return original;
   };
-  register(script);
+  const originalScriptId = register(script);
   if (script.id !== source.id && source.scriptFamilyId === source.id) {
     script.scriptFamilyId = script.id;
   }
   script.literature.forEach(register);
+  const sceneIds = new Map<ID, ID>();
+  const variantIdsByScene = new Map<ID, Map<ID, ID>>();
   script.stages.forEach((scene) => {
-    register(scene);
+    const originalSceneId = register(scene);
+    if (!sceneIds.has(originalSceneId)) sceneIds.set(originalSceneId, scene.id);
+    const variantIds = new Map<ID, ID>();
     scene.variants.forEach((act) => {
-      register(act);
+      const originalActId = register(act);
+      if (!variantIds.has(originalActId)) variantIds.set(originalActId, act.id);
       act.activities.forEach(register);
       act.conditions.forEach(register);
-      act.opportunities.forEach(register);
-      act.indicators.forEach(register);
-      act.measures.forEach(register);
-    });
-  });
-  (script.tracks || []).forEach(register);
-  script.stages.forEach((scene) => {
-    scene.selectedVariantId = scene.selectedVariantId
-      ? remappedIds.get(scene.selectedVariantId) || scene.selectedVariantId
-      : undefined;
-    scene.variants.forEach((act) => {
+      const itemIds = new Map<ID, ID>();
+      [...act.opportunities, ...act.indicators].forEach((item) => {
+        const originalItemId = register(item);
+        if (!itemIds.has(originalItemId)) itemIds.set(originalItemId, item.id);
+      });
       act.opportunities.forEach((item) => {
-        item.parents = item.parents?.map((id) => remappedIds.get(id) || id);
+        item.parents = item.parents?.map((id) => itemIds.get(id) || id);
       });
       act.indicators.forEach((item) => {
-        item.parents = item.parents?.map((id) => remappedIds.get(id) || id);
+        item.parents = item.parents?.map((id) => itemIds.get(id) || id);
       });
+      act.measures.forEach(register);
     });
+    variantIdsByScene.set(scene.id, variantIds);
+    scene.selectedVariantId = scene.selectedVariantId
+      ? variantIds.get(scene.selectedVariantId) || scene.selectedVariantId
+      : undefined;
   });
+  (script.tracks || []).forEach(register);
   (script.tracks || []).forEach((track) => {
     track.sceneVariants = Object.fromEntries(
-      Object.entries(track.sceneVariants).map(([sceneId, variantId]) => [
-        remappedIds.get(sceneId) || sceneId,
-        variantId ? remappedIds.get(variantId) || variantId : undefined,
-      ])
+      Object.entries(track.sceneVariants).map(([originalSceneId, variantId]) => {
+        const sceneId = sceneIds.get(originalSceneId) || originalSceneId;
+        return [
+          sceneId,
+          variantId ? variantIdsByScene.get(sceneId)?.get(variantId) || variantId : undefined,
+        ];
+      })
     );
   });
+  if (script.id !== originalScriptId && script.scriptFamilyId === originalScriptId) {
+    script.scriptFamilyId = script.id;
+  }
   return script;
 };
 
@@ -425,12 +435,27 @@ export const importStandaloneScript = (currentInput: DataModel, importedInput: D
   return result;
 };
 
+const repairDuplicateOwnedIds = (input: DataModel): DataModel => {
+  const normalized = normalizeDataModel(input);
+  let result: DataModel = {
+    ...structuredClone(normalized),
+    crimeScripts: [],
+  };
+  normalized.crimeScripts.forEach((script) => {
+    result = importStandaloneScript(result, {
+      ...structuredClone(normalized),
+      crimeScripts: [script],
+    });
+  });
+  return result;
+};
+
 export const importStarterBundle = (
   currentInput: DataModel,
   bundleInput: DataModel,
   choices: ImportConflictChoices = {}
 ): DataModel => {
-  const current = normalizeDataModel(currentInput);
+  const current = repairDuplicateOwnedIds(currentInput);
   const bundle = validateStarterBundle(bundleInput);
   const metadata = bundle.starterBundle!;
   const result = structuredClone(current);

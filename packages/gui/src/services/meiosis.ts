@@ -155,8 +155,9 @@ export const appActions: (cell: MeiosisCell<State>) => Actions = ({ getState, up
       update({ model: () => model, onboardingError: undefined });
       snackbar({ message: t('STARTER_IMPORTED') });
       return true;
-    } catch {
-      snackbar({ message: t('STARTER_LOAD_FAILED'), dismissible: true });
+    } catch (error) {
+      const detail = error instanceof Error ? error.message : String(error);
+      snackbar({ message: `${t('STARTER_LOAD_FAILED')} ${detail}`, dismissible: true });
       return false;
     }
   },
