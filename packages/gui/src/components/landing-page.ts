@@ -17,7 +17,7 @@ export const LandingPage: MeiosisComponent = () => {
     }) => {
       setPage(Pages.LANDING);
     },
-    view: ({ attrs: { state, actions } }) => [
+    view: ({ attrs: { actions } }) => [
       m('.center', [
         m('.landing-hero', [
           m('img.landing-hero-image[width=1408][height=704]', { src: background, alt: '' }),
@@ -37,7 +37,7 @@ export const LandingPage: MeiosisComponent = () => {
                   if (imported) actions.changePage(Pages.HOME);
                 },
               }),
-              state.model.crimeScripts.length > 0 && m(Button, {
+              m(Button, {
                 className: 'landing-hero-cta landing-hero-cta--secondary',
                 label: t('GO_TO_HOME'),
                 iconName: 'home',
