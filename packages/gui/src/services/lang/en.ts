@@ -123,8 +123,8 @@ export const messages = {
     'The legacy model contained {count} missing activity groups. {relinked} were reconnected to existing content; {removed} had no source content and were removed.',
   DELETE_REFERENCED_ITEMS_CONFIRM:
     'The following items are still used in crime scripts. Continuing will remove those references:\n\n{details}',
-  DANGLING_REFERENCE_WARNING:
-    'Missing {type} "{id}" is still used at {locations}. Open these locations and remove the missing selection manually.',
+  DANGLING_REFERENCES_REPAIRED:
+    '{references} references to {items} missing taxonomy items were removed automatically. The repaired model has been saved.',
   LOADING_STARTER: 'Loading starter library…',
   IMPORT_STARTER: 'Import starter library',
   IMPORT_STARTER_EMPTY_CONFIRM: 'Load the Dutch starter library into this empty workspace?',

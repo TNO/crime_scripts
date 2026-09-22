@@ -21,6 +21,12 @@ export type TaxonomyReferenceUsage = {
   path: string[];
 };
 
+export type DanglingTaxonomyRepair = {
+  model: DataModel;
+  removedReferences: TaxonomyReferenceUsage[];
+  missingItems: TaxonomyItem[];
+};
+
 const taxonomyNames: TaxonomyName[] = [
   'cast',
   'attributes',
@@ -126,4 +132,22 @@ export const removeTaxonomyReferences = (input: DataModel, removed: TaxonomyItem
   });
 
   return model;
+};
+
+export const repairDanglingTaxonomyReferences = (input: DataModel): DanglingTaxonomyRepair => {
+  const removedReferences = findDanglingTaxonomyReferences(input);
+  const missingItems = [
+    ...new Map(
+      removedReferences.map(({ taxonomy, itemId }) => [
+        `${taxonomy}:${itemId}`,
+        { taxonomy, id: itemId, label: itemId },
+      ])
+    ).values(),
+  ];
+
+  return {
+    model: missingItems.length > 0 ? removeTaxonomyReferences(input, missingItems) : input,
+    removedReferences,
+    missingItems,
+  };
 };

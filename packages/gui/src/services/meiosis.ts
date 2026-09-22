@@ -8,12 +8,11 @@ import {
   type FlexSearchResult,
   type ID,
   type ScriptMode,
-  type TaxonomyName,
-  findDanglingTaxonomyReferences,
   importStarterBundle,
   mergeDataModels,
   normalizeDataModel,
   normalizeUploadedDataModel,
+  repairDanglingTaxonomyReferences,
   resolveStarterBundleUrl,
   validateStarterBundle,
   Pages,
@@ -31,19 +30,6 @@ const MODEL_KEY = 'CSS_MODEL';
 export const ONBOARDING_CHOICE_KEY = 'CSS_ONBOARDING_CHOICE';
 
 const translatedText = (value: unknown): string => Array.isArray(value) ? value.join('') : String(value);
-
-const taxonomyTranslationKeys = {
-  cast: 'ROLE',
-  attributes: 'ATTRIBUTE',
-  products: 'PRODUCTS',
-  transports: 'TRANSPORT',
-  locations: 'LOCATIONS',
-  geoLocations: 'GEOLOCATIONS',
-  partners: 'PARTNER',
-} as const;
-
-const taxonomyLabel = (taxonomy: TaxonomyName): string =>
-  translatedText(t(taxonomyTranslationKeys[taxonomy], 1));
 const USER_ROLE = 'CSS_USER_ROLE';
 export const SCRIPT_MODE_KEY = 'CSS_SCRIPT_MODE';
 export const APP_TITLE = 'PAX Crime Scripting';
@@ -296,12 +282,18 @@ cells.map(() => {
 export const loadData = async (ds = localStorage.getItem(MODEL_KEY)) => {
   let model: DataModel;
   let legacyActRepairs = { relinked: 0, removed: 0 };
+  let danglingReferenceRepairs = { references: 0, items: 0 };
   try {
     const normalized = normalizeUploadedDataModel(ds ? JSON.parse(ds) : { crimeScripts: [] });
-    model = normalized.model;
+    const repaired = repairDanglingTaxonomyReferences(normalized.model);
+    model = repaired.model;
     legacyActRepairs = {
       relinked: normalized.repairs.filter(({ kind }) => kind === 'relinked').length,
       removed: normalized.repairs.filter(({ kind }) => kind === 'removed').length,
+    };
+    danglingReferenceRepairs = {
+      references: repaired.removedReferences.length,
+      items: repaired.missingItems.length,
     };
   } catch (error) {
     snackbar({
@@ -332,29 +324,20 @@ export const loadData = async (ds = localStorage.getItem(MODEL_KEY)) => {
       return translatedText(message);
     });
   }
-  const danglingReferences = findDanglingTaxonomyReferences(model);
-  const danglingGroups = new Map<string, typeof danglingReferences>();
-  danglingReferences.forEach((usage) => {
-    const key = `${usage.taxonomy}:${usage.itemId}`;
-    danglingGroups.set(key, [...(danglingGroups.get(key) || []), usage]);
-  });
-  danglingGroups.forEach((usages) => {
-    const [{ taxonomy, itemId }] = usages;
-    const locations = [...new Set(usages.map(({ path }) => path.join(' › ')))].join('; ');
+  if (danglingReferenceRepairs.references > 0) {
     loadWarnings.push(() => {
-      const message = t('DANGLING_REFERENCE_WARNING', {
-        type: taxonomyLabel(taxonomy).toLowerCase(),
-        id: itemId,
-        locations,
+      const message = t('DANGLING_REFERENCES_REPAIRED', {
+        references: danglingReferenceRepairs.references,
+        items: danglingReferenceRepairs.items,
       });
       return translatedText(message);
     });
-  });
+  }
   if (loadWarnings.length > 0) {
     setTimeout(() => snackbar({
       message: loadWarnings.map((createMessage) => createMessage()).join('\n\n'),
       dismissible: true,
-      duration: 15_000,
+      duration: 8_000,
     }));
   }
 

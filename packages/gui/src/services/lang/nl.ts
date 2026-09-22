@@ -125,8 +125,8 @@ export const messagesNL: typeof messages = {
     'Het oude model bevatte {count} ontbrekende activiteitgroepen. {relinked} konden aan bestaande inhoud worden gekoppeld; {removed} hadden geen broninhoud en zijn verwijderd.',
   DELETE_REFERENCED_ITEMS_CONFIRM:
     'De volgende items worden nog gebruikt in crime scripts. Als je doorgaat, worden ook deze verwijzingen verwijderd:\n\n{details}',
-  DANGLING_REFERENCE_WARNING:
-    'Ontbrekende {type} "{id}" wordt nog gebruikt bij {locations}. Open deze locaties en verwijder de ontbrekende selectie handmatig.',
+  DANGLING_REFERENCES_REPAIRED:
+    '{references} verwijzingen naar {items} ontbrekende taxonomie-items zijn automatisch verwijderd. Het herstelde model is opgeslagen.',
   LOADING_STARTER: 'Starterbibliotheek laden…',
   IMPORT_STARTER: 'Importeer starterbibliotheek',
   IMPORT_STARTER_EMPTY_CONFIRM: 'Laad de Nederlandse starterbibliotheek in deze lege werkruimte?',

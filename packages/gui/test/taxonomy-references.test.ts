@@ -4,6 +4,7 @@ import { normalizeDataModel } from '../src/models/model-normalization.ts';
 import {
   findDanglingTaxonomyReferences,
   findRemovedTaxonomyItems,
+  repairDanglingTaxonomyReferences,
   removeTaxonomyReferences,
 } from '../src/models/taxonomy-references.ts';
 
@@ -116,4 +117,20 @@ test('dangling taxonomy references report the item and exact usage location', ()
       },
     ]
   );
+});
+
+test('dangling taxonomy references are removed automatically without mutating the uploaded model', () => {
+  const dangling = model();
+  dangling.cast = [];
+  dangling.partners = [];
+
+  const repaired = repairDanglingTaxonomyReferences(dangling);
+
+  assert.equal(repaired.removedReferences.length, 2);
+  assert.equal(repaired.missingItems.length, 2);
+  assert.deepEqual(findDanglingTaxonomyReferences(repaired.model), []);
+  assert.deepEqual(repaired.model.crimeScripts[0].stages[0].variants[0].activities[0].cast, []);
+  assert.deepEqual(repaired.model.crimeScripts[0].stages[0].variants[0].measures[0].partners, []);
+  assert.deepEqual(dangling.crimeScripts[0].stages[0].variants[0].activities[0].cast, ['role']);
+  assert.deepEqual(dangling.crimeScripts[0].stages[0].variants[0].measures[0].partners, ['partner']);
 });
