@@ -12,7 +12,7 @@ export const messagesNL: typeof messages = {
   HOME: { TITLE: 'Home', ROUTE: '/home' },
   ABOUT: { TITLE: 'Gebruikte definities in PAX', ROUTE: '/over', TEXT: situationCrimePreventionClassificationTableNL },
   CRIME_SCRIPT: { TITLE: 'Crime script', ROUTE: '/crime_script' },
-  SETTINGS: { TITLE: 'Instellingen', ROUTE: '/instellingen' },
+  SETTINGS: { TITLE: 'Taxonomie', ROUTE: '/taxonomie' },
   LANDING: { TITLE: 'Introductie', ROUTE: '/' },
   CASE: { TITLE: 'Casus', ROUTE: '/casus' },
   ARTICLE: { TITLE: 'Nieuws', ROUTE: '/nieuws' },

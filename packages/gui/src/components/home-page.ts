@@ -107,7 +107,7 @@ export const HomePage: MeiosisComponent = () => {
         }),
         isAdmin &&
         m(
-          '.right-align.buttons',
+          '.right-align.buttons.home-page-actions',
           [
             m(FlatButton, {
               label: t('LLM_WIZARD_TITLE'),

@@ -99,7 +99,7 @@
 }
 
 @media only screen and (max-width: 992px) {
-  .crime-script-nav-trigger {
+  .compact-action-nav-trigger {
     position: absolute;
     z-index: 1000;
     top: 52px;
@@ -110,6 +110,11 @@
     width: fit-content;
     margin-top: -5px;
     margin-left: auto;
+  }
+
+  .home-page-actions,
+  .settings-page-actions {
+    margin-top: -5px;
   }
 }
 
@@ -505,6 +510,7 @@
 }
 
 [data-mm-preset='compact-minimal'] .script-list-title {
+  margin: 0;
   font-size: 1.25rem;
 }
 
@@ -1706,6 +1712,13 @@ ul.kanban>li {
   gap: 0.25rem;
   align-items: center;
   justify-content: flex-end;
+}
+
+.settings-page-actions {
+  display: flex;
+  width: fit-content;
+  float: right;
+  gap: 0.25rem;
 }
 
 #crime-script .script-viewer-title {

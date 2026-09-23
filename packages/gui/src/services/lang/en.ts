@@ -11,7 +11,7 @@ export const messages = {
   HOME: { TITLE: 'Home', ROUTE: '/home' },
   ABOUT: { TITLE: 'Definitions used in PAX', ROUTE: '/about', TEXT: situationCrimePreventionClassificationTable },
   CRIME_SCRIPT: { TITLE: 'Crime script', ROUTE: '/crime_script' },
-  SETTINGS: { TITLE: 'Settings', ROUTE: '/settings' },
+  SETTINGS: { TITLE: 'Taxonomy', ROUTE: '/taxonomy' },
   LANDING: { TITLE: 'Introduction', ROUTE: '/' },
   CASE: { TITLE: 'Case file', ROUTE: '/case' },
   ARTICLE: { TITLE: 'News', ROUTE: '/news' },

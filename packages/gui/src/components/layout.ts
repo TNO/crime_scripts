@@ -48,6 +48,7 @@ export const Layout: MeiosisComponent = () => {
           ? model.crimeScripts?.find(({ id }) => id === (m.route.param('id') || currentCrimeScriptId))
           : undefined;
       const brandTitle = currentCrimeScript ? `PAX: ${currentCrimeScript.label}` : APP_TITLE;
+      const hasCompactTopActions = [Pages.HOME, Pages.CRIME_SCRIPT, Pages.SETTINGS].includes(page);
 
       return [
         state.needsOnboarding &&
@@ -199,7 +200,7 @@ export const Layout: MeiosisComponent = () => {
           m(FlatButton, {
             className: [
               curPage?.hasSidebar ? '' : 'hide-on-large-only',
-              curPage?.id === Pages.CRIME_SCRIPT ? 'crime-script-nav-trigger' : '',
+              hasCompactTopActions ? 'compact-action-nav-trigger' : '',
             ].filter(Boolean).join(' '),
             iconName: 'menu',
             onclick: () => actions.update({ sideNavOpen: true }),

@@ -117,6 +117,69 @@ export const SettingsPage: MeiosisComponent = () => {
 
       return m(
         '#settings-page.settings.page.row',
+        m('.right-align.settings-page-actions', [
+          !edit &&
+            m(FlatButton, {
+              label: t('TREE_VIEW', showTree ? 'HIDE' : 'SHOW'),
+              iconName: showTree ? 'view_list' : 'account_tree',
+              className: 'small',
+              onclick: () => {
+                showTree = !showTree;
+              },
+            }),
+          isAdmin && [
+            m(FlatButton, {
+              label: edit ? t('SAVE_BUTTON', 'LABEL') : t('EDIT_BUTTON', 'LABEL'),
+              iconName: edit ? 'save' : 'edit',
+              className: 'small',
+              onclick: () => {
+                if (!edit) {
+                  edit = true;
+                  storedModel = deepCopy(model);
+                  return;
+                }
+
+                const removedItems = findRemovedTaxonomyItems(storedModel, model);
+                const usages = collectTaxonomyReferenceUsages(model);
+                const impacts = removedItems.flatMap((item) => {
+                  const paths = usages
+                    .filter(({ taxonomy, itemId }) => taxonomy === item.taxonomy && itemId === item.id)
+                    .map(({ path }) => path.join(' › '));
+                  return paths.length > 0
+                    ? [`${taxonomyLabel(item.taxonomy)} "${item.label}": ${paths.join('; ')}`]
+                    : [];
+                });
+                if (
+                  impacts.length > 0 &&
+                  !window.confirm(text(t('DELETE_REFERENCED_ITEMS_CONFIRM', { details: impacts.join('\n') })))
+                ) {
+                  return;
+                }
+
+                edit = false;
+                const cleanedModel = removeTaxonomyReferences(model, removedItems);
+                cleanedModel.cast.sort(sortByLabel);
+                cleanedModel.attributes.sort(sortByLabel);
+                cleanedModel.products.sort(sortByLabel);
+                cleanedModel.transports.sort(sortByLabel);
+                cleanedModel.locations.sort(sortByLabel);
+                cleanedModel.geoLocations.sort(sortByLabel);
+                cleanedModel.partners.sort(sortByLabel);
+                actions.saveModel(cleanedModel);
+              },
+            }),
+            edit &&
+              m(FlatButton, {
+                label: t('CANCEL'),
+                iconName: 'cancel',
+                className: 'small',
+                onclick: () => {
+                  edit = false;
+                  actions.saveModel(storedModel);
+                },
+              }),
+          ],
+        ]),
         m(TextInput, {
           id: 'search',
           canClear: true,
@@ -130,68 +193,6 @@ export const SettingsPage: MeiosisComponent = () => {
             actions.setAttributeFilter(v);
           },
         }),
-
-        !edit &&
-          m(FlatButton, {
-            label: t('TREE_VIEW', showTree ? 'HIDE' : 'SHOW'),
-            iconName: showTree ? 'view_list' : 'account_tree',
-            className: 'right small',
-            onclick: () => {
-              showTree = !showTree;
-            },
-          }),
-        isAdmin && [
-          m(FlatButton, {
-            label: edit ? t('SAVE_BUTTON', 'LABEL') : t('EDIT_BUTTON', 'LABEL'),
-            iconName: edit ? 'save' : 'edit',
-            className: 'right small',
-            onclick: () => {
-              if (!edit) {
-                edit = true;
-                storedModel = deepCopy(model);
-                return;
-              }
-
-              const removedItems = findRemovedTaxonomyItems(storedModel, model);
-              const usages = collectTaxonomyReferenceUsages(model);
-              const impacts = removedItems.flatMap((item) => {
-                const paths = usages
-                  .filter(({ taxonomy, itemId }) => taxonomy === item.taxonomy && itemId === item.id)
-                  .map(({ path }) => path.join(' › '));
-                return paths.length > 0
-                  ? [`${taxonomyLabel(item.taxonomy)} "${item.label}": ${paths.join('; ')}`]
-                  : [];
-              });
-              if (
-                impacts.length > 0 &&
-                !window.confirm(text(t('DELETE_REFERENCED_ITEMS_CONFIRM', { details: impacts.join('\n') })))
-              ) {
-                return;
-              }
-
-              edit = false;
-              const cleanedModel = removeTaxonomyReferences(model, removedItems);
-              cleanedModel.cast.sort(sortByLabel);
-              cleanedModel.attributes.sort(sortByLabel);
-              cleanedModel.products.sort(sortByLabel);
-              cleanedModel.transports.sort(sortByLabel);
-              cleanedModel.locations.sort(sortByLabel);
-              cleanedModel.geoLocations.sort(sortByLabel);
-              cleanedModel.partners.sort(sortByLabel);
-              actions.saveModel(cleanedModel);
-            },
-          }),
-          edit &&
-            m(FlatButton, {
-              label: t('CANCEL'),
-              iconName: 'cancel',
-              className: 'right small',
-              onclick: () => {
-                edit = false;
-                actions.saveModel(storedModel);
-              },
-            }),
-        ],
         m(Tabs, {
           tabWidth: 'auto',
           tabs: tabs.map(([id, label, desc, type, iconName, attr], _i) => {
