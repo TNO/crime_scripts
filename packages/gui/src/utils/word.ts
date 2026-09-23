@@ -5,11 +5,9 @@ import {
   ExternalHyperlink,
   HeadingLevel,
   LevelFormat,
-  Packer,
   Paragraph,
   TextRun,
 } from 'docx';
-import { saveAs } from 'file-saver';
 import {
   ActivityType,
   buildActivityOutline,
@@ -439,23 +437,7 @@ export const markdownToDocx = (title = t('TITLE'), description = t('DESCRIPTION'
   });
 };
 
-/** Converts a crime script to a Word docx document and saves it */
-export const toWord = async (filename: string, cs: Partial<CrimeScript>, model: DataModel) => {
-  const { label: title, description } = cs;
-
-  const markdown = crimeScriptToMarkdown(cs, model);
-  // console.log(markdown);
-
-  const classifiedTitle = cs.classification ? `${cs.classification.toUpperCase()} — ${title}` : title;
-  const doc = markdownToDocx(classifiedTitle, description, markdown);
-
-  Packer.toBlob(doc).then((blob) => {
-    // saveAs from FileSaver will download the blob
-    saveAs(blob, filename);
-  });
-};
-
-const parseFormattedText = (text: string): (TextRun | ExternalHyperlink)[] => {
+export const parseFormattedText = (text: string): (TextRun | ExternalHyperlink)[] => {
   const parts: (TextRun | ExternalHyperlink)[] = [];
   let currentText = '';
   let isBold = false;
@@ -528,7 +510,7 @@ const parseFormattedText = (text: string): (TextRun | ExternalHyperlink)[] => {
   return parts;
 };
 
-const convertMarkdownToDocxParagraphs = (markdown?: string): Paragraph[] => {
+export const convertMarkdownToDocxParagraphs = (markdown?: string): Paragraph[] => {
   if (!markdown) return [];
   const lines = markdown.split('\n');
   const paragraphs: Paragraph[] = [];

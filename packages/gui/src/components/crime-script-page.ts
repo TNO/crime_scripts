@@ -1,5 +1,5 @@
 import m from 'mithril';
-import { AlertDialog, FlatButton, Menu, type MenuEntry, uniqueId } from 'mithril-materialized';
+import { AlertDialog, FlatButton, Menu, type MenuEntry, snackbar, uniqueId } from 'mithril-materialized';
 import {
   classifiedExportFilename,
   createRestrictedCounterpart,
@@ -13,11 +13,19 @@ import {
 import type { MeiosisComponent } from '../services';
 import { t } from '../services/translations';
 import { formatDate, toJSON } from '../utils';
-import { toWord } from '../utils/word';
+import { toBarrierPng, toBarrierSvg } from '../utils/barrier-export';
+import { toWord } from '../utils/word-report';
 import { CrimeScriptEditor } from './ui/crime-script-editor';
 import { CrimeScriptViewer } from './ui/crime-script-viewer';
 
-type ScriptAction = 'create-restricted' | 'delete' | 'detach' | 'export-word' | 'export-json';
+type ScriptAction =
+  | 'create-restricted'
+  | 'delete'
+  | 'detach'
+  | 'export-word'
+  | 'export-barrier-svg'
+  | 'export-barrier-png'
+  | 'export-json';
 
 const ScriptActionsMenu = Menu<ScriptAction>();
 
@@ -72,13 +80,9 @@ export const CrimeScriptPage: MeiosisComponent = () => {
 
       const isEditor = role === 'admin' || role === 'editor';
 
-      const filename = crimeScript
-        ? classifiedExportFilename(
-            `${formatDate(Date.now(), '')}_${crimeScript.label}_v${model.version}`,
-            crimeScript.classification,
-            'docx'
-          )
-        : '';
+      const exportBaseName = `${formatDate(Date.now(), '')}_${crimeScript.label}_v${model.version}`;
+      const exportFilename = (extension: 'docx' | 'json' | 'svg' | 'png') =>
+        classifiedExportFilename(exportBaseName, crimeScript.classification, extension);
       const confirmRestrictedExport = () =>
         crimeScript.classification !== 'restricted' || window.confirm(t('RESTRICTED_EXPORT_CONFIRM'));
       const restrictedCounterpartExists = hasRestrictedCounterpart(model, crimeScript);
@@ -101,6 +105,8 @@ export const CrimeScriptPage: MeiosisComponent = () => {
       if (scriptActions.length > 0) scriptActions.push({ separator: true });
       scriptActions.push(
         { id: 'export-word', label: t('EXPORT_TO_WORD'), iconName: 'download' },
+        { id: 'export-barrier-svg', label: t('EXPORT_BARRIER_SVG'), iconName: 'grid_view' },
+        { id: 'export-barrier-png', label: t('EXPORT_BARRIER_PNG'), iconName: 'image' },
         { id: 'export-json', label: t('EXPORT_TO_JSON'), iconName: 'download' }
       );
       if (isEditor && !edit) {
@@ -179,10 +185,39 @@ export const CrimeScriptPage: MeiosisComponent = () => {
                       break;
                     }
                     case 'export-word':
-                      if (confirmRestrictedExport()) toWord(filename, crimeScript, model);
+                      if (confirmRestrictedExport()) {
+                        void toWord(exportFilename('docx'), crimeScript, model).catch((error) => {
+                          snackbar({
+                            message: `${t('EXPORT_FAILED')} ${error instanceof Error ? error.message : String(error)}`,
+                            dismissible: true,
+                          });
+                        });
+                      }
+                      break;
+                    case 'export-barrier-svg':
+                      if (confirmRestrictedExport()) {
+                        try {
+                          toBarrierSvg(exportFilename('svg'), crimeScript, model);
+                        } catch (error) {
+                          snackbar({
+                            message: `${t('EXPORT_FAILED')} ${error instanceof Error ? error.message : String(error)}`,
+                            dismissible: true,
+                          });
+                        }
+                      }
+                      break;
+                    case 'export-barrier-png':
+                      if (confirmRestrictedExport()) {
+                        void toBarrierPng(exportFilename('png'), crimeScript, model).catch((error) => {
+                          snackbar({
+                            message: `${t('EXPORT_FAILED')} ${error instanceof Error ? error.message : String(error)}`,
+                            dismissible: true,
+                          });
+                        });
+                      }
                       break;
                     case 'export-json':
-                      if (confirmRestrictedExport()) toJSON(filename, crimeScript, model);
+                      if (confirmRestrictedExport()) toJSON(exportFilename('json'), crimeScript, model);
                       break;
                   }
                 },

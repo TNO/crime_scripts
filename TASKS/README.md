@@ -22,6 +22,14 @@ This does not block the starter-library release but follows it in the current im
 - [x] 0009 Build agent crime-script generator *(needs 0007, 0008)*
 - [x] 0010 Simplify script navigation *(needs 0001, 0002)*
 
+## Reporting and visualisation
+
+The structured Word report establishes the shared report model used by the
+barrier visualisation, so these tasks are implemented sequentially.
+
+- [x] 0011 Redesign Word report *(needs 0010)*
+- [x] 0012 Add barrier-model export *(needs 0011)*
+
 ## Restricted workflows
 
 Restricted content remains outside the public repository; only classification, mode, safeguards, and assembly tooling are versioned here.

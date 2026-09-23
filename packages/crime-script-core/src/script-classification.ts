@@ -204,7 +204,7 @@ export const canShareModel = (model: DataModel): boolean => !hasRestrictedConten
 export const classifiedExportFilename = (
   label: string,
   classification: ScriptClassification,
-  extension: 'json' | 'docx'
+  extension: 'json' | 'docx' | 'svg' | 'png'
 ): string => `${label.trim().replace(/\s+/g, '_')}_${classification.toUpperCase()}.${extension}`;
 
 export const classificationHeader = (classification: ScriptClassification): string =>
