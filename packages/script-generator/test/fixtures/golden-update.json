@@ -1,0 +1,158 @@
+{
+  "bundle": {
+    "schemaVersion": 3,
+    "version": 1,
+    "lastUpdate": 1,
+    "crimeScripts": [
+      {
+        "id": "golden:update",
+        "scriptFamilyId": "golden:update",
+        "classification": "restricted",
+        "label": "Existing record check",
+        "description": "An existing defensive record-check model.",
+        "owner": "Analyst",
+        "updated": 1,
+        "reviewer": ["Reviewer"],
+        "status": 4,
+        "literature": [],
+        "stages": [
+          {
+            "id": "stage-existing",
+            "label": "Assess the record",
+            "description": "The organisation assesses the received record.",
+            "selectedVariantId": "variant-existing",
+            "variants": [
+              {
+                "id": "variant-existing",
+                "label": "Regular assessment",
+                "activities": [
+                  {
+                    "id": "activity-existing",
+                    "label": "Compare the record",
+                    "description": "Observable traces: an old comparison result.",
+                    "type": 1,
+                    "cast": ["employee-existing"],
+                    "attributes": [],
+                    "transports": []
+                  }
+                ],
+                "conditions": [],
+                "opportunities": [],
+                "indicators": [],
+                "measures": []
+              }
+            ]
+          }
+        ],
+        "tracks": [],
+        "productIds": [],
+        "geoLocationIds": [],
+        "language": "en",
+        "icon": "builtin:document-check",
+        "icons": ["builtin:document-check"],
+        "aiGenerated": false,
+        "unreviewed": false
+      }
+    ],
+    "cast": [{ "id": "employee-existing", "label": "Authorised employee" }],
+    "attributes": [],
+    "locations": [],
+    "geoLocations": [],
+    "products": [],
+    "transports": [],
+    "partners": []
+  },
+  "brief": {
+    "schemaVersion": 1,
+    "bundlePath": "bundle.json",
+    "scriptId": "golden:update",
+    "existingScriptId": "golden:update",
+    "subject": "Existing record check",
+    "purpose": "Offline update golden test",
+    "geography": "Fictional jurisdiction",
+    "contentLanguage": "en",
+    "classification": "restricted",
+    "sourceSensitivity": "restricted",
+    "detail": "orienting",
+    "scriptIcon": "builtin:document-check"
+  },
+  "candidate": {
+    "schemaVersion": 1,
+    "script": {
+      "label": "Existing record check",
+      "description": "An updated defensive model for corroborating a received record.",
+      "owner": "Analyst",
+      "stages": [
+        {
+          "key": "assessment",
+          "existingId": "stage-existing",
+          "label": "Assess the record",
+          "description": "The organisation determines whether the received record needs independent corroboration.",
+          "variants": [
+            {
+              "key": "regular",
+              "existingId": "variant-existing",
+              "label": "Regular assessment",
+              "activities": [
+                {
+                  "key": "compare",
+                  "existingId": "activity-existing",
+                  "event": "An authorised employee compares material claims with an authoritative record",
+                  "observableTraces": ["a logged independent comparison result"],
+                  "decisionPoint": "decide whether escalation is proportionate",
+                  "castKeys": ["employee"]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "taxonomies": {
+      "cast": [
+        {
+          "key": "employee",
+          "id": "employee-existing",
+          "label": "Authorised employee"
+        }
+      ],
+      "attributes": [],
+      "products": [],
+      "transports": [],
+      "locations": [],
+      "geoLocations": [],
+      "partners": []
+    },
+    "safetyReview": {
+      "containsStepByStepInstructions": false,
+      "containsExploitableParameters": false,
+      "containsEvasionTactics": false,
+      "notes": "Defensive verification only."
+    }
+  },
+  "evidence": {
+    "schemaVersion": 1,
+    "sources": [
+      {
+        "key": "official",
+        "title": "Fictional official guidance fixture",
+        "kind": "web",
+        "state": "valid",
+        "url": "https://example.test/official",
+        "accessedAt": "2026-01-01",
+        "contentHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "reliability": "Offline authoritative fixture.",
+        "passages": [{ "text": "Material claims should be independently checked." }]
+      }
+    ],
+    "claims": [
+      { "nodeKey": "assessment", "sourceKeys": ["official"] },
+      { "nodeKey": "compare", "sourceKeys": ["official"] }
+    ]
+  },
+  "expected": {
+    "scriptId": "golden:update",
+    "stageId": "stage-existing",
+    "activityId": "activity-existing"
+  }
+}

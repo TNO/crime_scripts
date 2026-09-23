@@ -1,6 +1,6 @@
 import type { Patch } from 'meiosis-setup/types';
 import m, { type FactoryComponent } from 'mithril';
-import { AlertDialog, Button, Dialog, FlatButton, Select, type TabItem, Tabs } from 'mithril-materialized';
+import { AlertDialog, Dialog, FlatButton, Select, type TabItem, Tabs } from 'mithril-materialized';
 import { LayoutForm, SlimdownView, type UIForm } from 'mithril-ui-form';
 import {
   type Act,
@@ -25,16 +25,15 @@ import { lookupCrimeMeasure } from '../../models/situational-crime-prevention';
 import { routingSvc, type State } from '../../services';
 import { t } from '../../services/translations';
 import {
-  createTooltip,
   generateLabeledItemsMarkup,
   highlightFactory,
-  measuresToMarkdown,
+  measuresToHtml,
   toCommaSeparatedList,
   toMarkdownOl,
 } from '../../utils';
+import { escapeViewerText } from '../../utils/viewer-markup';
 import { ReferenceListComponent } from '../ui/reference';
 import { IconStrip } from './icon-strip';
-import { type ProcessStep, ProcessVisualization } from './process-visualisation';
 
 export const CrimeScriptViewer: FactoryComponent<{
   crimeScript: CrimeScript;
@@ -61,7 +60,6 @@ export const CrimeScriptViewer: FactoryComponent<{
   ] as UIForm<Track>;
   let newTrack: Track | undefined;
   let editTrack: Track | undefined;
-  let showProcessVisualization = true;
   let curTrackId = undefined as string | undefined;
   let curSceneVariants: { [sceneID: ID]: ID | undefined } = {};
   let addTrackOpen = false;
@@ -133,7 +131,15 @@ export const CrimeScriptViewer: FactoryComponent<{
   };
 
   const visualizeAct = (
-    { label = '...', activities = [], indicators = [], conditions = [], locationIds = [], measures = [] } = {} as Act,
+    {
+      label = '...',
+      description,
+      activities = [],
+      indicators = [],
+      conditions = [],
+      locationIds = [],
+      measures = [],
+    } = {} as Act,
     cast: Cast[],
     attributes: CrimeScriptAttributes[],
     transports: Transport[],
@@ -158,7 +164,12 @@ export const CrimeScriptViewer: FactoryComponent<{
         return acc;
       }, new Set<ID>())
     );
-    const md = `${locationIds && locationIds.length
+    const md = `${description
+      ? `<div class="activity-group-context">${escapeViewerText(description)}</div>`
+      : ''
+      }
+
+${locationIds && locationIds.length
       ? `##### ${t('LOCATIONS', locationIds.length)}
 
 ${toCommaSeparatedList(locations, locationIds)}`
@@ -196,21 +207,21 @@ ${toMarkdownOl(transports, transIds)}`
 ${conditions.length > 0
         ? `##### ${t('CONDITIONS')}
 
-${conditions.map((cond, i) => `${i + 1}. ${cond.label}${createTooltip(cond)}`).join('\n')}`
+${generateLabeledItemsMarkup(conditions)}`
         : ''
       }
 
 ${indicators.length > 0
         ? `##### ${t('INDICATORS')}
 
-${indicators.map((ind, i) => `${i + 1}. ${ind.label}${createTooltip(ind)}`).join('\n')}`
+${generateLabeledItemsMarkup(indicators)}`
         : ''
       }
 
 ${measures.length > 0
         ? `##### ${t('MEASURES')}
 
-${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
+${measuresToHtml(measures, lookupPartner, findCrimeMeasure)}`
         : ''
       }`;
     const contentTabs = [
@@ -351,29 +362,6 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
           )
         );
 
-      const steps = scenes.map(
-        ({ id, selectedVariantId, variants: sceneVariants = [], isGeneric, label = '...', icon, icons, url, description = '' }) => {
-          const variants =
-            sceneVariants.length > 1
-              ? sceneVariants.map((variant) => ({
-                  id: variant.id,
-                  title: variant.label,
-                }))
-              : undefined;
-          return {
-            id,
-            title: label,
-            icon,
-            icons,
-            uploadedImage: url,
-            description: m(SlimdownView, { md: description, removeParagraphs: true }),
-            variants,
-            isGeneric,
-            curVariantId: selectedVariantId,
-          } as ProcessStep & { isGeneric?: boolean };
-        }
-      );
-
       return m('.col.s12', [
         m(
           '.right',
@@ -386,7 +374,7 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
           })
         ),
         m(
-          'h4',
+          'h4.script-viewer-title',
           highlighter(label)
         ),
         m('.script-metadata', [
@@ -489,54 +477,69 @@ ${measuresToMarkdown(measures, lookupPartner, findCrimeMeasure)}`
           m('.row', m(SlimdownView, { className: 'col s12', md: curTrack.description })),
         ],
 
-        m('h5', t('SCENES')),
-        m(showProcessVisualization ? Button : FlatButton, {
-          label: t('MAIN_ACTS'),
-          style: 'font-size: 16px;',
-          onclick: () => {
-            showProcessVisualization = true;
-            const scene = scenes.length > 0 ? scenes[0] : undefined;
-            if (scene) {
-              update({
-                curSceneId: scene.id,
-                curActId: scene.selectedVariantId || scene.variants[0]?.id,
-              });
-            }
-          },
-        }),
-        steps
-          .filter((s) => s.isGeneric)
-          .map((s) =>
-            m(curScene && curScene.id === s.id ? Button : FlatButton, {
-              label: s.title,
-              style: 'font-size: 16px;',
-              onclick: () => {
-                const scene = scenes.find((stage) => stage.id === s.id);
-                if (scene) {
-                  showProcessVisualization = false;
-                  update({
-                    curSceneId: scene.id,
-                    curActId: scene.selectedVariantId || scene.variants[0]?.id,
-                  });
-                }
-              },
-            })
-          ),
-        showProcessVisualization &&
-        m(ProcessVisualization, {
-          steps: steps.filter((s) => !s.isGeneric),
-          selectedStep: curScene?.id,
-          selectedVariant: curAct?.id,
-          onStepSelect: (stepId) => {
-            update({ curSceneId: stepId });
-          },
-          onVariantSelect: (stepId, variantId) => {
-            handleVariantSelection(stepId, variantId, tracks, scenes);
-            update({ curActId: variantId });
-            m.redraw();
-          },
-        }),
-        selectedActContent && [m('h4', selectedActContent.title), selectedActContent.vnode],
+        scenes.length > 0 && m('.script-viewer-workspace', [
+          m('aside.script-viewer-outline[aria-label]', { 'aria-label': t('SCENES') }, [
+            m('h5', t('SCENES')),
+            m(
+              'ol.scene-outline-list',
+              scenes.map((scene, index) =>
+                m('li.scene-outline-row', { class: curScene?.id === scene.id ? 'active' : '' }, [
+                  m(
+                    'button.scene-outline-main[type=button]',
+                    {
+                      onclick: () => update({
+                        curSceneId: scene.id,
+                        curActId: scene.selectedVariantId || scene.variants[0]?.id,
+                      }),
+                      'aria-current': curScene?.id === scene.id ? 'step' : undefined,
+                    },
+                    [
+                      m('span.scene-outline-number', String(index + 1)),
+                      m('span', [
+                        m('strong', scene.label || '…'),
+                        m('small', t('STEP_COUNT', {
+                          count:
+                            (
+                              scene.variants.find(({ id }) => id === scene.selectedVariantId) ||
+                              scene.variants[0]
+                            )?.activities?.length || 0,
+                        })),
+                      ]),
+                    ]
+                  ),
+                ])
+              )
+            ),
+          ]),
+          m('main.script-viewer-scene', [
+            curScene && [
+              m('.viewer-scene-heading', [
+                m('span.inspector-context', t('SCENE_CONTEXT', {
+                  index: scenes.findIndex(({ id }) => id === curScene.id) + 1,
+                })),
+                m('h4', highlighter(curScene.label)),
+                curScene.description &&
+                  m(SlimdownView, { md: curScene.description, removeParagraphs: true }),
+              ]),
+              curScene.variants.length > 1 &&
+                m('.viewer-variant-selector', m(Select<ID>, {
+                  label: t('SELECT_ACT'),
+                  checkedId: curAct?.id,
+                  options: curScene.variants,
+                  onchange: ([variantId]) => {
+                    if (!variantId) return;
+                    handleVariantSelection(curScene.id, variantId, tracks, scenes);
+                    update({ curActId: variantId });
+                    m.redraw();
+                  },
+                })),
+              selectedActContent && [
+                m('h5.viewer-act-title', selectedActContent.title),
+                selectedActContent.vnode,
+              ],
+            ],
+          ]),
+        ]),
 
         // Add Track Modal
         addTrackOpen &&

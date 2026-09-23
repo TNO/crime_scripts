@@ -174,7 +174,7 @@ export const SideNav: MeiosisComponent<{ onDelete: () => void }> = () => {
                 ((typeof d.visible === 'boolean' ? d.visible : d.visible(state)) || isActive(d))
             )
             .map((d: Page) =>
-              m('li.hide-on-med-and-up', { class: isActive(d) }, [
+              m('li.hide-on-large-only', { class: isActive(d) }, [
                 m(FlatButton, {
                   label: d.title,
                   className: d.iconClass ? ` ${d.iconClass}` : '',

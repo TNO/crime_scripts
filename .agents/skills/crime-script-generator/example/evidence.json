@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "sources": [
+    {
+      "key": "replace-with-researched-source",
+      "title": "Replace with a verified authoritative source",
+      "kind": "web",
+      "state": "needs-review",
+      "url": "https://example.org/replace-with-a-verified-source",
+      "publisher": "Replace with the verified publisher",
+      "accessedAt": "YYYY-MM-DD",
+      "contentHash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "reliability": "Explain why the actual source is authoritative for the linked claims.",
+      "passages": [
+        {
+          "text": "Replace with a short exact supporting passage.",
+          "locator": "Replace with a section or page locator."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "nodeKey": "intake",
+      "sourceKeys": [
+        "replace-with-researched-source"
+      ]
+    },
+    {
+      "nodeKey": "compare-record",
+      "sourceKeys": [
+        "replace-with-researched-source"
+      ]
+    },
+    {
+      "nodeKey": "material-mismatch",
+      "sourceKeys": [
+        "replace-with-researched-source"
+      ]
+    },
+    {
+      "nodeKey": "independent-verification",
+      "sourceKeys": [
+        "replace-with-researched-source"
+      ]
+    }
+  ]
+}

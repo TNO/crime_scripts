@@ -12,6 +12,7 @@ import {
 import { saveAs } from 'file-saver';
 import {
   ActivityType,
+  buildActivityOutline,
   type CrimeScript,
   classificationHeader,
   type DataModel,
@@ -136,39 +137,40 @@ export const crimeScriptToMarkdown = (crimeScript: Partial<CrimeScript>, model: 
 
           if (a.activities && a.activities.length > 0) {
             newHeading(t('ACTIVITIES'), 4);
-            const activitiesTxt = a.activities.reduce((list, activity, idx) => {
-              createListItem(list, activity, idx);
-              const type = activity.type ? (Array.isArray(activity.type) ? activity.type : [activity.type]) : undefined;
-              const spaces = idx < 9 ? 3 : 4;
-              if (type && type.includes(ActivityType.HAS_CAST) && activity.cast) {
-                const castNames = activity.cast
-                  .map((c) => {
-                    const found = itemLookup.get(c);
-                    return found ? found.label : undefined;
-                  })
-                  .filter((l) => typeof l !== undefined);
-                list.push(addLeadingSpaces(`- ${t('CAST')}: ${castNames.join(', ')}`, spaces));
-              }
-              if (type && type.includes(ActivityType.HAS_ATTRIBUTES) && activity.attributes) {
-                const attrNames = activity.attributes
-                  .map((c) => {
-                    const found = itemLookup.get(c);
-                    return found ? found.label : undefined;
-                  })
-                  .filter((l) => typeof l !== undefined);
-                list.push(addLeadingSpaces(`- ${t('ATTRIBUTES')}: ${attrNames.join(', ')}`, spaces));
-              }
-              if (type && type.includes(ActivityType.HAS_TRANSPORT) && activity.transports) {
-                const transNames = activity.transports
-                  .map((c) => {
-                    const found = itemLookup.get(c);
-                    return found ? found.label : undefined;
-                  })
-                  .filter((l) => typeof l !== undefined);
-                list.push(addLeadingSpaces(`- ${t('TRANSPORTS')}: ${transNames.join(', ')}`, spaces));
-              }
-              return list;
-            }, [] as string[]);
+            const activitiesTxt: string[] = [];
+            const hasActivityType = (
+              type: ActivityType | ActivityType[] | undefined,
+              expected: ActivityType
+            ) =>
+              Array.isArray(type)
+                ? type.includes(expected)
+                : typeof type === 'number' && (type & expected) === expected;
+            const addActivity = (
+              activity: (typeof a.activities)[number],
+              index: number,
+              indentation = ''
+            ) => {
+              activitiesTxt.push(`${indentation}${index + 1}. ${activity.label}`);
+              const detailIndentation = `${indentation}${index < 9 ? '   ' : '    '}`;
+              activity.description &&
+                activitiesTxt.push(addLeadingSpaces(activity.description, detailIndentation.length));
+              const references = [
+                [ActivityType.HAS_CAST, t('CAST'), activity.cast],
+                [ActivityType.HAS_ATTRIBUTES, t('ATTRIBUTES'), activity.attributes],
+                [ActivityType.HAS_TRANSPORT, t('TRANSPORTS'), activity.transports],
+              ] as const;
+              references.forEach(([type, label, ids]) => {
+                if (!hasActivityType(activity.type, type) || !ids?.length) return;
+                const labels = ids
+                  .map((id) => itemLookup.get(id)?.label)
+                  .filter((value): value is string => value !== undefined);
+                activitiesTxt.push(`${detailIndentation}- ${label}: ${labels.join(', ')}`);
+              });
+            };
+            buildActivityOutline(a.activities).forEach((activity, activityIndex) => {
+              addActivity(activity, activityIndex);
+              activity.children.forEach((child, childIndex) => addActivity(child, childIndex, '   '));
+            });
             activitiesTxt.push('');
             md.push(...activitiesTxt);
           }

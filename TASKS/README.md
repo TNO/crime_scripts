@@ -19,6 +19,8 @@ These tasks are implemented in order because content depends on the starter infr
 This does not block the starter-library release but follows it in the current implementation sequence.
 
 - [x] 0007 Add LLM-assisted script wizard *(needs 0003)*
+- [x] 0009 Build agent crime-script generator *(needs 0007, 0008)*
+- [x] 0010 Simplify script navigation *(needs 0001, 0002)*
 
 ## Restricted workflows
 

@@ -21,6 +21,7 @@
   "app": "src/app.ts",
   "target": "web",
   "dependencies": {
+    "@crime-script/core": "workspace:*",
     "docx": "^9.7.1",
     "file-saver": "^2.0.5",
     "lz-string": "^1.5.0",

@@ -12,7 +12,9 @@ const ReferenceComponent: FactoryComponent<{ reference: Literature }> = () => {
       },
     }) => {
       return m('li', [
-        m('a', { href: url, target: '_blank' }, label),
+        url
+          ? m('a', { href: url, target: '_blank', rel: 'noopener noreferrer' }, label)
+          : m('span', label),
         authors && m('span', `, ${t('BY')} ${authors}`),
         description &&
           m(
@@ -37,9 +39,10 @@ export type ReferenceAttrs = {
 export const ReferenceListComponent: FactoryComponent<ReferenceAttrs> = () => {
   return {
     view: ({ attrs: { references } }) => {
+      const visibleReferences = references.filter(({ label }) => Boolean(label?.trim()));
       return m(
         'ol.reference-list',
-        references.map((reference) => m(ReferenceComponent, { reference }))
+        visibleReferences.map((reference) => m(ReferenceComponent, { reference }))
       );
     },
   };

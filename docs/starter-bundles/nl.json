@@ -1,7 +1,7 @@
 {
   "schemaVersion": 3,
   "version": 1,
-  "lastUpdate": 1789941600000,
+  "lastUpdate": 1790035200000,
   "starterBundle": {
     "id": "pax-nl-starter",
     "version": "1.0.0",
@@ -129,8 +129,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:cocaine-import-havens-voorbereiding"
+          ]
         },
         {
           "id": "nl-starter:script:cocaine-import-havens:scene:invoer",
@@ -229,8 +228,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:cocaine-import-havens-invoer"
+          ]
         },
         {
           "id": "nl-starter:script:cocaine-import-havens:scene:toegang",
@@ -318,8 +316,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:cocaine-import-havens-toegang"
+          ]
         },
         {
           "id": "nl-starter:script:cocaine-import-havens:scene:uithalen",
@@ -413,8 +410,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:cocaine-import-havens-uithalen"
+          ]
         },
         {
           "id": "nl-starter:script:cocaine-import-havens:scene:vervoer",
@@ -508,8 +504,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:cocaine-import-havens-vervoer"
+          ]
         },
         {
           "id": "nl-starter:script:cocaine-import-havens:scene:verstoring",
@@ -599,8 +594,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:cocaine-import-havens-verstoring"
+          ]
         }
       ],
       "productIds": [
@@ -744,8 +738,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:synthetische-drugsproductie-locatie"
+          ]
         },
         {
           "id": "nl-starter:script:synthetische-drugsproductie:scene:middelen",
@@ -841,8 +834,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:synthetische-drugsproductie-middelen"
+          ]
         },
         {
           "id": "nl-starter:script:synthetische-drugsproductie:scene:inrichting",
@@ -930,8 +922,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:synthetische-drugsproductie-inrichting"
+          ]
         },
         {
           "id": "nl-starter:script:synthetische-drugsproductie:scene:productie",
@@ -1022,8 +1013,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:synthetische-drugsproductie-productie"
+          ]
         },
         {
           "id": "nl-starter:script:synthetische-drugsproductie:scene:afvoer",
@@ -1118,8 +1108,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:synthetische-drugsproductie-afvoer"
+          ]
         },
         {
           "id": "nl-starter:script:synthetische-drugsproductie:scene:onderzoek",
@@ -1209,8 +1198,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:synthetische-drugsproductie-onderzoek"
+          ]
         }
       ],
       "productIds": [
@@ -1359,8 +1347,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:arbeidsuitbuiting-werving"
+          ]
         },
         {
           "id": "nl-starter:script:arbeidsuitbuiting:scene:reis",
@@ -1457,8 +1444,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:arbeidsuitbuiting-reis"
+          ]
         },
         {
           "id": "nl-starter:script:arbeidsuitbuiting:scene:afhankelijkheid",
@@ -1550,8 +1536,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:arbeidsuitbuiting-afhankelijkheid"
+          ]
         },
         {
           "id": "nl-starter:script:arbeidsuitbuiting:scene:werk",
@@ -1638,8 +1623,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:arbeidsuitbuiting-werk"
+          ]
         },
         {
           "id": "nl-starter:script:arbeidsuitbuiting:scene:controle",
@@ -1728,8 +1712,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:arbeidsuitbuiting-controle"
+          ]
         },
         {
           "id": "nl-starter:script:arbeidsuitbuiting:scene:bescherming",
@@ -1822,8 +1805,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:protected-person-response"
+          ]
         }
       ],
       "productIds": [
@@ -1973,8 +1955,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:mensenhandel-seksuele-uitbuiting-benadering"
+          ]
         },
         {
           "id": "nl-starter:script:mensenhandel-seksuele-uitbuiting:scene:isolatie",
@@ -2065,8 +2046,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:mensenhandel-seksuele-uitbuiting-isolatie"
+          ]
         },
         {
           "id": "nl-starter:script:mensenhandel-seksuele-uitbuiting:scene:exploitatie",
@@ -2155,8 +2135,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:mensenhandel-seksuele-uitbuiting-exploitatie"
+          ]
         },
         {
           "id": "nl-starter:script:mensenhandel-seksuele-uitbuiting:scene:verplaatsing",
@@ -2254,8 +2233,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:mensenhandel-seksuele-uitbuiting-verplaatsing"
+          ]
         },
         {
           "id": "nl-starter:script:mensenhandel-seksuele-uitbuiting:scene:opbrengst",
@@ -2348,8 +2326,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:mensenhandel-seksuele-uitbuiting-opbrengst"
+          ]
         },
         {
           "id": "nl-starter:script:mensenhandel-seksuele-uitbuiting:scene:interventie",
@@ -2439,8 +2416,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:protected-person-response"
+          ]
         }
       ],
       "productIds": [
@@ -2581,8 +2557,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:witwassen-legale-ondernemingen-bedrijf"
+          ]
         },
         {
           "id": "nl-starter:script:witwassen-legale-ondernemingen:scene:inbreng",
@@ -2674,8 +2649,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:witwassen-legale-ondernemingen-inbreng"
+          ]
         },
         {
           "id": "nl-starter:script:witwassen-legale-ondernemingen:scene:administratie",
@@ -2762,8 +2736,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:witwassen-legale-ondernemingen-administratie"
+          ]
         },
         {
           "id": "nl-starter:script:witwassen-legale-ondernemingen:scene:verplaatsing",
@@ -2852,8 +2825,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:witwassen-legale-ondernemingen-verplaatsing"
+          ]
         },
         {
           "id": "nl-starter:script:witwassen-legale-ondernemingen:scene:besteding",
@@ -2945,8 +2917,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:witwassen-legale-ondernemingen-besteding"
+          ]
         },
         {
           "id": "nl-starter:script:witwassen-legale-ondernemingen:scene:verstoring",
@@ -3040,8 +3011,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:witwassen-legale-ondernemingen-verstoring"
+          ]
         }
       ],
       "productIds": [
@@ -3183,8 +3153,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:illegale-dumping-chemisch-afval-ontstaan"
+          ]
         },
         {
           "id": "nl-starter:script:illegale-dumping-chemisch-afval:scene:verzameling",
@@ -3273,8 +3242,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:illegale-dumping-chemisch-afval-verzameling"
+          ]
         },
         {
           "id": "nl-starter:script:illegale-dumping-chemisch-afval:scene:transport",
@@ -3371,8 +3339,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:illegale-dumping-chemisch-afval-transport"
+          ]
         },
         {
           "id": "nl-starter:script:illegale-dumping-chemisch-afval:scene:dumping",
@@ -3458,8 +3425,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:illegale-dumping-chemisch-afval-dumping"
+          ]
         },
         {
           "id": "nl-starter:script:illegale-dumping-chemisch-afval:scene:melding",
@@ -3548,8 +3514,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:illegale-dumping-chemisch-afval-melding"
+          ]
         },
         {
           "id": "nl-starter:script:illegale-dumping-chemisch-afval:scene:herstel",
@@ -3639,8 +3604,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:illegale-dumping-chemisch-afval-herstel"
+          ]
         }
       ],
       "productIds": [
@@ -3780,8 +3744,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:stroperij-illegale-wildhandel-selectie"
+          ]
         },
         {
           "id": "nl-starter:script:stroperij-illegale-wildhandel:scene:onttrekking",
@@ -3860,8 +3823,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:stroperij-illegale-wildhandel-onttrekking"
+          ]
         },
         {
           "id": "nl-starter:script:stroperij-illegale-wildhandel:scene:verzameling",
@@ -3949,8 +3911,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:stroperij-illegale-wildhandel-verzameling"
+          ]
         },
         {
           "id": "nl-starter:script:stroperij-illegale-wildhandel:scene:handel",
@@ -4041,8 +4002,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:stroperij-illegale-wildhandel-handel"
+          ]
         },
         {
           "id": "nl-starter:script:stroperij-illegale-wildhandel:scene:vervoer",
@@ -4140,8 +4100,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:stroperij-illegale-wildhandel-vervoer"
+          ]
         },
         {
           "id": "nl-starter:script:stroperij-illegale-wildhandel:scene:interventie",
@@ -4231,8 +4190,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:stroperij-illegale-wildhandel-interventie"
+          ]
         }
       ],
       "productIds": [
@@ -4377,8 +4335,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:voertuigdiefstal-export-selectie"
+          ]
         },
         {
           "id": "nl-starter:script:voertuigdiefstal-export:scene:diefstal",
@@ -4472,8 +4429,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:voertuigdiefstal-export-diefstal"
+          ]
         },
         {
           "id": "nl-starter:script:voertuigdiefstal-export:scene:opslag",
@@ -4567,8 +4523,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:voertuigdiefstal-export-opslag"
+          ]
         },
         {
           "id": "nl-starter:script:voertuigdiefstal-export:scene:identiteit",
@@ -4659,8 +4614,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:voertuigdiefstal-export-identiteit"
+          ]
         },
         {
           "id": "nl-starter:script:voertuigdiefstal-export:scene:handel",
@@ -4761,8 +4715,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:voertuigdiefstal-export-handel"
+          ]
         },
         {
           "id": "nl-starter:script:voertuigdiefstal-export:scene:opsporing",
@@ -4856,8 +4809,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:voertuigdiefstal-export-opsporing"
+          ]
         }
       ],
       "productIds": [
@@ -5001,8 +4953,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:phishing-betaalfraude-voorbereiding"
+          ]
         },
         {
           "id": "nl-starter:script:phishing-betaalfraude:scene:contact",
@@ -5170,8 +5121,7 @@
               ]
             }
           ],
-          "selectedVariantId": "nl-starter:script:phishing-betaalfraude:scene:contact:variant:e-mail",
-          "icon": "builtin:phishing-betaalfraude-contact"
+          "selectedVariantId": "nl-starter:script:phishing-betaalfraude:scene:contact:variant:e-mail"
         },
         {
           "id": "nl-starter:script:phishing-betaalfraude:scene:gegevens",
@@ -5258,8 +5208,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:phishing-betaalfraude-gegevens"
+          ]
         },
         {
           "id": "nl-starter:script:phishing-betaalfraude:scene:betaling",
@@ -5347,8 +5296,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:phishing-betaalfraude-betaling"
+          ]
         },
         {
           "id": "nl-starter:script:phishing-betaalfraude:scene:doorgifte",
@@ -5436,8 +5384,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:phishing-betaalfraude-doorgifte"
+          ]
         },
         {
           "id": "nl-starter:script:phishing-betaalfraude:scene:respons",
@@ -5530,8 +5477,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:phishing-betaalfraude-respons"
+          ]
         }
       ],
       "productIds": [
@@ -5699,8 +5645,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:illegale-asbestverwijdering-opdracht"
+          ]
         },
         {
           "id": "nl-starter:script:illegale-asbestverwijdering:scene:inventarisatie",
@@ -5788,8 +5733,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:illegale-asbestverwijdering-inventarisatie"
+          ]
         },
         {
           "id": "nl-starter:script:illegale-asbestverwijdering:scene:verwijdering",
@@ -5877,8 +5821,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:illegale-asbestverwijdering-verwijdering"
+          ]
         },
         {
           "id": "nl-starter:script:illegale-asbestverwijdering:scene:werknemers",
@@ -5965,8 +5908,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:illegale-asbestverwijdering-werknemers"
+          ]
         },
         {
           "id": "nl-starter:script:illegale-asbestverwijdering:scene:afvoer",
@@ -6061,8 +6003,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:illegale-asbestverwijdering-afvoer"
+          ]
         },
         {
           "id": "nl-starter:script:illegale-asbestverwijdering:scene:toezicht",
@@ -6154,8 +6095,7 @@
                 }
               ]
             }
-          ],
-          "icon": "builtin:illegale-asbestverwijdering-toezicht"
+          ]
         }
       ],
       "productIds": [
@@ -6220,7 +6160,6 @@
           "id": "nl-starter:script:asbestsaneringsketen:scene:opdracht",
           "label": "Eigenaar besluit tot sanering",
           "description": "Fase uit het openbare CCV-barrièremodel: Eigenaar besluit tot sanering.",
-          "icon": "builtin:illegale-asbestverwijdering-opdracht",
           "selectedVariantId": "nl-starter:script:asbestsaneringsketen:scene:opdracht:variant:published",
           "variants": [
             {
@@ -6304,7 +6243,6 @@
           "id": "nl-starter:script:asbestsaneringsketen:scene:inventarisatie",
           "label": "Onafhankelijke inventarisatie",
           "description": "Fase uit het openbare CCV-barrièremodel: Onafhankelijke inventarisatie.",
-          "icon": "builtin:illegale-asbestverwijdering-inventarisatie",
           "selectedVariantId": "nl-starter:script:asbestsaneringsketen:scene:inventarisatie:variant:published",
           "variants": [
             {
@@ -6388,7 +6326,6 @@
           "id": "nl-starter:script:asbestsaneringsketen:scene:verwijdering",
           "label": "Asbest verwijderen",
           "description": "Fase uit het openbare CCV-barrièremodel: Asbest verwijderen.",
-          "icon": "builtin:illegale-asbestverwijdering-verwijdering",
           "selectedVariantId": "nl-starter:script:asbestsaneringsketen:scene:verwijdering:variant:published",
           "variants": [
             {
@@ -6472,7 +6409,6 @@
           "id": "nl-starter:script:asbestsaneringsketen:scene:eindcontrole",
           "label": "Onafhankelijke eindcontrole",
           "description": "Fase uit het openbare CCV-barrièremodel: Onafhankelijke eindcontrole.",
-          "icon": "builtin:illegale-asbestverwijdering-toezicht",
           "selectedVariantId": "nl-starter:script:asbestsaneringsketen:scene:eindcontrole:variant:published",
           "variants": [
             {
@@ -6556,7 +6492,6 @@
           "id": "nl-starter:script:asbestsaneringsketen:scene:eerste-transport",
           "label": "Transport naar inzamel- of tussenlocatie",
           "description": "Fase uit het openbare CCV-barrièremodel: Transport naar inzamel- of tussenlocatie.",
-          "icon": "builtin:illegale-asbestverwijdering-afvoer",
           "selectedVariantId": "nl-starter:script:asbestsaneringsketen:scene:eerste-transport:variant:published",
           "variants": [
             {
@@ -6640,7 +6575,6 @@
           "id": "nl-starter:script:asbestsaneringsketen:scene:tussenlocatie",
           "label": "Ontvangst op tussenlocatie",
           "description": "Fase uit het openbare CCV-barrièremodel: Ontvangst op tussenlocatie.",
-          "icon": "builtin:materials-check",
           "selectedVariantId": "nl-starter:script:asbestsaneringsketen:scene:tussenlocatie:variant:published",
           "variants": [
             {
@@ -6724,7 +6658,6 @@
           "id": "nl-starter:script:asbestsaneringsketen:scene:vervolgtransport",
           "label": "Vervolgtransport naar eindverwerker",
           "description": "Fase uit het openbare CCV-barrièremodel: Vervolgtransport naar eindverwerker.",
-          "icon": "builtin:secure-transport",
           "selectedVariantId": "nl-starter:script:asbestsaneringsketen:scene:vervolgtransport:variant:published",
           "variants": [
             {
@@ -6808,7 +6741,6 @@
           "id": "nl-starter:script:asbestsaneringsketen:scene:eindverwerking",
           "label": "Ontdoen bij erkende eindverwerker",
           "description": "Fase uit het openbare CCV-barrièremodel: Ontdoen bij erkende eindverwerker.",
-          "icon": "builtin:hazardous-waste",
           "selectedVariantId": "nl-starter:script:asbestsaneringsketen:scene:eindverwerking:variant:published",
           "variants": [
             {
@@ -6945,7 +6877,6 @@
           "id": "nl-starter:script:bijtincidenten-honden:scene:sociale-context",
           "label": "Sociale context en keuze van ouderdieren",
           "description": "Fase uit het openbare CCV-barrièremodel: Sociale context en keuze van ouderdieren.",
-          "icon": "builtin:planning-checklist",
           "selectedVariantId": "nl-starter:script:bijtincidenten-honden:scene:sociale-context:variant:published",
           "variants": [
             {
@@ -7029,7 +6960,6 @@
           "id": "nl-starter:script:bijtincidenten-honden:scene:dracht-geboorte",
           "label": "Dekking, dracht en geboorte",
           "description": "Fase uit het openbare CCV-barrièremodel: Dekking, dracht en geboorte.",
-          "icon": "builtin:site-inspection",
           "selectedVariantId": "nl-starter:script:bijtincidenten-honden:scene:dracht-geboorte:variant:published",
           "variants": [
             {
@@ -7113,7 +7043,6 @@
           "id": "nl-starter:script:bijtincidenten-honden:scene:eerste-levensfase",
           "label": "Eerste levensfase en socialisatie",
           "description": "Fase uit het openbare CCV-barrièremodel: Eerste levensfase en socialisatie.",
-          "icon": "builtin:safe-work",
           "selectedVariantId": "nl-starter:script:bijtincidenten-honden:scene:eerste-levensfase:variant:published",
           "variants": [
             {
@@ -7197,7 +7126,6 @@
           "id": "nl-starter:script:bijtincidenten-honden:scene:nieuwe-eigenaar",
           "label": "Overdracht aan nieuwe eigenaar",
           "description": "Fase uit het openbare CCV-barrièremodel: Overdracht aan nieuwe eigenaar.",
-          "icon": "builtin:document-check",
           "selectedVariantId": "nl-starter:script:bijtincidenten-honden:scene:nieuwe-eigenaar:variant:published",
           "variants": [
             {
@@ -7281,7 +7209,6 @@
           "id": "nl-starter:script:bijtincidenten-honden:scene:ontwikkeling",
           "label": "Opvoeding, socialisatie en puberteit",
           "description": "Fase uit het openbare CCV-barrièremodel: Opvoeding, socialisatie en puberteit.",
-          "icon": "builtin:dependency-network",
           "selectedVariantId": "nl-starter:script:bijtincidenten-honden:scene:ontwikkeling:variant:published",
           "variants": [
             {
@@ -7365,7 +7292,6 @@
           "id": "nl-starter:script:bijtincidenten-honden:scene:volwassen-senior",
           "label": "Volwassenheid en seniorfase",
           "description": "Fase uit het openbare CCV-barrièremodel: Volwassenheid en seniorfase.",
-          "icon": "builtin:site-inspection",
           "selectedVariantId": "nl-starter:script:bijtincidenten-honden:scene:volwassen-senior:variant:published",
           "variants": [
             {
@@ -7449,7 +7375,6 @@
           "id": "nl-starter:script:bijtincidenten-honden:scene:incidentrespons",
           "label": "Incidentrespons en nazorg",
           "description": "Fase uit het openbare CCV-barrièremodel: Incidentrespons en nazorg.",
-          "icon": "builtin:partner-response",
           "selectedVariantId": "nl-starter:script:bijtincidenten-honden:scene:incidentrespons:variant:published",
           "variants": [
             {
@@ -7587,7 +7512,6 @@
           "id": "nl-starter:script:co-vergisting:scene:productie",
           "label": "Productie en classificatie van stoffen",
           "description": "Fase uit het openbare CCV-barrièremodel: Productie en classificatie van stoffen.",
-          "icon": "builtin:illegale-dumping-chemisch-afval-ontstaan",
           "selectedVariantId": "nl-starter:script:co-vergisting:scene:productie:variant:published",
           "variants": [
             {
@@ -7671,7 +7595,6 @@
           "id": "nl-starter:script:co-vergisting:scene:transport",
           "label": "Transport van stoffen",
           "description": "Fase uit het openbare CCV-barrièremodel: Transport van stoffen.",
-          "icon": "builtin:illegale-dumping-chemisch-afval-transport",
           "selectedVariantId": "nl-starter:script:co-vergisting:scene:transport:variant:published",
           "variants": [
             {
@@ -7755,7 +7678,6 @@
           "id": "nl-starter:script:co-vergisting:scene:tussenbewerking",
           "label": "Tussentijdse bewerking en opslag",
           "description": "Fase uit het openbare CCV-barrièremodel: Tussentijdse bewerking en opslag.",
-          "icon": "builtin:illegale-dumping-chemisch-afval-verzameling",
           "selectedVariantId": "nl-starter:script:co-vergisting:scene:tussenbewerking:variant:published",
           "variants": [
             {
@@ -7839,7 +7761,6 @@
           "id": "nl-starter:script:co-vergisting:scene:vergisting",
           "label": "Acceptatie en co-vergisting",
           "description": "Fase uit het openbare CCV-barrièremodel: Acceptatie en co-vergisting.",
-          "icon": "builtin:laboratory",
           "selectedVariantId": "nl-starter:script:co-vergisting:scene:vergisting:variant:published",
           "variants": [
             {
@@ -7923,7 +7844,6 @@
           "id": "nl-starter:script:co-vergisting:scene:digestaat",
           "label": "Afvoer en toepassing van digestaat",
           "description": "Fase uit het openbare CCV-barrièremodel: Afvoer en toepassing van digestaat.",
-          "icon": "builtin:illegale-dumping-chemisch-afval-herstel",
           "selectedVariantId": "nl-starter:script:co-vergisting:scene:digestaat:variant:published",
           "variants": [
             {
@@ -8060,7 +7980,6 @@
           "id": "nl-starter:script:complexe-zorgstructuren:scene:bedrijfsstructuur",
           "label": "Bedrijfsstructuur en governance opzetten",
           "description": "Fase uit het openbare CCV-barrièremodel: Bedrijfsstructuur en governance opzetten.",
-          "icon": "builtin:witwassen-legale-ondernemingen-bedrijf",
           "selectedVariantId": "nl-starter:script:complexe-zorgstructuren:scene:bedrijfsstructuur:variant:published",
           "variants": [
             {
@@ -8144,7 +8063,6 @@
           "id": "nl-starter:script:complexe-zorgstructuren:scene:poortwachters",
           "label": "Contact met poortwachters",
           "description": "Fase uit het openbare CCV-barrièremodel: Contact met poortwachters.",
-          "icon": "builtin:document-check",
           "selectedVariantId": "nl-starter:script:complexe-zorgstructuren:scene:poortwachters:variant:published",
           "variants": [
             {
@@ -8228,7 +8146,6 @@
           "id": "nl-starter:script:complexe-zorgstructuren:scene:bedrijfsmiddelen",
           "label": "Bedrijfsmiddelen en contracten inrichten",
           "description": "Fase uit het openbare CCV-barrièremodel: Bedrijfsmiddelen en contracten inrichten.",
-          "icon": "builtin:finance-check",
           "selectedVariantId": "nl-starter:script:complexe-zorgstructuren:scene:bedrijfsmiddelen:variant:published",
           "variants": [
             {
@@ -8312,7 +8229,6 @@
           "id": "nl-starter:script:complexe-zorgstructuren:scene:bedrijfsvoering",
           "label": "Reguliere bedrijfsvoering uitvoeren",
           "description": "Fase uit het openbare CCV-barrièremodel: Reguliere bedrijfsvoering uitvoeren.",
-          "icon": "builtin:site-inspection",
           "selectedVariantId": "nl-starter:script:complexe-zorgstructuren:scene:bedrijfsvoering:variant:published",
           "variants": [
             {
@@ -8396,7 +8312,6 @@
           "id": "nl-starter:script:complexe-zorgstructuren:scene:clienten",
           "label": "Cliënten werven en plaatsen",
           "description": "Fase uit het openbare CCV-barrièremodel: Cliënten werven en plaatsen.",
-          "icon": "builtin:dependency-network",
           "selectedVariantId": "nl-starter:script:complexe-zorgstructuren:scene:clienten:variant:published",
           "variants": [
             {
@@ -8480,7 +8395,6 @@
           "id": "nl-starter:script:complexe-zorgstructuren:scene:verantwoording",
           "label": "Interne en externe verantwoording",
           "description": "Fase uit het openbare CCV-barrièremodel: Interne en externe verantwoording.",
-          "icon": "builtin:financial-investigation",
           "selectedVariantId": "nl-starter:script:complexe-zorgstructuren:scene:verantwoording:variant:published",
           "variants": [
             {
@@ -8564,7 +8478,6 @@
           "id": "nl-starter:script:complexe-zorgstructuren:scene:locatie",
           "label": "Pand en zorglocatie organiseren",
           "description": "Fase uit het openbare CCV-barrièremodel: Pand en zorglocatie organiseren.",
-          "icon": "builtin:site-safety",
           "selectedVariantId": "nl-starter:script:complexe-zorgstructuren:scene:locatie:variant:published",
           "variants": [
             {
@@ -8648,7 +8561,6 @@
           "id": "nl-starter:script:complexe-zorgstructuren:scene:einde-bedrijf",
           "label": "Beëindiging, overdracht of doorstart",
           "description": "Fase uit het openbare CCV-barrièremodel: Beëindiging, overdracht of doorstart.",
-          "icon": "builtin:partner-response",
           "selectedVariantId": "nl-starter:script:complexe-zorgstructuren:scene:einde-bedrijf:variant:published",
           "variants": [
             {
@@ -8786,7 +8698,6 @@
           "id": "nl-starter:script:criminele-uitbuiting:scene:identificeren",
           "label": "Kwetsbare personen identificeren",
           "description": "Fase uit het openbare CCV-barrièremodel: Kwetsbare personen identificeren.",
-          "icon": "builtin:mensenhandel-seksuele-uitbuiting-benadering",
           "selectedVariantId": "nl-starter:script:criminele-uitbuiting:scene:identificeren:variant:published",
           "variants": [
             {
@@ -8870,7 +8781,6 @@
           "id": "nl-starter:script:criminele-uitbuiting:scene:binden",
           "label": "Binding en loyaliteit opbouwen",
           "description": "Fase uit het openbare CCV-barrièremodel: Binding en loyaliteit opbouwen.",
-          "icon": "builtin:dependency-network",
           "selectedVariantId": "nl-starter:script:criminele-uitbuiting:scene:binden:variant:published",
           "variants": [
             {
@@ -8954,7 +8864,6 @@
           "id": "nl-starter:script:criminele-uitbuiting:scene:grensvervaging",
           "label": "Grenzen en normbesef verschuiven",
           "description": "Fase uit het openbare CCV-barrièremodel: Grenzen en normbesef verschuiven.",
-          "icon": "builtin:network-monitoring",
           "selectedVariantId": "nl-starter:script:criminele-uitbuiting:scene:grensvervaging:variant:published",
           "variants": [
             {
@@ -9038,7 +8947,6 @@
           "id": "nl-starter:script:criminele-uitbuiting:scene:beheersen",
           "label": "Controle en afhankelijkheid versterken",
           "description": "Fase uit het openbare CCV-barrièremodel: Controle en afhankelijkheid versterken.",
-          "icon": "builtin:arbeidsuitbuiting-controle",
           "selectedVariantId": "nl-starter:script:criminele-uitbuiting:scene:beheersen:variant:published",
           "variants": [
             {
@@ -9122,7 +9030,6 @@
           "id": "nl-starter:script:criminele-uitbuiting:scene:uitvoeren",
           "label": "Strafbare opdrachten laten uitvoeren",
           "description": "Fase uit het openbare CCV-barrièremodel: Strafbare opdrachten laten uitvoeren.",
-          "icon": "builtin:account-security",
           "selectedVariantId": "nl-starter:script:criminele-uitbuiting:scene:uitvoeren:variant:published",
           "variants": [
             {
@@ -9206,7 +9113,6 @@
           "id": "nl-starter:script:criminele-uitbuiting:scene:voordeel",
           "label": "Voordeel afromen",
           "description": "Fase uit het openbare CCV-barrièremodel: Voordeel afromen.",
-          "icon": "builtin:financial-investigation",
           "selectedVariantId": "nl-starter:script:criminele-uitbuiting:scene:voordeel:variant:published",
           "variants": [
             {
@@ -9290,7 +9196,6 @@
           "id": "nl-starter:script:criminele-uitbuiting:scene:verankeren",
           "label": "Herhaling en verankering in het netwerk",
           "description": "Fase uit het openbare CCV-barrièremodel: Herhaling en verankering in het netwerk.",
-          "icon": "builtin:victim-support",
           "selectedVariantId": "nl-starter:script:criminele-uitbuiting:scene:verankeren:variant:published",
           "variants": [
             {
@@ -9429,7 +9334,6 @@
           "id": "nl-starter:script:fake-carriers:scene:voorbereiden",
           "label": "Identiteit en toegang voorbereiden",
           "description": "Fase uit het openbare CCV-barrièremodel: Identiteit en toegang voorbereiden.",
-          "icon": "builtin:planning-checklist",
           "selectedVariantId": "nl-starter:script:fake-carriers:scene:voorbereiden:variant:published",
           "variants": [
             {
@@ -9513,7 +9417,6 @@
           "id": "nl-starter:script:fake-carriers:scene:diensten-aanbieden",
           "label": "Vervoersdienst aanbieden",
           "description": "Fase uit het openbare CCV-barrièremodel: Vervoersdienst aanbieden.",
-          "icon": "builtin:secure-contact",
           "selectedVariantId": "nl-starter:script:fake-carriers:scene:diensten-aanbieden:variant:published",
           "variants": [
             {
@@ -9597,7 +9500,6 @@
           "id": "nl-starter:script:fake-carriers:scene:goederen-ophalen",
           "label": "Goederen bij verlader ophalen",
           "description": "Fase uit het openbare CCV-barrièremodel: Goederen bij verlader ophalen.",
-          "icon": "builtin:document-check",
           "selectedVariantId": "nl-starter:script:fake-carriers:scene:goederen-ophalen:variant:published",
           "variants": [
             {
@@ -9681,7 +9583,6 @@
           "id": "nl-starter:script:fake-carriers:scene:vervoer-opslag",
           "label": "Vervoer, aflevering en incidentrespons",
           "description": "Fase uit het openbare CCV-barrièremodel: Vervoer, aflevering en incidentrespons.",
-          "icon": "builtin:secure-transport",
           "selectedVariantId": "nl-starter:script:fake-carriers:scene:vervoer-opslag:variant:published",
           "variants": [
             {
@@ -9777,6 +9678,930 @@
         "bundleVersion": "1.0.0",
         "scriptId": "nl-starter:script:fake-carriers"
       }
+    },
+    {
+      "id": "nl-starter:script:pijplijndiefstal-olieproducten",
+      "label": "Diefstal van geraffineerde olieproducten via illegale pijplijnaftapping",
+      "description": "Publiek, brongebaseerd crimescript van netwerkvorming en ongeoorloofde onttrekking tot opslag, afzet en financieel onderzoek. De stappen blijven bewust op barrièreniveau en bevatten geen uitvoerbare aftapinstructies.",
+      "owner": "PAX/TNO",
+      "updated": 1790035200000,
+      "reviewer": [],
+      "status": 1,
+      "literature": [
+        {
+          "id": "nl-starter:source:pijplijndiefstal-olieproducten-1",
+          "label": "A structured methodical process for populating a crime script of organized crime activity using OSINT",
+          "authors": "Spencer P. Chainey en Arantza Alonso Berbotto",
+          "type": 3,
+          "description": "Chainey en Alonso Berbotto (2022). Open-access methodiek en uitgewerkt crimescript over georganiseerde diefstal van olie uit pijplijnen in Mexico. CC BY 4.0.",
+          "url": "https://doi.org/10.1007/s12117-021-09428-9",
+          "usedFor": "Onderbouwing van de scriptfasen, netwerkrollen, overdrachtsmomenten en de OSINT-gebaseerde analysemethode."
+        },
+        {
+          "id": "nl-starter:source:pijplijndiefstal-olieproducten-2",
+          "label": "Theft of oil from pipelines: an examination of its crime commission in Mexico using crime script analysis",
+          "authors": "Spencer P. Chainey en Arantza Alonso Berbotto",
+          "type": 3,
+          "description": "Chainey en Alonso Berbotto (2022). Empirische analyse van de opeenvolgende fasen, actoren en omstandigheden van pijplijndiefstal.",
+          "url": "https://doi.org/10.1080/17440572.2021.1925552",
+          "usedFor": "Onderbouwing van de opeenvolging van voorbereiding, onttrekking, transport, opslag, afzet en opbrengstverdeling."
+        },
+        {
+          "id": "nl-starter:source:pijplijndiefstal-olieproducten-3",
+          "label": "Crime script analysis of theft of refined oil products from pipelines in Mexico",
+          "authors": "Spencer P. Chainey en Arantza Alonso Berbotto",
+          "type": 3,
+          "description": "Open Science Framework-dataset met bronmateriaal en gestructureerde scriptgegevens bij het onderzoek.",
+          "url": "https://doi.org/10.17605/OSF.IO/MPDTY",
+          "usedFor": "Controle van de bronbasis en herleidbaarheid van de gestructureerde gebeurtenissen in het publieke startermodel."
+        }
+      ],
+      "stages": [
+        {
+          "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:voorbereiding-netwerk",
+          "label": "Voorbereiding en netwerkvorming",
+          "description": "Een coördinator brengt mensen, middelen en informatie samen om een diefstalpoging in een pijplijncorridor mogelijk te maken.",
+          "variants": [
+            {
+              "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:voorbereiding-netwerk:variant:hoofdroute",
+              "label": "Hoofdroute",
+              "description": "Een coördinator brengt mensen, middelen en informatie samen om een diefstalpoging in een pijplijncorridor mogelijk te maken.",
+              "locationIds": [
+                "nl-starter:location:logistiek-terrein"
+              ],
+              "measures": [
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:voorbereiding-netwerk:variant:hoofdroute:measure:1",
+                  "label": "Bescherm operationele infrastructuurinformatie",
+                  "description": "Beperk onbevoegde toegang tot actuele infrastructuur- en onderhoudsinformatie en onderzoek afwijkende raadplegingen.",
+                  "cat": "Verhoog toezicht en naleving",
+                  "partners": [
+                    "nl-starter:partner:pijplijnbeheerder",
+                    "nl-starter:partner:politie"
+                  ]
+                },
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:voorbereiding-netwerk:variant:hoofdroute:measure:2",
+                  "label": "Verbind signalen uit logistiek en toezicht",
+                  "description": "Combineer meldingen over verdachte voertuigbewegingen, opslaghuur en infrastructuurverkenning in een gedeeld risicobeeld.",
+                  "cat": "other",
+                  "partners": [
+                    "nl-starter:partner:pijplijnbeheerder",
+                    "nl-starter:partner:politie",
+                    "nl-starter:partner:gemeente"
+                  ]
+                }
+              ],
+              "opportunities": [],
+              "indicators": [
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:voorbereiding-netwerk:variant:hoofdroute:indicator:1",
+                  "label": "Onverklaarde interesse in pijplijnlocaties",
+                  "description": "Herhaalde observaties, terreinbezoeken of informatieverzoeken rond afgelegen infrastructuur passen niet bij regulier werk."
+                },
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:voorbereiding-netwerk:variant:hoofdroute:indicator:2",
+                  "label": "Gecombineerde aanschaf van logistieke middelen",
+                  "description": "Voertuigen, opslagcapaciteit en hulpmiddelen worden kort na elkaar geregeld zonder overtuigende bedrijfsreden."
+                }
+              ],
+              "activities": [
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:voorbereiding-netwerk:variant:hoofdroute:activity:1",
+                  "label": "Selecteren van een doelgebied",
+                  "description": "Het netwerk kiest een pijplijncorridor waar infrastructuur, afzetmogelijkheden en bereikbaarheid samenkomen.",
+                  "type": 3,
+                  "cast": [
+                    "nl-starter:cast:coordinator"
+                  ],
+                  "attributes": [
+                    "nl-starter:attribute:communicatiemiddel"
+                  ],
+                  "transports": []
+                },
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:voorbereiding-netwerk:variant:hoofdroute:activity:2",
+                  "label": "Samenstellen van het uitvoerende team",
+                  "description": "De coördinator verbindt uitvoerders, chauffeurs, waarnemers en mogelijke facilitators aan een voorgenomen poging.",
+                  "type": 3,
+                  "cast": [
+                    "nl-starter:cast:coordinator",
+                    "nl-starter:cast:crimineel-netwerk"
+                  ],
+                  "attributes": [
+                    "nl-starter:attribute:communicatiemiddel"
+                  ],
+                  "transports": []
+                },
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:voorbereiding-netwerk:variant:hoofdroute:activity:3",
+                  "label": "Verzamelen van logistieke middelen",
+                  "description": "Voertuigen, opslagcapaciteit en generieke technische hulpmiddelen worden bijeengebracht zonder dat het rechtmatige gebruik aantoonbaar is.",
+                  "type": 7,
+                  "cast": [
+                    "nl-starter:cast:logistiek-medewerker"
+                  ],
+                  "attributes": [
+                    "nl-starter:attribute:technisch-hulpmiddel"
+                  ],
+                  "transports": [
+                    "nl-starter:transport:vrachtwagen"
+                  ]
+                },
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:voorbereiding-netwerk:variant:hoofdroute:activity:4",
+                  "label": "Afstemmen van rollen en timing",
+                  "description": "Het netwerk verdeelt taken en spreekt communicatie- en overdrachtsmomenten af.",
+                  "type": 3,
+                  "cast": [
+                    "nl-starter:cast:coordinator",
+                    "nl-starter:cast:logistiek-medewerker"
+                  ],
+                  "attributes": [
+                    "nl-starter:attribute:communicatiemiddel"
+                  ],
+                  "transports": []
+                }
+              ],
+              "conditions": [
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:voorbereiding-netwerk:variant:hoofdroute:condition:1",
+                  "label": "Toegang tot infrastructuurinformatie",
+                  "description": "Het netwerk beschikt over voldoende kennis van het gebied, logistieke bewegingen of de pijplijnomgeving om een poging te plannen.",
+                  "type": "Facilitator"
+                },
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:voorbereiding-netwerk:variant:hoofdroute:condition:2",
+                  "label": "Beschikbare afzetketen",
+                  "description": "Er zijn tussenpersonen, opslaglocaties of ondernemingen die het product na de diefstal kunnen ontvangen.",
+                  "type": "Facilitator"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:verplaatsing-naar-pijplijn",
+          "label": "Verplaatsing naar de pijplijn",
+          "description": "Mensen en voertuigen bewegen naar de gekozen corridor en nemen posities in die de uitvoeringsfase ondersteunen.",
+          "variants": [
+            {
+              "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:verplaatsing-naar-pijplijn:variant:hoofdroute",
+              "label": "Hoofdroute",
+              "description": "Mensen en voertuigen bewegen naar de gekozen corridor en nemen posities in die de uitvoeringsfase ondersteunen.",
+              "locationIds": [
+                "nl-starter:location:buitengebied",
+                "nl-starter:location:pijplijncorridor"
+              ],
+              "measures": [
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:verplaatsing-naar-pijplijn:variant:hoofdroute:measure:1",
+                  "label": "Verifieer werkzaamheden en voertuigen",
+                  "description": "Maak actuele werkopdrachten controleerbaar en onderzoek voertuigen of personen die niet aan een geldige opdracht zijn gekoppeld.",
+                  "cat": "Verhoog toezicht en naleving",
+                  "partners": [
+                    "nl-starter:partner:pijplijnbeheerder",
+                    "nl-starter:partner:politie"
+                  ]
+                },
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:verplaatsing-naar-pijplijn:variant:hoofdroute:measure:2",
+                  "label": "Richt gebiedsgerichte waarneming in",
+                  "description": "Stem toezicht af op kwetsbare corridors en laat meldingen van omwonenden of terreinbeheerders snel beoordelen.",
+                  "cat": "other",
+                  "partners": [
+                    "nl-starter:partner:pijplijnbeheerder",
+                    "nl-starter:partner:politie",
+                    "nl-starter:partner:gemeente"
+                  ]
+                }
+              ],
+              "opportunities": [],
+              "indicators": [
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:verplaatsing-naar-pijplijn:variant:hoofdroute:indicator:1",
+                  "label": "Voertuigen zonder operationele opdracht",
+                  "description": "Bestel- of tankvoertuigen staan in een pijplijnzone zonder herkenbare relatie met onderhoud of bevoegde logistiek."
+                },
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:verplaatsing-naar-pijplijn:variant:hoofdroute:indicator:2",
+                  "label": "Herhaalde verkenning",
+                  "description": "Dezelfde personen of voertuigen keren op ongebruikelijke tijdstippen terug naar de corridor."
+                }
+              ],
+              "activities": [
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:verplaatsing-naar-pijplijn:variant:hoofdroute:activity:1",
+                  "label": "Verplaatsen van mensen en materieel",
+                  "description": "Het team brengt voertuigen en middelen naar de omgeving van de gekozen pijplijncorridor.",
+                  "type": 7,
+                  "cast": [
+                    "nl-starter:cast:chauffeur",
+                    "nl-starter:cast:logistiek-medewerker"
+                  ],
+                  "attributes": [
+                    "nl-starter:attribute:technisch-hulpmiddel"
+                  ],
+                  "transports": [
+                    "nl-starter:transport:vrachtwagen"
+                  ]
+                },
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:verplaatsing-naar-pijplijn:variant:hoofdroute:activity:2",
+                  "label": "Observeren van de directe omgeving",
+                  "description": "Waarnemers letten op regulier verkeer, onderhoudsploegen en toezicht in de omgeving.",
+                  "type": 3,
+                  "cast": [
+                    "nl-starter:cast:crimineel-netwerk"
+                  ],
+                  "attributes": [
+                    "nl-starter:attribute:communicatiemiddel"
+                  ],
+                  "transports": []
+                },
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:verplaatsing-naar-pijplijn:variant:hoofdroute:activity:3",
+                  "label": "Positioneren van voertuigen",
+                  "description": "Transportmiddelen worden nabij de corridor opgesteld op een plaats die niet past bij normale logistieke activiteit.",
+                  "type": 5,
+                  "cast": [
+                    "nl-starter:cast:chauffeur"
+                  ],
+                  "attributes": [],
+                  "transports": [
+                    "nl-starter:transport:vrachtwagen"
+                  ]
+                },
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:verplaatsing-naar-pijplijn:variant:hoofdroute:activity:4",
+                  "label": "Bevestigen van het uitvoeringsmoment",
+                  "description": "De coördinator stelt vast of het team doorgaat, wacht of vertrekt op basis van de waargenomen omstandigheden.",
+                  "type": 3,
+                  "cast": [
+                    "nl-starter:cast:coordinator"
+                  ],
+                  "attributes": [
+                    "nl-starter:attribute:communicatiemiddel"
+                  ],
+                  "transports": []
+                }
+              ],
+              "conditions": [
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:verplaatsing-naar-pijplijn:variant:hoofdroute:condition:1",
+                  "label": "Bereikbaarheid van de corridor",
+                  "description": "De gekozen locatie is bereikbaar voor mensen, voertuigen en materieel.",
+                  "type": "Facilitator"
+                },
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:verplaatsing-naar-pijplijn:variant:hoofdroute:condition:2",
+                  "label": "Beperkte directe waarneming",
+                  "description": "Het team verwacht dat de bewegingen niet onmiddellijk door beheerder, omwonenden of toezicht worden opgemerkt.",
+                  "type": "Facilitator"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:ongeoorloofde-onttrekking",
+          "label": "Ongeoorloofde onttrekking",
+          "description": "Het netwerk manipuleert de infrastructuur en onttrekt olieproducten, met ernstige risico’s voor veiligheid, milieu en leveringszekerheid.",
+          "variants": [
+            {
+              "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:ongeoorloofde-onttrekking:variant:hoofdroute",
+              "label": "Hoofdroute",
+              "description": "Het netwerk manipuleert de infrastructuur en onttrekt olieproducten, met ernstige risico’s voor veiligheid, milieu en leveringszekerheid.",
+              "locationIds": [
+                "nl-starter:location:pijplijncorridor"
+              ],
+              "measures": [
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:ongeoorloofde-onttrekking:variant:hoofdroute:measure:1",
+                  "label": "Combineer sensordata met fysieke inspectie",
+                  "description": "Laat druk-, debiet- en balansafwijkingen leiden tot risicogestuurde controle van de betreffende corridor.",
+                  "cat": "Verhoog toezicht en naleving",
+                  "partners": [
+                    "nl-starter:partner:pijplijnbeheerder"
+                  ]
+                },
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:ongeoorloofde-onttrekking:variant:hoofdroute:measure:2",
+                  "label": "Organiseer veilige incidentrespons",
+                  "description": "Behandel een vermoedelijke aftapping als een gecombineerd veiligheids-, milieu- en opsporingsincident en stel sporen veilig.",
+                  "cat": "other",
+                  "partners": [
+                    "nl-starter:partner:pijplijnbeheerder",
+                    "nl-starter:partner:politie",
+                    "nl-starter:partner:omgevingsdienst"
+                  ]
+                }
+              ],
+              "opportunities": [],
+              "indicators": [
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:ongeoorloofde-onttrekking:variant:hoofdroute:indicator:1",
+                  "label": "Onverklaarde druk- of volumeverandering",
+                  "description": "Afwijkingen in druk, debiet of productbalans kunnen wijzen op lekkage, manipulatie of ongeoorloofde onttrekking."
+                },
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:ongeoorloofde-onttrekking:variant:hoofdroute:indicator:2",
+                  "label": "Bodem- of vegetatieverstoring",
+                  "description": "Recente graafsporen, beschadiging, oliegeur of afwijkende vegetatie nabij de leiding vereisen snelle inspectie."
+                }
+              ],
+              "activities": [
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:ongeoorloofde-onttrekking:variant:hoofdroute:activity:1",
+                  "label": "Benaderen van de leidingzone",
+                  "description": "Uitvoerders betreden de directe omgeving van de infrastructuur zonder geldige werkopdracht.",
+                  "type": 3,
+                  "cast": [
+                    "nl-starter:cast:crimineel-netwerk"
+                  ],
+                  "attributes": [
+                    "nl-starter:attribute:technisch-hulpmiddel"
+                  ],
+                  "transports": []
+                },
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:ongeoorloofde-onttrekking:variant:hoofdroute:activity:2",
+                  "label": "Manipuleren van infrastructuur",
+                  "description": "De pijplijn of bijbehorende installatie wordt ongeoorloofd aangepast om product te kunnen onttrekken.",
+                  "type": 3,
+                  "cast": [
+                    "nl-starter:cast:logistiek-medewerker"
+                  ],
+                  "attributes": [
+                    "nl-starter:attribute:technisch-hulpmiddel"
+                  ],
+                  "transports": []
+                },
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:ongeoorloofde-onttrekking:variant:hoofdroute:activity:3",
+                  "label": "Opvangen van olieproducten",
+                  "description": "Het onttrokken product wordt in gereedstaande transport- of opslagmiddelen gebracht.",
+                  "type": 5,
+                  "cast": [
+                    "nl-starter:cast:logistiek-medewerker",
+                    "nl-starter:cast:chauffeur"
+                  ],
+                  "attributes": [],
+                  "transports": [
+                    "nl-starter:transport:vrachtwagen"
+                  ]
+                },
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:ongeoorloofde-onttrekking:variant:hoofdroute:activity:4",
+                  "label": "Beoordelen van verstoring en risico",
+                  "description": "Het team reageert op lekkage, drukverandering, brandgevaar of naderende waarnemers door door te gaan of de locatie te verlaten.",
+                  "type": 3,
+                  "cast": [
+                    "nl-starter:cast:coordinator",
+                    "nl-starter:cast:crimineel-netwerk"
+                  ],
+                  "attributes": [
+                    "nl-starter:attribute:communicatiemiddel"
+                  ],
+                  "transports": []
+                }
+              ],
+              "conditions": [
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:ongeoorloofde-onttrekking:variant:hoofdroute:condition:1",
+                  "label": "Fysieke toegang tot de leidingzone",
+                  "description": "Het netwerk kan de directe infrastructuuromgeving bereiken zonder tijdige interventie.",
+                  "type": "Facilitator"
+                },
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:ongeoorloofde-onttrekking:variant:hoofdroute:condition:2",
+                  "label": "Beschikbare opvangcapaciteit",
+                  "description": "Transport- of opslagmiddelen staan gereed om het onttrokken product te ontvangen.",
+                  "type": "Facilitator"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:transport-vanaf-pijplijn",
+          "label": "Transport vanaf de pijplijn",
+          "description": "Het gestolen product verlaat de pijplijncorridor en wordt naar een tijdelijke opslag- of overdrachtslocatie gebracht.",
+          "variants": [
+            {
+              "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:transport-vanaf-pijplijn:variant:hoofdroute",
+              "label": "Hoofdroute",
+              "description": "Het gestolen product verlaat de pijplijncorridor en wordt naar een tijdelijke opslag- of overdrachtslocatie gebracht.",
+              "locationIds": [
+                "nl-starter:location:pijplijncorridor"
+              ],
+              "measures": [
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:transport-vanaf-pijplijn:variant:hoofdroute:measure:1",
+                  "label": "Controleer herkomst en opdracht",
+                  "description": "Laat toezichthouders en opsporing herkomst, laadlocatie, opdrachtgever en bestemming in samenhang verifiëren.",
+                  "cat": "Verhoog toezicht en naleving",
+                  "partners": [
+                    "nl-starter:partner:politie",
+                    "nl-starter:partner:omgevingsdienst"
+                  ]
+                },
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:transport-vanaf-pijplijn:variant:hoofdroute:measure:2",
+                  "label": "Koppel voertuig- en incidentinformatie",
+                  "description": "Vergelijk voertuigen uit corridorwaarnemingen met controles bij opslag-, overslag- en afzetlocaties.",
+                  "cat": "other",
+                  "partners": [
+                    "nl-starter:partner:pijplijnbeheerder",
+                    "nl-starter:partner:politie"
+                  ]
+                }
+              ],
+              "opportunities": [],
+              "indicators": [
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:transport-vanaf-pijplijn:variant:hoofdroute:indicator:1",
+                  "label": "Logistieke rit zonder sluitende herkomst",
+                  "description": "Een transport van olieproducten mist een verifieerbare laadlocatie, opdrachtgever of begeleidende administratie."
+                },
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:transport-vanaf-pijplijn:variant:hoofdroute:indicator:2",
+                  "label": "Afwijkende route of stoptijd",
+                  "description": "Route, verblijfsduur en tussenstops wijken af van de verklaarde logistieke opdracht."
+                }
+              ],
+              "activities": [
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:transport-vanaf-pijplijn:variant:hoofdroute:activity:1",
+                  "label": "Gereedmaken van de lading",
+                  "description": "Het team maakt het transportmiddel vertrekbaar en laat gebruikte middelen of verstoring in de corridor achter.",
+                  "type": 5,
+                  "cast": [
+                    "nl-starter:cast:logistiek-medewerker",
+                    "nl-starter:cast:chauffeur"
+                  ],
+                  "attributes": [],
+                  "transports": [
+                    "nl-starter:transport:vrachtwagen"
+                  ]
+                },
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:transport-vanaf-pijplijn:variant:hoofdroute:activity:2",
+                  "label": "Vertrekken uit de corridor",
+                  "description": "Het voertuig verlaat het gebied en voegt zich in het reguliere wegverkeer.",
+                  "type": 5,
+                  "cast": [
+                    "nl-starter:cast:chauffeur"
+                  ],
+                  "attributes": [],
+                  "transports": [
+                    "nl-starter:transport:vrachtwagen"
+                  ]
+                },
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:transport-vanaf-pijplijn:variant:hoofdroute:activity:3",
+                  "label": "Coördineren van de overdracht",
+                  "description": "De coördinator stemt aankomst, ontvangst en eventuele vervolgbewegingen af met de opslag- of afzetzijde.",
+                  "type": 3,
+                  "cast": [
+                    "nl-starter:cast:coordinator"
+                  ],
+                  "attributes": [
+                    "nl-starter:attribute:communicatiemiddel"
+                  ],
+                  "transports": []
+                },
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:transport-vanaf-pijplijn:variant:hoofdroute:activity:4",
+                  "label": "Afleveren op een tussenlocatie",
+                  "description": "De lading bereikt een terrein waar het product tijdelijk wordt opgeslagen, overgeslagen of verdeeld.",
+                  "type": 5,
+                  "cast": [
+                    "nl-starter:cast:chauffeur",
+                    "nl-starter:cast:ontvanger"
+                  ],
+                  "attributes": [],
+                  "transports": [
+                    "nl-starter:transport:vrachtwagen"
+                  ]
+                }
+              ],
+              "conditions": [
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:transport-vanaf-pijplijn:variant:hoofdroute:condition:1",
+                  "label": "Beschikbaar transportmiddel",
+                  "description": "Een voertuig met voldoende laadcapaciteit kan de corridor en de tussenlocatie bereiken.",
+                  "type": "Facilitator"
+                },
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:transport-vanaf-pijplijn:variant:hoofdroute:condition:2",
+                  "label": "Ontvangende locatie is gereed",
+                  "description": "Een opslag- of overslaglocatie accepteert de lading buiten een controleerbare legale opdracht.",
+                  "type": "Facilitator"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:opslag-en-overslag",
+          "label": "Opslag en overslag",
+          "description": "Een tussenlocatie ontvangt het gestolen product en maakt het gereed voor verdere verspreiding.",
+          "variants": [
+            {
+              "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:opslag-en-overslag:variant:hoofdroute",
+              "label": "Hoofdroute",
+              "description": "Een tussenlocatie ontvangt het gestolen product en maakt het gereed voor verdere verspreiding.",
+              "locationIds": [
+                "nl-starter:location:tussentijdse-opslag"
+              ],
+              "measures": [
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:opslag-en-overslag:variant:hoofdroute:measure:1",
+                  "label": "Voer voorraad- en herkomstcontroles uit",
+                  "description": "Vergelijk fysieke voorraad, inkoopadministratie, leveranciers en transportbewegingen bij risicolocaties.",
+                  "cat": "Verhoog toezicht en naleving",
+                  "partners": [
+                    "nl-starter:partner:omgevingsdienst",
+                    "nl-starter:partner:politie"
+                  ]
+                },
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:opslag-en-overslag:variant:hoofdroute:measure:2",
+                  "label": "Deel signalen over risicolocaties",
+                  "description": "Verbind milieu-, vergunning-, brandveiligheids- en opsporingssignalen rond opslag en overslag.",
+                  "cat": "other",
+                  "partners": [
+                    "nl-starter:partner:omgevingsdienst",
+                    "nl-starter:partner:gemeente",
+                    "nl-starter:partner:politie"
+                  ]
+                }
+              ],
+              "opportunities": [],
+              "indicators": [
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:opslag-en-overslag:variant:hoofdroute:indicator:1",
+                  "label": "Voorraad zonder inkoopspoor",
+                  "description": "De feitelijke voorraad olieproducten sluit niet aan op facturen, transportdocumenten of geregistreerde leveranciers."
+                },
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:opslag-en-overslag:variant:hoofdroute:indicator:2",
+                  "label": "Ongebruikelijke activiteit op opslagterrein",
+                  "description": "Nachtelijke tankbewegingen, tijdelijke voertuigen of sterke productgeur passen niet bij de vergunde bedrijfsvoering."
+                }
+              ],
+              "activities": [
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:opslag-en-overslag:variant:hoofdroute:activity:1",
+                  "label": "Ontvangen van de lading",
+                  "description": "Een beheerder of facilitator laat het transportmiddel toe en neemt het product buiten een legale inkoopketen in ontvangst.",
+                  "type": 3,
+                  "cast": [
+                    "nl-starter:cast:ontvanger",
+                    "nl-starter:cast:facilitator"
+                  ],
+                  "attributes": [
+                    "nl-starter:attribute:administratie"
+                  ],
+                  "transports": []
+                },
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:opslag-en-overslag:variant:hoofdroute:activity:2",
+                  "label": "Tijdelijk opslaan",
+                  "description": "Het product blijft in tanks, containers of voertuigen totdat een koper of vervolgtransport beschikbaar is.",
+                  "type": 5,
+                  "cast": [
+                    "nl-starter:cast:logistiek-medewerker"
+                  ],
+                  "attributes": [],
+                  "transports": [
+                    "nl-starter:transport:vrachtwagen"
+                  ]
+                },
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:opslag-en-overslag:variant:hoofdroute:activity:3",
+                  "label": "Verdelen over vervolgtransporten",
+                  "description": "De ontvangen hoeveelheid wordt gekoppeld aan één of meer vervolgbewegingen richting afnemers.",
+                  "type": 3,
+                  "cast": [
+                    "nl-starter:cast:coordinator",
+                    "nl-starter:cast:logistiek-medewerker"
+                  ],
+                  "attributes": [
+                    "nl-starter:attribute:communicatiemiddel"
+                  ],
+                  "transports": []
+                },
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:opslag-en-overslag:variant:hoofdroute:activity:4",
+                  "label": "Afstemmen met afnemers",
+                  "description": "De opslagzijde maakt afspraken over hoeveelheid, prijs, moment en bestemming met tussenpersonen of ondernemingen.",
+                  "type": 3,
+                  "cast": [
+                    "nl-starter:cast:facilitator",
+                    "nl-starter:cast:ondernemer"
+                  ],
+                  "attributes": [
+                    "nl-starter:attribute:communicatiemiddel",
+                    "nl-starter:attribute:administratie"
+                  ],
+                  "transports": []
+                }
+              ],
+              "conditions": [
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:opslag-en-overslag:variant:hoofdroute:condition:1",
+                  "label": "Beschikbare opslagcapaciteit",
+                  "description": "Een locatie kan olieproducten ontvangen zonder directe koppeling aan een aantoonbare legale levering.",
+                  "type": "Facilitator"
+                },
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:opslag-en-overslag:variant:hoofdroute:condition:2",
+                  "label": "Bereidheid tot faciliteren",
+                  "description": "Een beheerder, ondernemer of tussenpersoon accepteert het product of stelt infrastructuur beschikbaar.",
+                  "type": "Facilitator"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:afzet-en-distributie",
+          "label": "Afzet en distributie",
+          "description": "Tussenpersonen en ondernemingen brengen de olieproducten verder in een afzetketen en ontvangen betalingen.",
+          "variants": [
+            {
+              "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:afzet-en-distributie:variant:hoofdroute",
+              "label": "Hoofdroute",
+              "description": "Tussenpersonen en ondernemingen brengen de olieproducten verder in een afzetketen en ontvangen betalingen.",
+              "locationIds": [
+                "nl-starter:location:logistiek-terrein"
+              ],
+              "measures": [
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:afzet-en-distributie:variant:hoofdroute:measure:1",
+                  "label": "Versterk ketencontrole op herkomst",
+                  "description": "Laat afnemers de leverancier, laadlocatie, hoeveelheid en transporteur aantoonbaar verifiëren en bewaar een controleerbaar spoor.",
+                  "cat": "Verhoog toezicht en naleving",
+                  "partners": [
+                    "nl-starter:partner:omgevingsdienst",
+                    "nl-starter:partner:politie"
+                  ]
+                },
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:afzet-en-distributie:variant:hoofdroute:measure:2",
+                  "label": "Onderzoek afwijkende marktpatronen",
+                  "description": "Combineer prijs-, volume-, voorraad- en leveranciersafwijkingen om risicovolle afzetpunten gericht te selecteren.",
+                  "cat": "other",
+                  "partners": [
+                    "nl-starter:partner:politie",
+                    "nl-starter:partner:openbaar-ministerie"
+                  ]
+                }
+              ],
+              "opportunities": [],
+              "indicators": [
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:afzet-en-distributie:variant:hoofdroute:indicator:1",
+                  "label": "Prijs of marge wijkt sterk af",
+                  "description": "Inkoopprijzen, marges of volumes zijn niet verklaarbaar vanuit reguliere marktcondities en transportkosten."
+                },
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:afzet-en-distributie:variant:hoofdroute:indicator:2",
+                  "label": "Leverancier is niet verifieerbaar",
+                  "description": "De opgegeven leverancier, laadlocatie of transporteur bestaat niet, past niet bij het product of kan de levering niet bevestigen."
+                }
+              ],
+              "activities": [
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:afzet-en-distributie:variant:hoofdroute:activity:1",
+                  "label": "Selecteren van afnemers",
+                  "description": "Tussenpersonen benaderen ondernemingen of handelaren die product buiten de reguliere leveranciersketen willen kopen.",
+                  "type": 3,
+                  "cast": [
+                    "nl-starter:cast:facilitator",
+                    "nl-starter:cast:ondernemer"
+                  ],
+                  "attributes": [
+                    "nl-starter:attribute:communicatiemiddel"
+                  ],
+                  "transports": []
+                },
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:afzet-en-distributie:variant:hoofdroute:activity:2",
+                  "label": "Overdragen aan de afzetzijde",
+                  "description": "Het product wordt geleverd aan een afnemer of een volgende distributeur.",
+                  "type": 7,
+                  "cast": [
+                    "nl-starter:cast:chauffeur",
+                    "nl-starter:cast:ontvanger"
+                  ],
+                  "attributes": [
+                    "nl-starter:attribute:administratie"
+                  ],
+                  "transports": [
+                    "nl-starter:transport:vrachtwagen"
+                  ]
+                },
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:afzet-en-distributie:variant:hoofdroute:activity:3",
+                  "label": "Opnemen in bedrijfsvoorraad",
+                  "description": "Een onderneming verwerkt het ontvangen product in voorraad, verkoop of intern verbruik zonder sluitende legale herkomst.",
+                  "type": 3,
+                  "cast": [
+                    "nl-starter:cast:ondernemer"
+                  ],
+                  "attributes": [
+                    "nl-starter:attribute:administratie"
+                  ],
+                  "transports": []
+                },
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:afzet-en-distributie:variant:hoofdroute:activity:4",
+                  "label": "Innen van de verkoopopbrengst",
+                  "description": "De afzetzijde betaalt contant, via rekeningen of via verrekening met andere goederen of diensten.",
+                  "type": 3,
+                  "cast": [
+                    "nl-starter:cast:ondernemer",
+                    "nl-starter:cast:financieel-facilitator"
+                  ],
+                  "attributes": [
+                    "nl-starter:attribute:contant-geld",
+                    "nl-starter:attribute:financiele-rekening"
+                  ],
+                  "transports": []
+                }
+              ],
+              "conditions": [
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:afzet-en-distributie:variant:hoofdroute:condition:1",
+                  "label": "Vraag naar goedkoop of ongedocumenteerd product",
+                  "description": "Afnemers accepteren een levering met een prijs, herkomst of administratie die niet past bij de reguliere markt.",
+                  "type": "Facilitator"
+                },
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:afzet-en-distributie:variant:hoofdroute:condition:2",
+                  "label": "Toegang tot legale ondernemingen",
+                  "description": "Een bedrijf kan het product ontvangen, gebruiken of verkopen en daarmee een schijnbaar reguliere bestemming bieden.",
+                  "type": "Facilitator"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:opbrengsten-en-opvolging",
+          "label": "Opbrengsten en opvolging",
+          "description": "Opbrengsten worden verdeeld of verhuld, terwijl incident-, keten- en financiële informatie aanknopingspunten biedt voor verstoring en onderzoek.",
+          "variants": [
+            {
+              "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:opbrengsten-en-opvolging:variant:hoofdroute",
+              "label": "Hoofdroute",
+              "description": "Opbrengsten worden verdeeld of verhuld, terwijl incident-, keten- en financiële informatie aanknopingspunten biedt voor verstoring en onderzoek.",
+              "locationIds": [
+                "nl-starter:location:bedrijfspand"
+              ],
+              "measures": [
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:opbrengsten-en-opvolging:variant:hoofdroute:measure:1",
+                  "label": "Start parallel financieel onderzoek",
+                  "description": "Koppel incidentonderzoek vanaf het begin aan betalingen, ondernemingen, bezittingen en begunstigden.",
+                  "cat": "Verhoog toezicht en naleving",
+                  "partners": [
+                    "nl-starter:partner:politie",
+                    "nl-starter:partner:openbaar-ministerie"
+                  ]
+                },
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:opbrengsten-en-opvolging:variant:hoofdroute:measure:2",
+                  "label": "Bouw een gezamenlijke netwerkanalyse",
+                  "description": "Verbind technische incidentdata, logistieke waarnemingen, vergunninginformatie en financiële relaties om sleutelactoren en faciliteiten te identificeren.",
+                  "cat": "other",
+                  "partners": [
+                    "nl-starter:partner:pijplijnbeheerder",
+                    "nl-starter:partner:politie",
+                    "nl-starter:partner:openbaar-ministerie",
+                    "nl-starter:partner:omgevingsdienst"
+                  ]
+                }
+              ],
+              "opportunities": [],
+              "indicators": [
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:opbrengsten-en-opvolging:variant:hoofdroute:indicator:1",
+                  "label": "Financiële stromen zonder economische verklaring",
+                  "description": "Betalingen, stortingen of omzetontwikkeling sluiten niet aan bij aantoonbare bedrijfsactiviteiten of legale leveringen."
+                },
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:opbrengsten-en-opvolging:variant:hoofdroute:indicator:2",
+                  "label": "Terugkerende overlap tussen incidenten en bedrijven",
+                  "description": "Dezelfde personen, voertuigen, opslaglocaties, afnemers of rekeningen verschijnen rond meerdere pijplijnincidenten."
+                }
+              ],
+              "activities": [
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:opbrengsten-en-opvolging:variant:hoofdroute:activity:1",
+                  "label": "Verdelen van opbrengsten",
+                  "description": "De coördinator betaalt uitvoerders, chauffeurs, facilitators en andere betrokkenen uit de verkoopopbrengst.",
+                  "type": 3,
+                  "cast": [
+                    "nl-starter:cast:coordinator",
+                    "nl-starter:cast:financieel-facilitator"
+                  ],
+                  "attributes": [
+                    "nl-starter:attribute:contant-geld",
+                    "nl-starter:attribute:financiele-rekening"
+                  ],
+                  "transports": []
+                },
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:opbrengsten-en-opvolging:variant:hoofdroute:activity:2",
+                  "label": "Verwerken via ondernemingen of rekeningen",
+                  "description": "Betalingen en kosten lopen geheel of gedeeltelijk via bedrijven, personen of rekeningen met een ogenschijnlijk legale functie.",
+                  "type": 3,
+                  "cast": [
+                    "nl-starter:cast:financieel-facilitator",
+                    "nl-starter:cast:ondernemer"
+                  ],
+                  "attributes": [
+                    "nl-starter:attribute:administratie",
+                    "nl-starter:attribute:financiele-rekening"
+                  ],
+                  "transports": []
+                },
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:opbrengsten-en-opvolging:variant:hoofdroute:activity:3",
+                  "label": "Voorbereiden van een volgende cyclus",
+                  "description": "Contacten, logistieke middelen en resterende opbrengsten worden gebruikt om nieuwe pogingen of afzettransacties mogelijk te maken.",
+                  "type": 3,
+                  "cast": [
+                    "nl-starter:cast:coordinator",
+                    "nl-starter:cast:crimineel-netwerk"
+                  ],
+                  "attributes": [
+                    "nl-starter:attribute:communicatiemiddel"
+                  ],
+                  "transports": []
+                },
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:opbrengsten-en-opvolging:variant:hoofdroute:activity:4",
+                  "label": "Reageren op toezicht of onderzoek",
+                  "description": "Betrokkenen passen hun activiteiten aan nadat een incident, controle of onderzoek zichtbaar wordt.",
+                  "type": 3,
+                  "cast": [
+                    "nl-starter:cast:crimineel-netwerk",
+                    "nl-starter:cast:facilitator"
+                  ],
+                  "attributes": [
+                    "nl-starter:attribute:communicatiemiddel"
+                  ],
+                  "transports": []
+                }
+              ],
+              "conditions": [
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:opbrengsten-en-opvolging:variant:hoofdroute:condition:1",
+                  "label": "Beschikbare betaal- en verhullingskanalen",
+                  "description": "Het netwerk kan opbrengsten verdelen of verwerken via contant geld, rekeningen of ondernemingen.",
+                  "type": "Facilitator"
+                },
+                {
+                  "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:opbrengsten-en-opvolging:variant:hoofdroute:condition:2",
+                  "label": "Onvoldoende verbonden informatie",
+                  "description": "Incidentgegevens, marktinformatie en financiële signalen worden niet tijdig aan dezelfde betrokkenen gekoppeld.",
+                  "type": "Facilitator"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "productIds": [
+        "nl-starter:product:geraffineerde-olieproducten"
+      ],
+      "geoLocationIds": [
+        "nl-starter:geo:internationaal"
+      ],
+      "language": "nl",
+      "aiGenerated": true,
+      "unreviewed": true,
+      "starterOrigin": {
+        "bundleId": "pax-nl-starter",
+        "bundleVersion": "1.0.0",
+        "scriptId": "nl-starter:script:pijplijndiefstal-olieproducten"
+      },
+      "icon": "builtin:secure-transport",
+      "classification": "public",
+      "scriptFamilyId": "nl-starter:script:pijplijndiefstal-olieproducten",
+      "icons": [
+        "builtin:planning-checklist",
+        "builtin:secure-transport",
+        "builtin:site-inspection",
+        "builtin:container-inspection",
+        "builtin:retail-store",
+        "builtin:financial-investigation"
+      ]
     }
   ],
   "cast": [
@@ -10033,6 +10858,16 @@
     {
       "id": "nl-starter:attribute:beschermingsmiddel",
       "label": "Persoonlijk beschermingsmiddel"
+    },
+    {
+      "id": "nl-starter:attribute:technisch-hulpmiddel",
+      "label": "Technisch hulpmiddel",
+      "description": "Generiek materieel dat bij infrastructuur, transport of opslag wordt gebruikt."
+    },
+    {
+      "id": "nl-starter:attribute:contant-geld",
+      "label": "Contant geld",
+      "description": "Fysiek geld dat als betaling of opbrengst wordt overgedragen."
     }
   ],
   "locations": [
@@ -10091,6 +10926,16 @@
     {
       "id": "nl-starter:location:bouwlocatie",
       "label": "Bouw- of slooplocatie"
+    },
+    {
+      "id": "nl-starter:location:pijplijncorridor",
+      "label": "Pijplijncorridor",
+      "description": "Terrein rond een ondergrondse of bovengrondse pijpleiding en bijbehorende installaties."
+    },
+    {
+      "id": "nl-starter:location:tussentijdse-opslag",
+      "label": "Tussentijdse opslag",
+      "description": "Terrein waar olieproducten tijdelijk worden ontvangen, opgeslagen, verdeeld of overgeslagen."
     }
   ],
   "geoLocations": [
@@ -10167,6 +11012,11 @@
     {
       "id": "nl-starter:product:vracht-en-transportopdrachten",
       "label": "Vracht en transportopdrachten"
+    },
+    {
+      "id": "nl-starter:product:geraffineerde-olieproducten",
+      "label": "Geraffineerde olieproducten",
+      "description": "Brandstoffen en andere geraffineerde aardolieproducten die via pijpleidingen worden vervoerd."
     }
   ],
   "transports": [
@@ -10303,6 +11153,11 @@
     {
       "id": "nl-starter:partner:verlader",
       "label": "Verlader"
+    },
+    {
+      "id": "nl-starter:partner:pijplijnbeheerder",
+      "label": "Pijplijnbeheerder",
+      "description": "Beheerder van de pijpleiding, sensoren, onderhoudsopdrachten en incidentrespons."
     }
   ]
 }

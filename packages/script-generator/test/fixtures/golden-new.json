@@ -1,0 +1,97 @@
+{
+  "bundle": {
+    "schemaVersion": 3,
+    "version": 1,
+    "lastUpdate": 1,
+    "crimeScripts": [],
+    "cast": [],
+    "attributes": [],
+    "locations": [],
+    "geoLocations": [],
+    "products": [],
+    "transports": [],
+    "partners": []
+  },
+  "brief": {
+    "schemaVersion": 1,
+    "bundlePath": "bundle.json",
+    "scriptId": "golden:new",
+    "subject": "Fictional record check",
+    "purpose": "Offline golden test",
+    "geography": "Fictional jurisdiction",
+    "contentLanguage": "en",
+    "classification": "public",
+    "sourceSensitivity": "public",
+    "detail": "orienting",
+    "scriptIcon": "builtin:document-check"
+  },
+  "candidate": {
+    "schemaVersion": 1,
+    "script": {
+      "label": "Fictional record check",
+      "description": "A defensive model for deciding whether an independent record check is needed.",
+      "stages": [
+        {
+          "key": "assessment",
+          "label": "Assess the record",
+          "description": "The organisation determines whether the received record needs independent corroboration.",
+          "variants": [
+            {
+              "key": "regular",
+              "label": "Regular assessment",
+              "activities": [
+                {
+                  "key": "compare",
+                  "event": "An authorised employee compares material claims with an authoritative record",
+                  "observableTraces": ["a logged comparison result"],
+                  "decisionPoint": "decide whether escalation is proportionate",
+                  "castKeys": ["employee"]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "taxonomies": {
+      "cast": [{ "key": "employee", "label": "Authorised employee" }],
+      "attributes": [],
+      "products": [],
+      "transports": [],
+      "locations": [],
+      "geoLocations": [],
+      "partners": []
+    },
+    "safetyReview": {
+      "containsStepByStepInstructions": false,
+      "containsExploitableParameters": false,
+      "containsEvasionTactics": false,
+      "notes": "Defensive verification only."
+    }
+  },
+  "evidence": {
+    "schemaVersion": 1,
+    "sources": [
+      {
+        "key": "official",
+        "title": "Fictional official guidance fixture",
+        "kind": "web",
+        "state": "valid",
+        "url": "https://example.test/official",
+        "accessedAt": "2026-01-01",
+        "contentHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "reliability": "Offline authoritative fixture.",
+        "passages": [{ "text": "Material claims should be independently checked." }]
+      }
+    ],
+    "claims": [
+      { "nodeKey": "assessment", "sourceKeys": ["official"] },
+      { "nodeKey": "compare", "sourceKeys": ["official"] }
+    ]
+  },
+  "expected": {
+    "scriptId": "golden:new",
+    "stageId": "golden:new:scene:assessment",
+    "activityId": "golden:new:activity:compare"
+  }
+}

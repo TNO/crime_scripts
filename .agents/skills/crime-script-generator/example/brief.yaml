@@ -1,0 +1,11 @@
+schemaVersion: 1
+bundlePath: ../../bundle.json
+scriptId: generated:en:script:fictional-document-check
+subject: Fictional document check
+purpose: Demonstrate the generator file shapes for defensive analyst training
+geography: Fictional jurisdiction
+contentLanguage: en
+classification: public
+sourceSensitivity: public
+detail: orienting
+scriptIcon: builtin:document-check

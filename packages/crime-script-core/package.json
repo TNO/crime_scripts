@@ -1,0 +1,27 @@
+{
+  "name": "@crime-script/core",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./activity-outline": "./src/activity-outline.ts",
+    "./data-model": "./src/data-model.ts",
+    "./icons": "./src/icons.ts",
+    "./llm-script": "./src/llm-script.ts",
+    "./model-merge": "./src/model-merge.ts",
+    "./model-normalization": "./src/model-normalization.ts",
+    "./script-classification": "./src/script-classification.ts",
+    "./single-script-export": "./src/single-script-export.ts",
+    "./starter-library": "./src/starter-library.ts",
+    "./taxonomy-references": "./src/taxonomy-references.ts"
+  },
+  "scripts": {
+    "test": "node --experimental-strip-types --test test/*.test.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "25.9.7",
+    "typescript": "7.0.2"
+  }
+}

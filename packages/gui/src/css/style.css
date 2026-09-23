@@ -1,4 +1,3 @@
-@import url('process-visualisation.css');
 
 :root {
   --mm-primary-color: #2f6fa5;
@@ -97,6 +96,21 @@
   padding: 0;
   border-radius: 0;
   line-height: 52px;
+}
+
+@media only screen and (max-width: 992px) {
+  .crime-script-nav-trigger {
+    position: absolute;
+    z-index: 1000;
+    top: 52px;
+    left: 0;
+  }
+
+  .script-page-actions {
+    width: fit-content;
+    margin-top: -5px;
+    margin-left: auto;
+  }
 }
 
 .landing-hero {
@@ -491,7 +505,7 @@
 }
 
 [data-mm-preset='compact-minimal'] .script-list-title {
-  font-size: 1.2rem;
+  font-size: 1.25rem;
 }
 
 .classification-badge {
@@ -576,6 +590,65 @@
 
 .classification-notice {
   margin: 8px 0 16px;
+}
+
+.activity-group-context {
+  margin: 0.75rem 0 1.5rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid color-mix(in srgb, var(--mm-primary-color, #2f6fa5) 35%, transparent);
+  border-radius: 0.35rem;
+  background: color-mix(in srgb, var(--mm-primary-color, #2f6fa5) 9%, transparent);
+  line-height: 1.5;
+}
+
+.script-detail-list,
+.barrier-list {
+  display: grid;
+  gap: 0.65rem;
+  padding-left: 1.6rem;
+}
+
+.script-detail-list.nested {
+  margin-top: 0.65rem;
+}
+
+.script-detail-list > li::marker,
+.barrier-list > li::marker {
+  color: var(--mm-primary-color, #2f6fa5);
+  font-weight: 700;
+}
+
+.script-detail-title,
+.barrier-title {
+  line-height: 1.35;
+}
+
+.script-detail-description,
+.barrier-description {
+  margin: 0.2rem 0 0;
+  color: color-mix(in srgb, var(--mm-text-primary, currentColor) 82%, transparent);
+  line-height: 1.45;
+}
+
+.barrier-list {
+  list-style: none;
+  padding: 0;
+}
+
+.barrier-item {
+  padding: 0.9rem 1rem;
+  border: 1px solid color-mix(in srgb, var(--mm-text-primary, currentColor) 18%, transparent);
+  border-radius: 0.45rem;
+  background: color-mix(in srgb, var(--mm-text-primary, currentColor) 3%, transparent);
+}
+
+.barrier-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1rem;
+  margin-top: 0.55rem;
+  color: color-mix(in srgb, var(--mm-text-primary, currentColor) 72%, transparent);
+  font-size: 0.875rem;
 }
 
 .starter-import-row {
@@ -1363,6 +1436,588 @@ ul.kanban>li {
 
 #editor {
   min-height: 150px;
+}
+
+.script-editor-metadata {
+  margin: 0.75rem 0 1.5rem;
+  border-block: 1px solid color-mix(in srgb, var(--mm-text-primary, currentColor) 16%, transparent);
+}
+
+.script-editor-metadata summary {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  min-height: 3.25rem;
+  cursor: pointer;
+  color: var(--mm-text-primary, currentColor);
+  font-weight: 600;
+  list-style: none;
+}
+
+.script-editor-metadata summary::-webkit-details-marker {
+  display: none;
+}
+
+.script-editor-metadata summary small {
+  overflow: hidden;
+  flex: 1;
+  color: color-mix(in srgb, var(--mm-text-primary, currentColor) 66%, transparent);
+  font-weight: 400;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.script-editor-metadata summary::after {
+  content: 'expand_more';
+  font-family: 'Material Icons';
+  font-size: 1.4rem;
+}
+
+.script-editor-metadata[open] summary::after {
+  content: 'expand_less';
+}
+
+.script-editor-heading {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin: 1.5rem 0 0.75rem;
+}
+
+.script-editor-heading h3,
+.script-editor-heading p,
+.script-editor-section-heading h4,
+.inspector-heading h4,
+.outline-markdown-copy h4,
+.outline-markdown-copy p {
+  margin: 0;
+}
+
+.script-editor-heading h3 {
+  font-size: 1.55rem;
+}
+
+.script-editor-heading p,
+.outline-markdown-copy p {
+  max-width: 70ch;
+  margin-top: 0.3rem;
+  color: color-mix(in srgb, var(--mm-text-primary, currentColor) 72%, transparent);
+}
+
+.script-editor-workspace {
+  display: grid;
+  overflow: hidden;
+  min-height: 36rem;
+  border: 1px solid color-mix(in srgb, var(--mm-text-primary, currentColor) 18%, transparent);
+  border-radius: 14px;
+  grid-template-columns: minmax(18rem, 25rem) minmax(0, 1fr);
+}
+
+.script-viewer-workspace {
+  display: grid;
+  overflow: hidden;
+  min-height: 28rem;
+  margin-top: 1.5rem;
+  border: 1px solid color-mix(in srgb, var(--mm-text-primary, currentColor) 18%, transparent);
+  border-radius: 14px;
+  grid-template-columns: minmax(16rem, 22rem) minmax(0, 1fr);
+}
+
+.script-editor-outline {
+  padding: 1rem;
+  border-right: 1px solid color-mix(in srgb, var(--mm-text-primary, currentColor) 16%, transparent);
+  background: color-mix(in srgb, var(--mm-text-primary, currentColor) 3%, transparent);
+}
+
+.script-viewer-outline {
+  padding: 1rem;
+  border-right: 1px solid color-mix(in srgb, var(--mm-text-primary, currentColor) 16%, transparent);
+  background: color-mix(in srgb, var(--mm-text-primary, currentColor) 3%, transparent);
+}
+
+.script-viewer-outline h5 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.script-viewer-scene {
+  min-width: 0;
+  padding: 1.5rem clamp(1rem, 3vw, 2.5rem);
+}
+
+.viewer-scene-heading h4 {
+  margin: 0.25rem 0 0.5rem;
+}
+
+.viewer-scene-heading p {
+  max-width: 70ch;
+}
+
+.viewer-variant-selector {
+  max-width: 32rem;
+  margin: 1rem 0 1.5rem;
+}
+
+.viewer-act-title {
+  margin-top: 1.5rem;
+}
+
+.script-editor-inspector {
+  min-width: 0;
+  padding: 1.5rem clamp(1rem, 3vw, 2.5rem);
+}
+
+.script-editor-inspector .hiddendiv,
+.script-editor-metadata .hiddendiv {
+  max-width: 100% !important;
+}
+
+.script-editor-section-heading,
+.inspector-heading {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.script-editor-section-heading h4,
+.inspector-heading h4,
+.outline-markdown-copy h4 {
+  font-size: 1.2rem;
+}
+
+.script-editor-section-heading.steps-heading {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid color-mix(in srgb, var(--mm-text-primary, currentColor) 14%, transparent);
+}
+
+.act-detail-tabs {
+  clear: both;
+  padding-top: 0.5rem;
+}
+
+.act-detail-tab-list {
+  display: flex;
+  border-bottom: 1px solid color-mix(in srgb, var(--mm-text-primary, currentColor) 18%, transparent);
+}
+
+.act-detail-tab {
+  min-height: 2.75rem;
+  flex: 1;
+  padding: 0.65rem 0.75rem;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  color: color-mix(in srgb, var(--mm-text-primary, currentColor) 70%, transparent);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.act-detail-tab:hover,
+.act-detail-tab.active {
+  color: var(--mm-primary-color);
+}
+
+.act-detail-tab.active {
+  border-bottom-color: var(--mm-primary-color);
+}
+
+.act-detail-tab:focus-visible {
+  outline: 2px solid var(--mm-primary-color);
+  outline-offset: -2px;
+}
+
+.act-detail-tab-panel {
+  min-width: 0;
+  padding-top: 0.75rem;
+}
+
+.scene-outline-list,
+.activity-outline-list,
+.activity-outline-children {
+  margin: 0.7rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.scene-outline-row,
+.activity-outline-row {
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.scene-outline-row+.scene-outline-row,
+.activity-outline-list>li+li {
+  margin-top: 0.25rem;
+}
+
+.scene-outline-row:hover,
+.activity-outline-row:hover {
+  background: var(--pax-list-row-hover);
+}
+
+.scene-outline-row.active,
+.activity-outline-row.active {
+  background: var(--pax-process-active);
+  color: var(--pax-process-active-text);
+}
+
+.scene-outline-row.context-active {
+  outline: 1px dashed color-mix(in srgb, var(--mm-primary-color) 58%, transparent);
+  outline-offset: -1px;
+  background: color-mix(in srgb, var(--mm-primary-color) 7%, transparent);
+  color: var(--mm-text-primary, currentColor);
+}
+
+.scene-outline-main,
+.activity-outline-main {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  gap: 0.5rem;
+  align-items: flex-start;
+  padding: 0.7rem 0.65rem;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+}
+
+.scene-outline-main>span:last-child,
+.activity-outline-main>span {
+  min-width: 0;
+}
+
+.scene-outline-main strong,
+.activity-outline-main span {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.script-page-actions {
+  display: flex;
+  min-height: 3.25rem;
+  gap: 0.25rem;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+#crime-script .script-viewer-title {
+  font-size: clamp(1.65rem, 2.5vw, 2.25rem);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.scene-outline-main small {
+  display: block;
+  margin-top: 0.15rem;
+  color: color-mix(in srgb, currentColor 68%, transparent);
+}
+
+.scene-outline-number {
+  min-width: 1.1rem;
+  flex: 0 0 1.1rem;
+  padding-top: 0.05rem;
+  text-align: left;
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.activity-outline-number {
+  min-width: 1.1rem !important;
+  flex: 0 0 auto;
+  padding-top: 0.05rem;
+  color: color-mix(in srgb, currentColor 72%, transparent);
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+  text-align: left;
+}
+
+.activity-outline-row.active .activity-outline-number {
+  color: inherit;
+}
+
+.scene-outline-actions,
+.activity-outline-actions {
+  display: flex;
+  gap: 0;
+  opacity: 0;
+  transition: opacity 160ms ease-out;
+}
+
+.scene-outline-actions .script-editor-icon-button,
+.activity-outline-actions .script-editor-icon-button {
+  width: 1.5rem;
+}
+
+.scene-outline-row:hover .scene-outline-actions,
+.scene-outline-row:focus-within .scene-outline-actions,
+.activity-outline-row:hover .activity-outline-actions,
+.activity-outline-row:focus-within .activity-outline-actions {
+  opacity: 1;
+}
+
+.script-editor-icon-button {
+  display: inline-grid;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  place-items: center;
+}
+
+.script-editor-icon-button:hover:not(:disabled) {
+  background: color-mix(in srgb, currentColor 10%, transparent);
+}
+
+.script-editor-icon-button:disabled {
+  cursor: default;
+  opacity: 0.25;
+}
+
+.script-editor-icon-button .material-icons {
+  font-size: 1.15rem;
+}
+
+.activity-outline-children {
+  margin: 0.2rem 0 0.4rem 1.5rem;
+}
+
+.activity-outline-children .activity-outline-main {
+  padding-block: 0.55rem;
+}
+
+.outline-add-actions,
+.act-selector-actions,
+.outline-markdown-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+
+.outline-add-actions {
+  flex-wrap: nowrap;
+}
+
+.outline-add-actions .script-editor-secondary {
+  min-width: 0;
+  flex: 1;
+  padding-inline: 0.55rem;
+  white-space: nowrap;
+}
+
+.script-editor-action,
+.script-editor-secondary,
+.script-editor-danger {
+  display: inline-flex;
+  min-height: 2.6rem;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0.55rem 0.85rem;
+  border-radius: 10px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.script-editor-action {
+  border: 1px solid var(--mm-primary-color);
+  background: var(--mm-primary-color);
+  color: var(--mm-button-text, #fff);
+}
+
+.script-editor-secondary,
+.script-editor-danger {
+  border: 1px solid color-mix(in srgb, var(--mm-text-primary, currentColor) 24%, transparent);
+  background: transparent;
+  color: var(--mm-text-primary, currentColor);
+}
+
+.script-editor-danger {
+  color: #b3261e;
+}
+
+[data-theme='dark'] .script-editor-danger {
+  color: #ff8a80;
+}
+
+.script-editor-action:hover:not(:disabled),
+.script-editor-secondary:hover:not(:disabled),
+.script-editor-danger:hover:not(:disabled) {
+  filter: brightness(0.94);
+}
+
+.script-editor-action:focus-visible,
+.script-editor-secondary:focus-visible,
+.script-editor-danger:focus-visible,
+.script-editor-icon-button:focus-visible,
+.scene-outline-main:focus-visible,
+.activity-outline-main:focus-visible,
+.outline-markdown-panel textarea:focus-visible {
+  outline: 2px solid var(--mm-primary-color);
+  outline-offset: 2px;
+}
+
+.script-editor-action:disabled,
+.script-editor-secondary:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.script-editor-action .material-icons,
+.script-editor-secondary .material-icons,
+.script-editor-danger .material-icons {
+  font-size: 1.15rem;
+}
+
+.inspector-heading {
+  margin-bottom: 1.25rem;
+}
+
+.inspector-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  justify-content: flex-end;
+}
+
+.inspector-context {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: color-mix(in srgb, var(--mm-text-primary, currentColor) 66%, transparent);
+  font-size: 0.85rem;
+}
+
+.act-selector {
+  margin: 1rem 0 1.5rem;
+  padding-block: 1rem;
+  border-block: 1px solid color-mix(in srgb, var(--mm-text-primary, currentColor) 14%, transparent);
+}
+
+.script-editor-empty {
+  display: grid;
+  max-width: 32rem;
+  min-height: 18rem;
+  align-content: center;
+  justify-items: start;
+}
+
+.script-editor-empty.compact {
+  min-height: 6rem;
+}
+
+.script-editor-empty>.material-icons {
+  color: color-mix(in srgb, var(--mm-primary-color) 74%, transparent);
+  font-size: 2.5rem;
+}
+
+.outline-markdown-panel {
+  margin-bottom: 1rem;
+  padding: 1.25rem;
+  border: 1px solid color-mix(in srgb, var(--mm-primary-color) 36%, transparent);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--mm-primary-color) 6%, transparent);
+}
+
+.outline-markdown-panel textarea {
+  width: 100%;
+  min-height: 12rem;
+  margin-top: 1rem;
+  padding: 0.85rem;
+  border: 1px solid color-mix(in srgb, var(--mm-text-primary, currentColor) 24%, transparent);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--mm-text-primary, currentColor) 2%, transparent);
+  color: var(--mm-text-primary, currentColor);
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  line-height: 1.55;
+  resize: vertical;
+}
+
+.outline-preview,
+.outline-preview-error {
+  margin-top: 1rem;
+}
+
+.outline-preview-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.outline-preview-summary span {
+  font-weight: 600;
+}
+
+.outline-preview-error {
+  color: #b3261e;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .script-editor-danger,
+  :root:not([data-theme='light']) .outline-preview-error {
+    color: #ff8a80;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .script-editor-heading {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .script-editor-heading>.script-editor-action {
+    align-self: flex-start;
+  }
+
+  .script-editor-workspace {
+    display: block;
+  }
+
+  .script-editor-outline,
+  .script-viewer-outline {
+    border-right: 0;
+    border-bottom: 1px solid color-mix(in srgb, var(--mm-text-primary, currentColor) 16%, transparent);
+  }
+
+  .script-editor-outline .scene-outline-list,
+  .script-viewer-outline .scene-outline-list {
+    display: flex;
+    overflow-x: auto;
+    gap: 0.35rem;
+    padding-bottom: 0.4rem;
+  }
+
+  .script-editor-outline .scene-outline-row,
+  .script-viewer-outline .scene-outline-row {
+    min-width: 14rem;
+  }
+
+  .script-editor-inspector,
+  .script-viewer-scene {
+    padding: 1.25rem 1rem;
+  }
+
+  .script-viewer-workspace {
+    display: block;
+  }
+
+  .inspector-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
 }
 
 .scenario-table .input-field {

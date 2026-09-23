@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tno.nl/crime-script-generator/research-log.schema.json",
+  "title": "Crime script research log",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "entries",
+    "contradictionSearchCompleted",
+    "missingPerspectiveSearchCompleted"
+  ],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["visitedAt", "decision", "reason"],
+        "anyOf": [{ "required": ["query"] }, { "required": ["url"] }],
+        "properties": {
+          "query": { "type": "string", "minLength": 1 },
+          "url": { "type": "string", "format": "uri" },
+          "visitedAt": { "type": "string", "format": "date-time" },
+          "decision": { "enum": ["accepted", "rejected"] },
+          "reason": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "contradictionSearchCompleted": { "type": "boolean" },
+    "missingPerspectiveSearchCompleted": { "type": "boolean" }
+  }
+}

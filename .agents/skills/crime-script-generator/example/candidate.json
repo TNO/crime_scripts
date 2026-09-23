@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "script": {
+    "label": "Fictional document check",
+    "description": "A defensive example showing how an organisation can assess a document before relying on it.",
+    "stages": [
+      {
+        "key": "intake",
+        "label": "Assess the document",
+        "description": "The organisation records the document and determines whether independent verification is warranted.",
+        "core": true,
+        "variants": [
+          {
+            "key": "regular-review",
+            "label": "Regular review",
+            "activities": [
+              {
+                "key": "compare-record",
+                "event": "An authorised employee compares material claims with an authoritative record",
+                "observableTraces": [
+                  "the recorded receipt and the documented comparison result"
+                ],
+                "decisionPoint": "decide whether corroboration or escalation is required",
+                "castKeys": [
+                  "authorised-employee"
+                ]
+              }
+            ],
+            "indicators": [
+              {
+                "key": "material-mismatch",
+                "observation": "A material claim conflicts with an authoritative record",
+                "corroboration": [
+                  "repeat the comparison through an independent channel"
+                ],
+                "alternativeExplanations": [
+                  "a delayed update or administrative error"
+                ],
+                "relevance": "a corroborated mismatch supports proportionate escalation"
+              }
+            ],
+            "measures": [
+              {
+                "key": "independent-verification",
+                "label": "Request independent verification",
+                "category": "Detection",
+                "partnerKeys": [
+                  "record-holder"
+                ],
+                "decisionMoment": "when a material mismatch remains after the initial check",
+                "intendedEffect": "avoid relying on an uncorroborated document"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "taxonomies": {
+    "cast": [
+      {
+        "key": "authorised-employee",
+        "label": "Authorised employee"
+      }
+    ],
+    "attributes": [],
+    "products": [],
+    "transports": [],
+    "locations": [],
+    "geoLocations": [],
+    "partners": [
+      {
+        "key": "record-holder",
+        "label": "Authoritative record holder"
+      }
+    ]
+  },
+  "safetyReview": {
+    "containsStepByStepInstructions": false,
+    "containsExploitableParameters": false,
+    "containsEvasionTactics": false,
+    "notes": "This fictional example contains only defensive review and escalation concepts."
+  }
+}

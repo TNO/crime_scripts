@@ -1,5 +1,5 @@
 import m from 'mithril';
-import { AlertDialog, FlatButton, uniqueId } from 'mithril-materialized';
+import { AlertDialog, FlatButton, Menu, type MenuEntry, uniqueId } from 'mithril-materialized';
 import {
   classifiedExportFilename,
   createRestrictedCounterpart,
@@ -16,6 +16,10 @@ import { formatDate, toJSON } from '../utils';
 import { toWord } from '../utils/word';
 import { CrimeScriptEditor } from './ui/crime-script-editor';
 import { CrimeScriptViewer } from './ui/crime-script-viewer';
+
+type ScriptAction = 'create-restricted' | 'delete' | 'detach' | 'export-word' | 'export-json';
+
+const ScriptActionsMenu = Menu<ScriptAction>();
 
 export const CrimeScriptPage: MeiosisComponent = () => {
   let id = '';
@@ -77,6 +81,34 @@ export const CrimeScriptPage: MeiosisComponent = () => {
         : '';
       const confirmRestrictedExport = () =>
         crimeScript.classification !== 'restricted' || window.confirm(t('RESTRICTED_EXPORT_CONFIRM'));
+      const restrictedCounterpartExists = hasRestrictedCounterpart(model, crimeScript);
+      const scriptActions: MenuEntry<ScriptAction>[] = [];
+      if (isEditor && !edit && crimeScript.classification === 'public') {
+        scriptActions.push({
+          id: 'create-restricted',
+          label: t('CREATE_RESTRICTED_VERSION'),
+          iconName: 'content_copy',
+          disabled: restrictedCounterpartExists,
+        });
+      }
+      if (crimeScript.starterOrigin) {
+        scriptActions.push({
+          id: 'detach',
+          label: t('DETACH_STARTER'),
+          iconName: 'link_off',
+        });
+      }
+      if (scriptActions.length > 0) scriptActions.push({ separator: true });
+      scriptActions.push(
+        { id: 'export-word', label: t('EXPORT_TO_WORD'), iconName: 'download' },
+        { id: 'export-json', label: t('EXPORT_TO_JSON'), iconName: 'download' }
+      );
+      if (isEditor && !edit) {
+        scriptActions.push(
+          { separator: true },
+          { id: 'delete', label: t('DELETE_SCRIPT'), iconName: 'delete' }
+        );
+      }
 
       const curScene =
         crimeScript.stages && curSceneId ? crimeScript.stages.find((s) => s.id === curSceneId) : undefined;
@@ -89,10 +121,11 @@ export const CrimeScriptPage: MeiosisComponent = () => {
         '#crime-script.page',
         [
           m(
-            '.right-align',
-            isEditor && [
-              edit
-                ? m(FlatButton, {
+            '.right-align.script-page-actions',
+            [
+              isEditor &&
+                (edit
+                  ? m(FlatButton, {
                   label: t('SAVE_SCRIPT'),
                   iconName: 'save',
                   className: 'small',
@@ -104,69 +137,54 @@ export const CrimeScriptPage: MeiosisComponent = () => {
                       // actions.saveModel(model);
                     }
                   },
-                })
-                : [
-                  m(FlatButton, {
+                  })
+                  : m(FlatButton, {
                     label: t('EDIT_SCRIPT'),
                     iconName: 'edit',
                     className: 'small',
                     onclick: () => {
                       edit = true;
                     },
-                  }),
-                  crimeScript.classification === 'public' &&
-                    m(FlatButton, {
-                      label: t('CREATE_RESTRICTED_VERSION'),
-                      iconName: 'content_copy',
-                      className: 'small',
-                      disabled: hasRestrictedCounterpart(model, crimeScript),
-                      title: hasRestrictedCounterpart(model, crimeScript)
-                        ? t('RESTRICTED_VERSION_EXISTS')
-                        : undefined,
-                      onclick: () => {
-                        const counterpart = createRestrictedCounterpart(model, crimeScript, uniqueId);
-                        model.crimeScripts.push(counterpart);
-                        actions.saveModel(model);
-                        actions.setScriptMode('restricted');
-                        edit = true;
-                        actions.changePage(Pages.CRIME_SCRIPT, { id: counterpart.id, edit: 1 });
-                      },
-                    }),
+                  })),
+              m(ScriptActionsMenu, {
+                ariaLabel: t('MORE_ACTIONS'),
+                minWidth: 240,
+                trigger: (attrs) =>
                   m(FlatButton, {
-                    label: t('DELETE_SCRIPT'),
-                    iconName: 'delete',
+                    ...attrs,
+                    label: t('MORE_ACTIONS'),
+                    iconName: 'more_vert',
                     className: 'small',
-                    onclick: () => (deleteScriptOpen = true),
                   }),
-                ],
-            ],
-            crimeScript && [
-              crimeScript.starterOrigin &&
-                m(FlatButton, {
-                  label: t('DETACH_STARTER'),
-                  className: 'small',
-                  iconName: 'link_off',
-                  onclick: () => {
-                    const detached = detachStarterScript(crimeScript);
-                    model.crimeScripts = model.crimeScripts.map((script) => script.id === crimeScript.id ? detached : script);
-                    actions.saveModel(model);
-                    actions.changePage(Pages.CRIME_SCRIPT, { id: detached.id });
-                  },
-                }),
-              m(FlatButton, {
-                label: t('EXPORT_TO_WORD'),
-                className: 'small',
-                iconName: 'download',
-                onclick: () => {
-                  if (confirmRestrictedExport()) toWord(filename, crimeScript, model);
-                },
-              }),
-              m(FlatButton, {
-                label: t('EXPORT_TO_JSON'),
-                className: 'small',
-                iconName: 'download',
-                onclick: () => {
-                  if (confirmRestrictedExport()) toJSON(filename, crimeScript, model);
+                items: scriptActions,
+                onSelect: (action) => {
+                  switch (action) {
+                    case 'create-restricted': {
+                      const counterpart = createRestrictedCounterpart(model, crimeScript, uniqueId);
+                      model.crimeScripts.push(counterpart);
+                      actions.saveModel(model);
+                      actions.setScriptMode('restricted');
+                      edit = true;
+                      actions.changePage(Pages.CRIME_SCRIPT, { id: counterpart.id, edit: 1 });
+                      break;
+                    }
+                    case 'delete':
+                      deleteScriptOpen = true;
+                      break;
+                    case 'detach': {
+                      const detached = detachStarterScript(crimeScript);
+                      model.crimeScripts = model.crimeScripts.map((script) => script.id === crimeScript.id ? detached : script);
+                      actions.saveModel(model);
+                      actions.changePage(Pages.CRIME_SCRIPT, { id: detached.id });
+                      break;
+                    }
+                    case 'export-word':
+                      if (confirmRestrictedExport()) toWord(filename, crimeScript, model);
+                      break;
+                    case 'export-json':
+                      if (confirmRestrictedExport()) toJSON(filename, crimeScript, model);
+                      break;
+                  }
                 },
               }),
             ]

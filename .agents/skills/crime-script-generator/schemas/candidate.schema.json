@@ -1,0 +1,216 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tno.nl/crime-script-generator/candidate.schema.json",
+  "title": "Crime script candidate",
+  "$defs": {
+    "key": { "type": "string", "minLength": 1 },
+    "stringArray": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "taxonomyItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["key", "label"],
+      "properties": {
+        "key": { "$ref": "#/$defs/key" },
+        "id": { "$ref": "#/$defs/key" },
+        "label": { "$ref": "#/$defs/key" },
+        "description": { "type": "string" },
+        "synonyms": { "$ref": "#/$defs/stringArray" },
+        "parentKeys": { "$ref": "#/$defs/stringArray" }
+      }
+    },
+    "activity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["key", "event", "observableTraces"],
+      "properties": {
+        "key": { "$ref": "#/$defs/key" },
+        "existingId": { "$ref": "#/$defs/key" },
+        "event": { "$ref": "#/$defs/key" },
+        "observableTraces": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/key" }
+        },
+        "decisionPoint": { "type": "string" },
+        "parentKey": { "$ref": "#/$defs/key" },
+        "castKeys": { "$ref": "#/$defs/stringArray" },
+        "attributeKeys": { "$ref": "#/$defs/stringArray" },
+        "transportKeys": { "$ref": "#/$defs/stringArray" }
+      }
+    },
+    "indicator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "key",
+        "observation",
+        "corroboration",
+        "alternativeExplanations",
+        "relevance"
+      ],
+      "properties": {
+        "key": { "$ref": "#/$defs/key" },
+        "existingId": { "$ref": "#/$defs/key" },
+        "observation": { "$ref": "#/$defs/key" },
+        "corroboration": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/key" }
+        },
+        "alternativeExplanations": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/key" }
+        },
+        "relevance": { "$ref": "#/$defs/key" }
+      }
+    },
+    "measure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "key",
+        "label",
+        "category",
+        "partnerKeys",
+        "decisionMoment",
+        "intendedEffect"
+      ],
+      "properties": {
+        "key": { "$ref": "#/$defs/key" },
+        "existingId": { "$ref": "#/$defs/key" },
+        "label": { "$ref": "#/$defs/key" },
+        "category": { "$ref": "#/$defs/key" },
+        "partnerKeys": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/key" }
+        },
+        "decisionMoment": { "$ref": "#/$defs/key" },
+        "intendedEffect": { "$ref": "#/$defs/key" }
+      }
+    },
+    "condition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["key", "label", "type"],
+      "properties": {
+        "key": { "$ref": "#/$defs/key" },
+        "existingId": { "$ref": "#/$defs/key" },
+        "label": { "$ref": "#/$defs/key" },
+        "description": { "type": "string" },
+        "type": { "enum": ["Prerequisite", "Facilitator", "Enforcement"] }
+      }
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "script", "taxonomies", "safetyReview"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "script": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["label", "description", "stages"],
+      "properties": {
+        "label": { "$ref": "#/$defs/key" },
+        "description": { "$ref": "#/$defs/key" },
+        "owner": { "type": "string" },
+        "productKeys": { "$ref": "#/$defs/stringArray" },
+        "geoLocationKeys": { "$ref": "#/$defs/stringArray" },
+        "removeIds": { "$ref": "#/$defs/stringArray" },
+        "stages": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["key", "label", "description", "variants"],
+            "properties": {
+              "key": { "$ref": "#/$defs/key" },
+              "existingId": { "$ref": "#/$defs/key" },
+              "label": { "$ref": "#/$defs/key" },
+              "description": { "$ref": "#/$defs/key" },
+              "core": { "type": "boolean" },
+              "variants": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["key", "label", "activities"],
+                  "properties": {
+                    "key": { "$ref": "#/$defs/key" },
+                    "existingId": { "$ref": "#/$defs/key" },
+                    "label": { "$ref": "#/$defs/key" },
+                    "description": { "type": "string" },
+                    "locationKeys": { "$ref": "#/$defs/stringArray" },
+                    "activities": {
+                      "type": "array",
+                      "minItems": 1,
+                      "items": { "$ref": "#/$defs/activity" }
+                    },
+                    "indicators": {
+                      "type": "array",
+                      "items": { "$ref": "#/$defs/indicator" }
+                    },
+                    "measures": {
+                      "type": "array",
+                      "items": { "$ref": "#/$defs/measure" }
+                    },
+                    "conditions": {
+                      "type": "array",
+                      "items": { "$ref": "#/$defs/condition" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "taxonomies": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "cast",
+        "attributes",
+        "products",
+        "transports",
+        "locations",
+        "geoLocations",
+        "partners"
+      ],
+      "properties": {
+        "cast": { "type": "array", "items": { "$ref": "#/$defs/taxonomyItem" } },
+        "attributes": { "type": "array", "items": { "$ref": "#/$defs/taxonomyItem" } },
+        "products": { "type": "array", "items": { "$ref": "#/$defs/taxonomyItem" } },
+        "transports": { "type": "array", "items": { "$ref": "#/$defs/taxonomyItem" } },
+        "locations": { "type": "array", "items": { "$ref": "#/$defs/taxonomyItem" } },
+        "geoLocations": { "type": "array", "items": { "$ref": "#/$defs/taxonomyItem" } },
+        "partners": { "type": "array", "items": { "$ref": "#/$defs/taxonomyItem" } }
+      }
+    },
+    "safetyReview": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "containsStepByStepInstructions",
+        "containsExploitableParameters",
+        "containsEvasionTactics",
+        "notes"
+      ],
+      "properties": {
+        "containsStepByStepInstructions": { "const": false },
+        "containsExploitableParameters": { "const": false },
+        "containsEvasionTactics": { "const": false },
+        "notes": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "@crime-script/generator",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "crime-script-generator": "./src/cli.ts"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "build:binary": "bun build --compile --minify --outfile dist/crime-script-generator src/cli.ts",
+    "test": "node --experimental-strip-types --test test/*.test.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@crime-script/core": "workspace:*",
+    "yaml": "2.8.1"
+  },
+  "devDependencies": {
+    "@types/node": "25.9.7",
+    "typescript": "7.0.2"
+  }
+}

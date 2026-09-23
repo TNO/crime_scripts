@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tno.nl/crime-script-generator/brief.schema.json",
+  "title": "Crime script generator brief",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "bundlePath",
+    "scriptId",
+    "subject",
+    "purpose",
+    "geography",
+    "contentLanguage",
+    "classification",
+    "sourceSensitivity",
+    "detail",
+    "scriptIcon"
+  ],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "bundlePath": { "type": "string", "minLength": 1 },
+    "scriptId": { "type": "string", "minLength": 1 },
+    "subject": { "type": "string", "minLength": 1 },
+    "purpose": { "type": "string", "minLength": 1 },
+    "geography": { "type": "string", "minLength": 1 },
+    "contentLanguage": { "enum": ["nl", "en"] },
+    "classification": { "enum": ["public", "restricted"] },
+    "sourceSensitivity": { "enum": ["public", "restricted"] },
+    "detail": { "enum": ["orienting", "practical", "operational"] },
+    "scriptIcon": { "type": "string", "pattern": "^builtin:" },
+    "focus": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "exclusions": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "materialDirectory": { "type": "string", "minLength": 1 },
+    "recursiveMaterials": { "type": "boolean" },
+    "existingScriptId": { "type": "string", "minLength": 1 }
+  }
+}

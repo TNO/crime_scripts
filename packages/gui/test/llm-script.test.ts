@@ -179,6 +179,17 @@ test('strict validation reports exact paths for malformed and dangling fields', 
       error.code === 'danglingReference'
   );
 
+  const sceneVisual = validGeneratedModel() as unknown as {
+    crimeScripts: Array<{ stages: Array<Record<string, unknown>> }>;
+  };
+  sceneVisual.crimeScripts[0].stages[0].icon = 'builtin:port-security';
+  assert.throws(
+    () => prepareGeneratedScriptImport(JSON.stringify(sceneVisual), 'en'),
+    (error) => error instanceof GeneratedScriptValidationError &&
+      error.path === '$.crimeScripts[0].stages[0].icon' &&
+      error.code === 'unknownField'
+  );
+
   const unsafeUrl = validGeneratedModel();
   unsafeUrl.crimeScripts[0].url = 'https://source.example/automatic-request';
   assert.throws(

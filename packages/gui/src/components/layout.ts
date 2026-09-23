@@ -6,7 +6,7 @@ import tno_white from '../assets/tno_white.svg';
 import { type DataModel, hasRestrictedContent, normalizeDataModel, type Page, Pages, scriptsForMode } from '../models';
 import { APP_TITLE, APP_TITLE_SHORT, i18n, loadData, type MeiosisComponent, t } from '../services';
 import { routingSvc } from '../services/routing-service';
-import { isActivePage, isSmallPage, JSON_FILE_ACCEPT, LANGUAGE, openFilePicker } from '../utils';
+import { isActivePage, JSON_FILE_ACCEPT, LANGUAGE, openFilePicker } from '../utils';
 import { LanguageSwitcher } from './ui/language-switcher';
 import { SideNav } from './ui/sidenav';
 
@@ -196,13 +196,15 @@ export const Layout: MeiosisComponent = () => {
               ])
             )
           ),
-          (isSmallPage() || (curPage && curPage.hasSidebar)) && [
-            m(FlatButton, {
-              iconName: 'menu',
-              onclick: () => actions.update({ sideNavOpen: true }),
-            }),
-            m(SideNav, { state, actions, options: { onDelete: () => (clearModelOpen = true) } }),
-          ],
+          m(FlatButton, {
+            className: [
+              curPage?.hasSidebar ? '' : 'hide-on-large-only',
+              curPage?.id === Pages.CRIME_SCRIPT ? 'crime-script-nav-trigger' : '',
+            ].filter(Boolean).join(' '),
+            iconName: 'menu',
+            onclick: () => actions.update({ sideNavOpen: true }),
+          }),
+          m(SideNav, { state, actions, options: { onDelete: () => (clearModelOpen = true) } }),
           clearModelOpen &&
           m(AlertDialog, {
             id: 'clear_model',

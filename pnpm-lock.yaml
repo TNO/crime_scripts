@@ -8,8 +8,20 @@ importers:
 
   .: {}
 
+  packages/crime-script-core:
+    devDependencies:
+      '@types/node':
+        specifier: 25.9.7
+        version: 25.9.7
+      typescript:
+        specifier: 7.0.2
+        version: 7.0.2
+
   packages/gui:
     dependencies:
+      '@crime-script/core':
+        specifier: workspace:*
+        version: link:../crime-script-core
       docx:
         specifier: ^9.7.1
         version: 9.7.1
@@ -73,10 +85,26 @@ importers:
         version: 7.0.2
       vite:
         specifier: ^7.1.5
-        version: 7.3.6(@types/node@25.9.7)(sass@1.104.1)
+        version: 7.3.6(@types/node@25.9.7)(sass@1.104.1)(yaml@2.8.1)
       vite-plugin-wasm:
         specifier: ^3.5.0
-        version: 3.6.0(vite@7.3.6(@types/node@25.9.7)(sass@1.104.1))
+        version: 3.6.0(vite@7.3.6(@types/node@25.9.7)(sass@1.104.1)(yaml@2.8.1))
+
+  packages/script-generator:
+    dependencies:
+      '@crime-script/core':
+        specifier: workspace:*
+        version: link:../crime-script-core
+      yaml:
+        specifier: 2.8.1
+        version: 2.8.1
+    devDependencies:
+      '@types/node':
+        specifier: 25.9.7
+        version: 25.9.7
+      typescript:
+        specifier: 7.0.2
+        version: 7.0.2
 
 packages:
 
@@ -961,6 +989,11 @@ packages:
   xml@1.0.1:
     resolution: {integrity: sha512-huCv9IH9Tcf95zuYCsQraZtWnJvBtLVE0QHMOs8bWyZAFZNDcYjsPq1nEx8jKA9y+Beo9v+7OBPRisQTjinQMw==}
 
+  yaml@2.8.1:
+    resolution: {integrity: sha512-lcYcMxX2PO9XMGvAJkJ3OsNMw+/7FKes7/hgerGUYWIoWu5j/+YQqcZr5JnPZWzOsEBgMbSbiSTn/dv/69Mkpw==}
+    engines: {node: '>= 14.6'}
+    hasBin: true
+
   yn@3.1.1:
     resolution: {integrity: sha512-Ux4ygGWsu2c7isFWe8Yu1YluJmqVhxqK2cLXNQA5AcC3QfbGNpM7fu0Y8b/z16pXLnFxZYvWhd3fhBY9DLmC6Q==}
     engines: {node: '>=6'}
@@ -1596,11 +1629,11 @@ snapshots:
 
   v8-compile-cache-lib@3.0.1: {}
 
-  vite-plugin-wasm@3.6.0(vite@7.3.6(@types/node@25.9.7)(sass@1.104.1)):
+  vite-plugin-wasm@3.6.0(vite@7.3.6(@types/node@25.9.7)(sass@1.104.1)(yaml@2.8.1)):
     dependencies:
-      vite: 7.3.6(@types/node@25.9.7)(sass@1.104.1)
+      vite: 7.3.6(@types/node@25.9.7)(sass@1.104.1)(yaml@2.8.1)
 
-  vite@7.3.6(@types/node@25.9.7)(sass@1.104.1):
+  vite@7.3.6(@types/node@25.9.7)(sass@1.104.1)(yaml@2.8.1):
     dependencies:
       esbuild: 0.28.2
       fdir: 6.5.0(picomatch@4.0.7)
@@ -1612,6 +1645,7 @@ snapshots:
       '@types/node': 25.9.7
       fsevents: 2.3.3
       sass: 1.104.1
+      yaml: 2.8.1
 
   wasm-stemmers@0.1.0: {}
 
@@ -1620,5 +1654,7 @@ snapshots:
       sax: 1.6.1
 
   xml@1.0.1: {}
+
+  yaml@2.8.1: {}
 
   yn@3.1.1: {}

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tno.nl/crime-script-generator/review-answers.schema.json",
+  "title": "Evidence review answers for GUI edits",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "answers"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "answers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["nodeId", "evidenceStillApplies"],
+        "properties": {
+          "nodeId": { "type": "string", "minLength": 1 },
+          "evidenceStillApplies": { "type": "boolean" },
+          "sourceKeys": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "uniqueItems": true
+          }
+        }
+      }
+    }
+  }
+}

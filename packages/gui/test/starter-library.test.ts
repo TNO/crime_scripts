@@ -96,6 +96,7 @@ const expectedDutchStarterIds = [
   'nl-starter:script:complexe-zorgstructuren',
   'nl-starter:script:criminele-uitbuiting',
   'nl-starter:script:fake-carriers',
+  'nl-starter:script:pijplijndiefstal-olieproducten',
 ];
 const expectedDutchStarterLabels = [
   'Cocaïne-import via zeehavens',
@@ -114,6 +115,7 @@ const expectedDutchStarterLabels = [
   'Complexe juridische structuren in de zorg',
   'Criminele uitbuiting',
   'Fake carriers op digitale vrachtmarktplaatsen',
+  'Diefstal van geraffineerde olieproducten via illegale pijplijnaftapping',
 ];
 
 test('the Dutch starter fixture contains all researched topics', () => {
@@ -157,6 +159,8 @@ test('Dutch starter scripts meet source, provenance, scene, and editorial requir
     'hetccv.nl',
     'ilent.nl',
     'nza.nl',
+    'doi.org',
+    'osf.io',
   ];
   const prohibitedOperationalPhrases = [
     /stap voor stap/i,
@@ -246,16 +250,13 @@ test('Dutch starter scripts meet source, provenance, scene, and editorial requir
   assert.equal(new Set(everyId.map(({ id }) => id)).size, everyId.length);
 });
 
-test('Dutch starter icon requirements cover every script and scene exactly once', () => {
+test('Dutch starter icon requirements cover every script exactly once', () => {
   const fixture = validateStarterBundle(JSON.parse(readFileSync('public/starter-bundles/nl.json', 'utf8')));
   const manifest = JSON.parse(readFileSync('public/starter-bundles/icon-requirements.nl.json', 'utf8')) as {
     schemaVersion: number;
     requirements: Array<{ id: string; description: string; appliesTo: string[] }>;
   };
-  const expectedTargets = fixture.crimeScripts.flatMap((script) => [
-    script.id,
-    ...script.stages.map(({ id }) => id),
-  ]);
+  const expectedTargets = fixture.crimeScripts.map(({ id }) => id);
   const actualTargets = manifest.requirements.flatMap(({ appliesTo }) => appliesTo);
 
   assert.equal(manifest.schemaVersion, 1);
@@ -320,7 +321,7 @@ test('complete public import preserves a conflicting local edit and adds all mis
 
   const imported = importStarterBundle(current, starter);
 
-  assert.equal(imported.crimeScripts.length, 16);
+  assert.equal(imported.crimeScripts.length, 17);
   assert.equal(imported.crimeScripts.find(({ id }) => id === localScript.id)?.label, 'Lokale wijziging');
 });
 

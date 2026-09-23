@@ -46,10 +46,9 @@ test('every icon requirement and starter target resolves to a stable catalogue k
   const requirements = readJson<RequirementsManifest>('starter-bundles/icon-requirements.nl.json');
   const starter = readJson<DataModel>('starter-bundles/nl.json');
   const keys = new Set(catalogue.icons.map(({ key }) => key));
-  const starterTargets = starter.crimeScripts.flatMap((script) => [
-    [script.id, script.icon] as const,
-    ...script.stages.map((scene) => [scene.id, scene.icon] as const),
-  ]);
+  const starterTargets = starter.crimeScripts.map((script) =>
+    [script.id, script.icon] as const
+  );
   const expectedTargetIds = starterTargets.map(([id]) => id);
 
   requirements.requirements.forEach(({ id, appliesTo }) => {
@@ -163,7 +162,7 @@ test('model normalization promotes legacy icons and caps compositions', () => {
   assert.equal(model.crimeScripts[1].icons?.length, 4);
 });
 
-test('single-script export retains built-in keys and embedded uploaded images', () => {
+test('normalization and export retain script visuals but discard scene visuals', () => {
   const model = normalizeDataModel({
     crimeScripts: [
       {
@@ -176,7 +175,17 @@ test('single-script export retains built-in keys and embedded uploaded images', 
           label: 'Scene',
           icon: ICONS.OTHER,
           url: 'data:image/png;base64,c2NlbmU=',
-          variants: [],
+          variants: [{
+            id: 'variant',
+            label: 'Variant',
+            icon: 'builtin:port-security',
+            url: 'data:image/png;base64,dmFyaWFudA==',
+            activities: [],
+            conditions: [],
+            opportunities: [],
+            indicators: [],
+            measures: [],
+          }],
         }],
       },
     ],
@@ -185,8 +194,18 @@ test('single-script export retains built-in keys and embedded uploaded images', 
   const exported = createSingleScriptExportModel(model.crimeScripts[0], model, 123);
   assert.equal(exported.crimeScripts[0].icon, 'builtin:port-security');
   assert.equal(exported.crimeScripts[0].url, 'data:image/png;base64,c2NyaXB0');
-  assert.equal(exported.crimeScripts[0].stages[0].icon, ICONS.OTHER);
-  assert.equal(exported.crimeScripts[0].stages[0].url, 'data:image/png;base64,c2NlbmU=');
+  const exportedScene = exported.crimeScripts[0].stages[0] as unknown as {
+    icon?: unknown;
+    url?: unknown;
+  };
+  assert.equal(exportedScene.icon, undefined);
+  assert.equal(exportedScene.url, undefined);
+  const exportedVariant = exported.crimeScripts[0].stages[0].variants[0] as unknown as {
+    icon?: unknown;
+    url?: unknown;
+  };
+  assert.equal(exportedVariant.icon, undefined);
+  assert.equal(exportedVariant.url, undefined);
 });
 
 test('every public starter script exports as a standalone valid model', () => {

@@ -17,6 +17,12 @@ import type {
 } from '../models';
 import { createSingleScriptExportModel } from '../models';
 import { i18n, t } from '../services';
+import {
+  generateLabeledItemsMarkup as renderLabeledItemsMarkup,
+  highlightMarkupText,
+  measuresToMarkdown as renderMeasuresToMarkdown,
+  measuresToMarkup,
+} from './viewer-markup';
 
 export const LANGUAGE = 'CSS_LANGUAGE';
 export const SAVED = 'CSS_MODEL_SAVED';
@@ -263,41 +269,10 @@ export const toCommaSeparatedList = (arr: Array<Labelled> = [], ids: ID | ID[] =
     .map((a, _i) => a.label)
     .join(', ');
 
-export const createTooltip = (c: Labelled) =>
-  c.description ? `&nbsp;<div class="info tooltip">&#8505;<span class="tooltiptext">${c.description}</span></div>` : '';
-
-export const generateLabeledItemsMarkup = (items: Array<Labelled & { header?: boolean }> = []): string => {
-  const [_, nested] = items.reduce(
-    (acc, cur) => {
-      const [isNested] = acc;
-      if (cur.header) {
-        (acc[0] = true), acc[1].push({ ...cur, children: [] });
-      } else {
-        if (isNested) {
-          const lastItem = acc[1][acc[1].length - 1];
-          if (lastItem) {
-            lastItem.children.push({ ...cur });
-          }
-        } else {
-          acc[1].push({ ...cur, children: [] });
-        }
-      }
-      return acc;
-    },
-    [false, []] as [isNested: boolean, nested: Array<Labelled & { children: Labelled[] }>]
-  );
-
-  return (
-    '<ol>' +
-    nested
-      .map((item) => {
-        const children =
-          item.children.length > 0 ? item.children.map((c) => `<li>${c.label}${createTooltip(c)}</li>`).join('') : '';
-        return `<li>${item.label}${createTooltip(item)}${children ? `<ol type="a">${children}</ol>` : ''}</li>`;
-      })
-      .join('\n') +
-    '</ol>'
-  );
+export const generateLabeledItemsMarkup = (
+  items: Array<Labelled & { header?: boolean; parentId?: ID }> = []
+): string => {
+  return renderLabeledItemsMarkup(items);
 };
 
 export const crimeScriptFilterToText = (arr: Array<Labelled> = [], filter = {} as CrimeScriptFilter) => {
@@ -374,29 +349,11 @@ export const aggregateFlexSearchResults = (results: FlexSearchResult[]): SearchR
 
 export const isActivePage = (page: Pages) => (d: Page) => page === d.id ? 'active' : undefined;
 
-/**
- * Determines whether the current page is considered small based on the width of the window.
- * @returns A boolean indicating whether the current page is small.
- */
-export const isSmallPage = (): boolean => {
-  const width = window.innerWidth;
-
-  // Materialize medium size range: 601px - 992px
-  return width < 601;
-  // && width <= 992;
-};
-
 /** Sort labels alphabetically */
 export const sortByLabel = ({ label: labelA = '' }: Labelled, { label: labelB = '' }: Labelled) =>
   labelA.localeCompare(labelB);
 
-/**
- * Converts an array of measures into a markdown-formatted string grouped by partner label.
- * @param measures - An array of Measure objects.
- * @param lookupPartner - A Map<ID, Labeled> object used for looking up partner labels.
- * @param findCrimeMeasure - A function that takes a string (id) and returns an object with properties id, icon?, label, and group.
- * @returns A string containing markdown-formatted measures grouped by partner label.
- */
+/** Converts measures to barrier-first markup with applicable partners as secondary metadata. */
 export const measuresToMarkdown = (
   measures: Measure[],
   lookupPartner: Map<ID, Labelled>,
@@ -409,61 +366,30 @@ export const measuresToMarkdown = (
       }
     | undefined
 ): string => {
-  type PartnerMeasure = {
-    pId?: ID;
-    id: string;
-    label: string;
-    description?: string;
-    cat?: string;
-  };
-  const addMeasure = (partnerLabel: string, measure: Measure, partnerId?: ID) => {
-    if (!groupedMeasures.has(partnerLabel)) {
-      groupedMeasures.set(partnerLabel, []);
-    }
-    groupedMeasures.get(partnerLabel)?.push({
-      pId: partnerId,
-      id: measure.id,
-      label: measure.label,
-      description: measure.description,
-      cat: findCrimeMeasure(measure.cat)?.label || t('OTHER'),
-    });
-  };
-
-  const groupedMeasures = new Map<string, PartnerMeasure[]>();
-
-  const othersLabel = t('OTHER');
-  for (const measure of measures) {
-    if (measure.partners && measure.partners.length) {
-      for (const partner of measure.partners) {
-        const p = lookupPartner.get(partner);
-        const partnerLabel = p?.label || othersLabel;
-        addMeasure(partnerLabel, measure, p?.id);
-      }
-    } else {
-      addMeasure(othersLabel, measure);
-    }
-  }
-
-  let markdown = '';
-
-  const sortedKeys = Array.from(groupedMeasures.entries())
-    .sort((a, b) => a[0].localeCompare(b[0]))
-    .map((a) => a[0]);
-  let i = 0;
-  for (const partnerLabel of sortedKeys) {
-    i++;
-    const measures = groupedMeasures.get(partnerLabel) || [];
-    const partnerId = measures.length > 0 ? measures[0].pId : undefined;
-    measures.sort(({ cat: catA = '' }, { cat: catB = '' }) => catA.localeCompare(catB));
-    markdown += `${i}. **[${partnerLabel}](#!${t('SETTINGS', 'ROUTE')}?id=${partnerId}):**\n`;
-    markdown += `${measures
-      .map((measure) => `  - **${measure.cat}**: ${measure.label}${createTooltip(measure)}`)
-      .join('\n')}\n`;
-  }
-
-  // console.log(markdown);
-  return markdown;
+  return renderMeasuresToMarkdown(measures, lookupPartner, findCrimeMeasure, {
+    category: t('CATEGORY'),
+    partners: t('PARTNERS'),
+    settingsRoute: t('SETTINGS', 'ROUTE'),
+  });
 };
+
+export const measuresToHtml = (
+  measures: Measure[],
+  lookupPartner: Map<ID, Labelled>,
+  findCrimeMeasure: (id: string) =>
+    | {
+        id: string;
+        icon?: string;
+        label: string;
+        group: string;
+      }
+    | undefined
+): string =>
+  measuresToMarkup(measures, lookupPartner, findCrimeMeasure, {
+    category: t('CATEGORY'),
+    partners: t('PARTNERS'),
+    settingsRoute: t('SETTINGS', 'ROUTE'),
+  });
 
 /**
  * Function to highlight matched words
@@ -517,11 +443,7 @@ export const highlightFactory = (searchTerms?: string | string[]) => {
     },
     mdHighlighter: (text?: string) => {
       if (!text) return '';
-      // Split the text by the regex and wrap matching parts
-      const parts = text.split(regex);
-      return parts
-        .map((part) => (regex.test(part) ? `<mark style="background:yellow;">${part}</mark>` : part))
-        .join('');
+      return highlightMarkupText(text, regex);
     },
   };
 };

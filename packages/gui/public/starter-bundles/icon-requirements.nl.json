@@ -13,108 +13,12 @@
       "iconKey": "builtin:port-security"
     },
     {
-      "id": "nl-starter:icon:scene-cocaine-import-havens-voorbereiding",
-      "description": "Zwart pictogram van een logistieke checklist naast gestapelde containers.",
-      "appliesTo": [
-        "nl-starter:script:cocaine-import-havens:scene:voorbereiding"
-      ],
-      "iconKey": "builtin:cocaine-import-havens-voorbereiding"
-    },
-    {
-      "id": "nl-starter:icon:scene-cocaine-import-havens-invoer",
-      "description": "Zwart pictogram van een containerschip dat een havenkraan nadert.",
-      "appliesTo": [
-        "nl-starter:script:cocaine-import-havens:scene:invoer"
-      ],
-      "iconKey": "builtin:cocaine-import-havens-invoer"
-    },
-    {
-      "id": "nl-starter:icon:scene-cocaine-import-havens-toegang",
-      "description": "Zwart pictogram van een toegangspas bij een beveiligde havenpoort.",
-      "appliesTo": [
-        "nl-starter:script:cocaine-import-havens:scene:toegang"
-      ],
-      "iconKey": "builtin:cocaine-import-havens-toegang"
-    },
-    {
-      "id": "nl-starter:icon:scene-cocaine-import-havens-uithalen",
-      "description": "Zwart pictogram van een geopende container onder cameratoezicht.",
-      "appliesTo": [
-        "nl-starter:script:cocaine-import-havens:scene:uithalen"
-      ],
-      "iconKey": "builtin:cocaine-import-havens-uithalen"
-    },
-    {
-      "id": "nl-starter:icon:scene-cocaine-import-havens-vervoer",
-      "description": "Zwart pictogram van een vrachtwagen op een gecontroleerde route.",
-      "appliesTo": [
-        "nl-starter:script:cocaine-import-havens:scene:vervoer"
-      ],
-      "iconKey": "builtin:cocaine-import-havens-vervoer"
-    },
-    {
-      "id": "nl-starter:icon:scene-cocaine-import-havens-verstoring",
-      "description": "Zwart pictogram van verbonden havenpartners rond een schild en vergrootglas.",
-      "appliesTo": [
-        "nl-starter:script:cocaine-import-havens:scene:verstoring"
-      ],
-      "iconKey": "builtin:cocaine-import-havens-verstoring"
-    },
-    {
       "id": "nl-starter:icon:script-synthetische-drugsproductie",
       "description": "Zwart solid-fill pictogram van een laboratoriumkolf, gecombineerd met pillen.",
       "appliesTo": [
         "nl-starter:script:synthetische-drugsproductie"
       ],
       "iconKey": "builtin:laboratory"
-    },
-    {
-      "id": "nl-starter:icon:scene-synthetische-drugsproductie-locatie",
-      "description": "Zwart pictogram van een afgelegen bedrijfspand onder een vergrootglas.",
-      "appliesTo": [
-        "nl-starter:script:synthetische-drugsproductie:scene:locatie"
-      ],
-      "iconKey": "builtin:synthetische-drugsproductie-locatie"
-    },
-    {
-      "id": "nl-starter:icon:scene-synthetische-drugsproductie-middelen",
-      "description": "Zwart pictogram van zakelijke dozen en een controlelijst, zonder stofsymbolen.",
-      "appliesTo": [
-        "nl-starter:script:synthetische-drugsproductie:scene:middelen"
-      ],
-      "iconKey": "builtin:synthetische-drugsproductie-middelen"
-    },
-    {
-      "id": "nl-starter:icon:scene-synthetische-drugsproductie-inrichting",
-      "description": "Zwart pictogram van een pand met waarschuwingsdriehoek en brandveiligheidsschild.",
-      "appliesTo": [
-        "nl-starter:script:synthetische-drugsproductie:scene:inrichting"
-      ],
-      "iconKey": "builtin:synthetische-drugsproductie-inrichting"
-    },
-    {
-      "id": "nl-starter:icon:scene-synthetische-drugsproductie-productie",
-      "description": "Zwart pictogram van een afgesloten gevarenlocatie met hulpverlenersschild.",
-      "appliesTo": [
-        "nl-starter:script:synthetische-drugsproductie:scene:productie"
-      ],
-      "iconKey": "builtin:synthetische-drugsproductie-productie"
-    },
-    {
-      "id": "nl-starter:icon:scene-synthetische-drugsproductie-afvoer",
-      "description": "Zwart pictogram van een gesloten afvalvat naast een transportvoertuig.",
-      "appliesTo": [
-        "nl-starter:script:synthetische-drugsproductie:scene:afvoer"
-      ],
-      "iconKey": "builtin:synthetische-drugsproductie-afvoer"
-    },
-    {
-      "id": "nl-starter:icon:scene-synthetische-drugsproductie-onderzoek",
-      "description": "Zwart pictogram van politie, milieu en gemeente verbonden rond een onderzoeksmap.",
-      "appliesTo": [
-        "nl-starter:script:synthetische-drugsproductie:scene:onderzoek"
-      ],
-      "iconKey": "builtin:synthetische-drugsproductie-onderzoek"
     },
     {
       "id": "nl-starter:icon:script-arbeidsuitbuiting",
@@ -125,108 +29,12 @@
       "iconKey": "builtin:labour-exploitation"
     },
     {
-      "id": "nl-starter:icon:scene-arbeidsuitbuiting-werving",
-      "description": "Zwart pictogram van een arbeidsaanbod met vergrootglas en waarschuwingsmarkering.",
-      "appliesTo": [
-        "nl-starter:script:arbeidsuitbuiting:scene:werving"
-      ],
-      "iconKey": "builtin:arbeidsuitbuiting-werving"
-    },
-    {
-      "id": "nl-starter:icon:scene-arbeidsuitbuiting-reis",
-      "description": "Zwart pictogram van een reizende werknemer tussen vervoer, werk en woning.",
-      "appliesTo": [
-        "nl-starter:script:arbeidsuitbuiting:scene:reis"
-      ],
-      "iconKey": "builtin:arbeidsuitbuiting-reis"
-    },
-    {
-      "id": "nl-starter:icon:scene-arbeidsuitbuiting-afhankelijkheid",
-      "description": "Zwart pictogram van een werknemer verbonden aan loon, vervoer en huisvesting.",
-      "appliesTo": [
-        "nl-starter:script:arbeidsuitbuiting:scene:afhankelijkheid"
-      ],
-      "iconKey": "builtin:arbeidsuitbuiting-afhankelijkheid"
-    },
-    {
-      "id": "nl-starter:icon:scene-arbeidsuitbuiting-werk",
-      "description": "Zwart pictogram van een werknemer met klok, loonstrook en veiligheidsschild.",
-      "appliesTo": [
-        "nl-starter:script:arbeidsuitbuiting:scene:werk"
-      ],
-      "iconKey": "builtin:arbeidsuitbuiting-werk"
-    },
-    {
-      "id": "nl-starter:icon:scene-arbeidsuitbuiting-controle",
-      "description": "Zwart pictogram van een geïsoleerde werknemer met een veilig meldkanaal.",
-      "appliesTo": [
-        "nl-starter:script:arbeidsuitbuiting:scene:controle"
-      ],
-      "iconKey": "builtin:arbeidsuitbuiting-controle"
-    },
-    {
-      "id": "nl-starter:icon:scene-arbeidsuitbuiting-bescherming",
-      "description": "Zwart pictogram van opvang, inspectie en politie rond een beschermd slachtoffer.",
-      "appliesTo": [
-        "nl-starter:script:arbeidsuitbuiting:scene:bescherming"
-      ],
-      "iconKey": "builtin:protected-person-response"
-    },
-    {
       "id": "nl-starter:icon:script-mensenhandel-seksuele-uitbuiting",
       "description": "Zwart solid-fill pictogram van twee personen met een verbindende beweging.",
       "appliesTo": [
         "nl-starter:script:mensenhandel-seksuele-uitbuiting"
       ],
       "iconKey": "builtin:human-trafficking"
-    },
-    {
-      "id": "nl-starter:icon:scene-mensenhandel-seksuele-uitbuiting-benadering",
-      "description": "Zwart pictogram van online contact met een beschermend waarschuwingsschild.",
-      "appliesTo": [
-        "nl-starter:script:mensenhandel-seksuele-uitbuiting:scene:benadering"
-      ],
-      "iconKey": "builtin:mensenhandel-seksuele-uitbuiting-benadering"
-    },
-    {
-      "id": "nl-starter:icon:scene-mensenhandel-seksuele-uitbuiting-isolatie",
-      "description": "Zwart pictogram van een persoon achter een communicatiesymbool met open hulplijn.",
-      "appliesTo": [
-        "nl-starter:script:mensenhandel-seksuele-uitbuiting:scene:isolatie"
-      ],
-      "iconKey": "builtin:mensenhandel-seksuele-uitbuiting-isolatie"
-    },
-    {
-      "id": "nl-starter:icon:scene-mensenhandel-seksuele-uitbuiting-exploitatie",
-      "description": "Zwart pictogram van een beschermde persoon en een verbroken controlesymbool.",
-      "appliesTo": [
-        "nl-starter:script:mensenhandel-seksuele-uitbuiting:scene:exploitatie"
-      ],
-      "iconKey": "builtin:mensenhandel-seksuele-uitbuiting-exploitatie"
-    },
-    {
-      "id": "nl-starter:icon:scene-mensenhandel-seksuele-uitbuiting-verplaatsing",
-      "description": "Zwart pictogram van een persoon tussen meerdere locaties met één hulpcontact.",
-      "appliesTo": [
-        "nl-starter:script:mensenhandel-seksuele-uitbuiting:scene:verplaatsing"
-      ],
-      "iconKey": "builtin:mensenhandel-seksuele-uitbuiting-verplaatsing"
-    },
-    {
-      "id": "nl-starter:icon:scene-mensenhandel-seksuele-uitbuiting-opbrengst",
-      "description": "Zwart pictogram van een rekening onder controle van een derde en een vergrootglas.",
-      "appliesTo": [
-        "nl-starter:script:mensenhandel-seksuele-uitbuiting:scene:opbrengst"
-      ],
-      "iconKey": "builtin:mensenhandel-seksuele-uitbuiting-opbrengst"
-    },
-    {
-      "id": "nl-starter:icon:scene-mensenhandel-seksuele-uitbuiting-interventie",
-      "description": "Zwart pictogram van hulpverlening en opsporing rond een beschermd slachtoffer.",
-      "appliesTo": [
-        "nl-starter:script:mensenhandel-seksuele-uitbuiting:scene:interventie"
-      ],
-      "iconKey": "builtin:protected-person-response"
     },
     {
       "id": "nl-starter:icon:script-witwassen-legale-ondernemingen",
@@ -237,108 +45,12 @@
       "iconKey": "builtin:money-laundering"
     },
     {
-      "id": "nl-starter:icon:scene-witwassen-legale-ondernemingen-bedrijf",
-      "description": "Zwart pictogram van een winkelgevel met eigendomsregister en vergrootglas.",
-      "appliesTo": [
-        "nl-starter:script:witwassen-legale-ondernemingen:scene:bedrijf"
-      ],
-      "iconKey": "builtin:witwassen-legale-ondernemingen-bedrijf"
-    },
-    {
-      "id": "nl-starter:icon:scene-witwassen-legale-ondernemingen-inbreng",
-      "description": "Zwart pictogram van kas- en bankstromen naast een afwijkingsmarkering.",
-      "appliesTo": [
-        "nl-starter:script:witwassen-legale-ondernemingen:scene:inbreng"
-      ],
-      "iconKey": "builtin:witwassen-legale-ondernemingen-inbreng"
-    },
-    {
-      "id": "nl-starter:icon:scene-witwassen-legale-ondernemingen-administratie",
-      "description": "Zwart pictogram van factuur, contract en goederen die worden vergeleken.",
-      "appliesTo": [
-        "nl-starter:script:witwassen-legale-ondernemingen:scene:administratie"
-      ],
-      "iconKey": "builtin:witwassen-legale-ondernemingen-administratie"
-    },
-    {
-      "id": "nl-starter:icon:scene-witwassen-legale-ondernemingen-verplaatsing",
-      "description": "Zwart pictogram van verbonden bankrekeningen onder transactietoezicht.",
-      "appliesTo": [
-        "nl-starter:script:witwassen-legale-ondernemingen:scene:verplaatsing"
-      ],
-      "iconKey": "builtin:witwassen-legale-ondernemingen-verplaatsing"
-    },
-    {
-      "id": "nl-starter:icon:scene-witwassen-legale-ondernemingen-besteding",
-      "description": "Zwart pictogram van investering en bezit met herkomstcontrole.",
-      "appliesTo": [
-        "nl-starter:script:witwassen-legale-ondernemingen:scene:besteding"
-      ],
-      "iconKey": "builtin:witwassen-legale-ondernemingen-besteding"
-    },
-    {
-      "id": "nl-starter:icon:scene-witwassen-legale-ondernemingen-verstoring",
-      "description": "Zwart pictogram van publieke en private partners rond een financieel netwerk.",
-      "appliesTo": [
-        "nl-starter:script:witwassen-legale-ondernemingen:scene:verstoring"
-      ],
-      "iconKey": "builtin:witwassen-legale-ondernemingen-verstoring"
-    },
-    {
       "id": "nl-starter:icon:script-illegale-dumping-chemisch-afval",
       "description": "Zwart solid-fill pictogram van illegale afvaldumping bij water en industrie.",
       "appliesTo": [
         "nl-starter:script:illegale-dumping-chemisch-afval"
       ],
       "iconKey": "builtin:illegal-dumping"
-    },
-    {
-      "id": "nl-starter:icon:scene-illegale-dumping-chemisch-afval-ontstaan",
-      "description": "Zwart pictogram van gesloten residuvaten bij een afgeschermd pand.",
-      "appliesTo": [
-        "nl-starter:script:illegale-dumping-chemisch-afval:scene:ontstaan"
-      ],
-      "iconKey": "builtin:illegale-dumping-chemisch-afval-ontstaan"
-    },
-    {
-      "id": "nl-starter:icon:scene-illegale-dumping-chemisch-afval-verzameling",
-      "description": "Zwart pictogram van opgeslagen vaten boven een vloeistofdichte vloer.",
-      "appliesTo": [
-        "nl-starter:script:illegale-dumping-chemisch-afval:scene:verzameling"
-      ],
-      "iconKey": "builtin:illegale-dumping-chemisch-afval-verzameling"
-    },
-    {
-      "id": "nl-starter:icon:scene-illegale-dumping-chemisch-afval-transport",
-      "description": "Zwart pictogram van een afvaltransport met documentcontrole.",
-      "appliesTo": [
-        "nl-starter:script:illegale-dumping-chemisch-afval:scene:transport"
-      ],
-      "iconKey": "builtin:illegale-dumping-chemisch-afval-transport"
-    },
-    {
-      "id": "nl-starter:icon:scene-illegale-dumping-chemisch-afval-dumping",
-      "description": "Zwart pictogram van een lekkend vat in natuur met ruime veiligheidsafzetting.",
-      "appliesTo": [
-        "nl-starter:script:illegale-dumping-chemisch-afval:scene:dumping"
-      ],
-      "iconKey": "builtin:illegale-dumping-chemisch-afval-dumping"
-    },
-    {
-      "id": "nl-starter:icon:scene-illegale-dumping-chemisch-afval-melding",
-      "description": "Zwart pictogram van een melder op afstand en naderende hulpdiensten.",
-      "appliesTo": [
-        "nl-starter:script:illegale-dumping-chemisch-afval:scene:melding"
-      ],
-      "iconKey": "builtin:illegale-dumping-chemisch-afval-melding"
-    },
-    {
-      "id": "nl-starter:icon:scene-illegale-dumping-chemisch-afval-herstel",
-      "description": "Zwart pictogram van monstername, sanering en onderzoek rond een vindplaats.",
-      "appliesTo": [
-        "nl-starter:script:illegale-dumping-chemisch-afval:scene:herstel"
-      ],
-      "iconKey": "builtin:illegale-dumping-chemisch-afval-herstel"
     },
     {
       "id": "nl-starter:icon:script-stroperij-illegale-wildhandel",
@@ -349,108 +61,12 @@
       "iconKey": "builtin:poaching"
     },
     {
-      "id": "nl-starter:icon:scene-stroperij-illegale-wildhandel-selectie",
-      "description": "Zwart pictogram van beschermde natuur onder discreet gebiedstoezicht.",
-      "appliesTo": [
-        "nl-starter:script:stroperij-illegale-wildhandel:scene:selectie"
-      ],
-      "iconKey": "builtin:stroperij-illegale-wildhandel-selectie"
-    },
-    {
-      "id": "nl-starter:icon:scene-stroperij-illegale-wildhandel-onttrekking",
-      "description": "Zwart pictogram van een dierspoor binnen een natuurgebied en een schild.",
-      "appliesTo": [
-        "nl-starter:script:stroperij-illegale-wildhandel:scene:onttrekking"
-      ],
-      "iconKey": "builtin:stroperij-illegale-wildhandel-onttrekking"
-    },
-    {
-      "id": "nl-starter:icon:scene-stroperij-illegale-wildhandel-verzameling",
-      "description": "Zwart pictogram van een beschermd specimen met registratiebewijs.",
-      "appliesTo": [
-        "nl-starter:script:stroperij-illegale-wildhandel:scene:verzameling"
-      ],
-      "iconKey": "builtin:stroperij-illegale-wildhandel-verzameling"
-    },
-    {
-      "id": "nl-starter:icon:scene-stroperij-illegale-wildhandel-handel",
-      "description": "Zwart pictogram van een online marktplaats met CITES-controle.",
-      "appliesTo": [
-        "nl-starter:script:stroperij-illegale-wildhandel:scene:handel"
-      ],
-      "iconKey": "builtin:stroperij-illegale-wildhandel-handel"
-    },
-    {
-      "id": "nl-starter:icon:scene-stroperij-illegale-wildhandel-vervoer",
-      "description": "Zwart pictogram van een zending bij een grenscontrole met diersilhouet.",
-      "appliesTo": [
-        "nl-starter:script:stroperij-illegale-wildhandel:scene:vervoer"
-      ],
-      "iconKey": "builtin:stroperij-illegale-wildhandel-vervoer"
-    },
-    {
-      "id": "nl-starter:icon:scene-stroperij-illegale-wildhandel-interventie",
-      "description": "Zwart pictogram van veilige dierenzorg en ketenonderzoek na inbeslagname.",
-      "appliesTo": [
-        "nl-starter:script:stroperij-illegale-wildhandel:scene:interventie"
-      ],
-      "iconKey": "builtin:stroperij-illegale-wildhandel-interventie"
-    },
-    {
       "id": "nl-starter:icon:script-voertuigdiefstal-export",
       "description": "Zwart solid-fill pictogram van autodiefstal met een auto en gemaskerde dader.",
       "appliesTo": [
         "nl-starter:script:voertuigdiefstal-export"
       ],
       "iconKey": "builtin:car-theft"
-    },
-    {
-      "id": "nl-starter:icon:scene-voertuigdiefstal-export-selectie",
-      "description": "Zwart pictogram van een geparkeerde auto onder waakzaam toezicht.",
-      "appliesTo": [
-        "nl-starter:script:voertuigdiefstal-export:scene:selectie"
-      ],
-      "iconKey": "builtin:voertuigdiefstal-export-selectie"
-    },
-    {
-      "id": "nl-starter:icon:scene-voertuigdiefstal-export-diefstal",
-      "description": "Zwart pictogram van een auto met gelaagd slot en alarmschild.",
-      "appliesTo": [
-        "nl-starter:script:voertuigdiefstal-export:scene:diefstal"
-      ],
-      "iconKey": "builtin:voertuigdiefstal-export-diefstal"
-    },
-    {
-      "id": "nl-starter:icon:scene-voertuigdiefstal-export-opslag",
-      "description": "Zwart pictogram van een voertuig in tijdelijke opslag onder vergrootglas.",
-      "appliesTo": [
-        "nl-starter:script:voertuigdiefstal-export:scene:opslag"
-      ],
-      "iconKey": "builtin:voertuigdiefstal-export-opslag"
-    },
-    {
-      "id": "nl-starter:icon:scene-voertuigdiefstal-export-identiteit",
-      "description": "Zwart pictogram van voertuigkenmerk en document die worden vergeleken.",
-      "appliesTo": [
-        "nl-starter:script:voertuigdiefstal-export:scene:identiteit"
-      ],
-      "iconKey": "builtin:voertuigdiefstal-export-identiteit"
-    },
-    {
-      "id": "nl-starter:icon:scene-voertuigdiefstal-export-handel",
-      "description": "Zwart pictogram van een auto bij grens en containerschip met controlepost.",
-      "appliesTo": [
-        "nl-starter:script:voertuigdiefstal-export:scene:handel"
-      ],
-      "iconKey": "builtin:voertuigdiefstal-export-handel"
-    },
-    {
-      "id": "nl-starter:icon:scene-voertuigdiefstal-export-opsporing",
-      "description": "Zwart pictogram van een teruggevonden auto verbonden met een onderzoeksnetwerk.",
-      "appliesTo": [
-        "nl-starter:script:voertuigdiefstal-export:scene:opsporing"
-      ],
-      "iconKey": "builtin:voertuigdiefstal-export-opsporing"
     },
     {
       "id": "nl-starter:icon:script-phishing-betaalfraude",
@@ -461,108 +77,12 @@
       "iconKey": "builtin:phishing"
     },
     {
-      "id": "nl-starter:icon:scene-phishing-betaalfraude-voorbereiding",
-      "description": "Zwart pictogram van een berichtsjabloon met waarschuwingsdriehoek, zonder technische details.",
-      "appliesTo": [
-        "nl-starter:script:phishing-betaalfraude:scene:voorbereiding"
-      ],
-      "iconKey": "builtin:phishing-betaalfraude-voorbereiding"
-    },
-    {
-      "id": "nl-starter:icon:scene-phishing-betaalfraude-contact",
-      "description": "Zwart pictogram van e-mail en sms naast een zelfstandig verificatiekanaal.",
-      "appliesTo": [
-        "nl-starter:script:phishing-betaalfraude:scene:contact"
-      ],
-      "iconKey": "builtin:phishing-betaalfraude-contact"
-    },
-    {
-      "id": "nl-starter:icon:scene-phishing-betaalfraude-gegevens",
-      "description": "Zwart pictogram van een account met meervoudig slot en waarschuwingsmelding.",
-      "appliesTo": [
-        "nl-starter:script:phishing-betaalfraude:scene:gegevens"
-      ],
-      "iconKey": "builtin:phishing-betaalfraude-gegevens"
-    },
-    {
-      "id": "nl-starter:icon:scene-phishing-betaalfraude-betaling",
-      "description": "Zwart pictogram van een betaalopdracht onder dubbele controle.",
-      "appliesTo": [
-        "nl-starter:script:phishing-betaalfraude:scene:betaling"
-      ],
-      "iconKey": "builtin:phishing-betaalfraude-betaling"
-    },
-    {
-      "id": "nl-starter:icon:scene-phishing-betaalfraude-doorgifte",
-      "description": "Zwart pictogram van verbonden rekeningen met een afwijkingsmarkering.",
-      "appliesTo": [
-        "nl-starter:script:phishing-betaalfraude:scene:doorgifte"
-      ],
-      "iconKey": "builtin:phishing-betaalfraude-doorgifte"
-    },
-    {
-      "id": "nl-starter:icon:scene-phishing-betaalfraude-respons",
-      "description": "Zwart pictogram van bank, politie en melder rond een incidentdossier.",
-      "appliesTo": [
-        "nl-starter:script:phishing-betaalfraude:scene:respons"
-      ],
-      "iconKey": "builtin:phishing-betaalfraude-respons"
-    },
-    {
       "id": "nl-starter:icon:script-illegale-asbestverwijdering",
       "description": "Zwart solid-fill pictogram van een bouwplaat met vezelwaarschuwing en beschermend schild.",
       "appliesTo": [
         "nl-starter:script:illegale-asbestverwijdering"
       ],
       "iconKey": "builtin:illegal-asbestos-removal"
-    },
-    {
-      "id": "nl-starter:icon:scene-illegale-asbestverwijdering-opdracht",
-      "description": "Zwart pictogram van een bouwplan met inventarisatiecheck en waarschuwingssymbool.",
-      "appliesTo": [
-        "nl-starter:script:illegale-asbestverwijdering:scene:opdracht"
-      ],
-      "iconKey": "builtin:illegale-asbestverwijdering-opdracht"
-    },
-    {
-      "id": "nl-starter:icon:scene-illegale-asbestverwijdering-inventarisatie",
-      "description": "Zwart pictogram van een bouwinspectie met rapport en vergrootglas.",
-      "appliesTo": [
-        "nl-starter:script:illegale-asbestverwijdering:scene:inventarisatie"
-      ],
-      "iconKey": "builtin:illegale-asbestverwijdering-inventarisatie"
-    },
-    {
-      "id": "nl-starter:icon:scene-illegale-asbestverwijdering-verwijdering",
-      "description": "Zwart pictogram van een stilgelegde bouwplaats met veiligheidsafzetting.",
-      "appliesTo": [
-        "nl-starter:script:illegale-asbestverwijdering:scene:verwijdering"
-      ],
-      "iconKey": "builtin:illegale-asbestverwijdering-verwijdering"
-    },
-    {
-      "id": "nl-starter:icon:scene-illegale-asbestverwijdering-werknemers",
-      "description": "Zwart pictogram van een werknemer met masker, instructie en beschermend schild.",
-      "appliesTo": [
-        "nl-starter:script:illegale-asbestverwijdering:scene:werknemers"
-      ],
-      "iconKey": "builtin:illegale-asbestverwijdering-werknemers"
-    },
-    {
-      "id": "nl-starter:icon:scene-illegale-asbestverwijdering-afvoer",
-      "description": "Zwart pictogram van verpakt bouwafval met document- en transportcontrole.",
-      "appliesTo": [
-        "nl-starter:script:illegale-asbestverwijdering:scene:afvoer"
-      ],
-      "iconKey": "builtin:illegale-asbestverwijdering-afvoer"
-    },
-    {
-      "id": "nl-starter:icon:scene-illegale-asbestverwijdering-toezicht",
-      "description": "Zwart pictogram van toezichthouders rond een veilig gesaneerde bouwplaats.",
-      "appliesTo": [
-        "nl-starter:script:illegale-asbestverwijdering:scene:toezicht"
-      ],
-      "iconKey": "builtin:illegale-asbestverwijdering-toezicht"
     },
     {
       "id": "nl-starter:icon:script-asbestsaneringsketen",
@@ -573,132 +93,12 @@
       "iconKey": "builtin:illegal-asbestos-removal"
     },
     {
-      "id": "nl-starter:icon:scene-asbestsaneringsketen-opdracht",
-      "description": "Herbruikbaar cataloguspictogram voor de fase Eigenaar besluit tot sanering binnen Asbestsaneringsketen.",
-      "appliesTo": [
-        "nl-starter:script:asbestsaneringsketen:scene:opdracht"
-      ],
-      "iconKey": "builtin:illegale-asbestverwijdering-opdracht"
-    },
-    {
-      "id": "nl-starter:icon:scene-asbestsaneringsketen-inventarisatie",
-      "description": "Herbruikbaar cataloguspictogram voor de fase Onafhankelijke inventarisatie binnen Asbestsaneringsketen.",
-      "appliesTo": [
-        "nl-starter:script:asbestsaneringsketen:scene:inventarisatie"
-      ],
-      "iconKey": "builtin:illegale-asbestverwijdering-inventarisatie"
-    },
-    {
-      "id": "nl-starter:icon:scene-asbestsaneringsketen-verwijdering",
-      "description": "Herbruikbaar cataloguspictogram voor de fase Asbest verwijderen binnen Asbestsaneringsketen.",
-      "appliesTo": [
-        "nl-starter:script:asbestsaneringsketen:scene:verwijdering"
-      ],
-      "iconKey": "builtin:illegale-asbestverwijdering-verwijdering"
-    },
-    {
-      "id": "nl-starter:icon:scene-asbestsaneringsketen-eindcontrole",
-      "description": "Herbruikbaar cataloguspictogram voor de fase Onafhankelijke eindcontrole binnen Asbestsaneringsketen.",
-      "appliesTo": [
-        "nl-starter:script:asbestsaneringsketen:scene:eindcontrole"
-      ],
-      "iconKey": "builtin:illegale-asbestverwijdering-toezicht"
-    },
-    {
-      "id": "nl-starter:icon:scene-asbestsaneringsketen-eerste-transport",
-      "description": "Herbruikbaar cataloguspictogram voor de fase Transport naar inzamel- of tussenlocatie binnen Asbestsaneringsketen.",
-      "appliesTo": [
-        "nl-starter:script:asbestsaneringsketen:scene:eerste-transport"
-      ],
-      "iconKey": "builtin:illegale-asbestverwijdering-afvoer"
-    },
-    {
-      "id": "nl-starter:icon:scene-asbestsaneringsketen-tussenlocatie",
-      "description": "Herbruikbaar cataloguspictogram voor de fase Ontvangst op tussenlocatie binnen Asbestsaneringsketen.",
-      "appliesTo": [
-        "nl-starter:script:asbestsaneringsketen:scene:tussenlocatie"
-      ],
-      "iconKey": "builtin:materials-check"
-    },
-    {
-      "id": "nl-starter:icon:scene-asbestsaneringsketen-vervolgtransport",
-      "description": "Herbruikbaar cataloguspictogram voor de fase Vervolgtransport naar eindverwerker binnen Asbestsaneringsketen.",
-      "appliesTo": [
-        "nl-starter:script:asbestsaneringsketen:scene:vervolgtransport"
-      ],
-      "iconKey": "builtin:secure-transport"
-    },
-    {
-      "id": "nl-starter:icon:scene-asbestsaneringsketen-eindverwerking",
-      "description": "Herbruikbaar cataloguspictogram voor de fase Ontdoen bij erkende eindverwerker binnen Asbestsaneringsketen.",
-      "appliesTo": [
-        "nl-starter:script:asbestsaneringsketen:scene:eindverwerking"
-      ],
-      "iconKey": "builtin:hazardous-waste"
-    },
-    {
       "id": "nl-starter:icon:script-bijtincidenten-honden",
       "description": "Herbruikbaar cataloguspictogram voor het openbare model Risicoketen bijtincidenten met honden.",
       "appliesTo": [
         "nl-starter:script:bijtincidenten-honden"
       ],
       "iconKey": "builtin:animal-trafficking"
-    },
-    {
-      "id": "nl-starter:icon:scene-bijtincidenten-honden-sociale-context",
-      "description": "Herbruikbaar cataloguspictogram voor de fase Sociale context en keuze van ouderdieren binnen Risicoketen bijtincidenten met honden.",
-      "appliesTo": [
-        "nl-starter:script:bijtincidenten-honden:scene:sociale-context"
-      ],
-      "iconKey": "builtin:planning-checklist"
-    },
-    {
-      "id": "nl-starter:icon:scene-bijtincidenten-honden-dracht-geboorte",
-      "description": "Herbruikbaar cataloguspictogram voor de fase Dekking, dracht en geboorte binnen Risicoketen bijtincidenten met honden.",
-      "appliesTo": [
-        "nl-starter:script:bijtincidenten-honden:scene:dracht-geboorte"
-      ],
-      "iconKey": "builtin:site-inspection"
-    },
-    {
-      "id": "nl-starter:icon:scene-bijtincidenten-honden-eerste-levensfase",
-      "description": "Herbruikbaar cataloguspictogram voor de fase Eerste levensfase en socialisatie binnen Risicoketen bijtincidenten met honden.",
-      "appliesTo": [
-        "nl-starter:script:bijtincidenten-honden:scene:eerste-levensfase"
-      ],
-      "iconKey": "builtin:safe-work"
-    },
-    {
-      "id": "nl-starter:icon:scene-bijtincidenten-honden-nieuwe-eigenaar",
-      "description": "Herbruikbaar cataloguspictogram voor de fase Overdracht aan nieuwe eigenaar binnen Risicoketen bijtincidenten met honden.",
-      "appliesTo": [
-        "nl-starter:script:bijtincidenten-honden:scene:nieuwe-eigenaar"
-      ],
-      "iconKey": "builtin:document-check"
-    },
-    {
-      "id": "nl-starter:icon:scene-bijtincidenten-honden-ontwikkeling",
-      "description": "Herbruikbaar cataloguspictogram voor de fase Opvoeding, socialisatie en puberteit binnen Risicoketen bijtincidenten met honden.",
-      "appliesTo": [
-        "nl-starter:script:bijtincidenten-honden:scene:ontwikkeling"
-      ],
-      "iconKey": "builtin:dependency-network"
-    },
-    {
-      "id": "nl-starter:icon:scene-bijtincidenten-honden-volwassen-senior",
-      "description": "Herbruikbaar cataloguspictogram voor de fase Volwassenheid en seniorfase binnen Risicoketen bijtincidenten met honden.",
-      "appliesTo": [
-        "nl-starter:script:bijtincidenten-honden:scene:volwassen-senior"
-      ],
-      "iconKey": "builtin:site-inspection"
-    },
-    {
-      "id": "nl-starter:icon:scene-bijtincidenten-honden-incidentrespons",
-      "description": "Herbruikbaar cataloguspictogram voor de fase Incidentrespons en nazorg binnen Risicoketen bijtincidenten met honden.",
-      "appliesTo": [
-        "nl-starter:script:bijtincidenten-honden:scene:incidentrespons"
-      ],
-      "iconKey": "builtin:partner-response"
     },
     {
       "id": "nl-starter:icon:script-co-vergisting",
@@ -709,116 +109,12 @@
       "iconKey": "builtin:hazardous-waste"
     },
     {
-      "id": "nl-starter:icon:scene-co-vergisting-productie",
-      "description": "Herbruikbaar cataloguspictogram voor de fase Productie en classificatie van stoffen binnen Co-vergisting en afvalstromen.",
-      "appliesTo": [
-        "nl-starter:script:co-vergisting:scene:productie"
-      ],
-      "iconKey": "builtin:illegale-dumping-chemisch-afval-ontstaan"
-    },
-    {
-      "id": "nl-starter:icon:scene-co-vergisting-transport",
-      "description": "Herbruikbaar cataloguspictogram voor de fase Transport van stoffen binnen Co-vergisting en afvalstromen.",
-      "appliesTo": [
-        "nl-starter:script:co-vergisting:scene:transport"
-      ],
-      "iconKey": "builtin:illegale-dumping-chemisch-afval-transport"
-    },
-    {
-      "id": "nl-starter:icon:scene-co-vergisting-tussenbewerking",
-      "description": "Herbruikbaar cataloguspictogram voor de fase Tussentijdse bewerking en opslag binnen Co-vergisting en afvalstromen.",
-      "appliesTo": [
-        "nl-starter:script:co-vergisting:scene:tussenbewerking"
-      ],
-      "iconKey": "builtin:illegale-dumping-chemisch-afval-verzameling"
-    },
-    {
-      "id": "nl-starter:icon:scene-co-vergisting-vergisting",
-      "description": "Herbruikbaar cataloguspictogram voor de fase Acceptatie en co-vergisting binnen Co-vergisting en afvalstromen.",
-      "appliesTo": [
-        "nl-starter:script:co-vergisting:scene:vergisting"
-      ],
-      "iconKey": "builtin:laboratory"
-    },
-    {
-      "id": "nl-starter:icon:scene-co-vergisting-digestaat",
-      "description": "Herbruikbaar cataloguspictogram voor de fase Afvoer en toepassing van digestaat binnen Co-vergisting en afvalstromen.",
-      "appliesTo": [
-        "nl-starter:script:co-vergisting:scene:digestaat"
-      ],
-      "iconKey": "builtin:illegale-dumping-chemisch-afval-herstel"
-    },
-    {
       "id": "nl-starter:icon:script-complexe-zorgstructuren",
       "description": "Herbruikbaar cataloguspictogram voor het openbare model Complexe juridische structuren in de zorg.",
       "appliesTo": [
         "nl-starter:script:complexe-zorgstructuren"
       ],
       "iconKey": "builtin:financial-investigation"
-    },
-    {
-      "id": "nl-starter:icon:scene-complexe-zorgstructuren-bedrijfsstructuur",
-      "description": "Herbruikbaar cataloguspictogram voor de fase Bedrijfsstructuur en governance opzetten binnen Complexe juridische structuren in de zorg.",
-      "appliesTo": [
-        "nl-starter:script:complexe-zorgstructuren:scene:bedrijfsstructuur"
-      ],
-      "iconKey": "builtin:witwassen-legale-ondernemingen-bedrijf"
-    },
-    {
-      "id": "nl-starter:icon:scene-complexe-zorgstructuren-poortwachters",
-      "description": "Herbruikbaar cataloguspictogram voor de fase Contact met poortwachters binnen Complexe juridische structuren in de zorg.",
-      "appliesTo": [
-        "nl-starter:script:complexe-zorgstructuren:scene:poortwachters"
-      ],
-      "iconKey": "builtin:document-check"
-    },
-    {
-      "id": "nl-starter:icon:scene-complexe-zorgstructuren-bedrijfsmiddelen",
-      "description": "Herbruikbaar cataloguspictogram voor de fase Bedrijfsmiddelen en contracten inrichten binnen Complexe juridische structuren in de zorg.",
-      "appliesTo": [
-        "nl-starter:script:complexe-zorgstructuren:scene:bedrijfsmiddelen"
-      ],
-      "iconKey": "builtin:finance-check"
-    },
-    {
-      "id": "nl-starter:icon:scene-complexe-zorgstructuren-bedrijfsvoering",
-      "description": "Herbruikbaar cataloguspictogram voor de fase Reguliere bedrijfsvoering uitvoeren binnen Complexe juridische structuren in de zorg.",
-      "appliesTo": [
-        "nl-starter:script:complexe-zorgstructuren:scene:bedrijfsvoering"
-      ],
-      "iconKey": "builtin:site-inspection"
-    },
-    {
-      "id": "nl-starter:icon:scene-complexe-zorgstructuren-clienten",
-      "description": "Herbruikbaar cataloguspictogram voor de fase Cliënten werven en plaatsen binnen Complexe juridische structuren in de zorg.",
-      "appliesTo": [
-        "nl-starter:script:complexe-zorgstructuren:scene:clienten"
-      ],
-      "iconKey": "builtin:dependency-network"
-    },
-    {
-      "id": "nl-starter:icon:scene-complexe-zorgstructuren-verantwoording",
-      "description": "Herbruikbaar cataloguspictogram voor de fase Interne en externe verantwoording binnen Complexe juridische structuren in de zorg.",
-      "appliesTo": [
-        "nl-starter:script:complexe-zorgstructuren:scene:verantwoording"
-      ],
-      "iconKey": "builtin:financial-investigation"
-    },
-    {
-      "id": "nl-starter:icon:scene-complexe-zorgstructuren-locatie",
-      "description": "Herbruikbaar cataloguspictogram voor de fase Pand en zorglocatie organiseren binnen Complexe juridische structuren in de zorg.",
-      "appliesTo": [
-        "nl-starter:script:complexe-zorgstructuren:scene:locatie"
-      ],
-      "iconKey": "builtin:site-safety"
-    },
-    {
-      "id": "nl-starter:icon:scene-complexe-zorgstructuren-einde-bedrijf",
-      "description": "Herbruikbaar cataloguspictogram voor de fase Beëindiging, overdracht of doorstart binnen Complexe juridische structuren in de zorg.",
-      "appliesTo": [
-        "nl-starter:script:complexe-zorgstructuren:scene:einde-bedrijf"
-      ],
-      "iconKey": "builtin:partner-response"
     },
     {
       "id": "nl-starter:icon:script-criminele-uitbuiting",
@@ -829,62 +125,6 @@
       "iconKey": "builtin:human-trafficking"
     },
     {
-      "id": "nl-starter:icon:scene-criminele-uitbuiting-identificeren",
-      "description": "Herbruikbaar cataloguspictogram voor de fase Kwetsbare personen identificeren binnen Criminele uitbuiting.",
-      "appliesTo": [
-        "nl-starter:script:criminele-uitbuiting:scene:identificeren"
-      ],
-      "iconKey": "builtin:mensenhandel-seksuele-uitbuiting-benadering"
-    },
-    {
-      "id": "nl-starter:icon:scene-criminele-uitbuiting-binden",
-      "description": "Herbruikbaar cataloguspictogram voor de fase Binding en loyaliteit opbouwen binnen Criminele uitbuiting.",
-      "appliesTo": [
-        "nl-starter:script:criminele-uitbuiting:scene:binden"
-      ],
-      "iconKey": "builtin:dependency-network"
-    },
-    {
-      "id": "nl-starter:icon:scene-criminele-uitbuiting-grensvervaging",
-      "description": "Herbruikbaar cataloguspictogram voor de fase Grenzen en normbesef verschuiven binnen Criminele uitbuiting.",
-      "appliesTo": [
-        "nl-starter:script:criminele-uitbuiting:scene:grensvervaging"
-      ],
-      "iconKey": "builtin:network-monitoring"
-    },
-    {
-      "id": "nl-starter:icon:scene-criminele-uitbuiting-beheersen",
-      "description": "Herbruikbaar cataloguspictogram voor de fase Controle en afhankelijkheid versterken binnen Criminele uitbuiting.",
-      "appliesTo": [
-        "nl-starter:script:criminele-uitbuiting:scene:beheersen"
-      ],
-      "iconKey": "builtin:arbeidsuitbuiting-controle"
-    },
-    {
-      "id": "nl-starter:icon:scene-criminele-uitbuiting-uitvoeren",
-      "description": "Herbruikbaar cataloguspictogram voor de fase Strafbare opdrachten laten uitvoeren binnen Criminele uitbuiting.",
-      "appliesTo": [
-        "nl-starter:script:criminele-uitbuiting:scene:uitvoeren"
-      ],
-      "iconKey": "builtin:account-security"
-    },
-    {
-      "id": "nl-starter:icon:scene-criminele-uitbuiting-voordeel",
-      "description": "Herbruikbaar cataloguspictogram voor de fase Voordeel afromen binnen Criminele uitbuiting.",
-      "appliesTo": [
-        "nl-starter:script:criminele-uitbuiting:scene:voordeel"
-      ],
-      "iconKey": "builtin:financial-investigation"
-    },
-    {
-      "id": "nl-starter:icon:scene-criminele-uitbuiting-verankeren",
-      "description": "Herbruikbaar cataloguspictogram voor de fase Herhaling en verankering in het netwerk binnen Criminele uitbuiting.",
-      "appliesTo": [
-        "nl-starter:script:criminele-uitbuiting:scene:verankeren"
-      ],
-      "iconKey": "builtin:victim-support"
-    },
-    {
       "id": "nl-starter:icon:script-fake-carriers",
       "description": "Herbruikbaar cataloguspictogram voor het openbare model Fake carriers op digitale vrachtmarktplaatsen.",
       "appliesTo": [
@@ -893,34 +133,10 @@
       "iconKey": "builtin:cargo-ship"
     },
     {
-      "id": "nl-starter:icon:scene-fake-carriers-voorbereiden",
-      "description": "Herbruikbaar cataloguspictogram voor de fase Identiteit en toegang voorbereiden binnen Fake carriers op digitale vrachtmarktplaatsen.",
+      "id": "nl-starter:icon:script-pijplijndiefstal-olieproducten",
+      "description": "Zwart solid-fill pictogram van beveiligd transport voor diefstal en distributie van olieproducten.",
       "appliesTo": [
-        "nl-starter:script:fake-carriers:scene:voorbereiden"
-      ],
-      "iconKey": "builtin:planning-checklist"
-    },
-    {
-      "id": "nl-starter:icon:scene-fake-carriers-diensten-aanbieden",
-      "description": "Herbruikbaar cataloguspictogram voor de fase Vervoersdienst aanbieden binnen Fake carriers op digitale vrachtmarktplaatsen.",
-      "appliesTo": [
-        "nl-starter:script:fake-carriers:scene:diensten-aanbieden"
-      ],
-      "iconKey": "builtin:secure-contact"
-    },
-    {
-      "id": "nl-starter:icon:scene-fake-carriers-goederen-ophalen",
-      "description": "Herbruikbaar cataloguspictogram voor de fase Goederen bij verlader ophalen binnen Fake carriers op digitale vrachtmarktplaatsen.",
-      "appliesTo": [
-        "nl-starter:script:fake-carriers:scene:goederen-ophalen"
-      ],
-      "iconKey": "builtin:document-check"
-    },
-    {
-      "id": "nl-starter:icon:scene-fake-carriers-vervoer-opslag",
-      "description": "Herbruikbaar cataloguspictogram voor de fase Vervoer, aflevering en incidentrespons binnen Fake carriers op digitale vrachtmarktplaatsen.",
-      "appliesTo": [
-        "nl-starter:script:fake-carriers:scene:vervoer-opslag"
+        "nl-starter:script:pijplijndiefstal-olieproducten"
       ],
       "iconKey": "builtin:secure-transport"
     }
