@@ -105,6 +105,7 @@ export const messagesNL: typeof messages = {
   REFERENCES: 'Referenties',
   DETAILS: 'Details',
   TABLE_OF_CONTENTS: 'Inhoudsopgave',
+  TOC_PAGE_NUMBER_HINT: 'Paginanummers zijn eerste schattingen. Klik in Word met rechts op de inhoudsopgave en kies Veld bijwerken voor de exacte paginering.',
   SCRIPT_OVERVIEW: 'Scriptoverzicht',
   EXPORTED_AT: 'Geëxporteerd',
   UPDATED_AT: 'Laatst bijgewerkt',

@@ -14,6 +14,7 @@ import {
 import { crimeScriptFilterFormFactory } from '../models/forms';
 import { type MeiosisComponent, routingSvc } from '../services';
 import { I18N, t } from '../services/translations';
+import { sortByLabel } from '../utils';
 import { IconStrip } from './ui/icon-strip';
 import { LlmScriptWizard } from './ui/llm_script_wizard';
 import { NewScriptWizard } from './ui/new_script_wizard';
@@ -143,6 +144,7 @@ export const HomePage: MeiosisComponent = () => {
           m('ul.collection.with-header', [
             m('li.collection-header', m('h4', 'Crime Scripts')),
             scriptsForMode(crimeScripts, scriptMode)
+              .sort(sortByLabel)
               .filter(csFilter)
               .map(({ icon, icons, url, label, description, id, classification, productIds = [], geoLocationIds = [] }) => {
                 const onclick = () => {

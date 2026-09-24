@@ -103,6 +103,7 @@ export const messages = {
   REFERENCES: 'References',
   DETAILS: 'Details',
   TABLE_OF_CONTENTS: 'Contents',
+  TOC_PAGE_NUMBER_HINT: 'Page numbers are initial estimates. In Word, right-click the contents and choose Update Field for exact pagination.',
   SCRIPT_OVERVIEW: 'Script overview',
   EXPORTED_AT: 'Exported',
   UPDATED_AT: 'Last updated',
