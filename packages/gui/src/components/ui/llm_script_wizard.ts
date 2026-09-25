@@ -79,21 +79,27 @@ export const LlmScriptWizard: MeiosisComponent<{ onClose: () => void }> = () => 
     label: string,
     value: string,
     onchange: (value: string) => void,
-    textarea = false
-  ) =>
-    m('.input-field.col.s12', [
+    textarea = false,
+    helperText?: string,
+  ) => {
+    const helperId = helperText ? `${id}-helper` : undefined;
+    return m('.input-field.col.s12', [
       textarea
         ? m(`textarea#${id}.materialize-textarea`, {
             value,
+            'aria-describedby': helperId,
             oninput: (event: InputEvent) => onchange((event.target as HTMLTextAreaElement).value),
           })
         : m(`input#${id}`, {
             type: 'text',
             value,
+            'aria-describedby': helperId,
             oninput: (event: InputEvent) => onchange((event.target as HTMLInputElement).value),
           }),
       m('label.active', { for: id }, label),
+      helperText && m('span.helper-text', { id: helperId }, helperText),
     ]);
+  };
 
   const labelledItem = (item: Labelled, details?: m.Children) =>
     m('li.llm-preview-item', [
@@ -174,8 +180,14 @@ export const LlmScriptWizard: MeiosisComponent<{ onClose: () => void }> = () => 
             }),
             textField('llm-domain', t('LLM_DOMAIN'), domain, (value) => (domain = value)),
             textField('llm-geography', t('LLM_GEOGRAPHY'), geography, (value) => (geography = value)),
-            textField('llm-source-urls', t('LLM_SOURCE_URLS'), sourceUrls, (value) => (sourceUrls = value), true),
-            m('p.col.s12.helper-text', t('LLM_URLS_NOT_FETCHED')),
+            textField(
+              'llm-source-urls',
+              t('LLM_SOURCE_URLS'),
+              sourceUrls,
+              (value) => (sourceUrls = value),
+              true,
+              t('LLM_URLS_NOT_FETCHED'),
+            ),
             textField('llm-source-text', t('LLM_SOURCE_TEXT'), sourceText, (value) => (sourceText = value), true),
           ]),
           m('.llm-actions', [
