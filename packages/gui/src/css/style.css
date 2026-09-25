@@ -1486,6 +1486,26 @@ ul.kanban>li {
   content: 'expand_less';
 }
 
+.script-editor-metadata-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.script-editor-metadata-fields > .s12 {
+  grid-column: 1 / -1;
+}
+
+.script-editor-metadata .script-editor-metadata-fields > .col {
+  width: 100%;
+  float: none;
+  margin-left: 0;
+}
+
+.script-editor-metadata-fields > .switch {
+  margin-top: calc(var(--mm-space-2) + var(--mm-space-2));
+  margin-bottom: 0;
+}
+
 .script-editor-heading {
   display: flex;
   gap: 1.5rem;
@@ -2354,6 +2374,14 @@ ul.kanban>li {
 }
 
 @media only screen and (max-width: 800px) {
+  .script-editor-metadata-fields {
+    grid-template-columns: 1fr;
+  }
+
+  .script-editor-metadata .script-editor-metadata-fields > .col {
+    grid-column: 1;
+  }
+
   .script-editor-heading {
     align-items: stretch;
     flex-direction: column;

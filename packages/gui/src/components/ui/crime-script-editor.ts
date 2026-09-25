@@ -556,7 +556,7 @@ export const CrimeScriptEditor: FactoryComponent<{
             m('span', t('SCRIPT_DETAILS')),
             m('small', crimeScript.label),
           ]),
-          m(LayoutForm, {
+          m('.script-editor-metadata-fields', m(LayoutForm, {
             form: [
               ...labelForm(),
               {
@@ -583,12 +583,18 @@ export const CrimeScriptEditor: FactoryComponent<{
                 className: 'col s6',
                 options: geoLocationOptions,
               },
-              { id: 'literature', type: literatureForm(), repeat: true, label: t('REFERENCES') },
+              {
+                id: 'literature',
+                type: literatureForm(),
+                repeat: true,
+                pageSize: 1,
+                label: t('REFERENCES'),
+              },
             ],
             obj: crimeScript,
             onchange: persist,
             i18n: I18N,
-          } as FormAttributes<Partial<CrimeScript>>),
+          } as FormAttributes<Partial<CrimeScript>>)),
         ]),
 
         m('.script-editor-heading', [
