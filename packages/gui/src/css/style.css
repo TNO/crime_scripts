@@ -1530,9 +1530,14 @@ ul.kanban>li {
   grid-template-columns: minmax(16rem, 22rem) minmax(0, 1fr);
 }
 
-.script-viewer-summary {
+.script-viewer-summaries {
   margin: 0.75rem 0;
-  border-block: 1px solid color-mix(in srgb, var(--mm-text-primary, currentColor) 16%, transparent);
+  border-top: 1px solid color-mix(in srgb, var(--mm-text-primary, currentColor) 16%, transparent);
+}
+
+.script-viewer-summary {
+  margin: 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--mm-text-primary, currentColor) 16%, transparent);
 }
 
 .script-viewer-summary summary {
@@ -1553,13 +1558,21 @@ ul.kanban>li {
   font-weight: 600;
 }
 
-.script-viewer-summary summary small {
+.script-viewer-summary-counts {
+  flex-wrap: wrap;
+}
+
+.script-viewer-summary-counts > span {
   display: flex;
   min-width: 0;
-  flex: 1;
-  flex-wrap: wrap;
-  gap: 0.2rem 0.75rem;
-  color: color-mix(in srgb, var(--mm-text-primary, currentColor) 70%, transparent);
+  align-items: center;
+  font-weight: 600;
+}
+
+.script-viewer-summary-counts > span:not(:last-child)::after {
+  margin-left: 0.75rem;
+  color: color-mix(in srgb, var(--mm-text-primary, currentColor) 40%, transparent);
+  content: '·';
 }
 
 .script-viewer-summary summary::after {
@@ -1656,38 +1669,41 @@ ul.kanban>li {
 }
 
 .viewer-variant-switcher {
-  display: grid;
-  gap: 0.55rem;
   margin-top: 1.25rem;
 }
 
-.viewer-variant-card {
-  overflow: hidden;
-  border: 1px solid color-mix(in srgb, var(--mm-primary-color) 25%, transparent);
-  border-radius: 12px;
-  background: color-mix(in srgb, var(--mm-primary-color) 7%, var(--mm-surface, transparent));
-}
-
-.viewer-variant-card.active {
-  border-color: color-mix(in srgb, var(--mm-primary-color) 58%, transparent);
-  background: color-mix(in srgb, var(--mm-primary-color) 11%, var(--mm-surface, transparent));
+.viewer-variant-options {
+  display: grid;
+  gap: 0.55rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(13rem, 100%), 1fr));
 }
 
 .viewer-variant-trigger {
   display: grid;
   width: 100%;
   min-height: 3.25rem;
-  grid-template-columns: minmax(0, 1fr) auto auto;
+  grid-template-columns: minmax(0, 1fr) auto;
   gap: 0.75rem;
   align-items: center;
   padding: 0.75rem 1rem;
-  border: 0;
-  background: transparent;
+  border: 1px solid color-mix(in srgb, var(--mm-primary-color) 28%, transparent);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--mm-primary-color) 6%, var(--mm-surface, transparent));
   color: inherit;
   cursor: pointer;
   font: inherit;
   font-weight: 600;
   text-align: left;
+}
+
+.viewer-variant-trigger:hover {
+  border-color: color-mix(in srgb, var(--mm-primary-color) 48%, transparent);
+  background: color-mix(in srgb, var(--mm-primary-color) 9%, var(--mm-surface, transparent));
+}
+
+.viewer-variant-trigger.active {
+  border-color: color-mix(in srgb, var(--mm-primary-color) 68%, transparent);
+  background: color-mix(in srgb, var(--mm-primary-color) 15%, var(--mm-surface, transparent));
 }
 
 .viewer-variant-trigger > span {
@@ -1707,8 +1723,8 @@ ul.kanban>li {
 }
 
 .viewer-variant-panel {
-  padding: 0 1rem 1rem;
-  border-top: 1px solid color-mix(in srgb, var(--mm-primary-color) 20%, transparent);
+  margin-top: 0.75rem;
+  padding: 0 0.25rem 1rem;
 }
 
 .variant-location-pills,

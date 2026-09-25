@@ -272,6 +272,10 @@ ${measuresToHtml(measures, lookupPartner, findCrimeMeasure)}`
 
       const curScene = scenes.find((s) => s.id === curSceneId) || scenes[0];
       const curAct = curScene && selectedSceneVariant(curScene);
+      const hasScriptContentSummary =
+        allCastIds.size > 0 || allAttrIds.size > 0 || allTranspIds.size > 0 || allLocIds.size > 0;
+      const referenceCount = literature?.length || 0;
+      const hasReferences = referenceCount > 0;
       const selectedActContent = curAct
         ? visualizeAct(curAct, cast, attributes, transports, highlighter, mdHighlighter)
         : undefined;
@@ -332,37 +336,34 @@ ${measuresToHtml(measures, lookupPartner, findCrimeMeasure)}`
         ]),
 
         description && m('p', highlighter(description)),
-        (allCastIds.size > 0 || allAttrIds.size > 0 || allTranspIds.size > 0 || allLocIds.size > 0) &&
-          m('details.script-viewer-summary', [
-            m('summary', [
-              m('span', t('SCRIPT_CONTENT_SUMMARY')),
-              m('small', [
+        (hasScriptContentSummary || hasReferences) &&
+          m('.script-viewer-summaries', [
+            hasScriptContentSummary && m('details.script-viewer-summary', [
+              m('summary.script-viewer-summary-counts', [
                 allCastIds.size > 0 && m('span', t('ROLE_COUNT', { count: allCastIds.size })),
                 allAttrIds.size > 0 && m('span', t('ATTRIBUTE_COUNT', { count: allAttrIds.size })),
                 allTranspIds.size > 0 && m('span', t('TRANSPORT_COUNT', { count: allTranspIds.size })),
                 allLocIds.size > 0 && m('span', t('LOCATION_COUNT', { count: allLocIds.size })),
               ]),
-            ]),
-            m('.script-viewer-summary-grid', [
-              allCastIds.size > 0 && m('section', [m('h5', t('CAST')), m('ol', toLi(allCastIds, cast))]),
-              allAttrIds.size > 0 && m('section', [m('h5', t('ATTRIBUTES')), m('ol', toLi(allAttrIds, attributes))]),
-              allTranspIds.size > 0 && m('section', [
-                m('h5', t('TRANSPORTS', allTranspIds.size)),
-                m('ol', toLi(allTranspIds, transports)),
+              m('.script-viewer-summary-grid', [
+                allCastIds.size > 0 && m('section', [m('h5', t('CAST')), m('ol', toLi(allCastIds, cast))]),
+                allAttrIds.size > 0 && m('section', [m('h5', t('ATTRIBUTES')), m('ol', toLi(allAttrIds, attributes))]),
+                allTranspIds.size > 0 && m('section', [
+                  m('h5', t('TRANSPORTS', allTranspIds.size)),
+                  m('ol', toLi(allTranspIds, transports)),
+                ]),
+                allLocIds.size > 0 && m('section', [
+                  m('h5', t('LOCATIONS', allLocIds.size)),
+                  m('ol', toLi(allLocIds, locations)),
+                ]),
               ]),
-              allLocIds.size > 0 && m('section', [
-                m('h5', t('LOCATIONS', allLocIds.size)),
-                m('ol', toLi(allLocIds, locations)),
-              ]),
             ]),
-          ]),
-        literature && literature.length > 0 &&
-          m('details.script-viewer-summary', [
-            m('summary', [
-              m('span', t('SOURCES_AND_REFERENCES')),
-              m('small', m('span', t('REFERENCE_COUNT', { count: literature.length }))),
+            hasReferences && literature && m('details.script-viewer-summary', [
+              m('summary', m('span', t('SOURCES_AND_REFERENCES', {
+                count: referenceCount,
+              }))),
+              m(ReferenceListComponent, { references: literature }),
             ]),
-            m(ReferenceListComponent, { references: literature }),
           ]),
 
         scenes.length > 0 && m('.script-viewer-workspace', [
@@ -434,34 +435,38 @@ ${measuresToHtml(measures, lookupPartner, findCrimeMeasure)}`
               ]),
               curScene.variants.length > 1
                 ? m('.viewer-variant-switcher', { 'aria-label': t('ACTS') },
-                  curScene.variants.map((variant) => {
-                    const active = variant.id === curAct?.id;
-                    const panelId = `${curScene.id}-${variant.id}-panel`;
-                    return m('section.viewer-variant-card', {
-                      key: variant.id,
-                      class: active ? 'active' : '',
+                  [
+                    m('.viewer-variant-options[role=group]', { 'aria-label': t('ACTS') },
+                      curScene.variants.map((variant) => {
+                        const active = variant.id === curAct?.id;
+                        const triggerId = `${curScene.id}-${variant.id}-trigger`;
+                        return m('button.viewer-variant-trigger[type=button]', {
+                          key: variant.id,
+                          id: triggerId,
+                          class: active ? 'active' : '',
+                          'aria-pressed': active ? 'true' : 'false',
+                          'aria-controls': `${curScene.id}-variant-panel`,
+                          onclick: () => {
+                            if (active) return;
+                            curScene.selectedVariantId = variant.id;
+                            curTrackId = findMatchingTrack(tracks, sceneVariantSelection(scenes))?.id;
+                            activeRoleId = undefined;
+                            update({ curActId: variant.id });
+                          },
+                        }, [
+                          m('span', highlighter(variant.label)),
+                          m('small', t('ACTIVITY_COUNT', { count: variant.activities.length })),
+                        ]);
+                      })
+                    ),
+                    curAct && m('.viewer-variant-panel', {
+                      id: `${curScene.id}-variant-panel`,
+                      'aria-labelledby': `${curScene.id}-${curAct.id}-trigger`,
                     }, [
-                      m('button.viewer-variant-trigger[type=button]', {
-                        'aria-expanded': active ? 'true' : 'false',
-                        'aria-controls': panelId,
-                        onclick: () => {
-                          if (active) return;
-                          curScene.selectedVariantId = variant.id;
-                          curTrackId = findMatchingTrack(tracks, sceneVariantSelection(scenes))?.id;
-                          activeRoleId = undefined;
-                          update({ curActId: variant.id });
-                        },
-                      }, [
-                        m('span', highlighter(variant.label)),
-                        m('small', t('ACTIVITY_COUNT', { count: variant.activities.length })),
-                        m('i.material-icons[aria-hidden=true]', active ? 'expand_less' : 'expand_more'),
-                      ]),
-                      active && m('.viewer-variant-panel', { id: panelId }, [
-                        renderLocations(variant.locationIds, locations),
-                        selectedActContent,
-                      ]),
-                    ]);
-                  })
+                      renderLocations(curAct.locationIds, locations),
+                      selectedActContent,
+                    ]),
+                  ]
                 )
                 : curAct && [
                   m('.viewer-act-heading', [
