@@ -95,6 +95,7 @@ export const messagesNL: typeof messages = {
   ADD_TRACK: 'Track toevoegen',
   EDIT_TRACK: 'Track bewerken',
   DEL_TRACK: 'Track verwijderen',
+  TRACK_SCENE_VARIANTS: 'Modus operandi per scène',
   SCENES: 'Scènes',
   SCENE: 'Scène',
   SCENES_OPTIONAL: 'Scènes (optioneel)',

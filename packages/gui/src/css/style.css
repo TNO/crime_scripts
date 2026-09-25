@@ -1674,8 +1674,15 @@ ul.kanban>li {
   border-bottom: 1px solid color-mix(in srgb, var(--mm-text-primary, currentColor) 14%, transparent);
 }
 
-.track-editor .input-field {
-  width: 100%;
+.track-editor-toolbar {
+  display: flex;
+  gap: 0.25rem;
+  align-items: flex-end;
+}
+
+.track-editor-toolbar > .input-field {
+  min-width: 0;
+  flex: 1;
   float: none;
   margin-block: 0;
 }
@@ -1689,14 +1696,46 @@ ul.kanban>li {
 
 .track-editor-actions {
   display: flex;
-  flex-wrap: wrap;
+  flex: 0 0 auto;
+  gap: 0.125rem;
+  margin-bottom: 0.25rem;
+}
+
+.track-editor-actions > button {
+  min-width: 2.25rem;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+}
+
+.track-dialog-content {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.track-dialog-content > .row {
+  margin-bottom: 0;
+}
+
+.track-scene-variants {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.track-scene-variants legend {
+  font-weight: 600;
+}
+
+.track-scene-variant-list {
+  display: grid;
   gap: 0.5rem;
   margin-top: 0.75rem;
 }
 
-.track-editor-actions button {
-  min-height: 2.25rem;
-  flex: 1 1 9rem;
+.track-scene-variant-list .input-field {
+  margin-block: 0;
 }
 
 .script-viewer-scene {

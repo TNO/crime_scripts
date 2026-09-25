@@ -1,5 +1,15 @@
 import m, { type FactoryComponent } from 'mithril';
-import { AlertDialog, Dialog, FlatButton, SearchSelect, Select, snackbar, uniqueId } from 'mithril-materialized';
+import {
+  AlertDialog,
+  ConfirmButton,
+  Dialog,
+  FlatButton,
+  IconButton,
+  SearchSelect,
+  Select,
+  snackbar,
+  uniqueId,
+} from 'mithril-materialized';
 import { type FormAttributes, LayoutForm, SlimdownView, type UIForm } from 'mithril-ui-form';
 import {
   type Act,
@@ -101,7 +111,6 @@ export const CrimeScriptEditor: FactoryComponent<{
   let editTrack: Track | undefined;
   let addTrackOpen = false;
   let editTrackOpen = false;
-  let deleteTrackOpen = false;
 
   const measOptions = crimeMeasureOptions();
   const trackForm = [
@@ -247,12 +256,49 @@ export const CrimeScriptEditor: FactoryComponent<{
       if (!selectedTrackId && matchingTrack) selectedTrackId = matchingTrack.id;
       if (selectedTrackId && !tracks.some(({ id }) => id === selectedTrackId)) selectedTrackId = undefined;
       const selectedTrack = tracks.find(({ id }) => id === selectedTrackId);
+      const alternativeScenes = crimeScript.stages.filter(({ variants }) => variants.length > 1);
       const hasAlternativeScenes = crimeScript.stages.some(({ variants }) => variants.length > 1);
       const canAddTrack =
         hasAlternativeScenes &&
         Object.keys(currentSelection).length ===
-          crimeScript.stages.filter(({ variants }) => variants.length > 1).length &&
+          alternativeScenes.length &&
         !matchingTrack;
+      const trackDialogContent = (track: Track, onchange: (nextTrack: Track) => void) =>
+        m('.track-dialog-content', [
+          m('.row', m(LayoutForm<Track>, {
+            form: trackForm,
+            obj: track,
+            onchange: (_, obj) => {
+              if (obj) onchange(obj);
+            },
+          })),
+          m('fieldset.track-scene-variants', [
+            m('legend', t('TRACK_SCENE_VARIANTS')),
+            m('.track-scene-variant-list',
+              alternativeScenes.map((scene) =>
+                m(Select<ID>, {
+                  className: '',
+                  label: scene.label,
+                  checkedId:
+                    track.sceneVariants[scene.id] ||
+                    scene.selectedVariantId ||
+                    scene.variants[0].id,
+                  options: scene.variants,
+                  onchange: ([variantId]) => {
+                    if (!variantId) return;
+                    onchange({
+                      ...track,
+                      sceneVariants: {
+                        ...track.sceneVariants,
+                        [scene.id]: variantId,
+                      },
+                    });
+                  },
+                })
+              )
+            ),
+          ]),
+        ]);
 
       // console.table({ acts, curActIdx, curActIds, crimeScript, curActId, curAct });
       if (curAct && !curAct.measures) {
@@ -632,48 +678,74 @@ export const CrimeScriptEditor: FactoryComponent<{
               iconButton('add', t('ADD_SCENE'), addScene),
             ]),
             hasAlternativeScenes && m('.track-editor', [
-              m(Select<ID | ''>, {
-                label: t('TRACK'),
-                placeholder: t('NO_TRACK'),
-                checkedId: selectedTrackId || '',
-                options: tracks,
-                disabled: tracks.length === 0,
-                onchange: ([trackId]) => {
-                  selectedTrackId = trackId || undefined;
-                  const track = tracks.find(({ id }) => id === trackId);
-                  if (track) applyTrackSelection(crimeScript.stages, track);
-                  selectedActivityId = undefined;
-                  persist();
-                },
-              }),
-              m('.track-editor-actions', [
-                m('button.script-editor-secondary[type=button]', {
-                  disabled: !canAddTrack,
-                  onclick: () => {
-                    newTrack = {
-                      id: uniqueId(),
-                      label: `${t('TRACK')} ${tracks.length + 1}`,
-                      description: '',
-                      sceneVariants: { ...currentSelection },
-                    };
-                    addTrackOpen = true;
+              m('.track-editor-toolbar', [
+                m(Select<ID | ''>, {
+                  className: '',
+                  label: t('TRACK'),
+                  placeholder: t('NO_TRACK'),
+                  checkedId: selectedTrackId || '',
+                  options: tracks,
+                  disabled: tracks.length === 0,
+                  onchange: ([trackId]) => {
+                    selectedTrackId = trackId || undefined;
+                    const track = tracks.find(({ id }) => id === trackId);
+                    if (track) applyTrackSelection(crimeScript.stages, track);
+                    selectedActivityId = undefined;
+                    persist();
                   },
-                }, [m('i.material-icons[aria-hidden=true]', 'add'), t('ADD_TRACK')]),
-                m('button.script-editor-secondary[type=button]', {
-                  disabled: !selectedTrack,
-                  onclick: () => {
-                    if (!selectedTrack) return;
-                    editTrack = {
-                      ...selectedTrack,
-                      sceneVariants: { ...selectedTrack.sceneVariants },
-                    };
-                    editTrackOpen = true;
-                  },
-                }, [m('i.material-icons[aria-hidden=true]', 'edit'), t('EDIT_TRACK')]),
-                m('button.script-editor-danger[type=button]', {
-                  disabled: !selectedTrack,
-                  onclick: () => (deleteTrackOpen = true),
-                }, [m('i.material-icons[aria-hidden=true]', 'delete'), t('DEL_TRACK')]),
+                }),
+                m('.track-editor-actions', [
+                  m(IconButton, {
+                    iconName: 'add',
+                    tooltip: t('ADD_TRACK'),
+                    'aria-label': t('ADD_TRACK'),
+                    disabled: !canAddTrack,
+                    onclick: () => {
+                      newTrack = {
+                        id: uniqueId(),
+                        label: `${t('TRACK')} ${tracks.length + 1}`,
+                        description: '',
+                        sceneVariants: { ...currentSelection },
+                      };
+                      addTrackOpen = true;
+                    },
+                  }),
+                  m(IconButton, {
+                    iconName: 'edit',
+                    tooltip: t('EDIT_TRACK'),
+                    'aria-label': t('EDIT_TRACK'),
+                    disabled: !selectedTrack,
+                    onclick: () => {
+                      if (!selectedTrack) return;
+                      editTrack = {
+                        ...selectedTrack,
+                        sceneVariants: {
+                          ...Object.fromEntries(alternativeScenes.map((scene) => [
+                            scene.id,
+                            selectedTrack.sceneVariants[scene.id] ||
+                              scene.selectedVariantId ||
+                              scene.variants[0].id,
+                          ])),
+                          ...selectedTrack.sceneVariants,
+                        },
+                      };
+                      editTrackOpen = true;
+                    },
+                  }),
+                  m(ConfirmButton, {
+                    iconName: 'delete',
+                    confirmIconName: 'check',
+                    tooltip: t('DEL_TRACK'),
+                    'aria-label': t('DEL_TRACK'),
+                    disabled: !selectedTrack,
+                    onclick: () => {
+                      if (!selectedTrack) return;
+                      crimeScript.tracks = tracks.filter(({ id }) => id !== selectedTrack.id);
+                      selectedTrackId = undefined;
+                      persist();
+                    },
+                  }),
+                ]),
               ]),
               selectedTrack?.description &&
                 m(SlimdownView, { className: 'track-editor-description', md: selectedTrack.description }),
@@ -943,11 +1015,7 @@ export const CrimeScriptEditor: FactoryComponent<{
               addTrackOpen = open;
               if (!open) newTrack = undefined;
             },
-            content: m('.row', m(LayoutForm<Track>, {
-              form: trackForm,
-              obj: newTrack,
-              onchange: (_, obj) => (newTrack = obj),
-            })),
+            content: trackDialogContent(newTrack, (nextTrack) => (newTrack = nextTrack)),
             secondaryAction: { label: t('CANCEL'), iconName: 'cancel' },
             primaryAction: {
               label: t('ADD_TRACK'),
@@ -972,11 +1040,7 @@ export const CrimeScriptEditor: FactoryComponent<{
               editTrackOpen = open;
               if (!open) editTrack = undefined;
             },
-            content: m('.row', m(LayoutForm<Track>, {
-              form: trackForm,
-              obj: editTrack,
-              onchange: (_, obj) => (editTrack = obj),
-            })),
+            content: trackDialogContent(editTrack, (nextTrack) => (editTrack = nextTrack)),
             secondaryAction: { label: t('CANCEL'), iconName: 'cancel' },
             primaryAction: {
               label: t('SAVE'),
@@ -986,30 +1050,11 @@ export const CrimeScriptEditor: FactoryComponent<{
                 const trackIndex = tracks.findIndex(({ id }) => id === selectedTrack.id);
                 if (trackIndex < 0) return;
                 tracks[trackIndex] = editTrack;
+                applyTrackSelection(crimeScript.stages, editTrack);
                 crimeScript.tracks = tracks;
                 selectedTrackId = editTrack.id;
                 editTrackOpen = false;
                 editTrack = undefined;
-                persist();
-              },
-            },
-          }),
-        deleteTrackOpen && selectedTrack &&
-          m(AlertDialog, {
-            id: 'delete_track',
-            title: t('DEL_TRACK'),
-            description: selectedTrack.label,
-            isOpen: true,
-            onToggle: (open: boolean) => (deleteTrackOpen = open),
-            secondaryAction: { label: t('CANCEL'), iconName: 'cancel' },
-            primaryAction: {
-              label: t('DEL_TRACK'),
-              iconName: 'delete',
-              destructive: true,
-              onclick: () => {
-                crimeScript.tracks = tracks.filter(({ id }) => id !== selectedTrack.id);
-                selectedTrackId = undefined;
-                deleteTrackOpen = false;
                 persist();
               },
             },

@@ -98,6 +98,7 @@ export const messages = {
   ADD_TRACK: 'Add track',
   EDIT_TRACK: 'Edit track',
   DEL_TRACK: 'Remove track',
+  TRACK_SCENE_VARIANTS: 'Modus operandi by scene',
   MAIN_ACTS: 'Main Acts',
   ACTS: 'Modi operandi (M.O.)',
   ACT: 'Modus operandi (M.O.)',
