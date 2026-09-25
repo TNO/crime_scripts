@@ -50,7 +50,7 @@
           "variants": [
             {
               "id": "nl-starter:script:cocaine-import-havens:scene:voorbereiding:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Rollen en contacten afstemmen",
               "description": "Een netwerk zoekt toegang tot een internationale goederenstroom en verdeelt taken.",
               "locationIds": [
                 "nl-starter:location:logistiek-terrein"
@@ -138,7 +138,7 @@
           "variants": [
             {
               "id": "nl-starter:script:cocaine-import-havens:scene:invoer:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Aankomst en afwijkingen herkennen",
               "description": "Goederen komen via een internationale vervoersketen in een Nederlandse zeehaven aan.",
               "locationIds": [
                 "nl-starter:location:zeehaven"
@@ -237,7 +237,7 @@
           "variants": [
             {
               "id": "nl-starter:script:cocaine-import-havens:scene:toegang:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Toegangsgebruik controleren",
               "description": "Een facilitator probeert invloed of toegang in de havenketen te verkrijgen.",
               "locationIds": [
                 "nl-starter:location:zeehaven",
@@ -325,7 +325,7 @@
           "variants": [
             {
               "id": "nl-starter:script:cocaine-import-havens:scene:uithalen:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Onttrekking en overdracht signaleren",
               "description": "Verdachte goederen worden buiten het normale logistieke proces gebracht.",
               "locationIds": [
                 "nl-starter:location:zeehaven"
@@ -419,7 +419,7 @@
           "variants": [
             {
               "id": "nl-starter:script:cocaine-import-havens:scene:vervoer:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Route en overdracht volgen",
               "description": "Het netwerk laat goederen verder vervoeren naar een tijdelijke bestemming.",
               "locationIds": [
                 "nl-starter:location:logistiek-terrein",
@@ -513,7 +513,7 @@
           "variants": [
             {
               "id": "nl-starter:script:cocaine-import-havens:scene:verstoring:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Bevindingen veilig delen",
               "description": "Partners brengen signalen samen, beschermen medewerkers en verstoren betrokken netwerken.",
               "locationIds": [
                 "nl-starter:location:zeehaven",
@@ -658,7 +658,7 @@
           "variants": [
             {
               "id": "nl-starter:script:synthetische-drugsproductie:scene:locatie:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Locatiekenmerken beoordelen",
               "description": "Een netwerk regelt een pand waar activiteiten uit het zicht kunnen plaatsvinden.",
               "locationIds": [
                 "nl-starter:location:afgelegen-pand",
@@ -747,7 +747,7 @@
           "variants": [
             {
               "id": "nl-starter:script:synthetische-drugsproductie:scene:middelen:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Ongewone inkoopstromen vergelijken",
               "description": "Betrokkenen verzamelen goederen die in samenhang een verhoogd risico vormen.",
               "locationIds": [
                 "nl-starter:location:bedrijfspand"
@@ -843,7 +843,7 @@
           "variants": [
             {
               "id": "nl-starter:script:synthetische-drugsproductie:scene:inrichting:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Veiligheidsrisico’s herkennen",
               "description": "De locatie wordt aangepast voor verboden productie, met risico voor omwonenden en hulpdiensten.",
               "locationIds": [
                 "nl-starter:location:afgelegen-pand"
@@ -931,7 +931,7 @@
           "variants": [
             {
               "id": "nl-starter:script:synthetische-drugsproductie:scene:productie:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Productiesignalen combineren",
               "description": "Het netwerk laat een chemisch proces uitvoeren. Details over stoffen en methoden ontbreken om misbruik te voorkomen.",
               "locationIds": [
                 "nl-starter:location:afgelegen-pand"
@@ -1022,7 +1022,7 @@
           "variants": [
             {
               "id": "nl-starter:script:synthetische-drugsproductie:scene:afvoer:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Product- en afvalstromen volgen",
               "description": "Producten en gevaarlijke resten verlaten de locatie via gescheiden stromen.",
               "locationIds": [
                 "nl-starter:location:afgelegen-pand",
@@ -1117,7 +1117,7 @@
           "variants": [
             {
               "id": "nl-starter:script:synthetische-drugsproductie:scene:onderzoek:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Locatie veiligstellen en herstellen",
               "description": "Partners leggen verbanden vast, ontmantelen veilig en beperken schade voor omgeving en slachtoffers.",
               "locationIds": [
                 "nl-starter:location:afgelegen-pand",
@@ -1269,7 +1269,7 @@
           "variants": [
             {
               "id": "nl-starter:script:arbeidsuitbuiting:scene:werving:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Afspraken en verwachtingen vastleggen",
               "description": "Een werker krijgt een aanbod dat gunstiger lijkt dan de feitelijke voorwaarden.",
               "locationIds": [
                 "nl-starter:location:online-omgeving"
@@ -1356,7 +1356,7 @@
           "variants": [
             {
               "id": "nl-starter:script:arbeidsuitbuiting:scene:reis:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Aankomst en huisvesting beoordelen",
               "description": "De werker reist en wordt geplaatst bij een werkgever, inlener of tussenpersoon.",
               "locationIds": [
                 "nl-starter:location:werkplek",
@@ -1453,7 +1453,7 @@
           "variants": [
             {
               "id": "nl-starter:script:arbeidsuitbuiting:scene:afhankelijkheid:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Toenemende afhankelijkheid herkennen",
               "description": "De exploitant beperkt de vrije keuze door documenten, geld, vervoer of huisvesting te beheersen.",
               "locationIds": [
                 "nl-starter:location:huisvesting",
@@ -1545,7 +1545,7 @@
           "variants": [
             {
               "id": "nl-starter:script:arbeidsuitbuiting:scene:werk:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Werkelijkheid met afspraken vergelijken",
               "description": "De werker verricht arbeid onder onveilige, oneerlijke of gedwongen omstandigheden.",
               "locationIds": [
                 "nl-starter:location:werkplek"
@@ -1632,7 +1632,7 @@
           "variants": [
             {
               "id": "nl-starter:script:arbeidsuitbuiting:scene:controle:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Veilige contactmogelijkheid bieden",
               "description": "Dreiging, schulden of isolatie houden de werker in de situatie.",
               "locationIds": [
                 "nl-starter:location:werkplek",
@@ -1721,7 +1721,7 @@
           "variants": [
             {
               "id": "nl-starter:script:arbeidsuitbuiting:scene:bescherming:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Slachtoffergerichte opvolging organiseren",
               "description": "Instanties stoppen de uitbuiting, beschermen betrokkenen en onderzoeken werkgevers en ketenpartners.",
               "locationIds": [
                 "nl-starter:location:werkplek",
@@ -1875,7 +1875,7 @@
           "variants": [
             {
               "id": "nl-starter:script:mensenhandel-seksuele-uitbuiting:scene:benadering:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Kwetsbaarheid en beloften herkennen",
               "description": "Een ronselaar legt contact en speelt in op persoonlijke, sociale of financiële kwetsbaarheid.",
               "locationIds": [
                 "nl-starter:location:online-omgeving",
@@ -1964,7 +1964,7 @@
           "variants": [
             {
               "id": "nl-starter:script:mensenhandel-seksuele-uitbuiting:scene:isolatie:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Verlies van autonomie signaleren",
               "description": "De exploitant beperkt zelfstandige contacten en beheert praktische keuzes.",
               "locationIds": [
                 "nl-starter:location:huisvesting",
@@ -2055,7 +2055,7 @@
           "variants": [
             {
               "id": "nl-starter:script:mensenhandel-seksuele-uitbuiting:scene:exploitatie:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Veilige signalering mogelijk maken",
               "description": "Het slachtoffer moet seksuele diensten verrichten terwijl een ander profiteert en dwang of misbruik inzet.",
               "locationIds": [
                 "nl-starter:location:handelsplaats",
@@ -2144,7 +2144,7 @@
           "variants": [
             {
               "id": "nl-starter:script:mensenhandel-seksuele-uitbuiting:scene:verplaatsing:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Locatiepatronen vergelijken",
               "description": "Het slachtoffer wordt tussen werk- of verblijfsplaatsen verplaatst of moet vaak wisselen.",
               "locationIds": [
                 "nl-starter:location:huisvesting",
@@ -2242,7 +2242,7 @@
           "variants": [
             {
               "id": "nl-starter:script:mensenhandel-seksuele-uitbuiting:scene:opbrengst:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Financiële afhankelijkheid onderzoeken",
               "description": "De exploitant neemt inkomsten over of legt onduidelijke schulden en kosten op.",
               "locationIds": [
                 "nl-starter:location:financiele-instelling",
@@ -2335,7 +2335,7 @@
           "variants": [
             {
               "id": "nl-starter:script:mensenhandel-seksuele-uitbuiting:scene:interventie:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Bescherming en ketenaanpak afstemmen",
               "description": "Partners beoordelen veiligheid, regelen passende hulp en onderzoeken uitbuiting en financieel voordeel.",
               "locationIds": [
                 "nl-starter:location:handelsplaats",
@@ -2478,7 +2478,7 @@
           "variants": [
             {
               "id": "nl-starter:script:witwassen-legale-ondernemingen:scene:bedrijf:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Bedrijfsprofiel en risico’s beoordelen",
               "description": "Een netwerk gebruikt of beïnvloedt een onderneming met legale activiteiten.",
               "locationIds": [
                 "nl-starter:location:bedrijfspand"
@@ -2566,7 +2566,7 @@
           "variants": [
             {
               "id": "nl-starter:script:witwassen-legale-ondernemingen:scene:inbreng:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Inkomstenpatroon vergelijken",
               "description": "Geld of andere waarde komt in de bedrijfs- of betaalstroom terecht.",
               "locationIds": [
                 "nl-starter:location:bedrijfspand",
@@ -2658,7 +2658,7 @@
           "variants": [
             {
               "id": "nl-starter:script:witwassen-legale-ondernemingen:scene:administratie:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Administratieve samenhang toetsen",
               "description": "Administratie en overeenkomsten geven transacties een ogenschijnlijk zakelijke reden.",
               "locationIds": [
                 "nl-starter:location:bedrijfspand"
@@ -2745,7 +2745,7 @@
           "variants": [
             {
               "id": "nl-starter:script:witwassen-legale-ondernemingen:scene:verplaatsing:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Transactieketen in kaart brengen",
               "description": "Waarde beweegt tussen rekeningen, bedrijven of landen en wordt moeilijker te herleiden.",
               "locationIds": [
                 "nl-starter:location:financiele-instelling",
@@ -2834,7 +2834,7 @@
           "variants": [
             {
               "id": "nl-starter:script:witwassen-legale-ondernemingen:scene:besteding:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Herkomst en bestemming vergelijken",
               "description": "De opbrengst wordt gebruikt voor bezit, investeringen of verdere bedrijfsactiviteiten.",
               "locationIds": [
                 "nl-starter:location:bedrijfspand",
@@ -2926,7 +2926,7 @@
           "variants": [
             {
               "id": "nl-starter:script:witwassen-legale-ondernemingen:scene:verstoring:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Netwerkgericht interveniëren",
               "description": "Partners verbinden bedrijfs-, fiscale en financiële informatie en beschermen bonafide sectoren.",
               "locationIds": [
                 "nl-starter:location:bedrijfspand",
@@ -3074,7 +3074,7 @@
           "variants": [
             {
               "id": "nl-starter:script:illegale-dumping-chemisch-afval:scene:ontstaan:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Residu en verantwoordelijkheid registreren",
               "description": "Bij verboden productie blijft chemisch residu achter dat veilig verwerkt zou moeten worden.",
               "locationIds": [
                 "nl-starter:location:afgelegen-pand"
@@ -3162,7 +3162,7 @@
           "variants": [
             {
               "id": "nl-starter:script:illegale-dumping-chemisch-afval:scene:verzameling:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Opslag en hoeveelheden vergelijken",
               "description": "Residuen worden tijdelijk opgeslagen en klaargezet voor illegale afvoer.",
               "locationIds": [
                 "nl-starter:location:afgelegen-pand",
@@ -3251,7 +3251,7 @@
           "variants": [
             {
               "id": "nl-starter:script:illegale-dumping-chemisch-afval:scene:transport:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Vervoersketen controleren",
               "description": "Een vervoerder verplaatst chemisch afval zonder transparante herkomst of bestemming.",
               "locationIds": [
                 "nl-starter:location:buitengebied",
@@ -3348,7 +3348,7 @@
           "variants": [
             {
               "id": "nl-starter:script:illegale-dumping-chemisch-afval:scene:dumping:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Locatie veilig benaderen en melden",
               "description": "Afval wordt achtergelaten of geloosd, met direct risico voor mens en milieu.",
               "locationIds": [
                 "nl-starter:location:buitengebied",
@@ -3434,7 +3434,7 @@
           "variants": [
             {
               "id": "nl-starter:script:illegale-dumping-chemisch-afval:scene:melding:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Risico afzetten en beoordelen",
               "description": "Melder en hulpdiensten behandelen de locatie eerst als mogelijk gevaarlijk.",
               "locationIds": [
                 "nl-starter:location:buitengebied",
@@ -3523,7 +3523,7 @@
           "variants": [
             {
               "id": "nl-starter:script:illegale-dumping-chemisch-afval:scene:herstel:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Herkomst onderzoeken en schade beperken",
               "description": "Partners onderzoeken herkomst, verwijderen afval deskundig en volgen bodem- of waterschade.",
               "locationIds": [
                 "nl-starter:location:buitengebied",
@@ -3665,7 +3665,7 @@
           "variants": [
             {
               "id": "nl-starter:script:stroperij-illegale-wildhandel:scene:selectie:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Kwetsbare locaties extra volgen",
               "description": "Een dader richt zich op een beschermde soort of kwetsbaar natuurgebied.",
               "locationIds": [
                 "nl-starter:location:natuurgebied"
@@ -3753,7 +3753,7 @@
           "variants": [
             {
               "id": "nl-starter:script:stroperij-illegale-wildhandel:scene:onttrekking:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Sporen veilig melden",
               "description": "Dieren, planten of delen daarvan worden zonder geldige toestemming uit de natuur gehaald.",
               "locationIds": [
                 "nl-starter:location:natuurgebied"
@@ -3832,7 +3832,7 @@
           "variants": [
             {
               "id": "nl-starter:script:stroperij-illegale-wildhandel:scene:verzameling:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Herkomst en welzijn beoordelen",
               "description": "Illegaal verkregen specimens worden tijdelijk bijeengebracht of verzorgd.",
               "locationIds": [
                 "nl-starter:location:bedrijfspand",
@@ -3920,7 +3920,7 @@
           "variants": [
             {
               "id": "nl-starter:script:stroperij-illegale-wildhandel:scene:handel:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Aanbod en documentatie vergelijken",
               "description": "Een handelaar biedt specimens of producten aan via fysieke of online kanalen.",
               "locationIds": [
                 "nl-starter:location:handelsplaats",
@@ -4011,7 +4011,7 @@
           "variants": [
             {
               "id": "nl-starter:script:stroperij-illegale-wildhandel:scene:vervoer:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Zending en papieren controleren",
               "description": "Specimens bewegen door handels- en vervoersketens en kunnen grenzen passeren.",
               "locationIds": [
                 "nl-starter:location:grensdoorlaat",
@@ -4109,7 +4109,7 @@
           "variants": [
             {
               "id": "nl-starter:script:stroperij-illegale-wildhandel:scene:interventie:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Dieren opvangen en bewijs borgen",
               "description": "Partners stellen specimens veilig, regelen passende zorg en onderzoeken de hele keten.",
               "locationIds": [
                 "nl-starter:location:handelsplaats",
@@ -4253,7 +4253,7 @@
           "variants": [
             {
               "id": "nl-starter:script:voertuigdiefstal-export:scene:selectie:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Verdachte belangstelling herkennen",
               "description": "Een netwerk zoekt voertuigen met verwachte handelswaarde en beperkte zichtbaarheid.",
               "locationIds": [
                 "nl-starter:location:handelsplaats",
@@ -4344,7 +4344,7 @@
           "variants": [
             {
               "id": "nl-starter:script:voertuigdiefstal-export:scene:diefstal:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Diefstal snel registreren",
               "description": "Daders nemen een voertuig weg zonder toestemming. Technische werkwijzen ontbreken.",
               "locationIds": [
                 "nl-starter:location:handelsplaats",
@@ -4438,7 +4438,7 @@
           "variants": [
             {
               "id": "nl-starter:script:voertuigdiefstal-export:scene:opslag:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Ongebruikelijke opslag signaleren",
               "description": "Het voertuig wordt tijdelijk gestald terwijl het netwerk vervolgacties organiseert.",
               "locationIds": [
                 "nl-starter:location:garage",
@@ -4532,7 +4532,7 @@
           "variants": [
             {
               "id": "nl-starter:script:voertuigdiefstal-export:scene:identiteit:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Identiteitsgegevens vergelijken",
               "description": "Documenten of zichtbare kenmerken worden onrechtmatig gewijzigd om herkomstonderzoek te bemoeilijken.",
               "locationIds": [
                 "nl-starter:location:garage"
@@ -4623,7 +4623,7 @@
           "variants": [
             {
               "id": "nl-starter:script:voertuigdiefstal-export:scene:handel:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Verkoop- en vervoersketen toetsen",
               "description": "Een gestolen voertuig wordt aangeboden of naar een andere regio of land vervoerd.",
               "locationIds": [
                 "nl-starter:location:handelsplaats",
@@ -4724,7 +4724,7 @@
           "variants": [
             {
               "id": "nl-starter:script:voertuigdiefstal-export:scene:opsporing:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Voertuig en netwerk verbinden",
               "description": "Partners registreren het voertuig, leggen verbanden en onderzoeken handel en facilitators.",
               "locationIds": [
                 "nl-starter:location:grensdoorlaat",
@@ -4871,7 +4871,7 @@
           "variants": [
             {
               "id": "nl-starter:script:phishing-betaalfraude:scene:voorbereiding:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Misleidende kenmerken herkennen",
               "description": "Een fraudeur kiest een geloofwaardige aanleiding en een doelgroep, zonder dat hier technische uitvoeringsdetails worden beschreven.",
               "locationIds": [
                 "nl-starter:location:online-omgeving"
@@ -5130,7 +5130,7 @@
           "variants": [
             {
               "id": "nl-starter:script:phishing-betaalfraude:scene:gegevens:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Contact stoppen en toegang beschermen",
               "description": "De fraudeur probeert vertrouwelijke gegevens, goedkeuring of accounttoegang te verkrijgen.",
               "locationIds": [
                 "nl-starter:location:online-omgeving"
@@ -5217,7 +5217,7 @@
           "variants": [
             {
               "id": "nl-starter:script:phishing-betaalfraude:scene:betaling:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Betaling direct laten beoordelen",
               "description": "Een betaling wordt door misleiding gestart of naar een verkeerde begunstigde geleid.",
               "locationIds": [
                 "nl-starter:location:financiele-instelling",
@@ -5305,7 +5305,7 @@
           "variants": [
             {
               "id": "nl-starter:script:phishing-betaalfraude:scene:doorgifte:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Geldstroom en betrokken rollen duiden",
               "description": "Ontvangen geld beweegt via rekeningen van derden, waaronder mogelijke geldezels.",
               "locationIds": [
                 "nl-starter:location:financiele-instelling"
@@ -5393,7 +5393,7 @@
           "variants": [
             {
               "id": "nl-starter:script:phishing-betaalfraude:scene:respons:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Schade beperken en melding opvolgen",
               "description": "Slachtoffer en organisaties blokkeren toegang, proberen financiële schade te beperken en bewaren relevante gegevens.",
               "locationIds": [
                 "nl-starter:location:online-omgeving",
@@ -5567,7 +5567,7 @@
           "variants": [
             {
               "id": "nl-starter:script:illegale-asbestverwijdering:scene:opdracht:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Risico’s en bevoegdheden controleren",
               "description": "Een eigenaar of aannemer plant sloop of renovatie waarbij asbest aanwezig kan zijn.",
               "locationIds": [
                 "nl-starter:location:bouwlocatie"
@@ -5654,7 +5654,7 @@
           "variants": [
             {
               "id": "nl-starter:script:illegale-asbestverwijdering:scene:inventarisatie:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Ontbrekende informatie laten herstellen",
               "description": "Mogelijk asbesthoudend materiaal wordt niet juist onderzocht of het rapport wordt niet gevolgd.",
               "locationIds": [
                 "nl-starter:location:bouwlocatie"
@@ -5742,7 +5742,7 @@
           "variants": [
             {
               "id": "nl-starter:script:illegale-asbestverwijdering:scene:verwijdering:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Werk stilleggen en omgeving beschermen",
               "description": "Materiaal wordt bewerkt of verwijderd zonder passende beheersing en deskundigheid.",
               "locationIds": [
                 "nl-starter:location:bouwlocatie"
@@ -5830,7 +5830,7 @@
           "variants": [
             {
               "id": "nl-starter:script:illegale-asbestverwijdering:scene:werknemers:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Blootstelling veilig melden",
               "description": "Werknemers krijgen onvoldoende informatie, bescherming of mogelijkheid om onveilig werk te weigeren.",
               "locationIds": [
                 "nl-starter:location:bouwlocatie"
@@ -5917,7 +5917,7 @@
           "variants": [
             {
               "id": "nl-starter:script:illegale-asbestverwijdering:scene:afvoer:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Afvalketen en bestemming toetsen",
               "description": "Asbesthoudend afval wordt niet volgens de geldende ketenregels aangeboden en vervoerd.",
               "locationIds": [
                 "nl-starter:location:bouwlocatie",
@@ -6012,7 +6012,7 @@
           "variants": [
             {
               "id": "nl-starter:script:illegale-asbestverwijdering:scene:toezicht:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Herstel en nazorg controleren",
               "description": "Toezichthouders stoppen onveilig werk, beperken blootstelling en onderzoeken betrokken partijen.",
               "locationIds": [
                 "nl-starter:location:bouwlocatie"
@@ -6164,7 +6164,7 @@
           "variants": [
             {
               "id": "nl-starter:script:asbestsaneringsketen:scene:opdracht:variant:published",
-              "label": "Openbaar barrièremodel",
+              "label": "Reikwijdte van inventarisatie en sanering afbakenen",
               "description": "Brongebaseerde analyse van eigenaar besluit tot sanering, met aandacht voor overdracht, registratie en proportionele interventie.",
               "activities": [
                 {
@@ -6247,7 +6247,7 @@
           "variants": [
             {
               "id": "nl-starter:script:asbestsaneringsketen:scene:inventarisatie:variant:published",
-              "label": "Openbaar barrièremodel",
+              "label": "Verdachte toepassingen systematisch laten beoordelen",
               "description": "Brongebaseerde analyse van onafhankelijke inventarisatie, met aandacht voor overdracht, registratie en proportionele interventie.",
               "activities": [
                 {
@@ -6330,7 +6330,7 @@
           "variants": [
             {
               "id": "nl-starter:script:asbestsaneringsketen:scene:verwijdering:variant:published",
-              "label": "Openbaar barrièremodel",
+              "label": "Werkgebied en blootstellingsrisico beheerst houden",
               "description": "Brongebaseerde analyse van asbest verwijderen, met aandacht voor overdracht, registratie en proportionele interventie.",
               "activities": [
                 {
@@ -6413,7 +6413,7 @@
           "variants": [
             {
               "id": "nl-starter:script:asbestsaneringsketen:scene:eindcontrole:variant:published",
-              "label": "Openbaar barrièremodel",
+              "label": "Werkgebied en relevante nevenruimten laten beoordelen",
               "description": "Brongebaseerde analyse van onafhankelijke eindcontrole, met aandacht voor overdracht, registratie en proportionele interventie.",
               "activities": [
                 {
@@ -6496,7 +6496,7 @@
           "variants": [
             {
               "id": "nl-starter:script:asbestsaneringsketen:scene:eerste-transport:variant:published",
-              "label": "Openbaar barrièremodel",
+              "label": "Bevoegdheid van vervoerder en voertuig vastleggen",
               "description": "Brongebaseerde analyse van transport naar inzamel- of tussenlocatie, met aandacht voor overdracht, registratie en proportionele interventie.",
               "activities": [
                 {
@@ -6579,7 +6579,7 @@
           "variants": [
             {
               "id": "nl-starter:script:asbestsaneringsketen:scene:tussenlocatie:variant:published",
-              "label": "Openbaar barrièremodel",
+              "label": "Herkomst, gewicht en begeleidingsdocument registreren",
               "description": "Brongebaseerde analyse van ontvangst op tussenlocatie, met aandacht voor overdracht, registratie en proportionele interventie.",
               "activities": [
                 {
@@ -6662,7 +6662,7 @@
           "variants": [
             {
               "id": "nl-starter:script:asbestsaneringsketen:scene:vervolgtransport:variant:published",
-              "label": "Openbaar barrièremodel",
+              "label": "Hoeveelheden vóór en na tussenopslag vergelijken",
               "description": "Brongebaseerde analyse van vervolgtransport naar eindverwerker, met aandacht voor overdracht, registratie en proportionele interventie.",
               "activities": [
                 {
@@ -6745,7 +6745,7 @@
           "variants": [
             {
               "id": "nl-starter:script:asbestsaneringsketen:scene:eindverwerking:variant:published",
-              "label": "Openbaar barrièremodel",
+              "label": "Ontvangst en definitief gewicht vastleggen",
               "description": "Brongebaseerde analyse van ontdoen bij erkende eindverwerker, met aandacht voor overdracht, registratie en proportionele interventie.",
               "activities": [
                 {
@@ -6881,7 +6881,7 @@
           "variants": [
             {
               "id": "nl-starter:script:bijtincidenten-honden:scene:sociale-context:variant:published",
-              "label": "Openbaar barrièremodel",
+              "label": "Gezondheid en gedrag van beide ouderdieren documenteren",
               "description": "Brongebaseerde analyse van sociale context en keuze van ouderdieren, met aandacht voor overdracht, registratie en proportionele interventie.",
               "activities": [
                 {
@@ -6964,7 +6964,7 @@
           "variants": [
             {
               "id": "nl-starter:script:bijtincidenten-honden:scene:dracht-geboorte:variant:published",
-              "label": "Openbaar barrièremodel",
+              "label": "Huisvesting, voeding en stress tijdens de dracht beoordelen",
               "description": "Brongebaseerde analyse van dekking, dracht en geboorte, met aandacht voor overdracht, registratie en proportionele interventie.",
               "activities": [
                 {
@@ -7047,7 +7047,7 @@
           "variants": [
             {
               "id": "nl-starter:script:bijtincidenten-honden:scene:eerste-levensfase:variant:published",
-              "label": "Openbaar barrièremodel",
+              "label": "Gezondheid, vaccinaties en identificatie tijdig registreren",
               "description": "Brongebaseerde analyse van eerste levensfase en socialisatie, met aandacht voor overdracht, registratie en proportionele interventie.",
               "activities": [
                 {
@@ -7130,7 +7130,7 @@
           "variants": [
             {
               "id": "nl-starter:script:bijtincidenten-honden:scene:nieuwe-eigenaar:variant:published",
-              "label": "Openbaar barrièremodel",
+              "label": "Gezondheids- en gedragsinformatie volledig meegeven",
               "description": "Brongebaseerde analyse van overdracht aan nieuwe eigenaar, met aandacht voor overdracht, registratie en proportionele interventie.",
               "activities": [
                 {
@@ -7213,7 +7213,7 @@
           "variants": [
             {
               "id": "nl-starter:script:bijtincidenten-honden:scene:ontwikkeling:variant:published",
-              "label": "Openbaar barrièremodel",
+              "label": "Passende opvoeding, beweging en sociale contacten organiseren",
               "description": "Brongebaseerde analyse van opvoeding, socialisatie en puberteit, met aandacht voor overdracht, registratie en proportionele interventie.",
               "activities": [
                 {
@@ -7296,7 +7296,7 @@
           "variants": [
             {
               "id": "nl-starter:script:bijtincidenten-honden:scene:volwassen-senior:variant:published",
-              "label": "Openbaar barrièremodel",
+              "label": "Pijn, ziekte en leeftijdsgebonden gedragsverandering onderzoeken",
               "description": "Brongebaseerde analyse van volwassenheid en seniorfase, met aandacht voor overdracht, registratie en proportionele interventie.",
               "activities": [
                 {
@@ -7379,7 +7379,7 @@
           "variants": [
             {
               "id": "nl-starter:script:bijtincidenten-honden:scene:incidentrespons:variant:published",
-              "label": "Openbaar barrièremodel",
+              "label": "Feiten, letsel, context en betrokken dier zorgvuldig registreren",
               "description": "Brongebaseerde analyse van incidentrespons en nazorg, met aandacht voor overdracht, registratie en proportionele interventie.",
               "activities": [
                 {
@@ -7516,7 +7516,7 @@
           "variants": [
             {
               "id": "nl-starter:script:co-vergisting:scene:productie:variant:published",
-              "label": "Openbaar barrièremodel",
+              "label": "Afvalstatus en toegestane toepassing onderbouwen",
               "description": "Brongebaseerde analyse van productie en classificatie van stoffen, met aandacht voor overdracht, registratie en proportionele interventie.",
               "activities": [
                 {
@@ -7599,7 +7599,7 @@
           "variants": [
             {
               "id": "nl-starter:script:co-vergisting:scene:transport:variant:published",
-              "label": "Openbaar barrièremodel",
+              "label": "Begeleidingsdocument aan lading en bestemming koppelen",
               "description": "Brongebaseerde analyse van transport van stoffen, met aandacht voor overdracht, registratie en proportionele interventie.",
               "activities": [
                 {
@@ -7682,7 +7682,7 @@
           "variants": [
             {
               "id": "nl-starter:script:co-vergisting:scene:tussenbewerking:variant:published",
-              "label": "Openbaar barrièremodel",
+              "label": "Ingaande en uitgaande hoeveelheden met elkaar vergelijken",
               "description": "Brongebaseerde analyse van tussentijdse bewerking en opslag, met aandacht voor overdracht, registratie en proportionele interventie.",
               "activities": [
                 {
@@ -7765,7 +7765,7 @@
           "variants": [
             {
               "id": "nl-starter:script:co-vergisting:scene:vergisting:variant:published",
-              "label": "Openbaar barrièremodel",
+              "label": "Invoer, procesregistratie en voorraadmutaties vastleggen",
               "description": "Brongebaseerde analyse van acceptatie en co-vergisting, met aandacht voor overdracht, registratie en proportionele interventie.",
               "activities": [
                 {
@@ -7848,7 +7848,7 @@
           "variants": [
             {
               "id": "nl-starter:script:co-vergisting:scene:digestaat:variant:published",
-              "label": "Openbaar barrièremodel",
+              "label": "Bestemming, afnemer en toegepaste hoeveelheid registreren",
               "description": "Brongebaseerde analyse van afvoer en toepassing van digestaat, met aandacht voor overdracht, registratie en proportionele interventie.",
               "activities": [
                 {
@@ -7984,7 +7984,7 @@
           "variants": [
             {
               "id": "nl-starter:script:complexe-zorgstructuren:scene:bedrijfsstructuur:variant:published",
-              "label": "Openbaar barrièremodel",
+              "label": "Onderlinge diensten en financiële relaties vastleggen",
               "description": "Brongebaseerde analyse van bedrijfsstructuur en governance opzetten, met aandacht voor overdracht, registratie en proportionele interventie.",
               "activities": [
                 {
@@ -8067,7 +8067,7 @@
           "variants": [
             {
               "id": "nl-starter:script:complexe-zorgstructuren:scene:poortwachters:variant:published",
-              "label": "Openbaar barrièremodel",
+              "label": "Rationale van juridische en financiële structuur laten toelichten",
               "description": "Brongebaseerde analyse van contact met poortwachters, met aandacht voor overdracht, registratie en proportionele interventie.",
               "activities": [
                 {
@@ -8150,7 +8150,7 @@
           "variants": [
             {
               "id": "nl-starter:script:complexe-zorgstructuren:scene:bedrijfsmiddelen:variant:published",
-              "label": "Openbaar barrièremodel",
+              "label": "Zakelijkheid van tarieven en verbonden tegenpartijen toetsen",
               "description": "Brongebaseerde analyse van bedrijfsmiddelen en contracten inrichten, met aandacht voor overdracht, registratie en proportionele interventie.",
               "activities": [
                 {
@@ -8233,7 +8233,7 @@
           "variants": [
             {
               "id": "nl-starter:script:complexe-zorgstructuren:scene:bedrijfsvoering:variant:published",
-              "label": "Openbaar barrièremodel",
+              "label": "Declaraties aan dossiers, planning en aanwezigheid koppelen",
               "description": "Brongebaseerde analyse van reguliere bedrijfsvoering uitvoeren, met aandacht voor overdracht, registratie en proportionele interventie.",
               "activities": [
                 {
@@ -8316,7 +8316,7 @@
           "variants": [
             {
               "id": "nl-starter:script:complexe-zorgstructuren:scene:clienten:variant:published",
-              "label": "Openbaar barrièremodel",
+              "label": "Indicatie, zorgbehoefte en plaatsingsbesluit onafhankelijk toetsen",
               "description": "Brongebaseerde analyse van cliënten werven en plaatsen, met aandacht voor overdracht, registratie en proportionele interventie.",
               "activities": [
                 {
@@ -8399,7 +8399,7 @@
           "variants": [
             {
               "id": "nl-starter:script:complexe-zorgstructuren:scene:verantwoording:variant:published",
-              "label": "Openbaar barrièremodel",
+              "label": "Bestuursbesluiten en toezichtsvragen navolgbaar vastleggen",
               "description": "Brongebaseerde analyse van interne en externe verantwoording, met aandacht voor overdracht, registratie en proportionele interventie.",
               "activities": [
                 {
@@ -8482,7 +8482,7 @@
           "variants": [
             {
               "id": "nl-starter:script:complexe-zorgstructuren:scene:locatie:variant:published",
-              "label": "Openbaar barrièremodel",
+              "label": "Locatiegebruik aan vergunning en zorgconcept koppelen",
               "description": "Brongebaseerde analyse van pand en zorglocatie organiseren, met aandacht voor overdracht, registratie en proportionele interventie.",
               "activities": [
                 {
@@ -8565,7 +8565,7 @@
           "variants": [
             {
               "id": "nl-starter:script:complexe-zorgstructuren:scene:einde-bedrijf:variant:published",
-              "label": "Openbaar barrièremodel",
+              "label": "Activa, schulden en betalingen rond beëindiging volgen",
               "description": "Brongebaseerde analyse van beëindiging, overdracht of doorstart, met aandacht voor overdracht, registratie en proportionele interventie.",
               "activities": [
                 {
@@ -8702,7 +8702,7 @@
           "variants": [
             {
               "id": "nl-starter:script:criminele-uitbuiting:scene:identificeren:variant:published",
-              "label": "Openbaar barrièremodel",
+              "label": "Online en fysieke benaderingspatronen in samenhang analyseren",
               "description": "Brongebaseerde analyse van kwetsbare personen identificeren, met aandacht voor overdracht, registratie en proportionele interventie.",
               "activities": [
                 {
@@ -8785,7 +8785,7 @@
           "variants": [
             {
               "id": "nl-starter:script:criminele-uitbuiting:scene:binden:variant:published",
-              "label": "Openbaar barrièremodel",
+              "label": "Verlies van positieve sociale contacten volgen",
               "description": "Brongebaseerde analyse van binding en loyaliteit opbouwen, met aandacht voor overdracht, registratie en proportionele interventie.",
               "activities": [
                 {
@@ -8868,7 +8868,7 @@
           "variants": [
             {
               "id": "nl-starter:script:criminele-uitbuiting:scene:grensvervaging:variant:published",
-              "label": "Openbaar barrièremodel",
+              "label": "Normalisering binnen groep of sociale omgeving onderzoeken",
               "description": "Brongebaseerde analyse van grenzen en normbesef verschuiven, met aandacht voor overdracht, registratie en proportionele interventie.",
               "activities": [
                 {
@@ -8951,7 +8951,7 @@
           "variants": [
             {
               "id": "nl-starter:script:criminele-uitbuiting:scene:beheersen:variant:published",
-              "label": "Openbaar barrièremodel",
+              "label": "Dreiging, chantage of misbruik van persoonlijke informatie signaleren",
               "description": "Brongebaseerde analyse van controle en afhankelijkheid versterken, met aandacht voor overdracht, registratie en proportionele interventie.",
               "activities": [
                 {
@@ -9034,7 +9034,7 @@
           "variants": [
             {
               "id": "nl-starter:script:criminele-uitbuiting:scene:uitvoeren:variant:published",
-              "label": "Openbaar barrièremodel",
+              "label": "Relatie tussen uitvoerder en achterblijvende opdrachtgever reconstrueren",
               "description": "Brongebaseerde analyse van strafbare opdrachten laten uitvoeren, met aandacht voor overdracht, registratie en proportionele interventie.",
               "activities": [
                 {
@@ -9117,7 +9117,7 @@
           "variants": [
             {
               "id": "nl-starter:script:criminele-uitbuiting:scene:voordeel:variant:published",
-              "label": "Openbaar barrièremodel",
+              "label": "Afdracht of inhouding rond opdrachten reconstrueren",
               "description": "Brongebaseerde analyse van voordeel afromen, met aandacht voor overdracht, registratie en proportionele interventie.",
               "activities": [
                 {
@@ -9200,7 +9200,7 @@
           "variants": [
             {
               "id": "nl-starter:script:criminele-uitbuiting:scene:verankeren:variant:published",
-              "label": "Openbaar barrièremodel",
+              "label": "Isolatie van school, werk, gezin of hulpverlening volgen",
               "description": "Brongebaseerde analyse van herhaling en verankering in het netwerk, met aandacht voor overdracht, registratie en proportionele interventie.",
               "activities": [
                 {
@@ -9338,7 +9338,7 @@
           "variants": [
             {
               "id": "nl-starter:script:fake-carriers:scene:voorbereiden:variant:published",
-              "label": "Openbaar barrièremodel",
+              "label": "Wijzigingen in eigendom, beheer en communicatie reconstrueren",
               "description": "Brongebaseerde analyse van identiteit en toegang voorbereiden, met aandacht voor overdracht, registratie en proportionele interventie.",
               "activities": [
                 {
@@ -9421,7 +9421,7 @@
           "variants": [
             {
               "id": "nl-starter:script:fake-carriers:scene:diensten-aanbieden:variant:published",
-              "label": "Openbaar barrièremodel",
+              "label": "Contactpersoon, domein en bedrijfsgegevens onderling vergelijken",
               "description": "Brongebaseerde analyse van vervoersdienst aanbieden, met aandacht voor overdracht, registratie en proportionele interventie.",
               "activities": [
                 {
@@ -9504,7 +9504,7 @@
           "variants": [
             {
               "id": "nl-starter:script:fake-carriers:scene:goederen-ophalen:variant:published",
-              "label": "Openbaar barrièremodel",
+              "label": "Ophaalopdracht en eventuele wijzigingen bevestigen",
               "description": "Brongebaseerde analyse van goederen bij verlader ophalen, met aandacht voor overdracht, registratie en proportionele interventie.",
               "activities": [
                 {
@@ -9587,7 +9587,7 @@
           "variants": [
             {
               "id": "nl-starter:script:fake-carriers:scene:vervoer-opslag:variant:published",
-              "label": "Openbaar barrièremodel",
+              "label": "Bestemmingswijzigingen via een onafhankelijk kanaal bevestigen",
               "description": "Brongebaseerde analyse van vervoer, aflevering en incidentrespons, met aandacht voor overdracht, registratie en proportionele interventie.",
               "activities": [
                 {
@@ -9724,7 +9724,7 @@
           "variants": [
             {
               "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:voorbereiding-netwerk:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Samenstellen van het uitvoerende team",
               "description": "Een coördinator brengt mensen, middelen en informatie samen om een diefstalpoging in een pijplijncorridor mogelijk te maken.",
               "locationIds": [
                 "nl-starter:location:logistiek-terrein"
@@ -9847,7 +9847,7 @@
           "variants": [
             {
               "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:verplaatsing-naar-pijplijn:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Observeren van de directe omgeving",
               "description": "Mensen en voertuigen bewegen naar de gekozen corridor en nemen posities in die de uitvoeringsfase ondersteunen.",
               "locationIds": [
                 "nl-starter:location:buitengebied",
@@ -9970,7 +9970,7 @@
           "variants": [
             {
               "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:ongeoorloofde-onttrekking:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Manipuleren van infrastructuur",
               "description": "Het netwerk manipuleert de infrastructuur en onttrekt olieproducten, met ernstige risico’s voor veiligheid, milieu en leveringszekerheid.",
               "locationIds": [
                 "nl-starter:location:pijplijncorridor"
@@ -10090,7 +10090,7 @@
           "variants": [
             {
               "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:transport-vanaf-pijplijn:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Vertrekken uit de corridor",
               "description": "Het gestolen product verlaat de pijplijncorridor en wordt naar een tijdelijke opslag- of overdrachtslocatie gebracht.",
               "locationIds": [
                 "nl-starter:location:pijplijncorridor"
@@ -10210,7 +10210,7 @@
           "variants": [
             {
               "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:opslag-en-overslag:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Tijdelijk opslaan",
               "description": "Een tussenlocatie ontvangt het gestolen product en maakt het gereed voor verdere verspreiding.",
               "locationIds": [
                 "nl-starter:location:tussentijdse-opslag"
@@ -10333,7 +10333,7 @@
           "variants": [
             {
               "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:afzet-en-distributie:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Overdragen aan de afzetzijde",
               "description": "Tussenpersonen en ondernemingen brengen de olieproducten verder in een afzetketen en ontvangen betalingen.",
               "locationIds": [
                 "nl-starter:location:logistiek-terrein"
@@ -10457,7 +10457,7 @@
           "variants": [
             {
               "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:opbrengsten-en-opvolging:variant:hoofdroute",
-              "label": "Hoofdroute",
+              "label": "Verwerken via ondernemingen of rekeningen",
               "description": "Opbrengsten worden verdeeld of verhuld, terwijl incident-, keten- en financiële informatie aanknopingspunten biedt voor verstoring en onderzoek.",
               "locationIds": [
                 "nl-starter:location:bedrijfspand"

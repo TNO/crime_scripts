@@ -149,6 +149,7 @@ The sourceUrls value contains verbatim user-supplied references; do not claim yo
 
 SAFETY AND PROVENANCE
 - Support prevention and investigation. Do not provide offender instructions, evasion tactics, or exploitable operational parameters.
+- Give every modus operandi (scene variant) a concise label that describes its concrete route or mechanism. Never use generic labels such as "Main route", "Primary route", or "Hoofdroute", and never repeat the scene or first activity label.
 - Give every activity a specific description that explains what happens, how the named roles relate, and why the event matters in its phase. Add information beyond the label; never repeat or quote the activity label in its description. Do not replace that explanation with generic instructions to record, map, assess, or investigate the event.
 - When an activity is itself a prevention, investigation, or control action, name the responsible professional or partner and describe the intended effect in declarative language.
 - Set language explicitly to the language value in the untrusted data.
@@ -333,9 +334,23 @@ const validateMeasure = (value: unknown, path: string) => {
   stringArray(requireField(object, 'partners', path), `${path}.partners`);
 };
 
-const validateAct = (value: unknown, path: string) => {
+const genericModusOperandiLabels = new Set([
+  'default',
+  'default route',
+  'hoofdroute',
+  'main route',
+  'openbaar barrièremodel',
+  'primary route',
+  'regular route',
+  'route',
+  'standard route',
+  'variant',
+]);
+
+const validateAct = (value: unknown, path: string): { label: string; firstActivityLabel?: string } => {
   const keys = ['locationIds', 'activities', 'conditions', 'opportunities', 'indicators', 'measures'];
   const object = validateLabelled(value, path, keys);
+  const label = stringAt(requireField(object, 'label', path), `${path}.label`, true);
   if (object.locationIds !== undefined) stringArray(object.locationIds, `${path}.locationIds`);
   const validators: Array<[string, (item: unknown, itemPath: string) => void]> = [
     ['activities', validateActivity],
@@ -348,14 +363,39 @@ const validateAct = (value: unknown, path: string) => {
     arrayAt(requireField(object, key, path), `${path}.${key}`)
       .forEach((item, index) => validate(item, `${path}.${key}[${index}]`))
   );
+  const activities = arrayAt(requireField(object, 'activities', path), `${path}.activities`);
+  const firstActivityLabel = activities.length > 0
+    ? stringAt(
+      requireField(objectAt(activities[0], `${path}.activities[0]`), 'label', `${path}.activities[0]`),
+      `${path}.activities[0].label`,
+      true
+    )
+    : undefined;
+  return { label, firstActivityLabel };
 };
 
 const validateScene = (value: unknown, path: string) => {
   const object = validateLabelled(value, path, ['isGeneric', 'selectedVariantId', 'variants']);
+  const sceneLabel = stringAt(requireField(object, 'label', path), `${path}.label`, true);
   if (object.isGeneric !== undefined) booleanAt(object.isGeneric, `${path}.isGeneric`);
   optionalString(object, 'selectedVariantId', path);
   arrayAt(requireField(object, 'variants', path), `${path}.variants`)
-    .forEach((item, index) => validateAct(item, `${path}.variants[${index}]`));
+    .forEach((item, index) => {
+      const variantPath = `${path}.variants[${index}]`;
+      const { label: variantLabel, firstActivityLabel } = validateAct(item, variantPath);
+      const normalized = normalizeComparableText(variantLabel);
+      if (
+        genericModusOperandiLabels.has(normalized) ||
+        normalized === normalizeComparableText(sceneLabel) ||
+        (firstActivityLabel !== undefined && normalized === normalizeComparableText(firstActivityLabel))
+      ) {
+        fail(
+          `${variantPath}.label`,
+          'invalidValue',
+          'The label must describe the concrete modus operandi instead of using a generic, scene, or first-activity label.'
+        );
+      }
+    });
 };
 
 const validateTrack = (value: unknown, path: string) => {

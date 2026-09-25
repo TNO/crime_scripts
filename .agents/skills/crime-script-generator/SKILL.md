@@ -80,6 +80,8 @@ crime-script-generator init \
 - Reuse existing taxonomy keys from `prepared/context.json`; add a taxonomy item only when needed.
 - Use one or two activity levels only. Add variants only for source-supported, materially different
   routes.
+- Give every modus operandi a concise label describing its route or mechanism; never use generic
+  labels such as `Hoofdroute` or repeat the scene or first activity label.
 - Give activities observable traces and a decision point; indicators need corroboration,
   alternatives, and relevance; measures need partners, timing, effect, category, and evidence.
 - Make every activity description add information; traces and decision points must not repeat or

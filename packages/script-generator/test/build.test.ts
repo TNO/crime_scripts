@@ -4,6 +4,7 @@ import { normalizeDataModel } from '@crime-script/core/model-normalization';
 import type { ConditionType } from '@crime-script/core/data-model';
 import { buildStandaloneCandidate } from '../src/build.ts';
 import type { CandidateFile, EvidenceFile, GeneratorBrief } from '../src/types.ts';
+import { validateCandidate } from '../src/validation.ts';
 
 const brief: GeneratorBrief = {
   schemaVersion: 1,
@@ -31,7 +32,7 @@ const candidate = (): CandidateFile => ({
       description: 'Een organisatie ontvangt een document en bepaalt welke eerste controle nodig is.',
       variants: [{
         key: 'main',
-        label: 'Hoofdroute',
+        label: 'Document ontvangen en vergelijken',
         locationKeys: ['office'],
         activities: [{
           key: 'receive',
@@ -133,6 +134,23 @@ test('build blocks missing evidence for a factual node', () => {
   assert.throws(
     () => buildStandaloneCandidate(normalizeDataModel({ crimeScripts: [] }), brief, candidate(), incomplete, true),
     (error: unknown) => error instanceof Error && error.message.includes('mismatch')
+  );
+});
+
+test('build rejects generic modus-operandi labels', () => {
+  const generic = candidate();
+  generic.script.stages[0].variants[0].label = '“Hoofdroute.”';
+
+  assert.throws(
+    () => validateCandidate(generic),
+    /must describe the modus operandi/
+  );
+
+  const repeatedActivity = candidate();
+  repeatedActivity.script.stages[0].variants[0].label = 'Een medewerker ontvangt een document';
+  assert.throws(
+    () => validateCandidate(repeatedActivity),
+    /instead of repeating the first activity label/
   );
 });
 
