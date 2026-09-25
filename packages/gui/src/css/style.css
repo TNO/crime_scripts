@@ -609,18 +609,6 @@
   line-height: 1.5;
 }
 
-.activity-group-context-copy {
-  min-width: 0;
-}
-
-.activity-group-context .variant-location-pills {
-  margin-top: 0;
-}
-
-.activity-group-context-copy + .variant-location-pills {
-  margin-left: 0.5rem;
-}
-
 .script-detail-list,
 .barrier-list {
   display: grid;
@@ -1778,22 +1766,15 @@ ul.kanban>li {
   padding: 0 0 1rem;
 }
 
-.variant-location-pills,
 .activity-role-pills {
   flex-wrap: wrap;
   gap: 0.4rem;
-}
-
-.variant-location-pills {
-  display: inline-flex;
-  vertical-align: middle;
 }
 
 .activity-role-pills {
   display: flex;
 }
 
-.variant-location-pill,
 .activity-role-pill {
   display: inline-flex;
   min-height: 1.75rem;
@@ -1801,17 +1782,6 @@ ul.kanban>li {
   border-radius: 999px;
   font-size: 0.82rem;
   line-height: 1.2;
-}
-
-.variant-location-pill {
-  gap: 0.25rem;
-  padding: 0.25rem 0.65rem;
-  border: 1px solid color-mix(in srgb, var(--mm-primary-color) 32%, transparent);
-  background: color-mix(in srgb, var(--mm-primary-color) 8%, transparent);
-}
-
-.variant-location-pill .material-icons {
-  font-size: 1rem;
 }
 
 .script-activity-list {

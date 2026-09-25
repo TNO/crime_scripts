@@ -111,20 +111,6 @@ export const CrimeScriptViewer: FactoryComponent<{
     ];
   };
 
-  const renderLocations = (locationIds: ID[] = [], locations: CrimeLocation[]) => {
-    const locationById = new Map(locations.map((location) => [location.id, location]));
-    return locationIds.length > 0 &&
-      m('span.variant-location-pills', { 'aria-label': t('LOCATIONS', locationIds.length) },
-        locationIds.map((id) => {
-          const location = locationById.get(id);
-          return location && m('span.variant-location-pill', { key: id }, [
-            m('i.material-icons[aria-hidden=true]', 'location_on'),
-            location.label,
-          ]);
-        })
-      );
-  };
-
   const visualizeAct = (
     {
       description,
@@ -132,12 +118,10 @@ export const CrimeScriptViewer: FactoryComponent<{
       indicators = [],
       conditions = [],
       measures = [],
-      locationIds = [],
     } = {} as Act,
     cast: Cast[],
     attributes: CrimeScriptAttributes[],
     transports: Transport[],
-    locations: CrimeLocation[],
     highlighter: (text?: string) => m.Children,
     mdHighlighter: (text?: string) => string
   ) => {
@@ -188,10 +172,7 @@ ${measuresToHtml(measures, lookupPartner, findCrimeMeasure)}`
         : ''
       }`;
     return [
-      (description || locationIds.length > 0) && m('.activity-group-context', [
-        description && m('span.activity-group-context-copy', highlighter(description)),
-        renderLocations(locationIds, locations),
-      ]),
+      description && m('.activity-group-context', highlighter(description)),
       activities.length > 0 && [
         m('h5', t('STEPS')),
         renderActivities(activities, cast, highlighter),
@@ -282,7 +263,7 @@ ${measuresToHtml(measures, lookupPartner, findCrimeMeasure)}`
       const referenceCount = literature?.length || 0;
       const hasReferences = referenceCount > 0;
       const selectedActContent = curAct
-        ? visualizeAct(curAct, cast, attributes, transports, locations, highlighter, mdHighlighter)
+        ? visualizeAct(curAct, cast, attributes, transports, highlighter, mdHighlighter)
         : undefined;
       const selectVariant = (variantId: ID) => {
         if (!curScene || variantId === curAct?.id) return;
@@ -291,11 +272,21 @@ ${measuresToHtml(measures, lookupPartner, findCrimeMeasure)}`
         activeRoleId = undefined;
         update({ curActId: variantId });
       };
-      const variantOptions = curScene?.variants.map((variant) => {
+      const variantMetadata = (variant: Act) => {
         const activityCount = t('ACTIVITY_COUNT', { count: variant.activities.length });
+        const locationLabels = variant.locationIds?.length
+          ? toCommaSeparatedList(locations, variant.locationIds)
+          : undefined;
+        return [
+          Array.isArray(activityCount) ? activityCount.join('') : activityCount,
+          locationLabels && ' · ',
+          locationLabels,
+        ];
+      };
+      const variantOptions = curScene?.variants.map((variant) => {
         return {
           id: variant.id,
-          label: `${variant.label} · ${Array.isArray(activityCount) ? activityCount.join('') : activityCount}`,
+          label: [variant.label, ' · ', ...variantMetadata(variant)].filter(Boolean).join(''),
         };
       });
 
@@ -469,7 +460,7 @@ ${measuresToHtml(measures, lookupPartner, findCrimeMeasure)}`
                     id: `${curScene.id}-${curAct.id}-label`,
                   }, [
                     m('span', highlighter(curAct.label)),
-                    m('small', t('ACTIVITY_COUNT', { count: curAct.activities.length })),
+                    m('small', variantMetadata(curAct)),
                   ])
                   : curScene.variants.length <= 3
                     ? m('.viewer-variant-options[role=group]', { 'aria-label': t('ACTS') },
@@ -485,7 +476,7 @@ ${measuresToHtml(measures, lookupPartner, findCrimeMeasure)}`
                           onclick: () => selectVariant(variant.id),
                         }, [
                           m('span', highlighter(variant.label)),
-                          m('small', t('ACTIVITY_COUNT', { count: variant.activities.length })),
+                          m('small', variantMetadata(variant)),
                         ]);
                       })
                     )
