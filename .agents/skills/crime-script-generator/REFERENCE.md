@@ -1,5 +1,26 @@
 # Crime Script Generator Reference
 
+## CLI availability
+
+Prefer a user-configured `$CRIME_SCRIPT_GENERATOR` executable or `crime-script-generator` on
+`PATH`. In a source checkout, reuse `packages/script-generator/dist/crime-script-generator` when it
+exists. Otherwise build it with:
+
+```sh
+pnpm --filter @crime-script/generator build:binary
+```
+
+That command requires Bun. If Bun is unavailable, use the repository's Node-dependent development
+launcher:
+
+```sh
+packages/script-generator/bin/crime-script-generator --version
+```
+
+Restore missing repository dependencies with its declared package manager. Never download a
+binary or install a runtime or package manager without user approval. Always verify that the
+resolved CLI reports a compatible `>=0.1.0 <0.2.0` version before creating a workspace.
+
 ## Workspace lifecycle
 
 `init` creates a versioned `brief.yaml` and empty evidence/research files. Its default workspace is
@@ -87,6 +108,9 @@ Every stage must explain its role in the overall process. Each activity needs:
 - observable traces;
 - a decision point where relevant;
 - only applicable role, attribute, and transport keys.
+
+Observable traces and decision points must add information rather than repeat or quote the activity
+event. The generated description may not contain the normalized activity label.
 
 Each indicator needs an observation, corroboration method, plausible benign alternatives, and
 relevance. Each measure needs a partner or owner, decision moment, intended effect, category, and

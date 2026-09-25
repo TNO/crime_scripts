@@ -462,10 +462,29 @@ const indicatorDescription = (
 const measureDescription = (decisionMoment: string, intendedEffect: string): string =>
   `Decision moment: ${decisionMoment.trim()}. Intended effect: ${intendedEffect.trim()}.`;
 
-const assertUniqueDescriptions = (values: Array<{ path: string; description: string }>) => {
-  values.forEach(({ path, description }) => {
+const normalizeDescriptionText = (value: string): string =>
+  value
+    .normalize('NFKC')
+    .toLocaleLowerCase()
+    .replace(/["'“”‘’]/g, '')
+    .replace(/[^\p{L}\p{N}]+/gu, ' ')
+    .trim();
+
+const assertUniqueDescriptions = (values: Array<{ path: string; description: string; label?: string }>) => {
+  values.forEach(({ path, description, label }) => {
     if (!description.trim()) {
       throw new GeneratorError('empty-description', 'Generated descriptions cannot be empty.', path);
+    }
+    const normalizedActivityLabel = normalizeDescriptionText(label || '');
+    if (
+      normalizedActivityLabel &&
+      normalizeDescriptionText(description).includes(normalizedActivityLabel)
+    ) {
+      throw new GeneratorError(
+        'repeated-activity-label',
+        'An activity description must add information instead of repeating its activity label.',
+        path
+      );
     }
   });
   for (let left = 0; left < values.length; left += 1) {
@@ -858,6 +877,7 @@ export const buildStandaloneCandidate = (
         ...variant.activities.map((item, index) => ({
           path: `$.script.stages[${stageIndex}].variants[${variantIndex}].activities[${index}].description`,
           description: item.description || '',
+          label: item.label,
         })),
         ...variant.indicators.map((item, index) => ({
           path: `$.script.stages[${stageIndex}].variants[${variantIndex}].indicators[${index}].description`,

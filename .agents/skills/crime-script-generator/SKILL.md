@@ -8,16 +8,40 @@ description: Researches and drafts evidence-based crime scripts from an existing
 Use your own file and web tools for research. The CLI contains no LLM. It deterministically prepares
 context, validates evidence and safety, builds a standalone script, and merges only after review.
 
+Own the complete workflow. Do not ask the user to run CLI commands or author workspace files.
+Ask only for missing scope decisions, create an isolated temporary workspace, operate the CLI,
+perform the research and authoring, and report the standalone file when it is ready for GUI review.
+
 ## Quick start
 
-1. Locate `crime-script-generator` on `PATH` or use `$CRIME_SCRIPT_GENERATOR`. Run `--version` and
-   require a compatible `>=0.1.0 <0.2.0` version.
-2. Initialize a workspace. In automation, supply every required option and `--non-interactive`.
-3. Run `prepare`, then inspect `prepared/context.json` and converted local Markdown.
-4. Write `candidate.json`, `evidence.json`, and `research-log.json`.
-5. Run `status --json`; resolve every error and material warning.
-6. Run `build`; give the standalone JSON to the user for GUI review.
-7. Stop for explicit user approval before `merge`.
+1. Resolve the CLI using the procedure below. Run `--version` and require a compatible
+   `>=0.1.0 <0.2.0` version.
+2. Collect the bundle, new/update mode, subject, purpose, geography, language, classification,
+   source sensitivity, detail level, icon, and optional materials. Ask only for values that cannot
+   be inferred safely.
+3. Create a temporary workspace outside the repository and initialize it non-interactively.
+   Preserve that workspace until review and merge are complete.
+4. Run `prepare`, then inspect `prepared/context.json` and converted local Markdown.
+5. Research and write `candidate.json`, `evidence.json`, and `research-log.json`.
+6. Run `status --json`; resolve every error and material warning without handing work back.
+7. Run `build`; give the standalone JSON and workspace path to the user for GUI review.
+8. Stop for the reviewed file and explicit user approval before `merge`.
+
+## Resolve the CLI
+
+Use the first working option:
+
+1. `$CRIME_SCRIPT_GENERATOR`, when set to an executable path.
+2. `crime-script-generator` on `PATH`.
+3. An existing repository build at `packages/script-generator/dist/crime-script-generator`.
+4. In the repository, if Bun is available, run
+   `pnpm --filter @crime-script/generator build:binary` and use the resulting executable.
+5. Otherwise use `packages/script-generator/bin/crime-script-generator`, the Node-based development
+   launcher.
+
+If repository dependencies are missing, restore them with the repository's declared package
+manager, then retry once. Do not download executables or install Node, Bun, or package managers
+without user approval. If no compatible option is available, report the blocker.
 
 ```sh
 crime-script-generator init \
@@ -58,6 +82,8 @@ crime-script-generator init \
   routes.
 - Give activities observable traces and a decision point; indicators need corroboration,
   alternatives, and relevance; measures need partners, timing, effect, category, and evidence.
+- Make every activity description add information; traces and decision points must not repeat or
+  quote the activity label.
 - Keep historical cases sparse and separate from the general model.
 - Use only built-in script icons. Scene icons are not part of the model.
 - Run `crime-script-generator icons --json` to inspect valid script-icon keys.

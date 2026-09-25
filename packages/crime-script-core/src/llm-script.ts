@@ -149,6 +149,8 @@ The sourceUrls value contains verbatim user-supplied references; do not claim yo
 
 SAFETY AND PROVENANCE
 - Support prevention and investigation. Do not provide offender instructions, evasion tactics, or exploitable operational parameters.
+- Give every activity a specific description that explains what happens, how the named roles relate, and why the event matters in its phase. Add information beyond the label; never repeat or quote the activity label in its description. Do not replace that explanation with generic instructions to record, map, assess, or investigate the event.
+- When an activity is itself a prevention, investigation, or control action, name the responsible professional or partner and describe the intended effect in declarative language.
 - Set language explicitly to the language value in the untrusted data.
 - Set aiGenerated and unreviewed to true. Use status 1.
 - Summarize sources; do not copy substantial source text.
@@ -231,6 +233,13 @@ const optionalString = (object: JsonObject, key: string, path: string) => {
 const stringArray = (value: unknown, path: string): string[] =>
   arrayAt(value, path).map((item, index) => stringAt(item, `${path}[${index}]`, true));
 
+const normalizeComparableText = (value: string): string =>
+  value
+    .toLocaleLowerCase()
+    .replace(/["'“”‘’]/g, '')
+    .replace(/[^\p{L}\p{N}]+/gu, ' ')
+    .trim();
+
 const labelledKeys = ['id', 'label', 'description', 'hasDesc', 'abbrev'] as const;
 
 const validateLabelled = (
@@ -284,6 +293,15 @@ const validateLiterature = (value: unknown, path: string) => {
 
 const validateActivity = (value: unknown, path: string) => {
   const object = validateLabelled(value, path, ['header', 'type', 'cast', 'attributes', 'transports']);
+  const label = stringAt(requireField(object, 'label', path), `${path}.label`, true);
+  const description = stringAt(requireField(object, 'description', path), `${path}.description`, true);
+  if (normalizeComparableText(description).includes(normalizeComparableText(label))) {
+    fail(
+      `${path}.description`,
+      'invalidValue',
+      'The description must add context without repeating the activity label.'
+    );
+  }
   if (object.header !== undefined) booleanAt(object.header, `${path}.header`);
   if (object.type !== undefined) {
     const values = Array.isArray(object.type) ? object.type : [object.type];

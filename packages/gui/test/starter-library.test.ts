@@ -170,6 +170,20 @@ test('Dutch starter scripts meet source, provenance, scene, and editorial requir
     /\b(?:recept|mengverhouding|dosering)\b.{0,30}\b(?:gram|kilogram|kg|liter|ml|procent|°c)\b/i,
     /\b(?:zo|hiermee) (?:kun|kan) je\b.{0,60}\b(?:omzeilen|ontwijken|verbergen|wissen)\b/i,
   ];
+  const prohibitedActivityDescriptionPhrases = [
+    /^(?:deze stap beschrijft|leg|breng|beoordeel|toets|registreer|onderzoek)\b/i,
+    /leg (?:deze )?gebeurtenis/i,
+    /leg vast welke partij/i,
+    /bevoegde partners wegen het signaal/i,
+    /zonder operationele uitvoeringsdetails/i,
+  ];
+  const activityDescriptions: string[] = [];
+  const normalizeComparableText = (value: string): string =>
+    value
+      .toLocaleLowerCase()
+      .replace(/["'“”‘’]/g, '')
+      .replace(/[^\p{L}\p{N}]+/gu, ' ')
+      .trim();
 
   fixture.crimeScripts.forEach((script) => {
     assert.equal(script.language, 'nl');
@@ -215,6 +229,13 @@ test('Dutch starter scripts meet source, provenance, scene, and editorial requir
         assert.ok(act.activities.every(({ description }) => (description || '').length >= 30));
         act.activities.forEach((activity) => {
           assert.match(activity.id, new RegExp(`^${act.id.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}:activity:`));
+          const description = activity.description || '';
+          activityDescriptions.push(description);
+          prohibitedActivityDescriptionPhrases.forEach((phrase) => assert.doesNotMatch(description, phrase));
+          assert.ok(
+            !normalizeComparableText(description).includes(normalizeComparableText(activity.label)),
+            `${activity.id} repeats its label in the description`
+          );
           (activity.cast || []).forEach((castId) => assert.ok(allCastIds.has(castId)));
           (activity.attributes || []).forEach((attributeId) => assert.ok(allAttributeIds.has(attributeId)));
           (activity.transports || []).forEach((transportId) => assert.ok(allTransportIds.has(transportId)));
@@ -232,6 +253,7 @@ test('Dutch starter scripts meet source, provenance, scene, and editorial requir
     prohibitedOperationalPhrases.forEach((phrase) => assert.doesNotMatch(prose, phrase));
     assert.ok(!/[.!?]\s+[A-ZÀ-Ý][^.!?]{220,}[.!?]/.test(prose), `${script.id} bevat een te lange zin`);
   });
+  assert.equal(new Set(activityDescriptions).size, activityDescriptions.length);
   const everyId = [
     ...fixture.cast, ...fixture.attributes, ...fixture.locations, ...fixture.geoLocations,
     ...fixture.products, ...fixture.transports, ...fixture.partners,

@@ -136,6 +136,24 @@ test('build blocks missing evidence for a factual node', () => {
   );
 });
 
+test('build rejects activity descriptions that repeat the activity label', () => {
+  const repetitive = candidate();
+  repetitive.script.stages[0].variants[0].activities[0].observableTraces = [
+    '“Een medewerker ontvangt een document” wordt in het dossier vastgelegd',
+  ];
+
+  assert.throws(
+    () => buildStandaloneCandidate(
+      normalizeDataModel({ crimeScripts: [], geoLocations: [{ id: 'geo-nl', label: 'Nederland' }] }),
+      brief,
+      repetitive,
+      evidence(),
+      true
+    ),
+    /must add information instead of repeating its activity label/
+  );
+});
+
 test('build rejects unknown script icons and incomplete research', () => {
   assert.throws(
     () => buildStandaloneCandidate(
