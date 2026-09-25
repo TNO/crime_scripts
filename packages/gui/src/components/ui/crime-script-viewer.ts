@@ -114,7 +114,7 @@ export const CrimeScriptViewer: FactoryComponent<{
   const renderLocations = (locationIds: ID[] = [], locations: CrimeLocation[]) => {
     const locationById = new Map(locations.map((location) => [location.id, location]));
     return locationIds.length > 0 &&
-      m('.variant-location-pills', { 'aria-label': t('LOCATIONS', locationIds.length) },
+      m('span.variant-location-pills', { 'aria-label': t('LOCATIONS', locationIds.length) },
         locationIds.map((id) => {
           const location = locationById.get(id);
           return location && m('span.variant-location-pill', { key: id }, [
