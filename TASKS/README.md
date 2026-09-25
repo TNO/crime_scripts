@@ -21,6 +21,8 @@ This does not block the starter-library release but follows it in the current im
 - [x] 0007 Add LLM-assisted script wizard *(needs 0003)*
 - [x] 0009 Build agent crime-script generator *(needs 0007, 0008)*
 - [x] 0010 Simplify script navigation *(needs 0001, 0002)*
+- [ ] 0014 Create user guide and video
+- [ ] 0015 Document restricted Witwassen CLI workflow *(needs 0009)*
 
 ## Reporting and visualisation
 
@@ -36,6 +38,7 @@ This follow-up builds on the shared scene navigation from 0010 and requires the
 track interaction and activity-group terminology to be agreed before coding.
 
 - [x] 0013 Improve crime-script visualization *(needs 0010)*
+- [ ] 0016 Link activities to crime scripts *(needs 0001, 0010)*
 
 ## Restricted workflows
 
