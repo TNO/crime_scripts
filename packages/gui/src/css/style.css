@@ -1506,11 +1506,27 @@ ul.kanban>li {
   font-size: 1.55rem;
 }
 
+.script-editor-heading > div {
+  min-width: 0;
+  flex: 1;
+}
+
+.script-editor-heading > .script-editor-action {
+  flex: 0 0 auto;
+}
+
+.script-editor-heading p {
+  max-width: none;
+}
+
 .script-editor-heading p,
 .outline-markdown-copy p {
-  max-width: 70ch;
   margin-top: 0.3rem;
   color: color-mix(in srgb, var(--mm-text-primary, currentColor) 72%, transparent);
+}
+
+.outline-markdown-copy p {
+  max-width: 70ch;
 }
 
 .script-editor-workspace {
@@ -1659,6 +1675,8 @@ ul.kanban>li {
 }
 
 .track-editor .input-field {
+  width: 100%;
+  float: none;
   margin-block: 0;
 }
 
@@ -1673,10 +1691,12 @@ ul.kanban>li {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
+  margin-top: 0.75rem;
 }
 
 .track-editor-actions button {
   min-height: 2.25rem;
+  flex: 1 1 9rem;
 }
 
 .script-viewer-scene {
