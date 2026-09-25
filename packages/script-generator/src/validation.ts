@@ -28,6 +28,27 @@ const string = (value: unknown, path: string, allowEmpty = false): string => {
   return value;
 };
 
+const normalizedLabel = (value: string): string =>
+  value
+    .normalize('NFKC')
+    .toLocaleLowerCase()
+    .replace(/["'“”‘’]/g, '')
+    .replace(/[^\p{L}\p{N}]+/gu, ' ')
+    .trim();
+
+const genericModusOperandiLabels = new Set([
+  'default',
+  'default route',
+  'hoofdroute',
+  'main route',
+  'openbaar barrièremodel',
+  'primary route',
+  'regular route',
+  'route',
+  'standard route',
+  'variant',
+]);
+
 const optionalStringArray = (value: unknown, path: string): void => {
   if (value === undefined) return;
   array(value, path).forEach((item, index) => string(item, `${path}[${index}]`));
@@ -135,7 +156,7 @@ export const validateCandidate = (value: unknown): CandidateFile => {
     onlyKeys(stage, ['key', 'existingId', 'label', 'description', 'core', 'variants'], path);
     string(stage.key, `${path}.key`);
     if (stage.existingId !== undefined) string(stage.existingId, `${path}.existingId`);
-    string(stage.label, `${path}.label`);
+    const stageLabel = string(stage.label, `${path}.label`);
     string(stage.description, `${path}.description`);
     if (stage.core !== undefined && typeof stage.core !== 'boolean') {
       throw new GeneratorError('invalid-field', `${path}.core must be a boolean.`, `${path}.core`);
@@ -153,7 +174,17 @@ export const validateCandidate = (value: unknown): CandidateFile => {
       ], variantPath);
       string(variant.key, `${variantPath}.key`);
       if (variant.existingId !== undefined) string(variant.existingId, `${variantPath}.existingId`);
-      string(variant.label, `${variantPath}.label`);
+      const variantLabel = string(variant.label, `${variantPath}.label`);
+      if (
+        genericModusOperandiLabels.has(normalizedLabel(variantLabel)) ||
+        normalizedLabel(variantLabel) === normalizedLabel(stageLabel)
+      ) {
+        throw new GeneratorError(
+          'invalid-field',
+          `${variantPath}.label must describe the modus operandi instead of using a generic or repeated stage label.`,
+          `${variantPath}.label`
+        );
+      }
       if (variant.description !== undefined) string(variant.description, `${variantPath}.description`, true);
       optionalStringArray(variant.locationKeys, `${variantPath}.locationKeys`);
       const activities = array(variant.activities, `${variantPath}.activities`);
@@ -166,6 +197,15 @@ export const validateCandidate = (value: unknown): CandidateFile => {
       }
       activities
         .forEach((item, index) => validateActivity(item, `${variantPath}.activities[${index}]`));
+      const firstActivity = object(activities[0], `${variantPath}.activities[0]`);
+      const firstActivityLabel = string(firstActivity.event, `${variantPath}.activities[0].event`);
+      if (normalizedLabel(variantLabel) === normalizedLabel(firstActivityLabel)) {
+        throw new GeneratorError(
+          'invalid-field',
+          `${variantPath}.label must describe the modus operandi instead of repeating the first activity label.`,
+          `${variantPath}.label`
+        );
+      }
       if (variant.indicators !== undefined) array(variant.indicators, `${variantPath}.indicators`)
         .forEach((item, index) => validateIndicator(item, `${variantPath}.indicators[${index}]`));
       if (variant.measures !== undefined) array(variant.measures, `${variantPath}.measures`)

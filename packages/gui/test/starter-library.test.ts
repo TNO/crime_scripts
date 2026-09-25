@@ -214,6 +214,8 @@ test('Dutch starter scripts meet source, provenance, scene, and editorial requir
       assert.ok(scene.variants.length >= 1);
       scene.variants.forEach((act) => {
         assert.match(act.id, /^nl-starter:script:[a-z0-9-]+:scene:[a-z0-9-]+:variant:[a-z0-9-]+$/);
+        assert.doesNotMatch(act.label, /^(?:hoofdroute|openbaar barrièremodel)$/i);
+        assert.notEqual(normalizeComparableText(act.label), normalizeComparableText(scene.label));
         assert.ok(act.activities.length >= 3 && act.activities.length <= 4);
         assert.equal(new Set(act.activities.map(({ label }) => label)).size, act.activities.length);
         assert.notEqual(act.activities[0].label, scene.label);

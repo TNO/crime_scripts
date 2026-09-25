@@ -81,6 +81,8 @@ test('prompt includes the brief, verbatim URLs, injection boundary, schema and o
   assert.match(prompt, /never invent citations/i);
   assert.match(prompt, /every activity a specific description/i);
   assert.match(prompt, /never repeat or quote the activity label/i);
+  assert.match(prompt, /modus operandi/i);
+  assert.match(prompt, /never use generic labels such as.*main route/i);
   assert.match(prompt, /name the responsible professional or partner/i);
   assert.match(prompt, /do not replace that explanation with generic instructions/i);
   assert.match(prompt, /schemaVersion.*crimeScripts.*geoLocations/s);
@@ -251,6 +253,35 @@ test('generated activity descriptions add context without repeating their label'
     () => prepareGeneratedScriptImport(JSON.stringify(repeated), 'en'),
     (error) => error instanceof GeneratedScriptValidationError &&
       error.path === '$.crimeScripts[0].stages[0].variants[0].activities[0].description' &&
+      error.code === 'invalidValue'
+  );
+});
+
+test('generated modus-operandi labels describe the route instead of repeating the scene', () => {
+  const generic = validGeneratedModel();
+  generic.crimeScripts[0].stages[0].variants[0].label = '“Main route.”';
+  assert.throws(
+    () => prepareGeneratedScriptImport(JSON.stringify(generic), 'en'),
+    (error) => error instanceof GeneratedScriptValidationError &&
+      error.path === '$.crimeScripts[0].stages[0].variants[0].label' &&
+      error.code === 'invalidValue'
+  );
+
+  const repeatedScene = validGeneratedModel();
+  repeatedScene.crimeScripts[0].stages[0].variants[0].label = 'Initial contact';
+  assert.throws(
+    () => prepareGeneratedScriptImport(JSON.stringify(repeatedScene), 'en'),
+    (error) => error instanceof GeneratedScriptValidationError &&
+      error.path === '$.crimeScripts[0].stages[0].variants[0].label' &&
+      error.code === 'invalidValue'
+  );
+
+  const repeatedActivity = validGeneratedModel();
+  repeatedActivity.crimeScripts[0].stages[0].variants[0].label = 'Contact is made';
+  assert.throws(
+    () => prepareGeneratedScriptImport(JSON.stringify(repeatedActivity), 'en'),
+    (error) => error instanceof GeneratedScriptValidationError &&
+      error.path === '$.crimeScripts[0].stages[0].variants[0].label' &&
       error.code === 'invalidValue'
   );
 });
