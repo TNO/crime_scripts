@@ -390,7 +390,6 @@ ${measuresToHtml(measures, lookupPartner, findCrimeMeasure)}`
             m('.script-viewer-outline-heading', [
               m('h5', t('SCENES')),
               tracks.length > 0 && m('label.viewer-track-selector', [
-                m('span.viewer-track-label', t('TRACK')),
                 m('select.browser-default', {
                   'aria-label': t('TRACK'),
                   value: curTrackId || '',
@@ -404,11 +403,15 @@ ${measuresToHtml(measures, lookupPartner, findCrimeMeasure)}`
                     update({ curActId: selectedScene && selectedSceneVariant(selectedScene)?.id });
                   },
                 }, [
-                  !curTrackId && m('option[value=][disabled]', t('CUSTOM_COMBINATION')),
+                  !curTrackId && m('option[value=][disabled]', [
+                    t('TRACK'),
+                    ': ',
+                    t('CUSTOM_COMBINATION'),
+                  ]),
                   tracks.map((track) => m('option', {
                     key: track.id,
                     value: track.id,
-                  }, track.label)),
+                  }, [t('TRACK'), ': ', track.label])),
                 ]),
               ]),
             ]),
@@ -440,9 +443,9 @@ ${measuresToHtml(measures, lookupPartner, findCrimeMeasure)}`
                           details.variantCount > 1 && ' · ',
                           details.variantCount > 1 &&
                             t('MODUS_OPERANDI_COUNT', { count: details.variantCount }),
+                          details.variantCount > 1 && details.selectedVariantLabel && ' · ',
+                          details.variantCount > 1 && details.selectedVariantLabel,
                         ]),
-                        scene.variants.length > 1 &&
-                          m('small.scene-outline-variant', details.selectedVariantLabel),
                       ]),
                     ]
                   ),

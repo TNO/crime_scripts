@@ -1634,21 +1634,12 @@ ul.kanban>li {
   display: flex;
   min-width: 0;
   gap: 0.5rem;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-between;
 }
 
 .viewer-track-selector {
-  display: flex;
   min-width: 0;
-  align-items: center;
-  gap: 0.35rem;
-}
-
-.viewer-track-label {
-  color: color-mix(in srgb, var(--mm-text-primary, currentColor) 68%, transparent);
-  font-size: 0.75rem;
-  font-weight: 600;
 }
 
 .viewer-track-selector select.browser-default {
@@ -2078,15 +2069,6 @@ ul.kanban>li {
   display: block;
   margin-top: 0.15rem;
   color: color-mix(in srgb, currentColor 68%, transparent);
-}
-
-.scene-outline-main .scene-outline-variant {
-  width: fit-content;
-  max-width: 100%;
-  padding: 0.1rem 0.45rem;
-  border-radius: 999px;
-  background: color-mix(in srgb, currentColor 9%, transparent);
-  font-weight: 600;
 }
 
 .scene-outline-number {
