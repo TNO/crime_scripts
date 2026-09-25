@@ -1530,6 +1530,61 @@ ul.kanban>li {
   grid-template-columns: minmax(16rem, 22rem) minmax(0, 1fr);
 }
 
+.script-viewer-summary {
+  margin: 0.75rem 0;
+  border-block: 1px solid color-mix(in srgb, var(--mm-text-primary, currentColor) 16%, transparent);
+}
+
+.script-viewer-summary summary {
+  display: flex;
+  min-height: 3rem;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.65rem 0;
+  cursor: pointer;
+  list-style: none;
+}
+
+.script-viewer-summary summary::-webkit-details-marker {
+  display: none;
+}
+
+.script-viewer-summary summary > span:first-child {
+  font-weight: 600;
+}
+
+.script-viewer-summary summary small {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-wrap: wrap;
+  gap: 0.2rem 0.75rem;
+  color: color-mix(in srgb, var(--mm-text-primary, currentColor) 70%, transparent);
+}
+
+.script-viewer-summary summary::after {
+  flex: 0 0 auto;
+  content: 'expand_more';
+  font-family: 'Material Icons';
+  font-size: 1.4rem;
+}
+
+.script-viewer-summary[open] summary::after {
+  content: 'expand_less';
+}
+
+.script-viewer-summary-grid {
+  display: grid;
+  gap: 1rem;
+  padding: 0.5rem 0 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+}
+
+.script-viewer-summary-grid h5 {
+  margin: 0 0 0.4rem;
+  font-size: 1rem;
+}
+
 .script-editor-outline {
   padding: 1rem;
   border-right: 1px solid color-mix(in srgb, var(--mm-text-primary, currentColor) 16%, transparent);
@@ -1547,6 +1602,38 @@ ul.kanban>li {
   font-size: 1.2rem;
 }
 
+.viewer-track-selector,
+.track-editor {
+  margin: 0.75rem 0 1rem;
+}
+
+.viewer-track-selector .input-field,
+.track-editor .input-field {
+  margin-block: 0;
+}
+
+.viewer-track-description,
+.track-editor-description {
+  margin-top: 0.5rem;
+  color: color-mix(in srgb, var(--mm-text-primary, currentColor) 76%, transparent);
+  font-size: 0.9rem;
+}
+
+.track-editor {
+  padding-bottom: 1rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--mm-text-primary, currentColor) 14%, transparent);
+}
+
+.track-editor-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.track-editor-actions button {
+  min-height: 2.25rem;
+}
+
 .script-viewer-scene {
   min-width: 0;
   padding: 1.5rem clamp(1rem, 3vw, 2.5rem);
@@ -1560,13 +1647,200 @@ ul.kanban>li {
   max-width: 70ch;
 }
 
-.viewer-variant-selector {
-  max-width: 32rem;
+.viewer-act-title {
+  margin: 1.25rem 0 0.5rem;
+}
+
+.viewer-act-heading {
+  margin-top: 1.25rem;
+}
+
+.viewer-variant-switcher {
+  display: grid;
+  gap: 0.55rem;
+  margin-top: 1.25rem;
+}
+
+.viewer-variant-card {
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--mm-primary-color) 25%, transparent);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--mm-primary-color) 7%, var(--mm-surface, transparent));
+}
+
+.viewer-variant-card.active {
+  border-color: color-mix(in srgb, var(--mm-primary-color) 58%, transparent);
+  background: color-mix(in srgb, var(--mm-primary-color) 11%, var(--mm-surface, transparent));
+}
+
+.viewer-variant-trigger {
+  display: grid;
+  width: 100%;
+  min-height: 3.25rem;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 600;
+  text-align: left;
+}
+
+.viewer-variant-trigger > span {
+  overflow-wrap: anywhere;
+}
+
+.viewer-variant-trigger small {
+  color: color-mix(in srgb, currentColor 68%, transparent);
+  font-weight: 500;
+}
+
+.viewer-variant-trigger:focus-visible,
+.editor-variant-button:focus-visible,
+.activity-role-pill:focus-visible {
+  outline: 2px solid var(--mm-primary-color);
+  outline-offset: -2px;
+}
+
+.viewer-variant-panel {
+  padding: 0 1rem 1rem;
+  border-top: 1px solid color-mix(in srgb, var(--mm-primary-color) 20%, transparent);
+}
+
+.variant-location-pills,
+.activity-role-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.variant-location-pills {
+  margin-top: 0.8rem;
+}
+
+.variant-location-pill,
+.activity-role-pill {
+  display: inline-flex;
+  min-height: 1.75rem;
+  align-items: center;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  line-height: 1.2;
+}
+
+.variant-location-pill {
+  gap: 0.25rem;
+  padding: 0.25rem 0.65rem;
+  border: 1px solid color-mix(in srgb, var(--mm-primary-color) 32%, transparent);
+  background: color-mix(in srgb, var(--mm-primary-color) 8%, transparent);
+}
+
+.variant-location-pill .material-icons {
+  font-size: 1rem;
+}
+
+.script-activity-list {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.script-activity-list.nested {
+  margin: 0.45rem 0 0 2rem;
+}
+
+.script-activity-row {
+  transition: opacity 160ms ease-out;
+}
+
+.script-activity-row.role-muted {
+  opacity: 0.38;
+}
+
+.script-activity-row {
+  display: grid;
+  grid-template-columns: 1.7rem minmax(0, 1fr);
+  gap: 0.5rem;
+  align-items: start;
+  padding: 0.65rem 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--mm-text-primary, currentColor) 12%, transparent);
+}
+
+.script-activity-number {
+  padding-top: 0.05rem;
+  color: color-mix(in srgb, var(--mm-primary-color) 78%, currentColor);
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}
+
+.activity-role-pills {
+  margin-top: 0.5rem;
+}
+
+.activity-role-pill {
+  padding: 0.25rem 0.65rem;
+  border: 1px solid color-mix(in srgb, #a4512f 42%, transparent);
+  background: color-mix(in srgb, #a4512f 12%, transparent);
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+}
+
+.activity-role-pill:hover,
+.activity-role-pill.active {
+  border-color: #8f4529;
+  background: #8f4529;
+  color: #fff;
+}
+
+.activity-role-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  padding: 0.65rem 0.8rem;
+  border-radius: 10px;
+  background: color-mix(in srgb, #a4512f 10%, transparent);
+}
+
+.editor-variant-switcher {
+  display: grid;
+  gap: 0.4rem;
   margin: 1rem 0 1.5rem;
 }
 
-.viewer-act-title {
-  margin-top: 1.5rem;
+.editor-variant-button {
+  display: flex;
+  min-height: 2.75rem;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid color-mix(in srgb, var(--mm-primary-color) 24%, transparent);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--mm-primary-color) 6%, transparent);
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+}
+
+.editor-variant-button.active {
+  border-color: color-mix(in srgb, var(--mm-primary-color) 58%, transparent);
+  background: var(--pax-process-active);
+  color: var(--pax-process-active-text);
+}
+
+.editor-variant-button small {
+  color: color-mix(in srgb, currentColor 68%, transparent);
 }
 
 .script-editor-inspector {
@@ -1811,7 +2085,6 @@ ul.kanban>li {
 }
 
 .outline-add-actions,
-.act-selector-actions,
 .outline-markdown-actions {
   display: flex;
   flex-wrap: wrap;
@@ -1911,12 +2184,6 @@ ul.kanban>li {
   margin-bottom: 0.25rem;
   color: color-mix(in srgb, var(--mm-text-primary, currentColor) 66%, transparent);
   font-size: 0.85rem;
-}
-
-.act-selector {
-  margin: 1rem 0 1.5rem;
-  padding-block: 1rem;
-  border-block: 1px solid color-mix(in srgb, var(--mm-text-primary, currentColor) 14%, transparent);
 }
 
 .script-editor-empty {
