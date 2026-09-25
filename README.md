@@ -2,6 +2,11 @@
 
 A web application to create crime scripts.
 
+## Documentation
+
+- [Nederlandse gebruikershandleiding en video](documentation/handleiding.nl.md)
+- [Crime Script Generator CLI](packages/script-generator/README.md)
+
 ## Installation
 
 The application is a mono-repository, developed in TypeScript. It typically consists of the following packages:

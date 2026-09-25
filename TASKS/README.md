@@ -21,7 +21,7 @@ This does not block the starter-library release but follows it in the current im
 - [x] 0007 Add LLM-assisted script wizard *(needs 0003)*
 - [x] 0009 Build agent crime-script generator *(needs 0007, 0008)*
 - [x] 0010 Simplify script navigation *(needs 0001, 0002)*
-- [ ] 0014 Create user guide and video
+- [x] 0014 Create user guide and video
 - [ ] 0015 Document restricted Witwassen CLI workflow *(needs 0009)*
 
 ## Reporting and visualisation

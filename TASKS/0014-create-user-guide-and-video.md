@@ -1,9 +1,11 @@
 # 0014 Create user guide and video
 
-Status: open
+Status: done
 Priority: medium
 Subsystem: documentation
 Depends on: none
+Owner: Erik Vullings
+Agent: GitHub Copilot
 
 ## Context
 
@@ -41,3 +43,10 @@ than screenshots or instructions from an older layout.
 
 - 2026-09-25 GitHub Copilot: Created from the request for a usage, editing, and
   LLM-wizard manual with matching video material.
+- 2026-09-25 GitHub Copilot: Started implementation with deterministic Dutch
+  starter content and browser-captured media from the current interface.
+- 2026-09-25 GitHub Copilot: Added `documentation/handleiding.nl.md` covering
+  public/restricted usage, viewing, editing, import/export, and all four LLM
+  wizard steps. Captured five current-interface PNGs, generated a 15-second
+  VP9 WebM, documented the reproducible media workflow, and linked the guide
+  from the repository README. All media uses public starter or synthetic data.
