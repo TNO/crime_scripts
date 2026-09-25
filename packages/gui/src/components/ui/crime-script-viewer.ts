@@ -279,6 +279,20 @@ ${measuresToHtml(measures, lookupPartner, findCrimeMeasure)}`
       const selectedActContent = curAct
         ? visualizeAct(curAct, cast, attributes, transports, highlighter, mdHighlighter)
         : undefined;
+      const selectVariant = (variantId: ID) => {
+        if (!curScene || variantId === curAct?.id) return;
+        curScene.selectedVariantId = variantId;
+        curTrackId = findMatchingTrack(tracks, sceneVariantSelection(scenes))?.id;
+        activeRoleId = undefined;
+        update({ curActId: variantId });
+      };
+      const variantOptions = curScene?.variants.map((variant) => {
+        const activityCount = t('ACTIVITY_COUNT', { count: variant.activities.length });
+        return {
+          id: variant.id,
+          label: `${variant.label} · ${Array.isArray(activityCount) ? activityCount.join('') : activityCount}`,
+        };
+      });
 
       const toLi = (ids: Set<string>, labels: Labelled[]) =>
         Array.from(ids).map((id) =>
@@ -436,32 +450,36 @@ ${measuresToHtml(measures, lookupPartner, findCrimeMeasure)}`
               curScene.variants.length > 1
                 ? m('.viewer-variant-switcher', { 'aria-label': t('ACTS') },
                   [
-                    m('.viewer-variant-options[role=group]', { 'aria-label': t('ACTS') },
-                      curScene.variants.map((variant) => {
-                        const active = variant.id === curAct?.id;
-                        const triggerId = `${curScene.id}-${variant.id}-trigger`;
-                        return m('button.viewer-variant-trigger[type=button]', {
-                          key: variant.id,
-                          id: triggerId,
-                          class: active ? 'active' : '',
-                          'aria-pressed': active ? 'true' : 'false',
-                          'aria-controls': `${curScene.id}-variant-panel`,
-                          onclick: () => {
-                            if (active) return;
-                            curScene.selectedVariantId = variant.id;
-                            curTrackId = findMatchingTrack(tracks, sceneVariantSelection(scenes))?.id;
-                            activeRoleId = undefined;
-                            update({ curActId: variant.id });
-                          },
-                        }, [
-                          m('span', highlighter(variant.label)),
-                          m('small', t('ACTIVITY_COUNT', { count: variant.activities.length })),
-                        ]);
-                      })
-                    ),
+                    curScene.variants.length <= 3
+                      ? m('.viewer-variant-options[role=group]', { 'aria-label': t('ACTS') },
+                        curScene.variants.map((variant) => {
+                          const active = variant.id === curAct?.id;
+                          const triggerId = `${curScene.id}-${variant.id}-trigger`;
+                          return m('button.viewer-variant-trigger[type=button]', {
+                            key: variant.id,
+                            id: triggerId,
+                            class: active ? 'active' : '',
+                            'aria-pressed': active ? 'true' : 'false',
+                            'aria-controls': `${curScene.id}-variant-panel`,
+                            onclick: () => selectVariant(variant.id),
+                          }, [
+                            m('span', highlighter(variant.label)),
+                            m('small', t('ACTIVITY_COUNT', { count: variant.activities.length })),
+                          ]);
+                        })
+                      )
+                      : m('.viewer-variant-select', m(Select<string>, {
+                        label: t('ACTS'),
+                        options: variantOptions,
+                        checkedId: curAct?.id || '',
+                        onchange: ([variantId]) => variantId && selectVariant(variantId),
+                      })),
                     curAct && m('.viewer-variant-panel', {
                       id: `${curScene.id}-variant-panel`,
-                      'aria-labelledby': `${curScene.id}-${curAct.id}-trigger`,
+                      'aria-labelledby': curScene.variants.length <= 3
+                        ? `${curScene.id}-${curAct.id}-trigger`
+                        : undefined,
+                      'aria-label': curScene.variants.length > 3 ? curAct.label : undefined,
                     }, [
                       renderLocations(curAct.locationIds, locations),
                       selectedActContent,

@@ -1577,6 +1577,7 @@ ul.kanban>li {
 
 .script-viewer-summary summary::after {
   flex: 0 0 auto;
+  margin-left: auto;
   content: 'expand_more';
   font-family: 'Material Icons';
   font-size: 1.4rem;
@@ -1675,17 +1676,17 @@ ul.kanban>li {
 .viewer-variant-options {
   display: grid;
   gap: 0.55rem;
-  grid-template-columns: repeat(auto-fit, minmax(min(13rem, 100%), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(10rem, 100%), 1fr));
 }
 
 .viewer-variant-trigger {
-  display: grid;
+  display: flex;
   width: 100%;
-  min-height: 3.25rem;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 0.75rem;
-  align-items: center;
-  padding: 0.75rem 1rem;
+  min-height: 3rem;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.55rem 0.75rem;
   border: 1px solid color-mix(in srgb, var(--mm-primary-color) 28%, transparent);
   border-radius: 10px;
   background: color-mix(in srgb, var(--mm-primary-color) 6%, var(--mm-surface, transparent));
@@ -1713,6 +1714,14 @@ ul.kanban>li {
 .viewer-variant-trigger small {
   color: color-mix(in srgb, currentColor 68%, transparent);
   font-weight: 500;
+}
+
+.viewer-variant-select {
+  max-width: 30rem;
+}
+
+.viewer-variant-select .input-field {
+  margin-block: 0;
 }
 
 .viewer-variant-trigger:focus-visible,
