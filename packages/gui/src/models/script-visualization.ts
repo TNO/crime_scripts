@@ -3,10 +3,14 @@ import type { Activity, Cast, ID, Scene, Track } from './data-model';
 export const selectedSceneVariant = (scene: Scene) =>
   scene.variants.find(({ id }) => id === scene.selectedVariantId) || scene.variants[0];
 
-export const sceneOutlineDetails = (scene: Scene) => ({
-  activityCount: selectedSceneVariant(scene)?.activities.length || 0,
-  variantCount: scene.variants.length,
-});
+export const sceneOutlineDetails = (scene: Scene) => {
+  const selectedVariant = selectedSceneVariant(scene);
+  return {
+    activityCount: selectedVariant?.activities.length || 0,
+    selectedVariantLabel: selectedVariant?.label,
+    variantCount: scene.variants.length,
+  };
+};
 
 export const resolveActivityRoles = (activity: Activity, cast: Cast[]) => {
   const castById = new Map(cast.map((role) => [role.id, role]));

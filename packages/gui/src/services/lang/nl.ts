@@ -91,6 +91,7 @@ export const messagesNL: typeof messages = {
   TRACKS: 'Tracks',
   TRACK: 'Track',
   NO_TRACK: '-- geen track --',
+  CUSTOM_COMBINATION: 'Aangepaste combinatie',
   ADD_TRACK: 'Track toevoegen',
   EDIT_TRACK: 'Track bewerken',
   DEL_TRACK: 'Track verwijderen',

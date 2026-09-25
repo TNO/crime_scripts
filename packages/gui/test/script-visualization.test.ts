@@ -47,6 +47,7 @@ const scene = (selectedVariantId = 'email'): Scene => ({
 test('scene outline details describe the selected modus operandi', () => {
   assert.deepEqual(sceneOutlineDetails(scene()), {
     activityCount: 2,
+    selectedVariantLabel: 'E-mailroute',
     variantCount: 2,
   });
 });
@@ -91,6 +92,7 @@ test('track selection updates scene variants and can be matched again', () => {
   applyTrackSelection(scenes, tracks[0]);
 
   assert.deepEqual(sceneVariantSelection(scenes), { contact: 'sms' });
+  assert.equal(sceneOutlineDetails(scenes[0]).selectedVariantLabel, 'Sms-route');
   assert.equal(findMatchingTrack(tracks, sceneVariantSelection(scenes))?.id, 'sms-track');
 });
 

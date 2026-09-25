@@ -94,6 +94,7 @@ export const messages = {
   TRACKS: 'Tracks',
   TRACK: 'Track',
   NO_TRACK: '-- no track --',
+  CUSTOM_COMBINATION: 'Custom combination',
   ADD_TRACK: 'Add track',
   EDIT_TRACK: 'Edit track',
   DEL_TRACK: 'Remove track',

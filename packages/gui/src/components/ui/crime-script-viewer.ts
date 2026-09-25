@@ -132,10 +132,12 @@ export const CrimeScriptViewer: FactoryComponent<{
       indicators = [],
       conditions = [],
       measures = [],
+      locationIds = [],
     } = {} as Act,
     cast: Cast[],
     attributes: CrimeScriptAttributes[],
     transports: Transport[],
+    locations: CrimeLocation[],
     highlighter: (text?: string) => m.Children,
     mdHighlighter: (text?: string) => string
   ) => {
@@ -186,7 +188,10 @@ ${measuresToHtml(measures, lookupPartner, findCrimeMeasure)}`
         : ''
       }`;
     return [
-      description && m('.activity-group-context', highlighter(description)),
+      (description || locationIds.length > 0) && m('.activity-group-context', [
+        description && m('span.activity-group-context-copy', highlighter(description)),
+        renderLocations(locationIds, locations),
+      ]),
       activities.length > 0 && [
         m('h5', t('STEPS')),
         renderActivities(activities, cast, highlighter),
@@ -277,7 +282,7 @@ ${measuresToHtml(measures, lookupPartner, findCrimeMeasure)}`
       const referenceCount = literature?.length || 0;
       const hasReferences = referenceCount > 0;
       const selectedActContent = curAct
-        ? visualizeAct(curAct, cast, attributes, transports, highlighter, mdHighlighter)
+        ? visualizeAct(curAct, cast, attributes, transports, locations, highlighter, mdHighlighter)
         : undefined;
       const selectVariant = (variantId: ID) => {
         if (!curScene || variantId === curAct?.id) return;
@@ -382,29 +387,38 @@ ${measuresToHtml(measures, lookupPartner, findCrimeMeasure)}`
 
         scenes.length > 0 && m('.script-viewer-workspace', [
           m('aside.script-viewer-outline[aria-label]', { 'aria-label': t('SCENES') }, [
-            m('h5', t('SCENES')),
-            tracks.length > 0 && m('.viewer-track-selector', [
-              m(Select<string>, {
-                label: t('TRACK'),
-                placeholder: t('NO_TRACK'),
-                options: tracks,
-                checkedId: curTrackId || '',
-                onchange: ([trackId]) => {
-                  curTrackId = trackId || undefined;
-                  const track = tracks.find(({ id }) => id === trackId);
-                  if (track) applyTrackSelection(scenes, track);
-                  activeRoleId = undefined;
-                  const selectedScene = scenes.find(({ id }) => id === curScene?.id) || scenes[0];
-                  update({ curActId: selectedScene && selectedSceneVariant(selectedScene)?.id });
-                },
-              }),
-              curTrack?.description &&
-                m(SlimdownView, { className: 'viewer-track-description', md: curTrack.description }),
+            m('.script-viewer-outline-heading', [
+              m('h5', t('SCENES')),
+              tracks.length > 0 && m('label.viewer-track-selector', [
+                m('span.viewer-track-label', t('TRACK')),
+                m('select.browser-default', {
+                  'aria-label': t('TRACK'),
+                  value: curTrackId || '',
+                  onchange: (event: Event) => {
+                    const trackId = (event.currentTarget as HTMLSelectElement).value;
+                    curTrackId = trackId || undefined;
+                    const track = tracks.find(({ id }) => id === trackId);
+                    if (track) applyTrackSelection(scenes, track);
+                    activeRoleId = undefined;
+                    const selectedScene = scenes.find(({ id }) => id === curScene?.id) || scenes[0];
+                    update({ curActId: selectedScene && selectedSceneVariant(selectedScene)?.id });
+                  },
+                }, [
+                  !curTrackId && m('option[value=][disabled]', t('CUSTOM_COMBINATION')),
+                  tracks.map((track) => m('option', {
+                    key: track.id,
+                    value: track.id,
+                  }, track.label)),
+                ]),
+              ]),
             ]),
+            curTrack?.description &&
+              m(SlimdownView, { className: 'viewer-track-description', md: curTrack.description }),
             m(
               'ol.scene-outline-list',
-              scenes.map((scene, index) =>
-                m('li.scene-outline-row', { class: curScene?.id === scene.id ? 'active' : '' }, [
+              scenes.map((scene, index) => {
+                const details = sceneOutlineDetails(scene);
+                return m('li.scene-outline-row', { class: curScene?.id === scene.id ? 'active' : '' }, [
                   m(
                     'button.scene-outline-main[type=button]',
                     {
@@ -421,20 +435,19 @@ ${measuresToHtml(measures, lookupPartner, findCrimeMeasure)}`
                       m('span.scene-outline-number', String(index + 1)),
                       m('span', [
                         m('strong', scene.label || '…'),
-                        m('small', (() => {
-                          const details = sceneOutlineDetails(scene);
-                          return [
-                            t('ACTIVITY_COUNT', { count: details.activityCount }),
-                            details.variantCount > 1 && ' · ',
-                            details.variantCount > 1 &&
-                              t('MODUS_OPERANDI_COUNT', { count: details.variantCount }),
-                          ];
-                        })()),
+                        m('small', [
+                          t('ACTIVITY_COUNT', { count: details.activityCount }),
+                          details.variantCount > 1 && ' · ',
+                          details.variantCount > 1 &&
+                            t('MODUS_OPERANDI_COUNT', { count: details.variantCount }),
+                        ]),
+                        scene.variants.length > 1 &&
+                          m('small.scene-outline-variant', details.selectedVariantLabel),
                       ]),
                     ]
                   ),
-                ])
-              )
+                ]);
+              })
             ),
           ]),
           m('main.script-viewer-scene', [
@@ -447,52 +460,48 @@ ${measuresToHtml(measures, lookupPartner, findCrimeMeasure)}`
                 curScene.description &&
                   m(SlimdownView, { md: curScene.description, removeParagraphs: true }),
               ]),
-              curScene.variants.length > 1
-                ? m('.viewer-variant-switcher', { 'aria-label': t('ACTS') },
-                  [
-                    curScene.variants.length <= 3
-                      ? m('.viewer-variant-options[role=group]', { 'aria-label': t('ACTS') },
-                        curScene.variants.map((variant) => {
-                          const active = variant.id === curAct?.id;
-                          const triggerId = `${curScene.id}-${variant.id}-trigger`;
-                          return m('button.viewer-variant-trigger[type=button]', {
-                            key: variant.id,
-                            id: triggerId,
-                            class: active ? 'active' : '',
-                            'aria-pressed': active ? 'true' : 'false',
-                            'aria-controls': `${curScene.id}-variant-panel`,
-                            onclick: () => selectVariant(variant.id),
-                          }, [
-                            m('span', highlighter(variant.label)),
-                            m('small', t('ACTIVITY_COUNT', { count: variant.activities.length })),
-                          ]);
-                        })
-                      )
-                      : m('.viewer-variant-select', m(Select<string>, {
-                        label: t('ACTS'),
-                        options: variantOptions,
-                        checkedId: curAct?.id || '',
-                        onchange: ([variantId]) => variantId && selectVariant(variantId),
-                      })),
-                    curAct && m('.viewer-variant-panel', {
-                      id: `${curScene.id}-variant-panel`,
-                      'aria-labelledby': curScene.variants.length <= 3
-                        ? `${curScene.id}-${curAct.id}-trigger`
-                        : undefined,
-                      'aria-label': curScene.variants.length > 3 ? curAct.label : undefined,
-                    }, [
-                      renderLocations(curAct.locationIds, locations),
-                      selectedActContent,
-                    ]),
-                  ]
-                )
-                : curAct && [
-                  m('.viewer-act-heading', [
-                    m('h5.viewer-act-title', highlighter(curAct.label)),
-                    renderLocations(curAct.locationIds, locations),
-                  ]),
-                  selectedActContent,
-                ],
+              curAct && m('.viewer-variant-switcher', { 'aria-label': t('ACTS') }, [
+                curScene.variants.length === 1
+                  ? m('.viewer-variant-static', {
+                    id: `${curScene.id}-${curAct.id}-label`,
+                  }, [
+                    m('span', highlighter(curAct.label)),
+                    m('small', t('ACTIVITY_COUNT', { count: curAct.activities.length })),
+                  ])
+                  : curScene.variants.length <= 3
+                    ? m('.viewer-variant-options[role=group]', { 'aria-label': t('ACTS') },
+                      curScene.variants.map((variant) => {
+                        const active = variant.id === curAct.id;
+                        const triggerId = `${curScene.id}-${variant.id}-trigger`;
+                        return m('button.viewer-variant-trigger[type=button]', {
+                          key: variant.id,
+                          id: triggerId,
+                          class: active ? 'active' : '',
+                          'aria-pressed': active ? 'true' : 'false',
+                          'aria-controls': `${curScene.id}-variant-panel`,
+                          onclick: () => selectVariant(variant.id),
+                        }, [
+                          m('span', highlighter(variant.label)),
+                          m('small', t('ACTIVITY_COUNT', { count: variant.activities.length })),
+                        ]);
+                      })
+                    )
+                    : m('.viewer-variant-select', m(Select<string>, {
+                      label: t('ACTS'),
+                      options: variantOptions,
+                      checkedId: curAct.id,
+                      onchange: ([variantId]) => variantId && selectVariant(variantId),
+                    })),
+                m('.viewer-variant-panel', {
+                  id: `${curScene.id}-variant-panel`,
+                  'aria-labelledby': curScene.variants.length === 1
+                    ? `${curScene.id}-${curAct.id}-label`
+                    : curScene.variants.length <= 3
+                      ? `${curScene.id}-${curAct.id}-trigger`
+                      : undefined,
+                  'aria-label': curScene.variants.length > 3 ? curAct.label : undefined,
+                }, selectedActContent),
+              ]),
             ],
           ]),
         ]),
