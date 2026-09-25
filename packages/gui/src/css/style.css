@@ -1447,6 +1447,7 @@ ul.kanban>li {
 }
 
 .script-editor-metadata {
+  display: flow-root;
   margin: 0.75rem 0 1.5rem;
   border-block: 1px solid color-mix(in srgb, var(--mm-text-primary, currentColor) 16%, transparent);
 }
