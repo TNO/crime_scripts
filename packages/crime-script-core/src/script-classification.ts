@@ -21,6 +21,38 @@ export const scriptsForMode = (scripts: CrimeScript[], mode: ScriptMode): CrimeS
   return Array.from(byFamily.values());
 };
 
+export const sanitizeRelatedScriptReferences = (scripts: CrimeScript[]): CrimeScript[] => {
+  const scriptsById = new Map(scripts.map((script) => [script.id, script]));
+  return scripts.map((script) => ({
+    ...script,
+    stages: script.stages.map((scene) => ({
+      ...scene,
+      variants: scene.variants.map((act) => ({
+        ...act,
+        activities: act.activities.map((activity) => ({
+          ...activity,
+          relatedScriptIds: Array.isArray(activity.relatedScriptIds)
+            ? Array.from(new Set(
+              activity.relatedScriptIds.filter((id) => {
+                const target = scriptsById.get(id);
+                return target !== undefined && target.scriptFamilyId !== script.scriptFamilyId;
+              })
+            ))
+            : undefined,
+        })),
+      })),
+    })),
+  }));
+};
+
+export const withoutCrimeScript = (model: DataModel, scriptId: ID): DataModel => {
+  const copy = structuredClone(model);
+  copy.crimeScripts = sanitizeRelatedScriptReferences(
+    copy.crimeScripts.filter(({ id }) => id !== scriptId)
+  );
+  return copy;
+};
+
 export const createScriptForMode = (
   mode: ScriptMode,
   id: ID,
@@ -117,6 +149,11 @@ export const createRestrictedCounterpart = (
       ? remapped.get(scene.selectedVariantId) || scene.selectedVariantId
       : undefined;
     scene.variants.forEach((act) => {
+      act.activities.forEach((item) => {
+        item.relatedScriptIds = item.relatedScriptIds
+          ?.map((id) => remapped.get(id) || id)
+          .filter((id) => id !== copy.id);
+      });
       act.opportunities.forEach((item) => {
         item.parents = item.parents?.map((id) => remapped.get(id) || id);
       });
@@ -163,7 +200,9 @@ const referencedTaxonomyIds = (scripts: CrimeScript[]) => {
 };
 
 export const filterModelForPublicExport = (model: DataModel): DataModel => {
-  const crimeScripts = model.crimeScripts.filter(({ classification }) => classification === 'public');
+  const crimeScripts = sanitizeRelatedScriptReferences(
+    structuredClone(model.crimeScripts.filter(({ classification }) => classification === 'public'))
+  );
   const ids = referencedTaxonomyIds(crimeScripts);
   const include = <T extends { id: ID; parents?: ID[] }>(items: T[], direct: Set<ID>) => {
     const included = new Set(direct);
@@ -183,7 +222,7 @@ export const filterModelForPublicExport = (model: DataModel): DataModel => {
   };
   return {
     ...structuredClone(model),
-    crimeScripts: structuredClone(crimeScripts),
+    crimeScripts,
     cast: include(model.cast, ids.cast),
     attributes: include(model.attributes, ids.attributes),
     locations: include(model.locations, ids.locations),

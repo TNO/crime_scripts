@@ -22,11 +22,13 @@ import {
   Pages,
   type Partner,
   type Product,
+  relatedScriptsForActivity,
   resolveActivityRoles,
   sceneOutlineDetails,
   sceneVariantSelection,
   scriptIcon,
   selectedSceneVariant,
+  type ScriptMode,
   type Transport,
 } from '../../models';
 import { lookupCrimeMeasure } from '../../models/situational-crime-prevention';
@@ -55,6 +57,7 @@ export const CrimeScriptViewer: FactoryComponent<{
   searchFilter?: string;
   update: (patch: Patch<State>) => void;
   model: DataModel;
+  scriptMode: ScriptMode;
 }> = () => {
   const lookupPartner = new Map<ID, Labelled>();
   const findCrimeMeasure = lookupCrimeMeasure();
@@ -64,6 +67,9 @@ export const CrimeScriptViewer: FactoryComponent<{
   const renderActivities = (
     activities: Act['activities'],
     cast: Cast[],
+    crimeScript: CrimeScript,
+    model: DataModel,
+    scriptMode: ScriptMode,
     highlighter: (text?: string) => m.Children
   ) => {
     const outline = buildActivityOutline(activities);
@@ -71,6 +77,12 @@ export const CrimeScriptViewer: FactoryComponent<{
     const activeRole = cast.find(({ id }) => id === activeRoleId);
     const renderActivity = (activity: Activity & { children?: Activity[] }): m.Vnode => {
       const roles = resolveActivityRoles(activity, cast);
+      const relatedScripts = relatedScriptsForActivity(
+        activity,
+        crimeScript,
+        model.crimeScripts,
+        scriptMode
+      );
       const matchesRole = activityMatchesRole(activity, activeRoleId);
       return m('li.script-activity-item', [
         m('.script-activity-row', {
@@ -92,6 +104,19 @@ export const CrimeScriptViewer: FactoryComponent<{
                   },
                 }, role.label)
               )),
+            relatedScripts.length > 0 &&
+              m('.activity-related-scripts', { 'aria-label': t('RELATED_SCRIPTS') }, [
+                m('span.activity-related-scripts-label', `${t('RELATED_SCRIPTS')}:`),
+                relatedScripts.map((script) =>
+                  m('a.activity-related-script', {
+                    key: script.id,
+                    href: routingSvc.href(Pages.CRIME_SCRIPT, `id=${script.id}`),
+                  }, [
+                    m('i.material-icons[aria-hidden=true]', 'account_tree'),
+                    m('span', script.label),
+                  ])
+                ),
+              ]),
           ]),
         ]),
         activity.children && activity.children.length > 0 &&
@@ -122,6 +147,9 @@ export const CrimeScriptViewer: FactoryComponent<{
     cast: Cast[],
     attributes: CrimeScriptAttributes[],
     transports: Transport[],
+    crimeScript: CrimeScript,
+    model: DataModel,
+    scriptMode: ScriptMode,
     highlighter: (text?: string) => m.Children,
     mdHighlighter: (text?: string) => string
   ) => {
@@ -175,7 +203,7 @@ ${measuresToHtml(measures, lookupPartner, findCrimeMeasure)}`
       description && m('.activity-group-context', highlighter(description)),
       activities.length > 0 && [
         m('h5', t('STEPS')),
-        renderActivities(activities, cast, highlighter),
+        renderActivities(activities, cast, crimeScript, model, scriptMode, highlighter),
       ],
       md.trim() && m(SlimdownView, { md: mdHighlighter(md) }),
     ];
@@ -195,6 +223,7 @@ ${measuresToHtml(measures, lookupPartner, findCrimeMeasure)}`
     view: ({
       attrs: {
         model,
+        scriptMode,
         crimeScript,
         cast = [],
         attributes = [],
@@ -263,7 +292,17 @@ ${measuresToHtml(measures, lookupPartner, findCrimeMeasure)}`
       const referenceCount = literature?.length || 0;
       const hasReferences = referenceCount > 0;
       const selectedActContent = curAct
-        ? visualizeAct(curAct, cast, attributes, transports, highlighter, mdHighlighter)
+        ? visualizeAct(
+          curAct,
+          cast,
+          attributes,
+          transports,
+          crimeScript,
+          model,
+          scriptMode,
+          highlighter,
+          mdHighlighter
+        )
         : undefined;
       const selectVariant = (variantId: ID) => {
         if (!curScene || variantId === curAct?.id) return;

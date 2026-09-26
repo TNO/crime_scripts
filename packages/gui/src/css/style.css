@@ -1921,6 +1921,48 @@ ul.kanban>li {
   color: #fff;
 }
 
+.activity-related-scripts {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.55rem;
+}
+
+.activity-related-scripts-label {
+  color: var(--mm-text-secondary, currentColor);
+  font-size: 0.8rem;
+}
+
+.activity-related-script {
+  display: inline-flex;
+  min-height: 1.75rem;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.25rem 0.65rem;
+  border: 1px solid color-mix(in srgb, var(--mm-primary-color) 42%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--mm-primary-color) 10%, transparent);
+  color: var(--mm-primary-color);
+  font-size: 0.82rem;
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+.activity-related-script .material-icons {
+  font-size: 1rem;
+}
+
+.activity-related-script:hover {
+  background: color-mix(in srgb, var(--mm-primary-color) 18%, transparent);
+  text-decoration: underline;
+}
+
+.activity-related-script:focus-visible {
+  outline: 2px solid var(--mm-primary-color);
+  outline-offset: 2px;
+}
+
 .activity-role-filter {
   display: flex;
   flex-wrap: wrap;

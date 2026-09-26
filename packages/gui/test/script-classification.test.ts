@@ -4,6 +4,7 @@ import type { CrimeScript, DataModel } from '../src/models/data-model.ts';
 import { normalizeDataModel } from '../src/models/model-normalization.ts';
 import { mergeDataModels } from '../src/models/model-merge.ts';
 import { importStandaloneScript } from '../src/models/starter-library.ts';
+import { createSingleScriptExportModel } from '../src/models/single-script-export.ts';
 import {
   canShareModel,
   classificationHeader,
@@ -13,6 +14,7 @@ import {
   filterModelForPublicExport,
   hasRestrictedContent,
   scriptsForMode,
+  withoutCrimeScript,
 } from '../src/models/script-classification.ts';
 
 const model = (): DataModel => normalizeDataModel({
@@ -118,6 +120,7 @@ test('new scripts inherit the active mode and receive a family id', () => {
 test('restricted counterpart is a deep copy with remapped owned references and globally unique ids', () => {
   const input = model();
   input.crimeScripts = input.crimeScripts.filter(({ id }) => id !== 'restricted-script');
+  input.crimeScripts[0].stages[0].variants[0].activities[0].relatedScriptIds = ['fallback'];
   const supplied = ['public-script', 'cast', 'copy', 'scene-copy', 'act-copy', 'activity-copy', 'indicator-copy', 'track-copy'];
   let index = 0;
   const copy = createRestrictedCounterpart(input, input.crimeScripts[0], () => supplied[index++]);
@@ -127,6 +130,10 @@ test('restricted counterpart is a deep copy with remapped owned references and g
   assert.equal(copy.id, 'copy');
   assert.equal(copy.stages[0].selectedVariantId, 'act-copy');
   assert.deepEqual(copy.tracks?.[0].sceneVariants, { 'scene-copy': 'act-copy' });
+  assert.deepEqual(
+    copy.stages[0].variants[0].activities[0].relatedScriptIds,
+    ['fallback']
+  );
   assert.notEqual(copy.stages[0], input.crimeScripts[0].stages[0]);
 
   const owned = [
@@ -145,10 +152,48 @@ test('restricted counterpart is a deep copy with remapped owned references and g
 });
 
 test('public exports remove restricted scripts and restricted-only taxonomy', () => {
-  const exported = filterModelForPublicExport(model());
+  const input = model();
+  input.crimeScripts[0].stages[0].variants[0].activities[0].relatedScriptIds = [
+    'restricted-script',
+    'fallback',
+  ];
+  const exported = filterModelForPublicExport(input);
   assert.deepEqual(exported.crimeScripts.map(({ id }) => id), ['public-script', 'fallback']);
   assert.deepEqual(exported.products.map(({ id }) => id), ['product']);
+  assert.deepEqual(
+    exported.crimeScripts[0].stages[0].variants[0].activities[0].relatedScriptIds,
+    ['fallback']
+  );
   assert.equal(hasRestrictedContent(exported), false);
+});
+
+test('standalone exports remove activity links to scripts outside the export', () => {
+  const input = model();
+  input.crimeScripts[0].stages[0].variants[0].activities[0].relatedScriptIds = ['fallback'];
+  const exported = createSingleScriptExportModel(input.crimeScripts[0], input);
+  assert.equal(
+    exported.crimeScripts[0].stages[0].variants[0].activities[0].relatedScriptIds,
+    undefined
+  );
+});
+
+test('deleting a script also removes activity links to it', () => {
+  const input = model();
+  input.crimeScripts[0].stages[0].variants[0].activities[0].relatedScriptIds = [
+    'fallback',
+    'restricted-script',
+  ];
+  const result = withoutCrimeScript(input, 'fallback');
+  assert.deepEqual(result.crimeScripts.map(({ id }) => id), ['public-script', 'restricted-script']);
+  assert.deepEqual(
+    result.crimeScripts[0].stages[0].variants[0].activities[0].relatedScriptIds,
+    []
+  );
+  assert.deepEqual(input.crimeScripts.map(({ id }) => id), [
+    'public-script',
+    'restricted-script',
+    'fallback',
+  ]);
 });
 
 test('standalone import preserves restricted classification and family links', () => {

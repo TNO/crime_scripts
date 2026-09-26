@@ -9,6 +9,7 @@ import {
   type Labelled,
   Pages,
   scriptsForMode,
+  withoutCrimeScript,
 } from '../models';
 import type { MeiosisComponent } from '../services';
 import { t } from '../services/translations';
@@ -287,6 +288,7 @@ export const CrimeScriptPage: MeiosisComponent = () => {
                 searchFilter,
                 update: actions.update,
                 model,
+                scriptMode,
               })
           ),
         ],
@@ -304,8 +306,7 @@ export const CrimeScriptPage: MeiosisComponent = () => {
             destructive: true,
             onclick: () => {
               if (crimeScript) {
-                model.crimeScripts = model.crimeScripts.filter((c) => c.id !== id);
-                actions.saveModel(model);
+                actions.saveModel(withoutCrimeScript(model, id));
                 actions.changePage(Pages.HOME);
               }
             },

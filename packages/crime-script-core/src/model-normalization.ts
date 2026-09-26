@@ -9,6 +9,7 @@ import type {
   ServiceProvider,
 } from './data-model';
 import { normalizeActivityHierarchy } from './activity-outline.ts';
+import { sanitizeRelatedScriptReferences } from './script-classification.ts';
 
 type LegacyActivity = Activity & { sp?: ID[] };
 
@@ -108,7 +109,7 @@ const normalizeDataModelInternal = (
   );
   const unreferencedActs = (legacy.acts || []).filter((act) => !referencedActIds.has(act.id));
   const claimedRecoveryActIds = new Set<ID>();
-  const crimeScripts = (legacy.crimeScripts || []).map((crimeScript) => {
+  const crimeScripts = (legacy.crimeScripts || []).map((crimeScript): CrimeScript => {
     const sceneIdChanges = new Map<ID, ID>();
     const removedSceneIds = new Set<ID>();
     const usedSceneIds = new Set((crimeScript.stages || []).map((scene) => scene.id));
@@ -252,7 +253,7 @@ const normalizeDataModelInternal = (
     schemaVersion: 3,
     version: legacy.version || 1,
     lastUpdate: legacy.lastUpdate || Date.now(),
-    crimeScripts,
+    crimeScripts: sanitizeRelatedScriptReferences(crimeScripts),
     cast: [...cast, ...(serviceProviders || [])],
     attributes,
     locations,

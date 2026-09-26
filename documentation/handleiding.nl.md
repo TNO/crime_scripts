@@ -30,7 +30,9 @@ Word-export alleen via een passend beveiligd kanaal.
 4. Kies bij een scène een modus operandi om een alternatief procespad te zien.
 5. Gebruik de rol-pillen onder activiteiten om activiteiten voor één rol te
    markeren.
-6. Klap rollen, attributen, transporten, locaties en bronnen open als die
+6. Open een pill onder **Gerelateerde crime scripts** om direct naar een
+   gekoppeld proces te gaan.
+7. Klap rollen, attributen, transporten, locaties en bronnen open als die
    details nodig zijn.
 
 ![Viewer voor Phishing en betaalfraude](assets/user-guide/02-script-view.png)
@@ -44,10 +46,12 @@ detail van de geselecteerde scène.
    producten, geografie en referenties te wijzigen.
 2. Voeg scènes toe of wijzig de volgorde in het overzicht.
 3. Bewerk per scène de modus operandi, beschrijving en locatie.
-4. Voeg activiteiten toe en koppel rollen, attributen, transporten,
-   indicatoren, maatregelen en andere beschikbare taxonomie.
-5. Gebruik de track-editor om per scène de gewenste modus operandi te kiezen.
-6. Controleer het resultaat in de viewer. PAX bewaart wijzigingen lokaal.
+4. Voeg activiteiten toe en koppel rollen, attributen, transporten en zo nodig
+   één of meer gerelateerde crime scripts. Alleen scripts die in de actieve
+   publieke of afgeschermde modus beschikbaar zijn, kunnen worden gekozen.
+5. Voeg indicatoren, maatregelen en andere beschikbare taxonomie toe.
+6. Gebruik de track-editor om per scène de gewenste modus operandi te kiezen.
+7. Controleer het resultaat in de viewer. PAX bewaart wijzigingen lokaal.
 
 Gebruik **Meer acties** voor JSON- en Word-export, import en andere
 scriptacties. Bewaar vóór ingrijpende wijzigingen een JSON-export als

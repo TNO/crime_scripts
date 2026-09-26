@@ -38,6 +38,7 @@ import {
   sceneVariantSelection,
   selectedSceneVariant,
   scriptsForMode,
+  selectableRelatedScripts,
   saveAsNewSuggestion,
   suggestionKey,
   type Track,
@@ -67,6 +68,7 @@ const createActivity = (label: string, parentId?: ID): Activity => ({
   cast: [],
   attributes: [],
   transports: [],
+  relatedScriptIds: [],
 });
 
 const updateActivityType = (activity: Activity) => {
@@ -91,6 +93,7 @@ export const CrimeScriptEditor: FactoryComponent<{
   let castOptions: InputOptions[] = [];
   let attrOptions: InputOptions[] = [];
   let productOptions: InputOptions[] = [];
+  const relatedScriptOptions: InputOptions[] = [];
   let measuresForm: UIForm<{ measures: Measure }> = [];
   let activityDetailForm: UIForm<Activity>;
   let opportunitiesForm: UIForm<{ conditions: Opportunity[] }>;
@@ -187,6 +190,14 @@ export const CrimeScriptEditor: FactoryComponent<{
             return newOption;
           },
         },
+        {
+          id: 'relatedScriptIds',
+          type: 'search_select',
+          className: 'col s12',
+          multiple: true,
+          options: relatedScriptOptions,
+          label: t('RELATED_SCRIPTS'),
+        },
       ] as UIForm<Activity>;
 
       opportunitiesForm = [
@@ -243,6 +254,12 @@ export const CrimeScriptEditor: FactoryComponent<{
       measuresForm = [{ id: 'measures', type: measureForm, repeat: true, label: t('MEASURE') }];
     },
     view: ({ attrs: { crimeScript, model, scriptMode, update } }) => {
+      relatedScriptOptions.splice(
+        0,
+        relatedScriptOptions.length,
+        ...selectableRelatedScripts(crimeScript, model.crimeScripts, scriptMode)
+          .map(({ id, label }) => ({ id, label }))
+      );
       const curActIdx = +(m.route.param('stages') || 1) - 1;
       const curScene =
         crimeScript.stages && curActIdx < crimeScript.stages.length

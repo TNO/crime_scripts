@@ -412,6 +412,7 @@ export const messagesNL: typeof messages = {
   LOCATION_COUNT: '{count} locaties',
   FILTERED_BY_ROLE: 'Gefilterd op rol: {role}',
   CLEAR_ROLE_FILTER: 'Rolfilter wissen',
+  RELATED_SCRIPTS: 'Gerelateerde crime scripts',
   COPY_FOR_AI: 'Kopiëren voor AI',
   OUTLINE_COPIED: 'Structuur gekopieerd.',
   OUTLINE_COPY_FAILED: 'De structuur kon niet worden gekopieerd.',

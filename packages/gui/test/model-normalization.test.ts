@@ -220,6 +220,43 @@ test('older scenes that used an act id as their scene id receive a distinct id a
   );
 });
 
+test('normalization removes duplicate, missing, and self-referential activity script links', () => {
+  const normalized = normalizeDataModel({
+    crimeScripts: [
+      {
+        id: 'source',
+        label: 'Source',
+        stages: [{
+          id: 'scene',
+          label: 'Scene',
+          variants: [{
+            id: 'variant',
+            label: 'Variant',
+            activities: [{
+              id: 'activity',
+              label: 'Activity',
+              relatedScriptIds: ['target', 'source', 'source-counterpart', 'missing', 'target'],
+            }],
+          }],
+        }],
+      },
+      {
+        id: 'source-counterpart',
+        scriptFamilyId: 'source',
+        classification: 'restricted',
+        label: 'Source counterpart',
+        stages: [],
+      },
+      { id: 'target', label: 'Target', stages: [] },
+    ],
+  });
+
+  assert.deepEqual(
+    normalized.crimeScripts[0].stages[0].variants[0].activities[0].relatedScriptIds,
+    ['target']
+  );
+});
+
 test('preview merging remaps embedded variant references to retained taxonomy ids', () => {
   const main = normalizeDataModel({
     ...legacyModel,

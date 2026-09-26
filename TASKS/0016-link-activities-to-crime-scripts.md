@@ -1,9 +1,11 @@
 # 0016 Link activities to crime scripts
 
-Status: open
+Status: done
 Priority: medium
 Subsystem: frontend
 Depends on: 0001, 0010
+Owner: Erik Vullings
+Agent: GitHub Copilot
 
 ## Context
 
@@ -43,3 +45,11 @@ free-text mentions.
 
 - 2026-09-25 GitHub Copilot: Created from the request for activity-level links
   to related crime scripts such as witwassen.
+- 2026-09-26 GitHub Copilot: Started with a model-level public interface for
+  resolving visible, non-self related scripts before wiring editor and viewer
+  behavior.
+- 2026-09-26 GitHub Copilot: Added stable activity links, mode-aware editor
+  choices and viewer pills, normalization/export/copy/deletion cleanup,
+  translations, documentation, and focused regression coverage. Verified the
+  production build end to end by linking a phishing activity to the Witwassen
+  script and following that link on desktop and mobile in dark theme.

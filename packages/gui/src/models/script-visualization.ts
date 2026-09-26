@@ -1,4 +1,13 @@
-import type { Activity, Cast, ID, Scene, Track } from './data-model';
+import type {
+  Activity,
+  Cast,
+  CrimeScript,
+  ID,
+  Scene,
+  ScriptMode,
+  Track,
+} from './data-model.ts';
+import { scriptsForMode } from './script-classification.ts';
 
 export const selectedSceneVariant = (scene: Scene) =>
   scene.variants.find(({ id }) => id === scene.selectedVariantId) || scene.variants[0];
@@ -21,6 +30,39 @@ export const resolveActivityRoles = (activity: Activity, cast: Cast[]) => {
 
 export const activityMatchesRole = (activity: Activity, roleId?: ID) =>
   !roleId || Boolean(activity.cast?.includes(roleId));
+
+export const selectableRelatedScripts = (
+  currentScript: CrimeScript,
+  scripts: CrimeScript[],
+  mode: ScriptMode
+): CrimeScript[] =>
+  scriptsForMode(scripts, mode)
+    .filter(({ scriptFamilyId }) => scriptFamilyId !== currentScript.scriptFamilyId);
+
+export const relatedScriptsForActivity = (
+  activity: Activity,
+  currentScript: CrimeScript,
+  scripts: CrimeScript[],
+  mode: ScriptMode
+): CrimeScript[] => {
+  const visibleScripts = selectableRelatedScripts(currentScript, scripts, mode);
+  const allById = new Map(scripts.map((script) => [script.id, script]));
+  const visibleById = new Map(visibleScripts.map((script) => [script.id, script]));
+  const visibleByFamily = new Map(visibleScripts.map((script) => [script.scriptFamilyId, script]));
+  const resolved = (Array.isArray(activity.relatedScriptIds) ? activity.relatedScriptIds : []).map((id) => {
+    const target = allById.get(id);
+    return visibleById.get(id) || (target && visibleByFamily.get(target.scriptFamilyId));
+  });
+  return Array.from(
+    new Map(
+      resolved
+        .filter((script): script is CrimeScript =>
+          script !== undefined && script.scriptFamilyId !== currentScript.scriptFamilyId
+        )
+        .map((script) => [script.id, script])
+    ).values()
+  );
+};
 
 export const sceneVariantSelection = (scenes: Scene[]) =>
   Object.fromEntries(

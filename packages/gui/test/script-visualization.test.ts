@@ -1,10 +1,12 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import type { Activity, Cast, Scene, Track } from '../src/models/data-model.ts';
+import type { Activity, Cast, CrimeScript, Scene, Track } from '../src/models/data-model.ts';
 import {
   activityMatchesRole,
   applyTrackSelection,
   findMatchingTrack,
+  relatedScriptsForActivity,
+  selectableRelatedScripts,
   resolveActivityRoles,
   sceneOutlineDetails,
   sceneVariantSelection,
@@ -64,6 +66,64 @@ test('activity roles preserve assignment order and ignore missing or duplicate r
   );
   assert.equal(activityMatchesRole(activity(['sender']), 'sender'), true);
   assert.equal(activityMatchesRole(activity(['sender']), 'coordinator'), false);
+});
+
+test('related activity scripts resolve once, exclude self-links, and respect script mode', () => {
+  const current = {
+    id: 'current',
+    scriptFamilyId: 'current-family',
+    classification: 'restricted',
+  } as CrimeScript;
+  const publicTarget = {
+    id: 'public-target',
+    label: 'Public target',
+    scriptFamilyId: 'target-family',
+    classification: 'public',
+  } as CrimeScript;
+  const restrictedTarget = {
+    id: 'restricted-target',
+    label: 'Restricted target',
+    scriptFamilyId: 'target-family',
+    classification: 'restricted',
+  } as CrimeScript;
+  const linked = {
+    ...activity(),
+    relatedScriptIds: ['current', 'public-target', 'public-target', 'missing'],
+  };
+
+  assert.deepEqual(
+    relatedScriptsForActivity(linked, current, [current, publicTarget, restrictedTarget], 'public')
+      .map(({ id }) => id),
+    ['public-target']
+  );
+  assert.deepEqual(
+    relatedScriptsForActivity(linked, current, [current, publicTarget, restrictedTarget], 'restricted')
+      .map(({ id }) => id),
+    ['restricted-target']
+  );
+});
+
+test('related-script editor choices exclude the current family and follow script mode', () => {
+  const current = {
+    id: 'current',
+    scriptFamilyId: 'current-family',
+    classification: 'restricted',
+  } as CrimeScript;
+  const scripts = [
+    current,
+    { id: 'current-public', scriptFamilyId: 'current-family', classification: 'public' },
+    { id: 'target-public', scriptFamilyId: 'target-family', classification: 'public' },
+    { id: 'target-restricted', scriptFamilyId: 'target-family', classification: 'restricted' },
+  ] as CrimeScript[];
+
+  assert.deepEqual(
+    selectableRelatedScripts(current, scripts, 'public').map(({ id }) => id),
+    ['target-public']
+  );
+  assert.deepEqual(
+    selectableRelatedScripts(current, scripts, 'restricted').map(({ id }) => id),
+    ['target-restricted']
+  );
 });
 
 test('track selection updates scene variants and can be matched again', () => {

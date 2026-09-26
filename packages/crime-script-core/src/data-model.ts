@@ -296,6 +296,8 @@ export type Activity = Labelled & {
   cast?: ID[];
   attributes?: ID[];
   transports?: ID[];
+  /** Crime scripts that further describe a process referenced by this activity. */
+  relatedScriptIds?: ID[];
 };
 
 export type Hierarchical = { synonyms?: string[]; parents?: ID[] };

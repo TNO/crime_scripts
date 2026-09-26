@@ -409,6 +409,7 @@ export const messages = {
   LOCATION_COUNT: '{count} locations',
   FILTERED_BY_ROLE: 'Filtered by role: {role}',
   CLEAR_ROLE_FILTER: 'Clear role filter',
+  RELATED_SCRIPTS: 'Related crime scripts',
   COPY_FOR_AI: 'Copy for AI',
   OUTLINE_COPIED: 'Outline copied.',
   OUTLINE_COPY_FAILED: 'The outline could not be copied.',
