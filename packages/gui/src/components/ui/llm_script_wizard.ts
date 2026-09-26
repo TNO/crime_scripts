@@ -1,5 +1,5 @@
 import m from 'mithril';
-import { FlatButton, snackbar } from 'mithril-materialized';
+import { FlatButton, Select, snackbar } from 'mithril-materialized';
 import {
   buildLlmScriptPrompt,
   confirmGeneratedScriptImport,
@@ -79,21 +79,27 @@ export const LlmScriptWizard: MeiosisComponent<{ onClose: () => void }> = () => 
     label: string,
     value: string,
     onchange: (value: string) => void,
-    textarea = false
-  ) =>
-    m('.input-field.col.s12', [
+    textarea = false,
+    helperText?: string,
+  ) => {
+    const helperId = helperText ? `${id}-helper` : undefined;
+    return m('.input-field.col.s12', [
       textarea
         ? m(`textarea#${id}.materialize-textarea`, {
             value,
+            'aria-describedby': helperId,
             oninput: (event: InputEvent) => onchange((event.target as HTMLTextAreaElement).value),
           })
         : m(`input#${id}`, {
             type: 'text',
             value,
+            'aria-describedby': helperId,
             oninput: (event: InputEvent) => onchange((event.target as HTMLInputElement).value),
           }),
       m('label.active', { for: id }, label),
+      helperText && m('span.helper-text', { id: helperId }, helperText),
     ]);
+  };
 
   const labelledItem = (item: Labelled, details?: m.Children) =>
     m('li.llm-preview-item', [
@@ -145,31 +151,43 @@ export const LlmScriptWizard: MeiosisComponent<{ onClose: () => void }> = () => 
         step === 'brief' && m('.llm-step', [
           m('p.llm-privacy-note', t('LLM_PRIVACY_NOTE')),
           m('.row', [
-            m('.input-field.col.s12.m6', [
-              m('select#llm-language.browser-default', {
-                value: language,
-                onchange: (event: Event) => (language = (event.target as HTMLSelectElement).value as ContentLanguage),
-              }, [
-                m('option', { value: 'nl' }, t('DUTCH')),
-                m('option', { value: 'en' }, t('ENGLISH')),
-              ]),
-              m('label.active', { for: 'llm-language' }, t('LANGUAGE')),
-            ]),
-            m('.input-field.col.s12.m6', [
-              m('select#llm-preset.browser-default', {
-                value: preset,
-                onchange: (event: Event) => (preset = (event.target as HTMLSelectElement).value as LlmDetailPreset),
-              }, [
-                m('option', { value: 'orienting' }, t('LLM_PRESET_ORIENTING')),
-                m('option', { value: 'practical' }, t('LLM_PRESET_PRACTICAL')),
-                m('option', { value: 'operational' }, t('LLM_PRESET_OPERATIONAL')),
-              ]),
-              m('label.active', { for: 'llm-preset' }, t('LLM_DETAIL_PRESET')),
-            ]),
+            m(Select<ContentLanguage>, {
+              id: 'llm-language',
+              className: 'col s12 m6',
+              checkedId: language,
+              label: t('LANGUAGE'),
+              options: [
+                { id: 'nl', label: t('DUTCH') },
+                { id: 'en', label: t('ENGLISH') },
+              ],
+              onchange: ([selectedLanguage]) => {
+                if (selectedLanguage) language = selectedLanguage;
+              },
+            }),
+            m(Select<LlmDetailPreset>, {
+              id: 'llm-preset',
+              className: 'col s12 m6',
+              checkedId: preset,
+              label: t('LLM_DETAIL_PRESET'),
+              options: [
+                { id: 'orienting', label: t('LLM_PRESET_ORIENTING') },
+                { id: 'practical', label: t('LLM_PRESET_PRACTICAL') },
+                { id: 'operational', label: t('LLM_PRESET_OPERATIONAL') },
+              ],
+              onchange: ([selectedPreset]) => {
+                if (selectedPreset) preset = selectedPreset;
+              },
+            }),
             textField('llm-domain', t('LLM_DOMAIN'), domain, (value) => (domain = value)),
             textField('llm-geography', t('LLM_GEOGRAPHY'), geography, (value) => (geography = value)),
-            textField('llm-source-urls', t('LLM_SOURCE_URLS'), sourceUrls, (value) => (sourceUrls = value), true),
-            m('p.col.s12.helper-text', t('LLM_URLS_NOT_FETCHED')),
+            textField(
+              'llm-source-urls',
+              t('LLM_SOURCE_URLS'),
+              sourceUrls,
+              (value) => (sourceUrls = value),
+              true,
+              t('LLM_URLS_NOT_FETCHED'),
+            ),
             textField('llm-source-text', t('LLM_SOURCE_TEXT'), sourceText, (value) => (sourceText = value), true),
           ]),
           m('.llm-actions', [

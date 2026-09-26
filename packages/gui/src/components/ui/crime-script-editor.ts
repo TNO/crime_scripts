@@ -1,17 +1,29 @@
 import m, { type FactoryComponent } from 'mithril';
-import { AlertDialog, FlatButton, SearchSelect, Select, snackbar, uniqueId } from 'mithril-materialized';
-import { type FormAttributes, LayoutForm, type UIForm } from 'mithril-ui-form';
+import {
+  AlertDialog,
+  ConfirmButton,
+  Dialog,
+  FlatButton,
+  IconButton,
+  SearchSelect,
+  Select,
+  snackbar,
+  uniqueId,
+} from 'mithril-materialized';
+import { type FormAttributes, LayoutForm, SlimdownView, type UIForm } from 'mithril-ui-form';
 import {
   type Act,
   type Activity,
   ActivityType,
   type ActivityPhase,
   activitiesToMarkdown,
+  applyTrackSelection,
   buildActivityOutline,
   type CrimeScript,
   collectStarterSuggestions,
   copySuggestion,
   type DataModel,
+  findMatchingTrack,
   hasCloseDuplicate,
   type ID,
   type Indicator,
@@ -22,9 +34,13 @@ import {
   reconcileActivityMarkdown,
   type ActivityOutlinePreview,
   type Scene,
+  sceneOutlineDetails,
+  sceneVariantSelection,
+  selectedSceneVariant,
   scriptsForMode,
   saveAsNewSuggestion,
   suggestionKey,
+  type Track,
 } from '../../models';
 import { labelForm, literatureForm } from '../../models/forms';
 import { crimeMeasureOptions } from '../../models/situational-crime-prevention';
@@ -90,8 +106,18 @@ export const CrimeScriptEditor: FactoryComponent<{
   let outlinePreview: ActivityOutlinePreview | undefined;
   let activeActId: ID | undefined;
   let activeDetailTab: ActDetailTab = 'conditions';
+  let selectedTrackId: ID | undefined;
+  let newTrack: Track | undefined;
+  let editTrack: Track | undefined;
+  let addTrackOpen = false;
+  let editTrackOpen = false;
 
   const measOptions = crimeMeasureOptions();
+  const trackForm = [
+    { id: 'id', type: 'autogenerate', autogenerate: 'id' },
+    { id: 'label', type: 'text', label: t('TRACK') },
+    { id: 'description', type: 'textarea', label: t('DESCRIPTION') },
+  ] as UIForm<Track>;
 
   return {
     oninit: ({ attrs: { model, update } }) => {
@@ -223,15 +249,61 @@ export const CrimeScriptEditor: FactoryComponent<{
           ? crimeScript.stages[curActIdx]
           : undefined;
       if (curScene && !curScene.variants) curScene.variants = [];
-      const curAct = curScene
-        ? curScene.variants.find((variant) => variant.id === curScene.selectedVariantId) || curScene.variants[0]
-        : undefined;
+      const curAct = curScene ? selectedSceneVariant(curScene) : undefined;
+      const tracks = crimeScript.tracks || [];
+      const currentSelection = sceneVariantSelection(crimeScript.stages);
+      const matchingTrack = findMatchingTrack(tracks, currentSelection);
+      if (!selectedTrackId && matchingTrack) selectedTrackId = matchingTrack.id;
+      if (selectedTrackId && !tracks.some(({ id }) => id === selectedTrackId)) selectedTrackId = undefined;
+      const selectedTrack = tracks.find(({ id }) => id === selectedTrackId);
+      const alternativeScenes = crimeScript.stages.filter(({ variants }) => variants.length > 1);
+      const hasAlternativeScenes = crimeScript.stages.some(({ variants }) => variants.length > 1);
+      const canAddTrack =
+        hasAlternativeScenes &&
+        Object.keys(currentSelection).length ===
+          alternativeScenes.length &&
+        !matchingTrack;
+      const trackDialogContent = (track: Track, onchange: (nextTrack: Track) => void) =>
+        m('.track-dialog-content', [
+          m('.row', m(LayoutForm<Track>, {
+            form: trackForm,
+            obj: track,
+            onchange: (_, obj) => {
+              if (obj) onchange(obj);
+            },
+          })),
+          m('fieldset.track-scene-variants', [
+            m('legend', t('TRACK_SCENE_VARIANTS')),
+            m('.track-scene-variant-list',
+              alternativeScenes.map((scene) =>
+                m(Select<ID>, {
+                  className: '',
+                  label: scene.label,
+                  checkedId:
+                    track.sceneVariants[scene.id] ||
+                    scene.selectedVariantId ||
+                    scene.variants[0].id,
+                  options: scene.variants,
+                  onchange: ([variantId]) => {
+                    if (!variantId) return;
+                    onchange({
+                      ...track,
+                      sceneVariants: {
+                        ...track.sceneVariants,
+                        [scene.id]: variantId,
+                      },
+                    });
+                  },
+                })
+              )
+            ),
+          ]),
+        ]);
 
       // console.table({ acts, curActIdx, curActIds, crimeScript, curActId, curAct });
       if (curAct && !curAct.measures) {
         curAct.measures = [];
       }
-      const key = curAct ? curAct.id + curAct.label : 'cur-act-id';
       if (activeActId !== curAct?.id) {
         activeActId = curAct?.id;
         selectedActivityId = undefined;
@@ -484,7 +556,7 @@ export const CrimeScriptEditor: FactoryComponent<{
             m('span', t('SCRIPT_DETAILS')),
             m('small', crimeScript.label),
           ]),
-          m(LayoutForm, {
+          m('.script-editor-metadata-fields', m(LayoutForm, {
             form: [
               ...labelForm(),
               {
@@ -511,12 +583,18 @@ export const CrimeScriptEditor: FactoryComponent<{
                 className: 'col s6',
                 options: geoLocationOptions,
               },
-              { id: 'literature', type: literatureForm(), repeat: true, label: t('REFERENCES') },
+              {
+                id: 'literature',
+                type: literatureForm(),
+                repeat: true,
+                pageSize: 1,
+                label: t('REFERENCES'),
+              },
             ],
             obj: crimeScript,
             onchange: persist,
             i18n: I18N,
-          } as FormAttributes<Partial<CrimeScript>>),
+          } as FormAttributes<Partial<CrimeScript>>)),
         ]),
 
         m('.script-editor-heading', [
@@ -605,6 +683,79 @@ export const CrimeScriptEditor: FactoryComponent<{
               m('h4', t('SCENES')),
               iconButton('add', t('ADD_SCENE'), addScene),
             ]),
+            hasAlternativeScenes && m('.track-editor', [
+              m('.track-editor-toolbar', [
+                m(Select<ID | ''>, {
+                  className: '',
+                  label: t('TRACK'),
+                  placeholder: t('NO_TRACK'),
+                  checkedId: selectedTrackId || '',
+                  options: tracks,
+                  disabled: tracks.length === 0,
+                  onchange: ([trackId]) => {
+                    selectedTrackId = trackId || undefined;
+                    const track = tracks.find(({ id }) => id === trackId);
+                    if (track) applyTrackSelection(crimeScript.stages, track);
+                    selectedActivityId = undefined;
+                    persist();
+                  },
+                }),
+                m('.track-editor-actions', [
+                  m(IconButton, {
+                    iconName: 'add',
+                    tooltip: t('ADD_TRACK'),
+                    'aria-label': t('ADD_TRACK'),
+                    disabled: !canAddTrack,
+                    onclick: () => {
+                      newTrack = {
+                        id: uniqueId(),
+                        label: `${t('TRACK')} ${tracks.length + 1}`,
+                        description: '',
+                        sceneVariants: { ...currentSelection },
+                      };
+                      addTrackOpen = true;
+                    },
+                  }),
+                  m(IconButton, {
+                    iconName: 'edit',
+                    tooltip: t('EDIT_TRACK'),
+                    'aria-label': t('EDIT_TRACK'),
+                    disabled: !selectedTrack,
+                    onclick: () => {
+                      if (!selectedTrack) return;
+                      editTrack = {
+                        ...selectedTrack,
+                        sceneVariants: {
+                          ...Object.fromEntries(alternativeScenes.map((scene) => [
+                            scene.id,
+                            selectedTrack.sceneVariants[scene.id] ||
+                              scene.selectedVariantId ||
+                              scene.variants[0].id,
+                          ])),
+                          ...selectedTrack.sceneVariants,
+                        },
+                      };
+                      editTrackOpen = true;
+                    },
+                  }),
+                  m(ConfirmButton, {
+                    iconName: 'delete',
+                    confirmIconName: 'check',
+                    tooltip: t('DEL_TRACK'),
+                    'aria-label': t('DEL_TRACK'),
+                    disabled: !selectedTrack,
+                    onclick: () => {
+                      if (!selectedTrack) return;
+                      crimeScript.tracks = tracks.filter(({ id }) => id !== selectedTrack.id);
+                      selectedTrackId = undefined;
+                      persist();
+                    },
+                  }),
+                ]),
+              ]),
+              selectedTrack?.description &&
+                m(SlimdownView, { className: 'track-editor-description', md: selectedTrack.description }),
+            ]),
             crimeScript.stages.length === 0
               ? m('.script-editor-empty', [
                 m('i.material-icons[aria-hidden=true]', 'account_tree'),
@@ -630,13 +781,15 @@ export const CrimeScriptEditor: FactoryComponent<{
                         m('span.scene-outline-number', String(index + 1)),
                         m('span', [
                           m('strong', scene.label || t('UNTITLED_SCENE')),
-                          m('small', t('STEP_COUNT', {
-                            count:
-                              (
-                                scene.variants.find(({ id }) => id === scene.selectedVariantId) ||
-                                scene.variants[0]
-                              )?.activities?.length || 0,
-                          })),
+                          m('small', (() => {
+                            const details = sceneOutlineDetails(scene);
+                            return [
+                              t('ACTIVITY_COUNT', { count: details.activityCount }),
+                              details.variantCount > 1 && ' · ',
+                              details.variantCount > 1 &&
+                                t('MODUS_OPERANDI_COUNT', { count: details.variantCount }),
+                            ];
+                          })()),
                         ]),
                       ]
                     ),
@@ -813,19 +966,28 @@ export const CrimeScriptEditor: FactoryComponent<{
                     onchange: persist,
                     i18n: I18N,
                   } as FormAttributes<Partial<Scene>>),
-                  curScene.variants.length > 1 && m('.act-selector', [
-                    m('.act-selector-input', m(Select<ID>, {
-                        key,
-                        label: t('SELECT_ACT'),
-                        checkedId: curScene.selectedVariantId,
-                        options: curScene.variants,
-                        onchange: (ids) => {
-                          curScene.selectedVariantId = ids[0];
-                          selectedActivityId = undefined;
-                          persist();
-                        },
-                      })),
-                  ]),
+                  curScene.variants.length > 1 && m('.editor-variant-switcher', {
+                    'aria-label': t('ACTS'),
+                  }, curScene.variants.map((variant) =>
+                    m('button.editor-variant-button[type=button]', {
+                      key: variant.id,
+                      class: variant.id === curAct?.id ? 'active' : '',
+                      'aria-pressed': variant.id === curAct?.id ? 'true' : 'false',
+                      onclick: () => {
+                        if (variant.id === curAct?.id) return;
+                        curScene.selectedVariantId = variant.id;
+                        selectedTrackId = findMatchingTrack(
+                          tracks,
+                          sceneVariantSelection(crimeScript.stages)
+                        )?.id;
+                        selectedActivityId = undefined;
+                        persist();
+                      },
+                    }, [
+                      m('span', variant.label),
+                      m('small', t('ACTIVITY_COUNT', { count: variant.activities.length })),
+                    ])
+                  )),
                   curAct && m('.act-editor-details', [
                     m(LayoutForm, {
                       key: `${curAct.id}-form`,
@@ -850,6 +1012,59 @@ export const CrimeScriptEditor: FactoryComponent<{
           ]),
         ]),
 
+        addTrackOpen && newTrack &&
+          m(Dialog, {
+            id: 'add_track',
+            title: t('ADD_TRACK'),
+            isOpen: true,
+            onToggle: (open: boolean) => {
+              addTrackOpen = open;
+              if (!open) newTrack = undefined;
+            },
+            content: trackDialogContent(newTrack, (nextTrack) => (newTrack = nextTrack)),
+            secondaryAction: { label: t('CANCEL'), iconName: 'cancel' },
+            primaryAction: {
+              label: t('ADD_TRACK'),
+              iconName: 'add',
+              onclick: () => {
+                if (!newTrack?.label) return;
+                tracks.push(newTrack);
+                crimeScript.tracks = tracks;
+                selectedTrackId = newTrack.id;
+                addTrackOpen = false;
+                newTrack = undefined;
+                persist();
+              },
+            },
+          }),
+        editTrackOpen && editTrack && selectedTrack &&
+          m(Dialog, {
+            id: 'edit_track',
+            title: t('EDIT_TRACK'),
+            isOpen: true,
+            onToggle: (open: boolean) => {
+              editTrackOpen = open;
+              if (!open) editTrack = undefined;
+            },
+            content: trackDialogContent(editTrack, (nextTrack) => (editTrack = nextTrack)),
+            secondaryAction: { label: t('CANCEL'), iconName: 'cancel' },
+            primaryAction: {
+              label: t('SAVE'),
+              iconName: 'save',
+              onclick: () => {
+                if (!editTrack?.label) return;
+                const trackIndex = tracks.findIndex(({ id }) => id === selectedTrack.id);
+                if (trackIndex < 0) return;
+                tracks[trackIndex] = editTrack;
+                applyTrackSelection(crimeScript.stages, editTrack);
+                crimeScript.tracks = tracks;
+                selectedTrackId = editTrack.id;
+                editTrackOpen = false;
+                editTrack = undefined;
+                persist();
+              },
+            },
+          }),
         deleteActivityId && curAct &&
           m(AlertDialog, {
             id: 'deleteActivity',

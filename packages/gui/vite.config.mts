@@ -8,6 +8,8 @@ export default defineConfig(({ command }) => ({
     port: 3498,
   },
   build: {
+    // Preserve the browser floor used before Vite 8 raised its default target.
+    target: ['chrome107', 'edge107', 'firefox104', 'safari16'],
     outDir: '../../docs',
     emptyOutDir: true,
     assetsInlineLimit: 0,

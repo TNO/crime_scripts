@@ -46,7 +46,7 @@ export const CrimeScriptPage: MeiosisComponent = () => {
       setPage(Pages.CRIME_SCRIPT);
     },
     view: ({ attrs: { state, actions } }) => {
-      const { model, role, scriptMode, curActId, curSceneId, currentCrimeScriptId = '', searchFilter } = state;
+      const { model, role, scriptMode, curSceneId, currentCrimeScriptId = '', searchFilter } = state;
       const {
         crimeScripts = [],
         cast = [],
@@ -115,13 +115,6 @@ export const CrimeScriptPage: MeiosisComponent = () => {
           { id: 'delete', label: t('DELETE_SCRIPT'), iconName: 'delete' }
         );
       }
-
-      const curScene =
-        crimeScript.stages && curSceneId ? crimeScript.stages.find((s) => s.id === curSceneId) : undefined;
-      const curAct =
-        curScene && curActId
-          ? curScene.variants.find((variant) => variant.id === curActId) || curScene.variants[0]
-          : undefined;
 
       return m(
         '#crime-script.page',
@@ -290,12 +283,10 @@ export const CrimeScriptPage: MeiosisComponent = () => {
                 geoLocations,
                 products,
                 partners,
-                curActId: curAct ? curAct.id : undefined,
-                curSceneId: curScene ? curScene.id : undefined,
+                curSceneId,
                 searchFilter,
                 update: actions.update,
                 model,
-                saveModel: actions.saveModel,
               })
           ),
         ],

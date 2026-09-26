@@ -30,6 +30,13 @@ barrier visualisation, so these tasks are implemented sequentially.
 - [x] 0011 Redesign Word report *(needs 0010)*
 - [x] 0012 Add barrier-model export *(needs 0011)*
 
+## Viewer UX
+
+This follow-up builds on the shared scene navigation from 0010 and requires the
+track interaction and activity-group terminology to be agreed before coding.
+
+- [x] 0013 Improve crime-script visualization *(needs 0010)*
+
 ## Restricted workflows
 
 Restricted content remains outside the public repository; only classification, mode, safeguards, and assembly tooling are versioned here.

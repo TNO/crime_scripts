@@ -1,24 +1,32 @@
 import type { Patch } from 'meiosis-setup/types';
 import m, { type FactoryComponent } from 'mithril';
-import { AlertDialog, Dialog, FlatButton, Select, type TabItem, Tabs } from 'mithril-materialized';
-import { LayoutForm, SlimdownView, type UIForm } from 'mithril-ui-form';
+import { Select } from 'mithril-materialized';
+import { SlimdownView } from 'mithril-ui-form';
 import {
   type Act,
+  type Activity,
+  activityMatchesRole,
+  applyTrackSelection,
+  buildActivityOutline,
   type Cast,
   type CrimeLocation,
   type CrimeScript,
   type CrimeScriptAttributes,
   type DataModel,
+  findMatchingTrack,
   type GeographicLocation,
   getMatchingStarterBundleMetadata,
   type ID,
   type Labelled,
+  numberActivityOutline,
   Pages,
   type Partner,
   type Product,
-  type Scene,
+  resolveActivityRoles,
+  sceneOutlineDetails,
+  sceneVariantSelection,
   scriptIcon,
-  type Track,
+  selectedSceneVariant,
   type Transport,
 } from '../../models';
 import { lookupCrimeMeasure } from '../../models/situational-crime-prevention';
@@ -31,7 +39,6 @@ import {
   toCommaSeparatedList,
   toMarkdownOl,
 } from '../../utils';
-import { escapeViewerText } from '../../utils/viewer-markup';
 import { ReferenceListComponent } from '../ui/reference';
 import { IconStrip } from './icon-strip';
 
@@ -44,114 +51,80 @@ export const CrimeScriptViewer: FactoryComponent<{
   products: Product[];
   partners: Partner[];
   transports: Transport[];
-  curActId?: ID;
   curSceneId?: ID;
   searchFilter?: string;
   update: (patch: Patch<State>) => void;
   model: DataModel;
-  saveModel: (ds: DataModel) => void;
 }> = () => {
   const lookupPartner = new Map<ID, Labelled>();
   const findCrimeMeasure = lookupCrimeMeasure();
-  const trackForm = [
-    { id: 'id', type: 'autogenerate', autogenerate: 'id' },
-    { id: 'label', type: 'text', label: t('TRACK') },
-    { id: 'description', type: 'textarea', label: t('DESCRIPTION') },
-  ] as UIForm<Track>;
-  let newTrack: Track | undefined;
-  let editTrack: Track | undefined;
   let curTrackId = undefined as string | undefined;
-  let curSceneVariants: { [sceneID: ID]: ID | undefined } = {};
-  let addTrackOpen = false;
-  let editTrackOpen = false;
-  let deleteTrackOpen = false;
-  // Helper function to check if two variant selections are equal
-  const variantsEqual = (
-    variants1: { [sceneID: ID]: ID | undefined },
-    variants2: { [sceneID: ID]: ID | undefined }
+  let activeRoleId = undefined as ID | undefined;
+
+  const renderActivities = (
+    activities: Act['activities'],
+    cast: Cast[],
+    highlighter: (text?: string) => m.Children
   ) => {
-    const keys1 = Object.keys(variants1);
-    const keys2 = Object.keys(variants2);
-    if (keys1.length !== keys2.length) return false;
-    return keys1.every((key) => variants1[key] === variants2[key]);
-  };
+    const outline = buildActivityOutline(activities);
+    const numbers = numberActivityOutline(outline);
+    const activeRole = cast.find(({ id }) => id === activeRoleId);
+    const renderActivity = (activity: Activity & { children?: Activity[] }): m.Vnode => {
+      const roles = resolveActivityRoles(activity, cast);
+      const matchesRole = activityMatchesRole(activity, activeRoleId);
+      return m('li.script-activity-item', [
+        m('.script-activity-row', {
+          class: activeRoleId ? (matchesRole ? 'role-match' : 'role-muted') : '',
+        }, [
+          m('span.script-activity-number', numbers.get(activity.id)),
+          m('.script-activity-content', [
+            m('strong.script-detail-title', highlighter(activity.label)),
+            activity.description &&
+              m('p.script-detail-description', highlighter(activity.description)),
+            roles.length > 0 &&
+              m('.activity-role-pills', { 'aria-label': t('CAST') }, roles.map((role) =>
+                m('button.activity-role-pill[type=button]', {
+                  key: role.id,
+                  class: activeRoleId === role.id ? 'active' : '',
+                  'aria-pressed': activeRoleId === role.id ? 'true' : 'false',
+                  onclick: () => {
+                    activeRoleId = activeRoleId === role.id ? undefined : role.id;
+                  },
+                }, role.label)
+              )),
+          ]),
+        ]),
+        activity.children && activity.children.length > 0 &&
+          m('ol.script-activity-list.nested', activity.children.map(renderActivity)),
+      ]);
+    };
 
-  // Helper function to find a track that matches the current variant selection
-  const findMatchingTrack = (tracks: Track[], sceneVariants: { [sceneID: ID]: ID | undefined }): Track | undefined => {
-    return tracks.find((track) => variantsEqual(track.sceneVariants, sceneVariants));
-  };
-
-  // Helper function to check if all scenes have selected variants
-  const hasCompleteVariantSelection = (scenes: Scene[], sceneVariants: { [sceneID: ID]: ID | undefined }): boolean => {
-    const scenesWithVariants = scenes.filter((scene) => scene.variants.length > 0);
-    return scenesWithVariants.every((scene) => sceneVariants[scene.id] !== undefined);
-  };
-
-  // Helper function to update track selection and sync variants
-  const updateTrackSelection = (trackId: string | undefined, tracks: Track[], scenes: Scene[]) => {
-    curTrackId = trackId;
-    if (trackId) {
-      const track = tracks.find((t) => t.id === trackId);
-      if (track) {
-        // Update current scene variants to match the selected track
-        curSceneVariants = { ...track.sceneVariants };
-        // Update scene actIds to match the track
-        scenes.forEach((scene) => {
-          const actId = curSceneVariants[scene.id];
-          if (actId) {
-            scene.selectedVariantId = actId;
-          }
-        });
-      }
-    }
-    // Note: We don't modify curSceneVariants when trackId is undefined
-    // This allows the current variant selection to remain intact
-  };
-
-  // Helper function to handle variant selection
-  const handleVariantSelection = (sceneId: ID, variantId: ID, tracks: Track[], scenes: Scene[]) => {
-    // Update the current scene variants
-    curSceneVariants[sceneId] = variantId;
-
-    // Update the scene actId
-    const scene = scenes.find((s) => s.id === sceneId);
-    if (scene) {
-      scene.selectedVariantId = variantId;
-    }
-
-    // Check if there's a matching track for this selection
-    const matchingTrack = findMatchingTrack(tracks, curSceneVariants);
-    if (matchingTrack) {
-      curTrackId = matchingTrack.id;
-    } else {
-      // No matching track found, clear current track
-      curTrackId = undefined;
-    }
-
+    return [
+      activeRole &&
+        m('.activity-role-filter[role=status]', [
+          m('span', t('FILTERED_BY_ROLE', { role: activeRole.label })),
+          m('button.script-editor-secondary[type=button]', {
+            onclick: () => (activeRoleId = undefined),
+          }, t('CLEAR_ROLE_FILTER')),
+        ]),
+      m('ol.script-activity-list', outline.map(renderActivity)),
+    ];
   };
 
   const visualizeAct = (
     {
-      label = '...',
       description,
       activities = [],
       indicators = [],
       conditions = [],
-      locationIds = [],
       measures = [],
     } = {} as Act,
     cast: Cast[],
     attributes: CrimeScriptAttributes[],
     transports: Transport[],
-    locations: CrimeLocation[],
-    highlighter: (text?: string) => string | undefined
+    highlighter: (text?: string) => m.Children,
+    mdHighlighter: (text?: string) => string
   ) => {
-    const castIds = Array.from(
-      activities.reduce((acc, { cast: curCast }) => {
-        if (curCast) curCast.forEach((id) => acc.add(id));
-        return acc;
-      }, new Set<ID>())
-    );
     const attrIds = Array.from(
       activities.reduce((acc, { attributes: curAttr }) => {
         if (curAttr) curAttr.forEach((id) => acc.add(id));
@@ -164,33 +137,7 @@ export const CrimeScriptViewer: FactoryComponent<{
         return acc;
       }, new Set<ID>())
     );
-    const md = `${description
-      ? `<div class="activity-group-context">${escapeViewerText(description)}</div>`
-      : ''
-      }
-
-${locationIds && locationIds.length
-      ? `##### ${t('LOCATIONS', locationIds.length)}
-
-${toCommaSeparatedList(locations, locationIds)}`
-      : ''
-      }
-
-${activities.length > 0
-        ? `##### ${t('STEPS')}
-
-${generateLabeledItemsMarkup(activities)}`
-        : ''
-      }
-
-${castIds.length > 0
-        ? `##### ${t('CAST')}
-
-${toMarkdownOl(cast, castIds)}`
-        : ''
-      }
-
-${attrIds.length > 0
+    const md = `${attrIds.length > 0
         ? `##### ${t('ATTRIBUTES')}
 
 ${toMarkdownOl(attributes, attrIds)}`
@@ -224,49 +171,25 @@ ${measures.length > 0
 ${measuresToHtml(measures, lookupPartner, findCrimeMeasure)}`
         : ''
       }`;
-    const contentTabs = [
-      {
-        title: label,
-        md,
-      },
+    return [
+      description && m('.activity-group-context', highlighter(description)),
+      activities.length > 0 && [
+        m('h5', t('STEPS')),
+        renderActivities(activities, cast, highlighter),
+      ],
+      md.trim() && m(SlimdownView, { md: mdHighlighter(md) }),
     ];
-
-    const tabItem: TabItem = {
-      title: label,
-      vnode:
-        contentTabs.length === 1
-          ? m(SlimdownView, { md: highlighter(contentTabs[0].md) })
-          : contentTabs.length > 1
-            ? m(Tabs, {
-              tabs: contentTabs.map(
-                ({ title, md }) =>
-                ({
-                  title,
-                  vnode: m(SlimdownView, { md: highlighter(md) }),
-                } as TabItem)
-              ),
-            })
-            : m('div'),
-    };
-    return tabItem;
   };
 
   return {
     oninit: ({ attrs: { crimeScript = {} as CrimeScript } }) => {
       const { tracks = [], stages: scenes = [] } = crimeScript;
-
-      // Initialize scene variants from the first track if available
-      if (tracks.length > 0) {
-        updateTrackSelection(tracks[0].id, tracks, scenes);
-      } else {
-        scenes.forEach((s) => {
-          const selectedVariant =
-            s.variants.find((variant) => variant.id === s.selectedVariantId) || s.variants[0];
-          if (selectedVariant) {
-            curSceneVariants[s.id] = selectedVariant.id;
-            s.selectedVariantId = selectedVariant.id;
-          }
-        });
+      const currentTrack = findMatchingTrack(tracks, sceneVariantSelection(scenes));
+      if (currentTrack) {
+        curTrackId = currentTrack.id;
+      } else if (tracks[0]) {
+        curTrackId = tracks[0].id;
+        applyTrackSelection(scenes, tracks[0]);
       }
     },
     view: ({
@@ -283,7 +206,6 @@ ${measuresToHtml(measures, lookupPartner, findCrimeMeasure)}`
         curSceneId,
         searchFilter,
         update,
-        saveModel,
       },
     }) => {
       if (lookupPartner.size < partners.length) {
@@ -308,13 +230,7 @@ ${measuresToHtml(measures, lookupPartner, findCrimeMeasure)}`
       } = crimeScript;
       const starterMetadata = getMatchingStarterBundleMetadata(crimeScript, model);
 
-      const scenesWithVariantsCnt = scenes.filter((scene) => scene.variants.length > 1).length || false;
-      const curTrack: Track | undefined = curTrackId ? tracks.find((t) => t.id === curTrackId) : undefined;
-
-      // Check if we can add a new track (all scenes have variants selected and no matching track exists)
-      const hasCompleteSelection = hasCompleteVariantSelection(scenes, curSceneVariants);
-      const matchingTrack = findMatchingTrack(tracks, curSceneVariants);
-      const canAddTrack = scenesWithVariantsCnt && hasCompleteSelection && !matchingTrack;
+      const curTrack = curTrackId ? tracks.find((track) => track.id === curTrackId) : undefined;
 
       const [allCastIds, allAttrIds, allLocIds, allTranspIds] = scenes.reduce(
         (acc, stage) => {
@@ -341,12 +257,38 @@ ${measuresToHtml(measures, lookupPartner, findCrimeMeasure)}`
       );
 
       const curScene = scenes.find((s) => s.id === curSceneId) || scenes[0];
-      const curAct =
-        curScene &&
-        (curScene.variants.find((variant) => variant.id === curScene.selectedVariantId) || curScene.variants[0]);
+      const curAct = curScene && selectedSceneVariant(curScene);
+      const hasScriptContentSummary =
+        allCastIds.size > 0 || allAttrIds.size > 0 || allTranspIds.size > 0 || allLocIds.size > 0;
+      const referenceCount = literature?.length || 0;
+      const hasReferences = referenceCount > 0;
       const selectedActContent = curAct
-        ? visualizeAct(curAct, cast, attributes, transports, locations, mdHighlighter)
+        ? visualizeAct(curAct, cast, attributes, transports, highlighter, mdHighlighter)
         : undefined;
+      const selectVariant = (variantId: ID) => {
+        if (!curScene || variantId === curAct?.id) return;
+        curScene.selectedVariantId = variantId;
+        curTrackId = findMatchingTrack(tracks, sceneVariantSelection(scenes))?.id;
+        activeRoleId = undefined;
+        update({ curActId: variantId });
+      };
+      const variantMetadata = (variant: Act) => {
+        const activityCount = t('ACTIVITY_COUNT', { count: variant.activities.length });
+        const locationLabels = variant.locationIds?.length
+          ? toCommaSeparatedList(locations, variant.locationIds)
+          : undefined;
+        return [
+          Array.isArray(activityCount) ? activityCount.join('') : activityCount,
+          locationLabels && ' · ',
+          locationLabels,
+        ];
+      };
+      const variantOptions = curScene?.variants.map((variant) => {
+        return {
+          id: variant.id,
+          label: [variant.label, ' · ', ...variantMetadata(variant)].filter(Boolean).join(''),
+        };
+      });
 
       const toLi = (ids: Set<string>, labels: Labelled[]) =>
         Array.from(ids).map((id) =>
@@ -404,111 +346,102 @@ ${measuresToHtml(measures, lookupPartner, findCrimeMeasure)}`
         ]),
 
         description && m('p', highlighter(description)),
-        m('.row', [
-          m('.col.s6.m4', [allCastIds.size > 0 && [m('h5', t('CAST')), m('ol', toLi(allCastIds, cast))]]),
-          m('.col.s6.m4', [allAttrIds.size > 0 && [m('h5', t('ATTRIBUTES')), m('ol', toLi(allAttrIds, attributes))]]),
-          m('.col.s6.m4', [
-            allTranspIds.size > 0 && [
-              m('h5', t('TRANSPORTS', allTranspIds.size)),
-              m('ol', toLi(allTranspIds, transports)),
-            ],
-            allLocIds.size > 0 && [m('h5', t('LOCATIONS', allLocIds.size)), m('ol', toLi(allLocIds, locations))],
+        (hasScriptContentSummary || hasReferences) &&
+          m('.script-viewer-summaries', [
+            hasScriptContentSummary && m('details.script-viewer-summary', [
+              m('summary.script-viewer-summary-counts', [
+                allCastIds.size > 0 && m('span', t('ROLE_COUNT', { count: allCastIds.size })),
+                allAttrIds.size > 0 && m('span', t('ATTRIBUTE_COUNT', { count: allAttrIds.size })),
+                allTranspIds.size > 0 && m('span', t('TRANSPORT_COUNT', { count: allTranspIds.size })),
+                allLocIds.size > 0 && m('span', t('LOCATION_COUNT', { count: allLocIds.size })),
+              ]),
+              m('.script-viewer-summary-grid', [
+                allCastIds.size > 0 && m('section', [m('h5', t('CAST')), m('ol', toLi(allCastIds, cast))]),
+                allAttrIds.size > 0 && m('section', [m('h5', t('ATTRIBUTES')), m('ol', toLi(allAttrIds, attributes))]),
+                allTranspIds.size > 0 && m('section', [
+                  m('h5', t('TRANSPORTS', allTranspIds.size)),
+                  m('ol', toLi(allTranspIds, transports)),
+                ]),
+                allLocIds.size > 0 && m('section', [
+                  m('h5', t('LOCATIONS', allLocIds.size)),
+                  m('ol', toLi(allLocIds, locations)),
+                ]),
+              ]),
+            ]),
+            hasReferences && literature && m('details.script-viewer-summary', [
+              m('summary', m('span', t('SOURCES_AND_REFERENCES', {
+                count: referenceCount,
+              }))),
+              m(ReferenceListComponent, { references: literature }),
+            ]),
           ]),
-        ]),
-        literature &&
-        literature.length > 0 && [m('h5', t('REFERENCES')), m(ReferenceListComponent, { references: literature })],
-
-        scenesWithVariantsCnt && [
-          m('h5', t('TRACKS')),
-          m('.row.tracks', [
-            m(Select<string>, {
-              label: t('TRACK'),
-              className: 'col s6 m3',
-              placeholder: t('NO_TRACK'),
-              options: tracks,
-              disabled: tracks.length === 0,
-              checkedId: curTrackId || '',
-              onchange: (options) => {
-                const selectedTrackId = options[0];
-                if (selectedTrackId && selectedTrackId !== '') {
-                  updateTrackSelection(selectedTrackId, tracks, scenes);
-                } else {
-                  curTrackId = undefined;
-                }
-                m.redraw();
-              },
-            }),
-            m(FlatButton, {
-              iconName: 'add',
-              label: t('ADD_TRACK'),
-              className: 'col s6 m3',
-              disabled: !canAddTrack,
-              onclick: () => {
-                addTrackOpen = true;
-                newTrack = {
-                  sceneVariants: { ...curSceneVariants },
-                  label: `Track ${tracks.length + 1}`,
-                  description: '',
-                } as Track;
-              },
-            }),
-            m(FlatButton, {
-              iconName: 'edit',
-              label: t('EDIT_TRACK'),
-              className: 'col s6 m3',
-              disabled: !curTrack,
-              onclick: () => {
-                editTrackOpen = true;
-                if (curTrack) {
-                  editTrack = { ...curTrack };
-                }
-              },
-            }),
-            m(FlatButton, {
-              iconName: 'delete',
-              label: t('DEL_TRACK'),
-              className: 'col s6 m3',
-              disabled: !curTrack,
-              onclick: () => (deleteTrackOpen = true),
-            }),
-          ]),
-          curTrack &&
-          curTrack.description &&
-          m('.row', m(SlimdownView, { className: 'col s12', md: curTrack.description })),
-        ],
 
         scenes.length > 0 && m('.script-viewer-workspace', [
           m('aside.script-viewer-outline[aria-label]', { 'aria-label': t('SCENES') }, [
-            m('h5', t('SCENES')),
+            m('.script-viewer-outline-heading', [
+              m('h5', t('SCENES')),
+              tracks.length > 0 && m('label.viewer-track-selector', [
+                m('select.browser-default', {
+                  'aria-label': t('TRACK'),
+                  value: curTrackId || '',
+                  onchange: (event: Event) => {
+                    const trackId = (event.currentTarget as HTMLSelectElement).value;
+                    curTrackId = trackId || undefined;
+                    const track = tracks.find(({ id }) => id === trackId);
+                    if (track) applyTrackSelection(scenes, track);
+                    activeRoleId = undefined;
+                    const selectedScene = scenes.find(({ id }) => id === curScene?.id) || scenes[0];
+                    update({ curActId: selectedScene && selectedSceneVariant(selectedScene)?.id });
+                  },
+                }, [
+                  !curTrackId && m('option[value=][disabled]', [
+                    t('TRACK'),
+                    ': ',
+                    t('CUSTOM_COMBINATION'),
+                  ]),
+                  tracks.map((track) => m('option', {
+                    key: track.id,
+                    value: track.id,
+                  }, [t('TRACK'), ': ', track.label])),
+                ]),
+              ]),
+            ]),
+            curTrack?.description &&
+              m(SlimdownView, { className: 'viewer-track-description', md: curTrack.description }),
             m(
               'ol.scene-outline-list',
-              scenes.map((scene, index) =>
-                m('li.scene-outline-row', { class: curScene?.id === scene.id ? 'active' : '' }, [
+              scenes.map((scene, index) => {
+                const details = sceneOutlineDetails(scene);
+                return m('li.scene-outline-row', { class: curScene?.id === scene.id ? 'active' : '' }, [
                   m(
                     'button.scene-outline-main[type=button]',
                     {
-                      onclick: () => update({
-                        curSceneId: scene.id,
-                        curActId: scene.selectedVariantId || scene.variants[0]?.id,
-                      }),
+                      onclick: () => {
+                        activeRoleId = undefined;
+                        update({
+                          curSceneId: scene.id,
+                          curActId: selectedSceneVariant(scene)?.id,
+                        });
+                      },
                       'aria-current': curScene?.id === scene.id ? 'step' : undefined,
                     },
                     [
                       m('span.scene-outline-number', String(index + 1)),
                       m('span', [
                         m('strong', scene.label || '…'),
-                        m('small', t('STEP_COUNT', {
-                          count:
-                            (
-                              scene.variants.find(({ id }) => id === scene.selectedVariantId) ||
-                              scene.variants[0]
-                            )?.activities?.length || 0,
-                        })),
+                        m('small', [
+                          t('ACTIVITY_COUNT', { count: details.activityCount }),
+                          details.variantCount > 1 && ' · ',
+                          details.variantCount > 1 &&
+                            t('MODUS_OPERANDI_COUNT', { count: details.variantCount }),
+                          details.variantCount > 1 && details.selectedVariantLabel && ' · ',
+                          details.variantCount > 1 && details.selectedVariantLabel,
+                        ]),
                       ]),
                     ]
                   ),
-                ])
-              )
+                ]);
+              })
             ),
           ]),
           m('main.script-viewer-scene', [
@@ -521,130 +454,51 @@ ${measuresToHtml(measures, lookupPartner, findCrimeMeasure)}`
                 curScene.description &&
                   m(SlimdownView, { md: curScene.description, removeParagraphs: true }),
               ]),
-              curScene.variants.length > 1 &&
-                m('.viewer-variant-selector', m(Select<ID>, {
-                  label: t('SELECT_ACT'),
-                  checkedId: curAct?.id,
-                  options: curScene.variants,
-                  onchange: ([variantId]) => {
-                    if (!variantId) return;
-                    handleVariantSelection(curScene.id, variantId, tracks, scenes);
-                    update({ curActId: variantId });
-                    m.redraw();
-                  },
-                })),
-              selectedActContent && [
-                m('h5.viewer-act-title', selectedActContent.title),
-                selectedActContent.vnode,
-              ],
+              curAct && m('.viewer-variant-switcher', { 'aria-label': t('ACTS') }, [
+                curScene.variants.length === 1
+                  ? m('.viewer-variant-static', {
+                    id: `${curScene.id}-${curAct.id}-label`,
+                  }, [
+                    m('span', highlighter(curAct.label)),
+                    m('small', variantMetadata(curAct)),
+                  ])
+                  : curScene.variants.length <= 3
+                    ? m('.viewer-variant-options[role=group]', { 'aria-label': t('ACTS') },
+                      curScene.variants.map((variant) => {
+                        const active = variant.id === curAct.id;
+                        const triggerId = `${curScene.id}-${variant.id}-trigger`;
+                        return m('button.viewer-variant-trigger[type=button]', {
+                          key: variant.id,
+                          id: triggerId,
+                          class: active ? 'active' : '',
+                          'aria-pressed': active ? 'true' : 'false',
+                          'aria-controls': `${curScene.id}-variant-panel`,
+                          onclick: () => selectVariant(variant.id),
+                        }, [
+                          m('span', highlighter(variant.label)),
+                          m('small', variantMetadata(variant)),
+                        ]);
+                      })
+                    )
+                    : m('.viewer-variant-select', m(Select<string>, {
+                      label: t('ACTS'),
+                      options: variantOptions,
+                      checkedId: curAct.id,
+                      onchange: ([variantId]) => variantId && selectVariant(variantId),
+                    })),
+                m('.viewer-variant-panel', {
+                  id: `${curScene.id}-variant-panel`,
+                  'aria-labelledby': curScene.variants.length === 1
+                    ? `${curScene.id}-${curAct.id}-label`
+                    : curScene.variants.length <= 3
+                      ? `${curScene.id}-${curAct.id}-trigger`
+                      : undefined,
+                  'aria-label': curScene.variants.length > 3 ? curAct.label : undefined,
+                }, selectedActContent),
+              ]),
             ],
           ]),
         ]),
-
-        // Add Track Modal
-        addTrackOpen &&
-        m(Dialog, {
-          id: 'add_track',
-          title: t('ADD_TRACK'),
-          isOpen: true,
-          onToggle: (open: boolean) => (addTrackOpen = open),
-          content: m(
-            '.row',
-            newTrack &&
-            m(LayoutForm<Track>, {
-              form: trackForm,
-              obj: newTrack,
-              onchange: (_, obj) => {
-                newTrack = obj;
-              },
-            })
-          ),
-          secondaryAction: { label: t('CANCEL'), iconName: 'cancel' },
-          primaryAction: {
-            label: t('ADD_TRACK'),
-            iconName: 'add',
-            onclick: () => {
-              if (newTrack && newTrack.label) {
-                tracks.push(newTrack);
-                curTrackId = newTrack.id;
-                crimeScript.tracks = tracks;
-                model.crimeScripts = model.crimeScripts.map((c) => (c.id === crimeScript.id ? crimeScript : c));
-                newTrack = undefined;
-                saveModel(model);
-              }
-            },
-          },
-        }),
-
-        // Edit Track Modal
-        editTrackOpen &&
-        m(Dialog, {
-          id: 'edit_track',
-          title: t('EDIT_TRACK'),
-          isOpen: true,
-          onToggle: (open: boolean) => (editTrackOpen = open),
-          content: m(
-            '.row',
-            editTrack &&
-            m(LayoutForm<Track>, {
-              form: trackForm,
-              obj: editTrack,
-              onchange: (_, obj) => {
-                editTrack = obj;
-              },
-            })
-          ),
-          secondaryAction: { label: t('CANCEL'), iconName: 'cancel' },
-          primaryAction: {
-            label: t('SAVE'),
-            iconName: 'save',
-            onclick: () => {
-              if (editTrack && curTrack) {
-                // Update the track in the tracks array
-                const trackIndex = tracks.findIndex((t) => t.id === curTrack.id);
-                if (trackIndex !== -1) {
-                  tracks[trackIndex] = editTrack;
-                  crimeScript.tracks = tracks;
-                  model.crimeScripts = model.crimeScripts.map((c) => (c.id === crimeScript.id ? crimeScript : c));
-                  editTrack = undefined;
-                  saveModel(model);
-                }
-              }
-            },
-          },
-        }),
-
-        // Delete Track Modal
-        deleteTrackOpen &&
-        m(AlertDialog, {
-          id: 'del_track',
-          title: t('DEL_TRACK'),
-          isOpen: true,
-          onToggle: (open: boolean) => (deleteTrackOpen = open),
-          content: m(
-            '.row',
-            curTrack &&
-            m(LayoutForm<Track>, {
-              form: trackForm,
-              obj: curTrack,
-              readonly: true,
-            })
-          ),
-          secondaryAction: { label: t('CANCEL'), iconName: 'cancel' },
-          primaryAction: {
-            label: t('DEL_TRACK'),
-            iconName: 'delete',
-            destructive: true,
-            onclick: () => {
-              if (curTrack) {
-                crimeScript.tracks = tracks.filter((t) => t.id !== curTrack.id);
-                model.crimeScripts = model.crimeScripts.map((c) => (c.id === crimeScript.id ? crimeScript : c));
-                curTrackId = undefined;
-                saveModel(model);
-              }
-            },
-          },
-        }),
       ]);
     },
   };
