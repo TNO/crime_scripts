@@ -4,7 +4,11 @@ A web application to create crime scripts.
 
 ## Documentation
 
-- [Nederlandse gebruikershandleiding en video](documentation/handleiding.nl.md)
+- [Nederlandse gebruikershandleiding](documentation/handleiding.nl.md)
+- [Korte video bij de gebruikershandleiding](documentation/assets/user-guide/pax-handleiding.webm)
+- [Afgeschermd Witwassen-script maken met de CLI](documentation/restricted-witwassen-cli.nl.md)
+- [Korte video van de afgeschermde CLI-workflow](documentation/assets/restricted-cli/restricted-witwassen-cli.webm)
+- [Screenshots en video's opnieuw maken](documentation/media-productie.md)
 - [Crime Script Generator CLI](packages/script-generator/README.md)
 
 ## Installation
