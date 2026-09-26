@@ -1,9 +1,11 @@
 # 0015 Document restricted Witwassen CLI workflow
 
-Status: open
+Status: done
 Priority: high
 Subsystem: content
 Depends on: 0009
+Owner: Erik Vullings
+Agent: GitHub Copilot
 
 ## Context
 
@@ -44,3 +46,15 @@ bundle without exposing restricted source material in public artifacts.
 
 - 2026-09-25 GitHub Copilot: Created for a restricted “Witwassen” CLI
   demonstration, media sequence, and guarded restricted-bundle merge.
+- 2026-09-25 GitHub Copilot: Started the isolated generator workflow. The
+  reviewed standalone artifact and explicit merge approval remain mandatory.
+- 2026-09-26 GitHub Copilot: Completed a source-backed, non-operational
+  restricted Witwassen draft with three scenes, six activities and six
+  authoritative public sources. Generator status returned `nextAction: build`;
+  the standalone loaded and rendered correctly in an isolated GUI context.
+  The user's explicit instruction to add the script authorized the guarded
+  merge into a local bundle copy. The resulting 18-script bundle has no
+  duplicate IDs and remains outside Git at
+  `files/restricted-bundle-witwassen.json`. Added a five-frame PNG walkthrough,
+  an 18-second WebM, exact commands, artifact hashes and privacy guidance in
+  `documentation/restricted-witwassen-cli.nl.md`.
