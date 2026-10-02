@@ -54,6 +54,8 @@ export const CrimeScriptViewer: FactoryComponent<{
   partners: Partner[];
   transports: Transport[];
   curSceneId?: ID;
+  curActId?: ID;
+  curActivityId?: ID;
   searchFilter?: string;
   update: (patch: Patch<State>) => void;
   model: DataModel;
@@ -63,6 +65,7 @@ export const CrimeScriptViewer: FactoryComponent<{
   const findCrimeMeasure = lookupCrimeMeasure();
   let curTrackId = undefined as string | undefined;
   let activeRoleId = undefined as ID | undefined;
+  let lastFocusedActivityId: ID | undefined;
 
   const renderActivities = (
     activities: Act['activities'],
@@ -70,6 +73,7 @@ export const CrimeScriptViewer: FactoryComponent<{
     crimeScript: CrimeScript,
     model: DataModel,
     scriptMode: ScriptMode,
+    targetActivityId: ID | undefined,
     highlighter: (text?: string) => m.Children
   ) => {
     const outline = buildActivityOutline(activities);
@@ -84,7 +88,22 @@ export const CrimeScriptViewer: FactoryComponent<{
         scriptMode
       );
       const matchesRole = activityMatchesRole(activity, activeRoleId);
-      return m('li.script-activity-item', [
+      return m('li.script-activity-item', {
+        tabindex: activity.id === targetActivityId ? -1 : undefined,
+        class: activity.id === targetActivityId ? 'script-activity-item--target' : '',
+        oncreate: ({ dom }) => {
+          if (activity.id !== targetActivityId || lastFocusedActivityId === activity.id) return;
+          lastFocusedActivityId = activity.id;
+          (dom as HTMLElement).focus({ preventScroll: true });
+          (dom as HTMLElement).scrollIntoView({ behavior: 'smooth', block: 'center' });
+        },
+        onupdate: ({ dom }) => {
+          if (activity.id !== targetActivityId || lastFocusedActivityId === activity.id) return;
+          lastFocusedActivityId = activity.id;
+          (dom as HTMLElement).focus({ preventScroll: true });
+          (dom as HTMLElement).scrollIntoView({ behavior: 'smooth', block: 'center' });
+        },
+      }, [
         m('.script-activity-row', {
           class: activeRoleId ? (matchesRole ? 'role-match' : 'role-muted') : '',
         }, [
@@ -150,6 +169,7 @@ export const CrimeScriptViewer: FactoryComponent<{
     crimeScript: CrimeScript,
     model: DataModel,
     scriptMode: ScriptMode,
+    targetActivityId: ID | undefined,
     highlighter: (text?: string) => m.Children,
     mdHighlighter: (text?: string) => string
   ) => {
@@ -203,7 +223,7 @@ ${measuresToHtml(measures, lookupPartner, findCrimeMeasure)}`
       description && m('.activity-group-context', highlighter(description)),
       activities.length > 0 && [
         m('h5', t('STEPS')),
-        renderActivities(activities, cast, crimeScript, model, scriptMode, highlighter),
+        renderActivities(activities, cast, crimeScript, model, scriptMode, targetActivityId, highlighter),
       ],
       md.trim() && m(SlimdownView, { md: mdHighlighter(md) }),
     ];
@@ -233,6 +253,8 @@ ${measuresToHtml(measures, lookupPartner, findCrimeMeasure)}`
         products = [],
         partners = [],
         curSceneId,
+        curActId,
+        curActivityId,
         searchFilter,
         update,
       },
@@ -286,7 +308,8 @@ ${measuresToHtml(measures, lookupPartner, findCrimeMeasure)}`
       );
 
       const curScene = scenes.find((s) => s.id === curSceneId) || scenes[0];
-      const curAct = curScene && selectedSceneVariant(curScene);
+      const curAct = curScene && (curScene.variants.find(({ id }) => id === curActId) || selectedSceneVariant(curScene));
+      if (!curActivityId) lastFocusedActivityId = undefined;
       const hasScriptContentSummary =
         allCastIds.size > 0 || allAttrIds.size > 0 || allTranspIds.size > 0 || allLocIds.size > 0;
       const referenceCount = literature?.length || 0;
@@ -300,6 +323,7 @@ ${measuresToHtml(measures, lookupPartner, findCrimeMeasure)}`
           crimeScript,
           model,
           scriptMode,
+          curActivityId,
           highlighter,
           mdHighlighter
         )
@@ -309,7 +333,7 @@ ${measuresToHtml(measures, lookupPartner, findCrimeMeasure)}`
         curScene.selectedVariantId = variantId;
         curTrackId = findMatchingTrack(tracks, sceneVariantSelection(scenes))?.id;
         activeRoleId = undefined;
-        update({ curActId: variantId });
+        update({ curActId: variantId, curActivityId: undefined });
       };
       const variantMetadata = (variant: Act) => {
         const activityCount = t('ACTIVITY_COUNT', { count: variant.activities.length });
@@ -430,7 +454,7 @@ ${measuresToHtml(measures, lookupPartner, findCrimeMeasure)}`
                     if (track) applyTrackSelection(scenes, track);
                     activeRoleId = undefined;
                     const selectedScene = scenes.find(({ id }) => id === curScene?.id) || scenes[0];
-                    update({ curActId: selectedScene && selectedSceneVariant(selectedScene)?.id });
+                    update({ curActId: selectedScene && selectedSceneVariant(selectedScene)?.id, curActivityId: undefined });
                   },
                 }, [
                   !curTrackId && m('option[value=][disabled]', [
@@ -460,6 +484,7 @@ ${measuresToHtml(measures, lookupPartner, findCrimeMeasure)}`
                         update({
                           curSceneId: scene.id,
                           curActId: selectedSceneVariant(scene)?.id,
+                          curActivityId: undefined,
                         });
                       },
                       'aria-current': curScene?.id === scene.id ? 'step' : undefined,

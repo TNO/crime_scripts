@@ -134,13 +134,13 @@ test('the Dutch starter fixture contains all researched topics', () => {
   const fixture = validateStarterBundle(JSON.parse(readFileSync('public/starter-bundles/nl.json', 'utf8')));
   assert.deepEqual(fixture.starterBundle, {
     id: 'pax-nl-starter',
-    version: '1.0.0',
+    version: '1.0.1',
     locale: 'nl',
     title: 'Nederlandse starterbibliotheek',
     publishedAt: '2026-09-17',
     license: 'CC BY 4.0',
     licenseUrl: 'https://creativecommons.org/licenses/by/4.0/',
-    attribution: 'Nederlandse starterbibliotheek voor Crime Scripts, PAX/TNO, versie 1.0.0 (2026), met AI-ondersteuning',
+    attribution: 'Nederlandse starterbibliotheek voor Crime Scripts, PAX/TNO, versie 1.0.1 (2026), met AI-ondersteuning',
     disclaimer: 'AI-gegenereerd en onbeoordeeld; controleer de inhoud vóór gebruik. Geen juridisch advies.',
   });
   assert.deepEqual(fixture.crimeScripts.map(({ id }) => id), expectedDutchStarterIds);
@@ -179,13 +179,13 @@ test('the English starter fixture mirrors the complete Dutch starter library', (
 
   assert.deepEqual(fixture.starterBundle, {
     id: 'pax-en-starter',
-    version: '1.0.0',
+    version: '1.0.1',
     locale: 'en',
     title: 'English starter library',
     publishedAt: '2026-09-17',
     license: 'CC BY 4.0',
     licenseUrl: 'https://creativecommons.org/licenses/by/4.0/',
-    attribution: 'English starter library for Crime Scripts, PAX/TNO, version 1.0.0 (2026), with AI assistance',
+    attribution: 'English starter library for Crime Scripts, PAX/TNO, version 1.0.1 (2026), with AI assistance',
     disclaimer: 'AI-generated and unreviewed; verify the content before use. Not legal advice.',
   });
   assert.equal(fixture.crimeScripts.length, expectedDutchStarterIds.length);
@@ -218,6 +218,39 @@ test('the English starter fixture mirrors the complete Dutch starter library', (
     assert.match(script.id, /^en-starter:script:[a-z0-9-]+$/);
   });
   assert.doesNotMatch(raw, /nl-starter:/);
+});
+
+test('public starter taxonomy enrichments keep translated categories and published mirrors aligned', () => {
+  for (const locale of ['nl', 'en'] as const) {
+    const json = readFileSync(`public/starter-bundles/${locale}.json`, 'utf8');
+    assert.equal(json, readFileSync(`../../docs/starter-bundles/${locale}.json`, 'utf8'));
+    const fixture = validateStarterBundle(JSON.parse(json));
+    const cast = fixture.cast.find(({ label }) => label === (locale === 'nl' ? 'Chauffeur' : 'Driver'));
+    const category = fixture.cast.find(({ id }) => id === cast?.parents?.[0]);
+    assert.equal(category?.label, locale === 'nl' ? 'Logistiek' : 'Logistics');
+    assert.ok(cast?.description);
+    const cash = fixture.attributes.find(({ label }) => label === (locale === 'nl' ? 'Contant geld' : 'Cash'));
+    assert.deepEqual(cash?.synonyms, ['Cash', 'Kapitaal', 'Startkapitaal']);
+    assert.equal(
+      fixture.attributes.find(({ id }) => id === cash?.parents?.[0])?.label,
+      locale === 'nl' ? 'Betaalmiddel' : 'Payment method'
+    );
+    const affectedParty = fixture.cast.find(({ label }) => label === (locale === 'nl' ? 'Benadeelde' : 'Affected party'));
+    assert.equal(
+      fixture.cast.find(({ id }) => id === affectedParty?.parents?.[0])?.label,
+      locale === 'nl' ? 'Begunstigde' : 'Beneficiary'
+    );
+    const drugs = fixture.products.find(({ label }) => label === (locale === 'nl' ? 'Verdovende middelen' : 'Controlled substances'));
+    assert.deepEqual(drugs?.synonyms, ['Drugs']);
+    assert.ok(drugs?.description);
+    const netherlands = fixture.geoLocations.find(({ label }) => label === (locale === 'nl' ? 'Nederland' : 'Netherlands'));
+    const westernEurope = fixture.geoLocations.find(({ id }) => id === netherlands?.parents?.[0]);
+    const europe = fixture.geoLocations.find(({ id }) => id === westernEurope?.parents?.[0]);
+    const world = fixture.geoLocations.find(({ id }) => id === europe?.parents?.[0]);
+    assert.equal(world?.label, locale === 'nl' ? 'Wereld' : 'World');
+    assert.deepEqual(europe?.synonyms, ['EU']);
+    assert.equal(fixture.cast.some(({ label }) => label === 'Aanbieder'), false);
+  }
 });
 
 test('barrier-model scenes describe process context without copying their titles', () => {

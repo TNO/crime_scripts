@@ -23,6 +23,7 @@ import { NewScriptWizard } from './ui/new_script_wizard';
 export const HomePage: MeiosisComponent = () => {
   let wizardOpen = false;
   let llmWizardOpen = false;
+  let labelFilter: { aiGenerated?: boolean; reviewed?: boolean } = {};
 
   const actLocations = (cs: CrimeScript) => {
     const csActs = cs.stages
@@ -65,22 +66,23 @@ export const HomePage: MeiosisComponent = () => {
       const { crimeScripts = [], products = [], geoLocations = [], locations = [] } = model;
       const isAdmin = role === 'admin';
 
-      const csFilter =
-        crimeScriptFilter.productIds?.length > 0 ||
-          crimeScriptFilter.geoLocationIds?.length > 0 ||
-          crimeScriptFilter.locationIds?.length > 0
-          ? (cs: CrimeScript, _idx: number, _arr: CrimeScript[]) => {
-            const { productIds = [], locationIds = [], geoLocationIds = [] } = crimeScriptFilter;
-            const allProductIds = includeChildren(products, productIds);
-            const allGeoIds = includeChildren(geoLocations, geoLocationIds);
-            const allLocIds = includeChildren(locations, locationIds);
-            return (
-              (allProductIds.length === 0 || cs.productIds?.some((id) => allProductIds.includes(id))) &&
-              (allGeoIds?.length === 0 || cs.geoLocationIds?.some((id) => allGeoIds?.includes(id))) &&
-              (allLocIds?.length === 0 || actLocations(cs).some((id) => allLocIds?.includes(id)))
-            );
-          }
-          : (_cs: CrimeScript, _idx: number, _arr: CrimeScript[]) => true;
+      const csFilter = (cs: CrimeScript) => {
+        const { productIds = [], locationIds = [], geoLocationIds = [] } = crimeScriptFilter;
+        const allProductIds = includeChildren(products, productIds);
+        const allGeoIds = includeChildren(geoLocations, geoLocationIds);
+        const allLocIds = includeChildren(locations, locationIds);
+        return (
+          (allProductIds.length === 0 || cs.productIds?.some((id) => allProductIds.includes(id))) &&
+          (allGeoIds.length === 0 || cs.geoLocationIds?.some((id) => allGeoIds.includes(id))) &&
+          (allLocIds.length === 0 || actLocations(cs).some((id) => allLocIds.includes(id))) &&
+          (!labelFilter.aiGenerated || cs.aiGenerated) &&
+          (labelFilter.reviewed === undefined ||
+            (cs.status >= 4 && !cs.unreviewed) === labelFilter.reviewed)
+        );
+      };
+      const toggleFilter = (field: 'aiGenerated' | 'reviewed', value: boolean) => {
+        labelFilter = { ...labelFilter, [field]: labelFilter[field] === value ? undefined : value };
+      };
       const visibleCrimeScripts = scriptsForMode(crimeScripts, scriptMode)
         .sort(sortByLabel)
         .filter(csFilter);
@@ -142,6 +144,15 @@ export const HomePage: MeiosisComponent = () => {
             i18n: I18N,
           } as FormAttributes<CrimeScriptFilter>)
         ),
+        (labelFilter.aiGenerated || labelFilter.reviewed !== undefined) &&
+          m('.active-script-filters', [
+            labelFilter.aiGenerated && m('button[type=button].script-filter-chip', {
+              onclick: () => toggleFilter('aiGenerated', true),
+            }, `${t('AI_GENERATED')} ×`),
+            labelFilter.reviewed !== undefined && m('button[type=button].script-filter-chip', {
+              onclick: () => toggleFilter('reviewed', labelFilter.reviewed === true),
+            }, `${t(labelFilter.reviewed ? 'REVIEWED' : 'UNREVIEWED')} ×`),
+          ]),
         m(
           '.crime-scenes',
           m('ul.collection.with-header', [
@@ -149,7 +160,7 @@ export const HomePage: MeiosisComponent = () => {
               count: visibleCrimeScripts.length,
             }))),
             visibleCrimeScripts
-              .map(({ icon, icons, url, label, description, id, classification, productIds = [], geoLocationIds = [] }) => {
+              .map(({ icon, icons, url, label, description, id, classification, productIds = [], geoLocationIds = [], aiGenerated, unreviewed, status }) => {
                 const onclick = () => {
                   actions.changePage(Pages.CRIME_SCRIPT, { id });
                   actions.update({ currentCrimeScriptId: id });
@@ -171,6 +182,20 @@ export const HomePage: MeiosisComponent = () => {
                       'span.classification-badge.script-list-classification',
                       t(classification === 'restricted' ? 'RESTRICTED' : 'PUBLIC')
                     ),
+                    aiGenerated && m('button[type=button].classification-badge.script-filter-chip', {
+                      'aria-pressed': labelFilter.aiGenerated ? 'true' : 'false',
+                      onclick: (event: MouseEvent) => {
+                        event.stopPropagation();
+                        toggleFilter('aiGenerated', true);
+                      },
+                    }, t('AI_GENERATED')),
+                    m('button[type=button].classification-badge.script-filter-chip', {
+                      'aria-pressed': labelFilter.reviewed === (status >= 4 && !unreviewed) ? 'true' : 'false',
+                      onclick: (event: MouseEvent) => {
+                        event.stopPropagation();
+                        toggleFilter('reviewed', status >= 4 && !unreviewed);
+                      },
+                    }, t(status >= 4 && !unreviewed ? 'REVIEWED' : 'UNREVIEWED')),
                   ]),
                   description && m('p.script-list-description', description),
                   (productIds.length > 0 || geoLocationIds.length > 0) &&

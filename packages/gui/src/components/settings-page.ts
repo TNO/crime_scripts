@@ -1,8 +1,7 @@
 import m, { type FactoryComponent } from 'mithril';
-import { Collapsible, FlatButton, Tabs, TextInput } from 'mithril-materialized';
+import { Collapsible, FlatButton, Select, Tabs, TextInput } from 'mithril-materialized';
 import { deepCopy, type FormAttributes, LayoutForm, SlimdownView } from 'mithril-ui-form';
 import {
-  type Act,
   type Cast,
   type CrimeScript,
   type DataModel,
@@ -14,6 +13,7 @@ import {
   collectTaxonomyReferenceUsages,
   findTaxonomyForItem,
   findRemovedTaxonomyItems,
+  mergeTaxonomyItems,
   Pages,
   removeTaxonomyReferences,
   SearchScore,
@@ -42,7 +42,11 @@ export const SettingsPage: MeiosisComponent = () => {
   let edit = false;
   let storedModel: DataModel;
   let selectedId: ID | undefined;
+  let activeTab: TaxonomyName | undefined;
   let showTree = false;
+  let categoryFilter: { taxonomy: TaxonomyName; id: ID } | undefined;
+  let mergeSourceId: ID | undefined;
+  let mergeTargetId: ID | undefined;
 
   return {
     oninit: ({
@@ -78,7 +82,7 @@ export const SettingsPage: MeiosisComponent = () => {
       } = model;
 
       const labelFilter = attributeFilter ? attributeFilter.toLowerCase() : undefined;
-      const selectedTabId = findTaxonomyForItem(model, selectedId);
+      const selectedTabId = activeTab || findTaxonomyForItem(model, selectedId);
 
       const isAdmin = role === 'admin';
 
@@ -108,10 +112,10 @@ export const SettingsPage: MeiosisComponent = () => {
         ],
       ] as Array<
         [
-          id: AttributeType,
+          id: TaxonomyName,
           label: string,
           description: string,
-          type: AttributeType,
+          type: TaxonomyName,
           iconName: string,
           attrs: Array<Hierarchical & Labelled>
         ]
@@ -137,6 +141,7 @@ export const SettingsPage: MeiosisComponent = () => {
               onclick: () => {
                 if (!edit) {
                   edit = true;
+                  categoryFilter = undefined;
                   storedModel = deepCopy(model);
                   return;
                 }
@@ -198,27 +203,93 @@ export const SettingsPage: MeiosisComponent = () => {
         m(Tabs, {
           tabWidth: 'auto',
           selectedTabId,
+          onTabChange: (id) => {
+            activeTab = id as TaxonomyName;
+            selectedId = undefined;
+          },
           tabs: tabs.map(([id, label, desc, type, iconName, attr]) => {
+            const activeCategoryItem = categoryFilter?.taxonomy === id
+              ? model[id].find((item) => item.id === categoryFilter?.id)
+              : undefined;
+            const activeCategory = activeCategoryItem?.id;
+            const visible = activeCategory
+              ? attr.filter((item) => item.id === activeCategory || item.parents?.includes(activeCategory))
+              : attr;
             return {
               id,
-              title: `${attr.length ? `${attr.length} ` : ''}${label}`,
+              title: `${visible.length ? `${visible.length} ` : ''}${label}`,
               vnode: edit
-                ? m(LayoutForm, {
+                ? m('div', [
+                  m('.taxonomy-merge', [
+                    m('span', t('MERGE_ITEMS')),
+                    m(Select<ID>, {
+                      label: t('MERGE_SOURCE'),
+                      checkedId: mergeSourceId,
+                      options: attr.filter(({ id }) => id !== mergeTargetId),
+                      onchange: ([value]) => { mergeSourceId = value; },
+                    }),
+                    m(Select<ID>, {
+                      label: t('MERGE_TARGET'),
+                      checkedId: mergeTargetId,
+                      options: attr.filter(({ id }) => id !== mergeSourceId),
+                      onchange: ([value]) => { mergeTargetId = value; },
+                    }),
+                    m(FlatButton, {
+                      label: t('MERGE_ITEMS'),
+                      iconName: 'merge',
+                      disabled: !mergeSourceId || !mergeTargetId || mergeSourceId === mergeTargetId ||
+                        !attr.some(({ id }) => id === mergeSourceId) || !attr.some(({ id }) => id === mergeTargetId),
+                      onclick: () => {
+                        const source = attr.find(({ id }) => id === mergeSourceId);
+                        const target = attr.find(({ id }) => id === mergeTargetId);
+                        if (!source || !target) return;
+                        if (!window.confirm(text(t('MERGE_ITEMS_CONFIRM', { source: source.label, target: target.label })))) return;
+                        actions.update({ model: mergeTaxonomyItems(model, id, source.id, target.id) });
+                        mergeSourceId = undefined;
+                        mergeTargetId = undefined;
+                      },
+                    }),
+                  ]),
+                  m(LayoutForm, {
                     form: attrForm(id, label, attr, type),
                     obj: model,
-                  } as FormAttributes<any>)
+                  } as FormAttributes<any>),
+                ])
                 : m(
                     'div',
+                    activeCategoryItem && m('.taxonomy-filter-bar',
+                      m('button[type=button].taxonomy-active-filter', {
+                        'aria-label': text(t('CLEAR_CATEGORY_FILTER', { category: activeCategoryItem.label })),
+                        onclick: () => { categoryFilter = undefined; },
+                      }, [
+                        m('span', t('ACTIVE_CATEGORY_FILTER', { category: activeCategoryItem.label })),
+                        m('i.material-icons[aria-hidden=true]', 'close'),
+                      ])
+                    ),
                     desc && m(SlimdownView, { md: desc }),
                     showTree
-                      ? m(TreeView, { data: attr, rootLabel: label, className: 'col s12 ' })
+                      ? m(TreeView, {
+                          data: visible,
+                          rootLabel: label,
+                          className: 'col s12 ',
+                          onselect: (itemId) => {
+                            selectedId = itemId;
+                            activeTab = id;
+                            showTree = false;
+                          },
+                        })
                       : m(AttrView, {
-                          attr,
+                          attr: visible,
                           selectedId,
                           type,
                           iconName,
                           crimeScripts,
                           setLocation: actions.setLocation,
+                          allItems: model[id],
+                          onCategory: (categoryId) => {
+                            categoryFilter = { taxonomy: id, id: categoryId };
+                            actions.setAttributeFilter('');
+                          },
                         })
                   ),
             };
@@ -235,13 +306,15 @@ const AttrView: FactoryComponent<{
   type: AttributeType;
   iconName?: string;
   crimeScripts: CrimeScript[];
-  setLocation: (currentCrimeScriptId: ID, actId: ID, phaseId: ID) => void;
+  allItems: Array<Hierarchical & Labelled>;
+  setLocation: (currentCrimeScriptId: ID, actId: ID, phaseId: ID, activityId?: ID) => void;
+  onCategory: (categoryId: ID) => void;
 }> = () => {
   return {
     oncreate: ({ attrs: { selectedId } }) => {
       selectedId && scrollToActiveItem(selectedId);
     },
-    view: ({ attrs: { attr, type, iconName, crimeScripts, setLocation, selectedId } }) => {
+    view: ({ attrs: { attr, type, iconName, crimeScripts, setLocation, selectedId, onCategory, allItems } }) => {
       return m(
         '.attr',
         m(Collapsible, {
@@ -249,8 +322,9 @@ const AttrView: FactoryComponent<{
             .sort((a, b) => a.label?.localeCompare(b.label))
             .map((c) => {
               const searchResults = crimeScripts.reduce((acc, cs, crimeScriptIdx) => {
-                if (type === 'products') {
-                  if (cs.productIds && cs.productIds.includes(c.id)) {
+                if (type === 'products' || type === 'geoLocations') {
+                  const ids = type === 'products' ? cs.productIds : cs.geoLocationIds;
+                  if (ids?.includes(c.id)) {
                     acc.push([crimeScriptIdx, -1, -1, SearchScore.EXACT_MATCH]);
                     return acc;
                   }
@@ -272,17 +346,17 @@ const AttrView: FactoryComponent<{
                         if (type === 'cast') {
                           const { cast = [] } = activity;
                           if (cast.includes(c.id)) {
-                            acc.push([crimeScriptIdx, sceneIdx, variantIdx, SearchScore.EXACT_MATCH, activity.label]);
+                            acc.push([crimeScriptIdx, sceneIdx, variantIdx, SearchScore.EXACT_MATCH, activity.label, activity.id]);
                           }
                         } else if (type === 'attributes') {
                           const { attributes = [] } = activity;
                           if (attributes.includes(c.id)) {
-                            acc.push([crimeScriptIdx, sceneIdx, variantIdx, SearchScore.EXACT_MATCH, activity.label]);
+                            acc.push([crimeScriptIdx, sceneIdx, variantIdx, SearchScore.EXACT_MATCH, activity.label, activity.id]);
                           }
                         } else if (type === 'transports') {
                           const { transports = [] } = activity;
                           if (transports.includes(c.id)) {
-                            acc.push([crimeScriptIdx, sceneIdx, variantIdx, SearchScore.EXACT_MATCH, activity.label]);
+                            acc.push([crimeScriptIdx, sceneIdx, variantIdx, SearchScore.EXACT_MATCH, activity.label, activity.id]);
                           }
                         }
                       });
@@ -292,55 +366,62 @@ const AttrView: FactoryComponent<{
                 return acc;
               }, [] as FlexSearchResult[]);
 
+              const byScript = new Map<number, Map<number, FlexSearchResult[]>>();
+              searchResults.forEach((result) => {
+                const [scriptIdx, sceneIdx] = result;
+                if (!byScript.has(scriptIdx)) byScript.set(scriptIdx, new Map());
+                const scenes = byScript.get(scriptIdx)!;
+                scenes.set(sceneIdx, [...(scenes.get(sceneIdx) || []), result]);
+              });
               return {
-                header: m.trust(
-                  `${c.label}${c.synonyms ? ` (${c.synonyms.join(', ')})` : ''}, hits: ${searchResults.length}${
-                    c.parents
-                      ? `<br>${attr
-                          .filter((a) => c.parents!.includes(a.id))
-                          .map((a) => a.label)
-                          .join(', ')}`
-                      : ''
-                  }`
-                ),
+                header: m('.taxonomy-item-header', [
+                  m('.taxonomy-item-heading', [
+                    m('span', `${c.label}${c.synonyms?.length ? ` (${c.synonyms.join(', ')})` : ''} · ${text(t('HIT_COUNT', { count: searchResults.length }))}`),
+                    c.parents?.map((parentId) => {
+                      const parent = allItems.find(({ id }) => id === parentId);
+                      if (!parent) return undefined;
+                      const siblings = allItems.filter((item) => item.parents?.includes(parentId) && item.id !== c.id);
+                      return m('button[type=button].taxonomy-category', {
+                        title: siblings.length
+                          ? text(t('CATEGORY_SIBLINGS', { items: siblings.map(({ label }) => label).join(', ') }))
+                          : parent.label,
+                        onclick: (event: MouseEvent) => {
+                          event.stopPropagation();
+                          onCategory(parentId);
+                        },
+                      }, parent.label);
+                    }),
+                  ]),
+                  c.description && m('.taxonomy-item-description', m(SlimdownView, { md: c.description })),
+                ]),
                 active: c.id === selectedId,
                 iconName,
                 body: m(
                   '.cast-content',
-                  c.description && m(SlimdownView, { md: `*${t('DESCRIPTION').toUpperCase()}:* ${c.description}` }),
                   m(
-                    'ol',
-                    Object.entries(
-                      searchResults.reduce((grouped, result) => {
-                        const [crimeScriptIdx, sceneIdx, variantIdx] = result;
-                        const key = `${crimeScriptIdx}-${sceneIdx}-${variantIdx}`;
-
-                        if (!grouped[key]) {
-                          grouped[key] = {
-                            crimeScript: crimeScripts[crimeScriptIdx],
-                            sceneIdx,
-                            variantIdx,
-                            act: crimeScripts[crimeScriptIdx].stages[sceneIdx]?.variants[variantIdx],
-                          };
-                        }
-                        return grouped;
-                      }, {} as Record<string, { crimeScript: CrimeScript; sceneIdx: number; variantIdx: number; act?: Act }>)
-                    ).map(([_, { crimeScript, sceneIdx, act }], i) => {
-                      const actLabel = act ? act.label : '...';
-
-                      return m('li', { id: i === 0 ? c.id : undefined }, [
-                        m(
-                          'a.truncate',
-                          {
-                            style: { cursor: 'pointer' },
-                            href: routingSvc.href(Pages.CRIME_SCRIPT, `id=${crimeScript.id}`),
-                            onclick: () => {
-                              const scene = crimeScript.stages[sceneIdx];
-                              if (scene && act) setLocation(crimeScript.id, act.id, scene.id);
-                            },
-                          },
-                          `${crimeScript.label} > ${actLabel}`
-                        ),
+                    'ul.taxonomy-script-hits',
+                    Array.from(byScript, ([scriptIdx, scenes]) => {
+                      const script = crimeScripts[scriptIdx];
+                      const total = Array.from(scenes.values()).reduce((count, hits) => count + hits.length, 0);
+                      return m('li', [
+                        m('a', { href: routingSvc.href(Pages.CRIME_SCRIPT, `id=${script.id}`) },
+                          `${script.label} · ${text(t('HIT_COUNT', { count: total }))}`),
+                        m('ul.taxonomy-scene-hits', Array.from(scenes, ([sceneIdx, hits]) => {
+                          const scene = script.stages[sceneIdx];
+                          if (!scene) return m('li', t('HIT_COUNT', { count: hits.length }));
+                          return m('li', [
+                            m('span', `${scene.label} · ${text(t('HIT_COUNT', { count: hits.length }))}`),
+                            m('ul', hits.map(([, , variantIdx, , hitLabel, activityId]) => {
+                              const variant = scene.variants[variantIdx];
+                              return m('li', m('a', {
+                                href: routingSvc.href(Pages.CRIME_SCRIPT, `id=${script.id}`),
+                                onclick: () => {
+                                  if (variant) setLocation(script.id, variant.id, scene.id, activityId);
+                                },
+                              }, hitLabel || variant?.label || scene.label));
+                            })),
+                          ]);
+                        })),
                       ]);
                     })
                   )

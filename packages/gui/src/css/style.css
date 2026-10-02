@@ -1953,6 +1953,176 @@
   gap: 0.35rem;
 }
 
+.active-script-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0 0 0.75rem;
+}
+
+.taxonomy-category {
+  border: 1px solid color-mix(in srgb, var(--mm-primary-color) 50%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--mm-primary-color) 12%, transparent);
+  color: var(--mm-text-primary, currentColor);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.8rem;
+  padding: 0.15rem 0.55rem;
+}
+
+.taxonomy-filter-bar {
+  margin: 0.75rem 0;
+}
+
+.taxonomy-active-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 1.75rem;
+  padding: 0.12rem 0.55rem;
+  border: 1px solid color-mix(in srgb, var(--mm-primary-color) 50%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--mm-primary-color) 18%, transparent);
+  color: var(--mm-text-primary, currentColor);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.8rem;
+}
+
+.taxonomy-active-filter .material-icons {
+  font-size: 1rem;
+}
+
+.script-filter-chip {
+  appearance: none;
+  color: var(--mm-text-primary, currentColor);
+  cursor: pointer;
+  font: inherit;
+}
+
+.script-list-title-row .script-filter-chip {
+  min-height: 1.55rem;
+  padding: 0.12rem 0.55rem;
+  border: 1px solid color-mix(in srgb, var(--mm-primary-color, #2f6fa5) 45%, transparent);
+  background: color-mix(in srgb, var(--mm-primary-color, #2f6fa5) 13%, transparent);
+  font-size: 0.75rem;
+  line-height: 1.2;
+}
+
+.active-script-filters .script-filter-chip {
+  padding: 0.15rem 0.55rem;
+  border: 1px solid color-mix(in srgb, var(--mm-primary-color) 50%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--mm-primary-color) 12%, transparent);
+  font-size: 0.8rem;
+}
+
+.script-filter-chip[aria-pressed='true'],
+.script-filter-chip:hover,
+.taxonomy-active-filter:hover,
+.taxonomy-category:hover {
+  background: color-mix(in srgb, var(--mm-primary-color) 26%, transparent);
+}
+
+.script-filter-chip:focus-visible,
+.taxonomy-active-filter:focus-visible,
+.taxonomy-category:focus-visible {
+  outline: 2px solid var(--mm-primary-color);
+  outline-offset: 2px;
+}
+
+#settings-page {
+  min-height: calc(100dvh - 123px);
+}
+
+.taxonomy-item-header {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.taxonomy-item-heading {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.taxonomy-item-description {
+  color: color-mix(in srgb, var(--mm-text-primary, currentColor) 82%, transparent);
+  font-size: 0.875rem;
+  line-height: 1.35;
+}
+
+.taxonomy-item-description p {
+  margin: 0;
+}
+
+ul.taxonomy-script-hits,
+ul.taxonomy-scene-hits {
+  margin: 0.35rem 0 0;
+  padding-left: 1rem;
+}
+
+.taxonomy-script-hits > li,
+.taxonomy-scene-hits > li {
+  margin-block: 0.4rem;
+}
+
+.taxonomy-script-hits > li > a {
+  font-weight: 700;
+}
+
+.taxonomy-scene-hits {
+  margin-left: 0.35rem;
+  border-left: 1px solid color-mix(in srgb, var(--mm-text-primary, currentColor) 25%, transparent);
+}
+
+.taxonomy-scene-hits > li > span {
+  font-weight: 600;
+}
+
+.taxonomy-scene-hits > li > ul {
+  margin: 0.25rem 0 0 0.4rem;
+  padding-left: 1rem;
+  border-left: 1px solid color-mix(in srgb, var(--mm-text-primary, currentColor) 15%, transparent);
+}
+
+.script-activity-item--target {
+  border-radius: 0.35rem;
+  background: color-mix(in srgb, var(--mm-primary-color) 13%, transparent);
+  outline: 1px solid color-mix(in srgb, var(--mm-primary-color) 35%, transparent);
+}
+
+.taxonomy-merge {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.75rem;
+}
+
+.taxonomy-merge > .input-field {
+  min-width: min(13rem, 100%);
+}
+
+/* Materialize's checkbox rules hide the input and draw a pseudo-checkbox on the label text. */
+.multi-select .search-select-option-label input[type='checkbox'] {
+  position: static;
+  opacity: 1;
+  pointer-events: auto;
+  flex: none;
+}
+
+.multi-select .search-select-option-label input[type='checkbox'] + span {
+  padding-left: 0;
+}
+
+.multi-select .search-select-option-label input[type='checkbox'] + span::before,
+.multi-select .search-select-option-label input[type='checkbox'] + span::after {
+  content: none;
+}
+
 .script-location-badge,
 .script-product-badge {
   appearance: none;

@@ -4,13 +4,13 @@
   "lastUpdate": 1790208000000,
   "starterBundle": {
     "id": "pax-en-starter",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "locale": "en",
     "title": "English starter library",
     "publishedAt": "2026-09-17",
     "license": "CC BY 4.0",
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
-    "attribution": "English starter library for Crime Scripts, PAX/TNO, version 1.0.0 (2026), with AI assistance",
+    "attribution": "English starter library for Crime Scripts, PAX/TNO, version 1.0.1 (2026), with AI assistance",
     "disclaimer": "AI-generated and unreviewed; verify the content before use. Not legal advice."
   },
   "crimeScripts": [
@@ -610,7 +610,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.0",
+        "bundleVersion": "1.0.1",
         "scriptId": "en-starter:script:cocaine-import-havens"
       },
       "icon": "builtin:port-security",
@@ -1213,7 +1213,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.0",
+        "bundleVersion": "1.0.1",
         "scriptId": "en-starter:script:synthetische-drugsproductie"
       },
       "icon": "builtin:laboratory",
@@ -1820,7 +1820,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.0",
+        "bundleVersion": "1.0.1",
         "scriptId": "en-starter:script:arbeidsuitbuiting"
       },
       "icon": "builtin:labour-exploitation",
@@ -2432,7 +2432,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.0",
+        "bundleVersion": "1.0.1",
         "scriptId": "en-starter:script:mensenhandel-seksuele-uitbuiting"
       },
       "icon": "builtin:human-trafficking",
@@ -3027,7 +3027,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.0",
+        "bundleVersion": "1.0.1",
         "scriptId": "en-starter:script:witwassen-legale-ondernemingen"
       },
       "icon": "builtin:money-laundering",
@@ -3619,7 +3619,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.0",
+        "bundleVersion": "1.0.1",
         "scriptId": "en-starter:script:illegale-dumping-chemisch-afval"
       },
       "icon": "builtin:illegal-dumping",
@@ -4206,7 +4206,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.0",
+        "bundleVersion": "1.0.1",
         "scriptId": "en-starter:script:stroperij-illegale-wildhandel"
       },
       "icon": "builtin:poaching",
@@ -4825,7 +4825,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.0",
+        "bundleVersion": "1.0.1",
         "scriptId": "en-starter:script:voertuigdiefstal-export"
       },
       "icon": "builtin:car-theft",
@@ -5493,7 +5493,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.0",
+        "bundleVersion": "1.0.1",
         "scriptId": "en-starter:script:phishing-betaalfraude"
       },
       "tracks": [
@@ -6109,7 +6109,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.0",
+        "bundleVersion": "1.0.1",
         "scriptId": "en-starter:script:illegale-asbestverwijdering"
       },
       "icon": "builtin:illegal-asbestos-removal",
@@ -6832,7 +6832,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.0",
+        "bundleVersion": "1.0.1",
         "scriptId": "en-starter:script:asbestsaneringsketen"
       }
     },
@@ -7467,7 +7467,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.0",
+        "bundleVersion": "1.0.1",
         "scriptId": "en-starter:script:bijtincidenten-honden"
       }
     },
@@ -7935,7 +7935,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.0",
+        "bundleVersion": "1.0.1",
         "scriptId": "en-starter:script:co-vergisting"
       }
     },
@@ -8653,7 +8653,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.0",
+        "bundleVersion": "1.0.1",
         "scriptId": "en-starter:script:complexe-zorgstructuren"
       }
     },
@@ -9288,7 +9288,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.0",
+        "bundleVersion": "1.0.1",
         "scriptId": "en-starter:script:criminele-uitbuiting"
       }
     },
@@ -9675,7 +9675,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.0",
+        "bundleVersion": "1.0.1",
         "scriptId": "en-starter:script:fake-carriers"
       }
     },
@@ -10588,7 +10588,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.0",
+        "bundleVersion": "1.0.1",
         "scriptId": "en-starter:script:pijplijndiefstal-olieproducten"
       },
       "icon": "builtin:secure-transport",
@@ -10615,11 +10615,19 @@
     },
     {
       "id": "en-starter:cast:facilitator",
-      "label": "Facilitator"
+      "label": "Facilitator",
+      "description": "Enables activities by providing resources or support.",
+      "parents": [
+        "en-starter:cast:category:4"
+      ]
     },
     {
       "id": "en-starter:cast:logistiek-medewerker",
-      "label": "Logistics worker"
+      "label": "Logistics worker",
+      "description": "Supports transport and distribution.",
+      "parents": [
+        "en-starter:cast:category:1"
+      ]
     },
     {
       "id": "en-starter:cast:werknemer",
@@ -10635,11 +10643,19 @@
     },
     {
       "id": "en-starter:cast:slachtoffer",
-      "label": "Victim"
+      "label": "Victim",
+      "description": "Person or entity that is actually harmed by activities.",
+      "parents": [
+        "en-starter:cast:benadeelde"
+      ]
     },
     {
       "id": "en-starter:cast:ronselaar",
-      "label": "Recruiter"
+      "label": "Recruiter",
+      "description": "Recruits people for (criminal) activities.",
+      "parents": [
+        "en-starter:cast:category:6"
+      ]
     },
     {
       "id": "en-starter:cast:seksueel-exploitant",
@@ -10671,7 +10687,11 @@
     },
     {
       "id": "en-starter:cast:exporteur",
-      "label": "Exporter"
+      "label": "Exporter",
+      "description": "Sends goods abroad.",
+      "parents": [
+        "en-starter:cast:category:7"
+      ]
     },
     {
       "id": "en-starter:cast:fraudeur",
@@ -10707,7 +10727,11 @@
     },
     {
       "id": "en-starter:cast:transporteur",
-      "label": "Carrier"
+      "label": "Carrier",
+      "description": "Transports goods or people. Organises or regularly provides transport.",
+      "parents": [
+        "en-starter:cast:category:1"
+      ]
     },
     {
       "id": "en-starter:cast:afvalinzamelaar",
@@ -10739,11 +10763,19 @@
     },
     {
       "id": "en-starter:cast:benadeelde",
-      "label": "Affected party"
+      "label": "Affected party",
+      "description": "Sustains harm from activities.",
+      "parents": [
+        "en-starter:cast:category:7"
+      ]
     },
     {
       "id": "en-starter:cast:ontdoener",
-      "label": "Disposer"
+      "label": "Disposer",
+      "description": "Disposes of goods, materials or waste, whether by sale, transfer or dumping.",
+      "parents": [
+        "en-starter:cast:category:5"
+      ]
     },
     {
       "id": "en-starter:cast:handelaar-of-bemiddelaar",
@@ -10759,11 +10791,19 @@
     },
     {
       "id": "en-starter:cast:leverancier",
-      "label": "Supplier"
+      "label": "Supplier",
+      "description": "Supplies goods or resources.",
+      "parents": [
+        "en-starter:cast:category:5"
+      ]
     },
     {
       "id": "en-starter:cast:eindgebruiker",
-      "label": "End-user"
+      "label": "End-user",
+      "description": "Uses the final product.",
+      "parents": [
+        "en-starter:cast:category:3"
+      ]
     },
     {
       "id": "en-starter:cast:bestuurder",
@@ -10819,11 +10859,53 @@
     },
     {
       "id": "en-starter:cast:chauffeur",
-      "label": "Driver"
+      "label": "Driver",
+      "description": "Transports people or goods.",
+      "parents": [
+        "en-starter:cast:category:1"
+      ]
     },
     {
       "id": "en-starter:cast:ontvanger",
       "label": "Recipient"
+    },
+    {
+      "id": "en-starter:cast:category:1",
+      "label": "Logistics",
+      "description": "Roles involved in transport, movement or logistical processes."
+    },
+    {
+      "id": "en-starter:cast:category:2",
+      "label": "Consumption / end use",
+      "description": "Roles that obtain or use goods, services or resources."
+    },
+    {
+      "id": "en-starter:cast:category:3",
+      "label": "User",
+      "parents": [
+        "en-starter:cast:category:2"
+      ],
+      "description": "Uses goods or services."
+    },
+    {
+      "id": "en-starter:cast:category:4",
+      "label": "Facilitation / support",
+      "description": "Roles that support or enable activities without directly carrying them out."
+    },
+    {
+      "id": "en-starter:cast:category:5",
+      "label": "Operational execution",
+      "description": "Roles that directly carry out actions within a process or activity."
+    },
+    {
+      "id": "en-starter:cast:category:6",
+      "label": "Intermediation",
+      "description": "Roles that connect parties, mediate or facilitate transactions."
+    },
+    {
+      "id": "en-starter:cast:category:7",
+      "label": "Beneficiary",
+      "description": "Roles that benefit (unlawfully) from activities or profit from them directly."
     }
   ],
   "attributes": [
@@ -10867,7 +10949,19 @@
     {
       "id": "en-starter:attribute:contant-geld",
       "label": "Cash",
-      "description": "Physical money transferred as payment or proceeds."
+      "description": "Physical money transferred as payment or proceeds.",
+      "parents": [
+        "en-starter:attributes:category:1"
+      ],
+      "synonyms": [
+        "Cash",
+        "Kapitaal",
+        "Startkapitaal"
+      ]
+    },
+    {
+      "id": "en-starter:attributes:category:1",
+      "label": "Payment method"
     }
   ],
   "locations": [
@@ -10881,7 +10975,8 @@
     },
     {
       "id": "en-starter:location:bedrijfspand",
-      "label": "Business premises"
+      "label": "Business premises",
+      "description": "Building or complex used for business activities."
     },
     {
       "id": "en-starter:location:afgelegen-pand",
@@ -10909,7 +11004,8 @@
     },
     {
       "id": "en-starter:location:natuurgebied",
-      "label": "Natural area"
+      "label": "Natural area",
+      "description": "Designated area with a primarily natural or ecological function that may be managed or protected."
     },
     {
       "id": "en-starter:location:handelsplaats",
@@ -10941,7 +11037,13 @@
   "geoLocations": [
     {
       "id": "en-starter:geo:nederland",
-      "label": "Netherlands"
+      "label": "Netherlands",
+      "parents": [
+        "en-starter:geoLocations:category:2"
+      ],
+      "synonyms": [
+        "NL"
+      ]
     },
     {
       "id": "en-starter:geo:europese-unie",
@@ -10950,16 +11052,58 @@
     {
       "id": "en-starter:geo:internationaal",
       "label": "International"
+    },
+    {
+      "id": "en-starter:geoLocations:category:1",
+      "label": "Europe",
+      "synonyms": [
+        "EU"
+      ],
+      "parents": [
+        "en-starter:geoLocations:category:3"
+      ]
+    },
+    {
+      "id": "en-starter:geoLocations:category:2",
+      "label": "Western Europe",
+      "parents": [
+        "en-starter:geoLocations:category:1"
+      ]
+    },
+    {
+      "id": "en-starter:geoLocations:category:3",
+      "label": "World"
     }
   ],
   "products": [
     {
       "id": "en-starter:product:cocaine",
-      "label": "Cocaine"
+      "label": "Cocaine",
+      "description": "A stimulant derived from or manufactured using components of the coca plant.",
+      "parents": [
+        "en-starter:products:category:1"
+      ],
+      "synonyms": [
+        "Coke",
+        "Snow",
+        "Blow",
+        "White",
+        "Charlie",
+        "Nose candy",
+        "Crack",
+        "Cocaine"
+      ]
     },
     {
       "id": "en-starter:product:synthetische-drugs",
-      "label": "Synthetic drugs"
+      "label": "Synthetic drugs",
+      "description": "Category of synthetically manufactured and other narcotic or psychoactive substances.",
+      "parents": [
+        "en-starter:products:category:1"
+      ],
+      "synonyms": [
+        "Syndru"
+      ]
     },
     {
       "id": "en-starter:product:arbeid",
@@ -10983,7 +11127,8 @@
     },
     {
       "id": "en-starter:product:voertuigen",
-      "label": "Vehicles"
+      "label": "Vehicles",
+      "description": "Means of transport used to carry people or goods."
     },
     {
       "id": "en-starter:product:betaalgegevens",
@@ -11017,6 +11162,14 @@
       "id": "en-starter:product:geraffineerde-olieproducten",
       "label": "Refined oil products",
       "description": "Fuels and other refined petroleum products transported via pipelines."
+    },
+    {
+      "id": "en-starter:products:category:1",
+      "label": "Controlled substances",
+      "description": "Substances affecting the central nervous system whose possession, production or trade may be regulated or prohibited.",
+      "synonyms": [
+        "Drugs"
+      ]
     }
   ],
   "transports": [
@@ -11030,7 +11183,11 @@
     },
     {
       "id": "en-starter:transport:schip",
-      "label": "Ship"
+      "label": "Ship",
+      "description": "Vessel designed for transporting people or goods or for other activities on water.",
+      "parents": [
+        "en-starter:transports:category:1"
+      ]
     },
     {
       "id": "en-starter:transport:personenauto",
@@ -11039,6 +11196,11 @@
     {
       "id": "en-starter:transport:postzending",
       "label": "Postal or courier shipment"
+    },
+    {
+      "id": "en-starter:transports:category:1",
+      "label": "Maritime transport",
+      "description": "Means of transport used on inland waterways, coastal waters or at sea."
     }
   ],
   "partners": [

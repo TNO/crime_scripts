@@ -96,6 +96,59 @@ export const findRemovedTaxonomyItems = (before: DataModel, after: DataModel): T
       .map(({ id, label }) => ({ taxonomy, id, label }));
   });
 
+export const mergeTaxonomyItems = (
+  input: DataModel,
+  taxonomy: TaxonomyName,
+  sourceId: ID,
+  targetId: ID
+): DataModel => {
+  const items = input[taxonomy];
+  if (sourceId === targetId || !items.some(({ id }) => id === sourceId) || !items.some(({ id }) => id === targetId)) {
+    throw new Error('Choose two different existing items in the same taxonomy.');
+  }
+
+  const model = structuredClone(input);
+  const replace = (ids: ID[] | undefined) =>
+    ids && Array.from(new Set(ids.map((id) => id === sourceId ? targetId : id)));
+  const source = model[taxonomy].find(({ id }) => id === sourceId)!;
+  const target = model[taxonomy].find(({ id }) => id === targetId)!;
+  const isDescendantOfTarget = (id: ID): boolean => {
+    const visited = new Set<ID>();
+    const pending = [id];
+    while (pending.length) {
+      const current = pending.pop()!;
+      if (current === targetId) return true;
+      if (visited.has(current)) continue;
+      visited.add(current);
+      pending.push(...(model[taxonomy].find((item) => item.id === current)?.parents || []));
+    }
+    return false;
+  };
+  target.parents = Array.from(new Set([...(target.parents || []), ...(source.parents || [])]))
+    .filter((id) => id !== sourceId && !isDescendantOfTarget(id));
+  model[taxonomy] = model[taxonomy].filter(({ id }) => id !== sourceId) as typeof model[typeof taxonomy];
+  model[taxonomy].forEach((item) => {
+    if (item.parents) item.parents = replace(item.parents)?.filter((id) => id !== item.id);
+  });
+
+  model.crimeScripts.forEach((script) => {
+    if (taxonomy === 'products') script.productIds = replace(script.productIds) || [];
+    if (taxonomy === 'geoLocations') script.geoLocationIds = replace(script.geoLocationIds);
+    script.stages.forEach((scene) => scene.variants.forEach((variant) => {
+      if (taxonomy === 'locations') variant.locationIds = replace(variant.locationIds);
+      variant.activities.forEach((activity) => {
+        if (taxonomy === 'cast') activity.cast = replace(activity.cast);
+        if (taxonomy === 'attributes') activity.attributes = replace(activity.attributes);
+        if (taxonomy === 'transports') activity.transports = replace(activity.transports);
+      });
+      if (taxonomy === 'partners') variant.measures.forEach((measure) => {
+        measure.partners = replace(measure.partners) || [];
+      });
+    }));
+  });
+  return model;
+};
+
 export const removeTaxonomyReferences = (input: DataModel, removed: TaxonomyItem[]): DataModel => {
   const model = structuredClone(input);
   const removedIds = Object.fromEntries(

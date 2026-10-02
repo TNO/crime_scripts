@@ -44,76 +44,21 @@ const buildTreeFromHierarchy = (items: (Labelled & Hierarchical)[]): TreeNode[] 
   };
 
   // Find root nodes (items with no parents) and build trees
-  const rootNodes = items.filter((item) => !item.parents || item.parents.length === 0);
+  const rootNodes = items.filter((item) => !item.parents?.some((id) => itemMap.has(id)));
   return rootNodes.map(buildNode);
 };
 
 export const TreeView: FactoryComponent<
-  { data: TreeNode | Array<Hierarchical & Labelled>; rootLabel?: string } & Attributes
+  { data: TreeNode | Array<Hierarchical & Labelled>; rootLabel?: string; onselect?: (id: ID) => void } & Attributes
 > = () => {
   let treeData: TreeNode[];
 
-  // Recursive function to toggle node expansion
-  const toggleNode = (node: TreeNode) => {
-    node.expanded = !node.expanded;
-  };
-
-  // Recursive function to render tree nodes
-  const renderNode = (node: TreeNode, level: number = 0): m.Vnode => {
-    const hasChildren = node.children && node.children.length > 0;
-    const indent = level * 6; // Pixels per level of indentation
-
-    return m('.tree-node', { style: { marginLeft: `${indent}px` } }, [
-      m(
-        '.node-content',
-        {
-          onclick: (e: Event) => {
-            e.stopPropagation(); // Prevent event bubbling
-            if (hasChildren) {
-              toggleNode(node);
-            }
-          },
-        },
-        [
-          // Toggle icon
-          hasChildren
-            ? m(
-                'span.toggle-icon',
-                {
-                  style: { cursor: 'pointer', marginRight: '4px' },
-                },
-                node.expanded ? '▼' : '▶'
-              )
-            : m('span.toggle-icon', { style: { marginRight: '4px' } }, '▪'),
-
-          // Node name
-          m(
-            'span.node-name',
-            {
-              style: {
-                cursor: hasChildren ? 'pointer' : 'default',
-              },
-            },
-            node.label
-          ),
-        ]
-      ),
-
-      // Render children if expanded
-      node.expanded &&
-        hasChildren &&
-        m(
-          '.node-children',
-          node.children!.map((child) => renderNode(child, level + 1))
-        ),
-    ]);
-  };
-
   return {
-    view: ({ attrs: { data, rootLabel } }) => {
+    view: ({ attrs: { data, rootLabel, onselect } }) => {
       if (Array.isArray(data)) {
         treeData = [
           {
+            id: '__taxonomy_root__',
             label: rootLabel || 'Root',
             expanded: true,
             children: buildTreeFromHierarchy(data),
@@ -125,7 +70,10 @@ export const TreeView: FactoryComponent<
       return m(MMTreeView, {
         data: treeData,
         iconType: 'caret',
-        selectionMode: 'none',
+        selectionMode: 'single',
+        onselection: ([id]) => {
+          if (id && id !== '__taxonomy_root__') onselect?.(id);
+        },
         showConnectors: false,
       });
     },

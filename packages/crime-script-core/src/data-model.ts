@@ -82,6 +82,7 @@ export type FlexSearchResult = [
   variantIdx: number,
   score: number,
   desc?: string,
+  activityId?: ID,
 ];
 
 export type CrimeScriptFilter = {

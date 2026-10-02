@@ -4,13 +4,13 @@
   "lastUpdate": 1790208000000,
   "starterBundle": {
     "id": "pax-nl-starter",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "locale": "nl",
     "title": "Nederlandse starterbibliotheek",
     "publishedAt": "2026-09-17",
     "license": "CC BY 4.0",
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
-    "attribution": "Nederlandse starterbibliotheek voor Crime Scripts, PAX/TNO, versie 1.0.0 (2026), met AI-ondersteuning",
+    "attribution": "Nederlandse starterbibliotheek voor Crime Scripts, PAX/TNO, versie 1.0.1 (2026), met AI-ondersteuning",
     "disclaimer": "AI-gegenereerd en onbeoordeeld; controleer de inhoud vóór gebruik. Geen juridisch advies."
   },
   "crimeScripts": [
@@ -610,7 +610,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-nl-starter",
-        "bundleVersion": "1.0.0",
+        "bundleVersion": "1.0.1",
         "scriptId": "nl-starter:script:cocaine-import-havens"
       },
       "icon": "builtin:port-security",
@@ -1213,7 +1213,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-nl-starter",
-        "bundleVersion": "1.0.0",
+        "bundleVersion": "1.0.1",
         "scriptId": "nl-starter:script:synthetische-drugsproductie"
       },
       "icon": "builtin:laboratory",
@@ -1820,7 +1820,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-nl-starter",
-        "bundleVersion": "1.0.0",
+        "bundleVersion": "1.0.1",
         "scriptId": "nl-starter:script:arbeidsuitbuiting"
       },
       "icon": "builtin:labour-exploitation",
@@ -2432,7 +2432,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-nl-starter",
-        "bundleVersion": "1.0.0",
+        "bundleVersion": "1.0.1",
         "scriptId": "nl-starter:script:mensenhandel-seksuele-uitbuiting"
       },
       "icon": "builtin:human-trafficking",
@@ -3027,7 +3027,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-nl-starter",
-        "bundleVersion": "1.0.0",
+        "bundleVersion": "1.0.1",
         "scriptId": "nl-starter:script:witwassen-legale-ondernemingen"
       },
       "icon": "builtin:money-laundering",
@@ -3619,7 +3619,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-nl-starter",
-        "bundleVersion": "1.0.0",
+        "bundleVersion": "1.0.1",
         "scriptId": "nl-starter:script:illegale-dumping-chemisch-afval"
       },
       "icon": "builtin:illegal-dumping",
@@ -4206,7 +4206,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-nl-starter",
-        "bundleVersion": "1.0.0",
+        "bundleVersion": "1.0.1",
         "scriptId": "nl-starter:script:stroperij-illegale-wildhandel"
       },
       "icon": "builtin:poaching",
@@ -4825,7 +4825,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-nl-starter",
-        "bundleVersion": "1.0.0",
+        "bundleVersion": "1.0.1",
         "scriptId": "nl-starter:script:voertuigdiefstal-export"
       },
       "icon": "builtin:car-theft",
@@ -5493,7 +5493,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-nl-starter",
-        "bundleVersion": "1.0.0",
+        "bundleVersion": "1.0.1",
         "scriptId": "nl-starter:script:phishing-betaalfraude"
       },
       "tracks": [
@@ -6109,7 +6109,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-nl-starter",
-        "bundleVersion": "1.0.0",
+        "bundleVersion": "1.0.1",
         "scriptId": "nl-starter:script:illegale-asbestverwijdering"
       },
       "icon": "builtin:illegal-asbestos-removal",
@@ -6832,7 +6832,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-nl-starter",
-        "bundleVersion": "1.0.0",
+        "bundleVersion": "1.0.1",
         "scriptId": "nl-starter:script:asbestsaneringsketen"
       }
     },
@@ -7467,7 +7467,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-nl-starter",
-        "bundleVersion": "1.0.0",
+        "bundleVersion": "1.0.1",
         "scriptId": "nl-starter:script:bijtincidenten-honden"
       }
     },
@@ -7935,7 +7935,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-nl-starter",
-        "bundleVersion": "1.0.0",
+        "bundleVersion": "1.0.1",
         "scriptId": "nl-starter:script:co-vergisting"
       }
     },
@@ -8653,7 +8653,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-nl-starter",
-        "bundleVersion": "1.0.0",
+        "bundleVersion": "1.0.1",
         "scriptId": "nl-starter:script:complexe-zorgstructuren"
       }
     },
@@ -9288,7 +9288,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-nl-starter",
-        "bundleVersion": "1.0.0",
+        "bundleVersion": "1.0.1",
         "scriptId": "nl-starter:script:criminele-uitbuiting"
       }
     },
@@ -9675,7 +9675,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-nl-starter",
-        "bundleVersion": "1.0.0",
+        "bundleVersion": "1.0.1",
         "scriptId": "nl-starter:script:fake-carriers"
       }
     },
@@ -10588,7 +10588,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-nl-starter",
-        "bundleVersion": "1.0.0",
+        "bundleVersion": "1.0.1",
         "scriptId": "nl-starter:script:pijplijndiefstal-olieproducten"
       },
       "icon": "builtin:secure-transport",
@@ -10615,11 +10615,19 @@
     },
     {
       "id": "nl-starter:cast:facilitator",
-      "label": "Facilitator"
+      "label": "Facilitator",
+      "description": "Maakt activiteiten mogelijk door middelen of ondersteuning.",
+      "parents": [
+        "nl-starter:cast:category:4"
+      ]
     },
     {
       "id": "nl-starter:cast:logistiek-medewerker",
-      "label": "Logistiek medewerker"
+      "label": "Logistiek medewerker",
+      "description": "Ondersteunt transport en distributie.",
+      "parents": [
+        "nl-starter:cast:category:1"
+      ]
     },
     {
       "id": "nl-starter:cast:werknemer",
@@ -10635,11 +10643,19 @@
     },
     {
       "id": "nl-starter:cast:slachtoffer",
-      "label": "Slachtoffer"
+      "label": "Slachtoffer",
+      "description": "Persoon of entiteit die daadwerkelijk schade ondervindt door activiteiten.",
+      "parents": [
+        "nl-starter:cast:benadeelde"
+      ]
     },
     {
       "id": "nl-starter:cast:ronselaar",
-      "label": "Ronselaar"
+      "label": "Ronselaar",
+      "description": "Werft personen voor (criminele) activiteiten.",
+      "parents": [
+        "nl-starter:cast:category:6"
+      ]
     },
     {
       "id": "nl-starter:cast:seksueel-exploitant",
@@ -10671,7 +10687,11 @@
     },
     {
       "id": "nl-starter:cast:exporteur",
-      "label": "Exporteur"
+      "label": "Exporteur",
+      "description": "Verzendt goederen naar buitenland.",
+      "parents": [
+        "nl-starter:cast:category:7"
+      ]
     },
     {
       "id": "nl-starter:cast:fraudeur",
@@ -10707,7 +10727,11 @@
     },
     {
       "id": "nl-starter:cast:transporteur",
-      "label": "Transporteur"
+      "label": "Transporteur",
+      "description": "Vervoert goederen of personen. Organiseert of verzorgt structureel transport.",
+      "parents": [
+        "nl-starter:cast:category:1"
+      ]
     },
     {
       "id": "nl-starter:cast:afvalinzamelaar",
@@ -10739,11 +10763,19 @@
     },
     {
       "id": "nl-starter:cast:benadeelde",
-      "label": "Benadeelde"
+      "label": "Benadeelde",
+      "description": "Ondergaat schade door activiteiten.",
+      "parents": [
+        "nl-starter:cast:category:7"
+      ]
     },
     {
       "id": "nl-starter:cast:ontdoener",
-      "label": "Ontdoener"
+      "label": "Ontdoener",
+      "description": "Doet goederen, materialen of afval van de hand, al dan niet via verkoop, overdracht of dumping.",
+      "parents": [
+        "nl-starter:cast:category:5"
+      ]
     },
     {
       "id": "nl-starter:cast:handelaar-of-bemiddelaar",
@@ -10759,11 +10791,19 @@
     },
     {
       "id": "nl-starter:cast:leverancier",
-      "label": "Leverancier"
+      "label": "Leverancier",
+      "description": "Levert goederen of middelen.",
+      "parents": [
+        "nl-starter:cast:category:5"
+      ]
     },
     {
       "id": "nl-starter:cast:eindgebruiker",
-      "label": "Eindgebruiker"
+      "label": "Eindgebruiker",
+      "description": "Gebruikt eindproduct.",
+      "parents": [
+        "nl-starter:cast:category:3"
+      ]
     },
     {
       "id": "nl-starter:cast:bestuurder",
@@ -10819,11 +10859,53 @@
     },
     {
       "id": "nl-starter:cast:chauffeur",
-      "label": "Chauffeur"
+      "label": "Chauffeur",
+      "description": "Vervoert personen/goederen.",
+      "parents": [
+        "nl-starter:cast:category:1"
+      ]
     },
     {
       "id": "nl-starter:cast:ontvanger",
       "label": "Ontvanger"
+    },
+    {
+      "id": "nl-starter:cast:category:1",
+      "label": "Logistiek",
+      "description": "Rollen die zich bezighouden met transport, verplaatsing of logistieke processen."
+    },
+    {
+      "id": "nl-starter:cast:category:2",
+      "label": "Consumptie / Eindgebruik",
+      "description": "Rollen die goederen, diensten of middelen afnemen of gebruiken."
+    },
+    {
+      "id": "nl-starter:cast:category:3",
+      "label": "Gebruiker",
+      "parents": [
+        "nl-starter:cast:category:2"
+      ],
+      "description": "Gebruikt goederen of diensten."
+    },
+    {
+      "id": "nl-starter:cast:category:4",
+      "label": "Facilitering / Ondersteuning",
+      "description": "Rollen die activiteiten ondersteunen of mogelijk maken zonder direct uitvoerend te zijn."
+    },
+    {
+      "id": "nl-starter:cast:category:5",
+      "label": "Operationele uitvoering",
+      "description": "Rollen die direct uitvoeringshandelingen verrichten binnen een proces of activiteit."
+    },
+    {
+      "id": "nl-starter:cast:category:6",
+      "label": "Bemiddeling",
+      "description": "Rollen die partijen met elkaar verbinden, bemiddelen of transacties faciliteren."
+    },
+    {
+      "id": "nl-starter:cast:category:7",
+      "label": "Begunstigde",
+      "description": "Rollen die (onrechtmatig) voordeel halen uit activiteiten of er direct van profiteren."
     }
   ],
   "attributes": [
@@ -10867,7 +10949,19 @@
     {
       "id": "nl-starter:attribute:contant-geld",
       "label": "Contant geld",
-      "description": "Fysiek geld dat als betaling of opbrengst wordt overgedragen."
+      "description": "Fysiek geld dat als betaling of opbrengst wordt overgedragen.",
+      "parents": [
+        "nl-starter:attributes:category:1"
+      ],
+      "synonyms": [
+        "Cash",
+        "Kapitaal",
+        "Startkapitaal"
+      ]
+    },
+    {
+      "id": "nl-starter:attributes:category:1",
+      "label": "Betaalmiddel"
     }
   ],
   "locations": [
@@ -10881,7 +10975,8 @@
     },
     {
       "id": "nl-starter:location:bedrijfspand",
-      "label": "Bedrijfspand"
+      "label": "Bedrijfspand",
+      "description": "Gebouw of complex dat wordt gebruikt voor bedrijfsmatige activiteiten."
     },
     {
       "id": "nl-starter:location:afgelegen-pand",
@@ -10909,7 +11004,8 @@
     },
     {
       "id": "nl-starter:location:natuurgebied",
-      "label": "Natuurgebied"
+      "label": "Natuurgebied",
+      "description": "Afgebakend gebied dat hoofdzakelijk een natuurlijke of ecologische functie heeft en eventueel wordt beheerd of beschermd."
     },
     {
       "id": "nl-starter:location:handelsplaats",
@@ -10941,7 +11037,13 @@
   "geoLocations": [
     {
       "id": "nl-starter:geo:nederland",
-      "label": "Nederland"
+      "label": "Nederland",
+      "parents": [
+        "nl-starter:geoLocations:category:2"
+      ],
+      "synonyms": [
+        "NL"
+      ]
     },
     {
       "id": "nl-starter:geo:europese-unie",
@@ -10950,16 +11052,58 @@
     {
       "id": "nl-starter:geo:internationaal",
       "label": "Internationaal"
+    },
+    {
+      "id": "nl-starter:geoLocations:category:1",
+      "label": "Europa",
+      "synonyms": [
+        "EU"
+      ],
+      "parents": [
+        "nl-starter:geoLocations:category:3"
+      ]
+    },
+    {
+      "id": "nl-starter:geoLocations:category:2",
+      "label": "West-Europa",
+      "parents": [
+        "nl-starter:geoLocations:category:1"
+      ]
+    },
+    {
+      "id": "nl-starter:geoLocations:category:3",
+      "label": "Wereld"
     }
   ],
   "products": [
     {
       "id": "nl-starter:product:cocaine",
-      "label": "Cocaïne"
+      "label": "Cocaïne",
+      "description": "Stimulerend verdovend middel dat afkomstig is van, of wordt vervaardigd uit bestanddelen van, de cocaplant.",
+      "parents": [
+        "nl-starter:products:category:1"
+      ],
+      "synonyms": [
+        "Coke",
+        "Snow",
+        "Blow",
+        "White",
+        "Charlie",
+        "Nose candy",
+        "Crack",
+        "Cocaine"
+      ]
     },
     {
       "id": "nl-starter:product:synthetische-drugs",
-      "label": "Synthetische drugs"
+      "label": "Synthetische drugs",
+      "description": "Verzamelcategorie voor synthetisch vervaardigde en overige verdovende of psychoactieve middelen.",
+      "parents": [
+        "nl-starter:products:category:1"
+      ],
+      "synonyms": [
+        "Syndru"
+      ]
     },
     {
       "id": "nl-starter:product:arbeid",
@@ -10983,7 +11127,8 @@
     },
     {
       "id": "nl-starter:product:voertuigen",
-      "label": "Voertuigen"
+      "label": "Voertuigen",
+      "description": "Vervoermiddelen die worden gebruikt voor het vervoeren van personen of goederen."
     },
     {
       "id": "nl-starter:product:betaalgegevens",
@@ -11017,6 +11162,14 @@
       "id": "nl-starter:product:geraffineerde-olieproducten",
       "label": "Geraffineerde olieproducten",
       "description": "Brandstoffen en andere geraffineerde aardolieproducten die via pijpleidingen worden vervoerd."
+    },
+    {
+      "id": "nl-starter:products:category:1",
+      "label": "Verdovende middelen",
+      "description": "Stoffen die de werking van het centrale zenuwstelsel beïnvloeden en waarvan bezit, productie of handel gereguleerd of verboden kan zijn.",
+      "synonyms": [
+        "Drugs"
+      ]
     }
   ],
   "transports": [
@@ -11030,7 +11183,11 @@
     },
     {
       "id": "nl-starter:transport:schip",
-      "label": "Schip"
+      "label": "Schip",
+      "description": "Vaartuig dat is ingericht voor het vervoer van personen, goederen of voor andere activiteiten op het water.",
+      "parents": [
+        "nl-starter:transports:category:1"
+      ]
     },
     {
       "id": "nl-starter:transport:personenauto",
@@ -11039,6 +11196,11 @@
     {
       "id": "nl-starter:transport:postzending",
       "label": "Post- of koerierszending"
+    },
+    {
+      "id": "nl-starter:transports:category:1",
+      "label": "Maritiem transport",
+      "description": "Transportmiddelen die worden gebruikt voor vervoer over binnenwateren, kustwateren of zee."
     }
   ],
   "partners": [

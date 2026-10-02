@@ -5,7 +5,7 @@ De oorspronkelijke teksten, structuur en gegevens in `nl.json` en
 [Creative Commons Naamsvermelding 4.0 Internationaal-licentie (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/deed.nl).
 
 **Naamsvermelding:** “Nederlandse starterbibliotheek voor Crime Scripts, PAX/TNO,
-versie 1.0.0 (2026), met AI-ondersteuning, CC BY 4.0.”
+versie 1.0.1 (2026), met AI-ondersteuning, CC BY 4.0.”
 
 De scripts zijn **AI-gegenereerd** en **Onbeoordeeld**. Ze zijn bedoeld als
 startpunt voor preventie, signalering en onderzoek door professionals. Controleer
