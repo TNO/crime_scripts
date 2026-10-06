@@ -169,6 +169,7 @@ export const BUILT_IN_ICONS = [
   { key: 'builtin:voertuigdiefstal-export-opslag', label: 'Voertuigdiefstal Export Opslag', category: 'Starter scenes', file: 'voertuigdiefstal-export-opslag.svg' },
   { key: 'builtin:voertuigdiefstal-export-opsporing', label: 'Voertuigdiefstal Export Opsporing', category: 'Starter scenes', file: 'voertuigdiefstal-export-opsporing.svg' },
   { key: 'builtin:voertuigdiefstal-export-selectie', label: 'Voertuigdiefstal Export Selectie', category: 'Starter scenes', file: 'voertuigdiefstal-export-selectie.svg' },
+  { key: 'builtin:windhond', label: 'Windhond', category: 'Animals', file: 'windhond.svg' },
   { key: 'builtin:wildlife-protection', label: 'Wildlife protection', category: 'Environment', file: 'wildlife-protection.svg' },
   { key: 'builtin:witwassen-legale-ondernemingen-administratie', label: 'Witwassen Legale Ondernemingen Administratie', category: 'Starter scenes', file: 'witwassen-legale-ondernemingen-administratie.svg' },
   { key: 'builtin:witwassen-legale-ondernemingen-bedrijf', label: 'Witwassen Legale Ondernemingen Bedrijf', category: 'Starter scenes', file: 'witwassen-legale-ondernemingen-bedrijf.svg' },

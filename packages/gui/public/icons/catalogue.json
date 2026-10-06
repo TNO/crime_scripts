@@ -1486,6 +1486,20 @@
       }
     },
     {
+      "key": "builtin:windhond",
+      "label": "Windhond",
+      "category": "Animals",
+      "file": "windhond.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Windhond",
+        "creator": "User-contributed PAX artwork",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/src/assets/icons/windhond.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
       "key": "builtin:wildlife-protection",
       "label": "Wildlife protection",
       "category": "Environment",

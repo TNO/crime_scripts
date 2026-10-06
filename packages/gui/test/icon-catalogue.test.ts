@@ -79,7 +79,7 @@ test('supplied icons are selectable and public starter scripts show one appropri
   const catalogue = readJson<CatalogueManifest>('icons/catalogue.json');
   const supplied = [
     'biogas-digester', 'company-registry-document', 'dangerous-dog', 'dog',
-    'freight-truck', 'hospital', 'pitbull', 'shipping-container',
+    'freight-truck', 'hospital', 'pitbull', 'shipping-container', 'windhond',
   ];
   for (const name of supplied) {
     assert.ok(existsSync(`src/assets/icons/${name}.svg`), `source asset ${name} is missing`);
