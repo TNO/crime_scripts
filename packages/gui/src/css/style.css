@@ -2123,6 +2123,10 @@ ul.taxonomy-scene-hits {
   content: none;
 }
 
+[data-mm-preset='compact-minimal'] .select-dropdown.dropdown-content:has(img) {
+  min-width: 0;
+}
+
 .script-location-badge,
 .script-product-badge {
   appearance: none;

@@ -140,7 +140,7 @@ export const CrimeScriptEditor: FactoryComponent<{
 
       castOptions = toOptions(cast, true);
       attrOptions = toOptions(attributes);
-      locationOptions = locations.map(({ id, label }) => ({ id, label }));
+      locationOptions = toOptions(locations);
       geoLocationOptions = toOptions(geoLocations);
       transportOptions = toOptions(transports);
       productOptions = toOptions(products);

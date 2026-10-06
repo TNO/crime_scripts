@@ -1,16 +1,16 @@
 {
   "schemaVersion": 3,
   "version": 1,
-  "lastUpdate": 1790899200000,
+  "lastUpdate": 1791244800000,
   "starterBundle": {
     "id": "pax-en-starter",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "locale": "en",
     "title": "English starter library",
-    "publishedAt": "2026-10-02",
+    "publishedAt": "2026-10-06",
     "license": "CC BY 4.0",
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
-    "attribution": "English starter library for Crime Scripts, PAX/TNO, version 1.0.2 (2026), with AI assistance",
+    "attribution": "English starter library for Crime Scripts, PAX/TNO, version 1.0.3 (2026), with AI assistance",
     "disclaimer": "AI-generated and unreviewed; verify the content before use. Not legal advice."
   },
   "crimeScripts": [
@@ -610,7 +610,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.2",
+        "bundleVersion": "1.0.3",
         "scriptId": "en-starter:script:cocaine-import-havens"
       },
       "icon": "builtin:shipping-container",
@@ -625,7 +625,7 @@
       "label": "Synthetic drug production",
       "description": "Basic script for early recognition, safe intervention, and investigation. Chemical recipes, quantities, and methods are intentionally omitted.",
       "owner": "PAX starter library",
-      "updated": 1789671600000,
+      "updated": 1791244800000,
       "reviewer": [],
       "status": 1,
       "literature": [
@@ -1211,15 +1211,14 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.2",
+        "bundleVersion": "1.0.3",
         "scriptId": "en-starter:script:synthetische-drugsproductie"
       },
-      "icon": "builtin:laboratory",
+      "icon": "builtin:lab-flask",
       "classification": "public",
       "scriptFamilyId": "en-starter:script:synthetische-drugsproductie",
       "icons": [
-        "builtin:laboratory",
-        7
+        "builtin:lab-flask"
       ]
     },
     {
@@ -1818,7 +1817,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.2",
+        "bundleVersion": "1.0.3",
         "scriptId": "en-starter:script:arbeidsuitbuiting"
       },
       "icon": "builtin:labour-exploitation",
@@ -2430,7 +2429,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.2",
+        "bundleVersion": "1.0.3",
         "scriptId": "en-starter:script:mensenhandel-seksuele-uitbuiting"
       },
       "icon": "builtin:human-trafficking",
@@ -3025,15 +3024,14 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.2",
+        "bundleVersion": "1.0.3",
         "scriptId": "en-starter:script:witwassen-legale-ondernemingen"
       },
       "icon": "builtin:money-laundering",
       "classification": "public",
       "scriptFamilyId": "en-starter:script:witwassen-legale-ondernemingen",
       "icons": [
-        "builtin:money-laundering",
-        "builtin:retail-store"
+        "builtin:money-laundering"
       ]
     },
     {
@@ -3617,7 +3615,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.2",
+        "bundleVersion": "1.0.3",
         "scriptId": "en-starter:script:illegale-dumping-chemisch-afval"
       },
       "icon": "builtin:illegal-dumping",
@@ -4204,15 +4202,14 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.2",
+        "bundleVersion": "1.0.3",
         "scriptId": "en-starter:script:stroperij-illegale-wildhandel"
       },
       "icon": "builtin:poaching",
       "classification": "public",
       "scriptFamilyId": "en-starter:script:stroperij-illegale-wildhandel",
       "icons": [
-        "builtin:poaching",
-        "builtin:animal-trafficking"
+        "builtin:poaching"
       ]
     },
     {
@@ -4823,7 +4820,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.2",
+        "bundleVersion": "1.0.3",
         "scriptId": "en-starter:script:voertuigdiefstal-export"
       },
       "icon": "builtin:car-theft",
@@ -5491,7 +5488,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.2",
+        "bundleVersion": "1.0.3",
         "scriptId": "en-starter:script:phishing-betaalfraude"
       },
       "tracks": [
@@ -5516,8 +5513,7 @@
       "classification": "public",
       "scriptFamilyId": "en-starter:script:phishing-betaalfraude",
       "icons": [
-        "builtin:phishing",
-        "builtin:payment-fraud"
+        "builtin:phishing"
       ]
     },
     {
@@ -5525,7 +5521,7 @@
       "label": "Illegal asbestos removal",
       "description": "Safety-focused basic script on non-compliance during asbestos inventory, removal, transport, and supervision. It does not provide instructions to avoid regulations.",
       "owner": "PAX starter library",
-      "updated": 1789671600000,
+      "updated": 1791244800000,
       "reviewer": [],
       "status": 1,
       "literature": [
@@ -6107,30 +6103,28 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.2",
+        "bundleVersion": "1.0.3",
         "scriptId": "en-starter:script:illegale-asbestverwijdering"
       },
-      "icon": "builtin:illegal-asbestos-removal",
+      "icon": "builtin:asbestos-fibers",
       "classification": "public",
       "scriptFamilyId": "en-starter:script:illegale-asbestverwijdering",
       "icons": [
-        "builtin:illegal-asbestos-removal"
+        "builtin:asbestos-fibers"
       ]
     },
     {
       "id": "en-starter:script:asbestsaneringsketen",
       "label": "Asbestos remediation chain",
       "description": "Public, source-based elaboration of the regular asbestos remediation chain and the transfer points where errors, violations, or fraud may become visible.",
-      "icon": "builtin:illegal-asbestos-removal",
+      "icon": "builtin:asbestos-fibers",
       "icons": [
-        "builtin:illegal-asbestos-removal",
-        "builtin:asbestos-safety",
-        "builtin:construction-safety"
+        "builtin:asbestos-fibers"
       ],
       "classification": "public",
       "scriptFamilyId": "en-starter:script:asbestsaneringsketen",
       "owner": "PAX starter library",
-      "updated": 1789941600000,
+      "updated": 1791244800000,
       "reviewer": [],
       "status": 1,
       "literature": [
@@ -6830,7 +6824,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.2",
+        "bundleVersion": "1.0.3",
         "scriptId": "en-starter:script:asbestsaneringsketen"
       }
     },
@@ -7463,7 +7457,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.2",
+        "bundleVersion": "1.0.3",
         "scriptId": "en-starter:script:bijtincidenten-honden"
       }
     },
@@ -7929,7 +7923,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.2",
+        "bundleVersion": "1.0.3",
         "scriptId": "en-starter:script:co-vergisting"
       }
     },
@@ -8645,7 +8639,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.2",
+        "bundleVersion": "1.0.3",
         "scriptId": "en-starter:script:complexe-zorgstructuren"
       }
     },
@@ -8655,9 +8649,7 @@
       "description": "Public, victim-focused analysis of identifying, engaging, controlling, and utilizing for criminal offenses, with emphasis on recognition, protection, and comprehensive intervention.",
       "icon": "builtin:human-trafficking",
       "icons": [
-        "builtin:human-trafficking",
-        "builtin:dependency-network",
-        "builtin:victim-support"
+        "builtin:human-trafficking"
       ],
       "classification": "public",
       "scriptFamilyId": "en-starter:script:criminele-uitbuiting",
@@ -9280,7 +9272,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.2",
+        "bundleVersion": "1.0.3",
         "scriptId": "en-starter:script:criminele-uitbuiting"
       }
     },
@@ -9664,7 +9656,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.2",
+        "bundleVersion": "1.0.3",
         "scriptId": "en-starter:script:fake-carriers"
       }
     },
@@ -9673,7 +9665,7 @@
       "label": "Theft of refined petroleum products through illegal pipeline tapping",
       "description": "Public, source-based crime script of network formation and unauthorized withdrawal to storage, distribution, and financial investigation. The steps remain deliberately at barrier level and contain no executable tapping instructions.",
       "owner": "PAX starter library",
-      "updated": 1790035200000,
+      "updated": 1791244800000,
       "reviewer": [],
       "status": 1,
       "literature": [
@@ -10577,19 +10569,14 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.2",
+        "bundleVersion": "1.0.3",
         "scriptId": "en-starter:script:pijplijndiefstal-olieproducten"
       },
-      "icon": "builtin:secure-transport",
+      "icon": "builtin:oil-drop",
       "classification": "public",
       "scriptFamilyId": "en-starter:script:pijplijndiefstal-olieproducten",
       "icons": [
-        "builtin:planning-checklist",
-        "builtin:secure-transport",
-        "builtin:site-inspection",
-        "builtin:container-inspection",
-        "builtin:retail-store",
-        "builtin:financial-investigation"
+        "builtin:oil-drop"
       ]
     }
   ],

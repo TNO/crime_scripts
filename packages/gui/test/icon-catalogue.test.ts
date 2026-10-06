@@ -106,6 +106,37 @@ test('supplied icons are selectable and public starter scripts show one appropri
   }
 });
 
+test('original single-subject icons are selectable and assigned to related starter scripts', () => {
+  const catalogue = readJson<CatalogueManifest>('icons/catalogue.json');
+  const original = [
+    'asbestos-fibers', 'blast', 'bribe', 'clothing', 'gang',
+    'lab-flask', 'mortgage-house', 'oil-drop', 'souvenir-shop',
+  ];
+  for (const name of original) {
+    const key = `builtin:${name}`;
+    assert.ok(existsSync(`src/assets/icons/${name}.svg`), `source asset ${name} is missing`);
+    assert.ok(catalogue.icons.some(({ key: catalogueKey }) => catalogueKey === key), `${key} is missing`);
+    assert.ok(IconOpts.some(({ id }) => id === key), `${key} is not selectable`);
+  }
+
+  const expected = new Map([
+    ['synthetische-drugsproductie', 'builtin:lab-flask'],
+    ['illegale-asbestverwijdering', 'builtin:asbestos-fibers'],
+    ['asbestsaneringsketen', 'builtin:asbestos-fibers'],
+    ['pijplijndiefstal-olieproducten', 'builtin:oil-drop'],
+  ]);
+  for (const lang of ['nl', 'en']) {
+    const bundle = readJson<DataModel>(`starter-bundles/${lang}.json`);
+    for (const [suffix, icon] of expected) {
+      const script = bundle.crimeScripts.find(({ id }) => id === `${lang}-starter:script:${suffix}`);
+      assert.ok(script, `${lang} starter script ${suffix} is missing`);
+      assert.equal(script.icon, icon);
+      assert.deepEqual(script.icons, [icon]);
+      assert.deepEqual(resolveIconSources(script.icons, script.icon), [`icons/${icon.slice(8)}.svg`]);
+    }
+  }
+});
+
 test('catalogue files are optimized monochrome SVGs with complete attribution', () => {
   const catalogue = readJson<CatalogueManifest>('icons/catalogue.json');
   const notice = readFileSync(publicFile('icons/NOTICE.md'), 'utf8');
@@ -130,6 +161,29 @@ test('catalogue files are optimized monochrome SVGs with complete attribution', 
       assert.match(notice, new RegExp(attribution.title.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
     }
   });
+});
+
+test('scene pictograms use one legible subject rather than a grid of miniature symbols', () => {
+  const catalogue = readJson<CatalogueManifest>('icons/catalogue.json');
+  const scenes = catalogue.icons.filter(({ category }) => category === 'Starter scenes');
+  assert.equal(scenes.length, 59);
+  for (const { key, file } of scenes) {
+    const svg = readFileSync(publicFile(`icons/${file}`), 'utf8');
+    assert.doesNotMatch(svg, /<g\b|transform=/, `${key} contains a nested miniature symbol`);
+    assert.ok(
+      (svg.match(/<(?:path|circle|rect|polygon|ellipse)\b/g) ?? []).length <= 4,
+      `${key} contains too many separate miniatures`
+    );
+  }
+});
+
+test('public starter cards display one icon rather than shrinking a grid', () => {
+  for (const language of ['nl', 'en']) {
+    const bundle = readJson<DataModel>(`starter-bundles/${language}.json`);
+    for (const script of bundle.crimeScripts) {
+      assert.deepEqual(script.icons, [script.icon], `${script.id} displays miniature icon tiles`);
+    }
+  }
 });
 
 test('the production deployment contains the catalogue metadata, notice, and every SVG', () => {

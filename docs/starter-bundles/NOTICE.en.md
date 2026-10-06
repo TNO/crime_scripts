@@ -5,7 +5,7 @@ The original text, structure, and data in `en.json` and
 [Creative Commons Attribution 4.0 International licence (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/deed.en).
 
 **Attribution:** “English starter library for Crime Scripts, PAX/TNO,
-version 1.0.2 (2026), with AI assistance, CC BY 4.0.”
+version 1.0.3 (2026), with AI assistance, CC BY 4.0.”
 
 The scripts are **AI-generated** and **Unreviewed**. They are intended as a
 starting point for prevention, detection, and research by professionals. Verify

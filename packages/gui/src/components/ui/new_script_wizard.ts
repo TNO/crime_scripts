@@ -52,7 +52,7 @@ export const NewScriptWizard: MeiosisComponent = () => {
                   { id: 'label', type: 'text', className: 'col s12', label: t('NAME') },
                   {
                     id: 'icons',
-                    type: 'select',
+                    type: 'icon_search_select',
                     multiple: true,
                     className: 'col s12',
                     label: t('ICONS_MAX_FOUR'),

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "bundleId": "pax-en-starter",
-  "bundleVersion": "1.0.2",
+  "bundleVersion": "1.0.3",
   "style": "Monochrome black, solid fill, simple shapes within a 100×100 viewBox; no text.",
   "requirements": [
     {
@@ -14,11 +14,11 @@
     },
     {
       "id": "en-starter:icon:script-synthetische-drugsproductie",
-      "description": "Black solid-fill icon of a laboratory flask combined with pills.",
+      "description": "Single laboratory flask for synthetic drug production.",
       "appliesTo": [
         "en-starter:script:synthetische-drugsproductie"
       ],
-      "iconKey": "builtin:laboratory"
+      "iconKey": "builtin:lab-flask"
     },
     {
       "id": "en-starter:icon:script-arbeidsuitbuiting",
@@ -78,19 +78,19 @@
     },
     {
       "id": "en-starter:icon:script-illegale-asbestverwijdering",
-      "description": "Black solid-fill icon of a construction panel with a fibre warning and protective shield.",
+      "description": "Single fiber icon for asbestos-containing material.",
       "appliesTo": [
         "en-starter:script:illegale-asbestverwijdering"
       ],
-      "iconKey": "builtin:illegal-asbestos-removal"
+      "iconKey": "builtin:asbestos-fibers"
     },
     {
       "id": "en-starter:icon:script-asbestsaneringsketen",
-      "description": "Reusable catalogue icon for the public Asbestos removal chain model.",
+      "description": "Single fiber icon for asbestos-containing material.",
       "appliesTo": [
         "en-starter:script:asbestsaneringsketen"
       ],
-      "iconKey": "builtin:illegal-asbestos-removal"
+      "iconKey": "builtin:asbestos-fibers"
     },
     {
       "id": "en-starter:icon:script-bijtincidenten-honden",
@@ -134,11 +134,11 @@
     },
     {
       "id": "en-starter:icon:script-pijplijndiefstal-olieproducten",
-      "description": "Black solid-fill icon of secure transport representing the theft and distribution of petroleum products.",
+      "description": "Single oil drop for refined petroleum products.",
       "appliesTo": [
         "en-starter:script:pijplijndiefstal-olieproducten"
       ],
-      "iconKey": "builtin:secure-transport"
+      "iconKey": "builtin:oil-drop"
     }
   ]
 }

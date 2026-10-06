@@ -27,7 +27,7 @@ export const attrForm = (id: AttributeType, label: string, attr: Labelled[] = []
           { id: 'label', type: 'text', className: 'col s12 m4', label: t('NAME') },
           { id: 'synonyms', type: 'tags', className: 'col s12 m8', label: t('SYNONYMS') },
           { id: 'description', type: 'textarea', className: 'col s12', label: t('DESCRIPTION') },
-          ['partners', 'locations'].includes(attrType)
+          attrType === 'partners'
             ? undefined
             : {
                 id: 'parents',
@@ -49,7 +49,7 @@ export const labelForm = () =>
   [
     { id: 'id', type: 'autogenerate', autogenerate: 'id' },
     { id: 'label', type: 'text', className: 'col s6', label: t('NAME') },
-    { id: 'icons', type: 'select', multiple: true, className: 'col s6', label: t('ICONS_MAX_FOUR'), options: IconOpts },
+    { id: 'icons', type: 'icon_search_select', multiple: true, className: 'col s6', label: t('ICONS_MAX_FOUR'), options: IconOpts },
     { id: 'url', type: 'base64', className: 'col s12', label: t('IMAGE') },
     { id: 'description', type: 'textarea', className: 'col s12', label: t('SUMMARY') },
   ] as UIForm<Partial<CrimeScript>>;

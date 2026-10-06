@@ -114,6 +114,20 @@
       }
     },
     {
+      "key": "builtin:asbestos-fibers",
+      "label": "Asbestos fibers",
+      "category": "Environment",
+      "file": "asbestos-fibers.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Asbestos fibers",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/src/assets/icons/asbestos-fibers.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
       "key": "builtin:asbestos-safety",
       "label": "Asbestos safety",
       "category": "Environment",
@@ -142,6 +156,34 @@
       }
     },
     {
+      "key": "builtin:blast",
+      "label": "Blast",
+      "category": "Security",
+      "file": "blast.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Blast",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/src/assets/icons/blast.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:bribe",
+      "label": "Bribe",
+      "category": "Finance",
+      "file": "bribe.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Bribe",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/src/assets/icons/bribe.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
       "key": "builtin:car-theft",
       "label": "Car theft",
       "category": "Transport",
@@ -165,6 +207,20 @@
         "title": "Cargo ship",
         "creator": "PAX Crime Scripting contributors",
         "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/cargo-ship.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:clothing",
+      "label": "Clothing",
+      "category": "Commerce",
+      "file": "clothing.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Clothing",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/src/assets/icons/clothing.svg",
         "license": "MIT",
         "svgoModified": true
       }
@@ -422,6 +478,20 @@
       }
     },
     {
+      "key": "builtin:gang",
+      "label": "Gang",
+      "category": "People",
+      "file": "gang.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Gang",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/src/assets/icons/gang.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
       "key": "builtin:hazard-building",
       "label": "Hazardous production site",
       "category": "Environment",
@@ -674,6 +744,20 @@
       }
     },
     {
+      "key": "builtin:lab-flask",
+      "label": "Lab flask",
+      "category": "Product",
+      "file": "lab-flask.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Lab flask",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/src/assets/icons/lab-flask.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
       "key": "builtin:laboratory",
       "label": "Laboratory",
       "category": "Product",
@@ -800,6 +884,20 @@
       }
     },
     {
+      "key": "builtin:mortgage-house",
+      "label": "Mortgage house",
+      "category": "Finance",
+      "file": "mortgage-house.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Mortgage house",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/src/assets/icons/mortgage-house.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
       "key": "builtin:nature-monitoring",
       "label": "Nature monitoring",
       "category": "Environment",
@@ -823,6 +921,20 @@
         "title": "Network monitoring",
         "creator": "PAX Crime Scripting contributors",
         "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/network-monitoring.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:oil-drop",
+      "label": "Oil drop",
+      "category": "Product",
+      "file": "oil-drop.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Oil drop",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/src/assets/icons/oil-drop.svg",
         "license": "MIT",
         "svgoModified": true
       }
@@ -1173,6 +1285,20 @@
         "title": "Site safety",
         "creator": "PAX Crime Scripting contributors",
         "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/site-safety.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:souvenir-shop",
+      "label": "Souvenir shop",
+      "category": "Commerce",
+      "file": "souvenir-shop.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Souvenir shop",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/src/assets/icons/souvenir-shop.svg",
         "license": "MIT",
         "svgoModified": true
       }

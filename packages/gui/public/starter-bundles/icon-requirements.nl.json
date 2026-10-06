@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "bundleId": "pax-nl-starter",
-  "bundleVersion": "1.0.2",
+  "bundleVersion": "1.0.3",
   "style": "Monochroom zwart, solid-fill, eenvoudige vormen rond een 100×100-viewBox; zonder tekst.",
   "requirements": [
     {
@@ -14,11 +14,11 @@
     },
     {
       "id": "nl-starter:icon:script-synthetische-drugsproductie",
-      "description": "Zwart solid-fill pictogram van een laboratoriumkolf, gecombineerd met pillen.",
+      "description": "Enkelvoudige laboratoriumkolf voor productie van synthetische drugs.",
       "appliesTo": [
         "nl-starter:script:synthetische-drugsproductie"
       ],
-      "iconKey": "builtin:laboratory"
+      "iconKey": "builtin:lab-flask"
     },
     {
       "id": "nl-starter:icon:script-arbeidsuitbuiting",
@@ -78,19 +78,19 @@
     },
     {
       "id": "nl-starter:icon:script-illegale-asbestverwijdering",
-      "description": "Zwart solid-fill pictogram van een bouwplaat met vezelwaarschuwing en beschermend schild.",
+      "description": "Enkelvoudig vezelpictogram voor asbesthoudend materiaal.",
       "appliesTo": [
         "nl-starter:script:illegale-asbestverwijdering"
       ],
-      "iconKey": "builtin:illegal-asbestos-removal"
+      "iconKey": "builtin:asbestos-fibers"
     },
     {
       "id": "nl-starter:icon:script-asbestsaneringsketen",
-      "description": "Herbruikbaar cataloguspictogram voor het openbare model Asbestsaneringsketen.",
+      "description": "Enkelvoudig vezelpictogram voor asbesthoudend materiaal.",
       "appliesTo": [
         "nl-starter:script:asbestsaneringsketen"
       ],
-      "iconKey": "builtin:illegal-asbestos-removal"
+      "iconKey": "builtin:asbestos-fibers"
     },
     {
       "id": "nl-starter:icon:script-bijtincidenten-honden",
@@ -134,11 +134,11 @@
     },
     {
       "id": "nl-starter:icon:script-pijplijndiefstal-olieproducten",
-      "description": "Zwart solid-fill pictogram van beveiligd transport voor diefstal en distributie van olieproducten.",
+      "description": "Enkelvoudige oliedruppel voor geraffineerde olieproducten.",
       "appliesTo": [
         "nl-starter:script:pijplijndiefstal-olieproducten"
       ],
-      "iconKey": "builtin:secure-transport"
+      "iconKey": "builtin:oil-drop"
     }
   ]
 }

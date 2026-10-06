@@ -94,6 +94,7 @@ export const messages = {
   GOALS: 'Goal(s) of current act',
   IMAGE: 'Image',
   ICONS_MAX_FOUR: 'Icons (up to 4)',
+  SEARCH_ICONS: 'Search icons',
   ACTIVITY: 'Activity',
   SPECIFY: 'Specify attributes',
   CONDITION: 'Condition',

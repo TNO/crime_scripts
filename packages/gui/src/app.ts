@@ -7,6 +7,7 @@ import { ThemeManager } from 'mithril-materialized';
 // import 'materialize-css/dist/js/materialize.min.js';
 import './css/style.css';
 import { registerPlugin } from 'mithril-ui-form';
+import { iconSearchSelectPlugin } from './components/ui/icon-search-select-plugin';
 import { searchSelectPlugin } from './components/ui/search-select-plugin';
 import { SimpleListEditorPlugin } from './components/ui/simple-list-editor';
 import type { Languages } from './services';
@@ -16,6 +17,7 @@ import { routingSvc } from './services/routing-service';
 import { LANGUAGE, SAVED } from './utils';
 
 registerPlugin('list', SimpleListEditorPlugin);
+registerPlugin('icon_search_select', iconSearchSelectPlugin);
 registerPlugin('search_select', searchSelectPlugin);
 
 ThemeManager.initialize('auto');
