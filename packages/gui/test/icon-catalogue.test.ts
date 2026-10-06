@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
 import { existsSync, readFileSync } from 'node:fs';
 import test from 'node:test';
 import type { DataModel } from '../src/models/data-model.ts';
@@ -121,15 +122,15 @@ test('linked single-subject icons are selectable and assigned to related starter
   ]);
   for (const [name, source] of linked) {
     const key = `builtin:${name}`;
-    assert.ok(existsSync(`src/assets/icons/${name}.png`), `source asset ${name} is missing`);
+    assert.ok(existsSync(`src/assets/icons/${name}.svg`), `source asset ${name} is missing`);
     assert.ok(catalogue.icons.some(({ key: catalogueKey }) => catalogueKey === key), `${key} is missing`);
     assert.ok(IconOpts.some(({ id }) => id === key), `${key} is not selectable`);
     const entry = catalogue.icons.find(({ key: catalogueKey }) => catalogueKey === key);
     assert.equal(entry?.attribution.kind, 'third-party');
     assert.equal(entry?.attribution.license, 'CC BY 3.0');
     assert.equal(entry?.attribution.sourceUrl, `https://thenounproject.com/icon/${source}/`);
-    assert.equal(entry?.file, `${name}.png`);
-    assert.deepEqual(readFileSync(publicFile(`icons/${name}.png`)), readFileSync(`src/assets/icons/${name}.png`));
+    assert.equal(entry?.file, `${name}.svg`);
+    assert.deepEqual(readFileSync(publicFile(`icons/${name}.svg`)), readFileSync(`src/assets/icons/${name}.svg`));
   }
 
   const expected = new Map([
@@ -145,8 +146,26 @@ test('linked single-subject icons are selectable and assigned to related starter
       assert.ok(script, `${lang} starter script ${suffix} is missing`);
       assert.equal(script.icon, icon);
       assert.deepEqual(script.icons, [icon]);
-      assert.deepEqual(resolveIconSources(script.icons, script.icon), [`icons/${icon.slice(8)}.png`]);
+      assert.deepEqual(resolveIconSources(script.icons, script.icon), [`icons/${icon.slice(8)}.svg`]);
     }
+  }
+});
+
+test('hand-drawn script icons retain their artwork instead of simplified stand-ins', () => {
+  const originalHashes = new Map([
+    ['animal-trafficking', 'f4bc2d2b03f3e47949cb4233eb73aa230f4be60c0b1c88aa543c64ee5fbf0cf3'],
+    ['car-theft', 'b9a2c656136254d3be17a2444571167b59e50ea0fe002ff99e6ccb1f289c30ce'],
+    ['human-trafficking', '8dbc33d4a1d6e88d150f30cb695f6a9d5b258c1889b9f201672529992214e3f7'],
+    ['illegal-asbestos-removal', '981a8d8183df0bb13479b76bc070c6b1ef4d6254145cf65c2028a89cd78de423'],
+    ['illegal-dumping', '35a75d4c8faf6ec2a233a395bb8face942e131853e090a790d24f22eb82606d8'],
+    ['laboratory', '7e396f1042f466532252e315d01150963f564049c3af4aab4b708bb6ad453d5b'],
+    ['money-laundering', '3e92f4fb2a653af126048dccd22ba36098dedfa9f5af9c2aeab1db4fc00c65e5'],
+    ['payment-fraud', '03f2b34b4404ff3601148286428138cc29efacf83c96da54fbaf0de06482ecd7'],
+    ['poaching', 'd6872d5440f32bf01bf98313fca680823438e143a5af9c8fe713a138a9d9dbbc'],
+  ]);
+  for (const [name, expected] of originalHashes) {
+    const actual = createHash('sha256').update(readFileSync(publicFile(`icons/${name}.svg`))).digest('hex');
+    assert.equal(actual, expected, `${name} no longer displays the original artwork`);
   }
 });
 
@@ -162,17 +181,20 @@ test('catalogue files are valid images with complete attribution', () => {
   catalogue.icons.forEach(({ key, file, attribution }) => {
     const path = publicFile(`icons/${file}`);
     assert.ok(existsSync(path), `${key} points to missing ${path}`);
-    if (file.endsWith('.svg')) {
-      const svg = readFileSync(path, 'utf8');
+    assert.match(file, /\.svg$/);
+    const svg = readFileSync(path, 'utf8');
+    if (attribution.kind === 'third-party') {
+      assert.match(svg, /^<\?xml version="1\.0" encoding="UTF-8"\?>\s*<svg\b/);
+      assert.match(svg, /\bviewBox="0 0 1200 1200"/);
+      assert.match(svg, /<path\b/);
+      assert.doesNotMatch(svg, /<!DOCTYPE|<(?:script|style|foreignObject|image|use)\b|\b(?:xlink:)?href=|\bon[a-z]+=/i);
+      assert.equal(attribution.svgoModified, false);
+    } else {
       assert.match(svg, /^<svg xmlns="http:\/\/www\.w3\.org\/2000\/svg" viewBox="0 0 100 100">/);
       assert.match(svg, /<(?:path|circle|rect|polygon)\b/);
       assert.doesNotMatch(svg, /<(?:script|style|metadata|title|desc)\b|<!--|\b(?:width|height|stroke|class|id)=/);
       assert.doesNotMatch(svg, /\n|\s{2,}/);
       assert.equal(attribution.svgoModified, true);
-    } else {
-      assert.match(file, /\.png$/);
-      assert.deepEqual(readFileSync(path).subarray(0, 8), Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]));
-      assert.equal(attribution.svgoModified, false);
     }
     assert.ok(attribution.title && attribution.creator && attribution.sourceUrl && attribution.license);
     if (attribution.kind === 'third-party') {

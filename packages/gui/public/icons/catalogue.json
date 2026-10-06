@@ -117,7 +117,7 @@
       "key": "builtin:asbestos-fibers",
       "label": "Asbestos fibers",
       "category": "Environment",
-      "file": "asbestos-fibers.png",
+      "file": "asbestos-fibers.svg",
       "attribution": {
         "kind": "third-party",
         "title": "Asbestos Exposure",
@@ -159,7 +159,7 @@
       "key": "builtin:blast",
       "label": "Blast",
       "category": "Security",
-      "file": "blast.png",
+      "file": "blast.svg",
       "attribution": {
         "kind": "third-party",
         "title": "blast",
@@ -173,7 +173,7 @@
       "key": "builtin:bribe",
       "label": "Bribe",
       "category": "Finance",
-      "file": "bribe.png",
+      "file": "bribe.svg",
       "attribution": {
         "kind": "third-party",
         "title": "bribe",
@@ -215,7 +215,7 @@
       "key": "builtin:clothing",
       "label": "Clothing",
       "category": "Commerce",
-      "file": "clothing.png",
+      "file": "clothing.svg",
       "attribution": {
         "kind": "third-party",
         "title": "clothing",
@@ -481,7 +481,7 @@
       "key": "builtin:gang",
       "label": "Gang",
       "category": "People",
-      "file": "gang.png",
+      "file": "gang.svg",
       "attribution": {
         "kind": "third-party",
         "title": "gang",
@@ -747,7 +747,7 @@
       "key": "builtin:lab-flask",
       "label": "Lab flask",
       "category": "Product",
-      "file": "lab-flask.png",
+      "file": "lab-flask.svg",
       "attribution": {
         "kind": "third-party",
         "title": "lab",
@@ -887,7 +887,7 @@
       "key": "builtin:mortgage-house",
       "label": "Mortgage house",
       "category": "Finance",
-      "file": "mortgage-house.png",
+      "file": "mortgage-house.svg",
       "attribution": {
         "kind": "third-party",
         "title": "mortage",
@@ -929,7 +929,7 @@
       "key": "builtin:oil-drop",
       "label": "Oil drop",
       "category": "Product",
-      "file": "oil-drop.png",
+      "file": "oil-drop.svg",
       "attribution": {
         "kind": "third-party",
         "title": "Oil",
@@ -1293,7 +1293,7 @@
       "key": "builtin:souvenir-shop",
       "label": "Souvenir shop",
       "category": "Commerce",
-      "file": "souvenir-shop.png",
+      "file": "souvenir-shop.svg",
       "attribution": {
         "kind": "third-party",
         "title": "Souvenir shop",
