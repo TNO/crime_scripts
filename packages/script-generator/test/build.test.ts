@@ -37,6 +37,7 @@ const candidate = (): CandidateFile => ({
         activities: [{
           key: 'receive',
           event: 'Een medewerker ontvangt een document',
+          description: 'De medewerker neemt het aangeboden bestand in ontvangst en registreert wie het heeft aangeleverd.',
           observableTraces: ['het oorspronkelijke bestand en de ontvangstdatum'],
           decisionPoint: 'bepalen of een verdiepende controle nodig is',
           castKeys: ['employee'],
@@ -124,8 +125,21 @@ test('build creates a standalone first draft and reuses exact taxonomy', () => {
   assert.deepEqual(result.model.cast.map(({ id }) => id), ['existing-employee']);
   assert.equal(script.stages[0].variants[0].activities[0].cast?.[0], 'existing-employee');
   assert.equal(script.literature[0].url, 'https://example.test/guidance');
-  assert.match(script.stages[0].variants[0].indicators[0].description || '', /Consider alternatives/);
-  assert.match(script.stages[0].variants[0].measures[0].description || '', /Decision moment/);
+  const variant = script.stages[0].variants[0];
+  assert.equal(variant.activities[0].description, candidate().script.stages[0].variants[0].activities[0].description);
+  assert.match(variant.indicators[0].description || '', /Verificatie:.*Andere verklaringen:.*Betekenis:/);
+  assert.match(variant.measures[0].description || '', /Inzetmoment:.*Beoogd effect:/);
+});
+
+test('legacy activity descriptions follow the selected script language', () => {
+  const legacy = candidate();
+  delete legacy.script.stages[0].variants[0].activities[0].description;
+  const bundle = normalizeDataModel({ crimeScripts: [], geoLocations: [{ id: 'geo-nl', label: 'Nederland' }] });
+  const dutch = buildStandaloneCandidate(bundle, brief, legacy, evidence(), true);
+  const english = buildStandaloneCandidate(bundle, { ...brief, contentLanguage: 'en' }, legacy, evidence(), true);
+  assert.match(dutch.model.crimeScripts[0].stages[0].variants[0].activities[0].description || '', /^Waarneembare signalen:/);
+  assert.match(english.model.crimeScripts[0].stages[0].variants[0].activities[0].description || '', /^Observable traces:/);
+  assert.match(english.model.crimeScripts[0].stages[0].variants[0].indicators[0].description || '', /^Corroborate with:/);
 });
 
 test('build blocks missing evidence for a factual node', () => {
@@ -156,9 +170,8 @@ test('build rejects generic modus-operandi labels', () => {
 
 test('build rejects activity descriptions that repeat the activity label', () => {
   const repetitive = candidate();
-  repetitive.script.stages[0].variants[0].activities[0].observableTraces = [
-    '“Een medewerker ontvangt een document” wordt in het dossier vastgelegd',
-  ];
+  repetitive.script.stages[0].variants[0].activities[0].description =
+    '“Een medewerker ontvangt een document” wordt in het dossier vastgelegd';
 
   assert.throws(
     () => buildStandaloneCandidate(

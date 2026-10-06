@@ -30,6 +30,7 @@
         "key": { "$ref": "#/$defs/key" },
         "existingId": { "$ref": "#/$defs/key" },
         "event": { "$ref": "#/$defs/key" },
+        "description": { "$ref": "#/$defs/key" },
         "observableTraces": {
           "type": "array",
           "minItems": 1,

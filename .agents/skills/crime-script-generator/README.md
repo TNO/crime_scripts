@@ -55,8 +55,10 @@ approval before merge, deletion, classification change, or overwrite.
 8. Build a standalone JSON file and hand it to the user for GUI review.
 9. Preserve the temporary workspace and merge only the reviewed file after explicit approval.
 
-Every activity description must add information through observable traces or a decision point; it
-must not repeat or quote the activity label. The same description cannot be reused across nodes.
+Every activity has an unnumbered label and a source-supported narrative description of the action.
+Observable traces and decisions inform research; signs belong under indicators, with an independent
+verification method and alternative explanations. The same description cannot be reused across
+nodes. Check that every reader-facing field uses the selected content language.
 
 ## Files in this skill
 

@@ -61,6 +61,11 @@ to the user and receiving approval.
 Review the standalone file in the crime-script GUI. The reviewer may edit content, assign reviewers,
 and change review status.
 
+After rebuilding a reviewed draft, re-import the new standalone file in every open browser context.
+The GUI stores its imported model locally; reloading a tab does not reread the file, and other
+browser tabs or profiles may retain the earlier version. Check the rendered label and description
+in each active review view before reporting that it has been refreshed.
+
 `merge` compares GUI edits with the last build. For each evidence-bearing changed node, decide
 whether the previous evidence still applies. If not, add replacement source keys or accept an
 `unsubstantiated-after-human-edit` marker. Non-interactive runs use a versioned review-answer JSON
@@ -105,16 +110,22 @@ Anonymous, SEO, social-media, model-memory, and unattributed claims do not count
 Every stage must explain its role in the overall process. Each activity needs:
 
 - a concrete event;
-- observable traces;
-- a decision point where relevant;
+- an unnumbered label and a concrete `description` of the actual event (the GUI adds numbering);
+- source-supported observable traces and a decision point where relevant, recorded in candidate
+  fields for evidence review rather than substituted for the reader-facing activity description;
 - only applicable role, attribute, and transport keys.
 
-Observable traces and decision points must add information rather than repeat or quote the activity
-event. The generated description may not contain the normalized activity label.
+The generated description may not contain the normalized activity label. Each description should
+say who does what and in what broad context without procedural crime-enabling detail. Distinguish
+documented events from assumptions. Replace vague references to "the source" with supported
+specifics or an explicit, relevant qualification. Do not present signs of an event or an
+investigator's decision as the event itself.
 
 Each indicator needs an observation, corroboration method, plausible benign alternatives, and
-relevance. Each measure needs a partner or owner, decision moment, intended effect, category, and
-evidence. Avoid repeated boilerplate; exact and strong near-duplicate descriptions block builds.
+relevance. Corroboration means checking the observation against independent evidence; it is not
+proof by itself. Each measure needs a partner or owner, decision moment, intended effect, category,
+and evidence. Write all reader-facing text in the brief's content language. Avoid repeated
+boilerplate; exact and strong near-duplicate descriptions block builds.
 
 Restricted classification allows more concrete categories, dependencies, handoffs, evidence, and
 intervention windows. It never permits operational instructions, exact exploitable parameters,

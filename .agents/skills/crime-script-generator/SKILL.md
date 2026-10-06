@@ -82,15 +82,18 @@ crime-script-generator init \
   routes.
 - Give every modus operandi a concise label describing its route or mechanism; never use generic
   labels such as `Hoofdroute` or repeat the scene or first activity label.
-- Give activities observable traces and a decision point; indicators need corroboration,
-  alternatives, and relevance; measures need partners, timing, effect, category, and evidence.
-- Make every activity description add information; traces and decision points must not repeat or
-  quote the activity label.
-- Keep historical cases sparse and separate from the general model.
-- Use only built-in script icons. Scene icons are not part of the model.
-- Run `crime-script-generator icons --json` to inspect valid script-icon keys.
+- Write `event` without a number (the GUI adds it); `description` explains the source-supported
+  action, not traces, research questions, or a restatement of the label.
+- Keep `observableTraces` and `decisionPoint` in the candidate; put signs under `indicators`,
+  with independent corroboration, benign alternatives, and relevance, not in activity prose.
+- Give measures partners, timing, effect, category, and evidence. Use the brief's content language
+  for all reader-facing fields, including descriptions, indicator details, and measures.
+- State supported specifics and genuine uncertainty, not filler references to "the source";
+  cite through `evidence.json` and literature.
+- Before building, verify each activity against its evidence and inspect rendered output for
+  numbering, language, specificity, and separation of activity from indicator.
+- Keep historical cases separate; use `crime-script-generator icons --json` for built-in script icons.
 - Leave generated drafts as AI-generated, unreviewed first drafts. The CLI enforces this.
-
 See [REFERENCE.md](REFERENCE.md) for command behavior, evidence policy, and recovery steps. Validate
 files against the JSON Schemas in [`schemas/`](schemas/) and use [`example/`](example/) only as a
 shape example, not as research.

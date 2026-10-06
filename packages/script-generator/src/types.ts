@@ -52,6 +52,7 @@ export type CandidateActivity = {
   key: string;
   existingId?: ID;
   event: string;
+  description?: string;
   observableTraces: string[];
   decisionPoint?: string;
   parentKey?: string;

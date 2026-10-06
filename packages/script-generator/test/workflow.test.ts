@@ -118,6 +118,7 @@ test('prepare, build, GUI review, and explicit merge form a non-destructive work
   await buildWorkspace(workspacePath, { output: standalonePath });
   assert.equal((await getWorkspaceStatus(workspacePath)).nextAction, 'review');
   const reviewed = JSON.parse(await readFile(standalonePath, 'utf8'));
+  assert.match(reviewed.crimeScripts[0].literature[0].description, /^Lokaal bestand:/);
   reviewed.crimeScripts[0].reviewer = ['RIEC reviewer'];
   reviewed.crimeScripts[0].status = 2;
   reviewed.crimeScripts[0].unreviewed = false;

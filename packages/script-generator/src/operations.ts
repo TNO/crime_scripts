@@ -759,7 +759,8 @@ const reconcileReviewedLiterature = (
       script.id,
       usedIds,
       [...new Set(labels)].join(', '),
-      retained?.id
+      retained?.id,
+      script.language
     );
     matchedIds.add(item.id);
     return item;

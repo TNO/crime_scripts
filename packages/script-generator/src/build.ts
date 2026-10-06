@@ -3,6 +3,7 @@ import { normalizeDataModel } from '@crime-script/core/model-normalization';
 import { createSingleScriptExportModel } from '@crime-script/core/single-script-export';
 import type {
   CrimeScript,
+  ContentLanguage,
   DataModel,
   Hierarchical,
   ID,
@@ -427,12 +428,15 @@ export const sourceToLiterature = (
   scriptId: ID,
   usedIds: Set<ID>,
   usedFor: string,
-  retainedId?: ID
+  retainedId?: ID,
+  language: ContentLanguage = 'en'
 ): Literature => ({
   id: retainedId || uniqueId(`${scriptId}:source:${slugify(source.key) || 'source'}`, usedIds),
   label: source.title.trim(),
   description: [
-    source.kind === 'local' && source.filename ? `Local file: ${source.filename}.` : '',
+    source.kind === 'local' && source.filename
+      ? `${language === 'nl' ? 'Lokaal bestand' : 'Local file'}: ${source.filename}.`
+      : '',
     source.reliability.trim(),
   ].filter(Boolean).join(' '),
   authors: source.authors?.trim(),
@@ -442,25 +446,28 @@ export const sourceToLiterature = (
 });
 
 const activityDescription = (
+  description: string | undefined,
   traces: string[],
-  decisionPoint: string | undefined
-): string => [
-  traces.length ? `Observable traces: ${traces.join('; ')}.` : '',
-  decisionPoint?.trim() ? `Decision point: ${decisionPoint.trim()}.` : '',
+  decisionPoint: string | undefined,
+  language: ContentLanguage
+): string => description?.trim() || [
+  traces.length ? `${language === 'nl' ? 'Waarneembare signalen' : 'Observable traces'}: ${traces.join('; ')}.` : '',
+  decisionPoint?.trim() ? `${language === 'nl' ? 'Toetsvraag' : 'Decision point'}: ${decisionPoint.trim()}.` : '',
 ].filter(Boolean).join(' ');
 
 const indicatorDescription = (
   corroboration: string[],
   alternatives: string[],
-  relevance: string
+  relevance: string,
+  language: ContentLanguage
 ): string => [
-  `Corroborate with: ${corroboration.join('; ')}.`,
-  `Consider alternatives: ${alternatives.join('; ')}.`,
-  `Relevance: ${relevance.trim()}.`,
+  `${language === 'nl' ? 'Verificatie' : 'Corroborate with'}: ${corroboration.join('; ')}.`,
+  `${language === 'nl' ? 'Andere verklaringen' : 'Consider alternatives'}: ${alternatives.join('; ')}.`,
+  `${language === 'nl' ? 'Betekenis' : 'Relevance'}: ${relevance.trim()}.`,
 ].join(' ');
 
-const measureDescription = (decisionMoment: string, intendedEffect: string): string =>
-  `Decision moment: ${decisionMoment.trim()}. Intended effect: ${intendedEffect.trim()}.`;
+const measureDescription = (decisionMoment: string, intendedEffect: string, language: ContentLanguage): string =>
+  `${language === 'nl' ? 'Inzetmoment' : 'Decision moment'}: ${decisionMoment.trim()}. ${language === 'nl' ? 'Beoogd effect' : 'Intended effect'}: ${intendedEffect.trim()}.`;
 
 const normalizeDescriptionText = (value: string): string =>
   value
@@ -634,7 +641,12 @@ export const buildStandaloneCandidate = (
         );
       });
       const activities = variant.activities.map((activity, activityIndex) => {
-        const description = activityDescription(activity.observableTraces, activity.decisionPoint);
+        const description = activityDescription(
+          activity.description,
+          activity.observableTraces,
+          activity.decisionPoint,
+          brief.contentLanguage
+        );
         if (!activity.event?.trim() || activity.observableTraces.length === 0) {
           throw new GeneratorError(
             'invalid-activity',
@@ -698,14 +710,15 @@ export const buildStandaloneCandidate = (
           description: indicatorDescription(
             indicator.corroboration,
             indicator.alternativeExplanations,
-            indicator.relevance
+            indicator.relevance,
+            brief.contentLanguage
           ),
         };
       });
       const measures = (variant.measures || []).map((measure, measureIndex) => ({
         id: idFor('measure', measure.key, measure.existingId, `${base}.measures[${measureIndex}].existingId`),
         label: measure.label.trim(),
-        description: measureDescription(measure.decisionMoment, measure.intendedEffect),
+        description: measureDescription(measure.decisionMoment, measure.intendedEffect, brief.contentLanguage),
         cat: measure.category.trim(),
         partners: requireTaxonomyIds(
           taxonomy.maps,
@@ -819,7 +832,8 @@ export const buildStandaloneCandidate = (
         brief.scriptId,
         usedIds,
         (sourceUses.get(source.key) || []).join(', '),
-        retained?.id
+        retained?.id,
+        brief.contentLanguage
       );
       sourceKeyToLiteratureId[source.key] = item.id;
       return item;

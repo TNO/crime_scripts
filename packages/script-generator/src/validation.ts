@@ -75,12 +75,13 @@ const validateCandidateTaxonomy = (value: unknown, path: string): void => {
 const validateActivity = (value: unknown, path: string): void => {
   const item = object(value, path);
   onlyKeys(item, [
-    'key', 'existingId', 'event', 'observableTraces', 'decisionPoint', 'parentKey',
+    'key', 'existingId', 'event', 'description', 'observableTraces', 'decisionPoint', 'parentKey',
     'castKeys', 'attributeKeys', 'transportKeys',
   ], path);
   string(item.key, `${path}.key`);
   if (item.existingId !== undefined) string(item.existingId, `${path}.existingId`);
   string(item.event, `${path}.event`);
+  if (item.description !== undefined) string(item.description, `${path}.description`);
   optionalStringArray(item.observableTraces, `${path}.observableTraces`);
   if (!Array.isArray(item.observableTraces) || item.observableTraces.length === 0) {
     throw new GeneratorError('invalid-field', `${path}.observableTraces must not be empty.`, `${path}.observableTraces`);
