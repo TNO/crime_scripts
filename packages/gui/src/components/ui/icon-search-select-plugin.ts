@@ -36,6 +36,7 @@ export const iconSearchSelectPlugin: PluginType<IconValue[]> = () => {
             m.redraw();
           }),
         }),
+        m('a', { href: new URL('icons/NOTICE.md', document.baseURI).href, target: '_blank', rel: 'noopener noreferrer' }, t('ICON_CREDITS')),
       ]);
     },
   };

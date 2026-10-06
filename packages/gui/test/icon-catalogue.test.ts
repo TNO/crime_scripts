@@ -106,17 +106,30 @@ test('supplied icons are selectable and public starter scripts show one appropri
   }
 });
 
-test('original single-subject icons are selectable and assigned to related starter scripts', () => {
+test('linked single-subject icons are selectable and assigned to related starter scripts', () => {
   const catalogue = readJson<CatalogueManifest>('icons/catalogue.json');
-  const original = [
-    'asbestos-fibers', 'blast', 'bribe', 'clothing', 'gang',
-    'lab-flask', 'mortgage-house', 'oil-drop', 'souvenir-shop',
-  ];
-  for (const name of original) {
+  const linked = new Map([
+    ['asbestos-fibers', 'asbestos-exposure-8074144'],
+    ['blast', 'blast-6297938'],
+    ['bribe', 'bribe-26816'],
+    ['clothing', 'clothing-5260292'],
+    ['gang', 'gang-3859536'],
+    ['lab-flask', 'lab-6650883'],
+    ['mortgage-house', 'mortage-7360676'],
+    ['oil-drop', 'oil-7301814'],
+    ['souvenir-shop', 'souvenir-shop-4687505'],
+  ]);
+  for (const [name, source] of linked) {
     const key = `builtin:${name}`;
-    assert.ok(existsSync(`src/assets/icons/${name}.svg`), `source asset ${name} is missing`);
+    assert.ok(existsSync(`src/assets/icons/${name}.png`), `source asset ${name} is missing`);
     assert.ok(catalogue.icons.some(({ key: catalogueKey }) => catalogueKey === key), `${key} is missing`);
     assert.ok(IconOpts.some(({ id }) => id === key), `${key} is not selectable`);
+    const entry = catalogue.icons.find(({ key: catalogueKey }) => catalogueKey === key);
+    assert.equal(entry?.attribution.kind, 'third-party');
+    assert.equal(entry?.attribution.license, 'CC BY 3.0');
+    assert.equal(entry?.attribution.sourceUrl, `https://thenounproject.com/icon/${source}/`);
+    assert.equal(entry?.file, `${name}.png`);
+    assert.deepEqual(readFileSync(publicFile(`icons/${name}.png`)), readFileSync(`src/assets/icons/${name}.png`));
   }
 
   const expected = new Map([
@@ -132,12 +145,12 @@ test('original single-subject icons are selectable and assigned to related start
       assert.ok(script, `${lang} starter script ${suffix} is missing`);
       assert.equal(script.icon, icon);
       assert.deepEqual(script.icons, [icon]);
-      assert.deepEqual(resolveIconSources(script.icons, script.icon), [`icons/${icon.slice(8)}.svg`]);
+      assert.deepEqual(resolveIconSources(script.icons, script.icon), [`icons/${icon.slice(8)}.png`]);
     }
   }
 });
 
-test('catalogue files are optimized monochrome SVGs with complete attribution', () => {
+test('catalogue files are valid images with complete attribution', () => {
   const catalogue = readJson<CatalogueManifest>('icons/catalogue.json');
   const notice = readFileSync(publicFile('icons/NOTICE.md'), 'utf8');
 
@@ -149,13 +162,19 @@ test('catalogue files are optimized monochrome SVGs with complete attribution', 
   catalogue.icons.forEach(({ key, file, attribution }) => {
     const path = publicFile(`icons/${file}`);
     assert.ok(existsSync(path), `${key} points to missing ${path}`);
-    const svg = readFileSync(path, 'utf8');
-    assert.match(svg, /^<svg xmlns="http:\/\/www\.w3\.org\/2000\/svg" viewBox="0 0 100 100">/);
-    assert.match(svg, /<(?:path|circle|rect|polygon)\b/);
-    assert.doesNotMatch(svg, /<(?:script|style|metadata|title|desc)\b|<!--|\b(?:width|height|stroke|class|id)=/);
-    assert.doesNotMatch(svg, /\n|\s{2,}/);
+    if (file.endsWith('.svg')) {
+      const svg = readFileSync(path, 'utf8');
+      assert.match(svg, /^<svg xmlns="http:\/\/www\.w3\.org\/2000\/svg" viewBox="0 0 100 100">/);
+      assert.match(svg, /<(?:path|circle|rect|polygon)\b/);
+      assert.doesNotMatch(svg, /<(?:script|style|metadata|title|desc)\b|<!--|\b(?:width|height|stroke|class|id)=/);
+      assert.doesNotMatch(svg, /\n|\s{2,}/);
+      assert.equal(attribution.svgoModified, true);
+    } else {
+      assert.match(file, /\.png$/);
+      assert.deepEqual(readFileSync(path).subarray(0, 8), Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]));
+      assert.equal(attribution.svgoModified, false);
+    }
     assert.ok(attribution.title && attribution.creator && attribution.sourceUrl && attribution.license);
-    assert.equal(attribution.svgoModified, true);
     if (attribution.kind === 'third-party') {
       assert.match(attribution.license, /^(?:Public Domain|CC BY 3\.0)$/);
       assert.match(notice, new RegExp(attribution.title.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
@@ -186,7 +205,7 @@ test('public starter cards display one icon rather than shrinking a grid', () =>
   }
 });
 
-test('the production deployment contains the catalogue metadata, notice, and every SVG', () => {
+test('the production deployment contains the catalogue metadata, notice, and every icon', () => {
   const catalogue = readJson<CatalogueManifest>('icons/catalogue.json');
   const deployedRoot = '../../docs/icons';
 
@@ -205,7 +224,7 @@ test('the production deployment contains the catalogue metadata, notice, and eve
     readFileSync(publicFile('icons/NOTICE.md'), 'utf8')
   );
   catalogue.icons.forEach(({ file }) => {
-    assert.equal(readFileSync(`${deployedRoot}/${file}`, 'utf8'), readFileSync(publicFile(`icons/${file}`), 'utf8'));
+    assert.deepEqual(readFileSync(`${deployedRoot}/${file}`), readFileSync(publicFile(`icons/${file}`)));
   });
 });
 

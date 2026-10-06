@@ -95,6 +95,7 @@ export const messages = {
   IMAGE: 'Image',
   ICONS_MAX_FOUR: 'Icons (up to 4)',
   SEARCH_ICONS: 'Search icons',
+  ICON_CREDITS: 'Icon sources and licenses',
   ACTIVITY: 'Activity',
   SPECIFY: 'Specify attributes',
   CONDITION: 'Condition',

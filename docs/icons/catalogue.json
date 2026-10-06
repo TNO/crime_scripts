@@ -117,14 +117,14 @@
       "key": "builtin:asbestos-fibers",
       "label": "Asbestos fibers",
       "category": "Environment",
-      "file": "asbestos-fibers.svg",
+      "file": "asbestos-fibers.png",
       "attribution": {
-        "kind": "original",
-        "title": "Asbestos fibers",
-        "creator": "PAX Crime Scripting contributors",
-        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/src/assets/icons/asbestos-fibers.svg",
-        "license": "MIT",
-        "svgoModified": true
+        "kind": "third-party",
+        "title": "Asbestos Exposure",
+        "creator": "Mia Elysia",
+        "sourceUrl": "https://thenounproject.com/icon/asbestos-exposure-8074144/",
+        "license": "CC BY 3.0",
+        "svgoModified": false
       }
     },
     {
@@ -159,28 +159,28 @@
       "key": "builtin:blast",
       "label": "Blast",
       "category": "Security",
-      "file": "blast.svg",
+      "file": "blast.png",
       "attribution": {
-        "kind": "original",
-        "title": "Blast",
-        "creator": "PAX Crime Scripting contributors",
-        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/src/assets/icons/blast.svg",
-        "license": "MIT",
-        "svgoModified": true
+        "kind": "third-party",
+        "title": "blast",
+        "creator": "Gacem Tachfin",
+        "sourceUrl": "https://thenounproject.com/icon/blast-6297938/",
+        "license": "CC BY 3.0",
+        "svgoModified": false
       }
     },
     {
       "key": "builtin:bribe",
       "label": "Bribe",
       "category": "Finance",
-      "file": "bribe.svg",
+      "file": "bribe.png",
       "attribution": {
-        "kind": "original",
-        "title": "Bribe",
-        "creator": "PAX Crime Scripting contributors",
-        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/src/assets/icons/bribe.svg",
-        "license": "MIT",
-        "svgoModified": true
+        "kind": "third-party",
+        "title": "bribe",
+        "creator": "Luis Prado",
+        "sourceUrl": "https://thenounproject.com/icon/bribe-26816/",
+        "license": "CC BY 3.0",
+        "svgoModified": false
       }
     },
     {
@@ -215,14 +215,14 @@
       "key": "builtin:clothing",
       "label": "Clothing",
       "category": "Commerce",
-      "file": "clothing.svg",
+      "file": "clothing.png",
       "attribution": {
-        "kind": "original",
-        "title": "Clothing",
-        "creator": "PAX Crime Scripting contributors",
-        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/src/assets/icons/clothing.svg",
-        "license": "MIT",
-        "svgoModified": true
+        "kind": "third-party",
+        "title": "clothing",
+        "creator": "Iconbunny",
+        "sourceUrl": "https://thenounproject.com/icon/clothing-5260292/",
+        "license": "CC BY 3.0",
+        "svgoModified": false
       }
     },
     {
@@ -481,14 +481,14 @@
       "key": "builtin:gang",
       "label": "Gang",
       "category": "People",
-      "file": "gang.svg",
+      "file": "gang.png",
       "attribution": {
-        "kind": "original",
-        "title": "Gang",
-        "creator": "PAX Crime Scripting contributors",
-        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/src/assets/icons/gang.svg",
-        "license": "MIT",
-        "svgoModified": true
+        "kind": "third-party",
+        "title": "gang",
+        "creator": "WEBTECHOPS LLP",
+        "sourceUrl": "https://thenounproject.com/icon/gang-3859536/",
+        "license": "CC BY 3.0",
+        "svgoModified": false
       }
     },
     {
@@ -747,14 +747,14 @@
       "key": "builtin:lab-flask",
       "label": "Lab flask",
       "category": "Product",
-      "file": "lab-flask.svg",
+      "file": "lab-flask.png",
       "attribution": {
-        "kind": "original",
-        "title": "Lab flask",
-        "creator": "PAX Crime Scripting contributors",
-        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/src/assets/icons/lab-flask.svg",
-        "license": "MIT",
-        "svgoModified": true
+        "kind": "third-party",
+        "title": "lab",
+        "creator": "Dwi Budiyanto",
+        "sourceUrl": "https://thenounproject.com/icon/lab-6650883/",
+        "license": "CC BY 3.0",
+        "svgoModified": false
       }
     },
     {
@@ -887,14 +887,14 @@
       "key": "builtin:mortgage-house",
       "label": "Mortgage house",
       "category": "Finance",
-      "file": "mortgage-house.svg",
+      "file": "mortgage-house.png",
       "attribution": {
-        "kind": "original",
-        "title": "Mortgage house",
-        "creator": "PAX Crime Scripting contributors",
-        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/src/assets/icons/mortgage-house.svg",
-        "license": "MIT",
-        "svgoModified": true
+        "kind": "third-party",
+        "title": "mortage",
+        "creator": "Ridwan Hamdani",
+        "sourceUrl": "https://thenounproject.com/icon/mortage-7360676/",
+        "license": "CC BY 3.0",
+        "svgoModified": false
       }
     },
     {
@@ -929,14 +929,14 @@
       "key": "builtin:oil-drop",
       "label": "Oil drop",
       "category": "Product",
-      "file": "oil-drop.svg",
+      "file": "oil-drop.png",
       "attribution": {
-        "kind": "original",
-        "title": "Oil drop",
-        "creator": "PAX Crime Scripting contributors",
-        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/src/assets/icons/oil-drop.svg",
-        "license": "MIT",
-        "svgoModified": true
+        "kind": "third-party",
+        "title": "Oil",
+        "creator": "okta",
+        "sourceUrl": "https://thenounproject.com/icon/oil-7301814/",
+        "license": "CC BY 3.0",
+        "svgoModified": false
       }
     },
     {
@@ -1293,14 +1293,14 @@
       "key": "builtin:souvenir-shop",
       "label": "Souvenir shop",
       "category": "Commerce",
-      "file": "souvenir-shop.svg",
+      "file": "souvenir-shop.png",
       "attribution": {
-        "kind": "original",
+        "kind": "third-party",
         "title": "Souvenir shop",
-        "creator": "PAX Crime Scripting contributors",
-        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/src/assets/icons/souvenir-shop.svg",
-        "license": "MIT",
-        "svgoModified": true
+        "creator": "Eucalyp",
+        "sourceUrl": "https://thenounproject.com/icon/souvenir-shop-4687505/",
+        "license": "CC BY 3.0",
+        "svgoModified": false
       }
     },
     {

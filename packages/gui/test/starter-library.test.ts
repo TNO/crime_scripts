@@ -132,15 +132,16 @@ const expectedDutchStarterLabels = [
 
 test('the Dutch starter fixture contains all researched topics', () => {
   const fixture = validateStarterBundle(JSON.parse(readFileSync('public/starter-bundles/nl.json', 'utf8')));
+  assert.equal(fixture.products.find(({ id }) => id === 'nl-starter:product:asbesthoudend-materiaal')?.label, 'Asbest');
   assert.deepEqual(fixture.starterBundle, {
     id: 'pax-nl-starter',
-    version: '1.0.4',
+    version: '1.0.5',
     locale: 'nl',
     title: 'Nederlandse starterbibliotheek',
     publishedAt: '2026-10-06',
     license: 'CC BY 4.0',
     licenseUrl: 'https://creativecommons.org/licenses/by/4.0/',
-    attribution: 'Nederlandse starterbibliotheek voor Crime Scripts, PAX/TNO, versie 1.0.4 (2026), met AI-ondersteuning',
+    attribution: 'Nederlandse starterbibliotheek voor Crime Scripts, PAX/TNO, versie 1.0.5 (2026), met AI-ondersteuning',
     disclaimer: 'AI-gegenereerd en onbeoordeeld; controleer de inhoud vóór gebruik. Geen juridisch advies.',
   });
   assert.deepEqual(fixture.crimeScripts.map(({ id }) => id), expectedDutchStarterIds);
@@ -176,16 +177,17 @@ test('the Dutch harbor starter fully matches the documented case observations', 
 test('the English starter fixture mirrors the complete Dutch starter library', () => {
   const raw = readFileSync('public/starter-bundles/en.json', 'utf8');
   const fixture = validateStarterBundle(JSON.parse(raw));
+  assert.equal(fixture.products.find(({ id }) => id === 'en-starter:product:asbesthoudend-materiaal')?.label, 'Asbestos');
 
   assert.deepEqual(fixture.starterBundle, {
     id: 'pax-en-starter',
-    version: '1.0.4',
+    version: '1.0.5',
     locale: 'en',
     title: 'English starter library',
     publishedAt: '2026-10-06',
     license: 'CC BY 4.0',
     licenseUrl: 'https://creativecommons.org/licenses/by/4.0/',
-    attribution: 'English starter library for Crime Scripts, PAX/TNO, version 1.0.4 (2026), with AI assistance',
+    attribution: 'English starter library for Crime Scripts, PAX/TNO, version 1.0.5 (2026), with AI assistance',
     disclaimer: 'AI-generated and unreviewed; verify the content before use. Not legal advice.',
   });
   assert.equal(fixture.crimeScripts.length, expectedDutchStarterIds.length);

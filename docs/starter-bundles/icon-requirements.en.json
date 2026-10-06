@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "bundleId": "pax-en-starter",
-  "bundleVersion": "1.0.4",
+  "bundleVersion": "1.0.5",
   "style": "Monochrome black, solid fill, simple shapes within a 100×100 viewBox; no text.",
   "requirements": [
     {
