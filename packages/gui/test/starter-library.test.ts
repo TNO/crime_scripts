@@ -134,13 +134,13 @@ test('the Dutch starter fixture contains all researched topics', () => {
   const fixture = validateStarterBundle(JSON.parse(readFileSync('public/starter-bundles/nl.json', 'utf8')));
   assert.deepEqual(fixture.starterBundle, {
     id: 'pax-nl-starter',
-    version: '1.0.3',
+    version: '1.0.4',
     locale: 'nl',
     title: 'Nederlandse starterbibliotheek',
     publishedAt: '2026-10-06',
     license: 'CC BY 4.0',
     licenseUrl: 'https://creativecommons.org/licenses/by/4.0/',
-    attribution: 'Nederlandse starterbibliotheek voor Crime Scripts, PAX/TNO, versie 1.0.3 (2026), met AI-ondersteuning',
+    attribution: 'Nederlandse starterbibliotheek voor Crime Scripts, PAX/TNO, versie 1.0.4 (2026), met AI-ondersteuning',
     disclaimer: 'AI-gegenereerd en onbeoordeeld; controleer de inhoud vóór gebruik. Geen juridisch advies.',
   });
   assert.deepEqual(fixture.crimeScripts.map(({ id }) => id), expectedDutchStarterIds);
@@ -179,13 +179,13 @@ test('the English starter fixture mirrors the complete Dutch starter library', (
 
   assert.deepEqual(fixture.starterBundle, {
     id: 'pax-en-starter',
-    version: '1.0.3',
+    version: '1.0.4',
     locale: 'en',
     title: 'English starter library',
     publishedAt: '2026-10-06',
     license: 'CC BY 4.0',
     licenseUrl: 'https://creativecommons.org/licenses/by/4.0/',
-    attribution: 'English starter library for Crime Scripts, PAX/TNO, version 1.0.3 (2026), with AI assistance',
+    attribution: 'English starter library for Crime Scripts, PAX/TNO, version 1.0.4 (2026), with AI assistance',
     disclaimer: 'AI-generated and unreviewed; verify the content before use. Not legal advice.',
   });
   assert.equal(fixture.crimeScripts.length, expectedDutchStarterIds.length);
@@ -250,6 +250,45 @@ test('public starter taxonomy enrichments keep translated categories and publish
     assert.equal(world?.label, locale === 'nl' ? 'Wereld' : 'World');
     assert.deepEqual(europe?.synonyms, ['EU']);
     assert.equal(fixture.cast.some(({ label }) => label === 'Aanbieder'), false);
+  }
+});
+
+test('manual transport cleanup is reflected in both starter languages', () => {
+  const cleanedScenes: Record<string, number[]> = {
+    'pijplijndiefstal-olieproducten': [0, 1, 2, 3, 4, 5],
+    'cocaine-import-havens': [1, 3, 4],
+    'synthetische-drugsproductie': [1, 4],
+    arbeidsuitbuiting: [1],
+    'mensenhandel-seksuele-uitbuiting': [3],
+    'illegale-dumping-chemisch-afval': [2],
+    'stroperij-illegale-wildhandel': [4],
+    'voertuigdiefstal-export': [1, 2, 4],
+    'illegale-asbestverwijdering': [4],
+  };
+
+  for (const locale of ['nl', 'en'] as const) {
+    const fixture = validateStarterBundle(JSON.parse(readFileSync(`public/starter-bundles/${locale}.json`, 'utf8')));
+    for (const [suffix, scenes] of Object.entries(cleanedScenes)) {
+      const script = fixture.crimeScripts.find(({ id }) => id === `${locale}-starter:script:${suffix}`);
+      assert.ok(script, `${locale} starter script ${suffix} is missing`);
+      for (const index of scenes) {
+        const scene = script.stages[index];
+        assert.ok(scene, `${script.id} scene ${index} is missing`);
+        for (const activity of scene.variants.flatMap(({ activities }) => activities)) {
+          assert.equal(
+            activity.transports?.some((id) => /:(?:container|vrachtwagen|personenauto|postzending)$/.test(id)),
+            false,
+            `${script.id}: ${activity.label} retains a removed transport link`
+          );
+        }
+      }
+    }
+
+    const oil = fixture.crimeScripts.find(({ id }) => id === `${locale}-starter:script:pijplijndiefstal-olieproducten`);
+    const storage = oil?.stages[4].variants[0];
+    assert.ok(storage?.description?.includes(locale === 'nl' ? 'Voorraad zonder inkoopspoor' : 'Inventory without procurement trail'));
+    assert.ok(storage.activities.every(({ description }) => (description || '').length >= 30));
+    assert.deepEqual(storage.activities.map(({ type }) => type), [[1, 2], [1], [1, 2], [1, 2]]);
   }
 });
 
