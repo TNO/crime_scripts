@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "bundleId": "pax-en-starter",
-  "bundleVersion": "1.0.5",
+  "bundleVersion": "1.0.6",
   "style": "Monochrome black, solid fill, simple shapes within a 100×100 viewBox; no text.",
   "requirements": [
     {
@@ -14,11 +14,11 @@
     },
     {
       "id": "en-starter:icon:script-synthetische-drugsproductie",
-      "description": "Single laboratory flask for synthetic drug production.",
+      "description": "A chemical laboratory for synthetic drug production.",
       "appliesTo": [
         "en-starter:script:synthetische-drugsproductie"
       ],
-      "iconKey": "builtin:lab-flask"
+      "iconKey": "builtin:chemical-lab"
     },
     {
       "id": "en-starter:icon:script-arbeidsuitbuiting",
@@ -94,11 +94,11 @@
     },
     {
       "id": "en-starter:icon:script-bijtincidenten-honden",
-      "description": "Single dog icon for the dog-bite risk chain.",
+      "description": "A dangerous dog for the dog-bite risk chain.",
       "appliesTo": [
         "en-starter:script:bijtincidenten-honden"
       ],
-      "iconKey": "builtin:dog"
+      "iconKey": "builtin:dangerous-dog"
     },
     {
       "id": "en-starter:icon:script-co-vergisting",
@@ -134,11 +134,11 @@
     },
     {
       "id": "en-starter:icon:script-pijplijndiefstal-olieproducten",
-      "description": "Single oil drop for refined petroleum products.",
+      "description": "A pipeline tap for refined petroleum product theft.",
       "appliesTo": [
         "en-starter:script:pijplijndiefstal-olieproducten"
       ],
-      "iconKey": "builtin:oil-drop"
+      "iconKey": "builtin:oil-pipeline-tap"
     }
   ]
 }

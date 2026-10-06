@@ -4,13 +4,13 @@
   "lastUpdate": 1791301039662,
   "starterBundle": {
     "id": "pax-en-starter",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "locale": "en",
     "title": "English starter library",
     "publishedAt": "2026-10-06",
     "license": "CC BY 4.0",
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
-    "attribution": "English starter library for Crime Scripts, PAX/TNO, version 1.0.5 (2026), with AI assistance",
+    "attribution": "English starter library for Crime Scripts, PAX/TNO, version 1.0.6 (2026), with AI assistance",
     "disclaimer": "AI-generated and unreviewed; verify the content before use. Not legal advice."
   },
   "crimeScripts": [
@@ -595,7 +595,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.5",
+        "bundleVersion": "1.0.6",
         "scriptId": "en-starter:script:cocaine-import-havens"
       },
       "icon": "builtin:shipping-container",
@@ -1184,14 +1184,14 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.5",
+        "bundleVersion": "1.0.6",
         "scriptId": "en-starter:script:synthetische-drugsproductie"
       },
-      "icon": "builtin:lab-flask",
+      "icon": "builtin:chemical-lab",
       "classification": "public",
       "scriptFamilyId": "en-starter:script:synthetische-drugsproductie",
       "icons": [
-        "builtin:lab-flask"
+        "builtin:chemical-lab"
       ]
     },
     {
@@ -1784,7 +1784,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.5",
+        "bundleVersion": "1.0.6",
         "scriptId": "en-starter:script:arbeidsuitbuiting"
       },
       "icon": "builtin:labour-exploitation",
@@ -2390,7 +2390,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.5",
+        "bundleVersion": "1.0.6",
         "scriptId": "en-starter:script:mensenhandel-seksuele-uitbuiting"
       },
       "icon": "builtin:human-trafficking",
@@ -2985,7 +2985,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.5",
+        "bundleVersion": "1.0.6",
         "scriptId": "en-starter:script:witwassen-legale-ondernemingen"
       },
       "icon": "builtin:money-laundering",
@@ -3570,7 +3570,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.5",
+        "bundleVersion": "1.0.6",
         "scriptId": "en-starter:script:illegale-dumping-chemisch-afval"
       },
       "icon": "builtin:illegal-dumping",
@@ -4148,7 +4148,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.5",
+        "bundleVersion": "1.0.6",
         "scriptId": "en-starter:script:stroperij-illegale-wildhandel"
       },
       "icon": "builtin:poaching",
@@ -4751,7 +4751,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.5",
+        "bundleVersion": "1.0.6",
         "scriptId": "en-starter:script:voertuigdiefstal-export"
       },
       "icon": "builtin:car-theft",
@@ -5419,7 +5419,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.5",
+        "bundleVersion": "1.0.6",
         "scriptId": "en-starter:script:phishing-betaalfraude"
       },
       "tracks": [
@@ -6028,7 +6028,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.5",
+        "bundleVersion": "1.0.6",
         "scriptId": "en-starter:script:illegale-asbestverwijdering"
       },
       "icon": "builtin:asbestos-fibers",
@@ -6749,7 +6749,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.5",
+        "bundleVersion": "1.0.6",
         "scriptId": "en-starter:script:asbestsaneringsketen"
       }
     },
@@ -6757,9 +6757,9 @@
       "id": "en-starter:script:bijtincidenten-honden",
       "label": "Risk chain for dog-bite incidents",
       "description": "Public chain analysis of risk factors, involved parties, and intervention moments throughout a dog's life, from breeding to incident response.",
-      "icon": "builtin:dog",
+      "icon": "builtin:dangerous-dog",
       "icons": [
-        "builtin:dog"
+        "builtin:dangerous-dog"
       ],
       "classification": "public",
       "scriptFamilyId": "en-starter:script:bijtincidenten-honden",
@@ -7382,7 +7382,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.5",
+        "bundleVersion": "1.0.6",
         "scriptId": "en-starter:script:bijtincidenten-honden"
       }
     },
@@ -7848,7 +7848,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.5",
+        "bundleVersion": "1.0.6",
         "scriptId": "en-starter:script:co-vergisting"
       }
     },
@@ -8564,7 +8564,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.5",
+        "bundleVersion": "1.0.6",
         "scriptId": "en-starter:script:complexe-zorgstructuren"
       }
     },
@@ -9197,7 +9197,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.5",
+        "bundleVersion": "1.0.6",
         "scriptId": "en-starter:script:criminele-uitbuiting"
       }
     },
@@ -9581,7 +9581,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.5",
+        "bundleVersion": "1.0.6",
         "scriptId": "en-starter:script:fake-carriers"
       }
     },
@@ -10487,14 +10487,14 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.5",
+        "bundleVersion": "1.0.6",
         "scriptId": "en-starter:script:pijplijndiefstal-olieproducten"
       },
-      "icon": "builtin:oil-drop",
+      "icon": "builtin:oil-pipeline-tap",
       "classification": "public",
       "scriptFamilyId": "en-starter:script:pijplijndiefstal-olieproducten",
       "icons": [
-        "builtin:oil-drop"
+        "builtin:oil-pipeline-tap"
       ]
     }
   ],

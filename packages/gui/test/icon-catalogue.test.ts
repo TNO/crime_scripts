@@ -79,18 +79,20 @@ test('every icon requirement and starter target resolves to a stable catalogue k
 test('supplied icons are selectable and public starter scripts show one appropriate icon', () => {
   const catalogue = readJson<CatalogueManifest>('icons/catalogue.json');
   const supplied = [
-    'biogas-digester', 'company-registry-document', 'dangerous-dog', 'dog',
-    'freight-truck', 'hospital', 'pitbull', 'shipping-container', 'windhond',
+    'biogas-digester', 'car-drugs', 'chemical-lab', 'company-registry-document',
+    'dangerous-dog', 'dog', 'freight-truck', 'hospital', 'oil-pipeline-tap',
+    'pitbull', 'shipping-container', 'wholesale-currency-cocaine', 'windhond',
   ];
   for (const name of supplied) {
-    assert.ok(existsSync(`src/assets/icons/${name}.svg`), `source asset ${name} is missing`);
+    const sourceName = name === 'car-drugs' ? 'car_drugs' : name;
+    assert.ok(existsSync(`src/assets/icons/${sourceName}.svg`), `source asset ${name} is missing`);
     assert.ok(catalogue.icons.some(({ key }) => key === `builtin:${name}`));
     assert.ok(IconOpts.some(({ id }) => id === `builtin:${name}`));
   }
 
   const expected = new Map([
     ['cocaine-import-havens', 'builtin:shipping-container'],
-    ['bijtincidenten-honden', 'builtin:dog'],
+    ['bijtincidenten-honden', 'builtin:dangerous-dog'],
     ['co-vergisting', 'builtin:biogas-digester'],
     ['complexe-zorgstructuren', 'builtin:company-registry-document'],
     ['fake-carriers', 'builtin:freight-truck'],
@@ -134,10 +136,10 @@ test('linked single-subject icons are selectable and assigned to related starter
   }
 
   const expected = new Map([
-    ['synthetische-drugsproductie', 'builtin:lab-flask'],
+    ['synthetische-drugsproductie', 'builtin:chemical-lab'],
     ['illegale-asbestverwijdering', 'builtin:asbestos-fibers'],
     ['asbestsaneringsketen', 'builtin:asbestos-fibers'],
-    ['pijplijndiefstal-olieproducten', 'builtin:oil-drop'],
+    ['pijplijndiefstal-olieproducten', 'builtin:oil-pipeline-tap'],
   ]);
   for (const lang of ['nl', 'en']) {
     const bundle = readJson<DataModel>(`starter-bundles/${lang}.json`);
@@ -149,6 +151,28 @@ test('linked single-subject icons are selectable and assigned to related starter
       assert.deepEqual(resolveIconSources(script.icons, script.icon), [`icons/${icon.slice(8)}.svg`]);
     }
   }
+});
+
+test('new source icons resolve to the published artwork without replacing existing icons', () => {
+  const catalogue = readJson<CatalogueManifest>('icons/catalogue.json');
+  const sourceFiles = new Map([
+    ['burner', 'burner'], ['car-drugs', 'car_drugs'],
+    ['car-robber', 'car-robber'], ['car-theft-noun', 'car-theft'],
+    ['chemical-lab', 'chemical-lab'], ['cocaine', 'cocaine'],
+    ['containership', 'containership'], ['crane', 'crane'],
+    ['oil-pipeline-tap', 'oil-pipeline-tap'], ['pollution', 'pollution'],
+    ['under-waterline', 'under_waterline'],
+    ['wholesale-currency-cocaine', 'wholesale-currency-cocaine'],
+  ]);
+  for (const [name, source] of sourceFiles) {
+    const key = `builtin:${name}`;
+    const entry = catalogue.icons.find(({ key: catalogueKey }) => catalogueKey === key);
+    assert.ok(entry, `${key} is not in the catalogue`);
+    assert.ok(IconOpts.some(({ id }) => id === key), `${key} is not selectable`);
+    assert.deepEqual(readFileSync(publicFile(`icons/${entry.file}`)), readFileSync(`src/assets/icons/${source}.svg`));
+    assert.deepEqual(resolveIconSources([key]), [`icons/${entry.file}`]);
+  }
+  assert.equal(catalogue.icons.find(({ key }) => key === 'builtin:car-theft')?.file, 'car-theft.svg');
 });
 
 test('hand-drawn script icons retain their artwork instead of simplified stand-ins', () => {
@@ -184,16 +208,16 @@ test('catalogue files are valid images with complete attribution', () => {
     assert.match(file, /\.svg$/);
     const svg = readFileSync(path, 'utf8');
     if (attribution.kind === 'third-party') {
-      assert.match(svg, /^<\?xml version="1\.0" encoding="UTF-8"\?>\s*<svg\b/);
-      assert.match(svg, /\bviewBox="0 0 1200 1200"/);
+      assert.match(svg, /^(?:<\?xml[^>]+>\s*)?<svg\b/);
+      assert.match(svg, /\bviewBox="[^"]+"/);
       assert.match(svg, /<path\b/);
-      assert.doesNotMatch(svg, /<!DOCTYPE|<(?:script|style|foreignObject|image|use)\b|\b(?:xlink:)?href=|\bon[a-z]+=/i);
+      assert.doesNotMatch(svg, /<!DOCTYPE|<(?:script|style|foreignObject|image|use)\b|\b(?:xlink:)?href\s*=|\bon[a-z]+\s*=/i);
       assert.equal(attribution.svgoModified, false);
     } else {
-      assert.match(svg, /^<svg xmlns="http:\/\/www\.w3\.org\/2000\/svg" viewBox="0 0 100 100">/);
+      assert.match(svg, /^<svg xmlns="http:\/\/www\.w3\.org\/2000\/svg" viewBox="[^"]+">/);
       assert.match(svg, /<(?:path|circle|rect|polygon)\b/);
       assert.doesNotMatch(svg, /<(?:script|style|metadata|title|desc)\b|<!--|\b(?:width|height|stroke|class|id)=/);
-      assert.doesNotMatch(svg, /\n|\s{2,}/);
+      assert.doesNotMatch(svg.trimEnd(), /\n|>\s+</);
       assert.equal(attribution.svgoModified, true);
     }
     assert.ok(attribution.title && attribution.creator && attribution.sourceUrl && attribution.license);

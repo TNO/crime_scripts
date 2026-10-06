@@ -184,6 +184,48 @@
       }
     },
     {
+      "key": "builtin:burner",
+      "label": "Burner",
+      "category": "Product",
+      "file": "burner.svg",
+      "attribution": {
+        "kind": "third-party",
+        "title": "burner",
+        "creator": "diyah farida",
+        "sourceUrl": "https://thenounproject.com/icon/burner-5533364/",
+        "license": "CC BY 3.0",
+        "svgoModified": false
+      }
+    },
+    {
+      "key": "builtin:car-drugs",
+      "label": "Car with drugs",
+      "category": "Transport",
+      "file": "car_drugs.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Car with drugs",
+        "creator": "User-contributed PAX artwork",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/src/assets/icons/car_drugs.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:car-robber",
+      "label": "Car robber",
+      "category": "Transport",
+      "file": "car-robber.svg",
+      "attribution": {
+        "kind": "third-party",
+        "title": "car robber",
+        "creator": "Vectors Point",
+        "sourceUrl": "https://thenounproject.com/icon/car-robber-3239398/",
+        "license": "CC BY 3.0",
+        "svgoModified": false
+      }
+    },
+    {
       "key": "builtin:car-theft",
       "label": "Car theft",
       "category": "Transport",
@@ -195,6 +237,20 @@
         "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/car-theft.svg",
         "license": "MIT",
         "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:car-theft-noun",
+      "label": "Car theft (Noun Project)",
+      "category": "Transport",
+      "file": "car-theft-noun.svg",
+      "attribution": {
+        "kind": "third-party",
+        "title": "car theft",
+        "creator": "Minh Do",
+        "sourceUrl": "https://thenounproject.com/icon/car-theft-1829133/",
+        "license": "CC BY 3.0",
+        "svgoModified": false
       }
     },
     {
@@ -212,6 +268,20 @@
       }
     },
     {
+      "key": "builtin:chemical-lab",
+      "label": "Chemical lab",
+      "category": "Product",
+      "file": "chemical-lab.svg",
+      "attribution": {
+        "kind": "third-party",
+        "title": "chemical laboratory",
+        "creator": "Amethyst Studio",
+        "sourceUrl": "https://thenounproject.com/icon/chemical-laboratory-6317241/",
+        "license": "CC BY 3.0",
+        "svgoModified": false
+      }
+    },
+    {
       "key": "builtin:clothing",
       "label": "Clothing",
       "category": "Commerce",
@@ -221,6 +291,20 @@
         "title": "clothing",
         "creator": "Iconbunny",
         "sourceUrl": "https://thenounproject.com/icon/clothing-5260292/",
+        "license": "CC BY 3.0",
+        "svgoModified": false
+      }
+    },
+    {
+      "key": "builtin:cocaine",
+      "label": "Cocaine",
+      "category": "Product",
+      "file": "cocaine.svg",
+      "attribution": {
+        "kind": "third-party",
+        "title": "Cocaine",
+        "creator": "Vanicon studio",
+        "sourceUrl": "https://thenounproject.com/icon/cocaine-7946744/",
         "license": "CC BY 3.0",
         "svgoModified": false
       }
@@ -363,6 +447,34 @@
         "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/container-inspection.svg",
         "license": "MIT",
         "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:containership",
+      "label": "Container ship",
+      "category": "Transport",
+      "file": "containership.svg",
+      "attribution": {
+        "kind": "third-party",
+        "title": "container ship",
+        "creator": "bis kim",
+        "sourceUrl": "https://thenounproject.com/icon/container-ship-8400487/",
+        "license": "CC BY 3.0",
+        "svgoModified": false
+      }
+    },
+    {
+      "key": "builtin:crane",
+      "label": "Crane",
+      "category": "Transport",
+      "file": "crane.svg",
+      "attribution": {
+        "kind": "third-party",
+        "title": "Crane",
+        "creator": "Houda Mbarki",
+        "sourceUrl": "https://thenounproject.com/icon/crane-8215808/",
+        "license": "CC BY 3.0",
+        "svgoModified": false
       }
     },
     {
@@ -940,6 +1052,20 @@
       }
     },
     {
+      "key": "builtin:oil-pipeline-tap",
+      "label": "Oil pipeline tap",
+      "category": "Product",
+      "file": "oil-pipeline-tap.svg",
+      "attribution": {
+        "kind": "third-party",
+        "title": "oil pipeline tap",
+        "creator": "Erik Vullings",
+        "sourceUrl": "https://thenounproject.com/icon/oil-pipeline-tap-7237799/",
+        "license": "CC BY 3.0",
+        "svgoModified": false
+      }
+    },
+    {
       "key": "builtin:online-safety",
       "label": "Online safety",
       "category": "Digital",
@@ -1178,6 +1304,20 @@
       }
     },
     {
+      "key": "builtin:pollution",
+      "label": "Pollution",
+      "category": "Environment",
+      "file": "pollution.svg",
+      "attribution": {
+        "kind": "third-party",
+        "title": "Pollution",
+        "creator": "Bakunetsu Kaito",
+        "sourceUrl": "https://thenounproject.com/icon/pollution-901396/",
+        "license": "CC BY 3.0",
+        "svgoModified": false
+      }
+    },
+    {
       "key": "builtin:protected-person-response",
       "label": "Protected Person Response",
       "category": "Starter scenes",
@@ -1397,6 +1537,34 @@
         "title": "Suspicious offer",
         "creator": "PAX Crime Scripting contributors",
         "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/suspicious-offer.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:under-waterline",
+      "label": "Under waterline",
+      "category": "Transport",
+      "file": "under_waterline.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Under waterline",
+        "creator": "User-contributed PAX artwork",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/src/assets/icons/under_waterline.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
+      "key": "builtin:wholesale-currency-cocaine",
+      "label": "Wholesale currency and cocaine",
+      "category": "Commerce",
+      "file": "wholesale-currency-cocaine.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "Wholesale currency and cocaine",
+        "creator": "User-contributed PAX artwork",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/src/assets/icons/wholesale-currency-cocaine.svg",
         "license": "MIT",
         "svgoModified": true
       }
