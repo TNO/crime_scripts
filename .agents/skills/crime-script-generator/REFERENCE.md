@@ -66,6 +66,10 @@ The GUI stores its imported model locally; reloading a tab does not reread the f
 browser tabs or profiles may retain the earlier version. Check the rendered label and description
 in each active review view before reporting that it has been refreshed.
 
+If the user requested separate handoff copies, compare them with the prior workspace outputs
+before replacing them. Preserve restricted file permissions and never overwrite independent
+reviewer changes. Updating a disk file does not update an already imported browser model.
+
 `merge` compares GUI edits with the last build. For each evidence-bearing changed node, decide
 whether the previous evidence still applies. If not, add replacement source keys or accept an
 `unsubstantiated-after-human-edit` marker. Non-interactive runs use a versioned review-answer JSON
@@ -114,6 +118,17 @@ Every stage must explain its role in the overall process. Each activity needs:
 - source-supported observable traces and a decision point where relevant, recorded in candidate
   fields for evidence review rather than substituted for the reader-facing activity description;
 - only applicable role, attribute, and transport keys.
+
+For source tables with setting, hulpmiddelen, and roles, make a per-activity coverage check rather
+than copying only the event labels. Map the actual function to `castKeys`, equipment and other
+applicable resources to `attributeKeys`, and vehicles to `transportKeys`. Put reusable, broad
+places in `taxonomies.locations` and link them through variant `locationKeys`; the current model
+has no activity-level location field, so state an activity-specific setting in its `description`.
+Keep the source's concrete non-operational categories and mark optional or speculative items as
+such. Do not invent a role or tool merely to fill an empty cell. Check the generated JSON:
+activities must retain their role/attribute/transport links, each relevant variant its locations,
+and each sourced activity its distinct setting. In the viewer, equipment is grouped by variant
+even though the JSON links it to individual activities.
 
 The generated description may not contain the normalized activity label. Each description should
 say who does what and in what broad context without procedural crime-enabling detail. Distinguish
