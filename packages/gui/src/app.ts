@@ -69,6 +69,7 @@ window.addEventListener('hashchange', () => {
 });
 
 const initialize = async () => {
+  await loadData();
   const sharedError = await importSharedPreview(window.location.hash);
   await startApp();
   showSharedError(sharedError);

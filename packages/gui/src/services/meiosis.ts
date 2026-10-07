@@ -342,4 +342,3 @@ export const fetchStarterBundle = async (): Promise<DataModel> => {
   if (!response.ok) throw new Error(`Starter library could not be loaded (${response.status}).`);
   return validateStarterBundle(await response.json());
 };
-loadData();
