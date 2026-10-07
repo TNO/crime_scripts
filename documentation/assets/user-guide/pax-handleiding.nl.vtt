@@ -17,16 +17,16 @@ Stap 4. Download of upload de collectie als JSON.
 De ontvanger leest het bestand in als lokale werkruimte.
 
 00:12.000 --> 00:14.950
-Stap 5. Bekijk scènes, wissel van modus operandi
-en markeer activiteiten met de rol-pillen.
+Stap 5. Bekijk scènes en modi operandi.
+Het linkicoon toont vindplaatsen van taxonomie-items.
 
 00:15.000 --> 00:17.950
-Stap 6. Exporteer één script als bewerkbare JSON
-of als leesrapport in Word.
+Stap 6. Deel een publiek script per link of exporteer
+het als JSON, Word of een SVG/PNG-barrièremodel.
 
 00:18.000 --> 00:20.950
-Stap 7. Kies Script bewerken om scriptgegevens,
-scènes en activiteiten aan te passen.
+Stap 7. Kies Script bewerken om scènes,
+modi operandi en activiteiten aan te passen.
 
 00:21.000 --> 00:23.950
 Stap 8. Open Genereren met LLM en beschrijf
@@ -46,7 +46,7 @@ Importeer pas na een inhoudelijke controle.
 
 00:36.000 --> 00:39.950
 Stap 12. Vergelijk concrete casuswaarnemingen.
-Bekijk volledige, gedeeltelijke en ontbrekende overeenkomsten.
+Bekijk gevonden bewijs en wat nog niet is verklaard.
 
 00:40.000 --> 00:44.000
 Stap 13. Reconstrueer delen van een publiek script.

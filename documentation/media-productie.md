@@ -16,22 +16,31 @@ The checked-in media must be reproducible without real case data.
    - the home page;
    - the open application menu showing collection actions, role, language,
      and script mode;
-   - the `Phishing en betaalfraude` viewer;
-   - the open **Meer acties** menu for that script;
-   - the script editor without changing content;
+   - the `Phishing en betaalfraude` viewer, including the compact scene
+     navigation and taxonomy usage links;
+   - the open **Meer acties** menu, including the script-sharing and
+     barrier-model exports;
+   - the script editor showing the scene/track and **+ M.O.** controls,
+     without changing content;
    - the empty LLM brief;
    - a prompt generated from synthetic values, in light theme;
-   - deterministic synthetic JSON pasted into PAX;
+   - deterministic synthetic JSON pasted into PAX (start with the minimal
+     valid example in the generated prompt; add a fictional scene and
+     non-operational activity);
    - PAX's local validation preview before import;
-   - case-analysis results with one full and one partial match;
+   - case-analysis results for `beschadigd containerzegel` and
+     `haventoegangspas`, showing one full match and one unmatched observation
+     (scroll to the result card so both are visible);
    - an active learning-mode exercise.
-4. Save the original seven PNG files as `01-home.png` through
-   `07-llm-review.png`, the application menu as `08-menu.png`, and the script
-   action menu as `09-script-sharing.png`. Save the case and learning captures
-   as `10-case-analysis.png` and `11-learning-mode.png` in
-   `documentation/assets/user-guide/`. The JSON example must validate in the
-   current wizard. Do not imply that a specific LLM generated it unless that
-   interaction was genuinely captured.
+4. Save eleven 1440×900 PNG files as `01-home.png` through
+   `11-learning-mode.png` in `documentation/assets/user-guide/`. Open the
+   sidebar and wait for its animation before capturing `08-menu.png`;
+   similarly, wait for the script menu and button ripple to settle before
+   `09-script-sharing.png` and `03-script-edit.png`. Move the pointer away
+   from controls before capturing. The synthetic JSON
+   must validate in the current wizard, and the screenshot must show the
+   preview **before** import. Do not imply that a specific LLM generated it
+   unless that interaction was genuinely captured.
 5. Generate the silent WebM slideshow:
 
    ```sh
@@ -75,7 +84,9 @@ The checked-in media must be reproducible without real case data.
 ### English walkthrough
 
 Repeat the same sequence with the English interface and English starter
-library. Save the screenshots under
+library (replace the local Dutch demo model in the capture browser first).
+For the case screenshot, use `damaged container seal` and `port access pass`;
+both currently match the English starter. Save the screenshots under
 `documentation/assets/user-guide/en/`, keep
 `pax-user-guide.en.vtt` aligned with the walkthrough, and generate
 `pax-user-guide.webm`:

@@ -58,11 +58,12 @@ last.
 - [x] 0019 Explain case search results *(needs 0018)*
 - [x] 0020 Compare case hypotheses *(needs 0019)*
 - [x] 0021 Match multiword case observations *(needs 0018, 0019)*
-- [ ] 0022 Clarify case match completeness *(needs 0021)*
+- [x] 0022 Clarify case match completeness *(needs 0021)*
 
 ## Documentation follow-up
 
-- [ ] 0023 Extend public walkthroughs *(needs 0022)*
+- [x] 0023 Extend public walkthroughs *(needs 0022)*
+- [x] 0024 Refresh starter docs and walkthroughs
 
 ## Restricted workflows
 

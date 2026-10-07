@@ -78,10 +78,16 @@ classification and filename, and use a secure channel for restricted files.
 3. Select a track when the script contains multiple routes.
 4. Select a modus operandi in a scene to view an alternative process route.
 5. Use the role pills below activities to highlight activities for one role.
+   Use the link icon beside a taxonomy item to find where that role,
+   attribute, or location is used elsewhere.
 6. Open a pill under **Related crime scripts** to navigate directly to a
    linked process.
 7. Expand roles, attributes, transports, locations, and sources when those
    details are needed.
+
+The compact scene navigation shows the number of activities in each scene
+and, where alternatives exist, the number of modi operandi. The summary above
+the scenes shows counts rather than every taxonomy item at once.
 
 ![Viewer for Phishing and payment fraud](assets/user-guide/en/02-script-view.png)
 
@@ -101,8 +107,10 @@ the selected scene.
 6. Use the track editor to select the required modus operandi for each scene.
 7. Check the result in the viewer. PAX stores changes locally.
 
-Use **More actions** for JSON and Word export, import, and other script
-operations. Before substantial changes, save a JSON export as a recovery point.
+Use **+ M.O.** beside a scene to add an alternative, or the pencil beside the
+track to rename it. **More actions** offers JSON and Word exports, barrier
+models as SVG or PNG, and detaching a starter script. Before substantial
+changes, save a JSON export as a recovery point.
 
 ![Crime-script editor with scene overview](assets/user-guide/en/03-script-edit.png)
 
@@ -124,7 +132,7 @@ A match is a starting point for analysis, not a conclusion about what
 happened. Where possible, compare two or three hypotheses and record what
 additional information could distinguish them.
 
-![Case analysis with full and partial matches](assets/user-guide/en/10-case-analysis.png)
+![Case analysis showing two matched observations](assets/user-guide/en/10-case-analysis.png)
 
 ## 6. Practise in learning mode
 

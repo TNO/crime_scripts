@@ -80,11 +80,16 @@ gebruik voor afgeschermde bestanden een beveiligd kanaal.
 3. Kies een track als het script meerdere routes bevat.
 4. Kies bij een scène een modus operandi om een alternatief procespad te zien.
 5. Gebruik de rol-pillen onder activiteiten om activiteiten voor één rol te
-   markeren.
+   markeren. Gebruik het linkicoon naast een taxonomie-item om te zien waar
+   die rol, dat attribuut of die locatie elders voorkomt.
 6. Open een pill onder **Gerelateerde crime scripts** om direct naar een
    gekoppeld proces te gaan.
 7. Klap rollen, attributen, transporten, locaties en bronnen open als die
    details nodig zijn.
+
+De compacte scène-navigatie toont per scène het aantal activiteiten en, als
+er alternatieven zijn, het aantal modi operandi. De samenvatting boven de
+scènes toont aantallen in plaats van alle taxonomie-items tegelijk.
 
 ![Viewer voor Phishing en betaalfraude](assets/user-guide/02-script-view.png)
 
@@ -104,8 +109,10 @@ detail van de geselecteerde scène.
 6. Gebruik de track-editor om per scène de gewenste modus operandi te kiezen.
 7. Controleer het resultaat in de viewer. PAX bewaart wijzigingen lokaal.
 
-Gebruik **Meer acties** voor JSON- en Word-export, import en andere
-scriptacties. Bewaar vóór ingrijpende wijzigingen een JSON-export als
+Gebruik **+ M.O.** bij een scène om een alternatief toe te voegen of het
+potloodje bij de track om de naam ervan te wijzigen. Onder **Meer acties**
+staan JSON- en Word-export, het barrièremodel als SVG of PNG en het losmaken
+van een starterscript. Bewaar vóór ingrijpende wijzigingen een JSON-export als
 herstelpunt.
 
 ![Crime-scripteditor met scène-overzicht](assets/user-guide/03-script-edit.png)
@@ -128,7 +135,7 @@ Een overeenkomst is een startpunt voor analyse, geen conclusie over wat er is
 gebeurd. Vergelijk waar mogelijk twee of drie hypothesen en leg vast welke
 aanvullende informatie het onderscheid kan maken.
 
-![Casusanalyse met volledige en gedeeltelijke overeenkomsten](assets/user-guide/10-case-analysis.png)
+![Casusanalyse met een gevonden en een niet-gevonden waarneming](assets/user-guide/10-case-analysis.png)
 
 ## 6. Oefenen in de leermodus
 

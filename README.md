@@ -1,282 +1,75 @@
-# Crime Scripts
+# PAX Crime Scripting
 
-A web application to create crime scripts.
+PAX is a browser-based workspace for viewing, editing, and comparing crime
+scripts. Start with the public example library, or import your own JSON model.
+The starter scripts are **AI-generated and unreviewed**: use them for
+exploration and training, not as established findings.
 
-## Documentation
+[Open PAX](https://tno.github.io/crime_scripts/) ·
+[Nederlandse handleiding met video](https://tno.github.io/crime_scripts/#!/handleiding?lang=nl) ·
+[English user guide with video](https://tno.github.io/crime_scripts/#!/guide?lang=en)
 
-- [Nederlandse gebruikershandleiding met videorondleiding](https://tno.github.io/crime_scripts/#!/handleiding?lang=nl)
-- [English user guide with video walkthrough](https://tno.github.io/crime_scripts/#!/guide?lang=en)
-- [Afgeschermd Witwassen-script maken met de CLI](documentation/restricted-witwassen-cli.nl.md)
-- [Korte video van de afgeschermde CLI-workflow](documentation/assets/restricted-cli/restricted-witwassen-cli.webm)
-- [Screenshots en video's opnieuw maken](documentation/media-productie.md)
-- [Crime Script Generator CLI](packages/script-generator/README.md)
+## Explore the starter kit
 
-## Installation
+Choose **Use starter library** on first launch. The public library provides 17
+example scripts in Dutch or English (selected by the interface language).
+Browse and filter scripts by product or location; a card opens the script
+viewer. The images below show public Dutch starter data.
 
-The application is a mono-repository, developed in TypeScript. It typically consists of the following packages:
+![Public starter library overview showing example crime scripts](documentation/assets/user-guide/01-home.png)
+
+The viewer shows the script's scenes and alternative modi operandi, activities,
+related roles and taxonomy, evidence indicators, and sources. Select a scene or
+track to explore a different route; the link icons on taxonomy items show
+where they are used.
+
+![Crime-script viewer with scenes, activities and taxonomy links](documentation/assets/user-guide/02-script-view.png)
+
+Select **Editor** or **Administrator** in the workspace menu to edit a script.
+The editor separates scene structure from the details of the selected scene.
+Use **More actions** to export a script as JSON or Word, share a *public*
+script link, or export its barrier model.
+
+![Editor showing scene structure and modus-operandi controls](documentation/assets/user-guide/03-script-edit.png)
+
+The **Case file** compares observed facts with available scripts; **Learning
+mode** lets you practise reconstructing one and compare your choices with a
+reference. Administrators can use the provider-neutral **Generate with LLM**
+wizard to create a prompt, paste JSON from an external LLM, and review it
+before explicitly importing. PAX does not itself contact an LLM or retrieve
+source URLs.
+
+The workspace is stored locally in your browser. Export its JSON before
+clearing browser data or replacing it with an imported model. The role and
+public/restricted mode selectors are **not access controls**; never publish
+restricted case material or include it in public screenshots or links.
 
 ## Development
 
-```bash
-pnpm i
-npm start
+This TypeScript monorepo uses pnpm. With Node.js and pnpm installed:
+
+```sh
+pnpm install
+pnpm --dir packages/gui dev
 ```
 
-## Deployment
+Open the local URL printed by Vite. To build the GUI:
 
-Pushing to `main` runs `.github/workflows/gui-pages.yml`, which tests and builds the GUI
-and deploys the build to GitHub Pages. Pages must use **GitHub Actions** as its build
-source. The tracked `docs/` files are a legacy snapshot and are not the deployment
-source; restricted script JSON must not be added to the public GUI assets.
-
-
-## TODO
-
-- [x] Create project scaffold: Single Page Application with JSON in- and output
-- [x] Create editor for crime scripts: scripts, acts, phases, activities, cast, attributes
-- [x] Add option to add images
-- [x] When clicking on a search result, navigate to the exact location (add act, phase)
-- [x] Add option to specify and view literature
-- [x] Allow the user to select multiple acts in each step
-- [x] Add sidenav menu
-- [x] Search also select the variant
-- [x] Zip the model file
-- [x] Use the crime script image, e.g. next to the description
-- [x] Add measures to counteract the activity or condition: use Situational Crime Prevention (SCP) to structure the measures.
-- [x] Add option to use it with a case
-- [x] Translate to Dutch
-- [x] Export to Word per script
-- [ ] Export to Word all scripts
-- [ ] Export to JSON a single script
-
-## LLM support to label barriers
-
-```txt
-I have a JSON array of barriers. I also have a JSON array of situational crime prevention techniques. Augment the barriers array with one situational crime prevention technique that aligns best with the barrier. Return the new barriers array with the new property `measureId` that is set to the `id` of the most appropriate technique.
-
-SITUATIONAL CRIME PREVENTION TECHNIQUES:
-new Map([
-    [
-        "0_0",
-        {
-            "id": "0_0",
-            "label": "Overig (in \"Overig\")",
-            "group": "Overig",
-            "icon": "more_horiz"
-        }
-    ],
-    [
-        "1_1",
-        {
-            "id": "1_1",
-            "label": "Doelversteviging (in \"Verhoog de inspanning\")",
-            "group": "Verhoog de inspanning"
-        }
-    ],
-    [
-        "1_2",
-        {
-            "id": "1_2",
-            "label": "Controleer toegang tot faciliteiten (in \"Verhoog de inspanning\")",
-            "group": "Verhoog de inspanning"
-        }
-    ],
-    [
-        "1_3",
-        {
-            "id": "1_3",
-            "label": "Controleer uitgangen (in \"Verhoog de inspanning\")",
-            "group": "Verhoog de inspanning"
-        }
-    ],
-    [
-        "1_4",
-        {
-            "id": "1_4",
-            "label": "Leid overtreders af (in \"Verhoog de inspanning\")",
-            "group": "Verhoog de inspanning"
-        }
-    ],
-    [
-        "1_5",
-        {
-            "id": "1_5",
-            "label": "Beheers gereedschappen/wapens (in \"Verhoog de inspanning\")",
-            "group": "Verhoog de inspanning"
-        }
-    ],
-    [
-        "2_1",
-        {
-            "id": "2_1",
-            "label": "Breid toezicht uit (in \"Verhoog de risico's\")",
-            "group": "Verhoog de risico's"
-        }
-    ],
-    [
-        "2_2",
-        {
-            "id": "2_2",
-            "label": "Ondersteun natuurlijk toezicht (in \"Verhoog de risico's\")",
-            "group": "Verhoog de risico's"
-        }
-    ],
-    [
-        "2_3",
-        {
-            "id": "2_3",
-            "label": "Verminder anonimiteit (in \"Verhoog de risico's\")",
-            "group": "Verhoog de risico's"
-        }
-    ],
-    [
-        "2_4",
-        {
-            "id": "2_4",
-            "label": "Gebruik plaatsmanagers (in \"Verhoog de risico's\")",
-            "group": "Verhoog de risico's"
-        }
-    ],
-    [
-        "2_5",
-        {
-            "id": "2_5",
-            "label": "Versterk formeel toezicht (in \"Verhoog de risico's\")",
-            "group": "Verhoog de risico's"
-        }
-    ],
-    [
-        "3_1",
-        {
-            "id": "3_1",
-            "label": "Verberg doelen (in \"Verminder de beloningen\")",
-            "group": "Verminder de beloningen"
-        }
-    ],
-    [
-        "3_2",
-        {
-            "id": "3_2",
-            "label": "Verwijder doelen (in \"Verminder de beloningen\")",
-            "group": "Verminder de beloningen"
-        }
-    ],
-    [
-        "3_3",
-        {
-            "id": "3_3",
-            "label": "Identificeer eigendom (in \"Verminder de beloningen\")",
-            "group": "Verminder de beloningen"
-        }
-    ],
-    [
-        "3_4",
-        {
-            "id": "3_4",
-            "label": "Verstoor markten (in \"Verminder de beloningen\")",
-            "group": "Verminder de beloningen"
-        }
-    ],
-    [
-        "3_5",
-        {
-            "id": "3_5",
-            "label": "Ontzeg voordelen (in \"Verminder de beloningen\")",
-            "group": "Verminder de beloningen"
-        }
-    ],
-    [
-        "4_1",
-        {
-            "id": "4_1",
-            "label": "Verminder frustraties en stress (in \"Verminder provocaties\")",
-            "group": "Verminder provocaties"
-        }
-    ],
-    [
-        "4_2",
-        {
-            "id": "4_2",
-            "label": "Vermijd geschillen (in \"Verminder provocaties\")",
-            "group": "Verminder provocaties"
-        }
-    ],
-    [
-        "4_3",
-        {
-            "id": "4_3",
-            "label": "Verminder verleiding en opwinding (in \"Verminder provocaties\")",
-            "group": "Verminder provocaties"
-        }
-    ],
-    [
-        "4_4",
-        {
-            "id": "4_4",
-            "label": "Neutraliseer groepsdruk (in \"Verminder provocaties\")",
-            "group": "Verminder provocaties"
-        }
-    ],
-    [
-        "4_5",
-        {
-            "id": "4_5",
-            "label": "Ontmoedig imitatie (in \"Verminder provocaties\")",
-            "group": "Verminder provocaties"
-        }
-    ],
-    [
-        "5_1",
-        {
-            "id": "5_1",
-            "label": "Stel regels op (in \"Verwijder excuses\")",
-            "group": "Verwijder excuses"
-        }
-    ],
-    [
-        "5_2",
-        {
-            "id": "5_2",
-            "label": "Plaats instructies (in \"Verwijder excuses\")",
-            "group": "Verwijder excuses"
-        }
-    ],
-    [
-        "5_3",
-        {
-            "id": "5_3",
-            "label": "Activeer geweten (in \"Verwijder excuses\")",
-            "group": "Verwijder excuses"
-        }
-    ],
-    [
-        "5_4",
-        {
-            "id": "5_4",
-            "label": "Help bij naleving (in \"Verwijder excuses\")",
-            "group": "Verwijder excuses"
-        }
-    ],
-    [
-        "5_5",
-        {
-            "id": "5_5",
-            "label": "Beheers drugs en alcohol (in \"Verwijder excuses\")",
-            "group": "Verwijder excuses"
-        }
-    ]
-])
-
-BARRIERS:
-[
-    {
-        "id": "id57b9ec07",
-        "label": "Controle- en meldplicht verhuurders, verhuurvergunning en/of huurdercheck"
-      },
-      {
-        "id": "id68c1fd18",
-        "label": "Intensiveren van internationale samenwerking tussen banken"
-      },
-...
-]
+```sh
+pnpm --dir packages/gui build
 ```
+
+Pushing to `main` runs `.github/workflows/gui-pages.yml` to build and deploy
+the GUI to GitHub Pages. The tracked `docs/` directory is a legacy snapshot,
+not the deployment source.
+
+## Documentation
+
+- [Nederlandse gebruikershandleiding](documentation/handleiding.nl.md) and
+  [English user guide](documentation/user-guide.en.md) (both include screenshots
+  and a short walkthrough video).
+- [Media capture and video reproduction](documentation/media-productie.md).
+- [Restricted Witwassen CLI workflow (Dutch)](documentation/restricted-witwassen-cli.nl.md)
+  and its [short video](documentation/assets/restricted-cli/restricted-witwassen-cli.webm).
+- [Crime Script Generator CLI](packages/script-generator/README.md).
+- [Task index](TASKS/README.md).
