@@ -77,9 +77,10 @@ crime-script-generator init \
 
 ## Authoring rules
 
-- Reuse existing taxonomy keys from `prepared/context.json`; add a taxonomy item only when needed.
-- Use one or two activity levels only. Add variants only for source-supported, materially different
-  routes.
+- Audit every source activity for setting, roles, and hulpmiddelen. Map applicable roles to `castKeys`,
+  equipment to `attributeKeys`, vehicles to `transportKeys`, shared settings to variant `locationKeys`,
+  and activity-specific settings to its description. Reuse context taxonomy keys before adding any.
+- Use one or two activity levels only. Add variants only for source-supported, materially different routes.
 - Give every modus operandi a concise label describing its route or mechanism; never use generic
   labels such as `Hoofdroute` or repeat the scene or first activity label.
 - Write `event` without a number (the GUI adds it); `description` explains the source-supported
@@ -90,8 +91,8 @@ crime-script-generator init \
   for all reader-facing fields, including descriptions, indicator details, and measures.
 - State supported specifics and genuine uncertainty, not filler references to "the source";
   cite through `evidence.json` and literature.
-- Before building, verify each activity against its evidence and inspect rendered output for
-  numbering, language, specificity, and separation of activity from indicator.
+- Before and after building, compare every activity with its evidence and rendered output for
+  roles, equipment, setting, numbering, language, uncertainty, and separation from indicators.
 - Keep historical cases separate; use `crime-script-generator icons --json` for built-in script icons.
 - Leave generated drafts as AI-generated, unreviewed first drafts. The CLI enforces this.
 See [REFERENCE.md](REFERENCE.md) for command behavior, evidence policy, and recovery steps. Validate
