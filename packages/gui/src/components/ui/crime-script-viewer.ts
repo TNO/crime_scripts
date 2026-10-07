@@ -1,6 +1,6 @@
 import type { Patch } from 'meiosis-setup/types';
 import m, { type FactoryComponent } from 'mithril';
-import { Select } from 'mithril-materialized';
+import { Dialog, Select } from 'mithril-materialized';
 import { SlimdownView } from 'mithril-ui-form';
 import {
   type Act,
@@ -29,6 +29,9 @@ import {
   scriptIcon,
   selectedSceneVariant,
   type ScriptMode,
+  scriptsForMode,
+  findTaxonomyScriptUsages,
+  type TaxonomyName,
   type Transport,
 } from '../../models';
 import { lookupCrimeMeasure } from '../../models/situational-crime-prevention';
@@ -39,10 +42,11 @@ import {
   highlightFactory,
   measuresToHtml,
   toCommaSeparatedList,
-  toMarkdownOl,
 } from '../../utils';
 import { ReferenceListComponent } from '../ui/reference';
 import { IconStrip } from './icon-strip';
+
+const text = (value: unknown): string => Array.isArray(value) ? value.join('') : String(value);
 
 export const CrimeScriptViewer: FactoryComponent<{
   crimeScript: CrimeScript;
@@ -65,22 +69,51 @@ export const CrimeScriptViewer: FactoryComponent<{
   const findCrimeMeasure = lookupCrimeMeasure();
   let curTrackId = undefined as string | undefined;
   let activeRoleId = undefined as ID | undefined;
+  let usageItem = undefined as { taxonomy: TaxonomyName; id: ID; label: string } | undefined;
   let lastFocusedActivityId: ID | undefined;
 
   const renderActivities = (
     activities: Act['activities'],
     cast: Cast[],
+    attributes: CrimeScriptAttributes[],
+    transports: Transport[],
     crimeScript: CrimeScript,
     model: DataModel,
     scriptMode: ScriptMode,
     targetActivityId: ID | undefined,
-    highlighter: (text?: string) => m.Children
+    highlighter: (text?: string) => m.Children,
+    usageButton: (taxonomy: TaxonomyName, id: ID, label: string) => m.Vnode
   ) => {
     const outline = buildActivityOutline(activities);
     const numbers = numberActivityOutline(outline);
     const activeRole = cast.find(({ id }) => id === activeRoleId);
+    const renderActivityTaxonomy = (
+      taxonomy: 'attributes' | 'transports',
+      ids: ID[] | undefined,
+      items: Labelled[],
+      heading: string,
+      icon: string
+    ): m.Vnode[] =>
+      ids?.flatMap((id) => {
+        const item = items.find((entry) => entry.id === id);
+        return item ? [
+          m('span.activity-taxonomy-item', {
+            key: `${taxonomy}-${id}`,
+            role: 'group',
+            'aria-label': `${heading}: ${item.label}`,
+          }, [
+            m('i.material-icons[aria-hidden=true]', icon),
+            m('span.activity-taxonomy-name', item.label),
+            usageButton(taxonomy, item.id, item.label),
+          ]),
+        ] : [];
+      }) || [];
     const renderActivity = (activity: Activity & { children?: Activity[] }): m.Vnode => {
       const roles = resolveActivityRoles(activity, cast);
+      const taxonomyItems = [
+        ...renderActivityTaxonomy('attributes', activity.attributes, attributes, t('ATTRIBUTES'), 'build'),
+        ...renderActivityTaxonomy('transports', activity.transports, transports, t('TRANSPORTS'), 'directions'),
+      ];
       const relatedScripts = relatedScriptsForActivity(
         activity,
         crimeScript,
@@ -112,17 +145,30 @@ export const CrimeScriptViewer: FactoryComponent<{
             m('strong.script-detail-title', highlighter(activity.label)),
             activity.description &&
               m('p.script-detail-description', highlighter(activity.description)),
-            roles.length > 0 &&
-              m('.activity-role-pills', { 'aria-label': t('CAST') }, roles.map((role) =>
-                m('button.activity-role-pill[type=button]', {
-                  key: role.id,
-                  class: activeRoleId === role.id ? 'active' : '',
-                  'aria-pressed': activeRoleId === role.id ? 'true' : 'false',
-                  onclick: () => {
-                    activeRoleId = activeRoleId === role.id ? undefined : role.id;
-                  },
-                }, role.label)
-              )),
+            (roles.length > 0 || taxonomyItems.length > 0) &&
+              m('.activity-entity-pills', [
+                roles.map((role) =>
+                  m('span.taxonomy-usage-control', {
+                    key: role.id,
+                    class: activeRoleId === role.id ? 'active' : '',
+                  }, [
+                    m('button.activity-role-pill[type=button]', {
+                      class: activeRoleId === role.id ? 'active' : '',
+                      'aria-label': `${t('CAST')}: ${role.label}`,
+                      'aria-pressed': activeRoleId === role.id ? 'true' : 'false',
+                      onclick: () => {
+                        activeRoleId = activeRoleId === role.id ? undefined : role.id;
+                      },
+                    }, [m('i.material-icons[aria-hidden=true]', 'person'), role.label]),
+                    m('button.taxonomy-usage-link[type=button]', {
+                      'aria-label': text(t('SHOW_USAGES', { item: role.label })),
+                      title: text(t('SHOW_USAGES', { item: role.label })),
+                      onclick: () => (usageItem = { taxonomy: 'cast', id: role.id, label: role.label }),
+                    }, m('i.material-icons[aria-hidden=true]', 'link')),
+                  ])
+                ),
+                taxonomyItems,
+              ]),
             relatedScripts.length > 0 &&
               m('.activity-related-scripts', { 'aria-label': t('RELATED_SCRIPTS') }, [
                 m('span.activity-related-scripts-label', `${t('RELATED_SCRIPTS')}:`),
@@ -171,7 +217,8 @@ export const CrimeScriptViewer: FactoryComponent<{
     scriptMode: ScriptMode,
     targetActivityId: ID | undefined,
     highlighter: (text?: string) => m.Children,
-    mdHighlighter: (text?: string) => string
+    mdHighlighter: (text?: string) => string,
+    usageButton: (taxonomy: TaxonomyName, id: ID, label: string) => m.Vnode
   ) => {
     const attrIds = Array.from(
       activities.reduce((acc, { attributes: curAttr }) => {
@@ -185,21 +232,7 @@ export const CrimeScriptViewer: FactoryComponent<{
         return acc;
       }, new Set<ID>())
     );
-    const md = `${attrIds.length > 0
-        ? `##### ${t('ATTRIBUTES')}
-
-${toMarkdownOl(attributes, attrIds)}`
-        : ''
-      }
-
-${transIds.length > 0
-        ? `##### ${t('TRANSPORTS')}
-
-${toMarkdownOl(transports, transIds)}`
-        : ''
-      }
-
-${conditions.length > 0
+    const md = `${conditions.length > 0
         ? `##### ${t('CONDITIONS')}
 
 ${generateLabeledItemsMarkup(conditions)}`
@@ -223,8 +256,20 @@ ${measuresToHtml(measures, lookupPartner, findCrimeMeasure)}`
       description && m('.activity-group-context', highlighter(description)),
       activities.length > 0 && [
         m('h5', t('STEPS')),
-        renderActivities(activities, cast, crimeScript, model, scriptMode, targetActivityId, highlighter),
+        renderActivities(activities, cast, attributes, transports, crimeScript, model, scriptMode, targetActivityId, highlighter, usageButton),
       ],
+      ([
+        ['attributes', attributes, attrIds, t('ATTRIBUTES')],
+        ['transports', transports, transIds, t('TRANSPORTS')],
+      ] as const).map(([taxonomy, items, ids, heading]) =>
+        ids.length > 0 && m('section', [
+          m('h5', heading),
+          m('ol', ids.map((id) => {
+            const item = items.find((entry) => entry.id === id);
+            return item && m('li', { key: id }, [item.label, usageButton(taxonomy, id, item.label)]);
+          })),
+        ])
+      ),
       md.trim() && m(SlimdownView, { md: mdHighlighter(md) }),
     ];
   };
@@ -263,6 +308,12 @@ ${measuresToHtml(measures, lookupPartner, findCrimeMeasure)}`
         partners.forEach((p) => lookupPartner.set(p.id, p));
       }
       const { highlighter, mdHighlighter } = highlightFactory(searchFilter);
+      const usageButton = (taxonomy: TaxonomyName, id: ID, itemLabel: string) =>
+        m('button.taxonomy-usage-link[type=button]', {
+          'aria-label': text(t('SHOW_USAGES', { item: itemLabel })),
+          title: text(t('SHOW_USAGES', { item: itemLabel })),
+          onclick: () => (usageItem = { taxonomy, id, label: itemLabel }),
+        }, m('i.material-icons[aria-hidden=true]', 'link'));
       const {
         label = '...',
         description,
@@ -283,7 +334,7 @@ ${measuresToHtml(measures, lookupPartner, findCrimeMeasure)}`
 
       const curTrack = curTrackId ? tracks.find((track) => track.id === curTrackId) : undefined;
 
-      const [allCastIds, allAttrIds, allLocIds, allTranspIds] = scenes.reduce(
+      const [allCastIds, allAttrIds, allLocIds, allTranspIds, allPartnerIds] = scenes.reduce(
         (acc, stage) => {
           const act =
             stage.variants.find((variant) => variant.id === stage.selectedVariantId) || stage.variants[0];
@@ -296,14 +347,16 @@ ${measuresToHtml(measures, lookupPartner, findCrimeMeasure)}`
               activity.attributes?.forEach((id) => acc[1].add(id));
               activity.transports?.forEach((id) => acc[3].add(id));
             });
+            act.measures?.forEach((measure) => measure.partners?.forEach((id) => acc[4].add(id)));
           }
           return acc;
         },
-        [new Set<ID>(), new Set<ID>(), new Set<ID>(), new Set<ID>()] as [
+        [new Set<ID>(), new Set<ID>(), new Set<ID>(), new Set<ID>(), new Set<ID>()] as [
           cast: Set<ID>,
           attr: Set<ID>,
           locs: Set<ID>,
-          transp: Set<ID>
+          transp: Set<ID>,
+          partners: Set<ID>
         ]
       );
 
@@ -311,7 +364,7 @@ ${measuresToHtml(measures, lookupPartner, findCrimeMeasure)}`
       const curAct = curScene && (curScene.variants.find(({ id }) => id === curActId) || selectedSceneVariant(curScene));
       if (!curActivityId) lastFocusedActivityId = undefined;
       const hasScriptContentSummary =
-        allCastIds.size > 0 || allAttrIds.size > 0 || allTranspIds.size > 0 || allLocIds.size > 0;
+        allCastIds.size > 0 || allAttrIds.size > 0 || allTranspIds.size > 0 || allLocIds.size > 0 || allPartnerIds.size > 0;
       const referenceCount = literature?.length || 0;
       const hasReferences = referenceCount > 0;
       const selectedActContent = curAct
@@ -325,7 +378,8 @@ ${measuresToHtml(measures, lookupPartner, findCrimeMeasure)}`
           scriptMode,
           curActivityId,
           highlighter,
-          mdHighlighter
+          mdHighlighter,
+          usageButton
         )
         : undefined;
       const selectVariant = (variantId: ID) => {
@@ -353,21 +407,83 @@ ${measuresToHtml(measures, lookupPartner, findCrimeMeasure)}`
         };
       });
 
-      const toLi = (ids: Set<string>, labels: Labelled[]) =>
+      const toLi = (taxonomy: TaxonomyName, ids: Set<string>, labels: Labelled[]) =>
         Array.from(ids).map((id) =>
-          m(
-            'li',
-            m(
-              'a',
-              {
-                href: routingSvc.href(Pages.SETTINGS, `id=${id}`),
-              },
-              highlighter(labels.find((c) => c.id === id)?.label || '…')
-            )
-          )
+          m('li', { key: id }, [
+            highlighter(labels.find((c) => c.id === id)?.label || '…'),
+            usageButton(taxonomy, id, labels.find((c) => c.id === id)?.label || id),
+          ])
         );
 
+      const usages = usageItem
+        ? findTaxonomyScriptUsages(model, usageItem.taxonomy, usageItem.id, scriptsForMode(model.crimeScripts, scriptMode))
+        : [];
+      const usagesByScript = new Map<ID, typeof usages>();
+      usages.forEach((usage) =>
+        usagesByScript.set(usage.script.id, [...(usagesByScript.get(usage.script.id) || []), usage])
+      );
+      const hitCount = (count: number) => text(t('HIT_COUNT', { count }));
+
       return m('.col.s12', [
+        usageItem && m(Dialog, {
+          id: 'taxonomy-usages',
+          title: `${text(t('SHOW_USAGES', { item: usageItem.label }))} · ${hitCount(usages.length)}`,
+          isOpen: true,
+          initialFocus: 'dialog',
+          onToggle: (open: boolean) => { if (!open) usageItem = undefined; },
+          content: [
+            m('.taxonomy-usage-dialog-header',
+              m('a', {
+                href: routingSvc.href(Pages.SETTINGS, `id=${usageItem.id}`),
+                onclick: () => { usageItem = undefined; },
+              }, t('VIEW_IN_TAXONOMY'))
+            ),
+            m('.taxonomy-usage-dialog', [
+              usages.length === 0 && m('p', t('NO_USAGES')),
+              m('ul.taxonomy-script-hits', Array.from(usagesByScript, ([, scriptUsages]) => {
+                const script = scriptUsages[0].script;
+                const usagesByScene = new Map<ID, typeof usages>();
+                scriptUsages.forEach((usage) => {
+                  if (usage.sceneId) {
+                    usagesByScene.set(usage.sceneId, [
+                      ...(usagesByScene.get(usage.sceneId) || []),
+                      usage,
+                    ]);
+                  }
+                });
+                return m('li', { key: script.id }, [
+                  m('a', {
+                    href: routingSvc.href(Pages.CRIME_SCRIPT, `id=${script.id}`),
+                    onclick: () => { usageItem = undefined; },
+                  }, `${script.label} · ${hitCount(scriptUsages.length)}`),
+                  usagesByScene.size > 0 && m('ul.taxonomy-scene-hits',
+                    Array.from(usagesByScene, ([sceneId, sceneUsages]) =>
+                      m('li', { key: sceneId }, [
+                        m('span', `${sceneUsages[0].sceneLabel} · ${hitCount(sceneUsages.length)}`),
+                        m('ul', sceneUsages.map((usage, index) =>
+                          m('li', { key: `${usage.variantId}-${usage.activityId || usage.label}-${index}` },
+                            m('a', {
+                              href: routingSvc.href(Pages.CRIME_SCRIPT, `id=${script.id}`),
+                              onclick: () => {
+                                update({
+                                  currentCrimeScriptId: script.id,
+                                  curSceneId: usage.sceneId,
+                                  curActId: usage.variantId,
+                                  curActivityId: usage.activityId,
+                                });
+                                usageItem = undefined;
+                              },
+                            }, usage.label)
+                          )
+                        )),
+                      ])
+                    )
+                  ),
+                ]);
+              })),
+            ]),
+          ],
+        }),
         m(
           '.right',
           m(IconStrip, {
@@ -389,12 +505,15 @@ ${measuresToHtml(measures, lookupPartner, findCrimeMeasure)}`
             const product = products.find(({ id }) => id === productId);
             return product && m('span.script-meta-pill.script-meta-pill--product', {
               key: productId,
-            }, `${t('PRODUCTS', 1)}: ${product.label}`);
+            }, [`${t('PRODUCTS', 1)}: ${product.label}`, usageButton('products', productId, product.label)]);
           }),
-          geoLocationIds.length > 0 && m(
-            'span.script-meta-pill.script-meta-pill--location',
-            highlighter(`${t('GEOLOCATIONS', geoLocationIds.length)}: ${toCommaSeparatedList(geoLocations, geoLocationIds)}`)
-          ),
+          geoLocationIds.map((id) => {
+            const location = geoLocations.find((item) => item.id === id);
+            return location && m('span.script-meta-pill.script-meta-pill--location', { key: id }, [
+              `${t('GEOLOCATIONS', 1)}: ${location.label}`,
+              usageButton('geoLocations', id, location.label),
+            ]);
+          }),
           aiGenerated && m('span.script-meta-pill.script-meta-pill--generated', {
             title: starterMetadata?.attribution,
           }, t('AI_GENERATED')),
@@ -417,17 +536,22 @@ ${measuresToHtml(measures, lookupPartner, findCrimeMeasure)}`
                 allAttrIds.size > 0 && m('span', t('ATTRIBUTE_COUNT', { count: allAttrIds.size })),
                 allTranspIds.size > 0 && m('span', t('TRANSPORT_COUNT', { count: allTranspIds.size })),
                 allLocIds.size > 0 && m('span', t('LOCATION_COUNT', { count: allLocIds.size })),
+                allPartnerIds.size > 0 && m('span', t('PARTNER_COUNT', { count: allPartnerIds.size })),
               ]),
               m('.script-viewer-summary-grid', [
-                allCastIds.size > 0 && m('section', [m('h5', t('CAST')), m('ol', toLi(allCastIds, cast))]),
-                allAttrIds.size > 0 && m('section', [m('h5', t('ATTRIBUTES')), m('ol', toLi(allAttrIds, attributes))]),
+                allCastIds.size > 0 && m('section', [m('h5', t('CAST')), m('ol', toLi('cast', allCastIds, cast))]),
+                allAttrIds.size > 0 && m('section', [m('h5', t('ATTRIBUTES')), m('ol', toLi('attributes', allAttrIds, attributes))]),
                 allTranspIds.size > 0 && m('section', [
                   m('h5', t('TRANSPORTS', allTranspIds.size)),
-                  m('ol', toLi(allTranspIds, transports)),
+                  m('ol', toLi('transports', allTranspIds, transports)),
                 ]),
                 allLocIds.size > 0 && m('section', [
                   m('h5', t('LOCATIONS', allLocIds.size)),
-                  m('ol', toLi(allLocIds, locations)),
+                  m('ol', toLi('locations', allLocIds, locations)),
+                ]),
+                allPartnerIds.size > 0 && m('section', [
+                  m('h5', t('PARTNERS')),
+                  m('ol', toLi('partners', allPartnerIds, partners)),
                 ]),
               ]),
             ]),

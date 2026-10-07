@@ -64,6 +64,24 @@
   max-width: unset;
 }
 
+.main--script-scroll {
+  height: 100dvh;
+  overflow-y: hidden;
+}
+
+.main--script-scroll > .container {
+  width: 100%;
+  padding-inline: 5%;
+  height: calc(100dvh - 52px);
+  overflow-y: auto;
+}
+
+@media only screen and (min-width: 601px) {
+  .main--script-scroll > .container {
+    padding-inline: 2.5%;
+  }
+}
+
 [data-mm-preset='compact-minimal'] .navbar-fixed,
 [data-mm-preset='compact-minimal'] nav,
 [data-mm-preset='compact-minimal'] nav .nav-wrapper,
@@ -3451,13 +3469,11 @@ ul.kanban>li {
   padding: 0 0 1rem;
 }
 
-.activity-role-pills {
+.activity-entity-pills {
   flex-wrap: wrap;
   gap: 0.4rem;
-}
-
-.activity-role-pills {
   display: flex;
+  margin-top: 0.5rem;
 }
 
 .activity-role-pill {
@@ -3505,17 +3521,20 @@ ul.kanban>li {
   font-weight: 700;
 }
 
-.activity-role-pills {
-  margin-top: 0.5rem;
-}
-
 .activity-role-pill {
-  padding: 0.25rem 0.65rem;
+  padding: 0.15rem 0.5rem;
   border: 1px solid color-mix(in srgb, #a4512f 42%, transparent);
   background: color-mix(in srgb, #a4512f 12%, transparent);
   color: inherit;
   cursor: pointer;
   font: inherit;
+  font-size: 0.82rem;
+}
+
+.activity-role-pill > .material-icons {
+  flex-shrink: 0;
+  margin-inline-end: 0.2rem;
+  font-size: 0.9rem;
 }
 
 .activity-role-pill:hover,
@@ -3523,6 +3542,128 @@ ul.kanban>li {
   border-color: #8f4529;
   background: #8f4529;
   color: #fff;
+}
+
+.taxonomy-usage-control {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.75rem;
+  border: 1px solid color-mix(in srgb, #a4512f 42%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, #a4512f 12%, transparent);
+  overflow: hidden;
+}
+
+.taxonomy-usage-control:hover,
+.taxonomy-usage-control.active {
+  border-color: #8f4529;
+  background: #8f4529;
+  color: #fff;
+}
+
+.taxonomy-usage-control .activity-role-pill {
+  min-height: 1.75rem;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+}
+
+.taxonomy-usage-control .activity-role-pill:hover,
+.taxonomy-usage-control .activity-role-pill.active {
+  border-color: transparent;
+  background: transparent;
+  color: inherit;
+}
+
+.taxonomy-usage-control .taxonomy-usage-link {
+  min-width: 1.85rem;
+  min-height: 1.75rem;
+  margin-inline-start: 0;
+  border-left: 1px solid currentColor;
+  border-radius: 0;
+  color: inherit;
+}
+
+.taxonomy-usage-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2rem;
+  min-height: 2rem;
+  margin-inline-start: 0.15rem;
+  border: 0;
+  border-radius: 0.25rem;
+  background: transparent;
+  color: var(--mm-primary-color);
+  cursor: pointer;
+}
+
+.taxonomy-usage-link:hover,
+.taxonomy-usage-link:focus-visible {
+  background: color-mix(in srgb, var(--mm-primary-color) 12%, transparent);
+}
+
+.taxonomy-usage-link:focus-visible {
+  outline: 2px solid var(--mm-primary-color);
+}
+
+.taxonomy-usage-link .material-icons {
+  font-size: 1.15rem;
+}
+
+.taxonomy-usage-control .taxonomy-usage-link .material-icons,
+.activity-taxonomy-item .taxonomy-usage-link .material-icons {
+  transform: translateY(2px);
+}
+
+.activity-taxonomy-item {
+  display: inline-flex;
+  min-height: 1.75rem;
+  align-items: center;
+  border: 1px solid color-mix(in srgb, var(--mm-primary-color) 34%, transparent);
+  border-radius: 0.4rem;
+  background: color-mix(in srgb, var(--mm-primary-color) 6%, transparent);
+  overflow: hidden;
+}
+
+.activity-taxonomy-item > .material-icons {
+  flex-shrink: 0;
+  margin-inline-start: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.activity-taxonomy-name {
+  padding: 0.15rem 0.5rem;
+  font-size: 0.8rem;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.activity-taxonomy-item .taxonomy-usage-link {
+  min-width: 1.85rem;
+  min-height: 1.75rem;
+  margin-inline-start: 0;
+  border-inline-start: 1px solid color-mix(in srgb, var(--mm-primary-color) 34%, transparent);
+  border-radius: 0;
+}
+
+.taxonomy-usage-dialog-header {
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+.taxonomy-usage-dialog {
+  max-height: min(60vh, 35rem);
+  overflow-y: auto;
+}
+
+.taxonomy-usage-dialog ul {
+  padding-inline-start: 1.3rem;
+}
+
+.taxonomy-usage-dialog li {
+  margin-block: 0.4rem;
 }
 
 .activity-related-scripts {

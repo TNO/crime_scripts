@@ -15,6 +15,7 @@ export * from './single-script-export';
 export * from './starter-library';
 export * from './settings';
 export * from './taxonomy-references';
+export * from './taxonomy-usage';
 export * from './taxonomy-navigation';
 
 export interface ILokiObj {

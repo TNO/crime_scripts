@@ -105,7 +105,10 @@ export const Layout: MeiosisComponent = () => {
               },
             },
           }),
-        m('.main', { style: 'overflow-x: hidden' }, [
+        m('.main', {
+          class: page === Pages.CRIME_SCRIPT ? 'main--script-scroll' : '',
+          style: 'overflow-x: hidden',
+        }, [
           m(
             '.navbar-fixed',
             { style: 'z-index: 1001' },

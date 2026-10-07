@@ -8,3 +8,4 @@ export * from './script-classification.ts';
 export * from './single-script-export.ts';
 export * from './starter-library.ts';
 export * from './taxonomy-references.ts';
+export * from './taxonomy-usage.ts';

@@ -75,7 +75,7 @@ const videoStepsNl = [
     end: 15,
     time: '0:12',
     title: 'Een script bekijken',
-    description: 'Bekijk scènes, modi operandi, activiteiten en rol-pillen.',
+    description: 'Bekijk scènes, M.O. en activiteiten. Klik op een rol om te filteren of op het linkicoon bij een taxonomie-item om zijn vindplaatsen te zien.',
   },
   {
     start: 15,
@@ -169,7 +169,7 @@ const videoStepsEn = [
     end: 15,
     time: '0:12',
     title: 'View a script',
-    description: 'Explore scenes, modi operandi, activities, and role pills.',
+    description: 'Explore scenes, M.O. and activities. Click a role to filter, or the link icon beside a taxonomy item to see where it is used.',
   },
   {
     start: 15,

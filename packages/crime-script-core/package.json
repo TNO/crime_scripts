@@ -14,7 +14,8 @@
     "./script-classification": "./src/script-classification.ts",
     "./single-script-export": "./src/single-script-export.ts",
     "./starter-library": "./src/starter-library.ts",
-    "./taxonomy-references": "./src/taxonomy-references.ts"
+    "./taxonomy-references": "./src/taxonomy-references.ts",
+    "./taxonomy-usage": "./src/taxonomy-usage.ts"
   },
   "scripts": {
     "test": "node --experimental-strip-types --test test/*.test.ts",

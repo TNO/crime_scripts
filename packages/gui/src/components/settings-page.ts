@@ -6,6 +6,7 @@ import {
   type CrimeScript,
   type DataModel,
   type FlexSearchResult,
+  findTaxonomyScriptUsages,
   type Hierarchical,
   type ID,
   type Labelled,
@@ -18,7 +19,7 @@ import {
   removeTaxonomyReferences,
   SearchScore,
 } from '../models';
-import { type AttributeType, attrForm } from '../models/forms';
+import { attrForm } from '../models/forms';
 import { type MeiosisComponent, routingSvc, t } from '../services';
 import { scrollToActiveItem, sortByLabel } from '../utils';
 import { TreeView } from './ui/treeview';
@@ -64,9 +65,6 @@ export const SettingsPage: MeiosisComponent = () => {
 
       selectedId = m.route.param('id');
       setPage(Pages.SETTINGS);
-    },
-    oncreate: () => {
-      selectedId = undefined;
     },
     view: ({ attrs: { state, actions } }) => {
       const { model, role, attributeFilter } = state;
@@ -284,6 +282,7 @@ export const SettingsPage: MeiosisComponent = () => {
                           type,
                           iconName,
                           crimeScripts,
+                          model,
                           setLocation: actions.setLocation,
                           allItems: model[id],
                           onCategory: (categoryId) => {
@@ -303,68 +302,39 @@ export const SettingsPage: MeiosisComponent = () => {
 const AttrView: FactoryComponent<{
   attr: Array<Hierarchical & Labelled>;
   selectedId?: ID;
-  type: AttributeType;
+  type: TaxonomyName;
   iconName?: string;
   crimeScripts: CrimeScript[];
+  model: DataModel;
   allItems: Array<Hierarchical & Labelled>;
   setLocation: (currentCrimeScriptId: ID, actId: ID, phaseId: ID, activityId?: ID) => void;
   onCategory: (categoryId: ID) => void;
 }> = () => {
+  let lastScrolledId: ID | undefined;
+  const scrollToSelected = (selectedId: ID | undefined, type: TaxonomyName) => {
+    if (selectedId !== lastScrolledId) {
+      lastScrolledId = selectedId;
+      if (selectedId) scrollToActiveItem(`taxonomy-${type}-${selectedId}`);
+    }
+  };
   return {
-    oncreate: ({ attrs: { selectedId } }) => {
-      selectedId && scrollToActiveItem(selectedId);
-    },
-    view: ({ attrs: { attr, type, iconName, crimeScripts, setLocation, selectedId, onCategory, allItems } }) => {
+    oncreate: ({ attrs: { selectedId, type } }) => scrollToSelected(selectedId, type),
+    onupdate: ({ attrs: { selectedId, type } }) => scrollToSelected(selectedId, type),
+    view: ({ attrs: { attr, type, iconName, crimeScripts, model, setLocation, selectedId, onCategory, allItems } }) => {
       return m(
         '.attr',
         m(Collapsible, {
           items: attr
             .sort((a, b) => a.label?.localeCompare(b.label))
             .map((c) => {
-              const searchResults = crimeScripts.reduce((acc, cs, crimeScriptIdx) => {
-                if (type === 'products' || type === 'geoLocations') {
-                  const ids = type === 'products' ? cs.productIds : cs.geoLocationIds;
-                  if (ids?.includes(c.id)) {
-                    acc.push([crimeScriptIdx, -1, -1, SearchScore.EXACT_MATCH]);
-                    return acc;
-                  }
-                }
-                cs.stages?.forEach((scene, sceneIdx) => {
-                  scene.variants.forEach((act, variantIdx) => {
-                    if (type === 'locations') {
-                      if (act.locationIds && act.locationIds.includes(c.id)) {
-                        acc.push([crimeScriptIdx, sceneIdx, variantIdx, SearchScore.EXACT_MATCH, act.label]);
-                      }
-                    } else if (type === 'partners') {
-                      act.measures
-                        ?.filter((m) => m.partners?.includes(c.id))
-                        .forEach((m) => {
-                          acc.push([crimeScriptIdx, sceneIdx, variantIdx, SearchScore.EXACT_MATCH, m.label]);
-                        });
-                    } else {
-                      act.activities?.forEach((activity) => {
-                        if (type === 'cast') {
-                          const { cast = [] } = activity;
-                          if (cast.includes(c.id)) {
-                            acc.push([crimeScriptIdx, sceneIdx, variantIdx, SearchScore.EXACT_MATCH, activity.label, activity.id]);
-                          }
-                        } else if (type === 'attributes') {
-                          const { attributes = [] } = activity;
-                          if (attributes.includes(c.id)) {
-                            acc.push([crimeScriptIdx, sceneIdx, variantIdx, SearchScore.EXACT_MATCH, activity.label, activity.id]);
-                          }
-                        } else if (type === 'transports') {
-                          const { transports = [] } = activity;
-                          if (transports.includes(c.id)) {
-                            acc.push([crimeScriptIdx, sceneIdx, variantIdx, SearchScore.EXACT_MATCH, activity.label, activity.id]);
-                          }
-                        }
-                      });
-                    }
-                  });
-                });
-                return acc;
-              }, [] as FlexSearchResult[]);
+              const searchResults: FlexSearchResult[] = findTaxonomyScriptUsages(model, type, c.id).map((usage) => {
+                const crimeScriptIdx = crimeScripts.indexOf(usage.script);
+                const sceneIdx = usage.sceneId
+                  ? usage.script.stages.findIndex(({ id }) => id === usage.sceneId) : -1;
+                const variantIdx = sceneIdx >= 0
+                  ? usage.script.stages[sceneIdx].variants.findIndex(({ id }) => id === usage.variantId) : -1;
+                return [crimeScriptIdx, sceneIdx, variantIdx, SearchScore.EXACT_MATCH, usage.label, usage.activityId];
+              });
 
               const byScript = new Map<number, Map<number, FlexSearchResult[]>>();
               searchResults.forEach((result) => {
@@ -374,7 +344,7 @@ const AttrView: FactoryComponent<{
                 scenes.set(sceneIdx, [...(scenes.get(sceneIdx) || []), result]);
               });
               return {
-                header: m('.taxonomy-item-header', [
+                header: m('.taxonomy-item-header', { id: `taxonomy-${type}-${c.id}` }, [
                   m('.taxonomy-item-heading', [
                     m('span', `${c.label}${c.synonyms?.length ? ` (${c.synonyms.join(', ')})` : ''} · ${text(t('HIT_COUNT', { count: searchResults.length }))}`),
                     c.parents?.map((parentId) => {
