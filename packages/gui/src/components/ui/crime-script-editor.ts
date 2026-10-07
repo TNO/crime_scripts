@@ -583,6 +583,7 @@ export const CrimeScriptEditor: FactoryComponent<{
                 className: 'col s6',
                 options: [{ id: 'nl', label: 'Nederlands' }, { id: 'en', label: 'English' }],
               },
+              { id: 'aiGenerated', type: 'switch', label: t('AI_GENERATED'), className: 'col s6 switch' },
               { id: 'unreviewed', type: 'switch', label: t('UNREVIEWED'), className: 'col s6 switch' },
               {
                 id: 'productIds',
