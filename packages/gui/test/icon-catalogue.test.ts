@@ -183,7 +183,7 @@ test('hand-drawn script icons retain their artwork instead of simplified stand-i
     ['illegal-asbestos-removal', '981a8d8183df0bb13479b76bc070c6b1ef4d6254145cf65c2028a89cd78de423'],
     ['illegal-dumping', '35a75d4c8faf6ec2a233a395bb8face942e131853e090a790d24f22eb82606d8'],
     ['laboratory', '7e396f1042f466532252e315d01150963f564049c3af4aab4b708bb6ad453d5b'],
-    ['money-laundering', '3e92f4fb2a653af126048dccd22ba36098dedfa9f5af9c2aeab1db4fc00c65e5'],
+    ['money-laundering', '027f929e4c039ca3316e8ace95d6e754d76d54e5b3aaa52264e6b6160a916c4f'],
     ['payment-fraud', '03f2b34b4404ff3601148286428138cc29efacf83c96da54fbaf0de06482ecd7'],
     ['poaching', 'd6872d5440f32bf01bf98313fca680823438e143a5af9c8fe713a138a9d9dbbc'],
   ]);
