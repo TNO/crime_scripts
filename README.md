@@ -22,6 +22,13 @@ pnpm i
 npm start
 ```
 
+## Deployment
+
+Pushing to `main` runs `.github/workflows/gui-pages.yml`, which tests and builds the GUI
+and deploys the build to GitHub Pages. Pages must use **GitHub Actions** as its build
+source. The tracked `docs/` files are a legacy snapshot and are not the deployment
+source; restricted script JSON must not be added to the public GUI assets.
+
 
 ## TODO
 
