@@ -214,8 +214,7 @@ export const SideNav: MeiosisComponent<{ onDelete: () => void }> = () => {
             'li',
             m(FlatButton, {
               label: t('UPLOAD'),
-              onclick: () => handleSelection('upload_json', model, scriptMode, saveModel, (loadedModel) => {
-                if (hasRestrictedContent(loadedModel)) setScriptMode('restricted');
+              onclick: () => handleSelection('upload_json', model, scriptMode, saveModel, () => {
                 changePage(Pages.HOME);
               }),
               iconName: 'upload',

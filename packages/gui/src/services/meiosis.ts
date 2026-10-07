@@ -18,6 +18,7 @@ import {
   Pages,
   type SearchResult,
   type Settings,
+  hasRestrictedContent,
 } from '../models';
 import { aggregateFlexSearchResults, scrollToTop, tokenize } from '../utils';
 import { i18n, routingSvc, t } from '.';
@@ -317,7 +318,13 @@ export const loadData = async (uploadedData?: string | null) => {
   }
 
   const role = (localStorage.getItem(USER_ROLE) || 'user') as UserRole;
-  const scriptMode = localStorage.getItem(SCRIPT_MODE_KEY) === 'restricted' ? 'restricted' : 'public';
+  const importedRestricted = Boolean(uploadedData && hasRestrictedContent(model));
+  const scriptMode = importedRestricted || localStorage.getItem(SCRIPT_MODE_KEY) === 'restricted'
+    ? 'restricted'
+    : 'public';
+  if (importedRestricted) {
+    localStorage.setItem(SCRIPT_MODE_KEY, 'restricted');
+  }
   // const settings = (await settingsSvc.loadList()).shift() || ({} as Settings);
 
   cells().update({

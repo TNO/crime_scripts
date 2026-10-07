@@ -68,7 +68,7 @@ const videoStepsNl = [
     end: 12,
     time: '0:09',
     title: 'De collectie uitwisselen',
-    description: 'Download of upload JSON; inlezen vervangt de lokale werkruimte. Een publieke permanente link opent een kopie.',
+    description: 'Download of upload JSON; inlezen vervangt de lokale werkruimte. Bij import van een afgeschermd script schakelt de modus automatisch om. Een publieke permanente link opent een kopie.',
   },
   {
     start: 12,
@@ -162,7 +162,7 @@ const videoStepsEn = [
     end: 12,
     time: '0:09',
     title: 'Exchange the collection',
-    description: 'Download or upload JSON; uploading replaces the local workspace. A public permanent link opens a copy.',
+    description: 'Download or upload JSON; uploading replaces the local workspace. Importing a restricted script switches modes automatically. A public permanent link opens a copy.',
   },
   {
     start: 12,
