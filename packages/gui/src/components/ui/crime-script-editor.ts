@@ -99,6 +99,7 @@ export const CrimeScriptEditor: FactoryComponent<{
   let opportunitiesForm: UIForm<{ conditions: Opportunity[] }>;
   let indicatorsForm: UIForm<{ indicators: Indicator[] }>;
   let deleteSceneOpen = false;
+  let deleteActOpen = false;
   let deleteActivityId: ID | undefined;
   let starterBundle: DataModel | undefined;
   let includeOtherLanguages = false;
@@ -920,19 +921,22 @@ export const CrimeScriptEditor: FactoryComponent<{
                     m('h4', selectedActivity.parentId ? t('SUBSTEP_DETAILS') : t('STEP_DETAILS')),
                   ]),
                   m('.inspector-actions', [
-                    m(
-                      'button.script-editor-secondary[type=button]',
-                      { onclick: () => (selectedActivityId = undefined) },
-                      [m('i.material-icons[aria-hidden=true]', 'arrow_back'), t('BACK_TO_SCENE')]
-                    ),
-                    m(
-                      'button.script-editor-danger[type=button]',
-                      { onclick: () => (deleteActivityId = selectedActivity.id) },
-                      [
-                        m('i.material-icons[aria-hidden=true]', 'delete'),
-                        t(selectedActivity.parentId ? 'DELETE_SUBSTEP' : 'DELETE_STEP'),
-                      ]
-                    ),
+                    m(FlatButton, {
+                      className: 'inspector-action',
+                      label: t('SCENE'),
+                      iconName: 'arrow_back',
+                      iconClass: 'left',
+                      'aria-label': t('BACK_TO_SCENE'),
+                      onclick: () => (selectedActivityId = undefined),
+                    }),
+                    m(FlatButton, {
+                      className: 'inspector-action inspector-action-danger',
+                      label: t('ACTIVITY'),
+                      iconName: 'delete',
+                      iconClass: 'left',
+                      'aria-label': t(selectedActivity.parentId ? 'DELETE_SUBSTEP' : 'DELETE_STEP'),
+                      onclick: () => (deleteActivityId = selectedActivity.id),
+                    }),
                   ]),
                 ]),
                 m(Select<ID | ''>, {
@@ -972,11 +976,38 @@ export const CrimeScriptEditor: FactoryComponent<{
                       m('span.inspector-context', t('SCENE_CONTEXT', { index: curActIdx + 1 })),
                       m('h4', curScene.label || t('UNTITLED_SCENE')),
                     ]),
-                    m(
-                      'button.script-editor-danger[type=button]',
-                      { onclick: () => (deleteSceneOpen = true) },
-                      [m('i.material-icons[aria-hidden=true]', 'delete'), t('DELETE_SCENE')]
-                    ),
+                    m('.inspector-actions', [
+                      m(FlatButton, {
+                        className: 'inspector-action',
+                        label: 'M.O.',
+                        iconName: 'add',
+                        iconClass: 'left',
+                        'aria-label': t('ADD_ACT'),
+                        onclick: () => {
+                          const newAct = createAct();
+                          curScene.variants.push(newAct);
+                          curScene.selectedVariantId = newAct.id;
+                          selectedTrackId = undefined;
+                          persist();
+                        },
+                      }),
+                      curScene.variants.length > 1 && curAct && m(FlatButton, {
+                        className: 'inspector-action inspector-action-danger',
+                        label: 'M.O.',
+                        iconName: 'delete',
+                        iconClass: 'left',
+                        'aria-label': t('DELETE_ACT'),
+                        onclick: () => (deleteActOpen = true),
+                      }),
+                      m(FlatButton, {
+                        className: 'inspector-action inspector-action-danger',
+                        label: t('SCENE'),
+                        iconName: 'delete',
+                        iconClass: 'left',
+                        'aria-label': t('DELETE_SCENE'),
+                        onclick: () => (deleteSceneOpen = true),
+                      }),
+                    ]),
                   ]),
                   m(LayoutForm, {
                     form: sceneForm,
@@ -1107,6 +1138,29 @@ export const CrimeScriptEditor: FactoryComponent<{
                 );
                 selectedActivityId = undefined;
                 deleteActivityId = undefined;
+                persist();
+              },
+            },
+          }),
+        deleteActOpen && curScene && curAct &&
+          m(AlertDialog, {
+            id: 'deleteAct',
+            title: t('DELETE_ACT'),
+            description: t('DELETE_ACT_CONFIRM', { name: curAct.label }),
+            isOpen: true,
+            onToggle: (open: boolean) => (deleteActOpen = open),
+            secondaryAction: { label: t('CANCEL'), iconName: 'cancel' },
+            primaryAction: {
+              label: t('DELETE'),
+              iconName: 'delete',
+              destructive: true,
+              onclick: () => {
+                if (curScene.variants.length <= 1) return;
+                curScene.variants = curScene.variants.filter(({ id }) => id !== curAct.id);
+                curScene.selectedVariantId = curScene.variants[0].id;
+                crimeScript.tracks = tracks.filter((track) => track.sceneVariants[curScene.id] !== curAct.id);
+                selectedTrackId = undefined;
+                deleteActOpen = false;
                 persist();
               },
             },

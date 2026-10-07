@@ -3581,8 +3581,13 @@ ul.kanban>li {
 
 .editor-variant-switcher {
   display: grid;
+  clear: both;
   gap: 0.4rem;
   margin: 1rem 0 1.5rem;
+}
+
+.act-editor-details {
+  clear: both;
 }
 
 .editor-variant-button {
@@ -3947,6 +3952,25 @@ ul.kanban>li {
   justify-content: flex-end;
 }
 
+.inspector-action.btn-flat {
+  min-height: 2.5rem;
+  padding-inline: 0.55rem;
+  font-weight: 600;
+}
+
+.inspector-action .material-icons.left {
+  margin-right: 0.35rem;
+}
+
+.inspector-action-danger.btn-flat {
+  color: #b3261e;
+}
+
+.inspector-action:focus-visible {
+  outline: 2px solid var(--mm-primary-color);
+  outline-offset: 2px;
+}
+
 .inspector-context {
   display: block;
   margin-bottom: 0.25rem;
@@ -4015,6 +4039,7 @@ ul.kanban>li {
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) .script-editor-danger,
+  :root:not([data-theme='light']) .inspector-action-danger,
   :root:not([data-theme='light']) .outline-preview-error {
     color: #ff8a80;
   }
@@ -4050,15 +4075,16 @@ ul.kanban>li {
 
   .script-editor-outline .scene-outline-list,
   .script-viewer-outline .scene-outline-list {
-    display: flex;
-    overflow-x: auto;
-    gap: 0.35rem;
-    padding-bottom: 0.4rem;
+    display: block;
+    max-height: min(40vh, 19rem);
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
   }
 
   .script-editor-outline .scene-outline-row,
   .script-viewer-outline .scene-outline-row {
-    min-width: 14rem;
+    min-width: 0;
   }
 
   .script-editor-inspector,
