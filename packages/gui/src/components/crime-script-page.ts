@@ -5,6 +5,7 @@ import {
   createRestrictedCounterpart,
   type CrimeScript,
   detachStarterScript,
+  encodeSharedScript,
   hasRestrictedCounterpart,
   type Labelled,
   Pages,
@@ -12,7 +13,7 @@ import {
   withoutCrimeScript,
 } from '../models';
 import type { MeiosisComponent } from '../services';
-import { t } from '../services/translations';
+import { routingSvc, t } from '../services';
 import { formatDate, toJSON } from '../utils';
 import { toBarrierPng, toBarrierSvg } from '../utils/barrier-export';
 import { toWord } from '../utils/word-report';
@@ -26,7 +27,8 @@ type ScriptAction =
   | 'export-word'
   | 'export-barrier-svg'
   | 'export-barrier-png'
-  | 'export-json';
+  | 'export-json'
+  | 'share-link';
 
 const ScriptActionsMenu = Menu<ScriptAction>();
 
@@ -108,7 +110,13 @@ export const CrimeScriptPage: MeiosisComponent = () => {
         { id: 'export-word', label: t('EXPORT_TO_WORD'), iconName: 'download' },
         { id: 'export-barrier-svg', label: t('EXPORT_BARRIER_SVG'), iconName: 'grid_view' },
         { id: 'export-barrier-png', label: t('EXPORT_BARRIER_PNG'), iconName: 'image' },
-        { id: 'export-json', label: t('EXPORT_TO_JSON'), iconName: 'download' }
+        { id: 'export-json', label: t('EXPORT_TO_JSON'), iconName: 'download' },
+        {
+          id: 'share-link',
+          label: t('SHARE_SCRIPT_LINK'),
+          iconName: 'link',
+          disabled: crimeScript.classification !== 'public',
+        }
       );
       if (isEditor && !edit) {
         scriptActions.push(
@@ -212,6 +220,32 @@ export const CrimeScriptPage: MeiosisComponent = () => {
                       break;
                     case 'export-json':
                       if (confirmRestrictedExport()) toJSON(exportFilename('json'), crimeScript, model);
+                      break;
+                    case 'share-link':
+                      try {
+                        const payload = encodeSharedScript(crimeScript, model);
+                        const url = new URL(
+                          routingSvc.href(Pages.CRIME_SCRIPT, `id=${encodeURIComponent(crimeScript.id)}`),
+                          document.baseURI
+                        );
+                        url.search = '';
+                        url.hash += `&shared=${payload}`;
+                        void navigator.clipboard.writeText(url.href).then(
+                          () => snackbar({
+                            message: t(url.href.length > 2_000 ? 'SHARE_SCRIPT_LONG_LINK' : 'SHARE_SCRIPT_COPIED'),
+                            dismissible: true,
+                          }),
+                          (error) => snackbar({
+                            message: `${t('SHARE_SCRIPT_FAILED')} ${error instanceof Error ? error.message : String(error)}`,
+                            dismissible: true,
+                          })
+                        );
+                      } catch (error) {
+                        snackbar({
+                          message: `${t('SHARE_SCRIPT_FAILED')} ${error instanceof Error ? error.message : String(error)}`,
+                          dismissible: true,
+                        });
+                      }
                       break;
                   }
                 },

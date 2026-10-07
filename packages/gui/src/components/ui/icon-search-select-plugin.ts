@@ -22,6 +22,7 @@ export const iconSearchSelectPlugin: PluginType<IconValue[]> = () => {
       return m('.icon-search-picker', { className }, [
         m(TextInput, {
           label: t('SEARCH_ICONS'),
+          placeholder: t('SEARCH_ICON_HINT'),
           value: query,
           canClear: true,
           oninput: (value) => { query = value; },

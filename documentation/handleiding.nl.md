@@ -58,11 +58,18 @@ Voor één script open je **Meer acties** bij dat script:
   benodigde taxonomie.
 - **Exporteer naar Word** maakt een leesrapport; dit is geen bewerkbaar
   PAX-model.
+- **Deel dit script als link** kopieert een ZIP-gecomprimeerde, URL-veilige link
+  met de JSON van dit ene publieke script en de benodigde taxonomie. De
+  ontvanger bekijkt het script als voorbeeld en kan het met **Script toevoegen**
+  aan de eigen werkruimte toevoegen; de bestaande collectie wordt niet
+  vervangen. Deze actie is niet beschikbaar voor afgeschermde scripts. Grote
+  scripts kunnen links opleveren die niet in alle e-mailprogramma's werken.
 
 De ontvanger kiest **Lees model in als JSON** om een collectie- of
 scriptbestand te openen. Dit vervangt de huidige lokale werkruimte en voegt
-niet automatisch samen. Controleer vóór delen altijd classificatie en
-bestandsnaam en gebruik voor afgeschermde bestanden een beveiligd kanaal.
+niet automatisch samen. Een gedeelde scriptlink opent daarentegen eerst een
+voorbeeld. Controleer vóór delen altijd classificatie en bestandsnaam en
+gebruik voor afgeschermde bestanden een beveiligd kanaal.
 
 ![Scriptacties voor gerichte JSON- en Word-export](assets/user-guide/09-script-sharing.png)
 

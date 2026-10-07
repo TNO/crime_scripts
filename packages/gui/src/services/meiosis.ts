@@ -117,9 +117,9 @@ export const appActions: (cell: MeiosisCell<State>) => Actions = ({ getState, up
     const previewStr = localStorage.getItem(PREVIEW_MODEL_KEY);
     const modelStr = localStorage.getItem(MODEL_KEY);
     try {
-      if (previewStr && modelStr) {
+      if (previewStr) {
         const preview = JSON.parse(previewStr) as DataModel;
-        const model = JSON.parse(modelStr) as DataModel;
+        const model = modelStr ? JSON.parse(modelStr) as DataModel : normalizeDataModel({ crimeScripts: [] });
         const mergedModel = mergeDataModels(model, preview);
         localStorage.removeItem(PREVIEW_MODEL_KEY);
         localStorage.setItem(MODEL_KEY, JSON.stringify(mergedModel));

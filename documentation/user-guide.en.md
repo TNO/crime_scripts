@@ -56,10 +56,17 @@ For one script, open **More actions** on that script:
 - **Export to JSON** creates an editable file containing the script and its
   required taxonomy.
 - **Export to Word** creates a reading report; it is not an editable PAX model.
+- **Share this script as a link** copies a ZIP-compressed, URL-safe link
+  containing the JSON for this one public script and its required taxonomy.
+  Recipients can review it as a preview and select **Merge current script** to
+  add it to their workspace without replacing their collection. This action
+  is unavailable for restricted scripts. Large scripts may produce links too
+  long for some email clients.
 
 The recipient selects **Upload model as JSON** to open a collection or
 single-script file. This replaces the current local workspace; it does not
-merge arbitrary files automatically. Before sharing, always check the
+merge arbitrary files automatically. A shared script link instead opens a
+preview. Before sharing, always check the
 classification and filename, and use a secure channel for restricted files.
 
 ![Script actions for focused JSON and Word export](assets/user-guide/en/09-script-sharing.png)
