@@ -10,3 +10,4 @@ allowBuilds:
 minimumReleaseAgeExclude:
   - dotenv@18.0.4
   - mithril-ui-form@2.3.3
+  - mithril-materialized@4.1.0

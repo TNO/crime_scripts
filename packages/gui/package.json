@@ -29,7 +29,7 @@
     "material-icons": "^1.13.14",
     "meiosis-setup": "^6.2.3",
     "mithril": "^2.3.8",
-    "mithril-materialized": "4.0.0",
+    "mithril-materialized": "4.1.0",
     "mithril-ui-form": "^2.3.3",
     "stopwords-en": "^0.3.0",
     "stopwords-nl": "^0.3.0",

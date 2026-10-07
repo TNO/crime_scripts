@@ -9,6 +9,7 @@ import type {
   ServiceProvider,
 } from './data-model';
 import { normalizeActivityHierarchy } from './activity-outline.ts';
+import { currentIconValue } from './icons.ts';
 import { sanitizeRelatedScriptReferences } from './script-classification.ts';
 
 type LegacyActivity = Activity & { sp?: ID[] };
@@ -217,11 +218,12 @@ const normalizeDataModelInternal = (
             ? 'restricted'
             : defaultClassification,
       scriptFamilyId: crimeScript.scriptFamilyId || crimeScript.id,
+      ...(crimeScript.icon !== undefined ? { icon: currentIconValue(crimeScript.icon) } : {}),
       icons: (crimeScript.icons?.length
         ? crimeScript.icons
         : crimeScript.icon !== undefined
           ? [crimeScript.icon]
-          : undefined)?.slice(0, 4),
+          : undefined)?.slice(0, 4).map(currentIconValue),
       owner: crimeScript.owner || '',
       updated: crimeScript.updated || legacy.lastUpdate || Date.now(),
       reviewer: crimeScript.reviewer || [],

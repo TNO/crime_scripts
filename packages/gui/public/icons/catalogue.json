@@ -3,7 +3,7 @@
   "icons": [
     {
       "key": "builtin:access-security",
-      "label": "Access security",
+      "label": "Unlocked door",
       "category": "Security",
       "file": "access-security.svg",
       "attribution": {
@@ -17,7 +17,7 @@
     },
     {
       "key": "builtin:account-security",
-      "label": "Account security",
+      "label": "Person with lock",
       "category": "Digital",
       "file": "account-security.svg",
       "attribution": {
@@ -31,7 +31,7 @@
     },
     {
       "key": "builtin:animal-trafficking",
-      "label": "Animal trafficking",
+      "label": "Animal in cage",
       "category": "Environment",
       "file": "animal-trafficking.svg",
       "attribution": {
@@ -45,7 +45,7 @@
     },
     {
       "key": "builtin:arbeidsuitbuiting-afhankelijkheid",
-      "label": "Arbeidsuitbuiting Afhankelijkheid",
+      "label": "Person",
       "category": "Starter scenes",
       "file": "arbeidsuitbuiting-afhankelijkheid.svg",
       "attribution": {
@@ -59,7 +59,7 @@
     },
     {
       "key": "builtin:arbeidsuitbuiting-controle",
-      "label": "Arbeidsuitbuiting Controle",
+      "label": "Identity card",
       "category": "Starter scenes",
       "file": "arbeidsuitbuiting-controle.svg",
       "attribution": {
@@ -73,7 +73,7 @@
     },
     {
       "key": "builtin:arbeidsuitbuiting-reis",
-      "label": "Arbeidsuitbuiting Reis",
+      "label": "Suitcase",
       "category": "Starter scenes",
       "file": "arbeidsuitbuiting-reis.svg",
       "attribution": {
@@ -87,7 +87,7 @@
     },
     {
       "key": "builtin:arbeidsuitbuiting-werk",
-      "label": "Arbeidsuitbuiting Werk",
+      "label": "Factory",
       "category": "Starter scenes",
       "file": "arbeidsuitbuiting-werk.svg",
       "attribution": {
@@ -101,7 +101,7 @@
     },
     {
       "key": "builtin:arbeidsuitbuiting-werving",
-      "label": "Arbeidsuitbuiting Werving",
+      "label": "Envelope",
       "category": "Starter scenes",
       "file": "arbeidsuitbuiting-werving.svg",
       "attribution": {
@@ -115,7 +115,7 @@
     },
     {
       "key": "builtin:asbestos-fibers",
-      "label": "Asbestos fibers",
+      "label": "Asbestos debris",
       "category": "Environment",
       "file": "asbestos-fibers.svg",
       "attribution": {
@@ -129,7 +129,7 @@
     },
     {
       "key": "builtin:asbestos-safety",
-      "label": "Asbestos safety",
+      "label": "Document with shield",
       "category": "Environment",
       "file": "asbestos-safety.svg",
       "attribution": {
@@ -157,7 +157,7 @@
     },
     {
       "key": "builtin:blast",
-      "label": "Blast",
+      "label": "Explosion",
       "category": "Security",
       "file": "blast.svg",
       "attribution": {
@@ -171,7 +171,7 @@
     },
     {
       "key": "builtin:bribe",
-      "label": "Bribe",
+      "label": "Money exchange",
       "category": "Finance",
       "file": "bribe.svg",
       "attribution": {
@@ -185,7 +185,7 @@
     },
     {
       "key": "builtin:burner",
-      "label": "Burner",
+      "label": "Laboratory burner",
       "category": "Product",
       "file": "burner.svg",
       "attribution": {
@@ -199,7 +199,7 @@
     },
     {
       "key": "builtin:car-drugs",
-      "label": "Car with drugs",
+      "label": "Car with package",
       "category": "Transport",
       "file": "car_drugs.svg",
       "attribution": {
@@ -213,7 +213,7 @@
     },
     {
       "key": "builtin:car-robber",
-      "label": "Car robber",
+      "label": "Car and person",
       "category": "Transport",
       "file": "car-robber.svg",
       "attribution": {
@@ -227,7 +227,7 @@
     },
     {
       "key": "builtin:car-theft",
-      "label": "Car theft",
+      "label": "Car and person",
       "category": "Transport",
       "file": "car-theft.svg",
       "attribution": {
@@ -241,7 +241,7 @@
     },
     {
       "key": "builtin:car-theft-noun",
-      "label": "Car theft (Noun Project)",
+      "label": "Car with driver",
       "category": "Transport",
       "file": "car-theft-noun.svg",
       "attribution": {
@@ -283,7 +283,7 @@
     },
     {
       "key": "builtin:clothing",
-      "label": "Clothing",
+      "label": "Clothes rack",
       "category": "Commerce",
       "file": "clothing.svg",
       "attribution": {
@@ -297,7 +297,7 @@
     },
     {
       "key": "builtin:cocaine",
-      "label": "Cocaine",
+      "label": "Packet of powder",
       "category": "Product",
       "file": "cocaine.svg",
       "attribution": {
@@ -310,22 +310,8 @@
       }
     },
     {
-      "key": "builtin:cocaine-powder",
-      "label": "Cocaine powder",
-      "category": "Product",
-      "file": "cocaine-powder.svg",
-      "attribution": {
-        "kind": "original",
-        "title": "Cocaine powder",
-        "creator": "PAX Crime Scripting contributors",
-        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/cocaine-powder.svg",
-        "license": "MIT",
-        "svgoModified": true
-      }
-    },
-    {
       "key": "builtin:company-registry-document",
-      "label": "Company registry document",
+      "label": "Company document",
       "category": "Commerce",
       "file": "company-registry-document.svg",
       "attribution": {
@@ -339,7 +325,7 @@
     },
     {
       "key": "builtin:cocaine-import-havens-invoer",
-      "label": "Cocaine Import Havens Invoer",
+      "label": "Container ship",
       "category": "Starter scenes",
       "file": "cocaine-import-havens-invoer.svg",
       "attribution": {
@@ -353,7 +339,7 @@
     },
     {
       "key": "builtin:cocaine-import-havens-toegang",
-      "label": "Cocaine Import Havens Toegang",
+      "label": "Padlock",
       "category": "Starter scenes",
       "file": "cocaine-import-havens-toegang.svg",
       "attribution": {
@@ -367,7 +353,7 @@
     },
     {
       "key": "builtin:cocaine-import-havens-uithalen",
-      "label": "Cocaine Import Havens Uithalen",
+      "label": "Shipping container",
       "category": "Starter scenes",
       "file": "cocaine-import-havens-uithalen.svg",
       "attribution": {
@@ -381,7 +367,7 @@
     },
     {
       "key": "builtin:cocaine-import-havens-verstoring",
-      "label": "Cocaine Import Havens Verstoring",
+      "label": "Wrench",
       "category": "Starter scenes",
       "file": "cocaine-import-havens-verstoring.svg",
       "attribution": {
@@ -395,7 +381,7 @@
     },
     {
       "key": "builtin:cocaine-import-havens-vervoer",
-      "label": "Cocaine Import Havens Vervoer",
+      "label": "Truck",
       "category": "Starter scenes",
       "file": "cocaine-import-havens-vervoer.svg",
       "attribution": {
@@ -409,7 +395,7 @@
     },
     {
       "key": "builtin:cocaine-import-havens-voorbereiding",
-      "label": "Cocaine Import Havens Voorbereiding",
+      "label": "Parcel",
       "category": "Starter scenes",
       "file": "cocaine-import-havens-voorbereiding.svg",
       "attribution": {
@@ -422,22 +408,8 @@
       }
     },
     {
-      "key": "builtin:construction-safety",
-      "label": "Construction safety",
-      "category": "Environment",
-      "file": "construction-safety.svg",
-      "attribution": {
-        "kind": "original",
-        "title": "Construction safety",
-        "creator": "PAX Crime Scripting contributors",
-        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/construction-safety.svg",
-        "license": "MIT",
-        "svgoModified": true
-      }
-    },
-    {
       "key": "builtin:container-inspection",
-      "label": "Container inspection",
+      "label": "Shipping container",
       "category": "Inspection",
       "file": "container-inspection.svg",
       "attribution": {
@@ -479,7 +451,7 @@
     },
     {
       "key": "builtin:dangerous-dog",
-      "label": "Dangerous dog",
+      "label": "Growling dog",
       "category": "Animals",
       "file": "dangerous-dog.svg",
       "attribution": {
@@ -493,7 +465,7 @@
     },
     {
       "key": "builtin:dependency-network",
-      "label": "Dependency network",
+      "label": "Connected nodes",
       "category": "People",
       "file": "dependency-network.svg",
       "attribution": {
@@ -521,7 +493,7 @@
     },
     {
       "key": "builtin:document-check",
-      "label": "Document check",
+      "label": "Document",
       "category": "Inspection",
       "file": "document-check.svg",
       "attribution": {
@@ -535,7 +507,7 @@
     },
     {
       "key": "builtin:emergency-response",
-      "label": "Emergency response",
+      "label": "Ambulance",
       "category": "Response",
       "file": "emergency-response.svg",
       "attribution": {
@@ -549,7 +521,7 @@
     },
     {
       "key": "builtin:finance-check",
-      "label": "Financial check",
+      "label": "Currency with magnifier",
       "category": "Finance",
       "file": "finance-check.svg",
       "attribution": {
@@ -557,20 +529,6 @@
         "title": "Financial check",
         "creator": "PAX Crime Scripting contributors",
         "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/finance-check.svg",
-        "license": "MIT",
-        "svgoModified": true
-      }
-    },
-    {
-      "key": "builtin:financial-investigation",
-      "label": "Financial investigation",
-      "category": "Finance",
-      "file": "financial-investigation.svg",
-      "attribution": {
-        "kind": "original",
-        "title": "Financial investigation",
-        "creator": "PAX Crime Scripting contributors",
-        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/financial-investigation.svg",
         "license": "MIT",
         "svgoModified": true
       }
@@ -591,7 +549,7 @@
     },
     {
       "key": "builtin:gang",
-      "label": "Gang",
+      "label": "Group of people",
       "category": "People",
       "file": "gang.svg",
       "attribution": {
@@ -605,7 +563,7 @@
     },
     {
       "key": "builtin:hazard-building",
-      "label": "Hazardous production site",
+      "label": "Factory with warning sign",
       "category": "Environment",
       "file": "hazard-building.svg",
       "attribution": {
@@ -619,7 +577,7 @@
     },
     {
       "key": "builtin:hazardous-waste",
-      "label": "Hazardous waste",
+      "label": "Waste bin with warning sign",
       "category": "Environment",
       "file": "hazardous-waste.svg",
       "attribution": {
@@ -647,7 +605,7 @@
     },
     {
       "key": "builtin:human-trafficking",
-      "label": "Human trafficking",
+      "label": "People linked by a chain",
       "category": "People",
       "file": "human-trafficking.svg",
       "attribution": {
@@ -661,7 +619,7 @@
     },
     {
       "key": "builtin:illegal-asbestos-removal",
-      "label": "Illegal asbestos removal",
+      "label": "Person handling debris",
       "category": "Environment",
       "file": "illegal-asbestos-removal.svg",
       "attribution": {
@@ -675,7 +633,7 @@
     },
     {
       "key": "builtin:illegal-dumping",
-      "label": "Illegal dumping",
+      "label": "Truck unloading waste",
       "category": "Environment",
       "file": "illegal-dumping.svg",
       "attribution": {
@@ -689,7 +647,7 @@
     },
     {
       "key": "builtin:illegale-asbestverwijdering-afvoer",
-      "label": "Illegale Asbestverwijdering Afvoer",
+      "label": "Truck",
       "category": "Starter scenes",
       "file": "illegale-asbestverwijdering-afvoer.svg",
       "attribution": {
@@ -703,7 +661,7 @@
     },
     {
       "key": "builtin:illegale-asbestverwijdering-inventarisatie",
-      "label": "Illegale Asbestverwijdering Inventarisatie",
+      "label": "Magnifying glass",
       "category": "Starter scenes",
       "file": "illegale-asbestverwijdering-inventarisatie.svg",
       "attribution": {
@@ -717,7 +675,7 @@
     },
     {
       "key": "builtin:illegale-asbestverwijdering-opdracht",
-      "label": "Illegale Asbestverwijdering Opdracht",
+      "label": "Identity card",
       "category": "Starter scenes",
       "file": "illegale-asbestverwijdering-opdracht.svg",
       "attribution": {
@@ -731,7 +689,7 @@
     },
     {
       "key": "builtin:illegale-asbestverwijdering-toezicht",
-      "label": "Illegale Asbestverwijdering Toezicht",
+      "label": "Eye",
       "category": "Starter scenes",
       "file": "illegale-asbestverwijdering-toezicht.svg",
       "attribution": {
@@ -745,7 +703,7 @@
     },
     {
       "key": "builtin:illegale-asbestverwijdering-verwijdering",
-      "label": "Illegale Asbestverwijdering Verwijdering",
+      "label": "Fibers",
       "category": "Starter scenes",
       "file": "illegale-asbestverwijdering-verwijdering.svg",
       "attribution": {
@@ -759,7 +717,7 @@
     },
     {
       "key": "builtin:illegale-asbestverwijdering-werknemers",
-      "label": "Illegale Asbestverwijdering Werknemers",
+      "label": "Hard hat",
       "category": "Starter scenes",
       "file": "illegale-asbestverwijdering-werknemers.svg",
       "attribution": {
@@ -773,7 +731,7 @@
     },
     {
       "key": "builtin:illegale-dumping-chemisch-afval-dumping",
-      "label": "Illegale Dumping Chemisch Afval Dumping",
+      "label": "Barrel",
       "category": "Starter scenes",
       "file": "illegale-dumping-chemisch-afval-dumping.svg",
       "attribution": {
@@ -787,7 +745,7 @@
     },
     {
       "key": "builtin:illegale-dumping-chemisch-afval-herstel",
-      "label": "Illegale Dumping Chemisch Afval Herstel",
+      "label": "Leaf",
       "category": "Starter scenes",
       "file": "illegale-dumping-chemisch-afval-herstel.svg",
       "attribution": {
@@ -801,7 +759,7 @@
     },
     {
       "key": "builtin:illegale-dumping-chemisch-afval-melding",
-      "label": "Illegale Dumping Chemisch Afval Melding",
+      "label": "Mobile phone",
       "category": "Starter scenes",
       "file": "illegale-dumping-chemisch-afval-melding.svg",
       "attribution": {
@@ -815,7 +773,7 @@
     },
     {
       "key": "builtin:illegale-dumping-chemisch-afval-ontstaan",
-      "label": "Illegale Dumping Chemisch Afval Ontstaan",
+      "label": "Factory",
       "category": "Starter scenes",
       "file": "illegale-dumping-chemisch-afval-ontstaan.svg",
       "attribution": {
@@ -829,7 +787,7 @@
     },
     {
       "key": "builtin:illegale-dumping-chemisch-afval-transport",
-      "label": "Illegale Dumping Chemisch Afval Transport",
+      "label": "Truck",
       "category": "Starter scenes",
       "file": "illegale-dumping-chemisch-afval-transport.svg",
       "attribution": {
@@ -843,7 +801,7 @@
     },
     {
       "key": "builtin:illegale-dumping-chemisch-afval-verzameling",
-      "label": "Illegale Dumping Chemisch Afval Verzameling",
+      "label": "Parcel",
       "category": "Starter scenes",
       "file": "illegale-dumping-chemisch-afval-verzameling.svg",
       "attribution": {
@@ -885,7 +843,7 @@
     },
     {
       "key": "builtin:labour-exploitation",
-      "label": "Labour exploitation",
+      "label": "Hand holding a chain",
       "category": "People",
       "file": "labour-exploitation.svg",
       "attribution": {
@@ -898,22 +856,8 @@
       }
     },
     {
-      "key": "builtin:materials-check",
-      "label": "Materials check",
-      "category": "Inspection",
-      "file": "materials-check.svg",
-      "attribution": {
-        "kind": "original",
-        "title": "Materials check",
-        "creator": "PAX Crime Scripting contributors",
-        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/materials-check.svg",
-        "license": "MIT",
-        "svgoModified": true
-      }
-    },
-    {
       "key": "builtin:money-laundering",
-      "label": "Money laundering",
+      "label": "Money in laundry basket",
       "category": "Finance",
       "file": "money-laundering.svg",
       "attribution": {
@@ -927,7 +871,7 @@
     },
     {
       "key": "builtin:mensenhandel-seksuele-uitbuiting-benadering",
-      "label": "Mensenhandel Seksuele Uitbuiting Benadering",
+      "label": "Mobile phone",
       "category": "Starter scenes",
       "file": "mensenhandel-seksuele-uitbuiting-benadering.svg",
       "attribution": {
@@ -941,7 +885,7 @@
     },
     {
       "key": "builtin:mensenhandel-seksuele-uitbuiting-exploitatie",
-      "label": "Mensenhandel Seksuele Uitbuiting Exploitatie",
+      "label": "Person",
       "category": "Starter scenes",
       "file": "mensenhandel-seksuele-uitbuiting-exploitatie.svg",
       "attribution": {
@@ -955,7 +899,7 @@
     },
     {
       "key": "builtin:mensenhandel-seksuele-uitbuiting-isolatie",
-      "label": "Mensenhandel Seksuele Uitbuiting Isolatie",
+      "label": "Padlock",
       "category": "Starter scenes",
       "file": "mensenhandel-seksuele-uitbuiting-isolatie.svg",
       "attribution": {
@@ -969,7 +913,7 @@
     },
     {
       "key": "builtin:mensenhandel-seksuele-uitbuiting-opbrengst",
-      "label": "Mensenhandel Seksuele Uitbuiting Opbrengst",
+      "label": "Euro coin",
       "category": "Starter scenes",
       "file": "mensenhandel-seksuele-uitbuiting-opbrengst.svg",
       "attribution": {
@@ -983,7 +927,7 @@
     },
     {
       "key": "builtin:mensenhandel-seksuele-uitbuiting-verplaatsing",
-      "label": "Mensenhandel Seksuele Uitbuiting Verplaatsing",
+      "label": "Suitcase",
       "category": "Starter scenes",
       "file": "mensenhandel-seksuele-uitbuiting-verplaatsing.svg",
       "attribution": {
@@ -997,7 +941,7 @@
     },
     {
       "key": "builtin:mortgage-house",
-      "label": "Mortgage house",
+      "label": "House with currency",
       "category": "Finance",
       "file": "mortgage-house.svg",
       "attribution": {
@@ -1010,22 +954,8 @@
       }
     },
     {
-      "key": "builtin:nature-monitoring",
-      "label": "Nature monitoring",
-      "category": "Environment",
-      "file": "nature-monitoring.svg",
-      "attribution": {
-        "kind": "original",
-        "title": "Nature monitoring",
-        "creator": "PAX Crime Scripting contributors",
-        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/nature-monitoring.svg",
-        "license": "MIT",
-        "svgoModified": true
-      }
-    },
-    {
       "key": "builtin:network-monitoring",
-      "label": "Network monitoring",
+      "label": "Network with magnifier",
       "category": "Investigation",
       "file": "network-monitoring.svg",
       "attribution": {
@@ -1053,7 +983,7 @@
     },
     {
       "key": "builtin:oil-pipeline-tap",
-      "label": "Oil pipeline tap",
+      "label": "Pipe with valve",
       "category": "Product",
       "file": "oil-pipeline-tap.svg",
       "attribution": {
@@ -1067,7 +997,7 @@
     },
     {
       "key": "builtin:online-safety",
-      "label": "Online safety",
+      "label": "Computer with shield",
       "category": "Digital",
       "file": "online-safety.svg",
       "attribution": {
@@ -1081,7 +1011,7 @@
     },
     {
       "key": "builtin:partner-response",
-      "label": "Partner response",
+      "label": "Connected dots",
       "category": "Response",
       "file": "partner-response.svg",
       "attribution": {
@@ -1095,7 +1025,7 @@
     },
     {
       "key": "builtin:payment-check",
-      "label": "Payment check",
+      "label": "Screen with check mark",
       "category": "Finance",
       "file": "payment-check.svg",
       "attribution": {
@@ -1109,7 +1039,7 @@
     },
     {
       "key": "builtin:payment-fraud",
-      "label": "Payment fraud",
+      "label": "Card and person",
       "category": "Finance",
       "file": "payment-fraud.svg",
       "attribution": {
@@ -1123,7 +1053,7 @@
     },
     {
       "key": "builtin:phishing",
-      "label": "Phishing",
+      "label": "Hooked envelope",
       "category": "Digital",
       "file": "phishing.svg",
       "attribution": {
@@ -1137,7 +1067,7 @@
     },
     {
       "key": "builtin:phishing-betaalfraude-betaling",
-      "label": "Phishing Betaalfraude Betaling",
+      "label": "Payment card",
       "category": "Starter scenes",
       "file": "phishing-betaalfraude-betaling.svg",
       "attribution": {
@@ -1151,7 +1081,7 @@
     },
     {
       "key": "builtin:phishing-betaalfraude-contact",
-      "label": "Phishing Betaalfraude Contact",
+      "label": "Envelope",
       "category": "Starter scenes",
       "file": "phishing-betaalfraude-contact.svg",
       "attribution": {
@@ -1165,7 +1095,7 @@
     },
     {
       "key": "builtin:phishing-betaalfraude-doorgifte",
-      "label": "Phishing Betaalfraude Doorgifte",
+      "label": "Mobile phone",
       "category": "Starter scenes",
       "file": "phishing-betaalfraude-doorgifte.svg",
       "attribution": {
@@ -1179,7 +1109,7 @@
     },
     {
       "key": "builtin:phishing-betaalfraude-gegevens",
-      "label": "Phishing Betaalfraude Gegevens",
+      "label": "Identity card",
       "category": "Starter scenes",
       "file": "phishing-betaalfraude-gegevens.svg",
       "attribution": {
@@ -1193,7 +1123,7 @@
     },
     {
       "key": "builtin:phishing-betaalfraude-respons",
-      "label": "Phishing Betaalfraude Respons",
+      "label": "Shield",
       "category": "Starter scenes",
       "file": "phishing-betaalfraude-respons.svg",
       "attribution": {
@@ -1207,7 +1137,7 @@
     },
     {
       "key": "builtin:phishing-betaalfraude-voorbereiding",
-      "label": "Phishing Betaalfraude Voorbereiding",
+      "label": "Envelope",
       "category": "Starter scenes",
       "file": "phishing-betaalfraude-voorbereiding.svg",
       "attribution": {
@@ -1220,22 +1150,8 @@
       }
     },
     {
-      "key": "builtin:phishing-protection",
-      "label": "Phishing protection",
-      "category": "Digital",
-      "file": "phishing-protection.svg",
-      "attribution": {
-        "kind": "original",
-        "title": "Phishing protection",
-        "creator": "PAX Crime Scripting contributors",
-        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/phishing-protection.svg",
-        "license": "MIT",
-        "svgoModified": true
-      }
-    },
-    {
       "key": "builtin:planning-checklist",
-      "label": "Planning checklist",
+      "label": "Checklist",
       "category": "Planning",
       "file": "planning-checklist.svg",
       "attribution": {
@@ -1277,7 +1193,7 @@
     },
     {
       "key": "builtin:port-security",
-      "label": "Port security",
+      "label": "Container ship",
       "category": "Security",
       "file": "port-security.svg",
       "attribution": {
@@ -1291,7 +1207,7 @@
     },
     {
       "key": "builtin:poaching",
-      "label": "Poaching",
+      "label": "Animal with prohibition sign",
       "category": "Environment",
       "file": "poaching.svg",
       "attribution": {
@@ -1305,7 +1221,7 @@
     },
     {
       "key": "builtin:pollution",
-      "label": "Pollution",
+      "label": "Waste leaking into water",
       "category": "Environment",
       "file": "pollution.svg",
       "attribution": {
@@ -1319,7 +1235,7 @@
     },
     {
       "key": "builtin:protected-person-response",
-      "label": "Protected Person Response",
+      "label": "Raised hand",
       "category": "Starter scenes",
       "file": "protected-person-response.svg",
       "attribution": {
@@ -1347,7 +1263,7 @@
     },
     {
       "key": "builtin:safe-work",
-      "label": "Safe work",
+      "label": "Person with shield",
       "category": "People",
       "file": "safe-work.svg",
       "attribution": {
@@ -1361,7 +1277,7 @@
     },
     {
       "key": "builtin:secure-contact",
-      "label": "Secure contact",
+      "label": "Envelope with person",
       "category": "Communication",
       "file": "secure-contact.svg",
       "attribution": {
@@ -1375,7 +1291,7 @@
     },
     {
       "key": "builtin:secure-transport",
-      "label": "Secure transport",
+      "label": "Truck",
       "category": "Transport",
       "file": "secure-transport.svg",
       "attribution": {
@@ -1403,7 +1319,7 @@
     },
     {
       "key": "builtin:site-inspection",
-      "label": "Site inspection",
+      "label": "Building with magnifier",
       "category": "Inspection",
       "file": "site-inspection.svg",
       "attribution": {
@@ -1417,7 +1333,7 @@
     },
     {
       "key": "builtin:site-safety",
-      "label": "Site safety",
+      "label": "Building with warning sign",
       "category": "Security",
       "file": "site-safety.svg",
       "attribution": {
@@ -1445,7 +1361,7 @@
     },
     {
       "key": "builtin:stroperij-illegale-wildhandel-handel",
-      "label": "Stroperij Illegale Wildhandel Handel",
+      "label": "Wallet",
       "category": "Starter scenes",
       "file": "stroperij-illegale-wildhandel-handel.svg",
       "attribution": {
@@ -1459,7 +1375,7 @@
     },
     {
       "key": "builtin:stroperij-illegale-wildhandel-interventie",
-      "label": "Stroperij Illegale Wildhandel Interventie",
+      "label": "Shield",
       "category": "Starter scenes",
       "file": "stroperij-illegale-wildhandel-interventie.svg",
       "attribution": {
@@ -1473,7 +1389,7 @@
     },
     {
       "key": "builtin:stroperij-illegale-wildhandel-onttrekking",
-      "label": "Stroperij Illegale Wildhandel Onttrekking",
+      "label": "Parcel",
       "category": "Starter scenes",
       "file": "stroperij-illegale-wildhandel-onttrekking.svg",
       "attribution": {
@@ -1487,7 +1403,7 @@
     },
     {
       "key": "builtin:stroperij-illegale-wildhandel-selectie",
-      "label": "Stroperij Illegale Wildhandel Selectie",
+      "label": "Eye",
       "category": "Starter scenes",
       "file": "stroperij-illegale-wildhandel-selectie.svg",
       "attribution": {
@@ -1501,7 +1417,7 @@
     },
     {
       "key": "builtin:stroperij-illegale-wildhandel-vervoer",
-      "label": "Stroperij Illegale Wildhandel Vervoer",
+      "label": "Truck",
       "category": "Starter scenes",
       "file": "stroperij-illegale-wildhandel-vervoer.svg",
       "attribution": {
@@ -1515,7 +1431,7 @@
     },
     {
       "key": "builtin:stroperij-illegale-wildhandel-verzameling",
-      "label": "Stroperij Illegale Wildhandel Verzameling",
+      "label": "Parcel",
       "category": "Starter scenes",
       "file": "stroperij-illegale-wildhandel-verzameling.svg",
       "attribution": {
@@ -1529,7 +1445,7 @@
     },
     {
       "key": "builtin:suspicious-offer",
-      "label": "Suspicious offer",
+      "label": "Square with magnifier",
       "category": "People",
       "file": "suspicious-offer.svg",
       "attribution": {
@@ -1543,7 +1459,7 @@
     },
     {
       "key": "builtin:under-waterline",
-      "label": "Under waterline",
+      "label": "Boat below waterline",
       "category": "Transport",
       "file": "under_waterline.svg",
       "attribution": {
@@ -1557,7 +1473,7 @@
     },
     {
       "key": "builtin:wholesale-currency-cocaine",
-      "label": "Wholesale currency and cocaine",
+      "label": "Warehouse with money",
       "category": "Commerce",
       "file": "wholesale-currency-cocaine.svg",
       "attribution": {
@@ -1571,7 +1487,7 @@
     },
     {
       "key": "builtin:synthetische-drugsproductie-afvoer",
-      "label": "Synthetische Drugsproductie Afvoer",
+      "label": "Barrel",
       "category": "Starter scenes",
       "file": "synthetische-drugsproductie-afvoer.svg",
       "attribution": {
@@ -1585,7 +1501,7 @@
     },
     {
       "key": "builtin:synthetische-drugsproductie-inrichting",
-      "label": "Synthetische Drugsproductie Inrichting",
+      "label": "Laboratory flask",
       "category": "Starter scenes",
       "file": "synthetische-drugsproductie-inrichting.svg",
       "attribution": {
@@ -1599,7 +1515,7 @@
     },
     {
       "key": "builtin:synthetische-drugsproductie-locatie",
-      "label": "Synthetische Drugsproductie Locatie",
+      "label": "Factory",
       "category": "Starter scenes",
       "file": "synthetische-drugsproductie-locatie.svg",
       "attribution": {
@@ -1613,7 +1529,7 @@
     },
     {
       "key": "builtin:synthetische-drugsproductie-middelen",
-      "label": "Synthetische Drugsproductie Middelen",
+      "label": "Parcel",
       "category": "Starter scenes",
       "file": "synthetische-drugsproductie-middelen.svg",
       "attribution": {
@@ -1627,7 +1543,7 @@
     },
     {
       "key": "builtin:synthetische-drugsproductie-onderzoek",
-      "label": "Synthetische Drugsproductie Onderzoek",
+      "label": "Magnifying glass",
       "category": "Starter scenes",
       "file": "synthetische-drugsproductie-onderzoek.svg",
       "attribution": {
@@ -1641,7 +1557,7 @@
     },
     {
       "key": "builtin:synthetische-drugsproductie-productie",
-      "label": "Synthetische Drugsproductie Productie",
+      "label": "Laboratory flask",
       "category": "Starter scenes",
       "file": "synthetische-drugsproductie-productie.svg",
       "attribution": {
@@ -1654,22 +1570,8 @@
       }
     },
     {
-      "key": "builtin:vehicle-export",
-      "label": "Vehicle export",
-      "category": "Transport",
-      "file": "vehicle-export.svg",
-      "attribution": {
-        "kind": "original",
-        "title": "Vehicle export",
-        "creator": "PAX Crime Scripting contributors",
-        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/vehicle-export.svg",
-        "license": "MIT",
-        "svgoModified": true
-      }
-    },
-    {
       "key": "builtin:vehicle-security",
-      "label": "Vehicle security",
+      "label": "Unlocked truck",
       "category": "Security",
       "file": "vehicle-security.svg",
       "attribution": {
@@ -1682,22 +1584,8 @@
       }
     },
     {
-      "key": "builtin:victim-support",
-      "label": "Victim support",
-      "category": "People",
-      "file": "victim-support.svg",
-      "attribution": {
-        "kind": "original",
-        "title": "Victim support",
-        "creator": "PAX Crime Scripting contributors",
-        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/victim-support.svg",
-        "license": "MIT",
-        "svgoModified": true
-      }
-    },
-    {
       "key": "builtin:voertuigdiefstal-export-diefstal",
-      "label": "Voertuigdiefstal Export Diefstal",
+      "label": "Car",
       "category": "Starter scenes",
       "file": "voertuigdiefstal-export-diefstal.svg",
       "attribution": {
@@ -1711,7 +1599,7 @@
     },
     {
       "key": "builtin:voertuigdiefstal-export-handel",
-      "label": "Voertuigdiefstal Export Handel",
+      "label": "Euro coin",
       "category": "Starter scenes",
       "file": "voertuigdiefstal-export-handel.svg",
       "attribution": {
@@ -1725,7 +1613,7 @@
     },
     {
       "key": "builtin:voertuigdiefstal-export-identiteit",
-      "label": "Voertuigdiefstal Export Identiteit",
+      "label": "Identity card",
       "category": "Starter scenes",
       "file": "voertuigdiefstal-export-identiteit.svg",
       "attribution": {
@@ -1739,7 +1627,7 @@
     },
     {
       "key": "builtin:voertuigdiefstal-export-opslag",
-      "label": "Voertuigdiefstal Export Opslag",
+      "label": "Padlock",
       "category": "Starter scenes",
       "file": "voertuigdiefstal-export-opslag.svg",
       "attribution": {
@@ -1753,7 +1641,7 @@
     },
     {
       "key": "builtin:voertuigdiefstal-export-opsporing",
-      "label": "Voertuigdiefstal Export Opsporing",
+      "label": "Magnifying glass",
       "category": "Starter scenes",
       "file": "voertuigdiefstal-export-opsporing.svg",
       "attribution": {
@@ -1767,7 +1655,7 @@
     },
     {
       "key": "builtin:voertuigdiefstal-export-selectie",
-      "label": "Voertuigdiefstal Export Selectie",
+      "label": "Eye",
       "category": "Starter scenes",
       "file": "voertuigdiefstal-export-selectie.svg",
       "attribution": {
@@ -1795,7 +1683,7 @@
     },
     {
       "key": "builtin:wildlife-protection",
-      "label": "Wildlife protection",
+      "label": "Animal with shield",
       "category": "Environment",
       "file": "wildlife-protection.svg",
       "attribution": {
@@ -1809,7 +1697,7 @@
     },
     {
       "key": "builtin:witwassen-legale-ondernemingen-administratie",
-      "label": "Witwassen Legale Ondernemingen Administratie",
+      "label": "Identity card",
       "category": "Starter scenes",
       "file": "witwassen-legale-ondernemingen-administratie.svg",
       "attribution": {
@@ -1823,7 +1711,7 @@
     },
     {
       "key": "builtin:witwassen-legale-ondernemingen-bedrijf",
-      "label": "Witwassen Legale Ondernemingen Bedrijf",
+      "label": "Shop",
       "category": "Starter scenes",
       "file": "witwassen-legale-ondernemingen-bedrijf.svg",
       "attribution": {
@@ -1837,7 +1725,7 @@
     },
     {
       "key": "builtin:witwassen-legale-ondernemingen-besteding",
-      "label": "Witwassen Legale Ondernemingen Besteding",
+      "label": "Wallet",
       "category": "Starter scenes",
       "file": "witwassen-legale-ondernemingen-besteding.svg",
       "attribution": {
@@ -1851,7 +1739,7 @@
     },
     {
       "key": "builtin:witwassen-legale-ondernemingen-inbreng",
-      "label": "Witwassen Legale Ondernemingen Inbreng",
+      "label": "Euro coin",
       "category": "Starter scenes",
       "file": "witwassen-legale-ondernemingen-inbreng.svg",
       "attribution": {
@@ -1865,7 +1753,7 @@
     },
     {
       "key": "builtin:witwassen-legale-ondernemingen-verplaatsing",
-      "label": "Witwassen Legale Ondernemingen Verplaatsing",
+      "label": "Bank",
       "category": "Starter scenes",
       "file": "witwassen-legale-ondernemingen-verplaatsing.svg",
       "attribution": {
@@ -1879,7 +1767,7 @@
     },
     {
       "key": "builtin:witwassen-legale-ondernemingen-verstoring",
-      "label": "Witwassen Legale Ondernemingen Verstoring",
+      "label": "Wrench",
       "category": "Starter scenes",
       "file": "witwassen-legale-ondernemingen-verstoring.svg",
       "attribution": {
@@ -1892,22 +1780,8 @@
       }
     },
     {
-      "key": "builtin:worker-protection",
-      "label": "Worker protection",
-      "category": "People",
-      "file": "worker-protection.svg",
-      "attribution": {
-        "kind": "original",
-        "title": "Worker protection",
-        "creator": "PAX Crime Scripting contributors",
-        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/worker-protection.svg",
-        "license": "MIT",
-        "svgoModified": true
-      }
-    },
-    {
       "key": "builtin:worker-travel",
-      "label": "Worker travel",
+      "label": "Person with suitcase and arrow",
       "category": "Transport",
       "file": "worker-travel.svg",
       "attribution": {

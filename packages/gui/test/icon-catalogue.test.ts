@@ -7,13 +7,16 @@ import {
   BUILT_IN_ICONS,
   ICONS,
   IconOpts,
+  type IconValue,
   isBuiltInIconKey,
+  REPLACED_ICON_KEYS,
   resolveIconSource,
   resolveIconSources,
 } from '../src/models/icons.ts';
 import { normalizeDataModel } from '../src/models/model-normalization.ts';
 import { createSingleScriptExportModel } from '../src/models/single-script-export.ts';
 import { getMatchingStarterBundleMetadata, validateStarterBundle } from '../src/models/starter-library.ts';
+import { iconLabelsNL } from '../src/services/lang/icon-labels.nl.ts';
 
 type Attribution = {
   kind: 'original' | 'third-party';
@@ -280,6 +283,37 @@ test('the picker is application-level and retains every legacy numeric icon valu
 
   legacyValues.forEach((value) => assert.ok(optionIds.has(value), `legacy icon ${value} is absent`));
   BUILT_IN_ICONS.forEach(({ key }) => assert.ok(optionIds.has(key), `${key} is absent`));
+});
+
+test('icon labels describe pictograms and have Dutch translations', () => {
+  const catalogue = readJson<CatalogueManifest>('icons/catalogue.json');
+  const byKey = new Map(catalogue.icons.map(({ key, label }) => [key, label]));
+  BUILT_IN_ICONS.forEach(({ key, label }) => assert.equal(byKey.get(key), label));
+  const labels = new Set(IconOpts.map(({ label }) => label));
+  assert.deepEqual(new Set(Object.keys(iconLabelsNL)), labels);
+  for (const label of labels) {
+    assert.ok(iconLabelsNL[label], `Dutch label missing for ${label}`);
+  }
+  assert.equal(
+    iconLabelsNL[IconOpts.find(({ id }) => id === 'builtin:arbeidsuitbuiting-reis')!.label],
+    'Koffer'
+  );
+});
+
+test('removed icons resolve to available replacements and normalize on import', () => {
+  const catalogue = readJson<CatalogueManifest>('icons/catalogue.json');
+  const currentKeys = new Set(catalogue.icons.map(({ key }) => key));
+  for (const [oldKey, newKey] of Object.entries(REPLACED_ICON_KEYS)) {
+    assert.ok(!currentKeys.has(oldKey), `${oldKey} remains in the picker`);
+    assert.ok(currentKeys.has(newKey), `${newKey} is not an available replacement`);
+    assert.equal(resolveIconSource(oldKey as IconValue), resolveIconSource(newKey as IconValue));
+    assert.ok(!existsSync(publicFile(`icons/${oldKey.slice(8)}.svg`)), `${oldKey} asset remains`);
+    const model = normalizeDataModel({
+      crimeScripts: [{ id: 'old', label: 'Old', icon: oldKey, icons: [oldKey], stages: [] }],
+    });
+    assert.equal(model.crimeScripts[0].icon, newKey);
+    assert.deepEqual(model.crimeScripts[0].icons, [newKey]);
+  }
 });
 
 test('icon resolution preserves uploaded images and resolves catalogue keys', () => {

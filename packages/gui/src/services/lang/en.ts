@@ -1,4 +1,5 @@
 import { situationCrimePreventionClassificationTable } from '../abstract';
+import { IconOpts } from '@crime-script/core/icons';
 
 export const messages = {
   LANDING_CTA_DESCRIPTION: 'Load the English example scripts into your local workspace and adapt them to your analysis.',
@@ -95,8 +96,10 @@ export const messages = {
   IMAGE: 'Image',
   ICONS_MAX_FOUR: 'Icons (up to 4)',
   SEARCH_ICONS: 'Search icons',
-  SEARCH_ICON_HINT: 'Name or category',
+  NO_ICONS_FOUND: 'No icons found',
+  MAX_ICONS_SELECTED: 'You can select up to {max} icons',
   ICON_CREDITS: 'Icon sources and licenses',
+  ICON_LABELS: Object.fromEntries(IconOpts.map(({ label }) => [label, label])) as Record<string, string>,
   ACTIVITY: 'Activity',
   SPECIFY: 'Specify attributes',
   CONDITION: 'Condition',

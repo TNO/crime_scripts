@@ -1,5 +1,6 @@
 import { situationCrimePreventionClassificationTableNL } from '../abstract';
 import type { messages } from './en';
+import { iconLabelsNL } from './icon-labels.nl';
 
 export const messagesNL: typeof messages = {
   LANDING_CTA_DESCRIPTION: 'Laad de Nederlandse voorbeeldscripts in je lokale werkruimte en pas ze aan je eigen analyse aan.',
@@ -97,8 +98,10 @@ export const messagesNL: typeof messages = {
   IMAGE: 'Afbeelding',
   ICONS_MAX_FOUR: 'Iconen (maximaal 4)',
   SEARCH_ICONS: 'Zoek iconen',
-  SEARCH_ICON_HINT: 'Naam of categorie',
+  NO_ICONS_FOUND: 'Geen iconen gevonden',
+  MAX_ICONS_SELECTED: 'Je kunt maximaal {max} iconen selecteren',
   ICON_CREDITS: 'Bronnen en licenties van iconen',
+  ICON_LABELS: iconLabelsNL,
   ACTIVITY: 'Activiteit',
   ACTIVITIES: 'Activiteiten',
   SPECIFY: 'Specificeer eigenschappen',
