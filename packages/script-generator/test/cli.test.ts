@@ -18,7 +18,9 @@ test('CLI exposes stable JSON envelopes and confirmation exit codes', async () =
   assert.equal(exitCodeForErrorCode('classification-change-confirmation-required'), 7);
   const root = await mkdtemp(join(tmpdir(), 'crime-script-cli-'));
   const bundle = join(root, 'bundle.json');
+  const material = join(root, 'guidance.md');
   const workspace = join(root, 'work');
+  await writeFile(material, 'Local guidance for a defensive script.\n');
   await writeFile(bundle, JSON.stringify({
     schemaVersion: 3,
     version: 1,
@@ -45,6 +47,7 @@ test('CLI exposes stable JSON envelopes and confirmation exit codes', async () =
     '--source-sensitivity', 'public',
     '--detail', 'orienting',
     '--script-icon', 'builtin:document-check',
+    '--materials', material,
     '--non-interactive',
     '--json',
   ]);
@@ -66,6 +69,9 @@ test('CLI exposes stable JSON envelopes and confirmation exit codes', async () =
 
   const prepared = run(['prepare', '--workspace', workspace, '--json']);
   assert.equal(prepared.status, 0, prepared.stderr);
+  assert.equal(JSON.parse(prepared.stdout).data.materials, 1);
+  const state = JSON.parse(await readFile(join(workspace, 'state.json'), 'utf8'));
+  assert.equal(state.materials[0].sourcePath, 'guidance.md');
   const status = run(['status', '--workspace', workspace, '--json']);
   assert.equal(status.status, 3);
   assert.equal(JSON.parse(status.stdout).data.nextAction, 'write-candidate');

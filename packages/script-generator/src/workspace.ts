@@ -104,8 +104,16 @@ export const assertPreparedMaterialsCurrent = async (
   brief: GeneratorBrief,
   state: WorkspaceState
 ): Promise<void> => {
+  if (brief.materialDirectory &&
+    !await pathExists(resolveBriefPath(workspacePath, brief.materialDirectory))) {
+    throw new GeneratorError(
+      'prepare-required',
+      'Local source file or directory is missing; run prepare again.',
+      brief.materialDirectory
+    );
+  }
   const currentSources = brief.materialDirectory
-    ? await collectMaterialFiles(
+    ? await collectMaterials(
       resolveBriefPath(workspacePath, brief.materialDirectory),
       brief.recursiveMaterials === true
     )
@@ -168,6 +176,8 @@ const taxonomyContext = (model: DataModel): CandidateTaxonomies => {
   };
 };
 
+const materialExtensions = new Set(['.md', '.txt', '.docx', '.pdf', '.xlsx', '.csv']);
+
 const collectMaterialFiles = async (
   directory: string,
   recursive: boolean,
@@ -183,13 +193,26 @@ const collectMaterialFiles = async (
     }
     if (!entry.isFile()) continue;
     const extension = extname(entry.name).toLowerCase();
-    if (!['.md', '.txt', '.docx', '.pdf', '.xlsx', '.csv'].includes(extension)) continue;
+    if (!materialExtensions.has(extension)) continue;
     result.push({
       absolutePath,
       relativePath: normalizeRelativePath(relative(root, absolutePath)),
     });
   }
   return result.sort((left, right) => left.relativePath.localeCompare(right.relativePath));
+};
+
+const collectMaterials = async (
+  path: string,
+  recursive: boolean
+): Promise<Array<{ absolutePath: string; relativePath: string }>> => {
+  if ((await stat(path)).isFile()) {
+    if (!materialExtensions.has(extname(path).toLowerCase())) {
+      throw new GeneratorError('unsupported-material-file', `Unsupported material file: ${path}`, path);
+    }
+    return [{ absolutePath: path, relativePath: basename(path) }];
+  }
+  return collectMaterialFiles(path, recursive);
 };
 
 const doclingVersion = (): string | undefined => {
@@ -328,14 +351,14 @@ export const prepareWorkspace = async (
   if (brief.materialDirectory) {
     const materialDirectory = resolveBriefPath(workspacePath, brief.materialDirectory);
     const materialStat = await stat(materialDirectory).catch(() => undefined);
-    if (!materialStat?.isDirectory()) {
+    if (!materialStat?.isDirectory() && !materialStat?.isFile()) {
       throw new GeneratorError(
-        'missing-material-directory',
-        `Material directory does not exist: ${brief.materialDirectory}`,
+        'missing-material-path',
+        `Material file or directory does not exist: ${brief.materialDirectory}`,
         '$.materialDirectory'
       );
     }
-    const sources = await collectMaterialFiles(materialDirectory, brief.recursiveMaterials === true);
+    const sources = await collectMaterials(materialDirectory, brief.recursiveMaterials === true);
     const version = sources.some(({ absolutePath }) =>
       ['.docx', '.pdf', '.xlsx'].includes(extname(absolutePath).toLowerCase())
     ) ? doclingVersion() : undefined;

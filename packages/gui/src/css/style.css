@@ -1755,6 +1755,19 @@
   line-height: 1.2;
 }
 
+.script-metadata .classification-badge {
+  min-height: 1.75rem;
+  padding: 0.2rem 0.65rem;
+  font-size: 0.82rem;
+}
+
+.script-metadata .taxonomy-usage-link {
+  min-width: 1.35rem;
+  min-height: 1.35rem;
+  margin-inline-start: 0.25rem;
+  padding: 0;
+}
+
 .script-meta-pill--language {
   color: #1e3a8a;
   background: #dbeafe;
@@ -3610,11 +3623,6 @@ ul.kanban>li {
 
 .taxonomy-usage-link .material-icons {
   font-size: 1.15rem;
-}
-
-.taxonomy-usage-control .taxonomy-usage-link .material-icons,
-.activity-taxonomy-item .taxonomy-usage-link .material-icons {
-  transform: translateY(2px);
 }
 
 .activity-taxonomy-item {

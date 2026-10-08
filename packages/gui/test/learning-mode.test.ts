@@ -112,6 +112,36 @@ test('exercise candidates come from every supported field but only compatible sc
   ), false);
 });
 
+test('learning starts when a compatible script has an activity without a label', () => {
+  const source = script('source', 'public', 'nl', ['Prepare']);
+  const compatible = script('compatible', 'public', 'nl', ['Approach']);
+  Reflect.deleteProperty(compatible.stages[0].variants[0].activities[0], 'label');
+  Reflect.deleteProperty(source.stages[0].variants[0].indicators[0], 'label');
+  const warnings: string[] = [];
+  const originalWarn = console.warn;
+  console.warn = (message: string) => { warnings.push(message); };
+  let exercise;
+  try {
+    exercise = generateLearningExercise(source, [source, compatible], cast, 7);
+  } finally {
+    console.warn = originalWarn;
+  }
+  const activityQuestion = exercise.questions.find(({ kind }) => kind === 'activity-selection');
+  const indicatorQuestion = exercise.questions.find(({ kind }) => kind === 'indicator-selection');
+
+  assert.ok(activityQuestion);
+  assert.ok(activityQuestion.candidates.some(({ id, label }) =>
+    id === 'compatible-activity-0' && label === id
+  ));
+  assert.ok(indicatorQuestion?.candidates.some(({ id, label }) =>
+    id === 'source-indicator-0' && label === id
+  ));
+  assert.deepEqual(warnings, [
+    'Learning exercise item "compatible-activity-0" has no label; displaying its ID.',
+    'Learning exercise item "source-indicator-0" has no label; displaying its ID.',
+  ]);
+});
+
 test('answer comparison reports reference overlap and ordering without judging alternatives', () => {
   const selection = compareLearningAnswer({
     id: 'selection',

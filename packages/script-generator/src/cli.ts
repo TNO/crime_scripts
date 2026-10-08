@@ -30,7 +30,7 @@ const VERSION = packageManifest.version;
 const HELP = `crime-script-generator ${VERSION}
 
 Usage:
-  crime-script-generator init --bundle FILE [brief options]
+  crime-script-generator init --bundle FILE [brief options] [--materials FILE_OR_DIRECTORY]
   crime-script-generator prepare --workspace DIRECTORY
   crime-script-generator status --workspace DIRECTORY [--json]
   crime-script-generator build --workspace DIRECTORY [--output FILE]

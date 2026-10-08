@@ -31,7 +31,7 @@
     "scriptIcon": { "type": "string", "pattern": "^builtin:" },
     "focus": { "type": "array", "items": { "type": "string", "minLength": 1 } },
     "exclusions": { "type": "array", "items": { "type": "string", "minLength": 1 } },
-    "materialDirectory": { "type": "string", "minLength": 1 },
+    "materialDirectory": { "type": "string", "minLength": 1, "description": "Path to one supported material file or a directory; legacy field name retained for workspace compatibility." },
     "recursiveMaterials": { "type": "boolean" },
     "existingScriptId": { "type": "string", "minLength": 1 }
   }

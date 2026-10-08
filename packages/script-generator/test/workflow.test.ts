@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { mkdtemp, mkdir, readFile, writeFile } from 'node:fs/promises';
+import { mkdtemp, mkdir, readFile, unlink, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import test from 'node:test';
@@ -45,6 +45,61 @@ const candidate: CandidateFile = {
     notes: 'Defensive fictional example.',
   },
 };
+
+test('prepare accepts one material file without a staging directory', async () => {
+  const root = await mkdtemp(join(tmpdir(), 'crime-script-generator-file-'));
+  const bundlePath = join(root, 'bundle.json');
+  const materialPath = join(root, 'guidance.md');
+  const workspacePath = join(root, 'draft');
+  await writeFile(bundlePath, JSON.stringify({
+    schemaVersion: 3,
+    version: 1,
+    lastUpdate: 1,
+    crimeScripts: [],
+    cast: [],
+    attributes: [],
+    locations: [],
+    geoLocations: [],
+    products: [],
+    transports: [],
+    partners: [],
+  }));
+  await writeFile(materialPath, 'Independent verification supports a defensible decision.\n');
+  const brief: GeneratorBrief = {
+    schemaVersion: 1,
+    bundlePath,
+    scriptId: 'generated:nl:script:single-file',
+    subject: 'Single file',
+    purpose: 'Defensive training',
+    geography: 'Nederland',
+    contentLanguage: 'nl',
+    classification: 'public',
+    sourceSensitivity: 'public',
+    detail: 'practical',
+    scriptIcon: 'builtin:document-check',
+    materialDirectory: materialPath,
+  };
+  await initializeWorkspace(workspacePath, brief);
+  const prepared = await prepareWorkspace(workspacePath);
+  assert.equal(prepared.state.materials.length, 1);
+  assert.equal(prepared.state.materials[0].sourcePath, 'guidance.md');
+  assert.equal(await readFile(join(workspacePath, prepared.state.materials[0].markdownPath), 'utf8'),
+    'Independent verification supports a defensible decision.\n');
+  assert.equal((await getWorkspaceStatus(workspacePath)).nextAction, 'write-candidate');
+  await writeFile(materialPath, 'Revised guidance.\n');
+  assert.equal((await getWorkspaceStatus(workspacePath)).nextAction, 'prepare');
+  const updated = await prepareWorkspace(workspacePath);
+  assert.notEqual(updated.state.materials[0].sourceHash, prepared.state.materials[0].sourceHash);
+  const unsupported = join(root, 'notes.html');
+  await writeFile(unsupported, 'Not a supported source.');
+  await initializeWorkspace(join(root, 'unsupported'), {
+    ...brief,
+    materialDirectory: unsupported,
+  });
+  await assert.rejects(prepareWorkspace(join(root, 'unsupported')), /Unsupported material file/);
+  await unlink(materialPath);
+  assert.equal((await getWorkspaceStatus(workspacePath)).nextAction, 'prepare');
+});
 
 test('prepare, build, GUI review, and explicit merge form a non-destructive workflow', async () => {
   const root = await mkdtemp(join(tmpdir(), 'crime-script-generator-'));

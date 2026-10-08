@@ -1,9 +1,10 @@
 # Crime Script Generator CLI
 
 `@crime-script/generator` turns researched, structured input into a validated standalone crime
-script and can merge a reviewed result into a new bundle. The CLI is provider-neutral and contains
-no LLM: it prepares context and validates files, while a person or an AI assistant performs the
-research and authors the candidate.
+script. The CLI is provider-neutral and contains no LLM: it prepares read-only taxonomy context
+and validates files, while a person or an AI assistant performs the research and authors the
+candidate. The optional `merge` command is not needed when the user imports the standalone JSON
+through the GUI review tool.
 
 Commands never modify the input bundle.
 
@@ -56,15 +57,19 @@ export PATH="$PWD/packages/script-generator/bin:$PATH"
 
 ## Preferred workflow: let an agent run everything
 
-The CLI deliberately does not contain an LLM. An agent supplies the missing intelligence: it reads
-the prepared bundle context, researches the subject, and authors `candidate.json`, `evidence.json`,
-and `research-log.json`. The CLI then validates those files and builds the standalone bundle.
+The CLI deliberately does not contain an LLM. An agent reads `prepared/context.json` to reuse
+roles, attributes, products, transports, locations, geographic locations, and partners from the
+starter bundle; `icons --json` lists available built-in script icons. It uses supplied documents
+as primary evidence, researching the web for scripts without local documents or when external
+enrichment is requested. For essential gaps in supplied documents, it asks before expanding
+research. It authors `candidate.json`, `evidence.json`, and `research-log.json`;
+the CLI then validates those files and builds one GUI-importable standalone JSON.
 
 You do not need to run `init`, wait for `prepare`, and then hand the workspace to an LLM. Invoke the
 skill once. The agent should ask for any missing scope decisions, create an isolated temporary
 workspace, control every CLI command, read the prepared materials, perform the research, author and
 repair all three files, and build the standalone JSON. It should preserve the workspace until the
-review cycle is finished.
+review cycle is finished, without merging into the input bundle.
 
 The normal user interaction is therefore:
 
@@ -72,13 +77,12 @@ The normal user interaction is therefore:
 User: request a new script or update
 Agent: ask only for missing scope or safety decisions
 Agent + CLI: init -> prepare -> research -> author -> validate -> build
-User: review the standalone JSON in the GUI
-Agent + CLI: merge the reviewed file after explicit approval
+User: review and incorporate the standalone JSON in the GUI
 ```
 
 There is no LLM handoff after `prepare`: that is only an internal phase transition in the
-agent-controlled workflow. The user-facing pause occurs after `build`, because GUI review and merge
-approval must remain human decisions.
+agent-controlled workflow. The user-facing handoff occurs after `build`; the user handles import
+and review in the GUI.
 
 This repository includes the project skill at
 [`../../.agents/skills/crime-script-generator/`](../../.agents/skills/crime-script-generator/).
@@ -91,7 +95,7 @@ for a new script can be as simple as:
 > `builtin:document-check` as the icon. Research authoritative public sources, build a standalone
 > JSON file, and stop before merge so I can review it in the GUI.
 
-For a script based on local material, include the directory and its sensitivity:
+For a script based on local material, include the file or directory and its sensitivity:
 
 > Use the crime-script-generator skill to create a restricted Dutch script about [subject], using
 > the restricted bundle at `/path/to/bundle.json` and the local restricted source material in
@@ -113,8 +117,9 @@ The agent should perform this workflow:
    perspectives.
 4. Write the candidate, evidence, and research-log files using the skill schemas.
 5. Run `status --json`, repair every blocking issue, and repeat until the next action is `build`.
-6. Run `build` and give you the standalone JSON for GUI review.
-7. Stop. After you return the reviewed JSON and explicitly approve the merge, run `merge`.
+6. Run `build` with an output path in the temporary workspace and give you the standalone JSON
+   for GUI review.
+7. Stop. Do not merge unless separately requested.
 
 If skills are not discovered automatically in another agent environment, tell the agent to read
 `.agents/skills/crime-script-generator/SKILL.md` before starting. Do not ask a general chat model to
@@ -165,7 +170,7 @@ CLI: init -> prepare
 LLM/agent: research -> candidate.json + evidence.json + research-log.json
 CLI: status -> build
 Human: review and edit the standalone JSON in the GUI
-CLI: merge after explicit approval
+Human: incorporate the standalone JSON in the GUI
 ```
 
 The workspace files are:
@@ -211,18 +216,20 @@ beside the source bundle; it does not overwrite the source.
 
 ## Add local source material
 
-Pass a material directory during initialization:
+Pass a single supported file (including a PDF) or a directory during initialization:
 
 ```sh
 crime-script-generator init \
   --bundle "$BUNDLE" \
   --workspace "$WORKSPACE" \
-  --materials "/absolute/path/to/materials"
+  --materials "/absolute/path/to/source.pdf"
 ```
 
-Markdown, text, and CSV files are read directly. DOCX, PDF, and XLSX conversion uses a local
-`docling` executable when available. Restricted documents must remain local and must not be
-uploaded to an external conversion service.
+`prepare` creates the converted Markdown and metadata inside its own workspace. Do not create
+a separate Markdown folder for evidence: `evidence.json` links claims to the prepared source's
+relative filename and hash. Markdown, text, and CSV files are read directly. DOCX, PDF, and XLSX
+conversion requires a local `docling` executable. Restricted documents must remain local and
+must not be uploaded to an external conversion service.
 
 After material changes, rerun:
 

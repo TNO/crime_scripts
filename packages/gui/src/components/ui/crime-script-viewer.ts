@@ -220,12 +220,6 @@ export const CrimeScriptViewer: FactoryComponent<{
     mdHighlighter: (text?: string) => string,
     usageButton: (taxonomy: TaxonomyName, id: ID, label: string) => m.Vnode
   ) => {
-    const attrIds = Array.from(
-      activities.reduce((acc, { attributes: curAttr }) => {
-        if (curAttr) curAttr.forEach((id) => acc.add(id));
-        return acc;
-      }, new Set<ID>())
-    );
     const transIds = Array.from(
       activities.reduce((acc, { transports: curAttr }) => {
         if (curAttr) curAttr.forEach((id) => acc.add(id));
@@ -258,18 +252,13 @@ ${measuresToHtml(measures, lookupPartner, findCrimeMeasure)}`
         m('h5', t('STEPS')),
         renderActivities(activities, cast, attributes, transports, crimeScript, model, scriptMode, targetActivityId, highlighter, usageButton),
       ],
-      ([
-        ['attributes', attributes, attrIds, t('ATTRIBUTES')],
-        ['transports', transports, transIds, t('TRANSPORTS')],
-      ] as const).map(([taxonomy, items, ids, heading]) =>
-        ids.length > 0 && m('section', [
-          m('h5', heading),
-          m('ol', ids.map((id) => {
-            const item = items.find((entry) => entry.id === id);
-            return item && m('li', { key: id }, [item.label, usageButton(taxonomy, id, item.label)]);
-          })),
-        ])
-      ),
+      transIds.length > 0 && m('section', [
+        m('h5', t('TRANSPORTS')),
+        m('ol', transIds.map((id) => {
+          const item = transports.find((entry) => entry.id === id);
+          return item && m('li', { key: id }, [item.label, usageButton('transports', id, item.label)]);
+        })),
+      ]),
       md.trim() && m(SlimdownView, { md: mdHighlighter(md) }),
     ];
   };

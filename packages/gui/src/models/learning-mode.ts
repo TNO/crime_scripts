@@ -67,7 +67,13 @@ const shuffled = <T>(items: readonly T[], random: () => number): T[] => {
   return result;
 };
 
-const asCandidate = ({ id, label, description }: Labelled): LearningCandidate => ({ id, label, description });
+const asCandidate = ({ id, label, description }: Labelled): LearningCandidate => {
+  if (typeof label !== 'string' || !label.trim()) {
+    console.warn(`Learning exercise item "${id}" has no label; displaying its ID.`);
+    return { id, label: id, description };
+  }
+  return { id, label, description };
+};
 
 const uniqueAlternatives = (
   reference: readonly LearningCandidate[],

@@ -1,31 +1,36 @@
 ---
 name: crime-script-generator
-description: Researches and drafts evidence-based crime scripts from an existing JSON bundle using the provider-neutral crime-script-generator CLI. Use when asked to create or update a crime script, extend a starter or restricted bundle, research a crime pattern, or prepare a script for GUI review and guarded merge.
+description: Researches and drafts evidence-based standalone crime scripts using the provider-neutral crime-script-generator CLI and an existing JSON bundle as read-only context. Use when asked to create or update a crime script, use local documents, or prepare a script for GUI review.
 ---
 
 # Crime Script Generator
 
-Use your own file and web tools for research. The CLI contains no LLM. It deterministically prepares
-context, validates evidence and safety, builds a standalone script, and merges only after review.
+Use your own file tools and, when needed, web tools for research. The CLI contains no LLM. It
+prepares context, validates evidence and safety, and builds a standalone script.
 
 Own the complete workflow. Do not ask the user to run CLI commands or author workspace files.
 Ask only for missing scope decisions, create an isolated temporary workspace, operate the CLI,
-perform the research and authoring, and report the standalone file when it is ready for GUI review.
+perform the research and authoring, and report the single standalone JSON for GUI review. Do not
+merge it into a bundle; the user can import it through the review tool.
 
 ## Quick start
 
 1. Resolve the CLI using the procedure below. Run `--version` and require a compatible
    `>=0.1.0 <0.2.0` version.
-2. Collect the bundle, new/update mode, subject, purpose, geography, language, classification,
-   source sensitivity, detail level, icon, and optional materials. Ask only for values that cannot
-   be inferred safely.
+2. Collect the read-only bundle, new/update mode, subject, purpose, geography, language,
+   classification, source sensitivity, detail level, icon, and optional document file or directory.
+   Ask only for values that cannot be inferred safely.
 3. Create a temporary workspace outside the repository and initialize it non-interactively.
-   Preserve that workspace until review and merge are complete.
-4. Run `prepare`, then inspect `prepared/context.json` and converted local Markdown.
-5. Research and write `candidate.json`, `evidence.json`, and `research-log.json`.
+   Preserve it for review; keep the bundle untouched.
+4. Run `prepare`. Use `prepared/context.json` for existing roles, attributes, products, transports,
+   locations, geography, partners, and target-script IDs; use `icons --json` for built-in icon
+   choices. Read only relevant converted passages in `prepared/materials/*.md`, not the whole bundle.
+5. Prioritize the supplied documents. Search the web for a new script without local documents or
+   when requested; ask before broadening document-based research to fill essential gaps. Write
+   `candidate.json`, `evidence.json`, and `research-log.json`; link claims to local source hashes.
 6. Run `status --json`; resolve every error and material warning without handing work back.
-7. Run `build`; give the standalone JSON and workspace path to the user for GUI review.
-8. Stop for the reviewed file and explicit user approval before `merge`.
+7. Run `build` with an output path in the temporary workspace. Give the one standalone JSON and
+   workspace path to the user for GUI review. Stop; never merge unless explicitly requested later.
 
 ## Resolve the CLI
 
@@ -43,20 +48,7 @@ If repository dependencies are missing, restore them with the repository's decla
 manager, then retry once. Do not download executables or install Node, Bun, or package managers
 without user approval. If no compatible option is available, report the blocker.
 
-```sh
-crime-script-generator init \
-  --bundle ./bundle.json \
-  --script-id generated:nl:script:example \
-  --subject "Example subject" \
-  --purpose "RIEC review and defensive intervention design" \
-  --geography "Netherlands" \
-  --content-language nl \
-  --classification restricted \
-  --source-sensitivity restricted \
-  --detail practical \
-  --script-icon builtin:document-check \
-  --non-interactive
-```
+See [the CLI README](../../../packages/script-generator/README.md) for `init` examples.
 
 ## Non-negotiable safeguards
 
@@ -65,12 +57,15 @@ crime-script-generator init \
   queries or URLs. Search from generic concepts in the brief.
 - If no web tool is available, stop unless the available local sources independently meet the
   evidence standard. Never pretend to have researched.
+- Do not create an extra Markdown or evidence folder: `prepare` creates `prepared/materials/*.md`
+  and `evidence.json` holds citations. A single PDF can be passed directly to `--materials`.
 - Do not create procedural criminal instructions, exploitable parameters, vulnerable-site details,
   optimization advice, or evasion tactics.
 - Prefer official, legal, law-enforcement, international, scientific, and professional sources.
   Use journalism only for case context and encyclopedias only for secondary historical facts.
 - Support every core phase, activity, indicator, and measure with one or more valid sources.
-- Preserve contradictions and uncertainty. Run both contradiction and missing-perspective searches.
+- Preserve contradictions and uncertainty. Check both within the available documents; expand to
+  external sources only when needed or requested. Record honestly what was and was not checked.
 - Never modify the source bundle. Never use `--overwrite` without explicit user approval.
 - Never pass `--yes`, classification-change confirmation, or deletion confirmation on the user's
   behalf without explicit approval.

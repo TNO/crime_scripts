@@ -34,6 +34,18 @@ committed or published.
 - `prepared/materials/*.md`
 - `state.json`
 
+Use the bundle as read-only taxonomy context: `prepared/context.json` contains its roles (`cast`),
+attributes, products, transports, locations, geographic locations, partners, and (for updates)
+the target script. Match existing keys/IDs before adding taxonomy items. Built-in script icon
+keys and labels come from `crime-script-generator icons --json`; the generator does not import
+arbitrary image files. Avoid feeding `prepared/normalized-bundle.json` or entire long documents
+to a local model when the relevant context/passages suffice.
+
+`--materials` accepts one supported file or a directory. A single PDF does not need a staging
+folder. `prepare` creates the Markdown inside its own workspace and records source hashes;
+do not create a second Markdown folder to link evidence. Local evidence uses the prepared
+source's relative `sourcePath` as `filename` and its `sourceHash` or `markdownHash`.
+
 Markdown, text, and CSV files are read directly. DOCX, XLSX, and text-native PDF require a local
 `docling` executable. If Docling is unavailable, DOCX and text-native PDF can be converted locally
 at <https://erikvullings.github.io/word-convert/>; export XLSX to CSV or install Docling. Unsupported,
@@ -52,8 +64,11 @@ confirmation. A blocked `status` returns its normal data envelope and exits `3`.
 
 `build` validates the current prepared hashes, complete research, evidence coverage, taxonomy,
 hierarchy, safety declarations, duplicate content, ID ownership, and update deletions. It writes
-`<script-slug>.standalone.json` without changing the bundle. Scene and
-activity-group icons are discarded during normalization; only script icons remain.
+`<script-slug>.standalone.json` without changing the bundle. Choose an output in the temporary
+workspace so no file is placed beside or merged into the input bundle. The output is one
+GUI-importable JSON model containing one script and its needed taxonomy entries, not a modified
+copy of the source bundle. Scene and activity-group icons are discarded during normalization;
+only script icons remain.
 
 Use `--confirm-classification-change` or `--confirm-deletions` only after showing the exact change
 to the user and receiving approval.
@@ -70,7 +85,9 @@ If the user requested separate handoff copies, compare them with the prior works
 before replacing them. Preserve restricted file permissions and never overwrite independent
 reviewer changes. Updating a disk file does not update an already imported browser model.
 
-`merge` compares GUI edits with the last build. For each evidence-bearing changed node, decide
+The default handoff ends at the standalone file. The user imports and reviews it in the GUI;
+do not invoke `merge` unless explicitly requested later. If requested, `merge` compares GUI
+edits with the last build. For each evidence-bearing changed node, decide
 whether the previous evidence still applies. If not, add replacement source keys or accept an
 `unsubstantiated-after-human-edit` marker. Non-interactive runs use a versioned review-answer JSON
 file. Merge refuses stale target scripts and writes:
@@ -81,18 +98,19 @@ The original bundle remains unchanged.
 
 ## Research protocol
 
-1. Read the brief and prepared context.
-2. Extract generic concepts without copying restricted phrases.
-3. Search broad official/international sources for the process structure.
-4. Search legal, supervisory, law-enforcement, scientific, and professional sources for roles,
-   observable traces, indicators, decision points, and defensible barriers.
-5. Search explicitly for contradictions, alternative explanations, and missing stakeholder
-   perspectives.
-6. Record every visited URL and decision in `research-log.json`.
-7. Store short supporting passages, locators, access dates, provenance, reliability rationale, and
-   hashes in `evidence.json`. Do not copy complete web works.
-8. Link evidence claims to candidate node keys.
-9. Stop only when all core factual nodes have adequate evidence and both closing searches are done.
+1. Read the brief, prepared context, and relevant portions of provided local documents.
+2. Extract source-supported activities, roles, resources, traces, and measures. Use the supplied
+   documents as the primary evidence, checking contradictions, alternative explanations, and
+   missing perspectives within them. Never present a single document as independent corroboration.
+3. If no adequate local documents exist, or the user asks for enrichment, research authoritative
+   public sources. Supplement local documents when essential claims cannot otherwise be supported;
+   do not fill gaps with model memory or invented details. Ask before broadening the requested scope.
+4. Keep web queries generic when working with restricted material. Record visited URLs and decisions
+   in `research-log.json`; with local-only research, do not invent web entries. Complete its two
+   closing checks only after actually assessing contradictions and missing perspectives.
+5. Store short supporting passages, locators, provenance, reliability rationale, and hashes in
+   `evidence.json`. Link evidence claims to candidate node keys. Do not copy complete works.
+6. Stop only when all core factual nodes have adequate evidence; omit unsupported optional claims.
 
 Age alone does not invalidate a source. Report its age. A source already marked invalid remains
 blocking until replaced or explicitly repaired.
