@@ -139,7 +139,7 @@ export const findRestrictedResearchLeak = (
   brief: LoadedWorkspace['brief'],
   research: ResearchLogFile,
   materialNames: string[] = []
-): number | undefined => {
+): { entryIndex: number; phrase: string; field: 'query' | 'url' } | undefined => {
   if (brief.sourceSensitivity !== 'restricted') return undefined;
   const sensitivePhrases = new Set<string>();
   const sensitiveIdentifiers = new Set<string>();
@@ -169,44 +169,41 @@ export const findRestrictedResearchLeak = (
       });
   }
   for (const [index, entry] of research.entries.entries()) {
-    const raw = [entry.query, entry.url].filter(Boolean).join(' ');
-    const decoded = raw.replace(/(?:%[0-9a-f]{2})+/gi, (encoded) => {
-      try {
-        return decodeURIComponent(encoded);
-      } catch {
-        return ' ';
+    for (const field of ['query', 'url'] as const) {
+      const raw = entry[field];
+      if (!raw) continue;
+      const decoded = raw.replace(/(?:%[0-9a-f]{2})+/gi, (encoded) => {
+        try {
+          return decodeURIComponent(encoded);
+        } catch {
+          return ' ';
+        }
+      });
+      const exposed = normalizedWords(`${raw} ${decoded}`).join(' ');
+      const decodedExposed = ` ${normalizedWords(decoded).join(' ')} `;
+      for (const phrase of sensitivePhrases) {
+        if (exposed.includes(phrase)) {
+          return { entryIndex: index, phrase, field };
+        }
       }
-    });
-    const exposed = normalizedWords(`${raw} ${decoded}`).join(' ');
-    const decodedExposed = ` ${normalizedWords(decoded).join(' ')} `;
-    let copiedPhrase = false;
-    for (const phrase of sensitivePhrases) {
-      if (exposed.includes(phrase)) {
-        copiedPhrase = true;
-        break;
+      for (const phrase of sensitiveIdentifiers) {
+        if (decodedExposed.includes(` ${phrase} `)) {
+          return { entryIndex: index, phrase, field };
+        }
       }
-    }
-    if (copiedPhrase) {
-      return index;
-    }
-    if ([...sensitiveIdentifiers].some((identifier) =>
-      decodedExposed.includes(` ${identifier} `)
-    )) {
-      return index;
-    }
-    const leakedFilename = materialNames.some((sourcePath) => {
-      const filename = basename(sourcePath, extname(sourcePath));
-      const words = normalizedWords(filename);
-      const fingerprint = words.join(' ');
-      const compactIdentifier = filename.length >= 3 && /\d/.test(filename) && /[A-Za-z]/.test(filename);
-      const distinctivePhrase = words.length >= 2 && fingerprint.length >= 6;
-      const longStem = filename.length >= 12;
-      return !approvedText.includes(fingerprint) &&
-        (compactIdentifier || distinctivePhrase || longStem) &&
-        exposed.includes(fingerprint);
-    });
-    if (leakedFilename) {
-      return index;
+      for (const sourcePath of materialNames) {
+        const filename = basename(sourcePath, extname(sourcePath));
+        const words = normalizedWords(filename);
+        const fingerprint = words.join(' ');
+        const compactIdentifier = filename.length >= 3 && /\d/.test(filename) && /[A-Za-z]/.test(filename);
+        const distinctivePhrase = words.length >= 2 && fingerprint.length >= 6;
+        const longStem = filename.length >= 12;
+        if (!approvedText.includes(fingerprint) &&
+          (compactIdentifier || distinctivePhrase || longStem) &&
+          exposed.includes(fingerprint)) {
+          return { entryIndex: index, phrase: fingerprint, field };
+        }
+      }
     }
   }
   return undefined;
@@ -222,17 +219,20 @@ const assertRestrictedResearchPrivacy = async (
       readFile(resolve(workspacePath, material.markdownPath), 'utf8')
     )
   );
-  const leakingEntry = findRestrictedResearchLeak(
+  const leak = findRestrictedResearchLeak(
     contents,
     loaded.brief,
     loaded.research,
     loaded.state.materials.map(({ sourcePath }) => sourcePath)
   );
-  if (leakingEntry !== undefined) {
+  if (leak) {
+    const displayPhrase = leak.phrase.length > 80
+      ? `${leak.phrase.slice(0, 80)}...`
+      : leak.phrase;
     throw new GeneratorError(
       'restricted-query-leak',
-      'A research query or URL contains text, a name, an identifier, or a filename copied from restricted local material.',
-      `$.entries[${leakingEntry}]`
+      `A research query or URL contains text, a name, an identifier, or a filename copied from restricted local material (matched phrase: "${displayPhrase}" in ${leak.field}).`,
+      `$.entries[${leak.entryIndex}]`
     );
   }
 };

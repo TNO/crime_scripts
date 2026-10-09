@@ -64,6 +64,7 @@ last.
 
 - [x] 0023 Extend public walkthroughs *(needs 0022)*
 - [x] 0024 Refresh starter docs and walkthroughs
+- [x] 0025 Apply generator retro findings *(needs 0009, 0024)*
 
 ## Restricted workflows
 

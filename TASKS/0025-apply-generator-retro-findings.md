@@ -1,11 +1,11 @@
 # 0025 Apply generator retro findings
 
-Status: open
+Status: done
 Priority: high
 Subsystem: script-generator + crime-script-generator skill
 Depends on: 0009, 0024
 Owner: Erik Vullings
-Agent: unassigned
+Agent: Copilot
 
 ## Context
 
@@ -88,3 +88,8 @@ per-activity evidence in the standalone file.
 - No new CLI subcommands; docs + the message improvement in #1 only.
 - Keep `test/privacy.test.ts` assertions on non-leaking entries unchanged in spirit:
   they must still prove queries naming brief-approved text pass.
+
+## Agent Notes
+
+- Fast-forwarded this worktree to `origin/main` at 1f9abfc. Implementing leak-match diagnostics and scoped reference updates; preserving existing chunking.
+- `packages/script-generator/src/operations.ts` now returns the matching normalized phrase and query/URL field, with an 80-character display cap in status/build errors. `test/privacy.test.ts` covers copied three-word phrases, names, identifiers, filenames, non-leaks, status/build and truncation. `.agents/skills/crime-script-generator/REFERENCE.md` explains trigram taxonomy matches, local PDF fallback, and the evidence/report mapping; no starter bundle or GUI model change. The full generator suite, typecheck and compiled binary passed.

@@ -42,14 +42,22 @@ keys and labels come from `crime-script-generator icons --json`; the generator d
 arbitrary image files. Avoid feeding `prepared/normalized-bundle.json` or entire long documents
 to a local model when the relevant context/passages suffice.
 
+`taxonomy-match-candidate` warns when a proposed label resembles a bundle label or a previously
+declared new label (checked in list order) at character-trigram similarity >= 0.65. If it is the
+same concept, set the existing item's explicit `id` from `prepared/context.json` (even an opaque
+one such as `nl-starter:cast:category:7`); otherwise choose a materially distinct label.
+Character trigrams can flag substring-style labels such as "Verwerker" and "Eindverwerker".
+
 `--materials` accepts one supported file or a directory. A single PDF does not need a staging
 folder. `prepare` creates the Markdown inside its own workspace and records source hashes;
 do not create a second Markdown folder to link evidence. Local evidence uses the prepared
 source's relative `sourcePath` as `filename` and its `sourceHash` or `markdownHash`.
 
 Markdown, text, and CSV files are read directly. DOCX, XLSX, and text-native PDF require a local
-`docling` executable. If Docling is unavailable, DOCX and text-native PDF can be converted locally
-at <https://erikvullings.github.io/word-convert/>; export XLSX to CSV or install Docling. Unsupported,
+`docling` executable for direct conversion. Without Docling, use `pdftotext -layout` (poppler)
+for a text-native PDF, pass the resulting local `.md` as `--materials`, or use
+<https://erikvullings.github.io/word-convert/> for non-restricted DOCX/PDF only; export XLSX to
+CSV or install Docling. Never upload restricted files to a conversion service. Unsupported,
 hidden, temporary, executable, and symlink files are ignored. Recursion is opt-in.
 
 Re-running `prepare` preserves authored files. Changed local sources mark linked evidence
@@ -101,6 +109,8 @@ workspace so no file is placed beside or merged into the input bundle. The outpu
 GUI-importable JSON model containing one script and its needed taxonomy entries, not a modified
 copy of the source bundle. Scene and activity-group icons are discarded during normalization;
 only script icons remain.
+Sources appear as `script.literature` in that JSON; per-node claims stay in the workspace
+`evidence.json`, with `keyToId` and `sourceKeyToLiteratureId` mappings in `reports/build-report.json`.
 
 Use `--confirm-classification-change` or `--confirm-deletions` only after showing the exact change
 to the user and receiving approval.
@@ -209,7 +219,8 @@ allowed. If the target changed, re-prepare and reconcile rather than forcing the
 
 - Missing web tools: stop or use only sufficient available sources.
 - Ambiguous taxonomy or materially conflicting evidence: ask the user.
-- Missing Docling: use the documented local fallback; never upload restricted files to a service.
+- Missing Docling: for text-native PDFs, run `pdftotext -layout input.pdf staging.md` (poppler)
+  locally and pass `staging.md` via `--materials`; never upload restricted files to a conversion service.
 - Stale brief, bundle, or target: run `prepare` and reconcile changes.
 - Existing output: choose a new path; use overwrite only with user approval.
 - Invalid or unsupported source: replace it, do not downgrade or silently ignore it.
