@@ -39,6 +39,7 @@ track interaction and activity-group terminology to be agreed before coding.
 
 - [x] 0013 Improve crime-script visualization *(needs 0010)*
 - [x] 0016 Link activities to crime scripts *(needs 0001, 0010)*
+- [ ] 0026 Readable source usage in literature panel
 
 ## Learning
 
