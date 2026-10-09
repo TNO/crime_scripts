@@ -258,10 +258,12 @@ export const loadData = async (uploadedData?: string | null) => {
   let model: DataModel;
   let legacyActRepairs = { relinked: 0, removed: 0 };
   let danglingReferenceRepairs = { references: 0, items: 0 };
+  let labelRepairs: Array<{ id: ID; path: string }> = [];
   try {
     const normalized = normalizeUploadedDataModel(ds ? JSON.parse(ds) : { crimeScripts: [] });
     const repaired = repairDanglingTaxonomyReferences(normalized.model);
     model = repaired.model;
+    labelRepairs = normalized.labelRepairs;
     legacyActRepairs = {
       relinked: normalized.repairs.filter(({ kind }) => kind === 'relinked').length,
       removed: normalized.repairs.filter(({ kind }) => kind === 'removed').length,
@@ -308,6 +310,13 @@ export const loadData = async (uploadedData?: string | null) => {
       });
       return translatedText(message);
     });
+  }
+  if (labelRepairs.length > 0) {
+    loadWarnings.push(() => translatedText(t('MODEL_LABELS_REPAIRED', {
+      count: labelRepairs.length,
+      id: labelRepairs[0].id,
+      path: labelRepairs[0].path,
+    })));
   }
   if (loadWarnings.length > 0) {
     setTimeout(() => snackbar({

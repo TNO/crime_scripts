@@ -62,6 +62,48 @@ test('uploaded JSON must contain a crimeScripts array', () => {
   assert.deepEqual(normalizeUploadedDataModel({ crimeScripts: [] }).model.crimeScripts, []);
 });
 
+test('model loading repairs missing labels without changing the input', () => {
+  const input = {
+    crimeScripts: [{
+      id: 'script',
+      label: 'Script',
+      stages: [{
+        id: 'scene',
+        label: 'Scene',
+        variants: [{
+          id: 'variant',
+          label: 'Variant',
+          activities: [{ id: 'activity' }],
+          conditions: [],
+          indicators: [{ id: 'indicator', label: '  ' }],
+          measures: [],
+          opportunities: [],
+        }],
+      }],
+    }],
+    cast: [{ id: 'role' }],
+  };
+  const before = structuredClone(input);
+
+  const { model, labelRepairs } = normalizeUploadedDataModel(input);
+  assert.deepEqual(labelRepairs, [
+    { id: 'activity', path: 'crimeScripts[0].stages[0].variants[0].activities[0]' },
+    { id: 'indicator', path: 'crimeScripts[0].stages[0].variants[0].indicators[0]' },
+    { id: 'role', path: 'cast[0]' },
+  ]);
+  assert.equal(model.crimeScripts[0].stages[0].variants[0].activities[0].label, 'activity');
+  assert.equal(model.crimeScripts[0].stages[0].variants[0].indicators[0].label, 'indicator');
+  assert.equal(model.cast[0].label, 'role');
+  assert.deepEqual(input, before);
+});
+
+test('uploaded models report the path of an item without a usable ID', () => {
+  assert.throws(
+    () => normalizeUploadedDataModel({ crimeScripts: [{ label: 'Untitled', stages: [] }] }),
+    /crimeScripts\[0\].*ID/
+  );
+});
+
 test('legacy acts become independently owned scene variants without changing track ids', () => {
   const normalized = normalizeDataModel(legacyModel);
   const firstVariant = normalized.crimeScripts[0].stages[0].variants[0];

@@ -150,21 +150,7 @@ const assertSafetyReview = (candidate: CandidateFile) => {
   }
 };
 
-const assertCandidateShape = (candidate: CandidateFile) => {
-  if (candidate.schemaVersion !== 1) {
-    throw new GeneratorError('unsupported-schema', 'candidate.json schemaVersion must be 1.', '$.schemaVersion');
-  }
-  if (!candidate.script?.label?.trim() || !candidate.script.description?.trim()) {
-    throw new GeneratorError('invalid-candidate', 'The script requires a label and description.', '$.script');
-  }
-  if (!Array.isArray(candidate.script.stages) || candidate.script.stages.length === 0) {
-    throw new GeneratorError('invalid-candidate', 'The script requires at least one stage.', '$.script.stages');
-  }
-  taxonomyNames.forEach((name) => {
-    if (!Array.isArray(candidate.taxonomies?.[name])) {
-      throw new GeneratorError('invalid-candidate', `Missing taxonomy array "${name}".`, `$.taxonomies.${name}`);
-    }
-  });
+export const assertCandidateNodeKeys = (candidate: CandidateFile): void => {
   const nodeKeys = new Set<string>();
   candidate.script.stages.forEach((stage, stageIndex) => {
     const nodes = [
@@ -189,6 +175,24 @@ const assertCandidateShape = (candidate: CandidateFile) => {
       nodeKeys.add(key);
     });
   });
+};
+
+const assertCandidateShape = (candidate: CandidateFile) => {
+  if (candidate.schemaVersion !== 1) {
+    throw new GeneratorError('unsupported-schema', 'candidate.json schemaVersion must be 1.', '$.schemaVersion');
+  }
+  if (!candidate.script?.label?.trim() || !candidate.script.description?.trim()) {
+    throw new GeneratorError('invalid-candidate', 'The script requires a label and description.', '$.script');
+  }
+  if (!Array.isArray(candidate.script.stages) || candidate.script.stages.length === 0) {
+    throw new GeneratorError('invalid-candidate', 'The script requires at least one scene.', '$.script.stages');
+  }
+  taxonomyNames.forEach((name) => {
+    if (!Array.isArray(candidate.taxonomies?.[name])) {
+      throw new GeneratorError('invalid-candidate', `Missing taxonomy array "${name}".`, `$.taxonomies.${name}`);
+    }
+  });
+  assertCandidateNodeKeys(candidate);
   assertSafetyReview(candidate);
 };
 
@@ -757,7 +761,7 @@ export const buildStandaloneCandidate = (
       };
     });
     if (variants.length === 0) {
-      throw new GeneratorError('invalid-stage', 'Every stage requires at least one variant.', `$.script.stages[${stageIndex}].variants`);
+      throw new GeneratorError('invalid-stage', 'Every scene requires at least one M.O. variant.', `$.script.stages[${stageIndex}].variants`);
     }
     return {
       id: sceneId,

@@ -16,7 +16,7 @@ merge it into a bundle; the user can import it through the review tool.
 ## Quick start
 
 1. Resolve the CLI using the procedure below. Run `--version` and require a compatible
-   `>=0.1.0 <0.2.0` version.
+   `>=0.1.1 <0.2.0` version with scene-chunk commands.
 2. Collect the read-only bundle, new/update mode, subject, purpose, geography, language,
    classification, source sensitivity, detail level, icon, and optional document file or directory.
    Ask only for values that cannot be inferred safely.
@@ -25,9 +25,13 @@ merge it into a bundle; the user can import it through the review tool.
 4. Run `prepare`. Use `prepared/context.json` for existing roles, attributes, products, transports,
    locations, geography, partners, and target-script IDs; use `icons --json` for built-in icon
    choices. Read only relevant converted passages in `prepared/materials/*.md`, not the whole bundle.
-5. Prioritize the supplied documents. Search the web for a new script without local documents or
-   when requested; ask before broadening document-based research to fill essential gaps. Write
-   `candidate.json`, `evidence.json`, and `research-log.json`; link claims to local source hashes.
+5. Prioritize supplied documents; search the web without them or when requested. Ask before
+   broadening document-based research. Write short chunks: a candidate header (`script.stages: []`)
+   via `init-candidate`, needed taxonomy items via `add-taxonomy`, one complete scene via
+   `add-scene`, then optional `add-activity` chunks.
+   Register each source once with `add-source` and link that scene's claims via `add-scene-claims`.
+   Match local source hashes; write `research-log.json` separately. Never generate whole candidate
+   or evidence files in one response. See [REFERENCE.md](REFERENCE.md) for shapes.
 6. Run `status --json`; resolve every error and material warning without handing work back.
 7. Run `build` with an output path in the temporary workspace. Give the one standalone JSON and
    workspace path to the user for GUI review. Stop; never merge unless explicitly requested later.
@@ -63,7 +67,7 @@ See [the CLI README](../../../packages/script-generator/README.md) for `init` ex
   optimization advice, or evasion tactics.
 - Prefer official, legal, law-enforcement, international, scientific, and professional sources.
   Use journalism only for case context and encyclopedias only for secondary historical facts.
-- Support every core phase, activity, indicator, and measure with one or more valid sources.
+- Support every core scene, activity, indicator, and measure with one or more valid sources.
 - Preserve contradictions and uncertainty. Check both within the available documents; expand to
   external sources only when needed or requested. Record honestly what was and was not checked.
 - Never modify the source bundle. Never use `--overwrite` without explicit user approval.

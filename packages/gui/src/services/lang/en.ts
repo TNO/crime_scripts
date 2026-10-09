@@ -326,6 +326,8 @@ export const messages = {
   STARTER_LOAD_FAILED: 'The starter library could not be loaded. Retry or start empty.',
   MODEL_REPAIRED:
     'The legacy model contained {count} missing activity groups. {relinked} were reconnected to existing content; {removed} had no source content and were removed.',
+  MODEL_LABELS_REPAIRED:
+    '{count} model items had missing labels; their IDs were used instead. First: "{id}" at {path}. The repaired model has been saved.',
   DELETE_REFERENCED_ITEMS_CONFIRM:
     'The following items are still used in crime scripts. Continuing will remove those references:\n\n{details}',
   DANGLING_REFERENCES_REPAIRED:

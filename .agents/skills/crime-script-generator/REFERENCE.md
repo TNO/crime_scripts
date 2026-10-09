@@ -19,7 +19,8 @@ packages/script-generator/bin/crime-script-generator --version
 
 Restore missing repository dependencies with its declared package manager. Never download a
 binary or install a runtime or package manager without user approval. Always verify that the
-resolved CLI reports a compatible `>=0.1.0 <0.2.0` version before creating a workspace.
+resolved CLI reports a compatible `>=0.1.1 <0.2.0` version before creating a workspace. Older
+0.1.0 binaries do not have scene-chunk commands; if present, build or use the source launcher.
 
 ## Workspace lifecycle
 
@@ -56,6 +57,37 @@ Re-running `prepare` preserves authored files. Changed local sources mark linked
 
 `status` is safe to run repeatedly. With `--json`, it returns a stable object with `ok`, `issues`,
 `nextAction`, and `artifacts`.
+
+### Scene-sized authoring
+
+Create a short header JSON using the `candidate.schema.json` fields, with `script.stages: []`,
+explicit `safetyReview`, and taxonomy arrays. The empty stages array is accepted only during
+chunked drafting; the completed candidate needs at least one scene. Do not assert that the
+safety review passed until checked.
+After `prepare`, run:
+
+```sh
+crime-script-generator init-candidate --workspace "$WORKSPACE" --file header.json
+crime-script-generator add-taxonomy --workspace "$WORKSPACE" --taxonomy cast --file role-1.json
+crime-script-generator add-scene --workspace "$WORKSPACE" --file scene-1.json
+crime-script-generator add-activity --workspace "$WORKSPACE" --scene-key intake --variant-key review --file activity-2.json
+crime-script-generator add-source --workspace "$WORKSPACE" --file source-1.json
+crime-script-generator add-scene-claims --workspace "$WORKSPACE" --scene-key intake --file claims-1.json
+crime-script-generator status --workspace "$WORKSPACE" --json
+```
+
+`role-1.json` is one taxonomy item; use `--taxonomy` with `cast`, `attributes`, `products`,
+`transports`, `locations`, `geoLocations`, or `partners`. `scene-1.json` is one scene object
+containing at least one M.O. variant and activity;
+`activity-2.json` is one activity object; `source-1.json` is one source object; `claims-1.json`
+is an array of claims for that scene only. Use their existing schema fields and keys; `stages`
+remains the on-disk field for scenes in candidate JSON. The CLI validates each chunk before
+atomically updating `candidate.json` or `evidence.json`; it rejects duplicate node/source keys,
+unknown scene/variant keys, cross-scene claims, and claims referencing unknown sources.
+For a deliberate revision of an existing scene, source, or scene's claims, rerun that command
+with `--replace`; activity additions require a fresh key. Full evidence coverage, source
+provenance, taxonomy, and safety checks still happen at `status` and `build`. Keep fragments in
+the temporary workspace; do not put sensitive content in command-line arguments.
 
 Machine-readable command envelopes use `schemaVersion`, `command`, `success`, and either `data` or
 `error`. Exit codes are stable: `0` success, `3` invalid or incomplete authored data, `4` stale

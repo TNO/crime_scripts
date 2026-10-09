@@ -328,6 +328,8 @@ export const messagesNL: typeof messages = {
   STARTER_LOAD_FAILED: 'De starterbibliotheek kon niet worden geladen. Probeer opnieuw of start leeg.',
   MODEL_REPAIRED:
     'Het oude model bevatte {count} ontbrekende activiteitgroepen. {relinked} konden aan bestaande inhoud worden gekoppeld; {removed} hadden geen broninhoud en zijn verwijderd.',
+  MODEL_LABELS_REPAIRED:
+    'Bij {count} modelitems ontbrak het label; hun ID is gebruikt. Eerste: "{id}" op {path}. Het herstelde model is opgeslagen.',
   DELETE_REFERENCED_ITEMS_CONFIRM:
     'De volgende items worden nog gebruikt in crime scripts. Als je doorgaat, worden ook deze verwijzingen verwijderd:\n\n{details}',
   DANGLING_REFERENCES_REPAIRED:

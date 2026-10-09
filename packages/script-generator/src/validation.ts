@@ -182,7 +182,7 @@ export const validateCandidate = (value: unknown): CandidateFile => {
       ) {
         throw new GeneratorError(
           'invalid-field',
-          `${variantPath}.label must describe the modus operandi instead of using a generic or repeated stage label.`,
+          `${variantPath}.label must describe the modus operandi instead of using a generic or repeated scene label.`,
           `${variantPath}.label`
         );
       }
@@ -379,7 +379,7 @@ export const validateDataModel = (model: DataModel): void => {
       if (stage.selectedVariantId && !variantIds.has(stage.selectedVariantId)) {
         throw new GeneratorError(
           'dangling-owned-reference',
-          `Stage "${stage.label}" selects missing variant "${stage.selectedVariantId}".`,
+          `Scene "${stage.label}" selects missing variant "${stage.selectedVariantId}".`,
           `$.crimeScripts[${scriptIndex}].stages[${stageIndex}].selectedVariantId`
         );
       }
@@ -404,7 +404,7 @@ export const validateDataModel = (model: DataModel): void => {
         if (!stage || (variantId && !stage.variants.some(({ id }) => id === variantId))) {
           throw new GeneratorError(
             'dangling-owned-reference',
-            `Track "${track.label}" contains an invalid stage or variant reference.`,
+            `Track "${track.label}" contains an invalid scene or M.O. variant reference.`,
             `$.crimeScripts[${scriptIndex}].tracks[${trackIndex}].sceneVariants.${stageId}`
           );
         }

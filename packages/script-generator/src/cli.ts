@@ -7,6 +7,7 @@ import { BUILT_IN_ICONS, isBuiltInIconKey } from '@crime-script/core/icons';
 import { normalizeUploadedDataModel } from '@crime-script/core/model-normalization';
 import type { ContentLanguage, ScriptClassification } from '@crime-script/core/data-model';
 import packageManifest from '../package.json' with { type: 'json' };
+import { addActivity, addScene, addSceneClaims, addSource, addTaxonomy, initCandidate } from './chunks.ts';
 import { exitCodeForErrorCode, GeneratorError } from './errors.ts';
 import { readJson } from './io.ts';
 import {
@@ -32,6 +33,12 @@ const HELP = `crime-script-generator ${VERSION}
 Usage:
   crime-script-generator init --bundle FILE [brief options] [--materials FILE_OR_DIRECTORY]
   crime-script-generator prepare --workspace DIRECTORY
+  crime-script-generator init-candidate --workspace DIRECTORY --file HEADER_JSON
+  crime-script-generator add-taxonomy --workspace DIRECTORY --taxonomy NAME --file ITEM_JSON
+  crime-script-generator add-scene --workspace DIRECTORY --file SCENE_JSON [--replace]
+  crime-script-generator add-activity --workspace DIRECTORY --scene-key KEY --variant-key KEY --file ACTIVITY_JSON
+  crime-script-generator add-source --workspace DIRECTORY --file SOURCE_JSON [--replace]
+  crime-script-generator add-scene-claims --workspace DIRECTORY --scene-key KEY --file CLAIMS_JSON [--replace]
   crime-script-generator status --workspace DIRECTORY [--json]
   crime-script-generator build --workspace DIRECTORY [--output FILE]
   crime-script-generator merge --workspace DIRECTORY --standalone FILE [--bundle CURRENT] --yes
@@ -64,6 +71,11 @@ const parse = (args: string[]): Parsed => parseArgs({
     focus: { type: 'string', multiple: true },
     exclude: { type: 'string', multiple: true },
     output: { type: 'string' },
+    file: { type: 'string' },
+    'scene-key': { type: 'string' },
+    'variant-key': { type: 'string' },
+    taxonomy: { type: 'string' },
+    replace: { type: 'boolean' },
     standalone: { type: 'string' },
     'review-answers': { type: 'string' },
     'non-interactive': { type: 'boolean' },
@@ -338,6 +350,43 @@ const requireWorkspace = (parsed: Parsed): string => {
   return resolve(workspace);
 };
 
+const requireOption = (parsed: Parsed, name: string): string => {
+  const value = getString(parsed, name);
+  if (!value?.trim()) throw new GeneratorError('missing-option', `--${name} is required.`, name);
+  return value;
+};
+
+const commandChunk = async (command: string, parsed: Parsed): Promise<void> => {
+  const workspace = requireWorkspace(parsed);
+  const file = resolve(requireOption(parsed, 'file'));
+  const replace = parsed.values.replace === true;
+  if (replace && !['add-scene', 'add-source', 'add-scene-claims'].includes(command)) {
+    throw new GeneratorError('invalid-option', `--replace is not supported by ${command}.`, 'replace');
+  }
+  let key: string | number;
+  if (command === 'init-candidate') {
+    await initCandidate(workspace, file);
+    key = 'candidate';
+  } else if (command === 'add-taxonomy') {
+    const taxonomy = choice(
+      requireOption(parsed, 'taxonomy'),
+      ['cast', 'attributes', 'products', 'transports', 'locations', 'geoLocations', 'partners'] as const,
+      '--taxonomy'
+    );
+    if (!taxonomy) throw new GeneratorError('missing-option', '--taxonomy is required.', 'taxonomy');
+    key = await addTaxonomy(workspace, file, taxonomy);
+  } else if (command === 'add-scene') {
+    key = await addScene(workspace, file, replace);
+  } else if (command === 'add-activity') {
+    key = await addActivity(workspace, file, requireOption(parsed, 'scene-key'), requireOption(parsed, 'variant-key'));
+  } else if (command === 'add-source') {
+    key = await addSource(workspace, file, replace);
+  } else {
+    key = await addSceneClaims(workspace, file, requireOption(parsed, 'scene-key'), replace);
+  }
+  printResult(parsed.values.json === true, command, { workspace, key }, `${command}: ${key}`);
+};
+
 const commandPrepare = async (parsed: Parsed): Promise<void> => {
   const workspace = requireWorkspace(parsed);
   const fresh = parsed.values.fresh === true;
@@ -502,6 +551,9 @@ const main = async (): Promise<void> => {
     }
     if (command === 'init') await commandInit(parsed);
     else if (command === 'prepare') await commandPrepare(parsed);
+    else if (['init-candidate', 'add-taxonomy', 'add-scene', 'add-activity', 'add-source', 'add-scene-claims'].includes(command)) {
+      await commandChunk(command, parsed);
+    }
     else if (command === 'status') await commandStatus(parsed);
     else if (command === 'build') await commandBuild(parsed);
     else if (command === 'merge') await commandMerge(parsed);

@@ -115,7 +115,12 @@ The agent should perform this workflow:
    `prepared/context.json` and local converted materials.
 3. Research authoritative sources and explicitly search for contradictions and missing
    perspectives.
-4. Write the candidate, evidence, and research-log files using the skill schemas.
+4. Write a short candidate header and assemble taxonomy items and scenes one at a time with
+   `init-candidate`, `add-taxonomy`, and `add-scene`. Register sources and link scene claims with
+   `add-source` and `add-scene-claims`;
+   add later activities with `add-activity`. Write `research-log.json` separately. See
+   [the skill reference](../../.agents/skills/crime-script-generator/REFERENCE.md#scene-sized-authoring)
+   for fragment shapes and commands.
 5. Run `status --json`, repair every blocking issue, and repeat until the next action is `build`.
 6. Run `build` with an output path in the temporary workspace and give you the standalone JSON
    for GUI review.
@@ -160,14 +165,16 @@ content. A blocked status exits with code `3`, even though it successfully repor
 In this manual walkthrough, this is the point where LLM work would occur. In the preferred
 skill-driven workflow, the same agent that ran `init` and `prepare` continues immediately: it reads
 `brief.yaml`, `prepared/context.json`, and any converted source materials; researches the subject;
-and writes `candidate.json`, `evidence.json`, and `research-log.json`. It then runs `status` and
-repairs its authored files until the next action is `build`.
+and writes small fragments, which the CLI assembles into `candidate.json` and `evidence.json`.
+It writes `research-log.json` separately, then runs `status` and repairs its authored files until
+the next action is `build`.
 
 The complete division of work is:
 
 ```text
 CLI: init -> prepare
-LLM/agent: research -> candidate.json + evidence.json + research-log.json
+LLM/agent + CLI: research -> header + scenes + sources + scene claims -> candidate.json + evidence.json
+LLM/agent: research-log.json
 CLI: status -> build
 Human: review and edit the standalone JSON in the GUI
 Human: incorporate the standalone JSON in the GUI
@@ -179,8 +186,8 @@ The workspace files are:
 |---|---|---|
 | `brief.yaml` | CLI during `init` | Scope, classification, source sensitivity, language, and input bundle |
 | `prepared/context.json` | CLI during `prepare` | Existing script and taxonomy context for the agent to reuse |
-| `candidate.json` | LLM/agent | Script, stages, activities, indicators, measures, and taxonomy additions |
-| `evidence.json` | LLM/agent | Sources, supporting passages, provenance, hashes, and claim-to-node links |
+| `candidate.json` | CLI from agent-authored fragments | Script, scenes (`stages` in JSON), activities, indicators, measures, and taxonomy additions |
+| `evidence.json` | CLI from agent-authored fragments | Sources, supporting passages, provenance, hashes, and claim-to-node links |
 | `research-log.json` | LLM/agent | Search decisions, visited URLs, contradictions, and missing perspectives |
 
 The JSON Schemas and shape-only examples are in

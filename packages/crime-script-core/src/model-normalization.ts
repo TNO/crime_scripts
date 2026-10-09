@@ -4,6 +4,7 @@ import type {
   CrimeScript,
   DataModel,
   ID,
+  Labelled,
   Scene,
   ScriptClassification,
   ServiceProvider,
@@ -38,6 +39,50 @@ export type LegacyActRepair = {
   sceneLabel: string;
   kind: 'relinked' | 'removed';
   sourceActId?: ID;
+};
+
+export type LabelRepair = { id: ID; path: string };
+
+const repairMissingLabels = (model: DataModel): LabelRepair[] => {
+  const repairs: LabelRepair[] = [];
+  const check = (item: Labelled, path: string) => {
+    if (!item || typeof item.id !== 'string' || !item.id.trim()) {
+      throw new Error(`Crime-script model item ${path} requires an ID.`);
+    }
+    if (typeof item.label !== 'string' || !item.label.trim()) {
+      item.label = item.id;
+      repairs.push({ id: item.id, path });
+    }
+  };
+  const checkItems = (items: Labelled[], path: string) =>
+    items.forEach((item, index) => check(item, `${path}[${index}]`));
+
+  model.crimeScripts.forEach((script, scriptIndex) => {
+    const scriptPath = `crimeScripts[${scriptIndex}]`;
+    check(script, scriptPath);
+    checkItems(script.literature, `${scriptPath}.literature`);
+    checkItems(script.tracks || [], `${scriptPath}.tracks`);
+    script.stages.forEach((scene, sceneIndex) => {
+      const scenePath = `${scriptPath}.stages[${sceneIndex}]`;
+      check(scene, scenePath);
+      scene.variants.forEach((variant, variantIndex) => {
+        const variantPath = `${scenePath}.variants[${variantIndex}]`;
+        check(variant, variantPath);
+        checkItems(variant.activities, `${variantPath}.activities`);
+        checkItems(variant.conditions, `${variantPath}.conditions`);
+        checkItems(variant.indicators, `${variantPath}.indicators`);
+        checkItems(variant.measures, `${variantPath}.measures`);
+        checkItems(variant.opportunities, `${variantPath}.opportunities`);
+        variant.indicators.forEach((item, index) =>
+          checkItems(item.inheritedSources || [], `${variantPath}.indicators[${index}].inheritedSources`));
+        variant.measures.forEach((item, index) =>
+          checkItems(item.inheritedSources || [], `${variantPath}.measures[${index}].inheritedSources`));
+      });
+    });
+  });
+  (['cast', 'attributes', 'locations', 'geoLocations', 'products', 'transports', 'partners'] as const)
+    .forEach((field) => checkItems(model[field], field));
+  return repairs;
 };
 
 const clone = <T>(value: T): T => structuredClone(value);
@@ -275,7 +320,7 @@ export const normalizeDataModel = (
 export const normalizeUploadedDataModel = (
   input: unknown,
   defaultClassification: ScriptClassification = 'public'
-): { model: DataModel; repairs: LegacyActRepair[] } => {
+): { model: DataModel; repairs: LegacyActRepair[]; labelRepairs: LabelRepair[] } => {
   if (
     !input ||
     typeof input !== 'object' ||
@@ -287,8 +332,10 @@ export const normalizeUploadedDataModel = (
     );
   }
   const repairs: LegacyActRepair[] = [];
+  const model = normalizeDataModelInternal(input, defaultClassification, repairs);
   return {
-    model: normalizeDataModelInternal(input, defaultClassification, repairs),
+    model,
     repairs,
+    labelRepairs: repairMissingLabels(model),
   };
 };
