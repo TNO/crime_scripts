@@ -31,6 +31,7 @@ import { lookupCrimeMeasure } from '../models/situational-crime-prevention.ts';
 import { t } from '../services/translations.ts';
 import { barrierVisualToPngBlob, createCrimeScriptBarrierVisual } from './barrier-export.ts';
 import { buildCrimeScriptReport, type CrimeScriptReport, type ReportBarrier, type ReportStep } from './report-model.ts';
+import { readableLiteratureUsage } from './literature-usage.ts';
 
 const navy = '17365D';
 const blue = '2F5496';
@@ -544,7 +545,7 @@ const barrierPages = (
     ];
   });
 
-const reportDetails = (report: CrimeScriptReport): Array<Paragraph | Table> => {
+const reportDetails = (report: CrimeScriptReport, script: CrimeScript): Array<Paragraph | Table> => {
   const children: Array<Paragraph | Table> = [];
   report.scenes.forEach((scene) => {
     children.push(
@@ -618,7 +619,10 @@ const reportDetails = (report: CrimeScriptReport): Array<Paragraph | Table> => {
       }
       children.push(...indentedTextParagraphs(reference.description, 360));
       if (reference.usedFor) {
-        children.push(new Paragraph({ indent: { left: 360 }, children: [labelRun(`${t('USED_FOR')}: `), new TextRun(reference.usedFor)] }));
+        children.push(new Paragraph({ indent: { left: 360 }, children: [
+          labelRun(`${t('USED_FOR')}: `),
+          new TextRun(readableLiteratureUsage(reference.usedFor, script, t) || ''),
+        ] }));
       }
     });
   }
@@ -671,7 +675,7 @@ export const createCrimeScriptWordDocument = (
       left: convertInchesToTwip(0.8),
     },
   };
-  const details = reportDetails(report);
+  const details = reportDetails(report, crimeScript);
   const sections = barrierImages.length > 0
     ? [
         {

@@ -548,7 +548,7 @@ ${measuresToHtml(measures, lookupPartner, findCrimeMeasure)}`
               m('summary', m('span', t('SOURCES_AND_REFERENCES', {
                 count: referenceCount,
               }))),
-              m(ReferenceListComponent, { references: literature }),
+              m(ReferenceListComponent, { references: literature, script: crimeScript }),
             ]),
           ]),
 

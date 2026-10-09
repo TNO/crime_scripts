@@ -1,6 +1,6 @@
 # 0026 Readable source usage in literature panel
 
-Status: open
+Status: done
 Priority: medium
 Subsystem: frontend
 Depends on: none
@@ -47,3 +47,7 @@ GUI has the full node tree loaded; the key list is the worst of both worlds.
   unchanged when they don't look like key lists.
 
 ## Agent Notes
+
+- Started after fast-forward to `a3e3bcf`. Resolve at GUI render time so labels reflect reviewer edits, preserve unknown keys and hand-authored free text; share resolution across viewer, preview, and both Word paths.
+- `packages/gui/src/utils/literature-usage.ts` summarizes exact generated keys by scene with localized counts; unmatched, punctuated, and retained-ID keys remain visible as raw keys rather than being misattributed. Integrated in `reference.ts`, `llm_script_wizard.ts`, `word.ts`, and `word-report.ts`; `test/literature-usage.test.ts` covers long lists, revised labels, repeated scene labels, free text and slug collisions. The GUI-only model lacks the generator's `keyToId` report, so retained IDs without generated key suffixes cannot be resolved safely at render time; preserve the raw key until an explicit mapping can be carried into the model.
+- GUI typecheck, full suite (153 passed, 1 skipped), and production build passed. `/code-review` found slug collision, punctuation and retained-ID caveats; collision/punctuation were fixed and tested, with the retained-ID fallback documented above. The production build rewrote tracked `docs/` artifacts, which were restored to their clean pre-build state.

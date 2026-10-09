@@ -14,6 +14,7 @@ import {
 } from '../../models';
 import type { Act, Labelled } from '../../models';
 import { i18n, type MeiosisComponent, t } from '../../services';
+import { readableLiteratureUsage } from '../../utils/literature-usage';
 
 type Step = 'brief' | 'prompt' | 'paste' | 'preview';
 
@@ -290,7 +291,7 @@ export const LlmScriptWizard: MeiosisComponent<{ onClose: () => void }> = () => 
                       source.authors && m('div', `${t('AUTHORS')}: ${source.authors}`),
                       source.type && m('div', `${t('TYPE')}: ${source.type}`),
                       source.url && m('div.llm-source-url', source.url),
-                      source.usedFor && m('div', `${t('USED_FOR')}: ${source.usedFor}`),
+                      source.usedFor && m('div', `${t('USED_FOR')}: ${readableLiteratureUsage(source.usedFor, preview!.script, t)}`),
                     ])
                   ))
                 : m('p.llm-empty', t('LLM_NONE')),

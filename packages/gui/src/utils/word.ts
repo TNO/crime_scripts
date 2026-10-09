@@ -22,6 +22,7 @@ import {
 import { lookupCrimeMeasure } from '../models/situational-crime-prevention';
 import { t } from '../services';
 import { addLeadingSpaces, measuresToMarkdown } from '.';
+import { readableLiteratureUsage } from './literature-usage.ts';
 
 const blue = '2F5496';
 
@@ -202,7 +203,7 @@ export const crimeScriptToMarkdown = (crimeScript: Partial<CrimeScript>, model: 
       const title = l.url ? `[${l.label}](${l.url})` : l.label;
       md.push(`${i + 1}. ${title} (${l.authors || ''})`);
       l.description && md.push(addLeadingSpaces(l.description, i < 9 ? 3 : 4));
-      l.usedFor && md.push(addLeadingSpaces(`${t('USED_FOR')}: ${l.usedFor}`, i < 9 ? 3 : 4));
+      l.usedFor && md.push(addLeadingSpaces(`${t('USED_FOR')}: ${readableLiteratureUsage(l.usedFor, crimeScript, t)}`, i < 9 ? 3 : 4));
     });
   }
   const cleaner = cleanText();
