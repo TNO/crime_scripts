@@ -70,3 +70,4 @@ last.
 Restricted content remains outside the public repository; only classification, mode, safeguards, and assembly tooling are versioned here.
 
 - [x] 0008 Add restricted script mode *(needs 0007)*
+- [ ] 0025 Apply generator retro findings *(needs 0008, 0009)*
