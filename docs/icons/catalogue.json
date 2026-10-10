@@ -968,6 +968,20 @@
       }
     },
     {
+      "key": "builtin:no-electronic-waste",
+      "label": "No electronic waste",
+      "category": "Environment",
+      "file": "no-electronic-waste.svg",
+      "attribution": {
+        "kind": "original",
+        "title": "No electronic waste",
+        "creator": "PAX Crime Scripting contributors",
+        "sourceUrl": "https://github.com/TNO/crime_scripts/blob/main/packages/gui/public/icons/no-electronic-waste.svg",
+        "license": "MIT",
+        "svgoModified": true
+      }
+    },
+    {
       "key": "builtin:oil-drop",
       "label": "Oil drop",
       "category": "Product",

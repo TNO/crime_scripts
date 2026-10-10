@@ -60,6 +60,7 @@ export const iconLabelsNL: Record<string, string> = {
   'Money exchange': 'Geld wisselen',
   'Money in laundry basket': 'Geld in wasmand',
   'Network with magnifier': 'Netwerk met vergrootglas',
+  'No electronic waste': 'Geen elektronisch afval',
   'Oil': 'Olie',
   'Oil drop': 'Oliedruppel',
   'Other': 'Anders',

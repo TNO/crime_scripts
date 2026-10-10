@@ -84,7 +84,7 @@ test('supplied icons are selectable and public starter scripts show one appropri
   const supplied = [
     'biogas-digester', 'car-drugs', 'chemical-lab', 'company-registry-document',
     'dangerous-dog', 'dog', 'freight-truck', 'hospital', 'oil-pipeline-tap',
-    'pitbull', 'shipping-container', 'wholesale-currency-cocaine', 'windhond',
+    'no-electronic-waste', 'pitbull', 'shipping-container', 'wholesale-currency-cocaine', 'windhond',
   ];
   for (const name of supplied) {
     const sourceName = name === 'car-drugs' ? 'car_drugs' : name;

@@ -132,6 +132,7 @@ export const BUILT_IN_ICONS = [
   { key: 'builtin:mensenhandel-seksuele-uitbuiting-verplaatsing', label: 'Suitcase', category: 'Starter scenes', file: 'mensenhandel-seksuele-uitbuiting-verplaatsing.svg' },
   { key: 'builtin:mortgage-house', label: 'House with currency', category: 'Finance', file: 'mortgage-house.svg' },
   { key: 'builtin:network-monitoring', label: 'Network with magnifier', category: 'Investigation', file: 'network-monitoring.svg' },
+  { key: 'builtin:no-electronic-waste', label: 'No electronic waste', category: 'Environment', file: 'no-electronic-waste.svg' },
   { key: 'builtin:oil-drop', label: 'Oil drop', category: 'Product', file: 'oil-drop.svg' },
   { key: 'builtin:oil-pipeline-tap', label: 'Pipe with valve', category: 'Product', file: 'oil-pipeline-tap.svg' },
   { key: 'builtin:online-safety', label: 'Computer with shield', category: 'Digital', file: 'online-safety.svg' },
