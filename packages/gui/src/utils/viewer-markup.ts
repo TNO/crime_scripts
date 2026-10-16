@@ -111,14 +111,13 @@ export const measuresToMarkup = (
           `<a href="#!${labels.settingsRoute}?id=${encodeURIComponent(partner.id)}">${escapeViewerText(partner.label)}</a>`
       );
 
-    return `<li class="barrier-item">
-<strong class="barrier-title">${escapeViewerText(measure.label)}</strong>
-${measure.description ? `<p class="barrier-description">${escapeViewerText(measure.description)}</p>` : ''}
-<div class="barrier-meta">
-${category ? `<span class="barrier-category">${escapeViewerText(labels.category)}: ${escapeViewerText(category)}</span>` : ''}
-${partnerLinks.length ? `<span class="barrier-partners"><strong>${escapeViewerText(labels.partners)}:</strong> ${partnerLinks.join(', ')}</span>` : ''}
-</div>
-</li>`;
+    return `<li class="barrier-item"><strong class="barrier-title">${escapeViewerText(measure.label)}</strong>${
+      measure.description ? `<p class="barrier-description">${escapeViewerText(measure.description)}</p>` : ''
+    }<div class="barrier-meta">${
+      category ? `<span class="barrier-category">${escapeViewerText(labels.category)}: ${escapeViewerText(category)}</span>` : ''
+    }${
+      partnerLinks.length ? `<span class="barrier-partners"><strong>${escapeViewerText(labels.partners)}:</strong> ${partnerLinks.join(', ')}</span>` : ''
+    }</div></li>`;
   });
 
   return `<ol class="barrier-list">${items.join('')}</ol>`;

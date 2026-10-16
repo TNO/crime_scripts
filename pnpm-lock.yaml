@@ -80,6 +80,9 @@ importers:
       sass:
         specifier: ^1.105.0
         version: 1.105.0
+      slimdown-js:
+        specifier: 1.5.0
+        version: 1.5.0
       ts-node:
         specifier: ^10.9.2
         version: 10.9.2(@types/node@25.9.7)(typescript@7.0.2)

@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
+import { render } from 'slimdown-js';
 import {
   generateLabeledItemsMarkup,
   highlightMarkupText,
@@ -85,6 +86,33 @@ test('barrier markup lists every barrier once before its applicable partners', (
   );
   assert.equal(markdown.match(/Verscherp de identiteitscontrole/g)?.length, 1);
   assert.ok(markdown.indexOf('Verscherp de identiteitscontrole') < markdown.indexOf('Gemeente'));
+});
+
+test('barrier metadata remains inline after Markdown rendering', () => {
+  const measure = {
+    id: 'barrier',
+    label: 'Verscherp de identiteitscontrole',
+    cat: 'preventive',
+    partners: ['police'],
+  };
+  const partners = new Map([['police', { id: 'police', label: 'Politie' }]]);
+  const labels = { category: 'Categorie', partners: 'Partners', settingsRoute: 'instellingen' };
+  const markup = (category: string | undefined) => render(measuresToMarkup(
+    [measure],
+    partners,
+    () => category ? { label: category } : undefined,
+    labels
+  ));
+
+  assert.match(
+    markup('Preventief'),
+    /<div class="barrier-meta"><span class="barrier-category">Categorie: Preventief<\/span><span class="barrier-partners">/
+  );
+  assert.match(
+    markup(undefined),
+    /<div class="barrier-meta"><span class="barrier-partners">/
+  );
+  assert.match(markup('Preventief'), /href="#!instellingen\?id=police"/);
 });
 
 test('search highlighting does not corrupt generated element attributes', () => {
