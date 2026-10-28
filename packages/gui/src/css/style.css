@@ -64,12 +64,12 @@
   max-width: unset;
 }
 
-.main--script-scroll {
+.main--content-scroll {
   height: 100dvh;
   overflow-y: hidden;
 }
 
-.main--script-scroll > .container {
+.main--content-scroll > .container {
   width: 100%;
   padding-inline: 5%;
   height: calc(100dvh - 52px);
@@ -77,7 +77,7 @@
 }
 
 @media only screen and (min-width: 601px) {
-  .main--script-scroll > .container {
+  .main--content-scroll > .container {
     padding-inline: 2.5%;
   }
 }

@@ -106,7 +106,7 @@ export const Layout: MeiosisComponent = () => {
             },
           }),
         m('.main', {
-          class: page === Pages.CRIME_SCRIPT ? 'main--script-scroll' : '',
+            class: [Pages.HOME, Pages.CRIME_SCRIPT].includes(page) ? 'main--content-scroll' : '',
           style: 'overflow-x: hidden',
         }, [
           m(
