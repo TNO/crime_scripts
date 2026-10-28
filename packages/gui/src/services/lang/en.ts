@@ -175,7 +175,7 @@ export const messages = {
   CASE_EVIDENCE_HEADING: 'Describe the observations',
   CASE_OBSERVATIONS_LABEL: 'Observed objects and circumstances',
   CASE_OBSERVATIONS_HINT:
-    'Enter one concrete observation per line, or separate observations with commas; for example: damaged container seal, rented van, port access pass.',
+    'Enter one concrete observation per line, or separate observations with commas; for example: port access pass, damaged container seal.',
   CASE_FILTERS_HEADING: 'Add required characteristics',
   CASE_FILTERS_HINT:
     'Selected characteristics are required in every suggestion. Leave them empty when they are uncertain.',

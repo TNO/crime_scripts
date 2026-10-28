@@ -174,6 +174,32 @@ test('the Dutch harbor starter fully matches the documented case observations', 
   assert.deepEqual(result.unmatchedEvidence, []);
 });
 
+test('the English harbor starter fully matches the documented case observations', () => {
+  const fixture = validateStarterBundle(
+    JSON.parse(readFileSync('public/starter-bundles/en.json', 'utf8'))
+  );
+
+  const [result] = matchCaseEvidence({
+    model: fixture,
+    scriptMode: 'public',
+    text: 'port access pass, damaged container seal',
+    tokenize,
+  });
+
+  assert.equal(result.scriptId, 'en-starter:script:cocaine-import-havens');
+  assert.deepEqual(
+    result.matchedEvidence.map(({ evidence, termCoverage }) => ({
+      label: evidence.label,
+      termCoverage,
+    })),
+    [
+      { label: 'port access pass', termCoverage: 1 },
+      { label: 'damaged container seal', termCoverage: 1 },
+    ]
+  );
+  assert.deepEqual(result.unmatchedEvidence, []);
+});
+
 test('the English starter fixture mirrors the complete Dutch starter library', () => {
   const raw = readFileSync('public/starter-bundles/en.json', 'utf8');
   const fixture = validateStarterBundle(JSON.parse(raw));

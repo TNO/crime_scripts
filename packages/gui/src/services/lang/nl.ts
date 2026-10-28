@@ -177,7 +177,7 @@ export const messagesNL: typeof messages = {
   CASE_EVIDENCE_HEADING: 'Beschrijf de waarnemingen',
   CASE_OBSERVATIONS_LABEL: 'Aangetroffen objecten en omstandigheden',
   CASE_OBSERVATIONS_HINT:
-    'Voer één concrete waarneming per regel in, of scheid waarnemingen met komma’s; bijvoorbeeld: beschadigd containerzegel, gehuurde bestelbus, toegangspas.',
+    'Voer één concrete waarneming per regel in, of scheid waarnemingen met komma’s; bijvoorbeeld: toegangspas, beschadigd containerzegel.',
   CASE_FILTERS_HEADING: 'Voeg vereiste kenmerken toe',
   CASE_FILTERS_HINT:
     'Geselecteerde kenmerken zijn verplicht voor iedere suggestie. Laat ze leeg wanneer ze onzeker zijn.',
