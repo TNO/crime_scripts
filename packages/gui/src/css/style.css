@@ -2307,6 +2307,7 @@ ul.taxonomy-scene-hits {
 }
 
 .activity-evidence-editor {
+  display: flow-root;
   clear: both;
   margin-block: 0;
 }

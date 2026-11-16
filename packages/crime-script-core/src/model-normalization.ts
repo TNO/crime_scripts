@@ -126,8 +126,11 @@ const normalizeAct = (act: Act): Act => {
       url: _activityUrl,
       ...currentActivity
     } = clone(activity) as LegacyActivity & { icon?: unknown; icons?: unknown; url?: unknown };
+    const description = currentActivity.description?.trim() || undefined;
     return {
       ...currentActivity,
+      description,
+      hasDesc: Boolean(description),
       cast: [...(currentActivity.cast || []), ...(sp || [])],
     };
   })),

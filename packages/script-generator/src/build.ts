@@ -616,6 +616,8 @@ export const buildStandaloneCandidate = (
     return id;
   };
 
+  const activityIssues: GeneratorIssue[] = [];
+  const tracePaths = new Map<string, string>();
   const stages = candidate.script.stages.map((stage, stageIndex) => {
     const sceneId = idFor('scene', stage.key, stage.existingId, `$.script.stages[${stageIndex}].existingId`);
     const variants = stage.variants.map((variant, variantIndex) => {
@@ -645,13 +647,43 @@ export const buildStandaloneCandidate = (
         );
       });
       const activities = variant.activities.map((activity, activityIndex) => {
-        const description = activity.description?.trim();
+        const path = `${base}.activities[${activityIndex}]`;
+        const description = activity.description?.trim() || undefined;
         if (!activity.event?.trim() || activity.observableTraces.length === 0) {
           throw new GeneratorError(
             'invalid-activity',
             'Activities require an event and at least one observable trace.',
             `${base}.activities[${activityIndex}]`
           );
+        }
+        if (activity.description !== undefined && !description) {
+          throw new GeneratorError(
+            'empty-description',
+            'Activity descriptions must be non-empty when supplied; omit the field if no narrative is available.',
+            `${path}.description`
+          );
+        }
+        if (!description) {
+          activityIssues.push({
+            code: 'missing-activity-description',
+            path: `${path}.description`,
+            message: 'Activity has no action narrative; its observable traces and verification question remain separate.',
+            severity: 'warning',
+          });
+        }
+        const traceKey = JSON.stringify(
+          [...new Set(activity.observableTraces.map(normalizeDescriptionText))].sort()
+        );
+        const previousPath = tracePaths.get(traceKey);
+        if (previousPath) {
+          activityIssues.push({
+            code: 'duplicate-observable-traces',
+            path: `${path}.observableTraces`,
+            message: `Observable traces match "${previousPath}" after normalization; verify whether the activities need distinct supporting traces.`,
+            severity: 'warning',
+          });
+        } else {
+          tracePaths.set(traceKey, `${path}.observableTraces`);
         }
         const cast = requireTaxonomyIds(taxonomy.maps, 'cast', activity.castKeys, `${base}.activities[${activityIndex}].castKeys`);
         const attributes = requireTaxonomyIds(
@@ -683,6 +715,7 @@ export const buildStandaloneCandidate = (
           id: activityIds.get(activity.key)!,
           label: activity.event.trim(),
           description,
+          hasDesc: Boolean(description),
           observableTraces: activity.observableTraces.map((trace) => trace.trim()),
           decisionPoint: activity.decisionPoint?.trim(),
           parentId,
@@ -932,6 +965,7 @@ export const buildStandaloneCandidate = (
     model,
     issues: [
       ...taxonomy.suggestions,
+      ...activityIssues,
       ...unusedIssues,
       ...evidence.sources
         .filter(({ state }) => state !== 'valid')

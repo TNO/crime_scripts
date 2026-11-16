@@ -106,7 +106,7 @@ export const messagesNL: typeof messages = {
   OBSERVABLE_TRACES: 'Waarneembare sporen',
   OBSERVABLE_TRACES_HELP: 'Eén mogelijk spoor per regel. Neem alleen brononderbouwde sporen op; een spoor is op zichzelf geen bewijs.',
   OBSERVABLE_TRACES_NOTE: 'Mogelijke sporen om te verifiëren, op zichzelf geen bewijs.',
-  VERIFICATION_QUESTION: 'Verificatievraag',
+  VERIFICATION_QUESTION: 'Toetsvraag',
   VERIFICATION_QUESTION_HELP: 'Wat moet de analist nog vaststellen? Dit is geen beslismoment voor een dader.',
   ACTIVITIES: 'Activiteiten',
   SPECIFY: 'Specificeer eigenschappen',

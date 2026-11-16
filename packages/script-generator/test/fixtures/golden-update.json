@@ -29,7 +29,8 @@
                   {
                     "id": "activity-existing",
                     "label": "Compare the record",
-                    "description": "Observable traces: an old comparison result.",
+                    "description": "The assessor records the outcome of an independent comparison.",
+                    "observableTraces": ["an old comparison result"],
                     "type": 1,
                     "cast": ["employee-existing"],
                     "attributes": [],
@@ -98,6 +99,7 @@
                   "key": "compare",
                   "existingId": "activity-existing",
                   "event": "An authorised employee compares material claims with an authoritative record",
+                  "description": "The assessor distinguishes corroborated information from unresolved inconsistencies.",
                   "observableTraces": ["a logged independent comparison result"],
                   "decisionPoint": "decide whether escalation is proportionate",
                   "castKeys": ["employee"]

@@ -100,6 +100,36 @@ test('ordinary model imports reject malformed structured activity fields rather 
   }
 });
 
+test('activity descriptions and hasDesc agree after imports, independently of structured evidence', () => {
+  const input = {
+    crimeScripts: [{
+      id: 'script', label: 'Script', stages: [{
+        id: 'scene', label: 'Scene', variants: [{
+          id: 'variant', label: 'Variant',
+          activities: [
+            {
+              id: 'empty', label: 'Activity', description: ' \n ', hasDesc: true,
+              observableTraces: ['A dated registration'], decisionPoint: 'Is the date independently confirmed?',
+            },
+            { id: 'missing', label: 'Legacy activity', hasDesc: true },
+            { id: 'narrative', label: 'Described activity', description: ' An analyst compares independent records. ', hasDesc: false },
+          ],
+        }],
+      }],
+    }],
+  };
+  const activities = normalizeDataModel(input).crimeScripts[0].stages[0].variants[0].activities;
+  assert.equal(activities[0].description, undefined);
+  assert.equal(activities[0].hasDesc, false);
+  assert.deepEqual(activities[0].observableTraces, ['A dated registration']);
+  assert.equal(activities[0].decisionPoint, 'Is the date independently confirmed?');
+  assert.equal(activities[1].description, undefined);
+  assert.equal(activities[1].hasDesc, false);
+  assert.equal(activities[2].description, 'An analyst compares independent records.');
+  assert.equal(activities[2].hasDesc, true);
+  assert.equal(input.crimeScripts[0].stages[0].variants[0].activities[0].description, ' \n ');
+});
+
 test('model loading repairs missing labels without changing the input', () => {
   const input = {
     crimeScripts: [{

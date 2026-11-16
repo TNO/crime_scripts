@@ -43,6 +43,7 @@
                 {
                   "key": "compare",
                   "event": "An authorised employee compares material claims with an authoritative record",
+                  "description": "The assessor records which material claims are corroborated and which remain uncertain.",
                   "observableTraces": ["a logged comparison result"],
                   "decisionPoint": "decide whether escalation is proportionate",
                   "castKeys": ["employee"]

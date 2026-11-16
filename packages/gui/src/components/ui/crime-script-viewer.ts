@@ -143,7 +143,7 @@ export const CrimeScriptViewer: FactoryComponent<{
           m('span.script-activity-number', numbers.get(activity.id)),
           m('.script-activity-content', [
             m('strong.script-detail-title', highlighter(activity.label)),
-            activity.description &&
+            activity.description?.trim() &&
               m('p.script-detail-description', highlighter(activity.description)),
             (activity.observableTraces?.length || activity.decisionPoint?.trim()) &&
               m('dl.activity-evidence', [

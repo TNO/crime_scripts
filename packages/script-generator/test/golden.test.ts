@@ -25,5 +25,11 @@ for (const name of ['golden-new', 'golden-update']) {
     assert.equal(script.id, fixture.expected.scriptId);
     assert.equal(script.stages[0].id, fixture.expected.stageId);
     assert.equal(script.stages[0].variants[0].activities[0].id, fixture.expected.activityId);
+    const activity = script.stages[0].variants[0].activities[0];
+    const authored = fixture.candidate.script.stages[0].variants[0].activities[0];
+    assert.equal(activity.description, authored.description);
+    assert.deepEqual(activity.observableTraces, authored.observableTraces);
+    assert.equal(activity.decisionPoint, authored.decisionPoint);
+    assert.deepEqual(result.issues, []);
   });
 }

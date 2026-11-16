@@ -249,7 +249,10 @@ Choose `category` from `categories --json` and store the ID, such as `2_1`, not 
 label or a newly invented category. Choose `0_0` only when "other" is genuinely appropriate.
 Write all reader-facing text in the brief's content language. Existing terminal punctuation is
 preserved. Exact or near-duplicate final descriptions at similarity >= 0.92 block builds;
-the separate taxonomy-match warning uses >= 0.65. Neither threshold is an editorial quality score.
+identical trace sets (ignoring order, repeats, case, punctuation, and whitespace) produce a
+non-blocking `duplicate-observable-traces` warning even when narratives differ. Verify whether
+shared traces are justified. The separate taxonomy-match warning uses >= 0.65.
+Neither threshold is an editorial quality score.
 
 ### Final output QA
 
@@ -257,7 +260,10 @@ Compare the built JSON against the candidate and supporting evidence before hand
 
 - Confirm authored descriptions remain action narratives. Verify that `observableTraces` and
   `decisionPoint` survive as structured fields in the built JSON; the GUI and reports show them
-  separately. Legacy candidates without descriptions retain their fields without inventing prose.
+  separately; the Dutch question label is "Toetsvraag", distinct from indicator "Verificatie".
+  Legacy candidates without descriptions retain their fields and produce a
+  `missing-activity-description` warning. Explicit empty descriptions fail validation: omit the
+  optional field if unavailable. `hasDesc` refers only to the narrative, not traces or questions.
 - Verify applicable cast, equipment, transports, and locations survive. Cast and decision points
   are optional; add only source-supported links. Each variant needs activities, selected variants
   must resolve, and condition types must be legal.

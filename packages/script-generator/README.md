@@ -266,9 +266,14 @@ Generated prose preserves existing sentence endings instead of adding duplicate 
 Authored activity descriptions are exported unchanged. Since CLI 0.1.3, `observableTraces` and
 `decisionPoint` also survive as structured activity fields, displayed separately in the GUI and
 reports. Traces describe potential checkable artefacts, not proof; `decisionPoint` is an analyst's
-verification question, not an offender decision. Legacy candidates without a description keep
-their structured fields without generating replacement prose. Existing script JSON without these
-optional fields remains valid. Script icons are supported; scene and activity-group icons are not.
+verification question ("Toetsvraag" in Dutch), not an offender decision. Legacy candidates without
+a description keep their structured fields without generating replacement prose and receive a
+non-blocking `missing-activity-description` warning. Explicit empty descriptions fail validation;
+omit the optional field when no narrative is available. `hasDesc` reflects the narrative alone.
+Identical normalized trace sets produce `duplicate-observable-traces` warnings independently of
+description similarity; shared traces can be legitimate, so this does not block a build.
+Existing script JSON without these optional fields remains valid.
+Script icons are supported; scene and activity-group icons are not.
 
 Standalone exports include only reachable taxonomy and its ancestors. Unreferenced declarations
 produce non-blocking `unused-taxonomy` warnings. `reports/build-report.json` lists them under

@@ -88,7 +88,7 @@ const ActivityEvidenceFields: FactoryComponent<{ activity: Activity; onchange: (
     oninit: ({ attrs: { activity } }) => {
       tracesText = (activity.observableTraces || []).join('\n');
     },
-    view: ({ attrs: { activity, onchange } }) => m('.row.activity-evidence-editor', [
+    view: ({ attrs: { activity, onchange } }) => m('.activity-evidence-editor', [
       m(TextArea, {
         id: 'activity-observable-traces',
         label: t('OBSERVABLE_TRACES'),

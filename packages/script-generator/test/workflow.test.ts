@@ -22,6 +22,7 @@ const candidate: CandidateFile = {
         activities: [{
           key: 'compare',
           event: 'Een medewerker vergelijkt het document met een gezaghebbende registratie',
+          description: 'De beoordelaar onderscheidt bevestigde gegevens van aannames en legt resterende onzekerheden vast.',
           observableTraces: ['de ontvangstregistratie en het vastgelegde vergelijkingsresultaat'],
           decisionPoint: 'bepalen of een tweede controle nodig is',
           castKeys: ['employee'],
@@ -188,6 +189,11 @@ test('prepare, build, GUI review, and explicit merge form a non-destructive work
   assert.equal(await readFile(standalonePath, 'utf8'), originalOutput);
   assert.equal((await getWorkspaceStatus(workspacePath)).nextAction, 'review');
   const reviewed = JSON.parse(await readFile(standalonePath, 'utf8'));
+  const authoredActivity = candidate.script.stages[0].variants[0].activities[0];
+  const exportedActivity = reviewed.crimeScripts[0].stages[0].variants[0].activities[0];
+  assert.equal(exportedActivity.description, authoredActivity.description);
+  assert.deepEqual(exportedActivity.observableTraces, authoredActivity.observableTraces);
+  assert.equal(exportedActivity.decisionPoint, authoredActivity.decisionPoint);
   assert.match(reviewed.crimeScripts[0].literature[0].description, /^Lokaal bestand:/);
   reviewed.crimeScripts[0].reviewer = ['RIEC reviewer'];
   reviewed.crimeScripts[0].status = 2;
@@ -235,7 +241,7 @@ test('prepare, build, GUI review, and explicit merge form a non-destructive work
   assert.equal(original.crimeScripts.length, 0);
 
   reviewed.crimeScripts[0].stages[0].variants[0].activities[0].description =
-    'Observable traces: an independently reviewed comparison result.';
+    'De beoordelaar vergelijkt de betwiste gegevens opnieuw en legt de onafhankelijke beoordeling vast.';
   await writeFile(standalonePath, JSON.stringify(reviewed));
   const activityId = reviewed.crimeScripts[0].stages[0].variants[0].activities[0].id;
   const answersPath = join(root, 'review-answers.json');
@@ -258,8 +264,8 @@ test('prepare, build, GUI review, and explicit merge form a non-destructive work
     'unsubstantiated-after-human-edit'
   );
 
-  reviewed.crimeScripts[0].stages[0].variants[0].activities[0].description =
-    'Observable traces: a replacement source supports the independently reviewed result.';
+  reviewed.crimeScripts[0].stages[0].variants[0].activities[0].observableTraces =
+    ['Een vervangende bron voor het onafhankelijk beoordeelde vergelijkingsresultaat'];
   await writeFile(standalonePath, JSON.stringify(reviewed));
   updatedEvidence.sources.push({
     key: 'replacement-guidance',

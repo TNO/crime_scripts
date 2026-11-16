@@ -142,10 +142,55 @@ test('legacy candidates keep traces and questions structured without inventing a
   for (const result of [dutch, english]) {
     const activity = result.model.crimeScripts[0].stages[0].variants[0].activities[0];
     assert.equal(activity.description, undefined);
+    assert.equal(activity.hasDesc, false);
     assert.deepEqual(activity.observableTraces, legacy.script.stages[0].variants[0].activities[0].observableTraces);
     assert.equal(activity.decisionPoint, legacy.script.stages[0].variants[0].activities[0].decisionPoint);
+    assert.ok(result.issues.some(({ code, severity, path }) =>
+      code === 'missing-activity-description' && severity === 'warning' && path.endsWith('activities[0].description')
+    ));
   }
   assert.match(english.model.crimeScripts[0].stages[0].variants[0].indicators[0].description || '', /^Corroborate with:/);
+});
+
+test('build warns about identical normalized trace sets independently of activity narratives', () => {
+  const draft = candidate();
+  const activities = draft.script.stages[0].variants[0].activities;
+  activities[0].observableTraces = ['Een gedateerde registratie.', 'Een onafhankelijke notitie'];
+  activities.push({
+    key: 'assess',
+    event: 'Een analist beoordeelt aanvullende context',
+    description: 'De beoordelaar onderscheidt bevestigde gegevens van aannames en motiveert de resterende onzekerheden.',
+    observableTraces: [' EEN ONAFHANKELIJKE NOTITIE! ', 'een  gedateerde registratie', 'een gedateerde registratie'],
+  });
+  const sources = evidence();
+  sources.claims.push({ nodeKey: 'assess', sourceKeys: ['official'] });
+  const bundle = normalizeDataModel({ geoLocations: [{ id: 'geo-nl', label: 'Nederland' }] });
+  const result = buildStandaloneCandidate(bundle, brief, draft, sources, true);
+  const warnings = result.issues.filter(({ code }) => code === 'duplicate-observable-traces');
+  assert.equal(warnings.length, 1);
+  assert.equal(warnings[0].severity, 'warning');
+  assert.match(warnings[0].path, /activities\[1\]\.observableTraces$/);
+  assert.match(warnings[0].message, /activities\[0\]\.observableTraces/);
+  assert.equal(result.model.crimeScripts[0].stages[0].variants[0].activities.length, 2);
+
+  activities[1].observableTraces = ['Een gedateerde registratie.', 'Een andere contextnotitie'];
+  const distinct = buildStandaloneCandidate(bundle, brief, draft, sources, true);
+  assert.equal(distinct.issues.some(({ code }) => code === 'duplicate-observable-traces'), false);
+});
+
+test('explicitly empty activity narratives are rejected instead of being replaced by trace prose', () => {
+  for (const description of ['', ' \n ']) {
+    const draft = candidate();
+    draft.script.stages[0].variants[0].activities[0].description = description;
+    assert.throws(() => validateCandidate(draft), /description.*non-empty/);
+    assert.throws(
+      () => buildStandaloneCandidate(
+        normalizeDataModel({ geoLocations: [{ id: 'geo-nl', label: 'Nederland' }] }),
+        brief, draft, evidence(), true
+      ),
+      /descriptions must be non-empty/
+    );
+  }
 });
 
 test('measure categories must resolve to GUI category IDs in both validation and build', () => {
