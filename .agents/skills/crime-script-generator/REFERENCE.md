@@ -19,8 +19,9 @@ packages/script-generator/bin/crime-script-generator --version
 
 Restore missing repository dependencies with its declared package manager. Never download a
 binary or install a runtime or package manager without user approval. Always verify that the
-resolved CLI reports a compatible `>=0.1.1 <0.2.0` version before creating a workspace. Older
-0.1.0 binaries do not have scene-chunk commands; if present, build or use the source launcher.
+resolved CLI reports a compatible `>=0.1.3 <0.2.0` version before creating a workspace. Older
+binaries lack the category, reporting, and privacy fixes; try the next resolver option, rebuild
+locally, or use the source launcher instead of accepting an older executable.
 
 ## Workspace lifecycle
 
@@ -38,9 +39,9 @@ committed or published.
 Use the bundle as read-only taxonomy context: `prepared/context.json` contains its roles (`cast`),
 attributes, products, transports, locations, geographic locations, partners, and (for updates)
 the target script. Match existing keys/IDs before adding taxonomy items. Built-in script icon
-keys and labels come from `crime-script-generator icons --json`; the generator does not import
-arbitrary image files. Avoid feeding `prepared/normalized-bundle.json` or entire long documents
-to a local model when the relevant context/passages suffice.
+keys and labels come from `crime-script-generator icons --json`; measure category IDs and their
+technique/group translation keys come from `categories --json`. The generator does not import
+arbitrary image files. Read relevant context/passages rather than the whole normalized bundle.
 
 `taxonomy-match-candidate` warns when a proposed label resembles a bundle label or a previously
 declared new label (checked in list order) at character-trigram similarity >= 0.65. If it is the
@@ -51,7 +52,10 @@ Character trigrams can flag substring-style labels such as "Verwerker" and "Eind
 `--materials` accepts one supported file or a directory. A single PDF does not need a staging
 folder. `prepare` creates the Markdown inside its own workspace and records source hashes;
 do not create a second Markdown folder to link evidence. Local evidence uses the prepared
-source's relative `sourcePath` as `filename` and its `sourceHash` or `markdownHash`.
+source's exact relative `sourcePath` as `filename` and its `sourceHash` or `markdownHash`.
+A directly prepared PDF keeps its `.pdf` source name; an externally preconverted Markdown input
+has a `.md` source name. Use `sourcePath`, not `markdownPath`. Basenames are accepted for
+compatibility but can be ambiguous across subdirectories.
 
 Markdown, text, and CSV files are read directly. DOCX, XLSX, and text-native PDF require a local
 `docling` executable for direct conversion. Without Docling, use `pdftotext -layout` (poppler)
@@ -96,6 +100,9 @@ For a deliberate revision of an existing scene, source, or scene's claims, rerun
 with `--replace`; activity additions require a fresh key. Full evidence coverage, source
 provenance, taxonomy, and safety checks still happen at `status` and `build`. Keep fragments in
 the temporary workspace; do not put sensitive content in command-line arguments.
+When adding nodes in a scene revision, replace the scene first, then replace its claims.
+The claims replacement must contain the complete retained claim set for that scene, not just
+claims for the newly added nodes. A claim's node must already exist in that scene.
 
 Machine-readable command envelopes use `schemaVersion`, `command`, `success`, and either `data` or
 `error`. Exit codes are stable: `0` success, `3` invalid or incomplete authored data, `4` stale
@@ -111,6 +118,12 @@ copy of the source bundle. Scene and activity-group icons are discarded during n
 only script icons remain.
 Sources appear as `script.literature` in that JSON; per-node claims stay in the workspace
 `evidence.json`, with `keyToId` and `sourceKeyToLiteratureId` mappings in `reports/build-report.json`.
+Unused declared taxonomy produces `unused-taxonomy` warnings in both `status` and the build report.
+The report's `unusedTaxonomy` lists omitted declarations; `newTaxonomy` lists only newly created
+items that actually ship. Referenced ancestors are retained automatically and are not unused.
+Remove genuinely unnecessary declarations; add links only when supported by the evidence.
+Output paths are never overwritten by default. Choose a fresh versioned path for each iteration;
+use `--overwrite` only with explicit user approval, preserving independent reviewer edits.
 
 Use `--confirm-classification-change` or `--confirm-deletions` only after showing the exact change
 to the user and receiving approval.
@@ -150,12 +163,43 @@ The original bundle remains unchanged.
 4. Keep web queries generic when working with restricted material. Record visited URLs and decisions
    in `research-log.json`; with local-only research, do not invent web entries. Complete its two
    closing checks only after actually assessing contradictions and missing perspectives.
+   Before sending a proposed query or URL, run the local privacy preflight below.
 5. Store short supporting passages, locators, provenance, reliability rationale, and hashes in
    `evidence.json`. Link evidence claims to candidate node keys. Do not copy complete works.
 6. Stop only when all core factual nodes have adequate evidence; omit unsupported optional claims.
 
 Age alone does not invalidate a source. Report its age. A source already marked invalid remains
 blocking until replaced or explicitly repaired.
+
+### Privacy preflight
+
+Write proposed requests to a separate local JSON array, for example
+`[{"query":"generic public oversight guidance"},{"url":"https://example.org/public-guidance"}]`.
+This is not a research log and requires no invented visit dates or research decisions. Run:
+
+```sh
+crime-script-generator check-research --workspace "$WORKSPACE" --file proposed-requests.json --json
+```
+
+Only send the requests after the check passes and a manual privacy review. It works after
+`prepare`, before any candidate exists, reads local files only, and records no visits or decisions.
+The checker rejects matching names, identifiers, filenames, and 3-6-word phrases with at least
+three non-function words. English/Dutch function words do not alone make a phrase distinctive.
+This heuristic is not proof of safety: keep sensitive information local even if no match is found.
+`status` and `build` also check the actual research log. Keep that log truthful; a failed check
+is not permission to rewrite the history of requests already sent.
+
+### Evidence states and inferences
+
+Claim states are `valid`, `needs-review`, `orphaned`, `invalid`, and
+`unsubstantiated-after-human-edit`; an omitted claim state behaves as `valid`.
+Required nodes need a usable claim linked to a valid source. `needs-review` does not provide
+coverage. A valid link means the passage supports the assertion; it does not establish that an
+analyst-proposed measure is documented or effective. Qualify supported inferences in the node's
+reader-facing text as well as its claim `note`, which is not rendered in the GUI.
+Resolve, qualify, or omit unsupported assertions rather than changing their state to pass a build.
+Describe conflicting accounts with their citations and uncertainty. Use a condition only for
+an actual prerequisite, facilitator, or enforcement factor, not as a generic conflict container.
 
 ## Source hierarchy
 
@@ -175,8 +219,8 @@ Every stage must explain its role in the overall process. Each activity needs:
 
 - a concrete event;
 - an unnumbered label and a concrete `description` of the actual event (the GUI adds numbering);
-- source-supported observable traces and a decision point where relevant, recorded in candidate
-  fields for evidence review rather than substituted for the reader-facing activity description;
+- source-supported `observableTraces` as potential artefacts and an optional `decisionPoint` as an
+  analyst's verification question, exported separately from the reader-facing activity description;
 - only applicable role, attribute, and transport keys.
 
 For source tables with setting, hulpmiddelen, and roles, make a per-activity coverage check rather
@@ -199,8 +243,31 @@ investigator's decision as the event itself.
 Each indicator needs an observation, corroboration method, plausible benign alternatives, and
 relevance. Corroboration means checking the observation against independent evidence; it is not
 proof by itself. Each measure needs a partner or owner, decision moment, intended effect, category,
-and evidence. Write all reader-facing text in the brief's content language. Avoid repeated
-boilerplate; exact and strong near-duplicate descriptions block builds.
+and evidence. A measure has no free-form candidate `description`: its exported description is
+assembled from `decisionMoment` and `intendedEffect`. Use short clauses in those fields.
+Choose `category` from `categories --json` and store the ID, such as `2_1`, not a translated
+label or a newly invented category. Choose `0_0` only when "other" is genuinely appropriate.
+Write all reader-facing text in the brief's content language. Existing terminal punctuation is
+preserved. Exact or near-duplicate final descriptions at similarity >= 0.92 block builds;
+the separate taxonomy-match warning uses >= 0.65. Neither threshold is an editorial quality score.
+
+### Final output QA
+
+Compare the built JSON against the candidate and supporting evidence before handoff:
+
+- Confirm authored descriptions remain action narratives. Verify that `observableTraces` and
+  `decisionPoint` survive as structured fields in the built JSON; the GUI and reports show them
+  separately. Legacy candidates without descriptions retain their fields without inventing prose.
+- Verify applicable cast, equipment, transports, and locations survive. Cast and decision points
+  are optional; add only source-supported links. Each variant needs activities, selected variants
+  must resolve, and condition types must be legal.
+- Check indicator corroboration/alternatives/relevance and measure timing/effect in the chosen
+  language. Every measure category must resolve to the GUI catalogue and partners must exist.
+- Review `unusedTaxonomy` by ID, including ancestor reachability, rather than comparing counts.
+  Resolve every error and material warning; understood warnings need not make `issues` empty.
+- Inspect reader-facing prose for punctuation, repeated words, and unintended language mixing.
+  Preserve valid URLs, names, quotations, abbreviations, and deliberate ellipses; a whole-file
+  regex scan cannot distinguish them from prose defects.
 
 Restricted classification allows more concrete categories, dependencies, handoffs, evidence, and
 intervention windows. It never permits operational instructions, exact exploitable parameters,

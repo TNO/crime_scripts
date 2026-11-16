@@ -30,6 +30,7 @@ The executable is now available as `crime-script-generator`:
 crime-script-generator --help
 crime-script-generator --version
 crime-script-generator icons
+crime-script-generator categories --json
 pnpm --filter @crime-script/generator test
 ```
 
@@ -59,7 +60,8 @@ export PATH="$PWD/packages/script-generator/bin:$PATH"
 
 The CLI deliberately does not contain an LLM. An agent reads `prepared/context.json` to reuse
 roles, attributes, products, transports, locations, geographic locations, and partners from the
-starter bundle; `icons --json` lists available built-in script icons. It uses supplied documents
+starter bundle; `icons --json` lists built-in script icons and `categories --json` lists measure
+category IDs shared with the GUI. It uses supplied documents
 as primary evidence, researching the web for scripts without local documents or when external
 enrichment is requested. For essential gaps in supplied documents, it asks before expanding
 research. It authors `candidate.json`, `evidence.json`, and `research-log.json`;
@@ -114,7 +116,10 @@ The agent should perform this workflow:
 2. Create an isolated temporary workspace, run `init` and `prepare`, then inspect
    `prepared/context.json` and local converted materials.
 3. Research authoritative sources and explicitly search for contradictions and missing
-   perspectives.
+   perspectives. For restricted material, preflight proposed queries/URLs locally with
+   `check-research --workspace "$WORKSPACE" --file proposed-requests.json --json` before sending.
+   The file is an array of `{ "query": "..." }` or `{ "url": "..." }` objects, not a visit log.
+   A passing heuristic check still requires manual privacy review.
 4. Write a short candidate header and assemble taxonomy items and scenes one at a time with
    `init-candidate`, `add-taxonomy`, and `add-scene`. Register sources and link scene claims with
    `add-source` and `add-scene-claims`;
@@ -245,6 +250,38 @@ crime-script-generator prepare --workspace "$WORKSPACE"
 ```
 
 Changed sources mark linked evidence as `needs-review`; removed sources become `orphaned`.
+Use the exact relative `sourcePath` and recorded `sourceHash` or `markdownHash` from `state.json`
+for local evidence. Directly prepared PDFs retain `.pdf`; externally preconverted inputs retain
+their `.md` source names.
+
+## Authoring and export compatibility
+
+Measure `category` values must be GUI IDs from `categories --json`, not translated labels.
+The command returns `id`, `labelKey`, and `groupKey`; those keys identify the technique and strategy.
+Existing drafts with free-text categories must be explicitly mapped to appropriate IDs before
+building; the generator does not guess. `0_0` is the explicit "other" choice.
+Measures use `label`, `decisionMoment`, and `intendedEffect`, not a free-form candidate description.
+Generated prose preserves existing sentence endings instead of adding duplicate full stops.
+
+Authored activity descriptions are exported unchanged. Since CLI 0.1.3, `observableTraces` and
+`decisionPoint` also survive as structured activity fields, displayed separately in the GUI and
+reports. Traces describe potential checkable artefacts, not proof; `decisionPoint` is an analyst's
+verification question, not an offender decision. Legacy candidates without a description keep
+their structured fields without generating replacement prose. Existing script JSON without these
+optional fields remains valid. Script icons are supported; scene and activity-group icons are not.
+
+Standalone exports include only reachable taxonomy and its ancestors. Unreferenced declarations
+produce non-blocking `unused-taxonomy` warnings. `reports/build-report.json` lists them under
+`unusedTaxonomy`; `newTaxonomy` includes only new entries actually present in the export.
+
+When revising a scene, replace its nodes before replacing the complete scene claim array.
+Claim notes stay in the evidence/report files: qualify analyst inferences in reader-facing prose
+too. Keep unresolved evidence states honest instead of changing them to satisfy coverage.
+See the [skill reference](../../.agents/skills/crime-script-generator/REFERENCE.md#final-output-qa)
+for the final candidate-to-export checks.
+
+For iterative builds, select a fresh versioned output path. `--overwrite` exists but requires
+explicit approval; preserve files containing independent reviewer changes.
 
 ## Update an existing script
 

@@ -29,7 +29,7 @@ const resolveBarrierDetails = (
   lookupPartner: Map<string, LabelledItem>,
   findCrimeMeasure: (id: string) => BarrierCategory | undefined
 ) => ({
-  category: findCrimeMeasure(measure.cat)?.label,
+  category: findCrimeMeasure(measure.cat)?.label || measure.cat,
   partners: Array.from(new Set(measure.partners || []))
     .map((partnerId) => lookupPartner.get(partnerId))
     .filter((partner): partner is LabelledItem => Boolean(partner))

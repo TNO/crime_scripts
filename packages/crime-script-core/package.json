@@ -9,6 +9,7 @@
     "./data-model": "./src/data-model.ts",
     "./icons": "./src/icons.ts",
     "./llm-script": "./src/llm-script.ts",
+    "./measure-categories": "./src/measure-categories.ts",
     "./model-merge": "./src/model-merge.ts",
     "./model-normalization": "./src/model-normalization.ts",
     "./script-classification": "./src/script-classification.ts",

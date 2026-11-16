@@ -166,11 +166,11 @@ export type EvidenceFile = {
   claims: EvidenceClaim[];
 };
 
+export type ResearchRequest = { query?: string; url?: string };
+
 export type ResearchLogFile = {
   schemaVersion: 1;
-  entries: Array<{
-    query?: string;
-    url?: string;
+  entries: Array<ResearchRequest & {
     visitedAt: string;
     decision: 'accepted' | 'rejected';
     reason: string;

@@ -4,13 +4,13 @@
   "lastUpdate": 1791301039662,
   "starterBundle": {
     "id": "pax-nl-starter",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "locale": "nl",
     "title": "Nederlandse starterbibliotheek",
     "publishedAt": "2026-10-06",
     "license": "CC BY 4.0",
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
-    "attribution": "Nederlandse starterbibliotheek voor Crime Scripts, PAX/TNO, versie 1.0.6 (2026), met AI-ondersteuning",
+    "attribution": "Nederlandse starterbibliotheek voor Crime Scripts, PAX/TNO, versie 1.0.7 (2026), met AI-ondersteuning",
     "disclaimer": "AI-gegenereerd en onbeoordeeld; controleer de inhoud vóór gebruik. Geen juridisch advies."
   },
   "crimeScripts": [
@@ -60,7 +60,7 @@
                   "id": "nl-starter:script:cocaine-import-havens:scene:voorbereiding:variant:hoofdroute:measure:preventie",
                   "label": "Pas risicogerichte screening en functiescheiding toe.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "1_2",
                   "partners": [
                     "nl-starter:partner:douane",
                     "nl-starter:partner:havenbedrijf",
@@ -148,7 +148,7 @@
                   "id": "nl-starter:script:cocaine-import-havens:scene:invoer:variant:hoofdroute:measure:preventie",
                   "label": "Combineer douane-, terminal- en vervoerssignalen binnen wettelijke kaders.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "2_5",
                   "partners": [
                     "nl-starter:partner:douane",
                     "nl-starter:partner:havenbedrijf"
@@ -245,7 +245,7 @@
                   "id": "nl-starter:script:cocaine-import-havens:scene:toegang:variant:hoofdroute:measure:preventie",
                   "label": "Beperk rechten tot taken en controleer toegang en integriteit periodiek.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "1_2",
                   "partners": [
                     "nl-starter:partner:havenbedrijf",
                     "nl-starter:partner:politie"
@@ -332,7 +332,7 @@
                   "id": "nl-starter:script:cocaine-import-havens:scene:uithalen:variant:hoofdroute:measure:preventie",
                   "label": "Borg cameratoezicht, meldprocedures en snelle gezamenlijke opvolging.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "2_5",
                   "partners": [
                     "nl-starter:partner:havenbedrijf",
                     "nl-starter:partner:douane",
@@ -421,7 +421,7 @@
                   "id": "nl-starter:script:cocaine-import-havens:scene:vervoer:variant:hoofdroute:measure:preventie",
                   "label": "Controleer vervoerders, opdrachtgevers en afwijkingen in de keten.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "2_5",
                   "partners": [
                     "nl-starter:partner:politie",
                     "nl-starter:partner:douane"
@@ -509,7 +509,7 @@
                   "id": "nl-starter:script:cocaine-import-havens:scene:verstoring:variant:hoofdroute:measure:preventie",
                   "label": "Werk informatiegestuurd en bied een veilig meldkanaal voor havenmedewerkers.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "2_2",
                   "partners": [
                     "nl-starter:partner:politie",
                     "nl-starter:partner:openbaar-ministerie",
@@ -595,7 +595,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-nl-starter",
-        "bundleVersion": "1.0.6",
+        "bundleVersion": "1.0.7",
         "scriptId": "nl-starter:script:cocaine-import-havens"
       },
       "icon": "builtin:shipping-container",
@@ -652,7 +652,7 @@
                   "id": "nl-starter:script:synthetische-drugsproductie:scene:locatie:variant:hoofdroute:measure:preventie",
                   "label": "Controleer verhuur, feitelijk gebruik en brandveiligheid risicogericht.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "2_4",
                   "partners": [
                     "nl-starter:partner:gemeente",
                     "nl-starter:partner:politie",
@@ -740,7 +740,7 @@
                   "id": "nl-starter:script:synthetische-drugsproductie:scene:middelen:variant:hoofdroute:measure:preventie",
                   "label": "Stimuleer zorgvuldige klantcontrole en een veilig meldproces.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "2_4",
                   "partners": [
                     "nl-starter:partner:politie",
                     "nl-starter:partner:omgevingsdienst"
@@ -830,7 +830,7 @@
                   "id": "nl-starter:script:synthetische-drugsproductie:scene:inrichting:variant:hoofdroute:measure:preventie",
                   "label": "Benader verdachte locaties niet zelf; meld en laat deskundigen het risico beoordelen.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:politie",
                     "nl-starter:partner:brandweer",
@@ -918,7 +918,7 @@
                   "id": "nl-starter:script:synthetische-drugsproductie:scene:productie:variant:hoofdroute:measure:preventie",
                   "label": "Gebruik een multidisciplinair interventieplan met veilige afstand en specialistische ondersteuning.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:politie",
                     "nl-starter:partner:brandweer",
@@ -1010,7 +1010,7 @@
                   "id": "nl-starter:script:synthetische-drugsproductie:scene:afvoer:variant:hoofdroute:measure:preventie",
                   "label": "Beveilig de vindplaats en schakel milieu- en opsporingsdiensten in.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:politie",
                     "nl-starter:partner:omgevingsdienst",
@@ -1099,7 +1099,7 @@
                   "id": "nl-starter:script:synthetische-drugsproductie:scene:onderzoek:variant:hoofdroute:measure:preventie",
                   "label": "Maak één veiligheids- en informatieplan voor opsporing, ontmanteling en nazorg.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:politie",
                     "nl-starter:partner:openbaar-ministerie",
@@ -1184,7 +1184,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-nl-starter",
-        "bundleVersion": "1.0.6",
+        "bundleVersion": "1.0.7",
         "scriptId": "nl-starter:script:synthetische-drugsproductie"
       },
       "icon": "builtin:chemical-lab",
@@ -1249,7 +1249,7 @@
                   "id": "nl-starter:script:arbeidsuitbuiting:scene:werving:variant:hoofdroute:measure:preventie",
                   "label": "Geef vóór vertrek begrijpelijke informatie over loon, werk en rechten.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "5_2",
                   "partners": [
                     "nl-starter:partner:nederlandse-arbeidsinspectie",
                     "nl-starter:partner:gemeente"
@@ -1337,7 +1337,7 @@
                   "id": "nl-starter:script:arbeidsuitbuiting:scene:reis:variant:hoofdroute:measure:preventie",
                   "label": "Controleer ketenpartijen en bied een onafhankelijk contactpunt.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "2_4",
                   "partners": [
                     "nl-starter:partner:nederlandse-arbeidsinspectie",
                     "nl-starter:partner:gemeente"
@@ -1428,7 +1428,7 @@
                   "id": "nl-starter:script:arbeidsuitbuiting:scene:afhankelijkheid:variant:hoofdroute:measure:preventie",
                   "label": "Scheid loon, vervoer en huisvesting en faciliteer vertrouwelijke gesprekken.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:nederlandse-arbeidsinspectie",
                     "nl-starter:partner:zorg-en-opvang",
@@ -1519,7 +1519,7 @@
                   "id": "nl-starter:script:arbeidsuitbuiting:scene:werk:variant:hoofdroute:measure:preventie",
                   "label": "Voer onaangekondigd toezicht uit en spreek werknemers buiten het zicht van leidinggevenden.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "2_5",
                   "partners": [
                     "nl-starter:partner:nederlandse-arbeidsinspectie",
                     "nl-starter:partner:politie"
@@ -1607,7 +1607,7 @@
                   "id": "nl-starter:script:arbeidsuitbuiting:scene:controle:variant:hoofdroute:measure:preventie",
                   "label": "Gebruik getrainde tolken, een veilige meldroute en een individuele risico-inschatting.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:politie",
                     "nl-starter:partner:zorg-en-opvang",
@@ -1696,7 +1696,7 @@
                   "id": "nl-starter:script:arbeidsuitbuiting:scene:bescherming:variant:hoofdroute:measure:preventie",
                   "label": "Stem opvang, loonherstel, toezicht en strafrechtelijk onderzoek af.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:nederlandse-arbeidsinspectie",
                     "nl-starter:partner:politie",
@@ -1784,7 +1784,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-nl-starter",
-        "bundleVersion": "1.0.6",
+        "bundleVersion": "1.0.7",
         "scriptId": "nl-starter:script:arbeidsuitbuiting"
       },
       "icon": "builtin:labour-exploitation",
@@ -1850,7 +1850,7 @@
                   "id": "nl-starter:script:mensenhandel-seksuele-uitbuiting:scene:benadering:variant:hoofdroute:measure:preventie",
                   "label": "Vergroot weerbaarheid en bied laagdrempelige, vertrouwelijke hulp.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:gemeente",
                     "nl-starter:partner:zorg-en-opvang",
@@ -1939,7 +1939,7 @@
                   "id": "nl-starter:script:mensenhandel-seksuele-uitbuiting:scene:isolatie:variant:hoofdroute:measure:preventie",
                   "label": "Spreek mogelijke slachtoffers afzonderlijk en gebruik een veilige contactmethode.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:politie",
                     "nl-starter:partner:zorg-en-opvang"
@@ -2030,7 +2030,7 @@
                   "id": "nl-starter:script:mensenhandel-seksuele-uitbuiting:scene:exploitatie:variant:hoofdroute:measure:preventie",
                   "label": "Train toezichthouders in niet-veroordelende signalering en veilige doorverwijzing.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "2_5",
                   "partners": [
                     "nl-starter:partner:politie",
                     "nl-starter:partner:gemeente",
@@ -2119,7 +2119,7 @@
                   "id": "nl-starter:script:mensenhandel-seksuele-uitbuiting:scene:verplaatsing:variant:hoofdroute:measure:preventie",
                   "label": "Deel signalen rechtmatig tussen regio's en behoud één hulpcontact.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "2_5",
                   "partners": [
                     "nl-starter:partner:politie",
                     "nl-starter:partner:gemeente",
@@ -2211,7 +2211,7 @@
                   "id": "nl-starter:script:mensenhandel-seksuele-uitbuiting:scene:opbrengst:variant:hoofdroute:measure:preventie",
                   "label": "Onderzoek geldstromen en bied veilige financiële ondersteuning.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:politie",
                     "nl-starter:partner:fiu-nederland",
@@ -2304,7 +2304,7 @@
                   "id": "nl-starter:script:mensenhandel-seksuele-uitbuiting:scene:interventie:variant:hoofdroute:measure:preventie",
                   "label": "Werk traumabewust, voorkom herhaald vertellen en stem bescherming en opsporing af.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:politie",
                     "nl-starter:partner:openbaar-ministerie",
@@ -2390,7 +2390,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-nl-starter",
-        "bundleVersion": "1.0.6",
+        "bundleVersion": "1.0.7",
         "scriptId": "nl-starter:script:mensenhandel-seksuele-uitbuiting"
       },
       "icon": "builtin:human-trafficking",
@@ -2446,7 +2446,7 @@
                   "id": "nl-starter:script:witwassen-legale-ondernemingen:scene:bedrijf:variant:hoofdroute:measure:preventie",
                   "label": "Controleer uiteindelijk belanghebbenden en zakelijke achtergrond risicogericht.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "2_3",
                   "partners": [
                     "nl-starter:partner:banken",
                     "nl-starter:partner:belastingdienst",
@@ -2535,7 +2535,7 @@
                   "id": "nl-starter:script:witwassen-legale-ondernemingen:scene:inbreng:variant:hoofdroute:measure:preventie",
                   "label": "Vergelijk geldstromen met aantoonbare bedrijfsactiviteiten en meld ongebruikelijke transacties.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "2_5",
                   "partners": [
                     "nl-starter:partner:banken",
                     "nl-starter:partner:fiu-nederland",
@@ -2626,7 +2626,7 @@
                   "id": "nl-starter:script:witwassen-legale-ondernemingen:scene:administratie:variant:hoofdroute:measure:preventie",
                   "label": "Verifieer tegenpartijen, prestaties en documenten op basis van risico.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "2_5",
                   "partners": [
                     "nl-starter:partner:banken",
                     "nl-starter:partner:belastingdienst"
@@ -2714,7 +2714,7 @@
                   "id": "nl-starter:script:witwassen-legale-ondernemingen:scene:verplaatsing:variant:hoofdroute:measure:preventie",
                   "label": "Versterk transactiemonitoring en deel relevante signalen via bevoegde kanalen.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "2_5",
                   "partners": [
                     "nl-starter:partner:banken",
                     "nl-starter:partner:fiu-nederland",
@@ -2803,7 +2803,7 @@
                   "id": "nl-starter:script:witwassen-legale-ondernemingen:scene:besteding:variant:hoofdroute:measure:preventie",
                   "label": "Onderzoek herkomst van vermogen en benut fiscale en strafrechtelijke interventies.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "3_5",
                   "partners": [
                     "nl-starter:partner:politie",
                     "nl-starter:partner:openbaar-ministerie",
@@ -2895,7 +2895,7 @@
                   "id": "nl-starter:script:witwassen-legale-ondernemingen:scene:verstoring:variant:hoofdroute:measure:preventie",
                   "label": "Maak een gezamenlijk interventieplan met toezicht, opsporing en herstel.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:fiu-nederland",
                     "nl-starter:partner:politie",
@@ -2985,7 +2985,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-nl-starter",
-        "bundleVersion": "1.0.6",
+        "bundleVersion": "1.0.7",
         "scriptId": "nl-starter:script:witwassen-legale-ondernemingen"
       },
       "icon": "builtin:money-laundering",
@@ -3041,7 +3041,7 @@
                   "id": "nl-starter:script:illegale-dumping-chemisch-afval:scene:ontstaan:variant:hoofdroute:measure:preventie",
                   "label": "Meld signalen zonder materiaal aan te raken en laat deskundigen beoordelen.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:politie",
                     "nl-starter:partner:brandweer",
@@ -3130,7 +3130,7 @@
                   "id": "nl-starter:script:illegale-dumping-chemisch-afval:scene:verzameling:variant:hoofdroute:measure:preventie",
                   "label": "Controleer verdachte opslag vanuit milieu- en brandveiligheidstoezicht.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "2_5",
                   "partners": [
                     "nl-starter:partner:omgevingsdienst",
                     "nl-starter:partner:brandweer",
@@ -3219,7 +3219,7 @@
                   "id": "nl-starter:script:illegale-dumping-chemisch-afval:scene:transport:variant:hoofdroute:measure:preventie",
                   "label": "Controleer vervoerder en afvaldocumenten risicogericht en veilig.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "2_5",
                   "partners": [
                     "nl-starter:partner:politie",
                     "nl-starter:partner:omgevingsdienst"
@@ -3310,7 +3310,7 @@
                   "id": "nl-starter:script:illegale-dumping-chemisch-afval:scene:dumping:variant:hoofdroute:measure:preventie",
                   "label": "Zet ruim af, blijf bovenwinds waar relevant en bel hulpdiensten; raak niets aan.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:politie",
                     "nl-starter:partner:brandweer",
@@ -3396,7 +3396,7 @@
                   "id": "nl-starter:script:illegale-dumping-chemisch-afval:scene:melding:variant:hoofdroute:measure:preventie",
                   "label": "Registreer waarnemingen op afstand en volg instructies van hulpdiensten.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "2_2",
                   "partners": [
                     "nl-starter:partner:brandweer",
                     "nl-starter:partner:politie",
@@ -3485,7 +3485,7 @@
                   "id": "nl-starter:script:illegale-dumping-chemisch-afval:scene:herstel:variant:hoofdroute:measure:preventie",
                   "label": "Stem opsporing, monstername, sanering en kostenverhaal vooraf af.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:politie",
                     "nl-starter:partner:openbaar-ministerie",
@@ -3570,7 +3570,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-nl-starter",
-        "bundleVersion": "1.0.6",
+        "bundleVersion": "1.0.7",
         "scriptId": "nl-starter:script:illegale-dumping-chemisch-afval"
       },
       "icon": "builtin:illegal-dumping",
@@ -3626,7 +3626,7 @@
                   "id": "nl-starter:script:stroperij-illegale-wildhandel:scene:selectie:variant:hoofdroute:measure:preventie",
                   "label": "Gebruik gebiedstoezicht en deel marktinformatie zonder kwetsbare locaties openbaar te maken.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "2_5",
                   "partners": [
                     "nl-starter:partner:terreinbeheerder",
                     "nl-starter:partner:nvwa-cites",
@@ -3714,7 +3714,7 @@
                   "id": "nl-starter:script:stroperij-illegale-wildhandel:scene:onttrekking:variant:hoofdroute:measure:preventie",
                   "label": "Combineer toezicht, publieksmeldingen en ecologische monitoring.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "2_5",
                   "partners": [
                     "nl-starter:partner:terreinbeheerder",
                     "nl-starter:partner:politie",
@@ -3794,7 +3794,7 @@
                   "id": "nl-starter:script:stroperij-illegale-wildhandel:scene:verzameling:variant:hoofdroute:measure:preventie",
                   "label": "Controleer herkomstbewijzen, registratie en dierenwelzijn deskundig.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "3_3",
                   "partners": [
                     "nl-starter:partner:nvwa-cites",
                     "nl-starter:partner:politie"
@@ -3882,7 +3882,7 @@
                   "id": "nl-starter:script:stroperij-illegale-wildhandel:scene:handel:variant:hoofdroute:measure:preventie",
                   "label": "Monitor openbare markten risicogericht en informeer kopers over legale herkomst.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "3_4",
                   "partners": [
                     "nl-starter:partner:nvwa-cites",
                     "nl-starter:partner:politie"
@@ -3973,7 +3973,7 @@
                   "id": "nl-starter:script:stroperij-illegale-wildhandel:scene:vervoer:variant:hoofdroute:measure:preventie",
                   "label": "Laat soort en vergunning door deskundigen controleren en deel signalen internationaal.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "2_5",
                   "partners": [
                     "nl-starter:partner:douane",
                     "nl-starter:partner:nvwa-cites",
@@ -4062,7 +4062,7 @@
                   "id": "nl-starter:script:stroperij-illegale-wildhandel:scene:interventie:variant:hoofdroute:measure:preventie",
                   "label": "Plan bewijsborging, soortzorg, financieel onderzoek en vervolging gezamenlijk.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:nvwa-cites",
                     "nl-starter:partner:politie",
@@ -4148,7 +4148,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-nl-starter",
-        "bundleVersion": "1.0.6",
+        "bundleVersion": "1.0.7",
         "scriptId": "nl-starter:script:stroperij-illegale-wildhandel"
       },
       "icon": "builtin:poaching",
@@ -4205,7 +4205,7 @@
                   "id": "nl-starter:script:voertuigdiefstal-export:scene:selectie:variant:hoofdroute:measure:preventie",
                   "label": "Beperk onnodige voertuiggegevens en stimuleer risicobewust parkeren.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "3_1",
                   "partners": [
                     "nl-starter:partner:politie",
                     "nl-starter:partner:verzekeraars"
@@ -4296,7 +4296,7 @@
                   "id": "nl-starter:script:voertuigdiefstal-export:scene:diefstal:variant:hoofdroute:measure:preventie",
                   "label": "Gebruik gelaagde beveiliging en meld diefstal direct met correcte kenmerken.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "1_1",
                   "partners": [
                     "nl-starter:partner:politie",
                     "nl-starter:partner:verzekeraars"
@@ -4384,7 +4384,7 @@
                   "id": "nl-starter:script:voertuigdiefstal-export:scene:opslag:variant:hoofdroute:measure:preventie",
                   "label": "Controleer huurders en meld ongebruikelijk gebruik via een veilig kanaal.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "2_4",
                   "partners": [
                     "nl-starter:partner:gemeente",
                     "nl-starter:partner:politie"
@@ -4471,7 +4471,7 @@
                   "id": "nl-starter:script:voertuigdiefstal-export:scene:identiteit:variant:hoofdroute:measure:preventie",
                   "label": "Laat identificatie deskundig controleren en verbind RDW-, politie- en verzekeringssignalen.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "3_3",
                   "partners": [
                     "nl-starter:partner:politie",
                     "nl-starter:partner:rdw",
@@ -4563,7 +4563,7 @@
                   "id": "nl-starter:script:voertuigdiefstal-export:scene:handel:variant:hoofdroute:measure:preventie",
                   "label": "Controleer identiteit, eigendom en voertuigstatus vóór overdracht of export.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "3_4",
                   "partners": [
                     "nl-starter:partner:politie",
                     "nl-starter:partner:douane",
@@ -4661,7 +4661,7 @@
                   "id": "nl-starter:script:voertuigdiefstal-export:scene:opsporing:variant:hoofdroute:measure:preventie",
                   "label": "Registreer kenmerken direct en wissel gegevens uit via bevoegde nationale en internationale kanalen.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "3_3",
                   "partners": [
                     "nl-starter:partner:politie",
                     "nl-starter:partner:openbaar-ministerie",
@@ -4751,7 +4751,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-nl-starter",
-        "bundleVersion": "1.0.6",
+        "bundleVersion": "1.0.7",
         "scriptId": "nl-starter:script:voertuigdiefstal-export"
       },
       "icon": "builtin:car-theft",
@@ -4807,7 +4807,7 @@
                   "id": "nl-starter:script:phishing-betaalfraude:scene:voorbereiding:variant:hoofdroute:measure:preventie",
                   "label": "Beperk openbare persoonsgegevens en leg verificatieregels voor betaalverzoeken vast.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "3_1",
                   "partners": [
                     "nl-starter:partner:ncsc",
                     "nl-starter:partner:banken",
@@ -4898,7 +4898,7 @@
                   "id": "nl-starter:script:phishing-betaalfraude:scene:contact:variant:e-mail:measure:preventie",
                   "label": "Verifieer via een zelf opgezocht kanaal en meld verdachte berichten.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "5_4",
                   "partners": [
                     "nl-starter:partner:ncsc",
                     "nl-starter:partner:fraudehelpdesk"
@@ -4978,7 +4978,7 @@
                   "id": "nl-starter:script:phishing-betaalfraude:scene:contact:variant:sms:measure:preventie",
                   "label": "Verifieer via een zelf opgezocht kanaal en meld verdachte berichten.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "5_4",
                   "partners": [
                     "nl-starter:partner:ncsc",
                     "nl-starter:partner:fraudehelpdesk"
@@ -5066,7 +5066,7 @@
                   "id": "nl-starter:script:phishing-betaalfraude:scene:gegevens:variant:hoofdroute:measure:preventie",
                   "label": "Gebruik phishingbestendige meervoudige authenticatie en deel nooit beveiligingscodes.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "1_2",
                   "partners": [
                     "nl-starter:partner:ncsc",
                     "nl-starter:partner:banken"
@@ -5154,7 +5154,7 @@
                   "id": "nl-starter:script:phishing-betaalfraude:scene:betaling:variant:hoofdroute:measure:preventie",
                   "label": "Voer functiescheiding en terugbelcontrole in voor risicovolle betalingen.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "1_2",
                   "partners": [
                     "nl-starter:partner:banken",
                     "nl-starter:partner:politie"
@@ -5241,7 +5241,7 @@
                   "id": "nl-starter:script:phishing-betaalfraude:scene:doorgifte:variant:hoofdroute:measure:preventie",
                   "label": "Waarschuw voor geldezelwerving en monitor afwijkende rekeningpatronen.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "2_5",
                   "partners": [
                     "nl-starter:partner:banken",
                     "nl-starter:partner:politie",
@@ -5330,7 +5330,7 @@
                   "id": "nl-starter:script:phishing-betaalfraude:scene:respons:variant:hoofdroute:measure:preventie",
                   "label": "Meld direct bij bank en bevoegde instanties, wijzig toegang veilig en leg relevante feiten vast.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:banken",
                     "nl-starter:partner:politie",
@@ -5419,7 +5419,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-nl-starter",
-        "bundleVersion": "1.0.6",
+        "bundleVersion": "1.0.7",
         "scriptId": "nl-starter:script:phishing-betaalfraude"
       },
       "tracks": [
@@ -5502,7 +5502,7 @@
                   "id": "nl-starter:script:illegale-asbestverwijdering:scene:opdracht:variant:hoofdroute:measure:preventie",
                   "label": "Controleer vooraf inventarisatieplicht, melding, opdrachtgever en uitvoerder.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "2_5",
                   "partners": [
                     "nl-starter:partner:gemeente",
                     "nl-starter:partner:asbesttoezicht"
@@ -5589,7 +5589,7 @@
                   "id": "nl-starter:script:illegale-asbestverwijdering:scene:inventarisatie:variant:hoofdroute:measure:preventie",
                   "label": "Laat een vereiste inventarisatie uitvoeren en controleer reikwijdte en geldigheid.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "5_4",
                   "partners": [
                     "nl-starter:partner:gecertificeerd-asbestbedrijf",
                     "nl-starter:partner:asbesttoezicht",
@@ -5677,7 +5677,7 @@
                   "id": "nl-starter:script:illegale-asbestverwijdering:scene:verwijdering:variant:hoofdroute:measure:preventie",
                   "label": "Stop het werk, houd afstand en laat deskundig beoordelen welke aanpak nodig is.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:asbesttoezicht",
                     "nl-starter:partner:nederlandse-arbeidsinspectie",
@@ -5765,7 +5765,7 @@
                   "id": "nl-starter:script:illegale-asbestverwijdering:scene:werknemers:variant:hoofdroute:measure:preventie",
                   "label": "Geef begrijpelijke instructies, bescherm melders en controleer arbeidsomstandigheden.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "5_4",
                   "partners": [
                     "nl-starter:partner:nederlandse-arbeidsinspectie",
                     "nl-starter:partner:asbesttoezicht"
@@ -5853,7 +5853,7 @@
                   "id": "nl-starter:script:illegale-asbestverwijdering:scene:afvoer:variant:hoofdroute:measure:preventie",
                   "label": "Zet materiaal niet zelf om en laat bevoegde diensten verpakking en bestemming controleren.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "2_5",
                   "partners": [
                     "nl-starter:partner:omgevingsdienst",
                     "nl-starter:partner:gemeente",
@@ -5941,7 +5941,7 @@
                   "id": "nl-starter:script:illegale-asbestverwijdering:scene:toezicht:variant:hoofdroute:measure:preventie",
                   "label": "Stem bestuursrechtelijk, arbeidsrechtelijk en strafrechtelijk optreden af en regel veilige sanering.",
                   "description": "Leg de uitvoering vast, wijs een eigenaar aan en evalueer signalen samen met de genoemde partners.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:asbesttoezicht",
                     "nl-starter:partner:nederlandse-arbeidsinspectie",
@@ -6028,7 +6028,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-nl-starter",
-        "bundleVersion": "1.0.6",
+        "bundleVersion": "1.0.7",
         "scriptId": "nl-starter:script:illegale-asbestverwijdering"
       },
       "icon": "builtin:asbestos-fibers",
@@ -6146,7 +6146,7 @@
                   "id": "nl-starter:script:asbestsaneringsketen:scene:opdracht:variant:published:measure:1",
                   "label": "Laat bevoegd gezag en omgevingsdienst risicogericht toetsen op volledigheid en betrokken partijen.",
                   "description": "Wijs een bevoegde eigenaar aan, documenteer de opvolging en evalueer proportionaliteit en neveneffecten.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:gemeente",
                     "nl-starter:partner:omgevingsdienst"
@@ -6229,7 +6229,7 @@
                   "id": "nl-starter:script:asbestsaneringsketen:scene:inventarisatie:variant:published:measure:1",
                   "label": "Verifieer certificering, rapportbereik en opvolging van aanvullende vondsten vóór de sanering start.",
                   "description": "Wijs een bevoegde eigenaar aan, documenteer de opvolging en evalueer proportionaliteit en neveneffecten.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:omgevingsdienst",
                     "nl-starter:partner:gecertificeerd-asbestbedrijf"
@@ -6312,7 +6312,7 @@
                   "id": "nl-starter:script:asbestsaneringsketen:scene:verwijdering:variant:published:measure:1",
                   "label": "Leg werkzaamheden stil bij acuut blootstellingsgevaar en borg bevindingen voor herstel en handhaving.",
                   "description": "Wijs een bevoegde eigenaar aan, documenteer de opvolging en evalueer proportionaliteit en neveneffecten.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:nederlandse-arbeidsinspectie",
                     "nl-starter:partner:omgevingsdienst"
@@ -6395,7 +6395,7 @@
                   "id": "nl-starter:script:asbestsaneringsketen:scene:eindcontrole:variant:published:measure:1",
                   "label": "Sta hergebruik van de locatie pas toe na aantoonbare vrijgave en opvolging van afwijkingen.",
                   "description": "Wijs een bevoegde eigenaar aan, documenteer de opvolging en evalueer proportionaliteit en neveneffecten.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:omgevingsdienst",
                     "nl-starter:partner:gemeente"
@@ -6478,7 +6478,7 @@
                   "id": "nl-starter:script:asbestsaneringsketen:scene:eerste-transport:variant:published:measure:1",
                   "label": "Voer gerichte transportcontroles uit en onderzoek ontbrekende of tegenstrijdige begeleidingsgegevens.",
                   "description": "Wijs een bevoegde eigenaar aan, documenteer de opvolging en evalueer proportionaliteit en neveneffecten.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:inspectie-leefomgeving-en-transport",
                     "nl-starter:partner:omgevingsdienst"
@@ -6561,7 +6561,7 @@
                   "id": "nl-starter:script:asbestsaneringsketen:scene:tussenlocatie:variant:published:measure:1",
                   "label": "Vergelijk meldingen en registraties ketenbreed en blokkeer onrechtmatige acceptatie of opslag.",
                   "description": "Wijs een bevoegde eigenaar aan, documenteer de opvolging en evalueer proportionaliteit en neveneffecten.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:omgevingsdienst",
                     "nl-starter:partner:inspectie-leefomgeving-en-transport"
@@ -6644,7 +6644,7 @@
                   "id": "nl-starter:script:asbestsaneringsketen:scene:vervolgtransport:variant:published:measure:1",
                   "label": "Onderzoek verschillen tussen afgifte-, ontvangst- en weegregistraties voordat de keten wordt afgesloten.",
                   "description": "Wijs een bevoegde eigenaar aan, documenteer de opvolging en evalueer proportionaliteit en neveneffecten.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:inspectie-leefomgeving-en-transport",
                     "nl-starter:partner:omgevingsdienst"
@@ -6727,7 +6727,7 @@
                   "id": "nl-starter:script:asbestsaneringsketen:scene:eindverwerking:variant:published:measure:1",
                   "label": "Gebruik ketenvergelijking om ontbrekende hoeveelheden, dubbele registraties en onjuiste bestemmingen te onderzoeken.",
                   "description": "Wijs een bevoegde eigenaar aan, documenteer de opvolging en evalueer proportionaliteit en neveneffecten.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:omgevingsdienst",
                     "nl-starter:partner:inspectie-leefomgeving-en-transport"
@@ -6749,7 +6749,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-nl-starter",
-        "bundleVersion": "1.0.6",
+        "bundleVersion": "1.0.7",
         "scriptId": "nl-starter:script:asbestsaneringsketen"
       }
     },
@@ -6861,7 +6861,7 @@
                   "id": "nl-starter:script:bijtincidenten-honden:scene:sociale-context:variant:published:measure:1",
                   "label": "Versterk voorlichting, registratie en vroegtijdige veterinaire toetsing bij risicovolle combinaties.",
                   "description": "Wijs een bevoegde eigenaar aan, documenteer de opvolging en evalueer proportionaliteit en neveneffecten.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:gemeente",
                     "nl-starter:partner:dierenarts"
@@ -6944,7 +6944,7 @@
                   "id": "nl-starter:script:bijtincidenten-honden:scene:dracht-geboorte:variant:published:measure:1",
                   "label": "Organiseer vroegtijdige controle en deskundige ondersteuning bij welzijns- of gezondheidsrisico’s.",
                   "description": "Wijs een bevoegde eigenaar aan, documenteer de opvolging en evalueer proportionaliteit en neveneffecten.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:dierenarts",
                     "nl-starter:partner:nederlandse-voedsel-en-warenautoriteit"
@@ -7027,7 +7027,7 @@
                   "id": "nl-starter:script:bijtincidenten-honden:scene:eerste-levensfase:variant:published:measure:1",
                   "label": "Koppel welzijnssignalen aan fokkerijtoezicht en bied deskundige gedrags- en veterinaire begeleiding.",
                   "description": "Wijs een bevoegde eigenaar aan, documenteer de opvolging en evalueer proportionaliteit en neveneffecten.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:dierenarts",
                     "nl-starter:partner:nederlandse-voedsel-en-warenautoriteit"
@@ -7110,7 +7110,7 @@
                   "id": "nl-starter:script:bijtincidenten-honden:scene:nieuwe-eigenaar:variant:published:measure:1",
                   "label": "Maak overdracht traceerbaar en ondersteun kopers bij herkenning van welzijns- en gedragsrisico’s.",
                   "description": "Wijs een bevoegde eigenaar aan, documenteer de opvolging en evalueer proportionaliteit en neveneffecten.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:dierenarts",
                     "nl-starter:partner:gemeente"
@@ -7193,7 +7193,7 @@
                   "id": "nl-starter:script:bijtincidenten-honden:scene:ontwikkeling:variant:published:measure:1",
                   "label": "Zet laagdrempelige gedragsbegeleiding en proportionele veiligheidsafspraken in vóór escalatie.",
                   "description": "Wijs een bevoegde eigenaar aan, documenteer de opvolging en evalueer proportionaliteit en neveneffecten.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:dierenarts",
                     "nl-starter:partner:gemeente"
@@ -7276,7 +7276,7 @@
                   "id": "nl-starter:script:bijtincidenten-honden:scene:volwassen-senior:variant:published:measure:1",
                   "label": "Combineer veterinaire beoordeling, gedragsadvies en omgevingsmaatregelen in één opvolgplan.",
                   "description": "Wijs een bevoegde eigenaar aan, documenteer de opvolging en evalueer proportionaliteit en neveneffecten.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:dierenarts",
                     "nl-starter:partner:gemeente"
@@ -7359,7 +7359,7 @@
                   "id": "nl-starter:script:bijtincidenten-honden:scene:incidentrespons:variant:published:measure:1",
                   "label": "Werk met een vaste meld- en opvolgroute waarin veiligheid, dierenwelzijn en rechtsbescherming samenkomen.",
                   "description": "Wijs een bevoegde eigenaar aan, documenteer de opvolging en evalueer proportionaliteit en neveneffecten.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:politie",
                     "nl-starter:partner:gemeente",
@@ -7382,7 +7382,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-nl-starter",
-        "bundleVersion": "1.0.6",
+        "bundleVersion": "1.0.7",
         "scriptId": "nl-starter:script:bijtincidenten-honden"
       }
     },
@@ -7494,7 +7494,7 @@
                   "id": "nl-starter:script:co-vergisting:scene:productie:variant:published:measure:1",
                   "label": "Controleer classificatie en ketenrelaties risicogericht voordat stoffen worden afgegeven.",
                   "description": "Wijs een bevoegde eigenaar aan, documenteer de opvolging en evalueer proportionaliteit en neveneffecten.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:omgevingsdienst",
                     "nl-starter:partner:nederlandse-voedsel-en-warenautoriteit"
@@ -7577,7 +7577,7 @@
                   "id": "nl-starter:script:co-vergisting:scene:transport:variant:published:measure:1",
                   "label": "Voer ketengerichte document- en transportcontroles uit bij samenlopende afwijkingen.",
                   "description": "Wijs een bevoegde eigenaar aan, documenteer de opvolging en evalueer proportionaliteit en neveneffecten.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:inspectie-leefomgeving-en-transport",
                     "nl-starter:partner:omgevingsdienst"
@@ -7660,7 +7660,7 @@
                   "id": "nl-starter:script:co-vergisting:scene:tussenbewerking:variant:published:measure:1",
                   "label": "Combineer locatie-inspectie met document- en massabalanscontrole over meerdere ketenpartners.",
                   "description": "Wijs een bevoegde eigenaar aan, documenteer de opvolging en evalueer proportionaliteit en neveneffecten.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:omgevingsdienst",
                     "nl-starter:partner:nederlandse-voedsel-en-warenautoriteit"
@@ -7743,7 +7743,7 @@
                   "id": "nl-starter:script:co-vergisting:scene:vergisting:variant:published:measure:1",
                   "label": "Voer gezamenlijke risico-inspecties uit op acceptatie, administratie en feitelijke installatie.",
                   "description": "Wijs een bevoegde eigenaar aan, documenteer de opvolging en evalueer proportionaliteit en neveneffecten.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:omgevingsdienst",
                     "nl-starter:partner:nederlandse-voedsel-en-warenautoriteit"
@@ -7826,7 +7826,7 @@
                   "id": "nl-starter:script:co-vergisting:scene:digestaat:variant:published:measure:1",
                   "label": "Vergelijk productie-, transport- en toepassingsregistraties en herstel milieuschade waar nodig.",
                   "description": "Wijs een bevoegde eigenaar aan, documenteer de opvolging en evalueer proportionaliteit en neveneffecten.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:omgevingsdienst",
                     "nl-starter:partner:nederlandse-voedsel-en-warenautoriteit"
@@ -7848,7 +7848,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-nl-starter",
-        "bundleVersion": "1.0.6",
+        "bundleVersion": "1.0.7",
         "scriptId": "nl-starter:script:co-vergisting"
       }
     },
@@ -7960,7 +7960,7 @@
                   "id": "nl-starter:script:complexe-zorgstructuren:scene:bedrijfsstructuur:variant:published:measure:1",
                   "label": "Toets eigendom, governance en verbonden partijen vóór toetreding en bij relevante wijzigingen.",
                   "description": "Wijs een bevoegde eigenaar aan, documenteer de opvolging en evalueer proportionaliteit en neveneffecten.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:nederlandse-zorgautoriteit",
                     "nl-starter:partner:gemeente"
@@ -8043,7 +8043,7 @@
                   "id": "nl-starter:script:complexe-zorgstructuren:scene:poortwachters:variant:published:measure:1",
                   "label": "Gebruik uniforme informatie-eisen en een bevoegde escalatieroute voor samenlopende integriteitssignalen.",
                   "description": "Wijs een bevoegde eigenaar aan, documenteer de opvolging en evalueer proportionaliteit en neveneffecten.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:nederlandse-zorgautoriteit",
                     "nl-starter:partner:belastingdienst"
@@ -8126,7 +8126,7 @@
                   "id": "nl-starter:script:complexe-zorgstructuren:scene:bedrijfsmiddelen:variant:published:measure:1",
                   "label": "Vergelijk contracten, eigendomsrelaties, facturen en feitelijke inzet vóór en tijdens contractering.",
                   "description": "Wijs een bevoegde eigenaar aan, documenteer de opvolging en evalueer proportionaliteit en neveneffecten.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:nederlandse-zorgautoriteit",
                     "nl-starter:partner:zorgkantoor-of-zorgverzekeraar"
@@ -8209,7 +8209,7 @@
                   "id": "nl-starter:script:complexe-zorgstructuren:scene:bedrijfsvoering:variant:published:measure:1",
                   "label": "Combineer kwaliteits-, contract- en financiële controles rond dezelfde cliënten en perioden.",
                   "description": "Wijs een bevoegde eigenaar aan, documenteer de opvolging en evalueer proportionaliteit en neveneffecten.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:inspectie-gezondheidszorg-en-jeugd",
                     "nl-starter:partner:zorgkantoor-of-zorgverzekeraar"
@@ -8292,7 +8292,7 @@
                   "id": "nl-starter:script:complexe-zorgstructuren:scene:clienten:variant:published:measure:1",
                   "label": "Organiseer onafhankelijke cliëntondersteuning en toets verweven rollen bij werving en plaatsing.",
                   "description": "Wijs een bevoegde eigenaar aan, documenteer de opvolging en evalueer proportionaliteit en neveneffecten.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:gemeente",
                     "nl-starter:partner:zorgkantoor-of-zorgverzekeraar"
@@ -8375,7 +8375,7 @@
                   "id": "nl-starter:script:complexe-zorgstructuren:scene:verantwoording:variant:published:measure:1",
                   "label": "Vraag concernbrede informatie uit en escalereer structurele transparantie- of governanceproblemen.",
                   "description": "Wijs een bevoegde eigenaar aan, documenteer de opvolging en evalueer proportionaliteit en neveneffecten.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:nederlandse-zorgautoriteit",
                     "nl-starter:partner:inspectie-gezondheidszorg-en-jeugd"
@@ -8458,7 +8458,7 @@
                   "id": "nl-starter:script:complexe-zorgstructuren:scene:locatie:variant:published:measure:1",
                   "label": "Combineer locatiebezoek, vergunningstoets en financiële analyse van huur- en zorgstromen.",
                   "description": "Wijs een bevoegde eigenaar aan, documenteer de opvolging en evalueer proportionaliteit en neveneffecten.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:gemeente",
                     "nl-starter:partner:inspectie-gezondheidszorg-en-jeugd"
@@ -8541,7 +8541,7 @@
                   "id": "nl-starter:script:complexe-zorgstructuren:scene:einde-bedrijf:variant:published:measure:1",
                   "label": "Coördineer zorgcontinuïteit, financieel onderzoek en integriteitstoetsing van een eventuele opvolger.",
                   "description": "Wijs een bevoegde eigenaar aan, documenteer de opvolging en evalueer proportionaliteit en neveneffecten.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:nederlandse-zorgautoriteit",
                     "nl-starter:partner:gemeente",
@@ -8564,7 +8564,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-nl-starter",
-        "bundleVersion": "1.0.6",
+        "bundleVersion": "1.0.7",
         "scriptId": "nl-starter:script:complexe-zorgstructuren"
       }
     },
@@ -8676,7 +8676,7 @@
                   "id": "nl-starter:script:criminele-uitbuiting:scene:identificeren:variant:published:measure:1",
                   "label": "Versterk weerbaarheid en maak vroegsignalering mogelijk via onderwijs, zorg en sociaal domein.",
                   "description": "Wijs een bevoegde eigenaar aan, documenteer de opvolging en evalueer proportionaliteit en neveneffecten.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:gemeente",
                     "nl-starter:partner:zorg-en-opvang"
@@ -8759,7 +8759,7 @@
                   "id": "nl-starter:script:criminele-uitbuiting:scene:binden:variant:published:measure:1",
                   "label": "Bied een veilige vertrouwenspersoon, praktische steun en onafhankelijke informatie over rechten.",
                   "description": "Wijs een bevoegde eigenaar aan, documenteer de opvolging en evalueer proportionaliteit en neveneffecten.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:zorg-en-opvang",
                     "nl-starter:partner:gemeente"
@@ -8842,7 +8842,7 @@
                   "id": "nl-starter:script:criminele-uitbuiting:scene:grensvervaging:variant:published:measure:1",
                   "label": "Bespreek gedrag zonder het mogelijke slachtoffer direct uitsluitend als verdachte te benaderen.",
                   "description": "Wijs een bevoegde eigenaar aan, documenteer de opvolging en evalueer proportionaliteit en neveneffecten.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:politie",
                     "nl-starter:partner:zorg-en-opvang"
@@ -8925,7 +8925,7 @@
                   "id": "nl-starter:script:criminele-uitbuiting:scene:beheersen:variant:published:measure:1",
                   "label": "Maak een slachtoffergericht veiligheidsplan en stem bewijsborging af zonder extra risico te veroorzaken.",
                   "description": "Wijs een bevoegde eigenaar aan, documenteer de opvolging en evalueer proportionaliteit en neveneffecten.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:politie",
                     "nl-starter:partner:zorg-en-opvang"
@@ -9008,7 +9008,7 @@
                   "id": "nl-starter:script:criminele-uitbuiting:scene:uitvoeren:variant:published:measure:1",
                   "label": "Pas slachtofferherkenning toe en richt onderzoek op aansturing, profijt en afhankelijkheidsrelaties.",
                   "description": "Wijs een bevoegde eigenaar aan, documenteer de opvolging en evalueer proportionaliteit en neveneffecten.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:politie",
                     "nl-starter:partner:openbaar-ministerie"
@@ -9091,7 +9091,7 @@
                   "id": "nl-starter:script:criminele-uitbuiting:scene:voordeel:variant:published:measure:1",
                   "label": "Combineer financieel onderzoek met bescherming en voorkom dat interventie nieuwe schulden of risico’s creëert.",
                   "description": "Wijs een bevoegde eigenaar aan, documenteer de opvolging en evalueer proportionaliteit en neveneffecten.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:fiu-nederland",
                     "nl-starter:partner:politie"
@@ -9174,7 +9174,7 @@
                   "id": "nl-starter:script:criminele-uitbuiting:scene:verankeren:variant:published:measure:1",
                   "label": "Combineer duurzame begeleiding, schuldenaanpak, veiligheidszorg en onderzoek naar de achterliggende uitbuiter.",
                   "description": "Wijs een bevoegde eigenaar aan, documenteer de opvolging en evalueer proportionaliteit en neveneffecten.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:zorg-en-opvang",
                     "nl-starter:partner:gemeente",
@@ -9197,7 +9197,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-nl-starter",
-        "bundleVersion": "1.0.6",
+        "bundleVersion": "1.0.7",
         "scriptId": "nl-starter:script:criminele-uitbuiting"
       }
     },
@@ -9309,7 +9309,7 @@
                   "id": "nl-starter:script:fake-carriers:scene:voorbereiden:variant:published:measure:1",
                   "label": "Voer herhaalde identiteits- en documentcontrole uit bij relevante account- of bedrijfswijzigingen.",
                   "description": "Wijs een bevoegde eigenaar aan, documenteer de opvolging en evalueer proportionaliteit en neveneffecten.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:digitaal-vrachtplatform",
                     "nl-starter:partner:politie"
@@ -9392,7 +9392,7 @@
                   "id": "nl-starter:script:fake-carriers:scene:diensten-aanbieden:variant:published:measure:1",
                   "label": "Gebruik een vier-ogencontrole en onafhankelijke terugbelprocedure vóór definitieve opdrachtverlening.",
                   "description": "Wijs een bevoegde eigenaar aan, documenteer de opvolging en evalueer proportionaliteit en neveneffecten.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:digitaal-vrachtplatform",
                     "nl-starter:partner:verlader"
@@ -9475,7 +9475,7 @@
                   "id": "nl-starter:script:fake-carriers:scene:goederen-ophalen:variant:published:measure:1",
                   "label": "Geef de lading niet vrij bij onopgeloste identiteitstwijfel en gebruik een vaste meldroute.",
                   "description": "Wijs een bevoegde eigenaar aan, documenteer de opvolging en evalueer proportionaliteit en neveneffecten.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:verlader",
                     "nl-starter:partner:politie"
@@ -9558,7 +9558,7 @@
                   "id": "nl-starter:script:fake-carriers:scene:vervoer-opslag:variant:published:measure:1",
                   "label": "Activeer direct de afgesproken incidentroute, borg beschikbare gegevens en waarschuw bevoegde partners.",
                   "description": "Wijs een bevoegde eigenaar aan, documenteer de opvolging en evalueer proportionaliteit en neveneffecten.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:politie",
                     "nl-starter:partner:digitaal-vrachtplatform",
@@ -9581,7 +9581,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-nl-starter",
-        "bundleVersion": "1.0.6",
+        "bundleVersion": "1.0.7",
         "scriptId": "nl-starter:script:fake-carriers"
       }
     },
@@ -9640,7 +9640,7 @@
                   "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:voorbereiding-netwerk:variant:hoofdroute:measure:1",
                   "label": "Bescherm operationele infrastructuurinformatie",
                   "description": "Beperk onbevoegde toegang tot actuele infrastructuur- en onderhoudsinformatie en onderzoek afwijkende raadplegingen.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "3_1",
                   "partners": [
                     "nl-starter:partner:pijplijnbeheerder",
                     "nl-starter:partner:politie"
@@ -9650,7 +9650,7 @@
                   "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:voorbereiding-netwerk:variant:hoofdroute:measure:2",
                   "label": "Verbind signalen uit logistiek en toezicht",
                   "description": "Combineer meldingen over verdachte voertuigbewegingen, opslaghuur en infrastructuurverkenning in een gedeeld risicobeeld.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:pijplijnbeheerder",
                     "nl-starter:partner:politie",
@@ -9762,7 +9762,7 @@
                   "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:verplaatsing-naar-pijplijn:variant:hoofdroute:measure:1",
                   "label": "Verifieer werkzaamheden en voertuigen",
                   "description": "Maak actuele werkopdrachten controleerbaar en onderzoek voertuigen of personen die niet aan een geldige opdracht zijn gekoppeld.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "2_5",
                   "partners": [
                     "nl-starter:partner:pijplijnbeheerder",
                     "nl-starter:partner:politie"
@@ -9772,7 +9772,7 @@
                   "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:verplaatsing-naar-pijplijn:variant:hoofdroute:measure:2",
                   "label": "Richt gebiedsgerichte waarneming in",
                   "description": "Stem toezicht af op kwetsbare corridors en laat meldingen van omwonenden of terreinbeheerders snel beoordelen.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:pijplijnbeheerder",
                     "nl-starter:partner:politie",
@@ -9880,7 +9880,7 @@
                   "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:ongeoorloofde-onttrekking:variant:hoofdroute:measure:1",
                   "label": "Combineer sensordata met fysieke inspectie",
                   "description": "Laat druk-, debiet- en balansafwijkingen leiden tot risicogestuurde controle van de betreffende corridor.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "2_5",
                   "partners": [
                     "nl-starter:partner:pijplijnbeheerder"
                   ]
@@ -9889,7 +9889,7 @@
                   "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:ongeoorloofde-onttrekking:variant:hoofdroute:measure:2",
                   "label": "Organiseer veilige incidentrespons",
                   "description": "Behandel een vermoedelijke aftapping als een gecombineerd veiligheids-, milieu- en opsporingsincident en stel sporen veilig.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:pijplijnbeheerder",
                     "nl-starter:partner:politie",
@@ -9998,7 +9998,7 @@
                   "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:transport-vanaf-pijplijn:variant:hoofdroute:measure:1",
                   "label": "Controleer herkomst en opdracht",
                   "description": "Laat toezichthouders en opsporing herkomst, laadlocatie, opdrachtgever en bestemming in samenhang verifiëren.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "2_5",
                   "partners": [
                     "nl-starter:partner:politie",
                     "nl-starter:partner:omgevingsdienst"
@@ -10008,7 +10008,7 @@
                   "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:transport-vanaf-pijplijn:variant:hoofdroute:measure:2",
                   "label": "Koppel voertuig- en incidentinformatie",
                   "description": "Vergelijk voertuigen uit corridorwaarnemingen met controles bij opslag-, overslag- en afzetlocaties.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:pijplijnbeheerder",
                     "nl-starter:partner:politie"
@@ -10112,7 +10112,7 @@
                   "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:opslag-en-overslag:variant:hoofdroute:measure:1",
                   "label": "Voer voorraad- en herkomstcontroles uit",
                   "description": "Vergelijk fysieke voorraad, inkoopadministratie, leveranciers en transportbewegingen bij risicolocaties.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "2_5",
                   "partners": [
                     "nl-starter:partner:omgevingsdienst",
                     "nl-starter:partner:politie"
@@ -10122,7 +10122,7 @@
                   "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:opslag-en-overslag:variant:hoofdroute:measure:2",
                   "label": "Deel signalen over risicolocaties",
                   "description": "Verbind milieu-, vergunning-, brandveiligheids- en opsporingssignalen rond opslag en overslag.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:omgevingsdienst",
                     "nl-starter:partner:gemeente",
@@ -10244,7 +10244,7 @@
                   "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:afzet-en-distributie:variant:hoofdroute:measure:1",
                   "label": "Versterk ketencontrole op herkomst",
                   "description": "Laat afnemers de leverancier, laadlocatie, hoeveelheid en transporteur aantoonbaar verifiëren en bewaar een controleerbaar spoor.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "3_4",
                   "partners": [
                     "nl-starter:partner:omgevingsdienst",
                     "nl-starter:partner:politie"
@@ -10254,7 +10254,7 @@
                   "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:afzet-en-distributie:variant:hoofdroute:measure:2",
                   "label": "Onderzoek afwijkende marktpatronen",
                   "description": "Combineer prijs-, volume-, voorraad- en leveranciersafwijkingen om risicovolle afzetpunten gericht te selecteren.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:politie",
                     "nl-starter:partner:openbaar-ministerie"
@@ -10366,7 +10366,7 @@
                   "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:opbrengsten-en-opvolging:variant:hoofdroute:measure:1",
                   "label": "Start parallel financieel onderzoek",
                   "description": "Koppel incidentonderzoek vanaf het begin aan betalingen, ondernemingen, bezittingen en begunstigden.",
-                  "cat": "Verhoog toezicht en naleving",
+                  "cat": "3_5",
                   "partners": [
                     "nl-starter:partner:politie",
                     "nl-starter:partner:openbaar-ministerie"
@@ -10376,7 +10376,7 @@
                   "id": "nl-starter:script:pijplijndiefstal-olieproducten:scene:opbrengsten-en-opvolging:variant:hoofdroute:measure:2",
                   "label": "Bouw een gezamenlijke netwerkanalyse",
                   "description": "Verbind technische incidentdata, logistieke waarnemingen, vergunninginformatie en financiële relaties om sleutelactoren en faciliteiten te identificeren.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "nl-starter:partner:pijplijnbeheerder",
                     "nl-starter:partner:politie",
@@ -10487,7 +10487,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-nl-starter",
-        "bundleVersion": "1.0.6",
+        "bundleVersion": "1.0.7",
         "scriptId": "nl-starter:script:pijplijndiefstal-olieproducten"
       },
       "icon": "builtin:oil-pipeline-tap",

@@ -8,6 +8,7 @@ import {
   SearchSelect,
   Select,
   snackbar,
+  TextArea,
   uniqueId,
 } from 'mithril-materialized';
 import { type FormAttributes, LayoutForm, SlimdownView, type UIForm } from 'mithril-ui-form';
@@ -80,6 +81,40 @@ const updateActivityType = (activity: Activity) => {
 };
 
 type ActDetailTab = 'conditions' | 'indicators' | 'measures';
+
+const ActivityEvidenceFields: FactoryComponent<{ activity: Activity; onchange: () => void }> = () => {
+  let tracesText = '';
+  return {
+    oninit: ({ attrs: { activity } }) => {
+      tracesText = (activity.observableTraces || []).join('\n');
+    },
+    view: ({ attrs: { activity, onchange } }) => m('.row.activity-evidence-editor', [
+      m(TextArea, {
+        id: 'activity-observable-traces',
+        label: t('OBSERVABLE_TRACES'),
+        helperText: t('OBSERVABLE_TRACES_HELP'),
+        rows: 3,
+        value: tracesText,
+        oninput: (value) => {
+          tracesText = value;
+          activity.observableTraces = value.split(/\r?\n/).map((trace) => trace.trim()).filter(Boolean);
+          onchange();
+        },
+      }),
+      m(TextArea, {
+        id: 'activity-verification-question',
+        label: t('VERIFICATION_QUESTION'),
+        helperText: t('VERIFICATION_QUESTION_HELP'),
+        rows: 2,
+        value: activity.decisionPoint || '',
+        oninput: (value) => {
+          activity.decisionPoint = value || undefined;
+          onchange();
+        },
+      }),
+    ]),
+  };
+};
 
 export const CrimeScriptEditor: FactoryComponent<{
   model: DataModel;
@@ -960,7 +995,21 @@ export const CrimeScriptEditor: FactoryComponent<{
                   },
                 }),
                 m(LayoutForm, {
-                  form: activityDetailForm,
+                  form: activityDetailForm.slice(0, 2),
+                  obj: selectedActivity,
+                  onchange: () => {
+                    updateActivityType(selectedActivity);
+                    persist();
+                  },
+                  i18n: I18N,
+                } as FormAttributes<Partial<Activity>>),
+                m('div', m(ActivityEvidenceFields, {
+                  key: selectedActivity.id,
+                  activity: selectedActivity,
+                  onchange: persist,
+                })),
+                m(LayoutForm, {
+                  form: activityDetailForm.slice(2),
                   obj: selectedActivity,
                   onchange: () => {
                     updateActivityType(selectedActivity);

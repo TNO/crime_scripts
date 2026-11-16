@@ -12,6 +12,7 @@ import type {
 import type { TaxonomyName } from '@crime-script/core/taxonomy-references';
 import { GeneratorError } from './errors.ts';
 import { normalizedLabel, slugify, textSimilarity } from './text.ts';
+import { validateMeasureCategory } from './validation.ts';
 import type {
   CandidateFile,
   EvidenceFile,
@@ -36,6 +37,7 @@ export type BuildResult = {
   model: DataModel;
   issues: GeneratorIssue[];
   newTaxonomy: Array<{ taxonomy: TaxonomyName; id: ID; label: string }>;
+  unusedTaxonomy: Array<{ taxonomy: TaxonomyName; key: string; id: ID; label: string }>;
   keyToId: Record<string, ID>;
   sourceKeyToLiteratureId: Record<string, ID>;
 };
@@ -449,15 +451,10 @@ export const sourceToLiterature = (
   url: source.kind === 'web' ? source.url : undefined,
 });
 
-const activityDescription = (
-  description: string | undefined,
-  traces: string[],
-  decisionPoint: string | undefined,
-  language: ContentLanguage
-): string => description?.trim() || [
-  traces.length ? `${language === 'nl' ? 'Waarneembare signalen' : 'Observable traces'}: ${traces.join('; ')}.` : '',
-  decisionPoint?.trim() ? `${language === 'nl' ? 'Toetsvraag' : 'Decision point'}: ${decisionPoint.trim()}.` : '',
-].filter(Boolean).join(' ');
+const sentence = (value: string): string => {
+  const trimmed = value.trim();
+  return /[.!?\u2026]["'\u2019\u201d)\]]*$/.test(trimmed) ? trimmed : `${trimmed}.`;
+};
 
 const indicatorDescription = (
   corroboration: string[],
@@ -465,13 +462,16 @@ const indicatorDescription = (
   relevance: string,
   language: ContentLanguage
 ): string => [
-  `${language === 'nl' ? 'Verificatie' : 'Corroborate with'}: ${corroboration.join('; ')}.`,
-  `${language === 'nl' ? 'Andere verklaringen' : 'Consider alternatives'}: ${alternatives.join('; ')}.`,
-  `${language === 'nl' ? 'Betekenis' : 'Relevance'}: ${relevance.trim()}.`,
+  sentence(`${language === 'nl' ? 'Verificatie' : 'Corroborate with'}: ${corroboration.map((value) => value.trim()).join('; ')}`),
+  sentence(`${language === 'nl' ? 'Andere verklaringen' : 'Consider alternatives'}: ${alternatives.map((value) => value.trim()).join('; ')}`),
+  sentence(`${language === 'nl' ? 'Betekenis' : 'Relevance'}: ${relevance.trim()}`),
 ].join(' ');
 
 const measureDescription = (decisionMoment: string, intendedEffect: string, language: ContentLanguage): string =>
-  `${language === 'nl' ? 'Inzetmoment' : 'Decision moment'}: ${decisionMoment.trim()}. ${language === 'nl' ? 'Beoogd effect' : 'Intended effect'}: ${intendedEffect.trim()}.`;
+  [
+    sentence(`${language === 'nl' ? 'Inzetmoment' : 'Decision moment'}: ${decisionMoment.trim()}`),
+    sentence(`${language === 'nl' ? 'Beoogd effect' : 'Intended effect'}: ${intendedEffect.trim()}`),
+  ].join(' ');
 
 const normalizeDescriptionText = (value: string): string =>
   value
@@ -645,12 +645,7 @@ export const buildStandaloneCandidate = (
         );
       });
       const activities = variant.activities.map((activity, activityIndex) => {
-        const description = activityDescription(
-          activity.description,
-          activity.observableTraces,
-          activity.decisionPoint,
-          brief.contentLanguage
-        );
+        const description = activity.description?.trim();
         if (!activity.event?.trim() || activity.observableTraces.length === 0) {
           throw new GeneratorError(
             'invalid-activity',
@@ -688,6 +683,8 @@ export const buildStandaloneCandidate = (
           id: activityIds.get(activity.key)!,
           label: activity.event.trim(),
           description,
+          observableTraces: activity.observableTraces.map((trace) => trace.trim()),
+          decisionPoint: activity.decisionPoint?.trim(),
           parentId,
           type: type.length ? type : 0,
           cast,
@@ -723,7 +720,7 @@ export const buildStandaloneCandidate = (
         id: idFor('measure', measure.key, measure.existingId, `${base}.measures[${measureIndex}].existingId`),
         label: measure.label.trim(),
         description: measureDescription(measure.decisionMoment, measure.intendedEffect, brief.contentLanguage),
-        cat: measure.category.trim(),
+        cat: validateMeasureCategory(measure.category, `${base}.measures[${measureIndex}].category`),
         partners: requireTaxonomyIds(
           taxonomy.maps,
           'partners',
@@ -892,11 +889,11 @@ export const buildStandaloneCandidate = (
     ...script.stages.flatMap((stage, stageIndex) => [
       { path: `$.script.stages[${stageIndex}].description`, description: stage.description || '' },
       ...stage.variants.flatMap((variant, variantIndex) => [
-        ...variant.activities.map((item, index) => ({
+        ...variant.activities.flatMap((item, index) => item.description ? [{
           path: `$.script.stages[${stageIndex}].variants[${variantIndex}].activities[${index}].description`,
-          description: item.description || '',
+          description: item.description,
           label: item.label,
-        })),
+        }] : []),
         ...variant.indicators.map((item, index) => ({
           path: `$.script.stages[${stageIndex}].variants[${variantIndex}].indicators[${index}].description`,
           description: item.description || '',
@@ -915,10 +912,27 @@ export const buildStandaloneCandidate = (
     script,
   ];
   const model = createSingleScriptExportModel(script, taxonomy.model, now);
+  const exportedTaxonomyIds = Object.fromEntries(
+    taxonomyNames.map((name) => [name, new Set(model[name].map(({ id }) => id))])
+  ) as Record<TaxonomyName, Set<ID>>;
+  const unusedTaxonomy: BuildResult['unusedTaxonomy'] = [];
+  const unusedIssues: GeneratorIssue[] = [];
+  taxonomyNames.forEach((name) => candidate.taxonomies[name].forEach((item, index) => {
+    const id = taxonomy.maps[name].get(item.key)!;
+    if (exportedTaxonomyIds[name].has(id)) return;
+    unusedTaxonomy.push({ taxonomy: name, key: item.key, id, label: item.label });
+    unusedIssues.push({
+      code: 'unused-taxonomy',
+      path: `$.taxonomies.${name}[${index}]`,
+      message: `Declared ${name} item "${item.label}" (${item.key}) is unused and was omitted from the standalone export.`,
+      severity: 'warning',
+    });
+  }));
   return {
     model,
     issues: [
       ...taxonomy.suggestions,
+      ...unusedIssues,
       ...evidence.sources
         .filter(({ state }) => state !== 'valid')
         .map((source) => ({
@@ -928,7 +942,8 @@ export const buildStandaloneCandidate = (
           severity: source.state === 'invalid' ? 'error' as const : 'warning' as const,
         })),
     ],
-    newTaxonomy: taxonomy.newTaxonomy,
+    newTaxonomy: taxonomy.newTaxonomy.filter(({ taxonomy: name, id }) => exportedTaxonomyIds[name].has(id)),
+    unusedTaxonomy,
     keyToId,
     sourceKeyToLiteratureId,
   };

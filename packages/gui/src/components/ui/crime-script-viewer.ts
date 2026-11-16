@@ -145,6 +145,22 @@ export const CrimeScriptViewer: FactoryComponent<{
             m('strong.script-detail-title', highlighter(activity.label)),
             activity.description &&
               m('p.script-detail-description', highlighter(activity.description)),
+            (activity.observableTraces?.length || activity.decisionPoint?.trim()) &&
+              m('dl.activity-evidence', [
+                activity.observableTraces?.length ? [
+                  m('dt', t('OBSERVABLE_TRACES')),
+                  m('dd', [
+                    m('ul.activity-traces', activity.observableTraces.map((trace, index) =>
+                      m('li', { key: index }, highlighter(trace))
+                    )),
+                    m('p.activity-evidence-note', t('OBSERVABLE_TRACES_NOTE')),
+                  ]),
+                ] : null,
+                activity.decisionPoint?.trim() ? [
+                  m('dt', t('VERIFICATION_QUESTION')),
+                  m('dd', highlighter(activity.decisionPoint)),
+                ] : null,
+              ]),
             (roles.length > 0 || taxonomyItems.length > 0) &&
               m('.activity-entity-pills', [
                 roles.map((role) =>

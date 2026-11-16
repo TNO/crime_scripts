@@ -13,6 +13,8 @@ export type ReportStep = {
   number: string;
   label: string;
   description?: string;
+  observableTraces?: string[];
+  decisionPoint?: string;
   cast: string[];
   attributes: string[];
   transports: string[];
@@ -123,6 +125,8 @@ export const buildCrimeScriptReport = (
           number,
           label: item.label,
           description: item.description,
+          observableTraces: item.observableTraces,
+          decisionPoint: item.decisionPoint,
           cast: labelsFor(item.cast, taxonomyLookup),
           attributes: labelsFor(item.attributes, taxonomyLookup),
           transports: labelsFor(item.transports, taxonomyLookup),

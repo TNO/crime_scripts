@@ -8,6 +8,7 @@ import type {
 } from './data-model.ts';
 import { normalizeDataModel } from './model-normalization.ts';
 import { importStandaloneScript } from './starter-library.ts';
+import { isMeasureCategoryId, MEASURE_CATEGORIES } from './measure-categories.ts';
 
 export type LlmDetailPreset = 'orienting' | 'practical' | 'operational';
 
@@ -111,10 +112,10 @@ Act extends Labelled {
   locationIds?: location IDs[]; activities: Activity[]; conditions: Condition[];
   opportunities: Hierarchical[]; indicators: Hierarchical[]; measures: Measure[];
 }
-Activity extends Labelled { header?: boolean; type?: 0|1|2|4|8 or an array of those values; cast?: cast IDs[]; attributes?: attribute IDs[]; transports?: transport IDs[] }
+Activity extends Labelled { header?: boolean; observableTraces?: non-empty strings[]; decisionPoint?: string; type?: 0|1|2|4|8 or an array of those values; cast?: cast IDs[]; attributes?: attribute IDs[]; transports?: transport IDs[] }
 Condition extends Labelled { type: ConditionType }
 ConditionType = "Prerequisite"|"Facilitator"|"Enforcement"
-Measure extends Labelled { cat: string; partners: partner IDs[] }
+Measure extends Labelled { cat: ${MEASURE_CATEGORIES.map(({ id }) => `"${id}"`).join('|')}; partners: partner IDs[] }
 Track extends Labelled { sceneVariants: { [sceneId]: variantId|null } }`;
 
 const presetInstructions: Record<LlmDetailPreset, string> = {
@@ -151,6 +152,8 @@ SAFETY AND PROVENANCE
 - Support prevention and investigation. Do not provide offender instructions, evasion tactics, or exploitable operational parameters.
 - Give every modus operandi (scene variant) a concise label that describes its concrete route or mechanism. Never use generic labels such as "Main route", "Primary route", or "Hoofdroute", and never repeat the scene or first activity label.
 - Give every activity a specific description that explains what happens, how the named roles relate, and why the event matters in its phase. Add information beyond the label; never repeat or quote the activity label in its description. Do not replace that explanation with generic instructions to record, map, assess, or investigate the event.
+- Keep potential observable artefacts in observableTraces, separate from the action narrative and from indicators. They are not proof. Use decisionPoint for an analyst's verification question, not an offender decision. Include these optional fields only when source-supported; do not invent traces or questions for headings.
+- Choose measure cat from the controlled IDs and their meanings: ${MEASURE_CATEGORIES.map(({ id, labelKey }) => `${id}=${labelKey.toLowerCase().replace(/_/g, ' ')}`).join('; ')}.
 - When an activity is itself a prevention, investigation, or control action, name the responsible professional or partner and describe the intended effect in declarative language.
 - Set language explicitly to the language value in the untrusted data.
 - Set aiGenerated and unreviewed to true. Use status 1.
@@ -293,7 +296,11 @@ const validateLiterature = (value: unknown, path: string) => {
 };
 
 const validateActivity = (value: unknown, path: string) => {
-  const object = validateLabelled(value, path, ['header', 'type', 'cast', 'attributes', 'transports']);
+  const object = validateLabelled(value, path, [
+    'header', 'type', 'cast', 'attributes', 'transports', 'observableTraces', 'decisionPoint',
+  ]);
+  if (object.observableTraces !== undefined) stringArray(object.observableTraces, `${path}.observableTraces`);
+  optionalString(object, 'decisionPoint', path);
   const label = stringAt(requireField(object, 'label', path), `${path}.label`, true);
   const description = stringAt(requireField(object, 'description', path), `${path}.description`, true);
   if (normalizeComparableText(description).includes(normalizeComparableText(label))) {
@@ -331,6 +338,9 @@ const validateCondition = (value: unknown, path: string) => {
 const validateMeasure = (value: unknown, path: string) => {
   const object = validateLabelled(value, path, ['cat', 'partners']);
   stringAt(requireField(object, 'cat', path), `${path}.cat`, true);
+  if (!isMeasureCategoryId(object.cat)) {
+    fail(`${path}.cat`, 'invalidValue', 'Expected a controlled measure category ID from the prompt.');
+  }
   stringArray(requireField(object, 'partners', path), `${path}.partners`);
 };
 

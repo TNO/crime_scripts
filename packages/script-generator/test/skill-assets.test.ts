@@ -3,6 +3,7 @@ import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import test from 'node:test';
 import { parse } from 'yaml';
+import { MEASURE_CATEGORIES } from '@crime-script/core/measure-categories';
 import { validateBrief } from '../src/schema.ts';
 import { validateCandidate, validateEvidence, validateResearchLog } from '../src/validation.ts';
 
@@ -28,5 +29,8 @@ test('installable skill stays concise and its example files match runtime contra
   ]) {
     const schema = JSON.parse(await readFile(resolve(skillRoot, 'schemas', name), 'utf8'));
     assert.equal(schema.$schema, 'https://json-schema.org/draft/2020-12/schema');
+    if (name === 'candidate.schema.json') {
+      assert.deepEqual(schema.$defs.measure.properties.category.enum, MEASURE_CATEGORIES.map(({ id }) => id));
+    }
   }
 });

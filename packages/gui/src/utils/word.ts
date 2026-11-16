@@ -153,6 +153,17 @@ export const crimeScriptToMarkdown = (crimeScript: Partial<CrimeScript>, model: 
               const detailIndentation = `${indentation}${index < 9 ? '   ' : '    '}`;
               activity.description &&
                 activitiesTxt.push(addLeadingSpaces(activity.description, detailIndentation.length));
+              if (activity.observableTraces?.length) {
+                activitiesTxt.push(`${detailIndentation}- ${t('OBSERVABLE_TRACES')}:`);
+                activity.observableTraces.forEach((trace) =>
+                  activitiesTxt.push(addLeadingSpaces(`- ${trace}`, detailIndentation.length + 2))
+                );
+              }
+              activity.decisionPoint &&
+                activitiesTxt.push(addLeadingSpaces(
+                  `- ${t('VERIFICATION_QUESTION')}: ${activity.decisionPoint}`,
+                  detailIndentation.length
+                ));
               const references = [
                 [ActivityType.HAS_CAST, t('CAST'), activity.cast],
                 [ActivityType.HAS_ATTRIBUTES, t('ATTRIBUTES'), activity.attributes],

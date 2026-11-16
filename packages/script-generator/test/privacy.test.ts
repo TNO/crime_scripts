@@ -63,6 +63,18 @@ test('restricted research blocks names, case IDs, encoded details, and short cop
     entryIndex: 0, phrase: 'x7', field: 'query',
   });
   assert.deepEqual(
+    findRestrictedResearchLeak(['Jan van der Meer heeft het rapport ontvangen.'], brief, log('Jan van der Meer')),
+    { entryIndex: 0, phrase: 'jan van der meer', field: 'query' }
+  );
+  assert.deepEqual(
+    findRestrictedResearchLeak(
+      ['Dossier CASE-7842 is afgeschermd.'],
+      { ...brief, subject: 'CASE-78420' },
+      log('CASE-7842')
+    ),
+    { entryIndex: 0, phrase: 'case 7842', field: 'query' }
+  );
+  assert.deepEqual(
     findRestrictedResearchLeak(['Geen aanvullende details.'], brief, log('x7q9'), ['x7q9.pdf']),
     { entryIndex: 0, phrase: 'x7q9', field: 'query' }
   );
@@ -98,6 +110,28 @@ test('restricted research blocks names, case IDs, encoded details, and short cop
     undefined
   );
   assert.equal(findRestrictedResearchLeak([material], brief, log('algemene financiële criminaliteit')), undefined);
+});
+
+test('restricted research allows generic Dutch and English function-word phrases', () => {
+  for (const phrase of [
+    'de uitvoering van',
+    'van online criminaliteit',
+    'de eerste inleg',
+    'de registratie en',
+    'volledigheid van de',
+    'in accordance with',
+    'the registration of',
+  ]) {
+    for (const research of [log(phrase), log(undefined, `https://example.test/?q=${encodeURIComponent(phrase)}`)]) {
+      assert.equal(findRestrictedResearchLeak([`Context ${phrase} algemene informatie.`], brief, research), undefined, phrase);
+    }
+  }
+  assert.deepEqual(
+    findRestrictedResearchLeak(
+      ['De overdracht gebruikt een unieke blauwe envelop.'], brief, log('unieke blauwe envelop')
+    ),
+    { entryIndex: 0, phrase: 'unieke blauwe envelop', field: 'query' }
+  );
 });
 
 test('status and build name the copied phrase and research field', async () => {

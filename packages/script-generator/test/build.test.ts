@@ -53,7 +53,7 @@ const candidate = (): CandidateFile => ({
         measures: [{
           key: 'verify',
           label: 'Verifieer bij de bronhouder',
-          category: 'Detectie',
+          category: '2_1',
           partnerKeys: ['authority'],
           decisionMoment: 'wanneer de eerste controle een materiële discrepantie toont',
           intendedEffect: 'voorkomen dat een onbevestigd document als authentiek wordt behandeld',
@@ -127,19 +127,111 @@ test('build creates a standalone first draft and reuses exact taxonomy', () => {
   assert.equal(script.literature[0].url, 'https://example.test/guidance');
   const variant = script.stages[0].variants[0];
   assert.equal(variant.activities[0].description, candidate().script.stages[0].variants[0].activities[0].description);
+  assert.deepEqual(variant.activities[0].observableTraces, candidate().script.stages[0].variants[0].activities[0].observableTraces);
+  assert.equal(variant.activities[0].decisionPoint, candidate().script.stages[0].variants[0].activities[0].decisionPoint);
   assert.match(variant.indicators[0].description || '', /Verificatie:.*Andere verklaringen:.*Betekenis:/);
   assert.match(variant.measures[0].description || '', /Inzetmoment:.*Beoogd effect:/);
 });
 
-test('legacy activity descriptions follow the selected script language', () => {
+test('legacy candidates keep traces and questions structured without inventing an action narrative', () => {
   const legacy = candidate();
   delete legacy.script.stages[0].variants[0].activities[0].description;
   const bundle = normalizeDataModel({ crimeScripts: [], geoLocations: [{ id: 'geo-nl', label: 'Nederland' }] });
   const dutch = buildStandaloneCandidate(bundle, brief, legacy, evidence(), true);
   const english = buildStandaloneCandidate(bundle, { ...brief, contentLanguage: 'en' }, legacy, evidence(), true);
-  assert.match(dutch.model.crimeScripts[0].stages[0].variants[0].activities[0].description || '', /^Waarneembare signalen:/);
-  assert.match(english.model.crimeScripts[0].stages[0].variants[0].activities[0].description || '', /^Observable traces:/);
+  for (const result of [dutch, english]) {
+    const activity = result.model.crimeScripts[0].stages[0].variants[0].activities[0];
+    assert.equal(activity.description, undefined);
+    assert.deepEqual(activity.observableTraces, legacy.script.stages[0].variants[0].activities[0].observableTraces);
+    assert.equal(activity.decisionPoint, legacy.script.stages[0].variants[0].activities[0].decisionPoint);
+  }
   assert.match(english.model.crimeScripts[0].stages[0].variants[0].indicators[0].description || '', /^Corroborate with:/);
+});
+
+test('measure categories must resolve to GUI category IDs in both validation and build', () => {
+  const invalid = candidate();
+  invalid.script.stages[0].variants[0].measures![0].category = 'Opsporing';
+  assert.throws(() => validateCandidate(invalid), /category.*categories/);
+  assert.throws(
+    () => buildStandaloneCandidate(
+      normalizeDataModel({ geoLocations: [{ id: 'geo-nl', label: 'Nederland' }] }),
+      brief, invalid, evidence(), true
+    ),
+    /category.*categories/
+  );
+  const valid = candidate();
+  valid.script.stages[0].variants[0].measures![0].category = '0_0';
+  validateCandidate(valid);
+  const result = buildStandaloneCandidate(
+    normalizeDataModel({ geoLocations: [{ id: 'geo-nl', label: 'Nederland' }] }),
+    brief, valid, evidence(), true
+  );
+  assert.equal(result.model.crimeScripts[0].stages[0].variants[0].measures[0].cat, '0_0');
+});
+
+test('generated indicator and measure prose preserves existing sentence endings', () => {
+  for (const language of ['en', 'nl'] as const) {
+    for (const ending of ['.', '?', '!', '...', '."', '?)']) {
+      const punctuated = candidate();
+      const variant = punctuated.script.stages[0].variants[0];
+      variant.indicators![0].corroboration = [`vergelijk de onafhankelijke registratie${ending}`];
+      variant.indicators![0].alternativeExplanations = [`een inmiddels herstelde invoerfout${ending}`];
+      variant.indicators![0].relevance = `aanleiding voor proportionele controle${ending}`;
+      variant.measures![0].decisionMoment = `bij een bevestigde afwijking${ending}`;
+      variant.measures![0].intendedEffect = `onbevestigde gegevens onderscheiden${ending}`;
+      const exported = buildStandaloneCandidate(
+        normalizeDataModel({ geoLocations: [{ id: 'geo-nl', label: 'Nederland' }] }),
+        { ...brief, contentLanguage: language }, punctuated, evidence(), true
+      ).model.crimeScripts[0].stages[0].variants[0];
+      assert.ok(exported.indicators[0].description?.includes(`registratie${ending} `));
+      assert.ok(exported.indicators[0].description?.includes(`invoerfout${ending} `));
+      assert.ok(exported.indicators[0].description?.endsWith(`controle${ending}`));
+      assert.ok(exported.measures[0].description?.includes(`afwijking${ending} `));
+      assert.ok(exported.measures[0].description?.endsWith(`onderscheiden${ending}`));
+    }
+  }
+});
+
+test('activities need no invented cast or decision point and retain authored action prose', () => {
+  const authored = candidate();
+  const activity = authored.script.stages[0].variants[0].activities[0];
+  delete activity.castKeys;
+  delete activity.decisionPoint;
+  validateCandidate(authored);
+  const result = buildStandaloneCandidate(
+    normalizeDataModel({ geoLocations: [{ id: 'geo-nl', label: 'Nederland' }] }),
+    brief, authored, evidence(), true
+  );
+  const exported = result.model.crimeScripts[0].stages[0].variants[0].activities[0];
+  assert.equal(exported.description, activity.description);
+  assert.deepEqual(exported.cast, []);
+  assert.deepEqual(exported.observableTraces, activity.observableTraces);
+  assert.equal(exported.decisionPoint, undefined);
+  assert.ok(activity.observableTraces.length);
+});
+
+test('unused taxonomy is reported while referenced parents survive the standalone export', () => {
+  const authored = candidate();
+  authored.taxonomies.partners.push(
+    { key: 'oversight-group', label: 'Overkoepelend toezicht' },
+    { key: 'unused', label: 'Niet betrokken organisatie' }
+  );
+  authored.taxonomies.partners[0].parentKeys = ['oversight-group'];
+  const bundle = normalizeDataModel({
+    geoLocations: [{ id: 'geo-nl', label: 'Nederland' }],
+    partners: [{ id: 'unrelated', label: 'Andere bestaande partner' }],
+  });
+  const result = buildStandaloneCandidate(bundle, brief, authored, evidence(), true);
+  const exportedLabels = result.model.partners.map(({ label }) => label);
+  assert.deepEqual(exportedLabels, ['Bronhouder', 'Overkoepelend toezicht']);
+  assert.deepEqual(result.unusedTaxonomy.map(({ taxonomy, key }) => ({ taxonomy, key })), [
+    { taxonomy: 'partners', key: 'unused' },
+  ]);
+  assert.deepEqual(result.issues.filter(({ code }) => code === 'unused-taxonomy').map(({ path, severity }) => ({
+    path, severity,
+  })), [{ path: '$.taxonomies.partners[2]', severity: 'warning' }]);
+  assert.equal(result.newTaxonomy.some(({ label }) => label === 'Niet betrokken organisatie'), false);
+  assert.ok(result.newTaxonomy.every(({ taxonomy, id }) => result.model[taxonomy].some((item) => item.id === id)));
 });
 
 test('build blocks missing evidence for a factual node', () => {

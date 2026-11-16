@@ -1,10 +1,12 @@
 import type { DataModel, ID } from '@crime-script/core/data-model';
 import { findDanglingTaxonomyReferences } from '@crime-script/core/taxonomy-references';
+import { isMeasureCategoryId } from '@crime-script/core/measure-categories';
 import { GeneratorError } from './errors.ts';
 import type {
   CandidateFile,
   EvidenceFile,
   ResearchLogFile,
+  ResearchRequest,
 } from './types.ts';
 
 const object = (value: unknown, path: string): Record<string, unknown> => {
@@ -106,6 +108,18 @@ const validateIndicator = (value: unknown, path: string): void => {
   string(item.relevance, `${path}.relevance`);
 };
 
+export const validateMeasureCategory = (value: unknown, path: string): string => {
+  const category = string(value, path);
+  if (!isMeasureCategoryId(category)) {
+    throw new GeneratorError(
+      'invalid-measure-category',
+      `${path} must be a GUI category ID; run categories --json for supported categories.`,
+      path
+    );
+  }
+  return category;
+};
+
 const validateMeasure = (value: unknown, path: string): void => {
   const item = object(value, path);
   onlyKeys(item, [
@@ -114,7 +128,7 @@ const validateMeasure = (value: unknown, path: string): void => {
   string(item.key, `${path}.key`);
   if (item.existingId !== undefined) string(item.existingId, `${path}.existingId`);
   string(item.label, `${path}.label`);
-  string(item.category, `${path}.category`);
+  validateMeasureCategory(item.category, `${path}.category`);
   optionalStringArray(item.partnerKeys, `${path}.partnerKeys`);
   if (!Array.isArray(item.partnerKeys) || item.partnerKeys.length === 0) {
     throw new GeneratorError('invalid-field', `${path}.partnerKeys must not be empty.`, `${path}.partnerKeys`);
@@ -301,6 +315,25 @@ export const validateEvidence = (value: unknown): EvidenceFile => {
   return value as EvidenceFile;
 };
 
+const validateResearchRequest = (entry: Record<string, unknown>, path: string): void => {
+  if (entry.query !== undefined) string(entry.query, `${path}.query`);
+  if (entry.url !== undefined) string(entry.url, `${path}.url`);
+  if (entry.query === undefined && entry.url === undefined) {
+    throw new GeneratorError('invalid-field', `${path} requires a query or URL.`, path);
+  }
+};
+
+export const validateResearchRequests = (value: unknown): ResearchRequest[] => {
+  const requests = array(value, '$');
+  requests.forEach((value, index) => {
+    const path = `$[${index}]`;
+    const entry = object(value, path);
+    onlyKeys(entry, ['query', 'url'], path);
+    validateResearchRequest(entry, path);
+  });
+  return requests as ResearchRequest[];
+};
+
 export const validateResearchLog = (value: unknown): ResearchLogFile => {
   const root = object(value, '$');
   onlyKeys(root, [
@@ -313,11 +346,7 @@ export const validateResearchLog = (value: unknown): ResearchLogFile => {
     const path = `$.entries[${index}]`;
     const entry = object(entryValue, path);
     onlyKeys(entry, ['query', 'url', 'visitedAt', 'decision', 'reason'], path);
-    if (entry.query !== undefined) string(entry.query, `${path}.query`);
-    if (entry.url !== undefined) string(entry.url, `${path}.url`);
-    if (entry.query === undefined && entry.url === undefined) {
-      throw new GeneratorError('invalid-field', `${path} requires a query or URL.`, path);
-    }
+    validateResearchRequest(entry, path);
     string(entry.visitedAt, `${path}.visitedAt`);
     if (!['accepted', 'rejected'].includes(String(entry.decision))) {
       throw new GeneratorError('invalid-field', `${path}.decision is invalid.`, `${path}.decision`);

@@ -110,6 +110,15 @@ const normalizeAct = (act: Act): Act => {
   return {
   ...currentAct,
   activities: normalizeActivityHierarchy((act.activities || []).map((activity: LegacyActivity) => {
+    if (activity.observableTraces !== undefined && (
+      !Array.isArray(activity.observableTraces) ||
+      activity.observableTraces.some((trace) => typeof trace !== 'string' || !trace.trim())
+    )) {
+      throw new Error(`Activity "${activity.id}" observableTraces must be an array of non-empty strings.`);
+    }
+    if (activity.decisionPoint !== undefined && typeof activity.decisionPoint !== 'string') {
+      throw new Error(`Activity "${activity.id}" decisionPoint must be a string.`);
+    }
     const {
       sp,
       icon: _activityIcon,
@@ -129,7 +138,7 @@ const normalizeAct = (act: Act): Act => {
   })),
   measures: clone(act.measures || []).map((item) => ({
     ...item,
-    cat: item.cat || 'other',
+    cat: !item.cat || item.cat === 'other' ? '0_0' : item.cat,
     partners: item.partners || [],
     inheritedSources: item.inheritedSources ? clone(item.inheritedSources) : undefined,
   })),

@@ -81,7 +81,12 @@ test('outline numbering distinguishes steps and substeps', () => {
 
 test('Markdown reconciliation preserves metadata and never infers deletions', () => {
   const existing = [
-    activity('step-a', 'Step A', { description: 'Keep me', cast: ['role-a'] }),
+    activity('step-a', 'Step A', {
+      description: 'Keep me',
+      cast: ['role-a'],
+      observableTraces: ['A dated registration'],
+      decisionPoint: 'Does the registration refer to this event?',
+    }),
     activity('sub-a', 'Substep A', { parentId: 'step-a', attributes: ['attribute-a'] }),
     activity('step-b', 'Step B'),
   ];
@@ -96,6 +101,8 @@ test('Markdown reconciliation preserves metadata and never infers deletions', ()
   assert.equal(preview.updated, 1);
   assert.equal(preview.preserved, 2);
   assert.equal(preview.activities[0].description, 'Keep me');
+  assert.deepEqual(preview.activities[0].observableTraces, ['A dated registration']);
+  assert.equal(preview.activities[0].decisionPoint, 'Does the registration refer to this event?');
   assert.deepEqual(preview.activities[0].cast, ['role-a']);
   assert.equal(preview.activities[1].parentId, 'step-a');
   assert.equal(preview.activities[2].id, 'sub-a');

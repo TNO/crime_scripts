@@ -62,6 +62,44 @@ test('uploaded JSON must contain a crimeScripts array', () => {
   assert.deepEqual(normalizeUploadedDataModel({ crimeScripts: [] }).model.crimeScripts, []);
 });
 
+test('legacy measure defaults become catalogue IDs while unknown categories remain recoverable', () => {
+  const input = {
+    crimeScripts: [{
+      id: 'script', label: 'Script', stages: [{
+        id: 'scene', label: 'Scene', variants: [{
+          id: 'variant', label: 'Variant',
+          measures: [
+            { id: 'empty', label: 'Uncategorised' },
+            { id: 'legacy', label: 'Legacy', cat: 'other' },
+            { id: 'known', label: 'Known', cat: '2_5' },
+            { id: 'unknown', label: 'Needs review', cat: 'Custom legacy category' },
+          ],
+        }],
+      }],
+    }],
+  };
+  const model = normalizeDataModel(input);
+  assert.deepEqual(
+    model.crimeScripts[0].stages[0].variants[0].measures.map(({ cat }) => cat),
+    ['0_0', '0_0', '2_5', 'Custom legacy category']
+  );
+});
+
+test('ordinary model imports reject malformed structured activity fields rather than breaking the viewer', () => {
+  for (const field of [{ observableTraces: 'invalid' }, { observableTraces: [''] }, { decisionPoint: 42 }]) {
+    assert.throws(() => normalizeUploadedDataModel({
+      crimeScripts: [{
+        id: 'script', label: 'Script', stages: [{
+          id: 'scene', label: 'Scene', variants: [{
+            id: 'variant', label: 'Variant',
+            activities: [{ id: 'activity', label: 'Activity', ...field }],
+          }],
+        }],
+      }],
+    }), /Activity "activity".*(?:observableTraces|decisionPoint)/);
+  }
+});
+
 test('model loading repairs missing labels without changing the input', () => {
   const input = {
     crimeScripts: [{

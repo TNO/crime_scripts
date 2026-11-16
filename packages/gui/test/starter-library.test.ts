@@ -16,6 +16,7 @@ import {
 import { matchCaseEvidence, type CaseTokenizer } from '../src/models/case-matching.ts';
 import { normalizeDataModel } from '../src/models/model-normalization.ts';
 import { scriptsForMode } from '../src/models/script-classification.ts';
+import { isMeasureCategoryId } from '@crime-script/core/measure-categories';
 
 const tokenize: CaseTokenizer = (text) =>
   text
@@ -74,6 +75,24 @@ test('starter bundles are structurally validated including references', () => {
   const invalid = bundle();
   invalid.crimeScripts[0].stages[0].variants[0].measures[0].partners = ['missing'];
   assert.throws(() => validateStarterBundle(invalid), /missing partner/);
+});
+
+test('all shipped starter measures resolve to the shared catalogue in both locales and published copies', () => {
+  for (const locale of ['nl', 'en']) {
+    const raw = readFileSync(`public/starter-bundles/${locale}.json`, 'utf8');
+    const published = readFileSync(`../../docs/starter-bundles/${locale}.json`, 'utf8');
+    assert.equal(published, raw);
+    const fixture: DataModel = JSON.parse(raw);
+    validateStarterBundle(fixture);
+    const measures = fixture.crimeScripts.flatMap((script) =>
+      script.stages.flatMap((scene) => scene.variants.flatMap((variant) => variant.measures))
+    );
+    assert.ok(measures.length > 100);
+    measures.forEach((measure) => assert.ok(
+      isMeasureCategoryId(measure.cat),
+      `${measure.id} has an unknown category: ${measure.cat}`
+    ));
+  }
 });
 
 test('starter bundle URL respects the deployed application base path', () => {
@@ -135,13 +154,13 @@ test('the Dutch starter fixture contains all researched topics', () => {
   assert.equal(fixture.products.find(({ id }) => id === 'nl-starter:product:asbesthoudend-materiaal')?.label, 'Asbest');
   assert.deepEqual(fixture.starterBundle, {
     id: 'pax-nl-starter',
-    version: '1.0.6',
+    version: '1.0.7',
     locale: 'nl',
     title: 'Nederlandse starterbibliotheek',
     publishedAt: '2026-10-06',
     license: 'CC BY 4.0',
     licenseUrl: 'https://creativecommons.org/licenses/by/4.0/',
-    attribution: 'Nederlandse starterbibliotheek voor Crime Scripts, PAX/TNO, versie 1.0.6 (2026), met AI-ondersteuning',
+    attribution: 'Nederlandse starterbibliotheek voor Crime Scripts, PAX/TNO, versie 1.0.7 (2026), met AI-ondersteuning',
     disclaimer: 'AI-gegenereerd en onbeoordeeld; controleer de inhoud vóór gebruik. Geen juridisch advies.',
   });
   assert.deepEqual(fixture.crimeScripts.map(({ id }) => id), expectedDutchStarterIds);
@@ -207,13 +226,13 @@ test('the English starter fixture mirrors the complete Dutch starter library', (
 
   assert.deepEqual(fixture.starterBundle, {
     id: 'pax-en-starter',
-    version: '1.0.6',
+    version: '1.0.7',
     locale: 'en',
     title: 'English starter library',
     publishedAt: '2026-10-06',
     license: 'CC BY 4.0',
     licenseUrl: 'https://creativecommons.org/licenses/by/4.0/',
-    attribution: 'English starter library for Crime Scripts, PAX/TNO, version 1.0.6 (2026), with AI assistance',
+    attribution: 'English starter library for Crime Scripts, PAX/TNO, version 1.0.7 (2026), with AI assistance',
     disclaimer: 'AI-generated and unreviewed; verify the content before use. Not legal advice.',
   });
   assert.equal(fixture.crimeScripts.length, expectedDutchStarterIds.length);

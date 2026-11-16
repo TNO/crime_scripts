@@ -4,6 +4,7 @@ import { stdin as input, stdout as output } from 'node:process';
 import { relative, resolve } from 'node:path';
 import { parseArgs } from 'node:util';
 import { BUILT_IN_ICONS, isBuiltInIconKey } from '@crime-script/core/icons';
+import { MEASURE_CATEGORIES } from '@crime-script/core/measure-categories';
 import { normalizeUploadedDataModel } from '@crime-script/core/model-normalization';
 import type { ContentLanguage, ScriptClassification } from '@crime-script/core/data-model';
 import packageManifest from '../package.json' with { type: 'json' };
@@ -12,6 +13,7 @@ import { exitCodeForErrorCode, GeneratorError } from './errors.ts';
 import { readJson } from './io.ts';
 import {
   buildWorkspace,
+  checkResearchPrivacy,
   getWorkspaceStatus,
   mergeWorkspace,
   type ReviewAnswer,
@@ -39,12 +41,16 @@ Usage:
   crime-script-generator add-activity --workspace DIRECTORY --scene-key KEY --variant-key KEY --file ACTIVITY_JSON
   crime-script-generator add-source --workspace DIRECTORY --file SOURCE_JSON [--replace]
   crime-script-generator add-scene-claims --workspace DIRECTORY --scene-key KEY --file CLAIMS_JSON [--replace]
+  crime-script-generator check-research --workspace DIRECTORY --file REQUESTS_JSON [--json]
   crime-script-generator status --workspace DIRECTORY [--json]
-  crime-script-generator build --workspace DIRECTORY [--output FILE]
-  crime-script-generator merge --workspace DIRECTORY --standalone FILE [--bundle CURRENT] --yes
+  crime-script-generator build --workspace DIRECTORY [--output FILE] [--overwrite]
+  crime-script-generator merge --workspace DIRECTORY --standalone FILE [--bundle CURRENT] [--output FILE] [--overwrite] --yes
   crime-script-generator icons [--json]
+  crime-script-generator categories [--json]
 
 Commands never modify the input bundle. Use --json for stable machine-readable output.
+Check proposed queries/URLs locally with check-research before sending them to a web tool.
+Use --overwrite, --yes, --confirm-classification-change, and --confirm-deletions only with explicit approval.
 `;
 
 type Parsed = ReturnType<typeof parseArgs>;
@@ -555,6 +561,15 @@ const main = async (): Promise<void> => {
       await commandChunk(command, parsed);
     }
     else if (command === 'status') await commandStatus(parsed);
+    else if (command === 'check-research') {
+      const result = await checkResearchPrivacy(requireWorkspace(parsed), resolve(requireOption(parsed, 'file')));
+      printResult(
+        parsed.values.json === true,
+        command,
+        result,
+        'No restricted-material matches found. Review the proposed queries and URLs before sending them.'
+      );
+    }
     else if (command === 'build') await commandBuild(parsed);
     else if (command === 'merge') await commandMerge(parsed);
     else if (command === 'icons') {
@@ -563,6 +578,16 @@ const main = async (): Promise<void> => {
         'icons',
         { icons: BUILT_IN_ICONS },
         BUILT_IN_ICONS.map(({ key, label, category }) => `${key}\t${label}\t${category}`).join('\n')
+      );
+    }
+    else if (command === 'categories') {
+      printResult(
+        parsed.values.json === true,
+        command,
+        { categories: MEASURE_CATEGORIES },
+        MEASURE_CATEGORIES.map(({ id, labelKey, groupKey }) =>
+          `${id}\t${labelKey.toLowerCase().replaceAll('_', ' ')}\t${groupKey.toLowerCase().replaceAll('_', ' ')}`
+        ).join('\n')
       );
     }
     else throw new GeneratorError('unknown-command', `Unknown command "${command}".`, '$');

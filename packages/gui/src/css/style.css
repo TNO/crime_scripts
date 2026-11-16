@@ -2277,6 +2277,45 @@ ul.taxonomy-scene-hits {
   padding-left: 1.6rem;
 }
 
+.activity-evidence {
+  margin: 0.85rem 0;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.activity-evidence dt {
+  margin-top: 0.75rem;
+  font-weight: 600;
+}
+
+.activity-evidence dd {
+  margin: 0.2rem 0 0;
+}
+
+.activity-evidence .activity-traces {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.activity-evidence .activity-traces > li {
+  list-style-type: disc;
+}
+
+.activity-evidence-note {
+  margin: 0.35rem 0 0;
+  font-size: 0.875rem;
+}
+
+.activity-evidence-editor {
+  clear: both;
+  margin-block: 0;
+}
+
+.activity-evidence-editor label,
+.activity-evidence-editor .helper-text {
+  color: var(--mm-text-secondary, currentColor);
+}
+
 .script-detail-list.nested {
   margin-top: 0.65rem;
 }

@@ -4,13 +4,13 @@
   "lastUpdate": 1791301039662,
   "starterBundle": {
     "id": "pax-en-starter",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "locale": "en",
     "title": "English starter library",
     "publishedAt": "2026-10-06",
     "license": "CC BY 4.0",
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
-    "attribution": "English starter library for Crime Scripts, PAX/TNO, version 1.0.6 (2026), with AI assistance",
+    "attribution": "English starter library for Crime Scripts, PAX/TNO, version 1.0.7 (2026), with AI assistance",
     "disclaimer": "AI-generated and unreviewed; verify the content before use. Not legal advice."
   },
   "crimeScripts": [
@@ -60,7 +60,7 @@
                   "id": "en-starter:script:cocaine-import-havens:scene:voorbereiding:variant:hoofdroute:measure:preventie",
                   "label": "Apply risk-based screening and role separation.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "1_2",
                   "partners": [
                     "en-starter:partner:douane",
                     "en-starter:partner:havenbedrijf",
@@ -148,7 +148,7 @@
                   "id": "en-starter:script:cocaine-import-havens:scene:invoer:variant:hoofdroute:measure:preventie",
                   "label": "Combine customs, terminal, and transport signals within legal frameworks.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "2_5",
                   "partners": [
                     "en-starter:partner:douane",
                     "en-starter:partner:havenbedrijf"
@@ -245,7 +245,7 @@
                   "id": "en-starter:script:cocaine-import-havens:scene:toegang:variant:hoofdroute:measure:preventie",
                   "label": "Limit rights to tasks and periodically check access and integrity.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "1_2",
                   "partners": [
                     "en-starter:partner:havenbedrijf",
                     "en-starter:partner:politie"
@@ -332,7 +332,7 @@
                   "id": "en-starter:script:cocaine-import-havens:scene:uithalen:variant:hoofdroute:measure:preventie",
                   "label": "Ensure camera surveillance, reporting procedures, and rapid joint follow-up.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "2_5",
                   "partners": [
                     "en-starter:partner:havenbedrijf",
                     "en-starter:partner:douane",
@@ -421,7 +421,7 @@
                   "id": "en-starter:script:cocaine-import-havens:scene:vervoer:variant:hoofdroute:measure:preventie",
                   "label": "Check carriers, principals, and deviations in the chain.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "2_5",
                   "partners": [
                     "en-starter:partner:politie",
                     "en-starter:partner:douane"
@@ -509,7 +509,7 @@
                   "id": "en-starter:script:cocaine-import-havens:scene:verstoring:variant:hoofdroute:measure:preventie",
                   "label": "Work information-driven and provide a secure reporting channel for port staff.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "2_2",
                   "partners": [
                     "en-starter:partner:politie",
                     "en-starter:partner:openbaar-ministerie",
@@ -595,7 +595,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.6",
+        "bundleVersion": "1.0.7",
         "scriptId": "en-starter:script:cocaine-import-havens"
       },
       "icon": "builtin:shipping-container",
@@ -652,7 +652,7 @@
                   "id": "en-starter:script:synthetische-drugsproductie:scene:locatie:variant:hoofdroute:measure:preventie",
                   "label": "Check lease, actual use, and fire safety in a risk-based manner.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "2_4",
                   "partners": [
                     "en-starter:partner:gemeente",
                     "en-starter:partner:politie",
@@ -740,7 +740,7 @@
                   "id": "en-starter:script:synthetische-drugsproductie:scene:middelen:variant:hoofdroute:measure:preventie",
                   "label": "Promote careful customer checks and a safe reporting process.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "2_4",
                   "partners": [
                     "en-starter:partner:politie",
                     "en-starter:partner:omgevingsdienst"
@@ -830,7 +830,7 @@
                   "id": "en-starter:script:synthetische-drugsproductie:scene:inrichting:variant:hoofdroute:measure:preventie",
                   "label": "Do not approach suspicious locations yourself; report and let experts assess the risk.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:politie",
                     "en-starter:partner:brandweer",
@@ -918,7 +918,7 @@
                   "id": "en-starter:script:synthetische-drugsproductie:scene:productie:variant:hoofdroute:measure:preventie",
                   "label": "Use a multidisciplinary intervention plan with safe distance and specialist support.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:politie",
                     "en-starter:partner:brandweer",
@@ -1010,7 +1010,7 @@
                   "id": "en-starter:script:synthetische-drugsproductie:scene:afvoer:variant:hoofdroute:measure:preventie",
                   "label": "Secure the crime scene and involve environmental and investigative services.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:politie",
                     "en-starter:partner:omgevingsdienst",
@@ -1099,7 +1099,7 @@
                   "id": "en-starter:script:synthetische-drugsproductie:scene:onderzoek:variant:hoofdroute:measure:preventie",
                   "label": "Create one safety and information plan for investigation, dismantling, and follow-up.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:politie",
                     "en-starter:partner:openbaar-ministerie",
@@ -1184,7 +1184,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.6",
+        "bundleVersion": "1.0.7",
         "scriptId": "en-starter:script:synthetische-drugsproductie"
       },
       "icon": "builtin:chemical-lab",
@@ -1249,7 +1249,7 @@
                   "id": "en-starter:script:arbeidsuitbuiting:scene:werving:variant:hoofdroute:measure:preventie",
                   "label": "Provide clear information about wages, work, and rights before departure.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "5_2",
                   "partners": [
                     "en-starter:partner:nederlandse-arbeidsinspectie",
                     "en-starter:partner:gemeente"
@@ -1337,7 +1337,7 @@
                   "id": "en-starter:script:arbeidsuitbuiting:scene:reis:variant:hoofdroute:measure:preventie",
                   "label": "Check supply chain parties and provide an independent contact point.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "2_4",
                   "partners": [
                     "en-starter:partner:nederlandse-arbeidsinspectie",
                     "en-starter:partner:gemeente"
@@ -1428,7 +1428,7 @@
                   "id": "en-starter:script:arbeidsuitbuiting:scene:afhankelijkheid:variant:hoofdroute:measure:preventie",
                   "label": "Separate wages, transportation, and accommodation and facilitate confidential conversations.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:nederlandse-arbeidsinspectie",
                     "en-starter:partner:zorg-en-opvang",
@@ -1519,7 +1519,7 @@
                   "id": "en-starter:script:arbeidsuitbuiting:scene:werk:variant:hoofdroute:measure:preventie",
                   "label": "Conduct unannounced inspections and speak with workers out of sight of supervisors.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "2_5",
                   "partners": [
                     "en-starter:partner:nederlandse-arbeidsinspectie",
                     "en-starter:partner:politie"
@@ -1607,7 +1607,7 @@
                   "id": "en-starter:script:arbeidsuitbuiting:scene:controle:variant:hoofdroute:measure:preventie",
                   "label": "Use trained interpreters, a secure reporting route, and an individual risk assessment.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:politie",
                     "en-starter:partner:zorg-en-opvang",
@@ -1696,7 +1696,7 @@
                   "id": "en-starter:script:arbeidsuitbuiting:scene:bescherming:variant:hoofdroute:measure:preventie",
                   "label": "Align support, wage recovery, supervision, and criminal investigation.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:nederlandse-arbeidsinspectie",
                     "en-starter:partner:politie",
@@ -1784,7 +1784,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.6",
+        "bundleVersion": "1.0.7",
         "scriptId": "en-starter:script:arbeidsuitbuiting"
       },
       "icon": "builtin:labour-exploitation",
@@ -1850,7 +1850,7 @@
                   "id": "en-starter:script:mensenhandel-seksuele-uitbuiting:scene:benadering:variant:hoofdroute:measure:preventie",
                   "label": "Enhance resilience and provide low-threshold, confidential support.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:gemeente",
                     "en-starter:partner:zorg-en-opvang",
@@ -1939,7 +1939,7 @@
                   "id": "en-starter:script:mensenhandel-seksuele-uitbuiting:scene:isolatie:variant:hoofdroute:measure:preventie",
                   "label": "Interview potential victims individually and use a safe contact method.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:politie",
                     "en-starter:partner:zorg-en-opvang"
@@ -2030,7 +2030,7 @@
                   "id": "en-starter:script:mensenhandel-seksuele-uitbuiting:scene:exploitatie:variant:hoofdroute:measure:preventie",
                   "label": "Train supervisors in non-judgmental signaling and safe referral.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "2_5",
                   "partners": [
                     "en-starter:partner:politie",
                     "en-starter:partner:gemeente",
@@ -2119,7 +2119,7 @@
                   "id": "en-starter:script:mensenhandel-seksuele-uitbuiting:scene:verplaatsing:variant:hoofdroute:measure:preventie",
                   "label": "Share signals legally between regions and maintain one support contact.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "2_5",
                   "partners": [
                     "en-starter:partner:politie",
                     "en-starter:partner:gemeente",
@@ -2211,7 +2211,7 @@
                   "id": "en-starter:script:mensenhandel-seksuele-uitbuiting:scene:opbrengst:variant:hoofdroute:measure:preventie",
                   "label": "Investigate financial flows and provide safe financial support.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:politie",
                     "en-starter:partner:fiu-nederland",
@@ -2304,7 +2304,7 @@
                   "id": "en-starter:script:mensenhandel-seksuele-uitbuiting:scene:interventie:variant:hoofdroute:measure:preventie",
                   "label": "Work trauma-aware, avoid repeated recounting, and coordinate protection and investigation.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:politie",
                     "en-starter:partner:openbaar-ministerie",
@@ -2390,7 +2390,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.6",
+        "bundleVersion": "1.0.7",
         "scriptId": "en-starter:script:mensenhandel-seksuele-uitbuiting"
       },
       "icon": "builtin:human-trafficking",
@@ -2446,7 +2446,7 @@
                   "id": "en-starter:script:witwassen-legale-ondernemingen:scene:bedrijf:variant:hoofdroute:measure:preventie",
                   "label": "Check ultimate stakeholders and business background risk-based.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "2_3",
                   "partners": [
                     "en-starter:partner:banken",
                     "en-starter:partner:belastingdienst",
@@ -2535,7 +2535,7 @@
                   "id": "en-starter:script:witwassen-legale-ondernemingen:scene:inbreng:variant:hoofdroute:measure:preventie",
                   "label": "Compare cash flows with verifiable business activities and report unusual transactions.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "2_5",
                   "partners": [
                     "en-starter:partner:banken",
                     "en-starter:partner:fiu-nederland",
@@ -2626,7 +2626,7 @@
                   "id": "en-starter:script:witwassen-legale-ondernemingen:scene:administratie:variant:hoofdroute:measure:preventie",
                   "label": "Verify counterparties, performance, and documents based on risk.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "2_5",
                   "partners": [
                     "en-starter:partner:banken",
                     "en-starter:partner:belastingdienst"
@@ -2714,7 +2714,7 @@
                   "id": "en-starter:script:witwassen-legale-ondernemingen:scene:verplaatsing:variant:hoofdroute:measure:preventie",
                   "label": "Strengthen transaction monitoring and share relevant signals through authorized channels.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "2_5",
                   "partners": [
                     "en-starter:partner:banken",
                     "en-starter:partner:fiu-nederland",
@@ -2803,7 +2803,7 @@
                   "id": "en-starter:script:witwassen-legale-ondernemingen:scene:besteding:variant:hoofdroute:measure:preventie",
                   "label": "Investigate the source of wealth and utilize fiscal and criminal interventions.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "3_5",
                   "partners": [
                     "en-starter:partner:politie",
                     "en-starter:partner:openbaar-ministerie",
@@ -2895,7 +2895,7 @@
                   "id": "en-starter:script:witwassen-legale-ondernemingen:scene:verstoring:variant:hoofdroute:measure:preventie",
                   "label": "Develop a joint intervention plan with oversight, investigation, and restoration.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:fiu-nederland",
                     "en-starter:partner:politie",
@@ -2985,7 +2985,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.6",
+        "bundleVersion": "1.0.7",
         "scriptId": "en-starter:script:witwassen-legale-ondernemingen"
       },
       "icon": "builtin:money-laundering",
@@ -3041,7 +3041,7 @@
                   "id": "en-starter:script:illegale-dumping-chemisch-afval:scene:ontstaan:variant:hoofdroute:measure:preventie",
                   "label": "Report signals without touching the material and let experts assess.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:politie",
                     "en-starter:partner:brandweer",
@@ -3130,7 +3130,7 @@
                   "id": "en-starter:script:illegale-dumping-chemisch-afval:scene:verzameling:variant:hoofdroute:measure:preventie",
                   "label": "Check suspicious storage from environmental and fire safety oversight.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "2_5",
                   "partners": [
                     "en-starter:partner:omgevingsdienst",
                     "en-starter:partner:brandweer",
@@ -3219,7 +3219,7 @@
                   "id": "en-starter:script:illegale-dumping-chemisch-afval:scene:transport:variant:hoofdroute:measure:preventie",
                   "label": "Check the transporter and waste documents risk-based and safely.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "2_5",
                   "partners": [
                     "en-starter:partner:politie",
                     "en-starter:partner:omgevingsdienst"
@@ -3310,7 +3310,7 @@
                   "id": "en-starter:script:illegale-dumping-chemisch-afval:scene:dumping:variant:hoofdroute:measure:preventie",
                   "label": "Stay at a distance, remain above the scene where relevant, and contact emergency services; do not touch anything.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:politie",
                     "en-starter:partner:brandweer",
@@ -3396,7 +3396,7 @@
                   "id": "en-starter:script:illegale-dumping-chemisch-afval:scene:melding:variant:hoofdroute:measure:preventie",
                   "label": "Record observations from a distance and follow instructions from emergency services.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "2_2",
                   "partners": [
                     "en-starter:partner:brandweer",
                     "en-starter:partner:politie",
@@ -3485,7 +3485,7 @@
                   "id": "en-starter:script:illegale-dumping-chemisch-afval:scene:herstel:variant:hoofdroute:measure:preventie",
                   "label": "Align on detection, sampling, remediation, and cost estimation in advance.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:politie",
                     "en-starter:partner:openbaar-ministerie",
@@ -3570,7 +3570,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.6",
+        "bundleVersion": "1.0.7",
         "scriptId": "en-starter:script:illegale-dumping-chemisch-afval"
       },
       "icon": "builtin:illegal-dumping",
@@ -3626,7 +3626,7 @@
                   "id": "en-starter:script:stroperij-illegale-wildhandel:scene:selectie:variant:hoofdroute:measure:preventie",
                   "label": "Use area monitoring and share market information without disclosing vulnerable locations publicly.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "2_5",
                   "partners": [
                     "en-starter:partner:terreinbeheerder",
                     "en-starter:partner:nvwa-cites",
@@ -3714,7 +3714,7 @@
                   "id": "en-starter:script:stroperij-illegale-wildhandel:scene:onttrekking:variant:hoofdroute:measure:preventie",
                   "label": "Combine monitoring, public reports, and ecological monitoring.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "2_5",
                   "partners": [
                     "en-starter:partner:terreinbeheerder",
                     "en-starter:partner:politie",
@@ -3794,7 +3794,7 @@
                   "id": "en-starter:script:stroperij-illegale-wildhandel:scene:verzameling:variant:hoofdroute:measure:preventie",
                   "label": "Check origin documentation, registration, and animal welfare expertly.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "3_3",
                   "partners": [
                     "en-starter:partner:nvwa-cites",
                     "en-starter:partner:politie"
@@ -3882,7 +3882,7 @@
                   "id": "en-starter:script:stroperij-illegale-wildhandel:scene:handel:variant:hoofdroute:measure:preventie",
                   "label": "Monitor public markets risk-based and inform buyers about legal origin.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "3_4",
                   "partners": [
                     "en-starter:partner:nvwa-cites",
                     "en-starter:partner:politie"
@@ -3973,7 +3973,7 @@
                   "id": "en-starter:script:stroperij-illegale-wildhandel:scene:vervoer:variant:hoofdroute:measure:preventie",
                   "label": "Have species and permit checked by experts and share signals internationally.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "2_5",
                   "partners": [
                     "en-starter:partner:douane",
                     "en-starter:partner:nvwa-cites",
@@ -4062,7 +4062,7 @@
                   "id": "en-starter:script:stroperij-illegale-wildhandel:scene:interventie:variant:hoofdroute:measure:preventie",
                   "label": "Plan evidence preservation, species care, financial investigation, and prosecution jointly.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:nvwa-cites",
                     "en-starter:partner:politie",
@@ -4148,7 +4148,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.6",
+        "bundleVersion": "1.0.7",
         "scriptId": "en-starter:script:stroperij-illegale-wildhandel"
       },
       "icon": "builtin:poaching",
@@ -4205,7 +4205,7 @@
                   "id": "en-starter:script:voertuigdiefstal-export:scene:selectie:variant:hoofdroute:measure:preventie",
                   "label": "Limit unnecessary vehicle data and promote risk-aware parking.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "3_1",
                   "partners": [
                     "en-starter:partner:politie",
                     "en-starter:partner:verzekeraars"
@@ -4296,7 +4296,7 @@
                   "id": "en-starter:script:voertuigdiefstal-export:scene:diefstal:variant:hoofdroute:measure:preventie",
                   "label": "Use layered security and report theft immediately with correct characteristics.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "1_1",
                   "partners": [
                     "en-starter:partner:politie",
                     "en-starter:partner:verzekeraars"
@@ -4384,7 +4384,7 @@
                   "id": "en-starter:script:voertuigdiefstal-export:scene:opslag:variant:hoofdroute:measure:preventie",
                   "label": "Verify lessees and report unusual usage via a secure channel.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "2_4",
                   "partners": [
                     "en-starter:partner:gemeente",
                     "en-starter:partner:politie"
@@ -4471,7 +4471,7 @@
                   "id": "en-starter:script:voertuigdiefstal-export:scene:identiteit:variant:hoofdroute:measure:preventie",
                   "label": "Have identification professionally verified and link RDW-, police-, and insurance-related signals.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "3_3",
                   "partners": [
                     "en-starter:partner:politie",
                     "en-starter:partner:rdw",
@@ -4563,7 +4563,7 @@
                   "id": "en-starter:script:voertuigdiefstal-export:scene:handel:variant:hoofdroute:measure:preventie",
                   "label": "Verify identity, ownership, and vehicle status before transfer or export.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "3_4",
                   "partners": [
                     "en-starter:partner:politie",
                     "en-starter:partner:douane",
@@ -4661,7 +4661,7 @@
                   "id": "en-starter:script:voertuigdiefstal-export:scene:opsporing:variant:hoofdroute:measure:preventie",
                   "label": "Register characteristics directly and exchange data via authorized national and international channels.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "3_3",
                   "partners": [
                     "en-starter:partner:politie",
                     "en-starter:partner:openbaar-ministerie",
@@ -4751,7 +4751,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.6",
+        "bundleVersion": "1.0.7",
         "scriptId": "en-starter:script:voertuigdiefstal-export"
       },
       "icon": "builtin:car-theft",
@@ -4807,7 +4807,7 @@
                   "id": "en-starter:script:phishing-betaalfraude:scene:voorbereiding:variant:hoofdroute:measure:preventie",
                   "label": "Limit publicly available personal data and establish verification rules for payment requests.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "3_1",
                   "partners": [
                     "en-starter:partner:ncsc",
                     "en-starter:partner:banken",
@@ -4898,7 +4898,7 @@
                   "id": "en-starter:script:phishing-betaalfraude:scene:contact:variant:e-mail:measure:preventie",
                   "label": "Verify via a self-initiated channel and report suspicious messages.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "5_4",
                   "partners": [
                     "en-starter:partner:ncsc",
                     "en-starter:partner:fraudehelpdesk"
@@ -4978,7 +4978,7 @@
                   "id": "en-starter:script:phishing-betaalfraude:scene:contact:variant:sms:measure:preventie",
                   "label": "Verify via a self-initiated channel and report suspicious messages.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "5_4",
                   "partners": [
                     "en-starter:partner:ncsc",
                     "en-starter:partner:fraudehelpdesk"
@@ -5066,7 +5066,7 @@
                   "id": "en-starter:script:phishing-betaalfraude:scene:gegevens:variant:hoofdroute:measure:preventie",
                   "label": "Use phishing-resistant multi-factor authentication and never share security codes.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "1_2",
                   "partners": [
                     "en-starter:partner:ncsc",
                     "en-starter:partner:banken"
@@ -5154,7 +5154,7 @@
                   "id": "en-starter:script:phishing-betaalfraude:scene:betaling:variant:hoofdroute:measure:preventie",
                   "label": "Implement role separation and callback verification for high-risk payments.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "1_2",
                   "partners": [
                     "en-starter:partner:banken",
                     "en-starter:partner:politie"
@@ -5241,7 +5241,7 @@
                   "id": "en-starter:script:phishing-betaalfraude:scene:doorgifte:variant:hoofdroute:measure:preventie",
                   "label": "Warn against money mule recruitment and monitor unusual account patterns.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "2_5",
                   "partners": [
                     "en-starter:partner:banken",
                     "en-starter:partner:politie",
@@ -5330,7 +5330,7 @@
                   "id": "en-starter:script:phishing-betaalfraude:scene:respons:variant:hoofdroute:measure:preventie",
                   "label": "Report immediately to bank and competent authorities, securely change access, and document relevant facts.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:banken",
                     "en-starter:partner:politie",
@@ -5419,7 +5419,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.6",
+        "bundleVersion": "1.0.7",
         "scriptId": "en-starter:script:phishing-betaalfraude"
       },
       "tracks": [
@@ -5502,7 +5502,7 @@
                   "id": "en-starter:script:illegale-asbestverwijdering:scene:opdracht:variant:hoofdroute:measure:preventie",
                   "label": "Check inventory obligation, notification, commissioner, and executor in advance.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "2_5",
                   "partners": [
                     "en-starter:partner:gemeente",
                     "en-starter:partner:asbesttoezicht"
@@ -5589,7 +5589,7 @@
                   "id": "en-starter:script:illegale-asbestverwijdering:scene:inventarisatie:variant:hoofdroute:measure:preventie",
                   "label": "Have a required inventory performed and check scope and validity.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "5_4",
                   "partners": [
                     "en-starter:partner:gecertificeerd-asbestbedrijf",
                     "en-starter:partner:asbesttoezicht",
@@ -5677,7 +5677,7 @@
                   "id": "en-starter:script:illegale-asbestverwijdering:scene:verwijdering:variant:hoofdroute:measure:preventie",
                   "label": "Stop the work, keep distance, and have a qualified expert assess the required approach.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:asbesttoezicht",
                     "en-starter:partner:nederlandse-arbeidsinspectie",
@@ -5765,7 +5765,7 @@
                   "id": "en-starter:script:illegale-asbestverwijdering:scene:werknemers:variant:hoofdroute:measure:preventie",
                   "label": "Provide clear instructions, protect reporters, and inspect working conditions.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "5_4",
                   "partners": [
                     "en-starter:partner:nederlandse-arbeidsinspectie",
                     "en-starter:partner:asbesttoezicht"
@@ -5853,7 +5853,7 @@
                   "id": "en-starter:script:illegale-asbestverwijdering:scene:afvoer:variant:hoofdroute:measure:preventie",
                   "label": "Do not repurpose material yourself and let authorized services inspect packaging and destination.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "2_5",
                   "partners": [
                     "en-starter:partner:omgevingsdienst",
                     "en-starter:partner:gemeente",
@@ -5941,7 +5941,7 @@
                   "id": "en-starter:script:illegale-asbestverwijdering:scene:toezicht:variant:hoofdroute:measure:preventie",
                   "label": "Coordinate administrative, labor, and criminal actions and regulate safe remediation.",
                   "description": "Document the implementation, assign an owner, and evaluate signals together with the mentioned partners.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:asbesttoezicht",
                     "en-starter:partner:nederlandse-arbeidsinspectie",
@@ -6028,7 +6028,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.6",
+        "bundleVersion": "1.0.7",
         "scriptId": "en-starter:script:illegale-asbestverwijdering"
       },
       "icon": "builtin:asbestos-fibers",
@@ -6146,7 +6146,7 @@
                   "id": "en-starter:script:asbestsaneringsketen:scene:opdracht:variant:published:measure:1",
                   "label": "Allow competent authority and environmental service to assess completeness and involved parties in a risk-based manner.",
                   "description": "Assign a competent owner, document follow-up, and evaluate proportionality and side effects.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:gemeente",
                     "en-starter:partner:omgevingsdienst"
@@ -6229,7 +6229,7 @@
                   "id": "en-starter:script:asbestsaneringsketen:scene:inventarisatie:variant:published:measure:1",
                   "label": "Verify certification, report scope, and follow-up of additional findings before remediation starts.",
                   "description": "Assign a competent owner, document follow-up, and evaluate proportionality and side effects.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:omgevingsdienst",
                     "en-starter:partner:gecertificeerd-asbestbedrijf"
@@ -6312,7 +6312,7 @@
                   "id": "en-starter:script:asbestsaneringsketen:scene:verwijdering:variant:published:measure:1",
                   "label": "Halt activities in case of acute exposure risk and preserve findings for restoration and enforcement.",
                   "description": "Assign a competent owner, document follow-up, and evaluate proportionality and side effects.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:nederlandse-arbeidsinspectie",
                     "en-starter:partner:omgevingsdienst"
@@ -6395,7 +6395,7 @@
                   "id": "en-starter:script:asbestsaneringsketen:scene:eindcontrole:variant:published:measure:1",
                   "label": "Only allow reuse of the location after demonstrable release and follow-up on deviations.",
                   "description": "Assign a competent owner, document follow-up, and evaluate proportionality and side effects.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:omgevingsdienst",
                     "en-starter:partner:gemeente"
@@ -6478,7 +6478,7 @@
                   "id": "en-starter:script:asbestsaneringsketen:scene:eerste-transport:variant:published:measure:1",
                   "label": "Conduct targeted transport checks and investigate missing or conflicting accompanying documents.",
                   "description": "Assign a competent owner, document follow-up, and evaluate proportionality and side effects.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:inspectie-leefomgeving-en-transport",
                     "en-starter:partner:omgevingsdienst"
@@ -6561,7 +6561,7 @@
                   "id": "en-starter:script:asbestsaneringsketen:scene:tussenlocatie:variant:published:measure:1",
                   "label": "Compare reports and registrations across the chain and block unlawful acceptance or storage.",
                   "description": "Assign a competent owner, document follow-up, and evaluate proportionality and side effects.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:omgevingsdienst",
                     "en-starter:partner:inspectie-leefomgeving-en-transport"
@@ -6644,7 +6644,7 @@
                   "id": "en-starter:script:asbestsaneringsketen:scene:vervolgtransport:variant:published:measure:1",
                   "label": "Investigate differences between dispatch, receipt, and weighing registrations before the chain is closed.",
                   "description": "Assign a competent owner, document follow-up, and evaluate proportionality and side effects.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:inspectie-leefomgeving-en-transport",
                     "en-starter:partner:omgevingsdienst"
@@ -6727,7 +6727,7 @@
                   "id": "en-starter:script:asbestsaneringsketen:scene:eindverwerking:variant:published:measure:1",
                   "label": "Use chain comparison to investigate missing quantities, duplicate registrations, and incorrect destinations.",
                   "description": "Assign a competent owner, document follow-up, and evaluate proportionality and side effects.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:omgevingsdienst",
                     "en-starter:partner:inspectie-leefomgeving-en-transport"
@@ -6749,7 +6749,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.6",
+        "bundleVersion": "1.0.7",
         "scriptId": "en-starter:script:asbestsaneringsketen"
       }
     },
@@ -6861,7 +6861,7 @@
                   "id": "en-starter:script:bijtincidenten-honden:scene:sociale-context:variant:published:measure:1",
                   "label": "Strengthen awareness, registration, and early veterinary testing for high-risk combinations.",
                   "description": "Assign a competent owner, document follow-up, and evaluate proportionality and side effects.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:gemeente",
                     "en-starter:partner:dierenarts"
@@ -6944,7 +6944,7 @@
                   "id": "en-starter:script:bijtincidenten-honden:scene:dracht-geboorte:variant:published:measure:1",
                   "label": "Organize early control and expert support in cases of welfare or health risks.",
                   "description": "Assign a competent owner, document follow-up, and evaluate proportionality and side effects.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:dierenarts",
                     "en-starter:partner:nederlandse-voedsel-en-warenautoriteit"
@@ -7027,7 +7027,7 @@
                   "id": "en-starter:script:bijtincidenten-honden:scene:eerste-levensfase:variant:published:measure:1",
                   "label": "Link welfare signals to breeding supervision and provide expert behavioral and veterinary support.",
                   "description": "Assign a competent owner, document follow-up, and evaluate proportionality and side effects.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:dierenarts",
                     "en-starter:partner:nederlandse-voedsel-en-warenautoriteit"
@@ -7110,7 +7110,7 @@
                   "id": "en-starter:script:bijtincidenten-honden:scene:nieuwe-eigenaar:variant:published:measure:1",
                   "label": "Make the transfer traceable and support buyers in recognizing welfare and behavioral risks.",
                   "description": "Assign a competent owner, document follow-up, and evaluate proportionality and side effects.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:dierenarts",
                     "en-starter:partner:gemeente"
@@ -7193,7 +7193,7 @@
                   "id": "en-starter:script:bijtincidenten-honden:scene:ontwikkeling:variant:published:measure:1",
                   "label": "Implement low-threshold behavioral guidance and proportional safety agreements before escalation.",
                   "description": "Assign a competent owner, document follow-up, and evaluate proportionality and side effects.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:dierenarts",
                     "en-starter:partner:gemeente"
@@ -7276,7 +7276,7 @@
                   "id": "en-starter:script:bijtincidenten-honden:scene:volwassen-senior:variant:published:measure:1",
                   "label": "Combine veterinary assessment, behavioral advice, and environmental measures in one follow-up plan.",
                   "description": "Assign a competent owner, document follow-up, and evaluate proportionality and side effects.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:dierenarts",
                     "en-starter:partner:gemeente"
@@ -7359,7 +7359,7 @@
                   "id": "en-starter:script:bijtincidenten-honden:scene:incidentrespons:variant:published:measure:1",
                   "label": "Work with a fixed reporting and follow-up route where safety, animal welfare, and legal protection converge.",
                   "description": "Assign a competent owner, document follow-up, and evaluate proportionality and side effects.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:politie",
                     "en-starter:partner:gemeente",
@@ -7382,7 +7382,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.6",
+        "bundleVersion": "1.0.7",
         "scriptId": "en-starter:script:bijtincidenten-honden"
       }
     },
@@ -7494,7 +7494,7 @@
                   "id": "en-starter:script:co-vergisting:scene:productie:variant:published:measure:1",
                   "label": "Check classification and chain relationships risk-based before substances are issued.",
                   "description": "Assign a competent owner, document follow-up, and evaluate proportionality and side effects.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:omgevingsdienst",
                     "en-starter:partner:nederlandse-voedsel-en-warenautoriteit"
@@ -7577,7 +7577,7 @@
                   "id": "en-starter:script:co-vergisting:scene:transport:variant:published:measure:1",
                   "label": "Conduct chain-focused document and transport checks in case of converging deviations.",
                   "description": "Assign a competent owner, document follow-up, and evaluate proportionality and side effects.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:inspectie-leefomgeving-en-transport",
                     "en-starter:partner:omgevingsdienst"
@@ -7660,7 +7660,7 @@
                   "id": "en-starter:script:co-vergisting:scene:tussenbewerking:variant:published:measure:1",
                   "label": "Combine location inspection with document and mass balance checks across multiple chain partners.",
                   "description": "Assign a competent owner, document follow-up, and evaluate proportionality and side effects.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:omgevingsdienst",
                     "en-starter:partner:nederlandse-voedsel-en-warenautoriteit"
@@ -7743,7 +7743,7 @@
                   "id": "en-starter:script:co-vergisting:scene:vergisting:variant:published:measure:1",
                   "label": "Conduct joint risk inspections on acceptance, administration, and actual installation.",
                   "description": "Assign a competent owner, document follow-up, and evaluate proportionality and side effects.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:omgevingsdienst",
                     "en-starter:partner:nederlandse-voedsel-en-warenautoriteit"
@@ -7826,7 +7826,7 @@
                   "id": "en-starter:script:co-vergisting:scene:digestaat:variant:published:measure:1",
                   "label": "Compare production, transport, and application records and restore environmental damage where necessary.",
                   "description": "Assign a competent owner, document follow-up, and evaluate proportionality and side effects.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:omgevingsdienst",
                     "en-starter:partner:nederlandse-voedsel-en-warenautoriteit"
@@ -7848,7 +7848,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.6",
+        "bundleVersion": "1.0.7",
         "scriptId": "en-starter:script:co-vergisting"
       }
     },
@@ -7960,7 +7960,7 @@
                   "id": "en-starter:script:complexe-zorgstructuren:scene:bedrijfsstructuur:variant:published:measure:1",
                   "label": "Test ownership, governance, and related parties prior to entry and at relevant changes.",
                   "description": "Assign a competent owner, document follow-up, and evaluate proportionality and side effects.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:nederlandse-zorgautoriteit",
                     "en-starter:partner:gemeente"
@@ -8043,7 +8043,7 @@
                   "id": "en-starter:script:complexe-zorgstructuren:scene:poortwachters:variant:published:measure:1",
                   "label": "Use uniform information requirements and an authorized escalation route for overlapping integrity signals.",
                   "description": "Assign a competent owner, document follow-up, and evaluate proportionality and side effects.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:nederlandse-zorgautoriteit",
                     "en-starter:partner:belastingdienst"
@@ -8126,7 +8126,7 @@
                   "id": "en-starter:script:complexe-zorgstructuren:scene:bedrijfsmiddelen:variant:published:measure:1",
                   "label": "Compare contracts, property relations, invoices, and actual deployment before and during contracting.",
                   "description": "Assign a competent owner, document follow-up, and evaluate proportionality and side effects.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:nederlandse-zorgautoriteit",
                     "en-starter:partner:zorgkantoor-of-zorgverzekeraar"
@@ -8209,7 +8209,7 @@
                   "id": "en-starter:script:complexe-zorgstructuren:scene:bedrijfsvoering:variant:published:measure:1",
                   "label": "Combine quality, contract, and financial controls around the same clients and periods.",
                   "description": "Assign a competent owner, document follow-up, and evaluate proportionality and side effects.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:inspectie-gezondheidszorg-en-jeugd",
                     "en-starter:partner:zorgkantoor-of-zorgverzekeraar"
@@ -8292,7 +8292,7 @@
                   "id": "en-starter:script:complexe-zorgstructuren:scene:clienten:variant:published:measure:1",
                   "label": "Organize independent client support and assess intertwined roles in recruitment and placement.",
                   "description": "Assign a competent owner, document follow-up, and evaluate proportionality and side effects.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:gemeente",
                     "en-starter:partner:zorgkantoor-of-zorgverzekeraar"
@@ -8375,7 +8375,7 @@
                   "id": "en-starter:script:complexe-zorgstructuren:scene:verantwoording:variant:published:measure:1",
                   "label": "Request cross-corporate information and escalate structural transparency or governance issues.",
                   "description": "Assign a competent owner, document follow-up, and evaluate proportionality and side effects.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:nederlandse-zorgautoriteit",
                     "en-starter:partner:inspectie-gezondheidszorg-en-jeugd"
@@ -8458,7 +8458,7 @@
                   "id": "en-starter:script:complexe-zorgstructuren:scene:locatie:variant:published:measure:1",
                   "label": "Combine site visit, permit check, and financial analysis of rental and care streams.",
                   "description": "Assign a competent owner, document follow-up, and evaluate proportionality and side effects.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:gemeente",
                     "en-starter:partner:inspectie-gezondheidszorg-en-jeugd"
@@ -8541,7 +8541,7 @@
                   "id": "en-starter:script:complexe-zorgstructuren:scene:einde-bedrijf:variant:published:measure:1",
                   "label": "Coordinate care continuity, financial investigation, and integrity assessment of a potential successor.",
                   "description": "Assign a competent owner, document follow-up, and evaluate proportionality and side effects.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:nederlandse-zorgautoriteit",
                     "en-starter:partner:gemeente",
@@ -8564,7 +8564,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.6",
+        "bundleVersion": "1.0.7",
         "scriptId": "en-starter:script:complexe-zorgstructuren"
       }
     },
@@ -8676,7 +8676,7 @@
                   "id": "en-starter:script:criminele-uitbuiting:scene:identificeren:variant:published:measure:1",
                   "label": "Strengthen resilience and enable early signaling through education, care, and social domains.",
                   "description": "Assign a competent owner, document follow-up, and evaluate proportionality and side effects.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:gemeente",
                     "en-starter:partner:zorg-en-opvang"
@@ -8759,7 +8759,7 @@
                   "id": "en-starter:script:criminele-uitbuiting:scene:binden:variant:published:measure:1",
                   "label": "Offer a safe confidant, practical support, and independent information about rights.",
                   "description": "Assign a competent owner, document follow-up, and evaluate proportionality and side effects.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:zorg-en-opvang",
                     "en-starter:partner:gemeente"
@@ -8842,7 +8842,7 @@
                   "id": "en-starter:script:criminele-uitbuiting:scene:grensvervaging:variant:published:measure:1",
                   "label": "Discuss behavior without exclusively approaching the potential victim as a suspect.",
                   "description": "Assign a competent owner, document follow-up, and evaluate proportionality and side effects.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:politie",
                     "en-starter:partner:zorg-en-opvang"
@@ -8925,7 +8925,7 @@
                   "id": "en-starter:script:criminele-uitbuiting:scene:beheersen:variant:published:measure:1",
                   "label": "Create a victim-focused safety plan and coordinate evidence preservation without causing additional risk.",
                   "description": "Assign a competent owner, document follow-up, and evaluate proportionality and side effects.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:politie",
                     "en-starter:partner:zorg-en-opvang"
@@ -9008,7 +9008,7 @@
                   "id": "en-starter:script:criminele-uitbuiting:scene:uitvoeren:variant:published:measure:1",
                   "label": "Apply victim identification and focus the investigation on direction, benefit, and dependency relationships.",
                   "description": "Assign a competent owner, document follow-up, and evaluate proportionality and side effects.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:politie",
                     "en-starter:partner:openbaar-ministerie"
@@ -9091,7 +9091,7 @@
                   "id": "en-starter:script:criminele-uitbuiting:scene:voordeel:variant:published:measure:1",
                   "label": "Combine financial investigation with protection and prevent intervention from creating new debts or risks.",
                   "description": "Assign a competent owner, document follow-up, and evaluate proportionality and side effects.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:fiu-nederland",
                     "en-starter:partner:politie"
@@ -9174,7 +9174,7 @@
                   "id": "en-starter:script:criminele-uitbuiting:scene:verankeren:variant:published:measure:1",
                   "label": "Combine sustainable support, debt management, safety care, and investigation into the underlying exploiter.",
                   "description": "Assign a competent owner, document follow-up, and evaluate proportionality and side effects.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:zorg-en-opvang",
                     "en-starter:partner:gemeente",
@@ -9197,7 +9197,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.6",
+        "bundleVersion": "1.0.7",
         "scriptId": "en-starter:script:criminele-uitbuiting"
       }
     },
@@ -9309,7 +9309,7 @@
                   "id": "en-starter:script:fake-carriers:scene:voorbereiden:variant:published:measure:1",
                   "label": "Conduct repeated identity and document checks during relevant account or business changes.",
                   "description": "Assign a competent owner, document follow-up, and evaluate proportionality and side effects.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:digitaal-vrachtplatform",
                     "en-starter:partner:politie"
@@ -9392,7 +9392,7 @@
                   "id": "en-starter:script:fake-carriers:scene:diensten-aanbieden:variant:published:measure:1",
                   "label": "Use dual verification and an independent callback procedure prior to final service delivery.",
                   "description": "Assign a competent owner, document follow-up, and evaluate proportionality and side effects.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:digitaal-vrachtplatform",
                     "en-starter:partner:verlader"
@@ -9475,7 +9475,7 @@
                   "id": "en-starter:script:fake-carriers:scene:goederen-ophalen:variant:published:measure:1",
                   "label": "Do not release the cargo in case of unresolved identity doubts and use a fixed reporting route.",
                   "description": "Assign a competent owner, document follow-up, and evaluate proportionality and side effects.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:verlader",
                     "en-starter:partner:politie"
@@ -9558,7 +9558,7 @@
                   "id": "en-starter:script:fake-carriers:scene:vervoer-opslag:variant:published:measure:1",
                   "label": "Activate the agreed incident route immediately, secure available data, and warn authorized partners.",
                   "description": "Assign a competent owner, document follow-up, and evaluate proportionality and side effects.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:politie",
                     "en-starter:partner:digitaal-vrachtplatform",
@@ -9581,7 +9581,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.6",
+        "bundleVersion": "1.0.7",
         "scriptId": "en-starter:script:fake-carriers"
       }
     },
@@ -9640,7 +9640,7 @@
                   "id": "en-starter:script:pijplijndiefstal-olieproducten:scene:voorbereiding-netwerk:variant:hoofdroute:measure:1",
                   "label": "Protect operational infrastructure information",
                   "description": "Limit unauthorized access to current infrastructure and maintenance information and investigate unusual inquiries.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "3_1",
                   "partners": [
                     "en-starter:partner:pijplijnbeheerder",
                     "en-starter:partner:politie"
@@ -9650,7 +9650,7 @@
                   "id": "en-starter:script:pijplijndiefstal-olieproducten:scene:voorbereiding-netwerk:variant:hoofdroute:measure:2",
                   "label": "Link signals from logistics and oversight",
                   "description": "Combine reports on suspicious vehicle movements, storage rentals, and infrastructure scouting into a shared risk picture.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:pijplijnbeheerder",
                     "en-starter:partner:politie",
@@ -9762,7 +9762,7 @@
                   "id": "en-starter:script:pijplijndiefstal-olieproducten:scene:verplaatsing-naar-pijplijn:variant:hoofdroute:measure:1",
                   "label": "Verify operations and vehicles",
                   "description": "Make current work orders verifiable and investigate vehicles or individuals not linked to a valid order.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "2_5",
                   "partners": [
                     "en-starter:partner:pijplijnbeheerder",
                     "en-starter:partner:politie"
@@ -9772,7 +9772,7 @@
                   "id": "en-starter:script:pijplijndiefstal-olieproducten:scene:verplaatsing-naar-pijplijn:variant:hoofdroute:measure:2",
                   "label": "Direct area-focused observation",
                   "description": "Align oversight on vulnerable corridors and expedite assessments of reports from residents or land managers.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:pijplijnbeheerder",
                     "en-starter:partner:politie",
@@ -9880,7 +9880,7 @@
                   "id": "en-starter:script:pijplijndiefstal-olieproducten:scene:ongeoorloofde-onttrekking:variant:hoofdroute:measure:1",
                   "label": "Combine sensor data with physical inspection",
                   "description": "Let pressure, flow, and balance deviations trigger risk-based control of the relevant corridor.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "2_5",
                   "partners": [
                     "en-starter:partner:pijplijnbeheerder"
                   ]
@@ -9889,7 +9889,7 @@
                   "id": "en-starter:script:pijplijndiefstal-olieproducten:scene:ongeoorloofde-onttrekking:variant:hoofdroute:measure:2",
                   "label": "Organize secure incident response",
                   "description": "Treat a suspected tapping as a combined security, environmental, and investigative incident and secure evidence.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:pijplijnbeheerder",
                     "en-starter:partner:politie",
@@ -9998,7 +9998,7 @@
                   "id": "en-starter:script:pijplijndiefstal-olieproducten:scene:transport-vanaf-pijplijn:variant:hoofdroute:measure:1",
                   "label": "Check origin and order",
                   "description": "Let authorities and investigation verify origin, loading location, orderer, and destination in context.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "2_5",
                   "partners": [
                     "en-starter:partner:politie",
                     "en-starter:partner:omgevingsdienst"
@@ -10008,7 +10008,7 @@
                   "id": "en-starter:script:pijplijndiefstal-olieproducten:scene:transport-vanaf-pijplijn:variant:hoofdroute:measure:2",
                   "label": "Link vehicle and incident information",
                   "description": "Compare vehicles from corridor observations with checks at storage, transfer, and delivery locations.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:pijplijnbeheerder",
                     "en-starter:partner:politie"
@@ -10112,7 +10112,7 @@
                   "id": "en-starter:script:pijplijndiefstal-olieproducten:scene:opslag-en-overslag:variant:hoofdroute:measure:1",
                   "label": "Conduct inventory and origin checks",
                   "description": "Compare physical inventory, procurement records, suppliers, and transport movements at risk locations.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "2_5",
                   "partners": [
                     "en-starter:partner:omgevingsdienst",
                     "en-starter:partner:politie"
@@ -10122,7 +10122,7 @@
                   "id": "en-starter:script:pijplijndiefstal-olieproducten:scene:opslag-en-overslag:variant:hoofdroute:measure:2",
                   "label": "Share signals about risk locations",
                   "description": "Link environmental, permit, fire safety, and law enforcement signals around storage and transfer.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:omgevingsdienst",
                     "en-starter:partner:gemeente",
@@ -10244,7 +10244,7 @@
                   "id": "en-starter:script:pijplijndiefstal-olieproducten:scene:afzet-en-distributie:variant:hoofdroute:measure:1",
                   "label": "Strengthen chain control on origin",
                   "description": "Require recipients to demonstrably verify the supplier, loading location, quantity, and transporter and maintain a traceable trail.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "3_4",
                   "partners": [
                     "en-starter:partner:omgevingsdienst",
                     "en-starter:partner:politie"
@@ -10254,7 +10254,7 @@
                   "id": "en-starter:script:pijplijndiefstal-olieproducten:scene:afzet-en-distributie:variant:hoofdroute:measure:2",
                   "label": "Investigate anomalous market patterns",
                   "description": "Combine price, volume, stock, and supplier anomalies to target select high-risk disposal points.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:politie",
                     "en-starter:partner:openbaar-ministerie"
@@ -10366,7 +10366,7 @@
                   "id": "en-starter:script:pijplijndiefstal-olieproducten:scene:opbrengsten-en-opvolging:variant:hoofdroute:measure:1",
                   "label": "Initiate parallel financial investigation",
                   "description": "Link incident investigation from the outset to payments, enterprises, assets, and beneficiaries.",
-                  "cat": "Increase oversight and compliance",
+                  "cat": "3_5",
                   "partners": [
                     "en-starter:partner:politie",
                     "en-starter:partner:openbaar-ministerie"
@@ -10376,7 +10376,7 @@
                   "id": "en-starter:script:pijplijndiefstal-olieproducten:scene:opbrengsten-en-opvolging:variant:hoofdroute:measure:2",
                   "label": "Build a joint network analysis",
                   "description": "Connect technical incident data, logistic observations, permit information, and financial relationships to identify key actors and facilities.",
-                  "cat": "other",
+                  "cat": "0_0",
                   "partners": [
                     "en-starter:partner:pijplijnbeheerder",
                     "en-starter:partner:politie",
@@ -10487,7 +10487,7 @@
       "unreviewed": true,
       "starterOrigin": {
         "bundleId": "pax-en-starter",
-        "bundleVersion": "1.0.6",
+        "bundleVersion": "1.0.7",
         "scriptId": "en-starter:script:pijplijndiefstal-olieproducten"
       },
       "icon": "builtin:oil-pipeline-tap",

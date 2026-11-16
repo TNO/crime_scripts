@@ -12,6 +12,7 @@ import type {
   EvidenceFile,
   GeneratorIssue,
   ResearchLogFile,
+  ResearchRequest,
   StatusResult,
   WorkspaceState,
 } from './types.ts';
@@ -20,6 +21,7 @@ import {
   validateDataModel,
   validateEvidence,
   validateResearchLog,
+  validateResearchRequests,
   validateStandaloneModel,
 } from './validation.ts';
 import {
@@ -134,38 +136,53 @@ const normalizedWords = (value: string): string[] =>
     .split(/\s+/)
     .filter(Boolean);
 
+const researchFunctionWords = new Set((
+  'a an and are as at be been being by for from had has have he her here him his how i if in into is it its ' +
+  'me my nor not of on or our out she so than that the their them then there these they this those to ' +
+  'under up us was we were what when where which who will with you your ' +
+  'aan achter als bij binnen dat de den der deze die dit door een en er haar het hier hoe hun ' +
+  'hij ik in is je kan maar met mij mijn naar niet nog nu of om onder ons onze op ook over te ' +
+  'ten ter tot uit uw van voor waar wat we wel werd wie wij wordt ze zich zij zijn zo zonder'
+).split(' '));
+
 export const findRestrictedResearchLeak = (
   contents: string[],
   brief: LoadedWorkspace['brief'],
-  research: ResearchLogFile,
+  research: { entries: ResearchRequest[] },
   materialNames: string[] = []
 ): { entryIndex: number; phrase: string; field: 'query' | 'url' } | undefined => {
   if (brief.sourceSensitivity !== 'restricted') return undefined;
   const sensitivePhrases = new Set<string>();
   const sensitiveIdentifiers = new Set<string>();
-  const approvedText = normalizedWords([
+  const approvedText = ` ${normalizedWords([
     brief.subject,
     brief.purpose,
     brief.geography,
     ...(brief.focus || []),
-  ].join(' ')).join(' ');
+  ].join(' ')).join(' ')} `;
+  const approved = (phrase: string): boolean => approvedText.includes(` ${phrase} `);
   for (const content of contents) {
     const words = normalizedWords(content);
     for (let size = 3; size <= 6; size += 1) {
       for (let index = 0; index <= words.length - size; index += 1) {
-        const phrase = words.slice(index, index + size).join(' ');
-        if (!approvedText.includes(phrase)) sensitivePhrases.add(phrase);
+        const phraseWords = words.slice(index, index + size);
+        if (phraseWords.filter((word) => !researchFunctionWords.has(word)).length < 3) continue;
+        const phrase = phraseWords.join(' ');
+        if (!approved(phrase)) sensitivePhrases.add(phrase);
       }
     }
-    content.match(/\b[\p{Lu}][\p{Ll}\p{M}'’-]{1,}(?:\s+[\p{Lu}][\p{Ll}\p{M}'’-]{1,})+\b/gu)
+    content.match(/\b[\p{Lu}][\p{Ll}\p{M}'’-]{1,}(?:\s+(?:(?:de|van|der|den|ten|ter|von)\s+)*[\p{Lu}][\p{Ll}\p{M}'’-]{1,})+\b/gu)
       ?.forEach((name) => {
-        const normalized = normalizedWords(name).join(' ');
-        if (!approvedText.includes(normalized)) sensitivePhrases.add(normalized);
+        const words = normalizedWords(name);
+        const normalized = words.join(' ');
+        if (words.filter((word) => !researchFunctionWords.has(word)).length >= 2 && !approved(normalized)) {
+          sensitivePhrases.add(normalized);
+        }
       });
     content.match(/\b(?=[A-Za-z0-9._/-]*\d)(?=[A-Za-z0-9._/-]*[A-Za-z])[A-Za-z0-9][A-Za-z0-9._/-]+\b/g)
       ?.forEach((identifier) => {
         const normalized = normalizedWords(identifier).join(' ');
-        if (!approvedText.includes(normalized)) sensitiveIdentifiers.add(normalized);
+        if (!approved(normalized)) sensitiveIdentifiers.add(normalized);
       });
   }
   for (const [index, entry] of research.entries.entries()) {
@@ -179,10 +196,10 @@ export const findRestrictedResearchLeak = (
           return ' ';
         }
       });
-      const exposed = normalizedWords(`${raw} ${decoded}`).join(' ');
+      const exposed = ` ${normalizedWords(`${raw} ${decoded}`).join(' ')} `;
       const decodedExposed = ` ${normalizedWords(decoded).join(' ')} `;
       for (const phrase of sensitivePhrases) {
-        if (exposed.includes(phrase)) {
+        if (exposed.includes(` ${phrase} `)) {
           return { entryIndex: index, phrase, field };
         }
       }
@@ -198,9 +215,9 @@ export const findRestrictedResearchLeak = (
         const compactIdentifier = filename.length >= 3 && /\d/.test(filename) && /[A-Za-z]/.test(filename);
         const distinctivePhrase = words.length >= 2 && fingerprint.length >= 6;
         const longStem = filename.length >= 12;
-        if (!approvedText.includes(fingerprint) &&
+        if (!approved(fingerprint) &&
           (compactIdentifier || distinctivePhrase || longStem) &&
-          exposed.includes(fingerprint)) {
+          exposed.includes(` ${fingerprint} `)) {
           return { entryIndex: index, phrase: fingerprint, field };
         }
       }
@@ -211,7 +228,8 @@ export const findRestrictedResearchLeak = (
 
 const assertRestrictedResearchPrivacy = async (
   workspacePath: string,
-  loaded: LoadedWorkspace
+  loaded: Pick<LoadedWorkspace, 'brief' | 'state'> & { research: { entries: ResearchRequest[] } },
+  entriesPath = '$.entries'
 ): Promise<void> => {
   if (loaded.brief.sourceSensitivity !== 'restricted') return;
   const contents = await Promise.all(
@@ -232,9 +250,21 @@ const assertRestrictedResearchPrivacy = async (
     throw new GeneratorError(
       'restricted-query-leak',
       `A research query or URL contains text, a name, an identifier, or a filename copied from restricted local material (matched phrase: "${displayPhrase}" in ${leak.field}).`,
-      `$.entries[${leak.entryIndex}]`
+      `${entriesPath}[${leak.entryIndex}]`
     );
   }
+};
+
+export const checkResearchPrivacy = async (
+  workspacePath: string,
+  file: string
+): Promise<{ ok: true }> => {
+  const brief = await loadBrief(workspacePath);
+  const state = await loadState(workspacePath);
+  await assertPreparedInputsCurrent(workspacePath, { brief, state });
+  const research = { entries: validateResearchRequests(await readJson(file)) };
+  await assertRestrictedResearchPrivacy(workspacePath, { brief, state, research }, '$');
+  return { ok: true };
 };
 
 const assertPreparedInputsCurrent = async (
@@ -468,6 +498,7 @@ export const buildWorkspace = async (
     scriptId: result.model.crimeScripts[0].id,
     issues: result.issues,
     newTaxonomy: result.newTaxonomy,
+    unusedTaxonomy: result.unusedTaxonomy,
     keyToId: result.keyToId,
     sourceKeyToLiteratureId: result.sourceKeyToLiteratureId,
     evidence: {

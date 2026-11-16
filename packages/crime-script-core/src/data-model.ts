@@ -293,6 +293,10 @@ export type Activity = Labelled & {
   header?: boolean;
   /** Parent step for an explicit two-level step hierarchy */
   parentId?: ID;
+  /** Potential observable artefacts, not proof that the activity occurred. */
+  observableTraces?: string[];
+  /** An analyst's verification question, not an offender decision. */
+  decisionPoint?: string;
   type?: ActivityType | ActivityType[];
   cast?: ID[];
   attributes?: ID[];

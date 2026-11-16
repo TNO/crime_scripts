@@ -170,7 +170,22 @@ test('prepare, build, GUI review, and explicit merge form a non-destructive work
   await writeFile(join(workspacePath, workspaceFiles.researchLog), JSON.stringify(research));
 
   const standalonePath = join(root, 'fictieve.standalone.json');
+  const withUnusedTaxonomy = structuredClone(candidate);
+  withUnusedTaxonomy.taxonomies.partners.push({ key: 'unused', label: 'Niet betrokken organisatie' });
+  await writeFile(join(workspacePath, workspaceFiles.candidate), JSON.stringify(withUnusedTaxonomy));
+  const unusedStatus = await getWorkspaceStatus(workspacePath);
+  assert.equal(unusedStatus.ok, true);
+  assert.ok(unusedStatus.issues.some(({ code, severity }) => code === 'unused-taxonomy' && severity === 'warning'));
+  await buildWorkspace(workspacePath, { output: join(root, 'with-unused.standalone.json') });
+  const report = JSON.parse(await readFile(join(workspacePath, workspaceFiles.buildReport), 'utf8'));
+  assert.equal(report.unusedTaxonomy[0].key, 'unused');
+  assert.ok(report.issues.some(({ code }: { code: string }) => code === 'unused-taxonomy'));
+  assert.equal(report.newTaxonomy.some(({ taxonomy }: { taxonomy: string }) => taxonomy === 'partners'), false);
+  await writeFile(join(workspacePath, workspaceFiles.candidate), JSON.stringify(candidate));
   await buildWorkspace(workspacePath, { output: standalonePath });
+  const originalOutput = await readFile(standalonePath, 'utf8');
+  await assert.rejects(buildWorkspace(workspacePath, { output: standalonePath }), /Refusing to overwrite/);
+  assert.equal(await readFile(standalonePath, 'utf8'), originalOutput);
   assert.equal((await getWorkspaceStatus(workspacePath)).nextAction, 'review');
   const reviewed = JSON.parse(await readFile(standalonePath, 'utf8'));
   assert.match(reviewed.crimeScripts[0].literature[0].description, /^Lokaal bestand:/);

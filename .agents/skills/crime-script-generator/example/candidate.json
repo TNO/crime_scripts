@@ -43,7 +43,7 @@
               {
                 "key": "independent-verification",
                 "label": "Request independent verification",
-                "category": "Detection",
+                "category": "2_1",
                 "partnerKeys": [
                   "record-holder"
                 ],

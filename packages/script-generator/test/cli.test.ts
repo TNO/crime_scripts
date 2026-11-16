@@ -5,6 +5,7 @@ import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import test from 'node:test';
 import { parse } from 'yaml';
+import { MEASURE_CATEGORIES } from '@crime-script/core/measure-categories';
 import { exitCodeForErrorCode } from '../src/errors.ts';
 
 const cli = resolve(import.meta.dirname, '../src/cli.ts');
@@ -13,6 +14,19 @@ const run = (args: string[]) =>
   spawnSync(process.execPath, ['--experimental-strip-types', cli, ...args], {
     encoding: 'utf8',
   });
+
+test('CLI exposes shared measure categories and documents guarded overwriting', () => {
+  const result = run(['categories', '--json']);
+  assert.equal(result.status, 0, result.stderr);
+  const envelope = JSON.parse(result.stdout);
+  assert.equal(envelope.command, 'categories');
+  assert.equal(envelope.success, true);
+  assert.deepEqual(envelope.data.categories, MEASURE_CATEGORIES);
+  const help = run(['--help']);
+  assert.match(help.stdout, /build[^\n]*\[--overwrite\]/);
+  assert.match(help.stdout, /check-research/);
+  assert.match(help.stdout, /explicit approval/);
+});
 
 test('CLI exposes stable JSON envelopes and confirmation exit codes', async () => {
   assert.equal(exitCodeForErrorCode('classification-change-confirmation-required'), 7);
@@ -44,7 +58,7 @@ test('CLI exposes stable JSON envelopes and confirmation exit codes', async () =
     '--geography', 'Fictional jurisdiction',
     '--content-language', 'en',
     '--classification', 'public',
-    '--source-sensitivity', 'public',
+    '--source-sensitivity', 'restricted',
     '--detail', 'orienting',
     '--script-icon', 'builtin:document-check',
     '--materials', material,
@@ -75,6 +89,29 @@ test('CLI exposes stable JSON envelopes and confirmation exit codes', async () =
   const status = run(['status', '--workspace', workspace, '--json']);
   assert.equal(status.status, 3);
   assert.equal(JSON.parse(status.stdout).data.nextAction, 'write-candidate');
+
+  const proposed = join(root, 'proposed-research.json');
+  const research = [{ query: 'Local guidance for a defensive script' }];
+  await writeFile(proposed, JSON.stringify(research));
+  const blocked = run(['check-research', '--workspace', workspace, '--file', proposed, '--json']);
+  assert.equal(blocked.status, 3, blocked.stdout);
+  assert.equal(JSON.parse(blocked.stdout).error.code, 'restricted-query-leak');
+  assert.equal(JSON.parse(blocked.stdout).error.path, '$[0]');
+  research[0].query = 'public accountability principles';
+  await writeFile(proposed, JSON.stringify(research));
+  const checked = run(['check-research', '--workspace', workspace, '--file', proposed, '--json']);
+  assert.equal(checked.status, 0, checked.stdout);
+  assert.deepEqual(JSON.parse(checked.stdout).data, { ok: true });
+  assert.equal(await readFile(proposed, 'utf8'), JSON.stringify(research));
+  await writeFile(proposed, JSON.stringify([{ query: 'safe', unexpected: true }]));
+  const malformed = run(['check-research', '--workspace', workspace, '--file', proposed, '--json']);
+  assert.equal(malformed.status, 3, malformed.stdout);
+  assert.equal(JSON.parse(malformed.stdout).error.code, 'unknown-field');
+  await writeFile(proposed, JSON.stringify(research));
+  await writeFile(material, 'Revised local guidance.\n');
+  const stale = run(['check-research', '--workspace', workspace, '--file', proposed, '--json']);
+  assert.equal(stale.status, 4, stale.stdout);
+  assert.equal(JSON.parse(stale.stdout).error.code, 'prepare-required');
 });
 
 test('CLI assembles a draft scene, activities, sources, and scene claims in small chunks', async () => {

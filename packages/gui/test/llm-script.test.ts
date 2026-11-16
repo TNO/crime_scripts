@@ -236,6 +236,40 @@ test('strict validation reports exact paths for malformed and dangling fields', 
   );
 });
 
+test('LLM import preserves optional structured traces and rejects malformed evidence fields', () => {
+  const generated = validGeneratedModel();
+  const activity = generated.crimeScripts[0].stages[0].variants[0].activities[0];
+  activity.observableTraces = ['A dated message retained by the recipient'];
+  activity.decisionPoint = 'Does an independent record corroborate this contact?';
+  const preview = prepareGeneratedScriptImport(JSON.stringify(generated), 'en');
+  const imported = confirmGeneratedScriptImport(normalizeDataModel({ crimeScripts: [] }), preview);
+  const restored = imported.crimeScripts[0].stages[0].variants[0].activities[0];
+  assert.deepEqual(restored.observableTraces, activity.observableTraces);
+  assert.equal(restored.decisionPoint, activity.decisionPoint);
+  assert.equal(restored.description, activity.description);
+
+  for (const [field, value] of [
+    ['observableTraces', 'not an array'],
+    ['observableTraces', ['']],
+    ['observableTraces', [1]],
+    ['decisionPoint', { question: 'not a string' }],
+  ] as const) {
+    const invalid = structuredClone(generated);
+    Object.assign(invalid.crimeScripts[0].stages[0].variants[0].activities[0], { [field]: value });
+    assert.throws(
+      () => prepareGeneratedScriptImport(JSON.stringify(invalid), 'en'),
+      (error) => error instanceof GeneratedScriptValidationError &&
+        error.path.startsWith(`$.crimeScripts[0].stages[0].variants[0].activities[0].${field}`)
+    );
+  }
+  const invalidCategory = validGeneratedModel();
+  invalidCategory.crimeScripts[0].stages[0].variants[0].measures[0].cat = 'Increase oversight and compliance';
+  assert.throws(
+    () => prepareGeneratedScriptImport(JSON.stringify(invalidCategory), 'en'),
+    (error) => error instanceof GeneratedScriptValidationError && error.path.endsWith('.measures[0].cat')
+  );
+});
+
 test('generated activity descriptions add context without repeating their label', () => {
   const missing = validGeneratedModel();
   missing.crimeScripts[0].stages[0].variants[0].activities[0].description = undefined;

@@ -110,7 +110,7 @@ test('barrier metadata remains inline after Markdown rendering', () => {
   );
   assert.match(
     markup(undefined),
-    /<div class="barrier-meta"><span class="barrier-partners">/
+    /<div class="barrier-meta"><span class="barrier-category">Categorie: preventive<\/span><span class="barrier-partners">/
   );
   assert.match(markup('Preventief'), /href="#!instellingen\?id=police"/);
 });

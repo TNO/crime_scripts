@@ -17,6 +17,13 @@ npm start
 
 Scenes own their activity-group variants directly. Reusable taxonomies such as roles, attributes, transports, locations, products, and partners remain shared across scripts.
 
+Activities can optionally retain `observableTraces: string[]` and `decisionPoint: string`.
+The activity inspector edits traces one per line and labels `decisionPoint` as a verification
+question for the analyst. The viewer, Word report, and Markdown export keep both separate from
+the action narrative. Traces are potential artefacts to verify, not proof or interpreted indicators.
+Existing scripts need no migration or invented field values; outline edits and JSON round-trips
+preserve the optional fields.
+
 In the taxonomy editor, administrators can merge two items of the same type: the retained item's label and details win, while references in categories and in both public and restricted scripts are redirected to it. Review the retained item's details before merging, because a public script referencing it will include it in public exports. The merge remains cancellable until the taxonomy changes are saved.
 
 Legacy JSON models with a top-level `acts` collection and schema-version-2 models are migrated when loaded. Scene, variant, and track IDs are preserved, while a reused legacy act is copied into each owning script so later edits cannot affect another script. Newly saved and exported models use `schemaVersion: 3`.
@@ -25,7 +32,14 @@ On first launch, users choose the fixed Dutch starter library at `/starter-bundl
 
 The Dutch and English public starter bundles retain their own taxonomy IDs and include descriptions, synonyms, and category ancestry from matching taxonomy items used by their public scripts. Taxonomy exclusive to restricted scripts is not included in the public bundles.
 
-The Dutch starter library contains ten AI-assisted, unreviewed public-safety scripts. Its original content is available under CC BY 4.0; third-party bibliography items retain their own rights. See `/starter-bundles/NOTICE.nl.md`. Icon requirements for the separate catalogue work are recorded in `/starter-bundles/icon-requirements.nl.json`.
+Starter bundle 1.0.7 repairs measure categories to use shared catalogue IDs in both languages.
+General response or support measures outside the situational-prevention techniques use `0_0`
+(other). Legacy JSON's `other` category and missing categories normalize to that same ID;
+unrecognized custom categories remain visible for explicit analyst review rather than being guessed.
+Existing browser workspaces are not overwritten: re-import the updated starter library and review
+its replacement choices to update previously imported scripts.
+
+The Dutch and English starter libraries each contain seventeen AI-assisted, unreviewed public-safety scripts. Their original content is available under CC BY 4.0; third-party bibliography items retain their own rights. See `/starter-bundles/NOTICE.nl.md` and `/starter-bundles/NOTICE.en.md`. Icon requirements for the separate catalogue work are recorded in `/starter-bundles/icon-requirements.nl.json` and `/starter-bundles/icon-requirements.en.json`.
 
 Every script has a `public` or `restricted` classification and a stable family ID that links counterparts. The global script mode defaults to public and is only persisted after the user switches it. Public exports omit restricted scripts and their private-only taxonomy data. Restricted JSON and Word exports require confirmation and use classified filenames and document headers; permanent links are unavailable when their model contains restricted content.
 

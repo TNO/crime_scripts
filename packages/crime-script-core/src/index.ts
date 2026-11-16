@@ -2,6 +2,7 @@ export * from './activity-outline.ts';
 export * from './data-model.ts';
 export * from './icons.ts';
 export * from './llm-script.ts';
+export * from './measure-categories.ts';
 export * from './model-merge.ts';
 export * from './model-normalization.ts';
 export * from './script-classification.ts';

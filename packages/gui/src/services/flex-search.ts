@@ -96,8 +96,9 @@ export const flexSearchLookupUpdater: Service<State> = {
             }
             const res: FlexSearchResult = [crimeScriptIdx, sceneIdx, variantIdx, SearchScore.OTHER_MATCH];
             phase.activities?.forEach((activity) => {
-              const { label = '', description = '', cast = [], attributes = [], transports = [] } = activity;
-              tokenize(label + ' ' + description, i18n.stopwords).forEach((word) => updateLookup(word, res));
+              const { label = '', description = '', observableTraces = [], decisionPoint = '', cast = [], attributes = [], transports = [] } = activity;
+              tokenize([label, description, ...observableTraces, decisionPoint].join(' '), i18n.stopwords)
+                .forEach((word) => updateLookup(word, res));
               const exactRes: FlexSearchResult = [crimeScriptIdx, sceneIdx, variantIdx, SearchScore.EXACT_MATCH];
               processItemIds([...cast, ...attributes, ...transports], exactRes);
             });

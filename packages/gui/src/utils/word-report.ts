@@ -155,6 +155,11 @@ const detailParagraph = (label: string, values: string[]): Paragraph | undefined
 
 const stepCell = (step: ReportStep, nested = false): TableCell => {
   const details = [
+    ...(step.observableTraces?.length ? [
+      new Paragraph({ children: [labelRun(t('OBSERVABLE_TRACES'))] }),
+      ...step.observableTraces.map((trace) => new Paragraph({ text: trace, bullet: { level: 0 } })),
+    ] : []),
+    detailParagraph(t('VERIFICATION_QUESTION'), step.decisionPoint ? [step.decisionPoint] : []),
     detailParagraph(t('CAST'), step.cast),
     detailParagraph(t('ATTRIBUTES'), step.attributes),
     detailParagraph(t('TRANSPORTS', step.transports.length), step.transports),
