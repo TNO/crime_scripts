@@ -447,16 +447,20 @@ export const importStandaloneScript = (currentInput: DataModel, importedInput: D
 };
 
 const repairDuplicateOwnedIds = (input: DataModel): DataModel => {
-  const normalized = normalizeDataModel(input);
-  let result: DataModel = {
-    ...structuredClone(normalized),
-    crimeScripts: [],
-  };
-  normalized.crimeScripts.forEach((script) => {
-    result = importStandaloneScript(result, {
-      ...structuredClone(normalized),
-      crimeScripts: [script],
-    });
+  const result = normalizeDataModel(input);
+  const scripts = result.crimeScripts;
+  result.crimeScripts = [];
+  const usedIds = new Set<ID>();
+  visitModelIds(result, (id) => usedIds.add(id));
+  result.crimeScripts = scripts.map((script) => remapCollidingOwnedIds(script, usedIds));
+  const scriptIds = new Map(scripts.map(({ id }, index) => [id, result.crimeScripts[index].id]));
+  result.crimeScripts.forEach((script) => {
+    script.scriptFamilyId = scriptIds.get(script.scriptFamilyId) || script.scriptFamilyId;
+    script.stages.forEach((scene) => scene.variants.forEach((variant) => {
+      variant.activities.forEach((activity) => {
+        activity.relatedScriptIds = activity.relatedScriptIds?.map((id) => scriptIds.get(id) || id);
+      });
+    }));
   });
   return result;
 };
@@ -474,15 +478,19 @@ export const importStarterBundle = (
   visitModelIds(result, (id) => initialUsedIds.add(id));
   const remaps = mergeSharedTaxonomiesGlobally(result, bundle, initialUsedIds);
   bundle.crimeScripts.map((script) => remapScriptTaxonomies(script, remaps)).forEach((source) => {
-    const index = result.crimeScripts.findIndex(({ id, starterOrigin }) =>
-      id === source.id ||
-      (starterOrigin?.bundleId === metadata.id && starterOrigin.scriptId === source.id)
+    const exactIndex = result.crimeScripts.findIndex(({ id }) => id === source.id);
+    const index = exactIndex >= 0 ? exactIndex : result.crimeScripts.findIndex(({ starterOrigin }) =>
+      starterOrigin?.bundleId === metadata.id && starterOrigin.scriptId === source.id
     );
     const action = index < 0 ? 'replace' : choices[source.id] || 'skip';
     if (action === 'skip') return;
     const candidate = action === 'copy'
       ? copyOwnedScript(withStarterOrigin(source, metadata))
       : withStarterOrigin(source, metadata);
+    if (index >= 0 && action === 'replace') {
+      candidate.id = result.crimeScripts[index].id;
+      candidate.scriptFamilyId = result.crimeScripts[index].scriptFamilyId;
+    }
     const usedIds = new Set<ID>();
     const modelWithoutReplacedScript = index >= 0 && action === 'replace'
       ? { ...result, crimeScripts: result.crimeScripts.filter((_, scriptIndex) => scriptIndex !== index) }

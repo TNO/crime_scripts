@@ -606,6 +606,67 @@ test('imports skip conflicts by default and support replace and copy', () => {
   assert.notEqual(copied.crimeScripts[0].stages[0].variants[0].id, copied.crimeScripts[1].stages[0].variants[0].id);
 });
 
+test('starter replacement prefers the original script over an earlier independent copy', () => {
+  const starter = bundle();
+  const current = importStarterBundle(
+    importStarterBundle(normalizeDataModel({ crimeScripts: [] }), starter),
+    starter,
+    { 'starter-script': 'copy' }
+  );
+  const original = current.crimeScripts[0];
+  const copy = current.crimeScripts[1];
+  original.label = 'Oude starterversie';
+  copy.label = 'Eigen bewerkte kopie';
+  current.crimeScripts.reverse();
+
+  const imported = importStarterBundle(current, starter, { 'starter-script': 'replace' });
+  assert.equal(imported.crimeScripts.find(({ id }) => id === original.id)?.label, 'Voorbeeld');
+  assert.deepEqual(imported.crimeScripts.find(({ id }) => id === copy.id), copy);
+});
+
+test('starter replacement preserves a local script ID and incoming references when matched by origin', () => {
+  const starter = bundle();
+  const current = importStarterBundle(normalizeDataModel({ crimeScripts: [] }), starter);
+  const local = current.crimeScripts[0];
+  local.id = 'local-starter';
+  local.scriptFamilyId = 'local-family';
+  const observer = normalizeDataModel({
+    crimeScripts: [local, {
+      id: 'observer', label: 'Eigen script', stages: [{
+        id: 'observer-scene', label: 'Scène', variants: [{
+          id: 'observer-variant', label: 'M.O.',
+          activities: [{
+            id: 'observer-activity', label: 'Raadpleeg het gekoppelde script',
+            relatedScriptIds: [local.id],
+          }],
+        }],
+      }],
+    }],
+  }).crimeScripts[1];
+  current.crimeScripts.push(observer);
+
+  const skipped = importStarterBundle(current, starter);
+  assert.deepEqual(
+    skipped.crimeScripts.find(({ id }) => id === observer.id)!
+      .stages[0].variants[0].activities[0].relatedScriptIds,
+    ['local-starter']
+  );
+  const imported = importStarterBundle(current, starter, { 'starter-script': 'replace' });
+  const replaced = imported.crimeScripts.find(({ id }) => id === 'local-starter');
+  assert.ok(replaced);
+  assert.equal(replaced.scriptFamilyId, 'local-family');
+  assert.equal(replaced.label, 'Voorbeeld');
+  assert.deepEqual(
+    JSON.parse(JSON.stringify(imported.crimeScripts.find(({ id }) => id === observer.id))),
+    JSON.parse(JSON.stringify(observer))
+  );
+  assert.deepEqual(
+    normalizeDataModel(imported).crimeScripts.find(({ id }) => id === observer.id)!
+      .stages[0].variants[0].activities[0].relatedScriptIds,
+    ['local-starter']
+  );
+});
+
 test('complete public import preserves a conflicting local edit and adds all missing scripts', () => {
   const starter = validateStarterBundle(JSON.parse(readFileSync('public/starter-bundles/nl.json', 'utf8')));
   const localScript = structuredClone(starter.crimeScripts[0]);

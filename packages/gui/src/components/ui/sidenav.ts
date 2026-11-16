@@ -23,6 +23,12 @@ export const SideNav: MeiosisComponent<{ onDelete: () => void }> = () => {
   let starterError = false;
   let conflictChoices: Record<string, ConflictAction> = {};
 
+  const setAllConflictActions = (action: ConflictAction) => {
+    Object.keys(conflictChoices).forEach((id) => {
+      conflictChoices[id] = action;
+    });
+  };
+
   const prepareStarterImport = async (model: DataModel) => {
     try {
       starterCandidate = await fetchStarterBundle();
@@ -314,6 +320,8 @@ export const SideNav: MeiosisComponent<{ onDelete: () => void }> = () => {
         m(Dialog, {
           id: 'starter-import',
           isOpen: true,
+          initialFocus: 'dialog',
+          closeOnButtonClick: false,
           onToggle: (open: boolean) => (starterImportOpen = open),
           title: t('IMPORT_STARTER'),
           content: starterError
@@ -325,8 +333,21 @@ export const SideNav: MeiosisComponent<{ onDelete: () => void }> = () => {
                       count: starterCandidate.crimeScripts.length,
                       conflicts: conflicts.length,
                     })),
+                conflicts.length > 0 && [
+                  m('.starter-import-bulk-actions', [
+                    m(FlatButton, {
+                      label: t('IMPORT_SKIP_ALL'),
+                      onclick: () => setAllConflictActions('skip'),
+                    }),
+                    m(FlatButton, {
+                      label: t('IMPORT_REPLACE_ALL'),
+                      onclick: () => setAllConflictActions('replace'),
+                    }),
+                  ]),
+                  m('p', t('IMPORT_REPLACE_NOTICE')),
+                ],
                 m('ul.collection', starterCandidate.crimeScripts.map((script) =>
-                  m('li.collection-item.starter-import-row', [
+                  m('li.collection-item.starter-import-row', { key: script.id }, [
                     m('span.starter-import-label', script.label),
                     conflicts.some(({ id }) => id === script.id) &&
                       m(Select<ConflictAction>, {
@@ -345,7 +366,11 @@ export const SideNav: MeiosisComponent<{ onDelete: () => void }> = () => {
                   ])
                 )),
               ],
-          secondaryAction: { label: t('CANCEL'), iconName: 'cancel' },
+          secondaryAction: {
+            label: t('CANCEL'),
+            iconName: 'cancel',
+            onclick: () => { starterImportOpen = false; },
+          },
           primaryAction: starterError
             ? {
                 label: t('RETRY'),
@@ -357,6 +382,8 @@ export const SideNav: MeiosisComponent<{ onDelete: () => void }> = () => {
                 iconName: 'library_add',
                 onclick: () => {
                   if (!starterCandidate) return;
+                  const replacements = conflicts.filter(({ id }) => conflictChoices[id] === 'replace').length;
+                  if (replacements > 0 && !window.confirm(t('IMPORT_STARTER_REPLACE_CONFIRM', { count: replacements }))) return;
                   saveModel(importStarterBundle(model, starterCandidate, conflictChoices));
                   starterImportOpen = false;
                   snackbar({ message: t('STARTER_IMPORTED') });

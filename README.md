@@ -16,6 +16,13 @@ example scripts in Dutch or English (selected by the interface language).
 Browse and filter scripts by product or location; a card opens the script
 viewer. The images below show public Dutch starter data.
 
+Use **Import starter library** in the workspace menu to update an existing library.
+Conflicting scripts are skipped by default; choose **Replace all** to select all existing
+starter scripts for replacement, or adjust each row individually. Importing replacements
+requires confirmation because local edits in those scripts are overwritten. Export a JSON
+backup first. Unrelated scripts and separate copies are not automatically upgraded.
+Replacement retains the existing script ID so incoming script links remain valid.
+
 ![Public starter library overview showing example crime scripts](documentation/assets/user-guide/01-home.png)
 
 The viewer shows the script's scenes and alternative modi operandi, activities,
