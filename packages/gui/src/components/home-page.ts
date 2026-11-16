@@ -64,7 +64,7 @@ export const HomePage: MeiosisComponent = () => {
     view: ({ attrs: { state, actions } }) => {
       const { model, role, scriptMode, crimeScriptFilter = {} as CrimeScriptFilter } = state;
       const { crimeScripts = [], products = [], geoLocations = [], locations = [] } = model;
-      const isAdmin = role === 'admin';
+      const canCreateScripts = role === 'admin' || role === 'editor';
 
       const csFilter = (cs: CrimeScript) => {
         const { productIds = [], locationIds = [], geoLocationIds = [] } = crimeScriptFilter;
@@ -111,7 +111,7 @@ export const HomePage: MeiosisComponent = () => {
             options: { onClose: () => (llmWizardOpen = false) },
           }),
         }),
-        isAdmin &&
+        canCreateScripts &&
         m(
           '.right-align.buttons.home-page-actions',
           [
