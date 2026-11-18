@@ -93,6 +93,7 @@ export const messagesNL: typeof messages = {
   MEASURE: 'Barrière',
   MEASURES: 'Barrières',
   NEW_ACT: 'Nieuwe M.O.',
+  ACT_NAME: 'Naam van deze M.O.',
   SUMMARY: 'Samenvatting',
   GOALS: 'Doel(en) van huidige scène',
   IMAGE: 'Afbeelding',

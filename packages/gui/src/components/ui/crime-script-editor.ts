@@ -494,7 +494,7 @@ export const CrimeScriptEditor: FactoryComponent<{
         { id: 'description', type: 'textarea', className: 'col s12', label: t('GOALS') },
       ] as UIForm<Scene>;
       const actForm: UIForm<Act> = [
-        { id: 'label', type: 'text', className: 'col s12', label: t('NAME') },
+        { id: 'label', type: 'text', className: 'col s12', label: t('ACT_NAME') },
         { id: 'description', type: 'textarea', className: 'col s12', label: t('DESCRIPTION') },
         {
           id: 'locationIds',

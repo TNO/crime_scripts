@@ -91,6 +91,7 @@ export const messages = {
   MEASURE: 'Measure',
   MEASURES: 'Measures',
   NEW_ACT: 'New M.O.',
+  ACT_NAME: 'Name of this M.O.',
   SUMMARY: 'Summary',
   GOALS: 'Goal(s) of current act',
   IMAGE: 'Image',
