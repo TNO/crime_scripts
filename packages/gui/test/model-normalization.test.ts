@@ -172,6 +172,42 @@ test('uploaded models report the path of an item without a usable ID', () => {
   );
 });
 
+test('loading a saved model recovers unfinished references without losing source content', () => {
+  const input = {
+    crimeScripts: [{
+      id: 'script', label: 'Script', stages: [],
+      literature: [
+        { id: 'existing', label: 'Existing source', url: 'https://example.org/existing' },
+        {},
+        { label: '  ', url: '' },
+        { id: 'empty-draft', label: '' },
+        { label: 'Unfinished source', authors: 'Author', usedFor: 'Scene context' },
+        { url: 'https://example.org/unfinished' },
+      ],
+    }],
+  };
+  const savedInput = JSON.parse(JSON.stringify(input));
+  const before = structuredClone(savedInput);
+  const { model, literatureRepairs } = normalizeUploadedDataModel(savedInput);
+  const sources = model.crimeScripts[0].literature;
+
+  assert.equal(sources.length, 3);
+  assert.deepEqual(sources[0], input.crimeScripts[0].literature[0]);
+  assert.equal(sources[1].label, 'Unfinished source');
+  assert.equal(sources[1].authors, 'Author');
+  assert.equal(sources[1].usedFor, 'Scene context');
+  assert.equal(sources[2].url, 'https://example.org/unfinished');
+  sources.forEach((source) => assert.ok(source.id.trim()));
+  assert.equal(new Set(sources.map(({ id }) => id)).size, sources.length);
+  assert.deepEqual(literatureRepairs.map(({ kind }) => kind), [
+    'removed', 'removed', 'removed', 'identified', 'identified',
+  ]);
+  const reloaded = normalizeUploadedDataModel(model);
+  assert.deepEqual(reloaded.model.crimeScripts[0].literature, sources);
+  assert.deepEqual(reloaded.literatureRepairs, []);
+  assert.deepEqual(savedInput, before);
+});
+
 test('legacy acts become independently owned scene variants without changing track ids', () => {
   const normalized = normalizeDataModel(legacyModel);
   const firstVariant = normalized.crimeScripts[0].stages[0].variants[0];

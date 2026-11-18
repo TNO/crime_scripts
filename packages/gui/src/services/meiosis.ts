@@ -259,11 +259,16 @@ export const loadData = async (uploadedData?: string | null) => {
   let legacyActRepairs = { relinked: 0, removed: 0 };
   let danglingReferenceRepairs = { references: 0, items: 0 };
   let labelRepairs: Array<{ id: ID; path: string }> = [];
+  let literatureRepairs = { removed: 0, identified: 0 };
   try {
     const normalized = normalizeUploadedDataModel(ds ? JSON.parse(ds) : { crimeScripts: [] });
     const repaired = repairDanglingTaxonomyReferences(normalized.model);
     model = repaired.model;
     labelRepairs = normalized.labelRepairs;
+    literatureRepairs = {
+      removed: normalized.literatureRepairs.filter(({ kind }) => kind === 'removed').length,
+      identified: normalized.literatureRepairs.filter(({ kind }) => kind === 'identified').length,
+    };
     legacyActRepairs = {
       relinked: normalized.repairs.filter(({ kind }) => kind === 'relinked').length,
       removed: normalized.repairs.filter(({ kind }) => kind === 'removed').length,
@@ -292,6 +297,9 @@ export const loadData = async (uploadedData?: string | null) => {
     localStorage.setItem(model.previewMode ? PREVIEW_MODEL_KEY : MODEL_KEY, JSON.stringify(model));
   }
   const loadWarnings: Array<() => string> = [];
+  if (literatureRepairs.removed + literatureRepairs.identified > 0) {
+    loadWarnings.push(() => translatedText(t('MODEL_LITERATURE_REPAIRED', literatureRepairs)));
+  }
   if (legacyActRepairs.relinked + legacyActRepairs.removed > 0) {
     loadWarnings.push(() => {
       const message = t('MODEL_REPAIRED', {

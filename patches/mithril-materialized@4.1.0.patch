@@ -1,0 +1,24 @@
+diff --git a/dist/index.esm.js b/dist/index.esm.js
+index 0306d92f9df44ba92b02ffbcf6296dd7044bb103..a1e2c24655506bce2c8acee2e1619bb3169b254b 100644
+--- a/dist/index.esm.js
++++ b/dist/index.esm.js
+@@ -10080,6 +10080,7 @@ const SearchSelect = (maybeVnode) => {
+                                 }
+                             },
+                             onkeydown: async (e) => {
++                                if (e.key === ' ') return;
+                                 const action = handleKeyDown(e, displayedOptions, !!showAddNew);
+                                 if (e.defaultPrevented) {
+                                     e.stopPropagation();
+diff --git a/dist/index.js b/dist/index.js
+index b3bb4231c62c4c9fc42d84a5c8ea4ff837e03de5..dc7a2719d9fbdc3007953b0d7dec54e9648d4864 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -10082,6 +10082,7 @@ const SearchSelect = (maybeVnode) => {
+                                 }
+                             },
+                             onkeydown: async (e) => {
++                                if (e.key === ' ') return;
+                                 const action = handleKeyDown(e, displayedOptions, !!showAddNew);
+                                 if (e.defaultPrevented) {
+                                     e.stopPropagation();

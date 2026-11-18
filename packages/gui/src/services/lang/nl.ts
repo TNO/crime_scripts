@@ -336,6 +336,8 @@ export const messagesNL: typeof messages = {
     'Het oude model bevatte {count} ontbrekende activiteitgroepen. {relinked} konden aan bestaande inhoud worden gekoppeld; {removed} hadden geen broninhoud en zijn verwijderd.',
   MODEL_LABELS_REPAIRED:
     'Bij {count} modelitems ontbrak het label; hun ID is gebruikt. Eerste: "{id}" op {path}. Het herstelde model is opgeslagen.',
+  MODEL_LITERATURE_REPAIRED:
+    '{removed} lege referenties zijn verwijderd; {identified} referenties met inhoud hebben een ontbrekend ID gekregen. Broninhoud is behouden. Het herstelde model is opgeslagen.',
   DELETE_REFERENCED_ITEMS_CONFIRM:
     'De volgende items worden nog gebruikt in crime scripts. Als je doorgaat, worden ook deze verwijzingen verwijderd:\n\n{details}',
   DANGLING_REFERENCES_REPAIRED:

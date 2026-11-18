@@ -641,6 +641,7 @@ export const CrimeScriptEditor: FactoryComponent<{
                 id: 'literature',
                 type: literatureForm(),
                 repeat: true,
+                onNewItem: () => ({ id: uniqueId(), label: '' }),
                 pageSize: 1,
                 label: t('REFERENCES'),
               },

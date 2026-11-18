@@ -13,6 +13,9 @@ pnpm i
 npm start
 ```
 
+The pnpm patch for `mithril-materialized@4.1.0` keeps Space as text input inside
+`SearchSelect`, while preserving keyboard selection on the picker trigger.
+
 ## Crime-script data
 
 Scenes own their activity-group variants directly. Reusable taxonomies such as roles, attributes, transports, locations, products, and partners remain shared across scripts.
@@ -27,6 +30,10 @@ preserve the optional fields.
 In the taxonomy editor, administrators can merge two items of the same type: the retained item's label and details win, while references in categories and in both public and restricted scripts are redirected to it. Review the retained item's details before merging, because a public script referencing it will include it in public exports. The merge remains cancellable until the taxonomy changes are saved.
 
 Legacy JSON models with a top-level `acts` collection and schema-version-2 models are migrated when loaded. Scene, variant, and track IDs are preserved, while a reused legacy act is copied into each owning script so later edits cannot affect another script. Newly saved and exported models use `schemaVersion: 3`.
+
+References receive an ID as soon as they are added. On loading an older workspace or JSON
+file, empty reference drafts are removed and references with content but no ID receive one.
+Recovery preserves source content, reports the changes, and saves the repaired workspace.
 
 On first launch, users choose the fixed Dutch starter library at `/starter-bundles/nl.json` or an empty workspace. Starter imports are explicit and preserve local conflicts by default. Script language, AI/review provenance, starter origin, and source usage notes remain in JSON and Word exports.
 

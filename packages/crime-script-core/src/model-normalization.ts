@@ -5,6 +5,7 @@ import type {
   DataModel,
   ID,
   Labelled,
+  Literature,
   Scene,
   ScriptClassification,
   ServiceProvider,
@@ -42,6 +43,28 @@ export type LegacyActRepair = {
 };
 
 export type LabelRepair = { id: ID; path: string };
+
+export type LiteratureRepair = { path: string; kind: 'removed' | 'identified' };
+
+const normalizeLiterature = (
+  literature: Literature[],
+  path: string,
+  repairs: LiteratureRepair[]
+): Literature[] => literature.flatMap((source, index) => {
+  const sourcePath = `${path}[${index}]`;
+  const hasContent = Object.entries(source).some(([field, value]) =>
+    field !== 'id' && value != null && (typeof value !== 'string' || value.trim())
+  );
+  if (!hasContent) {
+    repairs.push({ path: sourcePath, kind: 'removed' });
+    return [];
+  }
+  if (source.id == null || (typeof source.id === 'string' && !source.id.trim())) {
+    repairs.push({ path: sourcePath, kind: 'identified' });
+    return [{ ...source, id: crypto.randomUUID() }];
+  }
+  return [{ ...source }];
+});
 
 const repairMissingLabels = (model: DataModel): LabelRepair[] => {
   const repairs: LabelRepair[] = [];
@@ -152,7 +175,8 @@ const normalizeAct = (act: Act): Act => {
 const normalizeDataModelInternal = (
   input: unknown,
   defaultClassification: ScriptClassification,
-  repairs?: LegacyActRepair[]
+  repairs?: LegacyActRepair[],
+  literatureRepairs: LiteratureRepair[] = []
 ): DataModel => {
   if (!input || typeof input !== 'object') {
     throw new Error('Crime-script model must be an object.');
@@ -167,7 +191,7 @@ const normalizeDataModelInternal = (
   );
   const unreferencedActs = (legacy.acts || []).filter((act) => !referencedActIds.has(act.id));
   const claimedRecoveryActIds = new Set<ID>();
-  const crimeScripts = (legacy.crimeScripts || []).map((crimeScript): CrimeScript => {
+  const crimeScripts = (legacy.crimeScripts || []).map((crimeScript, scriptIndex): CrimeScript => {
     const sceneIdChanges = new Map<ID, ID>();
     const removedSceneIds = new Set<ID>();
     const usedSceneIds = new Set((crimeScript.stages || []).map((scene) => scene.id));
@@ -285,7 +309,11 @@ const normalizeDataModelInternal = (
       updated: crimeScript.updated || legacy.lastUpdate || Date.now(),
       reviewer: crimeScript.reviewer || [],
       status: crimeScript.status || 1,
-      literature: (crimeScript.literature || []).map((source) => ({ ...source })),
+      literature: normalizeLiterature(
+        crimeScript.literature || [],
+        `crimeScripts[${scriptIndex}].literature`,
+        literatureRepairs
+      ),
       productIds: crimeScript.productIds || [],
       language: crimeScript.language === 'en' ? 'en' : 'nl',
       aiGenerated: crimeScript.aiGenerated === true,
@@ -332,7 +360,7 @@ export const normalizeDataModel = (
 export const normalizeUploadedDataModel = (
   input: unknown,
   defaultClassification: ScriptClassification = 'public'
-): { model: DataModel; repairs: LegacyActRepair[]; labelRepairs: LabelRepair[] } => {
+): { model: DataModel; repairs: LegacyActRepair[]; labelRepairs: LabelRepair[]; literatureRepairs: LiteratureRepair[] } => {
   if (
     !input ||
     typeof input !== 'object' ||
@@ -344,10 +372,12 @@ export const normalizeUploadedDataModel = (
     );
   }
   const repairs: LegacyActRepair[] = [];
-  const model = normalizeDataModelInternal(input, defaultClassification, repairs);
+  const literatureRepairs: LiteratureRepair[] = [];
+  const model = normalizeDataModelInternal(input, defaultClassification, repairs, literatureRepairs);
   return {
     model,
     repairs,
     labelRepairs: repairMissingLabels(model),
+    literatureRepairs,
   };
 };
